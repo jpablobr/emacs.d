@@ -1,0 +1,8 @@
+loaddefs.el*
+backups/*
+*elc
+places
+/url/cookies
+auto-save-list/*
+session*
+custom.el.before_ecb_*
