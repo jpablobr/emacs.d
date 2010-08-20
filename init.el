@@ -44,6 +44,7 @@
 (require 'autocomplete)
 (require 'cedet)
 (require 'yasnippet)
+(require 'hippie)
 
 (regen-autoloads)
 (load custom-file 'noerror)
