@@ -20,7 +20,6 @@
 
 ;; ecb
 (add-to-list 'load-path (concat vendor-dir "/ecb"))
-;;(add-to-list 'load-path "~/.emacs.d/vendor/ecb")
 (require 'ecb)
 (setq ecb-tip-of-the-day nil)
 (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
@@ -43,7 +42,6 @@
 
 ;; Twittering Mode
 (add-to-list 'load-path (concat vendor-dir "/twittering-mode"))
-;(add-to-list 'load-path "~/.emacs.d/vendor/twittering-mode")
 (require 'twittering-mode)
 (setq twittering-username "jpablobr")
 
@@ -54,7 +52,7 @@
       '((".*\\.freenode.net" "#github" "#greasemonkey" "#emacs" "#heroku" "#sinatra")))
 
 ;; cheat
-(add-to-list 'load-path "~/.emacs.d/vendor/cheat")
+(add-to-list 'load-path (concat vendor-dir "/cheat"))
 (add-to-list 'auto-mode-alist '("\\.cheat$" . cheat))
 (require 'cheat)
 
@@ -63,16 +61,17 @@
 (global-linum-mode)
 
 ;; redo
-(add-to-list  'load-path "~/.emacs.d/vendor/redo")
+(add-to-list 'load-path (concat vendor-dir "/redo"))
+
 (require 'redo)
 (global-set-key [(control -)] 'redo)
 
 ;; find-recursive
-(add-to-list 'load-path "~/.emacs.d/vendor/find-recursive")
+(add-to-list 'load-path (concat vendor-dir "/find-recursive"))
 (require 'find-recursive)
 
 ;; css
-(add-to-list  'load-path "~/.emacs.d/vendor/css-mode")
+(add-to-list 'load-path (concat vendor-dir "/css-mode"))
 (autoload 'css-mode "css-mode" "Mode for editing CSS files" t)
 (setq auto-mode-alist (append '(("\\.css$" . css-mode)) auto-mode-alist))
 (add-hook 'css-mode-hook
