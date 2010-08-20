@@ -76,18 +76,6 @@
 (add-to-list 'load-path "~/.emacs.d/vendor/find-recursive")
 (require 'find-recursive)
 
-;; find-recursive
-(add-to-list 'load-path "~/.emacs.d/vendor/ruby-electric")
-(require 'ruby-electric)
-
-;; rails-emacs
-;;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-rails")
-;;(require 'rails)
-
-;; rails-emacs-reloaded
-;; (setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
-;; (require 'rails-autoload)
-
 ;; css
 (add-to-list  'load-path "~/.emacs.d/vendor/css-mode")
 (autoload 'css-mode "css-mode" "Mode for editing CSS files" t)

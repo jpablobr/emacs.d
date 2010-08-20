@@ -1,5 +1,17 @@
 ;;; ruby.el --- Some helpful Ruby code
 
+;; rails-emacs
+;;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-rails")
+;;(require 'rails)
+
+;; rails-emacs-reloaded
+;; (setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
+;; (require 'rails-autoload)
+
+;; ruby-electric
+(add-to-list 'load-path "~/.emacs.d/vendor/ruby-electric")
+(require 'ruby-electric)
+
 ;; ruby-mode
 (require 'sinatra)
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
