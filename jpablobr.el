@@ -26,18 +26,10 @@
 (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
 (ecb-activate)
 
+;; Theme
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
 (color-theme-tangotango)
-
-;; customization
-(custom-set-variables
-'(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color. "white") (background-color . "black") (menu-bar-lines . 1))))
-'(erc-modules (quote (autojoin button completion fill irccontrols match menu netsplit noncommands readonly ring scrolltobottom stamp track))))
-
-(custom-set-faces
- '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal))))
- '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal)))))
 
 ;; RVM MODE
 (load-file "~/.emacs.d/vendor/rvm.el/rvm.el")
@@ -56,9 +48,9 @@
 (require 'erc)
 (erc-autojoin-mode t)
 (setq erc-autojoin-channels-alist
-      '((".*\\.freenode.net" "#github" "#greasemonkey" "#mongodb" "#emacs" "#heroku" "#rubyonrails" "#padrino" "#sinatra")))
+      '((".*\\.freenode.net" "#github" "#greasemonkey" "#emacs" "#heroku" "#sinatra")))
 
-;; Line Numbers
+;; cheat
 (add-to-list 'load-path "~/.emacs.d/vendor/cheat")
 (add-to-list 'auto-mode-alist '("\\.cheat$" . cheat))
 (require 'cheat)
@@ -84,3 +76,12 @@
          (lambda()
            (local-set-key (kbd "<return>") 'newline-and-indent)
 ))
+
+;; customization
+(custom-set-variables
+'(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color. "white") (background-color . "black") (menu-bar-lines . 1))))
+'(erc-modules (quote (autojoin button completion fill irccontrols match menu netsplit noncommands readonly ring scrolltobottom stamp track))))
+
+(custom-set-faces
+ '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal))))
+ '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal)))))
