@@ -1,13 +1,12 @@
 ;; Jose Pablo Barrantes emacs.d
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'load-path (concat dotfiles-dir "/vendor"))
-
 (require 'meta)
 (require 'plain-text)
 (require 'unbound)
 
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
+(add-to-list 'load-path (concat vendor-dir "/textmate.el"))
+;(add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
 (require 'textmate)
 (textmate-mode)
 (require 'whitespace)
@@ -20,31 +19,35 @@
 (require 'cedet)
 
 ;; ecb
-(add-to-list 'load-path "~/.emacs.d/vendor/ecb")
+(add-to-list 'load-path (concat vendor-dir "/ecb"))
+;;(add-to-list 'load-path "~/.emacs.d/vendor/ecb")
 (require 'ecb)
 (setq ecb-tip-of-the-day nil)
 (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
 (ecb-activate)
 
 ;; Theme
+;;(add-to-list 'load-path (concat vendor-dir "/color-theme-tangotango/color-theme-tango.el"))
+;;(add-to-list 'load-path (concat vendor-dir "/color-theme-tangotango/color-theme-tangotango.el"))
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
 (color-theme-tangotango)
 
-;; RVM MODE
+;; RVM mode... use rvm’s default ruby for the current Emacs session
 (load-file "~/.emacs.d/vendor/rvm.el/rvm.el")
 (require 'rvm)
-(rvm-use-default) ;; use rvm’s default ruby for the current Emacs session
+(rvm-use-default)
 
-;;Artist-mode
+;; Artist-mode
 (autoload 'artist-mode "artist" "Enter artist-mode" t)
 
-;;Twittering Mode
-(add-to-list 'load-path "~/.emacs.d/vendor/twittering-mode")
+;; Twittering Mode
+(add-to-list 'load-path (concat vendor-dir "/twittering-mode"))
+;(add-to-list 'load-path "~/.emacs.d/vendor/twittering-mode")
 (require 'twittering-mode)
 (setq twittering-username "jpablobr")
 
-;;IRC
+;; IRC
 (require 'erc)
 (erc-autojoin-mode t)
 (setq erc-autojoin-channels-alist
