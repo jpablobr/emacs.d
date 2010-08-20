@@ -16,14 +16,11 @@
 (require 'markdown)
 (require 'haml)
 (require 'gist)
+(require 'keyboard)
 
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
 (color-theme-tangotango)
-
-(require 'keyboard)
-
-(add-to-list 'load-path (concat dotfiles-dir "/vendor"))
 
 ;; customization
 (custom-set-variables
