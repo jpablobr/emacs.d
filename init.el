@@ -42,6 +42,8 @@
 (require 'markdown)
 (require 'haml)
 (require 'autocomplete)
+(require 'cedet)
+(require 'yasnippet)
 
 (regen-autoloads)
 (load custom-file 'noerror)

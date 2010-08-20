@@ -17,6 +17,15 @@
 (require 'haml)
 (require 'gist)
 (require 'keyboard)
+(require 'cedet)
+
+
+;; ecb
+(add-to-list 'load-path "~/.emacs.d/vendor/ecb")
+(require 'ecb)
+(setq ecb-tip-of-the-day nil)
+(setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
+(ecb-activate)
 
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
