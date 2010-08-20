@@ -31,17 +31,6 @@
  '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal))))
  '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal)))))
 
-;; cedet
-;; See cedet/common/cedet.info for configuration details.
-(load-file "~/.emacs.d/vendor/cedet/common/cedet.el")
-
-;; ecb
-(add-to-list 'load-path "~/.emacs.d/vendor/ecb")
-(require 'ecb)
-(setq ecb-tip-of-the-day nil)
-(setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
-(ecb-activate)
-
 ;; RVM MODE
 (load-file "~/.emacs.d/vendor/rvm.el/rvm.el")
 (require 'rvm)
@@ -49,22 +38,6 @@
 
 ;;Artist-mode
 (autoload 'artist-mode "artist" "Enter artist-mode" t)
-
-;; Snippets
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/yasnippet.el"))
-(require 'yasnippet)
-(yas/define-snippets  'nxhtml-mode nil  'html-mode)
-(yas/define-snippets  'js2-mode nil  'javascript-mode)
-
-;; other snippets
-(yas/load-directory (concat dotfiles-dir "/vendor/yasnippets-jpablobr"))
-
-;;yas/load-directory (concat dotfiles-dir "/vendor/yasnippet.el/snippets"))
-(require 'dropdown-list)
-(setq yas/prompt-functions '(  yas/dropdown-prompt
-                               yas/completing-prompt
-                               yas/ido-prompt))
-(yas/initialize)
 
 ;; Remove scrollbars and make hippie expand
 ;; work nicely with yasnippet
