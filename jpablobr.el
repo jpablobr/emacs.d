@@ -4,11 +4,6 @@
 (require 'meta)
 (require 'plain-text)
 (require 'unbound)
-
-(add-to-list 'load-path (concat vendor-dir "/textmate.el"))
-;(add-to-list 'load-path (concat dotfiles-dir "/vendor/textmate.el"))
-(require 'textmate)
-(textmate-mode)
 (require 'whitespace)
 (require 'js)
 (require 'org)
@@ -18,6 +13,11 @@
 (require 'keyboard)
 (require 'cedet)
 
+;; Textmate.el
+(add-to-list 'load-path (concat vendor-dir "/textmate.el"))
+(require 'textmate)
+(textmate-mode)
+
 ;; ecb
 (add-to-list 'load-path (concat vendor-dir "/ecb"))
 (require 'ecb)
@@ -26,8 +26,6 @@
 (ecb-activate)
 
 ;; Theme
-;;(add-to-list 'load-path (concat vendor-dir "/color-theme-tangotango/color-theme-tango.el"))
-;;(add-to-list 'load-path (concat vendor-dir "/color-theme-tangotango/color-theme-tangotango.el"))
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
 (color-theme-tangotango)
