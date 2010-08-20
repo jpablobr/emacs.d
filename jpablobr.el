@@ -1,7 +1,6 @@
 ;; Jose Pablo Barrantes emacs.d
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (add-to-list 'load-path (concat dotfiles-dir "/vendor"))
 
 (require 'meta)
@@ -13,29 +12,7 @@
 (textmate-mode)
 (require 'whitespace)
 
-;; ruby-mode
-(require 'sinatra)
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
-(require 'linum)
-(require 'ruby-complexity)
-;;(add-hook 'ruby-mode-hook
-;;          (function (lambda ()
-;;                      (flymake-mode)
-;;                      (linum-mode)
-;;                      (ruby-complexity-mode)
-;;                      )))
-
-;;; rhtml mode
-(add-to-list 'load-path "~/.emacs.d/vendor/rhtml")
-(require 'rhtml-mode)
-(autoload 'rhtml-mode "rhtml-mode" "RHTML" t)
-(add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
-(add-to-list 'auto-mode-alist '("\\.html\.erb$" . rhtml-mode))
-
 (require 'js)
-
-;; dabbrev-case-fold-search for case-sensitive search
-
 (require 'rinari)
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
@@ -44,8 +21,6 @@
 ;;(require 'textile)
 (require 'markdown)
 (require 'haml)
-
-;; gist
 (require 'gist)
 
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
@@ -166,8 +141,8 @@
 ;;(require 'rails)
 
 ;; rails-emacs-reloaded
-(setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
-(require 'rails-autoload)
+;; (setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
+;; (require 'rails-autoload)
 
 ;; css
 (add-to-list  'load-path "~/.emacs.d/vendor/css-mode")

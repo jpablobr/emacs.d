@@ -1,5 +1,27 @@
 ;;; ruby.el --- Some helpful Ruby code
 
+;; ruby-mode
+(require 'sinatra)
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
+(require 'linum)
+(require 'ruby-complexity)
+;;(add-hook 'ruby-mode-hook
+;;          (function (lambda ()
+;;                      (flymake-mode)
+;;                      (linum-mode)
+;;                      (ruby-complexity-mode)
+;;                      )))
+
+;;; rhtml mode
+(add-to-list 'load-path "~/.emacs.d/vendor/rhtml")
+(require 'rhtml-mode)
+(autoload 'rhtml-mode "rhtml-mode" "RHTML" t)
+(add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
+(add-to-list 'auto-mode-alist '("\\.html\.erb$" . rhtml-mode))
+
+(setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
+(require 'rails-autoload)
+
 (eval-after-load 'ruby-mode
   '(progn
      (require 'ruby-compilation)
