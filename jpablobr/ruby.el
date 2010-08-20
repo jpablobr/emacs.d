@@ -20,6 +20,12 @@
 (add-to-list 'auto-mode-alist '("\\.html\.erb$" . rhtml-mode))
 
 (setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
+
+(require 'rinari)
+
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
+(require 'rspec-mode)
+
 (require 'rails-autoload)
 
 (eval-after-load 'ruby-mode

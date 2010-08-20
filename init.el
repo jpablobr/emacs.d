@@ -41,6 +41,7 @@
 (require 'meta)
 (require 'markdown)
 (require 'haml)
+(require 'autocomplete)
 
 (regen-autoloads)
 (load custom-file 'noerror)
