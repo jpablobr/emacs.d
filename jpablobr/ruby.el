@@ -1,12 +1,12 @@
 ;;; ruby.el --- Some helpful Ruby code
 
 ;; rails-emacs
-;;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-rails")
-;;(require 'rails)
+(add-to-list 'load-path "~/.emacs.d/vendor/emacs-rails")
+(require 'rails)
 
 ;; ruby-electric
-(add-to-list 'load-path "~/.emacs.d/vendor/ruby-electric")
-(require 'ruby-electric)
+;;(add-to-list 'load-path "~/.emacs.d/vendor/ruby-electric")
+;;(require 'ruby-electric)
 
 ;; ruby-mode
 (require 'sinatra)
@@ -27,24 +27,24 @@
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.html\.erb$" . rhtml-mode))
 
-(setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
+;; rails reloaded
+;;(setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
+;;(require 'rails-autoload)
 
-(defcustom rails-minor-mode-prefix-key "\C-c ;"
-  "Key prefix for Rails minor mode."
-  :group 'rails
-  :type 'string)
+;;(defcustom rails-minor-mode-prefix-key "\C-c ;"
+;;  "Key prefix for Rails minor mode."
+;;  :group 'rails
+;;  :type 'string)
 
-(defcustom rails-minor-mode-prefix2-key "\C-c ;"
-  "Additional key prefix for Rails minor mode."
-  :group 'rails
-  :type 'string)
+;;(defcustom rails-minor-mode-prefix2-key "\C-c ;"
+;;  "Additional key prefix for Rails minor mode."
+;;  :group 'rails
+;;  :type 'string)
 
 (require 'rinari)
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
 (require 'rspec-mode)
-
-(require 'rails-autoload)
 
 (eval-after-load 'ruby-mode
   '(progn
