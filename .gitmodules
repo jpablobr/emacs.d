@@ -4,9 +4,6 @@
 [submodule "vendor/yasnippets-rails"]
 	path = vendor/yasnippets-rails
 	url = git://github.com/eschulte/yasnippets-rails.git
-[submodule "vendor/yasnippets-jpablobr"]
-	path = vendor/yasnippets-jpablobr
-	url = git://github.com/jpablobr/yasnippets-jpablobr.git
 [submodule "vendor/twittering-mode"]
 	path = vendor/twittering-mode
 	url = git://github.com/hayamiz/twittering-mode.git
