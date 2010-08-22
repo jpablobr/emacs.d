@@ -1,4 +1,3 @@
 #name : attr_writer
-# key: attr_r
 # --
 attr_writer :${1:attributes}
