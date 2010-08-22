@@ -28,15 +28,15 @@
 (add-to-list 'auto-mode-alist '("\\.html\.erb$" . rhtml-mode))
 
 ;; rails reloaded
-;;(setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
-;;(require 'rails-autoload)
+;; (setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
+;; (require 'rails-autoload)
 
-;;(defcustom rails-minor-mode-prefix-key "\C-c ;"
+;; (defcustom rails-minor-mode-prefix-key "\C-c ;"
 ;;  "Key prefix for Rails minor mode."
 ;;  :group 'rails
 ;;  :type 'string)
 
-;;(defcustom rails-minor-mode-prefix2-key "\C-c ;"
+;; (defcustom rails-minor-mode-prefix2-key "\C-c ;"
 ;;  "Additional key prefix for Rails minor mode."
 ;;  :group 'rails
 ;;  :type 'string)
