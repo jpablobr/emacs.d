@@ -103,5 +103,9 @@
      (set-face-foreground 'magit-diff-add "green3")
      (set-face-foreground 'magit-diff-del "red3")))
 
+;; linu and column default counters
+(setq line-number-mode t)
+(setq column-number-mode t)
+
 (provide 'misc)
 ;;; misc.el ends here

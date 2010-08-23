@@ -26,6 +26,7 @@
 (require 'elpa)
 
 ;; Load jpablobr customizations:
+(require 'theme)
 (require 'defuns)
 (require 'keyboard)
 (require 'misc)
@@ -44,8 +45,6 @@
 (require 'haml)
 (require 'autocomplete)
 (require 'cedet)
-(require 'yasnippet)
-(require 'hippie)
 
 (regen-autoloads)
 (load custom-file 'noerror)
@@ -56,6 +55,10 @@
 
 (if (file-exists-p system-specific-config) (load system-specific-config))
 (if (file-exists-p user-specific-config) (load user-specific-config))
+
+;; requiring yasnippets after everything has been loaded...
+(require 'yasnippet)
+(require 'hippie)
 
 ;; Benchmarking
 (defvar *emacs-load-start* (current-time))

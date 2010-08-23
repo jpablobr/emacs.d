@@ -2,8 +2,8 @@
 
 (require 'css-mode)
 (require 'markdown-mode)
-(require 'js)
-;(require 'yaml-mode)
+(require 'espresso)
+(require 'yaml-mode)
 
 (add-to-list 'load-path 
              (concat dotfiles-dir "/vendor/yasnippet.el"))
@@ -21,9 +21,10 @@
                                yas/completing-prompt
                                yas/ido-prompt))
 
-(setq yas/root-directory "~/.emacs.d/vendor/yasnippets-jpablobr")
+(setq yas/root-directory (concat dotfiles-dir "vendor/yasnippets-jpablobr")) ;"~/.emacs.d/vendor/yasnippets-jpablobr")
 (yas/load-directory yas/root-directory)
 (setq yas/global-mode t)
 (setq yas/minor-mode-on t)
 (add-hook 'the-major-mode-hook 'yas/minor-mode-on)
+
 (provide 'yasnippet)
