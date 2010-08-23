@@ -31,25 +31,13 @@
   (interactive)
   (byte-recompile-directory "~/.emacs.d" 0))
 
-
-;; Open current file in TextMate.
-(defun textmate-open-buffer ()
-  (interactive)
-  (shell-command-to-string (concat "mate " buffer-file-name)))
-
-;; Custom task for PeepCode publishing
-(defun rake-generate-html ()
-  (interactive)
-  (rake "generate_html"))
-(global-set-key [(meta shift r)] 'rake-generate-html)
-
 ;; Full screen toggle
 (defun toggle-fullscreen ()
   (interactive)
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
                                            nil
                                          'fullboth)))
-(global-set-key (kbd "M-n") 'toggle-fullscreen)
+(global-set-key (kbd "M-`") 'toggle-fullscreen)
 
 (defun recenter-to-top ()
   "Take the current point and scroll it to within a

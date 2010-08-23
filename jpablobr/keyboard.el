@@ -93,8 +93,8 @@
 (global-set-key (kbd "M-z") 'undo)
 (global-set-key (kbd "M-c") 'kill-ring-save) ;; Copy
 
-(global-set-key [(meta up)] 'beginning-of-buffer)
-(global-set-key [(meta down)] 'end-of-buffer)
+(global-set-key [(meta p)] 'beginning-of-buffer)
+(global-set-key [(meta n)] 'end-of-buffer)
 
 (global-set-key [(meta shift right)] 'ido-switch-buffer)
 (global-set-key [(meta shift up)] 'recentf-ido-find-file)
