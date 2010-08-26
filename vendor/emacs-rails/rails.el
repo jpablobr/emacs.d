@@ -175,10 +175,10 @@ Emacs w3m browser."
 (defvar rails-secondary-switch-func nil)
 (defvar rails-required-lisp-eval-depth 1000) ; Specifies the minimum required value of max-lisp-eval-depth for rails mode to work
 
-(defcustom rails-indent-and-complete t
-  "Key to indent and complete."
-  :group 'rails
-  :type 'boolean)
+;; (defcustom rails-indent-and-complete t
+;;   "Key to indent and complete."
+;;   :group 'rails
+;;   :type 'boolean)
 
 (defvar rails-directory<-->types
   '((:controller       "app/controllers/")
@@ -497,44 +497,44 @@ necessary."
 
 ;; hooks
 
-(add-hook 'ruby-mode-hook
-          (lambda()
-            (require 'rails-ruby)
-            (require 'ruby-electric)
-            (ruby-electric-mode (or rails-enable-ruby-electric -1))
-            (ruby-hs-minor-mode t)
-            (imenu-add-to-menubar "IMENU")
-            (modify-syntax-entry ?! "w" (syntax-table))
-            (modify-syntax-entry ?: "w" (syntax-table))
-            (modify-syntax-entry ?_ "w" (syntax-table))
-            ;(local-set-key (kbd "C-.") 'complete-tag)
-	    (if rails-indent-and-complete
-		(local-set-key (if rails-use-another-define-key
-				   (kbd "TAB") (kbd "<tab>"))
-			       'indent-and-complete))
-            (local-set-key (rails-key "f") '(lambda()
-                                              (interactive)
-                                              (mouse-major-mode-menu (rails-core:menu-position))))
-            (local-set-key (kbd "C-:") 'ruby-toggle-string<>simbol)
-            (local-set-key (if rails-use-another-define-key
-                               (kbd "RET") (kbd "<return>"))
-                           'ruby-newline-and-indent)))
+;; (add-hook 'ruby-mode-hook
+;;           (lambda()
+;;             (require 'rails-ruby)
+;;             (require 'ruby-electric)
+;;             (ruby-electric-mode (or rails-enable-ruby-electric -1))
+;;             (ruby-hs-minor-mode t)
+;;             (imenu-add-to-menubar "IMENU")
+;;             (modify-syntax-entry ?! "w" (syntax-table))
+;;             (modify-syntax-entry ?: "w" (syntax-table))
+;;             (modify-syntax-entry ?_ "w" (syntax-table))
+;;             ;(local-set-key (kbd "C-.") 'complete-tag)
+;; 	    (if rails-indent-and-complete
+;; 		(local-set-key (if rails-use-another-define-key
+;; 				   (kbd "TAB") (kbd "<tab>"))
+;; 			       'indent-and-complete))
+;;             (local-set-key (rails-key "f") '(lambda()
+;;                                               (interactive)
+;;                                               (mouse-major-mode-menu (rails-core:menu-position))))
+;;             (local-set-key (kbd "C-:") 'ruby-toggle-string<>simbol)
+;;             (local-set-key (if rails-use-another-define-key
+;;                                (kbd "RET") (kbd "<return>"))
+;;                            'ruby-newline-and-indent)))
 
 (add-hook 'speedbar-mode-hook
           (lambda()
             (speedbar-add-supported-extension "\\.rb")))
 
-(add-hook 'find-file-hooks
-          (lambda()
-            (rails-project:with-root
-             (root)
-             (progn
-	       (if rails-indent-and-complete
-		   (local-set-key (if rails-use-another-define-key
-				      (kbd "TAB") (kbd "<tab>"))
-				  'indent-and-complete))
-               (rails-minor-mode t)
-               (rails-apply-for-buffer-type)))))
+;; (add-hook 'find-file-hooks
+;;           (lambda()
+;;             (rails-project:with-root
+;;              (root)
+;;              (progn
+;; 	       (if rails-indent-and-complete
+;; 		   (local-set-key (if rails-use-another-define-key
+;; 				      (kbd "TAB") (kbd "<tab>"))
+;; 				  'indent-and-complete))
+;;                (rails-minor-mode t)
+;;                (rails-apply-for-buffer-type)))))
 
 ;; Run rails-minor-mode in dired
 
