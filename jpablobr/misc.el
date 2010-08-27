@@ -36,6 +36,10 @@
 ;; Transparently open compressed files
 (auto-compression-mode t)
 
+; X11 Copy & Paste to/from Emacs
+(setq x-select-enable-clipboard t) ; as above
+(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
+
 ;; Enable syntax highlighting for older Emacsen that have it off
 (global-font-lock-mode t)
 
