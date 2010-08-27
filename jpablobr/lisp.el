@@ -39,4 +39,3 @@
    :group 'jpablobr-faces)
 
 (provide 'lisp)
-;; lisp.el ends here

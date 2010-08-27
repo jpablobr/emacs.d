@@ -111,5 +111,9 @@
 (setq line-number-mode t)
 (setq column-number-mode t)
 
+;;Set line numbers globally
+;;(require 'linum)
+;;(global-linum-mode)
+
 (provide 'misc)
 ;;; misc.el ends here

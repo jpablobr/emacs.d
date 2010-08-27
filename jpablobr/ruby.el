@@ -1,20 +1,20 @@
 ;;; ruby.el --- Some helpful Ruby code
 
-;; ruby-electric
-;;(add-to-list 'load-path "~/.emacs.d/vendor/ruby-electric")
-;;(require 'ruby-electric)
-
-;; ruby-mode
+(require 'rinari)
 (require 'sinatra)
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
 (require 'linum)
+(require 'ruby-electric)
+
+; gem install flog
+(add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
 (require 'ruby-complexity)
-;;(add-hook 'ruby-mode-hook
-;;          (function (lambda ()
-;;                      (flymake-mode)
-;;                      (linum-mode)
-;;                      (ruby-complexity-mode)
-;;                      )))
+(add-hook 'ruby-mode-hook
+         (function (lambda ()
+                     (flymake-mode)
+                     (linum-mode)
+                     (ruby-complexity-mode)
+                     (ruby-electric-mode)
+                     )))
 
 ;;; rhtml mode
 (add-to-list 'load-path "~/.emacs.d/vendor/rhtml")
@@ -26,18 +26,6 @@
 ;; rails reloaded
 (setq load-path (cons (expand-file-name "~/.emacs.d/vendor/jpablobr-ror") load-path))
 (require 'rails-autoload)
-
-;; (defcustom rails-minor-mode-prefix-key "\C-c ;"
-;;  "Key prefix for Rails minor mode."
-;;  :group 'rails
-;;  :type 'string)
-
-;; (defcustom rails-minor-mode-prefix2-key "\C-c ;"
-;;  "Additional key prefix for Rails minor mode."
-;;  :group 'rails
-;;  :type 'string)
-
-(require 'rinari)
 
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
 (require 'rspec-mode)
@@ -94,39 +82,4 @@ exec-to-string command, but it works and seems fast"
 
 (add-hook 'ruby-mode-hook 'coding-hook)
 
-;;; Flymake
-
-;; (eval-after-load 'ruby-mode
-;;   '(progn
-;;      (require 'flymake)
-
-;;      ;; Invoke ruby with '-c' to get syntax checking
-;;      (defun flymake-ruby-init ()
-;;        (let* ((temp-file (flymake-init-create-temp-buffer-copy
-;;                           'flymake-create-temp-inplace))
-;;               (local-file (file-relative-name
-;;                            temp-file
-;;                            (file-name-directory buffer-file-name))))
-;;          (list "ruby" (list "-c" local-file))))
-
-;;      (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
-;;      (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
-
-;;      (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)
-;;            flymake-err-line-patterns)
-
-;;      (add-hook 'ruby-mode-hook
-;;                (lambda ()
-;;                  (when (and buffer-file-name
-;;                             (file-writable-p
-;;                              (file-name-directory buffer-file-name))
-;;                             (file-writable-p buffer-file-name))
-;;                    (local-set-key (kbd "C-c d")
-;;                                   'flymake-display-err-menu-for-current-line)
-;;                    (flymake-mode t))))))
-
-;; TODO: set up ri
-;; TODO: electric
-
 (provide 'ruby)
-;; ruby.el ends here

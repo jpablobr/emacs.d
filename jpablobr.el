@@ -37,10 +37,6 @@
 (add-to-list 'auto-mode-alist '("\\.cheat$" . cheat))
 (require 'cheat)
 
-;; Line Numbers
-(require 'linum)
-(global-linum-mode)
-
 ;; redo
 (add-to-list 'load-path (concat vendor-dir "/redo"))
 
