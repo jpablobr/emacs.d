@@ -30,13 +30,71 @@
             (local-set-key (kbd "<return>") 'newline-and-indent)))
 
 ;;; ---------------------------------------------------------
-;;; - Ruby ri
+;;; - rcodetools
+;;;
+(add-to-list 'load-path "~/.emacs.d/vendor/icicles")
+(add-to-list 'load-path "~/.emacs.d/vendor/anything")
+(add-to-list 'load-path "~/.emacs.d/vendor/rcodetools")
+(require 'rcodetools)
+(require 'icicles-rcodetools)
+(require 'anything)
+(require 'anything-rcodetools)
+;; Command to get all RI entries.
+(setq rct-get-all-methods-command "PAGER=cat fri -l")
+;; See docs
+(define-key anything-map "\C-z" 'anything-execute-persistent-action)
+
+;;; ---------------------------------------------------------
+;;; - rdebug
+;;; - $ sudo gem install ruby-debug
+;;;
+(add-to-list 'load-path "~/.emacs.d/vendor/rdebug")
+(require 'rdebug)
+(setq rdebug-short-key-mode t)
+
+;;; ---------------------------------------------------------
+;;; - ruby-block
+;;;
+(require 'ruby-block)
+(ruby-block-mode t)
+;; do overlay
+(setq ruby-block-highlight-toggle 'overlay)
+;; display to minibuffer
+(setq ruby-block-highlight-toggle 'minibuffer)
+;; display to minibuffer and do overlay
+(setq ruby-block-highlight-toggle t)
+
+;;; ---------------------------------------------------------
+;;; - RVM mode... use rvm’s default ruby for the current Emacs session
+;;;
+(load-file "~/.emacs.d/vendor/rvm.el/rvm.el")
+(require 'rvm)
+(rvm-use-default)
+
+;;; ---------------------------------------------------------
+;;; - Autotest
+;;;
+(add-to-list 'load-path "~/.emacs.d/vendor/autotest")
+(require 'autotest)
+
+;;; ---------------------------------------------------------
+;;; - Ruby-hacks
+;;;
+(require 'ruby-hacks)
+
+;;; ---------------------------------------------------------
+;;; - ri
 ;;;
 (setq ri-ruby-script "~/.emacs.d/vendor/ri-emacs/ri-emacs.rb")
 (autoload 'ri "~/.emacs.d/vendor/ri-emacs/ri-ruby.el" nil t)
+;;   (add-hook 'ruby-mode-hook (lambda ()
+;;                               (local-set-key 'f1 'ri)
+;;                               (local-set-key "\M-\C-i" 'ri-ruby-complete-symbol)
+;;                               (local-set-key 'f4 'ri-ruby-show-args)
+;;                               ))
 
 ;;; ---------------------------------------------------------
-;;; - Ruby Complexity
+;;; - Complexity
 ;;; - $ gem install flog
 ;;;
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))

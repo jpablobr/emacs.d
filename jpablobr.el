@@ -13,11 +13,6 @@
 (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
 (ecb-activate)
 
-;; RVM mode... use rvm’s default ruby for the current Emacs session
-(load-file "~/.emacs.d/vendor/rvm.el/rvm.el")
-(require 'rvm)
-(rvm-use-default)
-
 ;; Artist-mode
 (autoload 'artist-mode "artist" "Enter artist-mode" t)
 
