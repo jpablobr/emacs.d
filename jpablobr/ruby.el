@@ -1,9 +1,5 @@
 ;;; ruby.el --- Some helpful Ruby code
 
-;; rails-emacs
-;;(add-to-list 'load-path "~/.emacs.d/vendor/emacs-rails")
-;;(require 'rails)
-
 ;; ruby-electric
 ;;(add-to-list 'load-path "~/.emacs.d/vendor/ruby-electric")
 ;;(require 'ruby-electric)
@@ -28,7 +24,7 @@
 (add-to-list 'auto-mode-alist '("\\.html\.erb$" . rhtml-mode))
 
 ;; rails reloaded
-(setq load-path (cons (expand-file-name "~/.emacs.d/vendor/emacs-rails-reloaded") load-path))
+(setq load-path (cons (expand-file-name "~/.emacs.d/vendor/jpablobr-ror") load-path))
 (require 'rails-autoload)
 
 ;; (defcustom rails-minor-mode-prefix-key "\C-c ;"
