@@ -115,5 +115,11 @@
 ;;(require 'linum)
 ;;(global-linum-mode)
 
+;; insert date into buffer at point
+;; optained from http://www.chrislott.org/geek/emacs/dotemacs.html
+(defun insert-date ()
+  "Insert date at point."
+  (interactive)
+  (insert (format-time-string "%a %Y-%m-%d - %l:%M %p")))
+
 (provide 'misc)
-;;; misc.el ends here
