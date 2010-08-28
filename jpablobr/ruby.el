@@ -111,7 +111,14 @@
 ;;; - Autotest
 ;;;
 (add-to-list 'load-path "~/.emacs.d/vendor/autotest")
+(require 'toggle)
 (require 'autotest)
+(require 'unit-test)
+(autoload 'autotest-switch "autotest" "doco" t)
+(autoload 'autotest "autotest" "doco" t)
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)))
 
 ;;; ---------------------------------------------------------
 ;;; - Ruby-hacks
