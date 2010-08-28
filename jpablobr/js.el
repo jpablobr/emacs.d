@@ -1,11 +1,48 @@
-;;; js.el --- Some helpful Javascript helpers
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Javascript
+;;; - Useful patterns for using the ido menu with Javascript files.
+;;;
+;;;  - Matches things like:
+;;;
+;;;    function bacon() {}        // Standard function
+;;;    getJSON: function () {}    // Function as a key in a hash
+;;;    this.post = function () {} // Instance method in a function
+;;;    var MyObj = { ...          // Capitalized variable object 
+;;;
 
+
+;;; ----------------------------------------------------------------------------
+;;; - JS2
+;;;
+(autoload 'js2-mode "js2" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+
+;;; ----------------------------------------------------------------------------
+;;; - espresso
+;;;
 (autoload 'espresso-mode "espresso" nil t)
 
+;;; ----------------------------------------------------------------------------
+;;; - Configs
+;;;
+(setq js2-basic-offset 2)
+(setq js2-auto-indent-flag nil)
+(setq javascript-indent-level 2)
+
+(setq jpablobr-js-imenu-generic-expression
+      '(("Named Function" "function\\s-+\\(\\w+\\)\\s-*(" 1)
+        ("Hash Method"  "^\\s-*\\(\\w+\\):\\s-*function\\s-*(" 1)
+        ("Instance Method" "this\.\\(\\w+\\)\\s-*=\\s-*function\\s-*(" 1)
+        ("Variable as Class" "var \\([A-Z]+\\w+\\) = {" 1)
+        ("Assigned Function" "^\\s-*\\([A-z.]+\\w\\) = function\\s-*(.*) {" 1)
+        ))
+
+;;; ----------------------------------------------------------------------------
+;;; - Cosmetics
+;;;
 (eval-after-load 'js2-mode
   '(progn
-
-     ;; Cosmetics
      (font-lock-add-keywords
       'js2-mode `(("\\(function *\\)("
                    (0 (progn (compose-region (match-beginning 1) (match-end 1)
@@ -30,54 +67,22 @@
      (setq js2-bounce-indent-flag nil
            js2-indent-on-enter-key t)))
 
-
-;; DESCRIPTION:
-;;   Useful patterns for using the ido menu with Javascript files.
-;;
-;; AUTHOR:
-;;   Geoffrey Grosenbach http://peepcode.com
-;;
-;; Matches things like:
-;;
-;;   function bacon() {}        // Standard function
-;;   getJSON: function () {}    // Function as a key in a hash
-;;   this.post = function () {} // Instance method in a function
-;;   var MyObj = { ...          // Capitalized variable object 
-;;
-;; USAGE:
-;;   (require 'js)
-
-(setq js2-basic-offset 2)
-(setq js2-auto-indent-flag nil)
-(setq javascript-indent-level 2)
-
-(setq jpablobr-js-imenu-generic-expression
-      '(("Named Function" "function\\s-+\\(\\w+\\)\\s-*(" 1)
-        ("Hash Method"  "^\\s-*\\(\\w+\\):\\s-*function\\s-*(" 1)
-        ("Instance Method" "this\.\\(\\w+\\)\\s-*=\\s-*function\\s-*(" 1)
-        ("Variable as Class" "var \\([A-Z]+\\w+\\) = {" 1)
-        ("Assigned Function" "^\\s-*\\([A-z.]+\\w\\) = function\\s-*(.*) {" 1)
-        ))
-
 (add-hook 'javascript-mode-hook
           (lambda ()
             (setq imenu-generic-expression jpablobr-js-imenu-generic-expression)))
 
-;; Run jslint on a file to check syntax and coding conventions.
+;;; ----------------------------------------------------------------------------
+;;; - Run jslint on a file to check syntax and coding conventions.
+;;;
 (add-hook 'javascript-mode-hook
           (lambda ()
             (set (make-local-variable 'compile-command)
                  (let ((file (file-name-nondirectory buffer-file-name)))
                    (concat "java -classpath ~/src/rhino1_7R2/build/classes org.mozilla.javascript.tools.shell.Main ~/bin/src/jslint.js " file)))))
 
-
-
-;;JS2 MODE
-;;  M-x byte-compile-file RE js2.el RET
-(autoload 'js2-mode "js2" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
-; js-shell
+;;; ----------------------------------------------------------------------------
+;;; - JS shell
+;;;
 (autoload 'javascript-shell "javascript-mode" nil t)
 
 (defun js2-insert-console ()
@@ -110,8 +115,7 @@
              (define-key js2-mode-map (kbd "A-R") 'js2-execute-line)
              (define-key js2-mode-map "\C-L" 'js2-insert-console)
              (defun js-continued-var-decl-list-p ()
-               "Return non-nil if point is inside a continued variable declaration
-list."
+               "Return non-nil if point is inside a continued variable declaration list."
                (interactive)
                (let ((start (save-excursion (js-re-search-backward "\\<var\\>" nil t))))
                  (and start
@@ -152,4 +156,3 @@ list."
 
 
 (provide 'js)
-;;; js.el ends here

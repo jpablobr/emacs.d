@@ -1,25 +1,29 @@
-;; DESCRIPTION:
-;;   Nasty hack to add Sinatra blocks to ruby-mode imenu.
-;;
-;;   Basically, makes it easy to jump between Sinatra URL handlers
-;;   with Chris Wanstrath's textmate.el or the normal imenu.
-;;
-;; AUTHOR:
-;;   Geoffrey Grosenbach http://peepcode.com
-;;
-;; Matches things like:
-;;
-;;   get "/foo" do
-;;   put /eat\/(bacon)/ do |meat|
-;;
-;; USAGE:
-;;   (require 'jpablobr-sinatra)
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Sinatra
+;;; - Nasty hack to add Sinatra blocks to ruby-mode imenu.
+;;;
+;;; -  Basically, makes it easy to jump between Sinatra URL handlers
+;;; -  with Chris Wanstrath's textmate.el or the normal imenu.
+;;;
+;;; - AUTHOR:
+;;; -  Geoffrey Grosenbach http://peepcode.com
+;;;
+;;; - Matches things like:
+;;;
+;;; -  get "/foo" do
+;;; -  put /eat\/(bacon)/ do |meat|
+;;;
+;;; - USAGE:
+;;; -  (require 'jpablobr-sinatra)
 
 (defun ruby-sinatra-imenu-create-index ()
   "Create an imenu index of all methods in the buffer."
   (nreverse (ruby-sinatra-imenu-create-index-in-block nil (point-min) nil)))
 
-;; HACK Copied from ruby-mode.el
+;;; ----------------------------------------------------------------------------
+;;; - HACK Copied from ruby-mode.el
+;;;
 (defun ruby-sinatra-imenu-create-index-in-block (prefix beg end)
   "Create an imenu index of methods inside a block."
   (let ((index-alist '()) (case-fold-search nil)
@@ -68,5 +72,4 @@
           (function (lambda ()
                       (setq imenu-create-index-function 'ruby-sinatra-imenu-create-index)
                       )))
-
 (provide 'sinatra)

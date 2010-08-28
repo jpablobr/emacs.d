@@ -1,23 +1,24 @@
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Auto-complete
+;;;
 (add-to-list 'load-path "~/.emacs.d/vendor/auto-complete")
 (require 'auto-complete-config)
 (global-auto-complete-mode t)
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
-;;     ;; start completion when entered 3 characters
+;; start completion when entered 3 characters
 (setq ac-auto-start 2)
 ;; Add following code to your .emacs.
-;;
 (define-key ac-complete-mode-map "\t" 'ac-complete)
 (define-key ac-complete-mode-map "\r" nil)
 
+;; (when (require 'auto-complete nil t)
+;; (require 'auto-complete-yasnippet)
+;; (require 'auto-complete-ruby)
+;; (require 'auto-complete-css)
 
-;; (add-to-list 'load-path "~/.emacs.d/vendor/auto-complete")
-;;  (when (require 'auto-complete nil t)
-;;    (require 'auto-complete-yasnippet)
-;;    (require 'auto-complete-ruby)
-;;    (require 'auto-complete-css)
-
-   (global-auto-complete-mode t)           ;enable global-mode
+(global-auto-complete-mode t)           ;enable global-mode
    (setq ac-auto-start t)                  ;automatically start
    (setq ac-dwim 3)                        ;Do what i mean
    (setq ac-override-local-map nil)        ;don't override local map

@@ -2,7 +2,6 @@
 ;; A lot of this is thanks to dima-exe:
 ;; http://github.com/dima-exe/emacs_rc/blob/master/emacs-rc-ruby.el
 
-(require 'rinari)
 (require 'sinatra)
 (require 'linum)
 (require 'ruby-electric)
@@ -33,7 +32,6 @@
 ;;; - rcodetools
 ;;;
 (add-to-list 'load-path "~/.emacs.d/vendor/icicles")
-(add-to-list 'load-path "~/.emacs.d/vendor/anything")
 (add-to-list 'load-path "~/.emacs.d/vendor/rcodetools")
 (require 'rcodetools)
 (require 'icicles-rcodetools)
@@ -106,7 +104,6 @@
 ;;; ---------------------------------------------------------
 ;;; - RVM mode... use rvm’s default ruby for the current Emacs session
 ;;;
-(load-file "~/.emacs.d/vendor/rvm.el/rvm.el")
 (require 'rvm)
 (rvm-use-default)
 
@@ -153,12 +150,6 @@
 (autoload 'rhtml-mode "rhtml-mode" "RHTML" t)
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.html\.erb$" . rhtml-mode))
-
-;;; ---------------------------------------------------------
-;;; - rails reloaded
-;;;
-(setq load-path (cons (expand-file-name "~/.emacs.d/vendor/jpablobr-ror") load-path))
-(require 'rails-autoload)
 
 ;;; ---------------------------------------------------------
 ;;; - Rspec

@@ -1,6 +1,14 @@
-;; Save backups in one place
-;; Put autosave files (ie #foo#) in one place, *not*
-;; scattered all over the file system!
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Meta
+;;;
+
+;;; ----------------------------------------------------------------------------
+;;; - Autosave dir
+;;; - Save backups in one place
+;;; - Put autosave files (ie #foo#) in one place, *not*
+;;; - scattered all over the file system!
+;;;
 (defvar autosave-dir
   (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
 (make-directory autosave-dir t)
@@ -15,23 +23,33 @@
             (expand-file-name
              (concat "#%" (buffer-name) "#")))))
 
-;; Put backup files (ie foo~) in one place too. (The backup-directory-alist
-;; list contains regexp=>directory mappings; filenames matching a regexp are
-;; backed up in the corresponding directory. Emacs will mkdir it if necessary.)
+;;; ----------------------------------------------------------------------------
+;;; - backups dir
+;;; - Put backup files (ie foo~) in one place too. (The backup-directory-alist
+;;; - list contains regexp=>directory mappings; filenames matching a regexp are
+;;; - backed up in the corresponding directory. Emacs will mkdir it if
+;;; - necessary.)
+;;;
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
+;;; ----------------------------------------------------------------------------
+;;; - White spaces
+;;;
 ;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (setq default-tab-width 4)
 (setq tab-width 4)
 
-
-;; Makes load time faster.
+;;; ----------------------------------------------------------------------------
+;;; - Makes load time faster.
+;;;
 (defun byte-recompile-home ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d" 0))
 
-;; Full screen toggle
+;;; ----------------------------------------------------------------------------
+;;; - Full screen toggle
+;;;
 (defun toggle-fullscreen ()
   (interactive)
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)

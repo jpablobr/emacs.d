@@ -14,7 +14,6 @@
 ;;; ---------------------------------------------------------
 ;;; - Textmate
 ;;;
-(add-to-list 'load-path (concat vendor-dir "/textmate.el"))
 (require 'textmate)
 (textmate-mode)
 
@@ -50,21 +49,18 @@
 ;;; ---------------------------------------------------------
 ;;; - cheat
 ;;;
-(add-to-list 'load-path (concat vendor-dir "/cheat"))
 (add-to-list 'auto-mode-alist '("\\.cheat$" . cheat))
 (require 'cheat)
 
 ;;; ---------------------------------------------------------
 ;;; - redo
 ;;;
-(add-to-list 'load-path (concat vendor-dir "/redo"))
 (require 'redo)
 (global-set-key [(control -)] 'redo)
 
 ;;; ---------------------------------------------------------
 ;;; - find-recursive
 ;;;
-(add-to-list 'load-path (concat vendor-dir "/find-recursive"))
 (require 'find-recursive)
 
 ;;; ---------------------------------------------------------

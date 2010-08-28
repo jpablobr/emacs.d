@@ -1,5 +1,7 @@
-;;; elpa.el --- Install a base set of packages automatically.
-
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Install a base set of packages automatically.
+;;;
 (defvar jpablobr-packages (list 'idle-highlight
 ;;                                   'ruby-mode
 ;;                                   'inf-ruby

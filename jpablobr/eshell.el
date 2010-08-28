@@ -1,6 +1,11 @@
-;;; eshell.el --- Making the defaults a bit saner
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Making the defaults a bit saner
+;;;
 
-;; Manually set PATH for use by eshell, rspec-mode, etc.
+;;; ----------------------------------------------------------------------------
+;;; - Manually set PATH for use by eshell, rspec-mode, etc.
+;;;
 (let ((path))
   (setq path (concat "~/.gem/ruby/1.8/bin:"
                      "~/bin:"
@@ -32,34 +37,46 @@
                   '("tar" "\\(\\.tar|\\.tgz\\|\\.tar\\.gz\\)\\'"))
      (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)))
 
-;; ESHELL
-;; autocomplete
+;;; ----------------------------------------------------------------------------
+;;; - autocomplete
+;;;
 (setq eshell-cmpl-cycle-completions nil)
 (setq eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
 
-;; history
+;;; ----------------------------------------------------------------------------
+;;; - history
+;;;
 (setq eshell-save-history-on-exit t)
 
-;; dont write over prompt
+;;; ----------------------------------------------------------------------------
+;;; - dont write over prompt
+;;;
 (setq comint-prompt-read-only)
 
-;; scroll to bottom on output, more like a terminal
+;;; ----------------------------------------------------------------------------
+;;; - scroll to bottom on output, more like a terminal
+;;;
 (setq eshell-scroll-to-bottom-on-output t)
 (setq eshell-scroll-show-maximum-output t)
 
-;; colorful shell
+;;; ----------------------------------------------------------------------------
+;;; - colorful shell
+;;;
 (require 'ansi-color)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
 
-;; escape the shell
+;;; ----------------------------------------------------------------------------
+;;; - escape the shell
+;;;
 (add-hook 'eshell-mode-hook
   '(lambda nil (local-set-key "\C-u" 'eshell-kill-input)))
 
-;; provides 'clear' command
+;;; ----------------------------------------------------------------------------
+;;; - provides 'clear' command
+;;;
 (defun eshell/clear ()
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
 (provide 'eshell)
-;;; eshell.el ends here

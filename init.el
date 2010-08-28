@@ -47,7 +47,6 @@
 (require 'lisp)
 (require 'ruby)
 (require 'js)
-;(require 'textile
 (require 'sinatra)
 (require 'rinari)
 (require 'plain-text)

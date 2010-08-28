@@ -1,4 +1,7 @@
-;; org-mode
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - ORG mode
+;;;
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 ;; Override
 (add-hook 'org-mode-hook

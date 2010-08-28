@@ -1,3 +1,7 @@
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - HAML
+;;;
 (require 'haml-mode)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 (define-key haml-mode-map [(control meta down)] 'haml-forward-sexp)

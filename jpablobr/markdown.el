@@ -1,16 +1,7 @@
-;; DESCRIPTION:
-;;   Enhancements to markdown-mode.
-;;
-;; AUTHOR:
-;;   Geoffrey Grosenbach http://peepcode.com
-;;
-;; FEATURES:
-;;
-;;   * Adds Markdown headings to ido-menu
-;;
-;; USAGE:
-;;   (require 'markdown)
-
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Markdown
+;;;
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 (add-to-list 'auto-mode-alist '("\\.mdown\\'" . markdown-mode))

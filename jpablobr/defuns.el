@@ -1,9 +1,14 @@
-;;; defuns.el --- Define some custom functions
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Define some custom functions
+;;;
 
 (require 'thingatpt)
 (require 'imenu)
 
-;; Network
+;;; ----------------------------------------------------------------------------
+;;; - Network
+;;;
 (defun view-url ()
   "Open a new buffer containing the contents of URL."
   (interactive)
@@ -15,7 +20,9 @@
     (cond ((search-forward "<?xml" nil t) (xml-mode))
           ((search-forward "<html" nil t) (html-mode)))))
 
-;; Buffer-related
+;;; ----------------------------------------------------------------------------
+;;; - Buffer-related
+;;;
 (defun ido-imenu ()
   "Update the imenu index and then use ido to select a symbol to navigate to."
   (interactive)
@@ -81,7 +88,9 @@
     (when file
       (find-file file))))
 
-;; Cosmetic
+;;; ----------------------------------------------------------------------------
+;;; - Cosmetic
+;;;
 (defun pretty-lambdas ()
   (font-lock-add-keywords
    nil `(("(?\\(lambda\\>\\)"
@@ -89,7 +98,9 @@
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
 
-;; Other
+;;; ----------------------------------------------------------------------------
+;;; - Other
+;;;
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
@@ -127,17 +138,6 @@
       (find-file (concat "/sudo:root@localhost:" (ido-read-file-name "File: ")))
     (find-alternate-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-(defun lorem ()
-  "Insert a lorem ipsum."
-  (interactive)
-  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
-          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim"
-          "ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
-          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
-          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
-          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
-          "culpa qui officia deserunt mollit anim id est laborum."))
-
 (defun switch-or-start (function buffer)
   "If the buffer is current, bury it, otherwise invoke the function."
   (if (equal (buffer-name (current-buffer)) buffer)
@@ -152,4 +152,3 @@
   (message (if (y-or-n-p "Do you have a test for that? ") "Good." "Bad!")))
 
 (provide 'defuns)
-;;; defuns.el ends here

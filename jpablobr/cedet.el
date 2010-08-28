@@ -1,5 +1,5 @@
-;; cedet
-;; See cedet/common/cedet.info for configuration details.
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - CEDET
 (load-file "~/.emacs.d/vendor/cedet/common/cedet.el")
-
- (provide 'cedet)
+(provide 'cedet)
