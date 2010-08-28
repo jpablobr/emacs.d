@@ -1,3 +1,0 @@
-#name : svn merge -c
-# --
-svn merge -c ${1:2000} http://subversion.ny.jpmorgan.com/svn/repos/retail_lending_it_gateway/access_admin/${2:trunk}

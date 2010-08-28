@@ -1,6 +1,0 @@
-#name : defun function-name ...
-# --
-(defun ${1:function-name} ($2)
-  ""
-  $0
-  )

@@ -1,7 +1,0 @@
-# Charles Magid (ChasMan or Chasmanrors)
-#name : blockquote tag 
-#group : html
-# --
-<blockquote>
-  $1
-</blockquote>

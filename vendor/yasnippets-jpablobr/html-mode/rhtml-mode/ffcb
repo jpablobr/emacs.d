@@ -1,5 +1,0 @@
-# This was cloned from a TextMate bundle for yasnippet.
-#name : f.check_box :${1:attribute}
-#group : view
-# --
-f.check_box :${1:attribute}

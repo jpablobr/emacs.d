@@ -1,5 +1,0 @@
-# Charles Magid (ChasMan or Chasmanrors)
-#name : img tag 
-#group : html
-# --
-<img src="$1" alt="$2" />

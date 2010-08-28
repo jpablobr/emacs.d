@@ -1,3 +1,0 @@
-#name : grep methods
-# --
-methods.grep(/${1:method}/).sort

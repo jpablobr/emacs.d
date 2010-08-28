@@ -1,7 +1,0 @@
-# name : r
-# key : r
-# group : extjs
-# contributor : crazycode@gmail.com
-# This was cloned from a TextMate bundle for yasnippet.
-# --
-return;${0}
