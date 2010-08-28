@@ -1,4 +1,8 @@
-;; Load path etc:
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Jose Pablo Barrantes <xjpablobrx@gmail.com> 
+;;; - emacs.d initializations
+;;;
 
 (setq dotfiles-dir (file-name-directory
                     (or (buffer-file-name) load-file-name)))
@@ -27,9 +31,10 @@
 
 ;; Load jpablobr customizations:
 (require 'theme)
+(require 'cedet)
+(require 'misc)
 (require 'defuns)
 (require 'keyboard)
-(require 'misc)
 (require 'registers)
 (require 'eshell)
 (require 'lisp)
@@ -44,7 +49,6 @@
 (require 'markdown)
 (require 'haml)
 (require 'autocomplete)
-(require 'cedet)
 
 (regen-autoloads)
 (load custom-file 'noerror)

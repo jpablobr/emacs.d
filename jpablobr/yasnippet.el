@@ -11,13 +11,6 @@
              (concat dotfiles-dir "/vendor/yasnippet.el"))
 (require 'yasnippet)
 
-(yas/define-snippets  'nxhtml-mode nil  'html-mode)
-(yas/define-snippets  'js2-mode nil  'javascript-mode)
-
-;; other snippets
-;;(yas/load-directory (concat dotfiles-dir "vendor/yasnippets-jpablobr"))
-
-;;(yas/load-directory (concat dotfiles-dir "/vendor/yasnippet.el/snippets"))
 (require 'dropdown-list)
 (setq yas/prompt-functions '(  yas/dropdown-prompt
                                yas/completing-prompt
@@ -29,5 +22,19 @@
 (setq yas/minor-mode t)
 (setq yas/minor-mode-on)
 (add-hook 'the-major-mode-hook 'yas/minor-mode-on)
+
+;;; ---------------------------------------------------------
+;;; - hooks for different modes on specific modes
+;;;
+(yas/define-snippets  'nxhtml-mode nil  'html-mode)
+(yas/define-snippets  'js2-mode nil  'javascript-mode)
+
+(add-hook 'emacs-lisp-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'text-mode)))
+
+(add-hook 'js2-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'espresso-mode)))
 
 (provide 'yasnippet)
