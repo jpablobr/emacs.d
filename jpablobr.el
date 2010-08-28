@@ -1,8 +1,7 @@
 ;;; -*- coding: utf-8-unix; -*-
 ;;; ---------------------------------------------------------
-;;; - Jose Pablo Barrantes
-;;; - jpablobr's .emacs.d
-;;; - http://jpablobr.com
+;;; - jpablobr's .emacs.d http://jpablobr.com
+;;; - Jose Pablo Barrantes <xjpablobrx@gmail.com>
 ;;;
 
 ;;; ----------------------------------------------------------
