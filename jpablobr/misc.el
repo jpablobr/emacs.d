@@ -1,5 +1,7 @@
-;;; misc.el --- Things that don't fit anywhere else
-
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Things that don't fit anywhere else
+;;;
 (when window-system
   (mouse-wheel-mode t)
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
@@ -23,7 +25,9 @@
       oddmuse-directory (concat dotfiles-dir "oddmuse")
       save-place-file (concat dotfiles-dir "places"))
 
-;; Set this to whatever browser you use:
+;;; ---------------------------------------------------------
+;;; - Browser
+;;;
 (setq browse-url-browser-function 'browse-url-firefox)
 ;; (setq browse-url-browser-function 'browse-default-macosx-browser)
 ;; (setq browse-url-browser-function 'browse-default-windows-browser)
@@ -33,32 +37,50 @@
 ;; (setq browse-url-browser-function 'browse-url-generic
 ;;       browse-url-generic-program "~/src/conkeror/conkeror")
 
-;; Transparently open compressed files
+
+;;; ---------------------------------------------------------
+;;; - Transparently open compressed files
+;;;
 (auto-compression-mode t)
 
-;; smoother scrolling
+;;; ---------------------------------------------------------
+;;; - Smoother scrolling
+;;;
 (setq
  scroll-margin 0                  
   scroll-conservatively 100000
   scroll-preserve-screen-position 1)
-
-; X11 Copy & Paste to/from Emacs
+  (put 'scroll-left 'disabled nil)
+  
+;;; ---------------------------------------------------------
+;;; - X11 Copy & Paste to/from Emacs
+;;;
 (setq x-select-enable-clipboard t) ; as above
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
-;; Enable syntax highlighting for older Emacsen that have it off
+;;; ---------------------------------------------------------
+;;; - Enable syntax highlighting for older Emacsen that have it off
+;;;
 (global-font-lock-mode t)
 
-;; You really don't need this; trust me.
+;;; ---------------------------------------------------------
+;;; - Menu bar settings
+;;;
 ;;(menu-bar-mode -1)
 
-;; Save a list of recent files visited.
+;;; ---------------------------------------------------------
+;;; - Save a list of recent files visited.
+;;;
 (recentf-mode 1)
 
-;; Highlight matching parentheses when the point is on them.
+;;; ---------------------------------------------------------
+;;; - Highlight matching parentheses when the point is on them.
+;;;
 (show-paren-mode 1)
 
-;; ido-mode is like magic pixie dust!
+;;; ---------------------------------------------------------
+;;; - ido-mode is like magic pixie dust!
+;;;
 (when (> emacs-major-version 21)
   (ido-mode t)
   (setq ido-enable-prefix nil
@@ -74,35 +96,21 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
 
-;; Hippie expand: at times perhaps too hip
+;;; ---------------------------------------------------------
+;;; - Hippie expand: at times perhaps too hip
+;;;
 (delete 'try-expand-line hippie-expand-try-functions-list)
 (delete 'try-expand-list hippie-expand-try-functions-list)
 
-;; Don't clutter up directories with files~
+;;; ---------------------------------------------------------
+;;; - Don't clutter up directories with files~
+;;;
 (setq backup-directory-alist `(("." . ,(expand-file-name
                                         (concat dotfiles-dir "backups")))))
 
-;; nxhtml stuff
-(setq mumamo-chunk-coloring 'submode-colored
-      nxhtml-skip-welcome t
-      indent-region-mode t
-      rng-nxml-auto-validate-flag nil)
-
-;; Associate modes with file extensions
-
-(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG$" . diff-mode))
-(add-to-list 'auto-mode-alist '("\\.css$" . css-mode))
-;; (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.js\\(on\\)?$" . javascript-mode))
-
-(add-to-list 'auto-mode-alist '("\\.xml$" . nxml-mode))
-(add-to-list 'auto-mode-alist '("\\.html$" . html-mode))
-(add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
-
-;; Cosmetics
-
+;;; ---------------------------------------------------------
+;;; - Cosmetics
+;;;
 (eval-after-load 'diff-mode
   '(progn
      (set-face-foreground 'diff-added "green4")
@@ -113,23 +121,31 @@
      (set-face-foreground 'magit-diff-add "green3")
      (set-face-foreground 'magit-diff-del "red3")))
 
-;; linu and column default counters
+;;; ---------------------------------------------------------
+;;; - linu and column default counters
+;;;
 (setq line-number-mode t)
 (setq column-number-mode t)
 
-;;Set line numbers globally
+;;; ---------------------------------------------------------
+;;; - Set line numbers globally
+;;;
 ;;(require 'linum)
 ;;(global-linum-mode)
 
-;; insert date into buffer at point
-;; optained from http://www.chrislott.org/geek/emacs/dotemacs.html
+;;; ---------------------------------------------------------
+;;; - insert date into buffer at point
+;;; - optained from http://www.chrislott.org/geek/emacs/dotemacs.html
+;;;
 (defun insert-date ()
   "Insert date at point."
   (interactive)
   (insert (format-time-string "%a %Y-%m-%d - %l:%M %p")))
 
-;; Kills live buffers, leaves some emacs work buffers
-;; optained from http://www.chrislott.org/geek/emacs/dotemacs.html
+;;; ---------------------------------------------------------
+;;; - Kills live buffers, leaves some emacs work buffers
+;;; - optained from http://www.chrislott.org/geek/emacs/dotemacs.html
+;;;
 (defun nuke-some-buffers (&optional list)
   "For each buffer in LIST, kill it silently if unmodified. Otherwise ask.
 LIST defaults to all existing live buffers."
