@@ -1,4 +1,19 @@
-;; -*- coding: utf-8-unix; -*-
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Web development configs
+;;;
+
+;;; ---------------------------------------------------------
+;;; - CSS
+;;;
+(add-to-list 'load-path (concat vendor-dir "/css-mode"))
+(require 'css-mode)
+(autoload 'css-mode "css-mode" "Mode for editing CSS files" t)
+(setq auto-mode-alist (append '(("\\.css$" . css-mode)) auto-mode-alist))
+(add-hook 'css-mode-hook
+          (lambda()
+            (local-set-key (kbd "<return>") 'newline-and-indent)))
+
 ;;; ---------------------------------------------------------
 ;;; - Apache
 ;;;
