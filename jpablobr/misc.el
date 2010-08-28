@@ -36,6 +36,12 @@
 ;; Transparently open compressed files
 (auto-compression-mode t)
 
+;; smoother scrolling
+(setq
+ scroll-margin 0                  
+  scroll-conservatively 100000
+  scroll-preserve-screen-position 1)
+
 ; X11 Copy & Paste to/from Emacs
 (setq x-select-enable-clipboard t) ; as above
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
