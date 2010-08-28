@@ -1,5 +1,7 @@
-;; Snippets
-
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Yasnippets
+;;;
 (require 'css-mode)
 (require 'markdown-mode)
 (require 'espresso)
@@ -24,7 +26,8 @@
 (setq yas/root-directory (concat dotfiles-dir "vendor/yasnippets-jpablobr")) ;"~/.emacs.d/vendor/yasnippets-jpablobr")
 (yas/load-directory yas/root-directory)
 (setq yas/global-mode t)
-(setq yas/minor-mode-on t)
+(setq yas/minor-mode t)
+(setq yas/minor-mode-on)
 (add-hook 'the-major-mode-hook 'yas/minor-mode-on)
 
 (provide 'yasnippet)
