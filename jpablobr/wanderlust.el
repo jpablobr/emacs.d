@@ -6,6 +6,7 @@
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Wanderlust configuration
+;;; - % sudo apt-get install wl
 ;;; - % sudo apt-get install gnutls-bin
 ;;; - http://www.emacswiki.org/emacs/WanderLust
 ;;;
