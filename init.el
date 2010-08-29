@@ -55,6 +55,7 @@
 (require 'haml)
 (require 'autocomplete)
 (require 'webdev)
+(require 'wanderlust)
 
 (regen-autoloads)
 (load custom-file 'noerror)
