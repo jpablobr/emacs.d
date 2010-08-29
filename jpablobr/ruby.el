@@ -109,6 +109,7 @@
 
 ;;; ---------------------------------------------------------
 ;;; - Autotest
+;;; - http://blog.zenspider.com/emacs/
 ;;;
 (add-to-list 'load-path "~/.emacs.d/vendor/autotest")
 (require 'toggle)
