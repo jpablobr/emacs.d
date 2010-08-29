@@ -1,11 +1,14 @@
-;; wanderlust
+;;; -*- coding: utf-8-unix; -*-
+;;; ---------------------------------------------------------
+;;; - Wanderlust
+;;;
 (add-to-list 'load-path "~/.emacs.d/vendor/wanderlust")
-
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Wanderlust configuration
 ;;; - % sudo apt-get install gnutls-bin
-;;; 
+;;; - http://www.emacswiki.org/emacs/WanderLust
+;;;
 (autoload 'wl "wl" "Wanderlust" t)
 (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
 (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
@@ -16,7 +19,9 @@
   wl-stay-folder-window t                       ;; show the folder pane (left)
   wl-folder-window-width 25                     ;; toggle on/off with 'i'
 
-  ;; IMAP
+;;; ----------------------------------------------------------------------------
+;;; - IMAP
+;;;
   elmo-imap4-default-server "imap.gmail.com"
   elmo-imap4-default-user "xjpablobrx@gmail.com"
   elmo-imap4-default-authenticate-type 'clear
@@ -24,7 +29,9 @@
   elmo-imap4-default-stream-type 'ssl
   elmo-imap4-use-modified-utf7 t
 
-  ;; SMTP
+;;; ----------------------------------------------------------------------------
+;;; - SMTP
+;;;
   wl-smtp-connection-type 'starttls
   wl-smtp-posting-port 587
   wl-smtp-authenticate-type "plain"
@@ -34,8 +41,11 @@
   wl-message-id-domain "myhost.example.com"
   wl-from "Jose Pablo Barrantes <xjpablobrx@gmail.com>"
 
-  ;; note: all below are dirs (Maildirs) under elmo-maildir-folder-path 
-  ;; the '.'-prefix is for marking them as maildirs
+;;; ----------------------------------------------------------------------------
+;;; - Maildirs
+;;; - note: all below are dirs (Maildirs) under elmo-maildir-folder-path 
+;;; - the '.'-prefix is for marking them as maildirs
+;;;  
   wl-fcc ".sent"                       ;; sent msgs go to the "sent"-folder
   wl-fcc-force-as-read t               ;; mark sent messages as read 
   wl-default-folder ".inbox"           ;; my main inbox 
@@ -45,11 +55,15 @@
   wl-queue-folder ".queue"             ;; we don't use this
   wl-folder-check-async t
   
-  ;; check this folder periodically, and update modeline
+;;; ----------------------------------------------------------------------------
+;;; - check this folder periodically, and update modeline
+;;;
   wl-biff-check-folder-list '(".todo") ;; check every 180 seconds
                                        ;; (default: wl-biff-check-interval)
 
-  ;; hide many fields from message buffers
+;;; ----------------------------------------------------------------------------
+;;; - hide many fields from message buffers
+;;;
   wl-message-ignored-field-list '("^.*:")
   wl-message-visible-field-list
   '("^\\(To\\|Cc\\):"
