@@ -1,33 +1,15 @@
-[submodule "vendor/color-theme-merbivore"]
-	path = vendor/color-theme-merbivore
-	url = git://github.com/mig/color-theme-merbivore.git
-[submodule "vendor/yasnippets-rails"]
-	path = vendor/yasnippets-rails
-	url = git://github.com/eschulte/yasnippets-rails.git
 [submodule "vendor/twittering-mode"]
 	path = vendor/twittering-mode
 	url = git://github.com/hayamiz/twittering-mode.git
-[submodule "vendor/cheat"]
-	path = vendor/cheat
-	url = git://github.com/defunkt/cheat.git
-[submodule "vendor/emacs-rails"]
-	path = vendor/emacs-rails
-	url = git://github.com/remvee/emacs-rails.git
 [submodule "vendor/rinari"]
 	path = vendor/rinari
 	url = git://github.com/technomancy/rinari.git
-[submodule "vendor/twilight-emacs"]
-	path = vendor/twilight-emacs
-	url = git://github.com/crafterm/twilight-emacs.git
 [submodule "vendor/color-theme-tangotango"]
 	path = vendor/color-theme-tangotango
 	url = git://github.com/jpablobr/color-theme-tangotango.git
 [submodule "vendor/rhtml"]
 	path = vendor/rhtml
 	url = git://github.com/eschulte/rhtml.git
- [submodule "vendor/rvm.el"]
-	path = vendor/rvm.el
-	url = git://github.com/senny/rvm.el.git
- [submodule "vendor/emacs-rails-reloaded"]
-	path = vendor/emacs-rails-reloaded
-	url = git://github.com/dima-exe/emacs-rails-reloaded.git
+ [submodule "vendor/jpablobr-ror"]
+	path = vendor/jpablobr-ror
+	url = git://github.com/jpablobr/emacs-rails-reloaded.git
