@@ -7,9 +7,6 @@
 [submodule "vendor/ri-emacs"]
 	path = vendor/ri-emacs
 	url = git://github.com/pedz/ri-emacs.git
-[submodule "vendor/ri-emacs"]
-	path = vendor/ri-emacs
-	url = git://github.com/pedz/ri-emacs.git
 [submodule "vendor/icicles"]
 	path = vendor/icicles
 	url = git://github.com/emacsmirror/icicles.git
