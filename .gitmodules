@@ -4,6 +4,15 @@
 [submodule "vendor/rinari"]
 	path = vendor/rinari
 	url = git://github.com/technomancy/rinari.git
+[submodule "vendor/ri-emacs"]
+	path = vendor/ri-emacs
+	url = git://github.com/pedz/ri-emacs.git
+[submodule "vendor/ri-emacs"]
+	path = vendor/ri-emacs
+	url = git://github.com/pedz/ri-emacs.git
+[submodule "vendor/icicles"]
+	path = vendor/icicles
+	url = git://github.com/emacsmirror/icicles.git
 [submodule "vendor/color-theme-tangotango"]
 	path = vendor/color-theme-tangotango
 	url = git://github.com/jpablobr/color-theme-tangotango.git
