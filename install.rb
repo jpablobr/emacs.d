@@ -36,8 +36,8 @@ system %Q{ cd vendor && git clone  git://github.com/eschulte/rhtml.git rhtml }
 system %Q{ cd vendor && git add rhtml/ && cd rhtml && git pull }
 
 # emacs-rails-reloaded
-system %Q{ cd vendor && git clone  git://github.com/jpablobr/emacs-rails-reloaded.git emacs-rails-reloaded }
-system %Q{ cd vendor && git add emacs-rails-reloaded/ && cd emacs-rails-reloaded && git pull }
+system %Q{ cd vendor && git clone  git://github.com/jpablobr/emacs-rails-reloaded.git jpablobr-ror }
+system %Q{ cd vendor && git add jpablobr-ror/ && cd jpablobr-ror && git pull }
 
 # Display vendor dir tree structure after submodule initialization
 puts `ls -la vendor`
