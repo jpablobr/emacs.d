@@ -15,7 +15,7 @@
 ;;; -  put /eat\/(bacon)/ do |meat|
 ;;;
 ;;; - USAGE:
-;;; -  (require 'jpablobr-sinatra)
+;;; -  (require 'sinatra)
 
 (defun ruby-sinatra-imenu-create-index ()
   "Create an imenu index of all methods in the buffer."
