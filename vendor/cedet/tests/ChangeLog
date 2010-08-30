@@ -1,3 +1,80 @@
+2010-07-25  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cit-externaldb.el (cit-external-db-tool-list):
+	Change all create fcns for db tools to
+	use new create fcns added for each project type.
+	(cit-gnu-externaldb-test-one): Change calling convention to create a
+	db to conform to new fcns.
+
+2010-06-13  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cit-externaldb.el (cit-externaldb-files-to-find):
+	Change files to those common between
+	Make and AutoMake.
+	(cit-gnu-externaldb-test-one): Require ede-locate
+	Call `ede-enable-locate-on-project' to start/end the test so that the
+	locate system is available for the project later.
+
+	* cit-cpp.el (cit-src-cpp-tags, cit-main-cpp-tags, cit-srecode-fill-cpp):
+	Switch
+	.hh to .hpp so gnu global can find it.
+
+	* cedet-integ-test.el (cit-externaldb): New require
+	(cedet-integ-test-proj): Call to externaldb testing suite.
+
+	* Makefile (Lisp_LISP): Add cit-externaldb.el
+
+	* Project.ede (Lisp): Add cit-externaldb.el
+
+	* cit-externaldb.el: Test external database tools.
+
+	* cit-symref.el (cit-symref-quick-find-test): New.
+	(cit-symref-count): Add a small wait of .1.
+
+2010-05-16  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cit-cpp.el (cit-remove-and-do-shared-lib): Add ldlibs-local test.
+
+	* cit-cpp.el (cit-remove-and-do-shared-lib):
+	For automake, use ldflags, and ldlibs for in project libraries.
+
+2010-04-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* Makefile (Lisp_LISP): Add cit-symref.el
+
+	* Project.ede (Lisp): Add cit-symref.el.
+
+	* cedet-integ-test.el (cit-symref): New require.
+	(cedet-integ-test-proj): Disable auto add.
+	Only do shared library test with automake.
+	(cit-run-target): Don't kill the buffer, wait and show program output instead.
+
+	* cit-cpp.el (cit-header-cpp-tags): Add some code to foo constructor.
+	(cit-src-cpp-tags): Add stdio.h include.
+	Add code to the methods to call through the class and eventually print MOOSE.
+	(cit-main-cpp-tags): Remove stdio.h include.
+	Replace print code with call to the foo class to print MOOSE.
+	(cit-symref-operations): New variable.
+	(cit-remove-add-to-project-cpp): Delete .o files also.
+	(cit-remove-and-do-shared-lib): Specify the compiler to use.
+
+	* cit-symref.el: Semantic Symref testing.
+
+2010-03-16  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cit-gnustep.el (cit-step-test-compilation):
+	Use cit-wait-for-compilation and cit-check-compilation-for-error.
+
+	* cit-dist.el (cit-make-dist): Use cit-check-compilation-for-error.
+
+	* cit-cpp.el: (cit-remove-add-to-project-cpp)
+	(cit-remove-and-do-shared-lib):
+	Use cit-wait-for-compilation and cit-check-compilation-for-error.
+
+	* cedet-integ-test.el (cit-compile-and-wait): Pull out error checking.
+	Add support for stripping erroneous events.
+	(cit-check-compilation-for-error): New, from above.
+
 2010-01-09  Marco (Bj) Bardelli <safanaj@users.sourceforge.net>
 
 	* cit-gnustep.el:

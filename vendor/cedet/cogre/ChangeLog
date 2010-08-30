@@ -1,3 +1,83 @@
+2010-04-23  Eric M. Ludlam  <zappo@gnu.org>
+
+	* templates/srecode-dot.srt (digraph-tag):
+	Default fontname of courier to use a fixed-width font.
+
+2010-04-21  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cogre-convert.el (cogre-calculate-node-position-scale):
+	Add support when face attr
+	is unspecified.
+
+	* cogre-convert.el (cogre-calculate-node-position-scale): New.
+	(cogre-dot-node-position-scale): Value calc'd from above
+
+2010-04-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* tests/Makefile (VERSION): Update to 1.0.
+
+	* templates/Makefile, Makefile (VERSION): Update to 1.0
+
+	* Project.ede ("COGRE"): Update to version 1.0
+
+	* cogre.el (cogre-version): Update to 1.0
+
+2010-04-09  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cogre.el (cogre-default-node, cogre-default-link):
+	call cedet-called-interactively-p
+	instead of interactive-p
+
+	* cogre-mode.el:
+	(cogre-new-node, cogre-new-link, cogre-set-element-name)
+	(cogre-set-scoped-node-package): call cedet-called-interactively-p
+	instead of interactive-p
+
+	* cogre-semantic.el (cogre-export-semantic):
+	call cedet-called-interactively-p
+	instead of interactive-p
+
+	* cogre-uml.el (cogre-uml-sort-for-lineage):
+	call cedet-called-interactively-p
+	instead of interactive-p
+
+2010-03-26  Eric M. Ludlam  <zappo@gnu.org>
+
+	* templates/srecode-dot.srt (digraph-tag): Set fontsize to be 12.
+
+	* cogre-semantic.el (cogre-uml-quick-class):
+	Allow input arg CLASS to be a token.
+	(cogre-uml-children-classes): After finding children, force them
+	to be in a buffer.
+
+	* cogre-layout.el (cogre-layout): Use floats for calculating halves.
+	Fix bug where X layout was based on height.
+
+	* cogre-layout.el (cogre-layout):
+	Use -y to replace reversing y by hand.
+
+	* cogre-convert.el (cogre-export-dot-methodlist):
+	Left align class fields and methods.
+
+	* cogre-semantic.el (cogre-uml-quick-class):
+	Split out contents to recursive fcns below.
+	(cogre-uml-parent-classes, cogre-uml-children-classes): New.
+
+2010-03-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cogre-mode.el (cogre-mode-map): Add J bound to jump-from-node-to-peer
+	(cogre-node-base-menu): Add Jump-from-node-to-peer.
+	(cogre-change-forms-menu): Doc fix.
+	(cogre-node-with-peer): Doc fix.
+	(cogre-jump-from-node-to-peer): New
+	(cogre-down-mouse-3): Track if the called fcn change the selected window.
+
+	* cogre-semantic.el (cogre-peer-jump-to-source): New method.
+
+2010-03-06  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cogre-srecode.el ("srecode-map"): Fix to quote in the form.
+
 2009-10-01  Eric M. Ludlam  <zappo@gnu.org>
 
 	* Makefile (EMACSPRELOAD): New

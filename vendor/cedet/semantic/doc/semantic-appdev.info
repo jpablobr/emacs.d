@@ -4,8 +4,8 @@ app-dev-guide.texi.
    This manual documents Application Development with Semantic.
 
    Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2007, 2008,
-2009 Eric M. Ludlam Copyright (C) 2001, 2002, 2003, 2004 David Ponce
-Copyright (C) 2002, 2003 Richard Y. Kim
+2009, 2010 Eric M. Ludlam Copyright (C) 2001, 2002, 2003, 2004 David
+Ponce Copyright (C) 2002, 2003 Richard Y. Kim
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -885,11 +885,12 @@ cases, a clone or copy is sufficient.
      in the `:filename' property of the copied tag.  This runs the tag
      hook `unlink-copy-hook`.
 
- -- Function: semantic-tag-deep-copy-one-tag tag &optional filter
-     Make a deep copy of TAG, applying FILTER to each child-tag.
-     Properties and overlay info are not copied.  FILTER takes TAG as
-     an argument, and should returns a semantic-tag.  It is safe for
-     FILTER to modify the input tag and return it.
+ -- Function: semantic-tag-deep-copy-one-tag tag filter
+     Make a deep copy of TAG, applying FILTER to each child-tag.  No
+     properties are copied except for `:filename'.  Overlay will be a
+     vector.  FILTER takes TAG as an argument, and should returns a
+     "semantic-tag".  It is safe for FILTER to modify the input tag and
+     return it.
 
 
 File: semantic-appdev.info,  Node: Misc Tag Internals,  Prev: Copying Tags,  Up: Tag Internals
@@ -1707,7 +1708,7 @@ then uses to perform their tasks.
 For example:
 
      (defun semantic-complete-read-tag-buffer-deep (prompt &optional
-     						      default-tag initial-input history)
+                                                           default-tag initial-input history)
        "Ask for a tag by name from the current buffer.
      PROMPT is a string to prompt with.
      DEFAULT-TAG is a semantic tag or string to use as the default value.
@@ -1890,8 +1891,8 @@ Overload Mechanism::.
 * Format Tag::                  Converting Tokens into text strings
 * Tag Members::                 Tags in tags
 * Tag Details::                 Arbitrary token detail fetching
-* Tag File Reference::	        Files a tag references.
-* Jump to a Tag::	        Go to a tag's location
+* Tag File Reference::          Files a tag references.
+* Jump to a Tag::               Go to a tag's location
 * Making New Methods::          How to add your own methods for your own tool
 
 
@@ -3322,12 +3323,15 @@ Two high level functions which can be run interactively are:
      function can be overloaded (see "define-mode-local-override" for
      details).
 
- -- Command: semantic-analyze-possible-completions context
+ -- Function: semantic-analyze-possible-completions context flags
      Return a list of semantic tags which are possible completions.
      CONTEXT is either a position (such as point), or a precalculated
      context.  Passing in a context is useful if the caller also needs
-     to access parts of the analysis.  Completions run through the
-     following filters:
+     to access parts of the analysis.  The remaining FLAGS arguments
+     are passed to the mode specific completion engine.  Bad flags
+     should be ignored by modes that don't use them.  See
+     "semantic-analyze-possible-completions-default" for details on the
+     default FLAGS.
 
         * Elements currently in scope
 
@@ -3346,8 +3350,8 @@ Two high level functions which can be run interactively are:
         * Argument to a function with type constraints.
 
      When called interactively, displays the list of possible
-     completions in a buffer.  This function can be overloaded (see
-     "define-mode-local-override" for details).
+     completions in a buffer.  This function can be overloaded with
+     "define-mode-local-override".
 
 * Menu:
 
@@ -4196,296 +4200,296 @@ Index
 
 
 Tag Table:
-Node: Top1142
-Node: Semantic Tags2763
-Node: Tag Basics3346
-Ref: semantic-tag-name5719
-Ref: semantic-tag-class6176
-Node: Tag Query7638
-Ref: semantic-tag-p7931
-Ref: semantic-equivalent-tag-p8175
-Ref: semantic-tag-similar-p8687
-Ref: semantic-tag-of-class-p8999
-Ref: semantic-tag-faux-p9086
-Ref: semantic-tag-type-compound-p9444
-Ref: semantic-tag-docstring9709
-Ref: semantic-tag-variable-constant-p10362
-Ref: semantic-tag-function-destructor-p10715
-Ref: semantic-tag-function-throws11062
-Ref: semantic-tag-modifiers11391
-Ref: semantic-tag-function-arguments12024
-Ref: semantic-tag-variable-default12390
-Ref: semantic-tag-type12755
-Ref: semantic-tag-of-type-p13210
-Ref: semantic-tag-named-parent13685
-Ref: semantic-tag-function-parent13969
-Ref: semantic-tag-type-superclasses14426
-Ref: semantic-tag-type-interfaces14882
-Ref: semantic-tag-type-members15328
-Ref: semantic-tag-include-system-p15675
-Ref: semantic-tag-include-filename16024
-Ref: semantic-tag-code-detail16576
-Ref: semantic-tag-components16773
-Ref: semantic-tag-components-default17151
-Ref: semantic-tag-children-compatibility17344
-Node: Tag Overlay17760
-Ref: semantic-tag-start18142
-Ref: semantic-tag-end18363
-Ref: semantic-tag-bounds18576
-Ref: semantic-tag-in-buffer-p18828
-Ref: semantic-tag-buffer18985
-Ref: semantic-tag-file-name19364
-Ref: semantic-tag-overlay19674
-Ref: semantic-tag-with-position-p20117
-Ref: semantic-tag-components-with-overlays20397
-Ref: semantic-tag-components-with-overlays-default21071
-Node: Tag Hooks21317
-Ref: semantic-tag-add-hook21738
-Ref: semantic-tag-remove-hook22146
-Ref: semantic--tag-run-hooks22676
-Node: Misc Tag Functions23654
-Ref: semantic-narrow-to-tag23870
-Ref: semantic-with-buffer-narrowed-to-current-tag24186
-Ref: semantic-with-buffer-narrowed-to-tag24519
-Node: Tag Internals24740
-Node: Tag Attributes Internals25028
-Ref: semantic-tag-attributes25249
-Ref: semantic-tag-get-attribute26083
-Ref: semantic-tag-put-attribute26837
-Ref: semantic-tag-put-attribute-no-side-effect27352
-Node: Tag Properties Internals27674
-Ref: semantic-tag-properties27925
-Ref: semantic--tag-put-property28267
-Ref: semantic--tag-get-property28693
-Ref: semantic--tag-put-property-no-side-effect29110
-Ref: semantic-tag-make-plist29699
-Node: Tag Overlay Internals30258
-Ref: semantic-tag-set-bounds30600
-Node: Creating Tags30667
-Ref: semantic-tag30886
-Ref: semantic-tag-new-variable31381
-Ref: semantic-tag-new-function31953
-Ref: semantic-tag-new-type32545
-Ref: semantic-tag-new-include33669
-Ref: semantic-tag-new-package34210
-Ref: semantic-tag-new-code34693
-Node: Copying Tags34895
-Ref: semantic-tag-clone35476
-Ref: semantic-tag-copy35802
-Ref: semantic-tag-deep-copy-one-tag36252
-Node: Misc Tag Internals36508
-Node: Searching Tag Tables38768
-Node: Breadth Search39725
-Ref: semantic-find-first-tag-by-name40119
-Ref: semantic-find-tags-by-name40396
-Ref: semantic-find-tags-for-completion40594
-Ref: semantic-find-tags-by-name-regexp41003
-Ref: semantic-find-tags-by-class41351
-Ref: semantic-find-tags-by-type41628
-Ref: semantic-find-tags-included41996
-Node: Deep Search42127
-Node: Specialty Search49014
-Ref: semantic-find-tags-of-compound-type49441
-Ref: semantic-find-tags-by-scope-protection49740
-Ref: semantic-find-tags-external-children-of-type50334
-Ref: semantic-find-tags-subclasses-of-type50610
-Node: Custom Search50831
-Ref: semantic--find-tags-by-function51334
-Ref: semantic--find-tags-by-macro51595
-Node: Tags at Point51727
-Node: Tag Decoration54589
-Node: Tag Highlighting55199
-Ref: semantic-highlight-tag55397
-Ref: semantic-unhighlight-tag55687
-Ref: semantic-momentary-highlight-tag55963
-Ref: semantic-set-tag-face56491
-Node: Tag Visible Properties56695
-Ref: semantic-set-tag-invisible57142
-Ref: semantic-tag-invisible-p57452
-Ref: semantic-set-tag-intangible57719
-Ref: semantic-tag-intangible-p58162
-Ref: semantic-set-tag-read-only58559
-Ref: semantic-tag-read-only-p58921
-Node: Tag Secondary Overlays59142
-Ref: semantic-tag-create-secondary-overlay59921
-Ref: semantic-tag-delete-secondary-overlay60344
-Ref: semantic-tag-get-secondary-overlay60649
-Ref: semantic-tag-secondary-overlays60831
-Node: Tag Folding61405
-Ref: semantic-set-tag-folded61727
-Ref: semantic-tag-folded-p61948
-Node: Tag Sorting61992
-Ref: semantic-unique-tag-table62452
-Ref: semantic-unique-tag-table-by-name62717
-Ref: semantic-bucketize62902
-Ref: semantic-bucketize-tag-class63526
-Ref: semantic-adopt-external-members64054
-Ref: semantic-orphaned-member-metaparent-type64964
-Ref: semantic-mark-external-member-function65220
-Node: Tag Completion65777
-Node: Tag Completion Convenience Functions66803
-Ref: semantic-complete-read-tag-project67830
-Ref: semantic-complete-read-tag-analyzer68429
-Ref: semantic-complete-inline-analyzer69135
-Node: Custom Tag Completion Functions69517
-Ref: semantic-complete-read-tag-engine70484
-Node: Tag Collectors72162
-Ref: semantic-collector-abstract72709
-Ref: semantic-collector-buffer-abstract72952
-Ref: semantic-collector-project-abstract73113
-Ref: semantic-collector-buffer-deep73314
-Ref: semantic-collector-project73525
-Ref: semantic-collector-project-brutish73617
-Ref: semantic-collector-analyze-completions73713
-Node: Tag Displayors73957
-Ref: semantic-displayor-abstract74656
-Ref: semantic-displayor-focus-abstract74884
-Ref: semantic-displayor-traditional75134
-Ref: semantic-displayor-traditional-with-focus-highlight75389
-Ref: semantic-displayor-tooltip75701
-Node: Old Tag Completion75823
-Ref: semantic-read-symbol76162
-Ref: semantic-read-variable76620
-Ref: semantic-read-function76953
-Ref: semantic-read-type77280
-Node: Override Methods77538
-Ref: semantic-with-mode-bindings78289
-Node: Format Tag78971
-Ref: semantic-format-tag-functions79554
-Ref: semantic-format-tag-custom-list80003
-Ref: semantic-format-tag-name80665
-Ref: semantic-format-tag-abbreviate81234
-Ref: semantic-format-tag-summarize81880
-Ref: semantic-format-tag-prototype82398
-Ref: semantic-format-tag-concise-prototype83085
-Ref: semantic-format-tag-uml-abbreviate83635
-Ref: semantic-format-tag-uml-prototype84188
-Ref: semantic-format-tag-uml-concise-prototype84739
-Ref: semantic-format-tag-prin185293
-Ref: semantic-format-tag-type85730
-Node: Tag Members85953
-Ref: semantic-tag-external-member-p87498
-Ref: semantic-tag-external-member-children88341
-Node: Tag Details89479
-Ref: semantic-tag-protection89825
-Ref: semantic-tag-protected-p90895
-Ref: semantic-tag-abstract-p91381
-Ref: semantic-tag-leaf-p92134
-Ref: semantic-tag-static-p92766
-Node: Tag File Reference93278
-Ref: semantic-dependency-system-include-path93604
-Ref: semantic-dependency-tag-file94064
-Ref: semantic-prototype-file94733
-Ref: semantic-texi-find-documentation95251
-Node: Jump to a Tag95667
-Ref: semantic-go-to-tag96004
-Node: Making New Methods96898
-Ref: define-overload97604
-Ref: define-mode-local-override98841
-Ref: defvar-mode-local99556
-Ref: defconst-mode-local99705
-Ref: setq-mode-local100029
-Node: Parser Features100446
-Node: Editing Buffers101630
-Node: Parser State102277
-Ref: semantic-parse-tree-needs-update-p102688
-Ref: semantic-parse-tree-needs-rebuild-p102808
-Ref: semantic-parse-tree-unparseable-p102926
-Ref: semantic-parse-tree-up-to-date-p103047
-Node: Parser Hooks103111
-Ref: semantic-after-toplevel-cache-change-hook103383
-Ref: semantic-after-partial-cache-change-hook103971
-Ref: semantic-before-toplevel-cache-flush-hook104563
-Node: Lexical Safety104884
-Ref: semantic-lex-catch-errors105379
-Node: Semantic Database106135
-Node: Semanticdb in Programs107062
-Ref: semanticdb-minor-mode-p107383
-Ref: semanticdb-file-stream107839
-Ref: semanticdb-file-table-object108178
-Node: Semanticdb Tag Queries108507
-Node: DB Results110511
-Ref: semanticdb-strip-find-results111090
-Ref: semanticdb-fast-strip-find-results111612
-Ref: semanticdb-find-results-p112046
-Ref: semanticdb-find-result-with-nil-p112311
-Ref: semanticdb-find-result-length112785
-Ref: semanticdb-find-result-nth112873
-Ref: semanticdb-find-result-nth-in-buffer113251
-Ref: semanticdb-find-result-mapc113591
-Node: DB Search Paths113785
-Ref: semanticdb-find-default-throttle114489
-Ref: semanticdb-find-translate-path116071
-Ref: semanticdb-find-table-for-include117856
-Ref: defcustom-mode-local-semantic-dependency-system-include-path118696
-Node: DB Basic Name Search119132
-Ref: semanticdb-find-tags-by-name119679
-Ref: semanticdb-find-tags-by-name-regexp120024
-Ref: semanticdb-find-tags-for-completion120371
-Ref: semanticdb-find-tags-by-class120711
-Ref: semanticdb-deep-find-tags-by-name121063
-Ref: semanticdb-deep-find-tags-by-name-regexp121475
-Ref: semanticdb-deep-find-tags-for-completion121889
-Node: DB Data Type Search122200
-Ref: semanticdb-have-typecache-p122871
-Ref: semanticdb-get-typecache123001
-Ref: semanticdb-typecache-find123313
-Ref: semanticdb-typecache-dump123736
-Node: DB Basic Brute Search123785
-Ref: semanticdb-brute-deep-find-tags-by-name124191
-Node: DB Advanced Search124545
-Ref: semanticdb-find-tags-external-children-of-type125274
-Ref: semanticdb-find-tags-subclasses-of-type125642
-Node: DB Generic Search125908
-Ref: semanticdb-find-tags-collector126320
-Node: System Databases127215
-Ref: semanticdb-project-database-emacs-lisp127793
-Ref: semanticdb-project-database-ebrowse127925
-Ref: semanticdb-create-ebrowse-database128156
-Node: Semanticdb references128348
-Ref: semanticdb-includes-in-table129080
-Ref: semanticdb-notify-references129285
-Ref: semanticdb-check-references129621
-Ref: semanticdb-ref-test129869
-Node: Idle Scheduling130051
-Ref: define-semantic-idle-service131140
-Ref: semantic-throw-on-input131720
-Ref: semantic-exit-on-input132176
-Node: Example Programs132678
-Node: Current Context132888
-Node: Blocks133608
-Ref: semantic-up-context134150
-Ref: semantic-beginning-of-context134770
-Ref: semantic-end-of-context135076
-Ref: semantic-end-of-command135474
-Ref: semantic-beginning-of-command135714
-Node: Local Variables135916
-Ref: semantic-get-local-variables136305
-Ref: semantic-get-local-arguments136621
-Ref: semantic-get-all-local-variables137207
-Node: Derived Context137574
-Ref: semantic-ctxt-current-symbol138162
-Ref: semantic-ctxt-current-assignment138451
-Ref: semantic-ctxt-current-function138768
-Ref: semantic-ctxt-current-argument139180
-Ref: semantic-ctxt-current-thing139388
-Ref: semantic-ctxt-current-class-list139770
-Ref: semantic-ctxt-scoped-types140212
-Node: Context Analysis140539
-Ref: semantic-analyze-current-context141309
-Ref: semantic-analyze-possible-completions141959
-Node: Analysis Overview143045
-Node: Analysis Objects144824
-Node: Completion Overview145044
-Node: Data Debugger145244
-Ref: data-debug-edebug-expr146109
-Ref: semantic-adebug-bovinate146466
-Ref: semantic-adebug-searchdb146579
-Ref: semantic-adebug-analyze146721
-Ref: semantic-adebug-mode147019
-Ref: semantic-adebug-new-buffer147600
-Ref: data-debug-insert-thing147997
-Node: GNU Free Documentation License148249
-Node: Index167993
+Node: Top1148
+Node: Semantic Tags2769
+Node: Tag Basics3352
+Ref: semantic-tag-name5725
+Ref: semantic-tag-class6182
+Node: Tag Query7644
+Ref: semantic-tag-p7937
+Ref: semantic-equivalent-tag-p8181
+Ref: semantic-tag-similar-p8693
+Ref: semantic-tag-of-class-p9005
+Ref: semantic-tag-faux-p9092
+Ref: semantic-tag-type-compound-p9450
+Ref: semantic-tag-docstring9715
+Ref: semantic-tag-variable-constant-p10368
+Ref: semantic-tag-function-destructor-p10721
+Ref: semantic-tag-function-throws11068
+Ref: semantic-tag-modifiers11397
+Ref: semantic-tag-function-arguments12030
+Ref: semantic-tag-variable-default12396
+Ref: semantic-tag-type12761
+Ref: semantic-tag-of-type-p13216
+Ref: semantic-tag-named-parent13691
+Ref: semantic-tag-function-parent13975
+Ref: semantic-tag-type-superclasses14432
+Ref: semantic-tag-type-interfaces14888
+Ref: semantic-tag-type-members15334
+Ref: semantic-tag-include-system-p15681
+Ref: semantic-tag-include-filename16030
+Ref: semantic-tag-code-detail16582
+Ref: semantic-tag-components16779
+Ref: semantic-tag-components-default17157
+Ref: semantic-tag-children-compatibility17350
+Node: Tag Overlay17766
+Ref: semantic-tag-start18148
+Ref: semantic-tag-end18369
+Ref: semantic-tag-bounds18582
+Ref: semantic-tag-in-buffer-p18834
+Ref: semantic-tag-buffer18991
+Ref: semantic-tag-file-name19370
+Ref: semantic-tag-overlay19680
+Ref: semantic-tag-with-position-p20123
+Ref: semantic-tag-components-with-overlays20403
+Ref: semantic-tag-components-with-overlays-default21077
+Node: Tag Hooks21323
+Ref: semantic-tag-add-hook21744
+Ref: semantic-tag-remove-hook22152
+Ref: semantic--tag-run-hooks22682
+Node: Misc Tag Functions23660
+Ref: semantic-narrow-to-tag23876
+Ref: semantic-with-buffer-narrowed-to-current-tag24192
+Ref: semantic-with-buffer-narrowed-to-tag24525
+Node: Tag Internals24746
+Node: Tag Attributes Internals25034
+Ref: semantic-tag-attributes25255
+Ref: semantic-tag-get-attribute26089
+Ref: semantic-tag-put-attribute26843
+Ref: semantic-tag-put-attribute-no-side-effect27358
+Node: Tag Properties Internals27680
+Ref: semantic-tag-properties27931
+Ref: semantic--tag-put-property28273
+Ref: semantic--tag-get-property28699
+Ref: semantic--tag-put-property-no-side-effect29116
+Ref: semantic-tag-make-plist29705
+Node: Tag Overlay Internals30264
+Ref: semantic-tag-set-bounds30606
+Node: Creating Tags30673
+Ref: semantic-tag30892
+Ref: semantic-tag-new-variable31387
+Ref: semantic-tag-new-function31959
+Ref: semantic-tag-new-type32551
+Ref: semantic-tag-new-include33675
+Ref: semantic-tag-new-package34216
+Ref: semantic-tag-new-code34699
+Node: Copying Tags34901
+Ref: semantic-tag-clone35482
+Ref: semantic-tag-copy35808
+Ref: semantic-tag-deep-copy-one-tag36248
+Node: Misc Tag Internals36544
+Node: Searching Tag Tables38804
+Node: Breadth Search39761
+Ref: semantic-find-first-tag-by-name40155
+Ref: semantic-find-tags-by-name40432
+Ref: semantic-find-tags-for-completion40630
+Ref: semantic-find-tags-by-name-regexp41039
+Ref: semantic-find-tags-by-class41387
+Ref: semantic-find-tags-by-type41664
+Ref: semantic-find-tags-included42032
+Node: Deep Search42163
+Node: Specialty Search49050
+Ref: semantic-find-tags-of-compound-type49477
+Ref: semantic-find-tags-by-scope-protection49776
+Ref: semantic-find-tags-external-children-of-type50370
+Ref: semantic-find-tags-subclasses-of-type50646
+Node: Custom Search50867
+Ref: semantic--find-tags-by-function51370
+Ref: semantic--find-tags-by-macro51631
+Node: Tags at Point51763
+Node: Tag Decoration54625
+Node: Tag Highlighting55235
+Ref: semantic-highlight-tag55433
+Ref: semantic-unhighlight-tag55723
+Ref: semantic-momentary-highlight-tag55999
+Ref: semantic-set-tag-face56527
+Node: Tag Visible Properties56731
+Ref: semantic-set-tag-invisible57178
+Ref: semantic-tag-invisible-p57488
+Ref: semantic-set-tag-intangible57755
+Ref: semantic-tag-intangible-p58198
+Ref: semantic-set-tag-read-only58595
+Ref: semantic-tag-read-only-p58957
+Node: Tag Secondary Overlays59178
+Ref: semantic-tag-create-secondary-overlay59957
+Ref: semantic-tag-delete-secondary-overlay60380
+Ref: semantic-tag-get-secondary-overlay60685
+Ref: semantic-tag-secondary-overlays60867
+Node: Tag Folding61441
+Ref: semantic-set-tag-folded61763
+Ref: semantic-tag-folded-p61984
+Node: Tag Sorting62028
+Ref: semantic-unique-tag-table62488
+Ref: semantic-unique-tag-table-by-name62753
+Ref: semantic-bucketize62938
+Ref: semantic-bucketize-tag-class63562
+Ref: semantic-adopt-external-members64090
+Ref: semantic-orphaned-member-metaparent-type65000
+Ref: semantic-mark-external-member-function65256
+Node: Tag Completion65813
+Node: Tag Completion Convenience Functions66839
+Ref: semantic-complete-read-tag-project67866
+Ref: semantic-complete-read-tag-analyzer68465
+Ref: semantic-complete-inline-analyzer69171
+Node: Custom Tag Completion Functions69553
+Ref: semantic-complete-read-tag-engine70520
+Node: Tag Collectors72240
+Ref: semantic-collector-abstract72787
+Ref: semantic-collector-buffer-abstract73030
+Ref: semantic-collector-project-abstract73191
+Ref: semantic-collector-buffer-deep73392
+Ref: semantic-collector-project73603
+Ref: semantic-collector-project-brutish73695
+Ref: semantic-collector-analyze-completions73791
+Node: Tag Displayors74035
+Ref: semantic-displayor-abstract74734
+Ref: semantic-displayor-focus-abstract74962
+Ref: semantic-displayor-traditional75212
+Ref: semantic-displayor-traditional-with-focus-highlight75467
+Ref: semantic-displayor-tooltip75779
+Node: Old Tag Completion75901
+Ref: semantic-read-symbol76240
+Ref: semantic-read-variable76698
+Ref: semantic-read-function77031
+Ref: semantic-read-type77358
+Node: Override Methods77616
+Ref: semantic-with-mode-bindings78367
+Node: Format Tag79056
+Ref: semantic-format-tag-functions79639
+Ref: semantic-format-tag-custom-list80088
+Ref: semantic-format-tag-name80750
+Ref: semantic-format-tag-abbreviate81319
+Ref: semantic-format-tag-summarize81965
+Ref: semantic-format-tag-prototype82483
+Ref: semantic-format-tag-concise-prototype83170
+Ref: semantic-format-tag-uml-abbreviate83720
+Ref: semantic-format-tag-uml-prototype84273
+Ref: semantic-format-tag-uml-concise-prototype84824
+Ref: semantic-format-tag-prin185378
+Ref: semantic-format-tag-type85815
+Node: Tag Members86038
+Ref: semantic-tag-external-member-p87583
+Ref: semantic-tag-external-member-children88426
+Node: Tag Details89564
+Ref: semantic-tag-protection89910
+Ref: semantic-tag-protected-p90980
+Ref: semantic-tag-abstract-p91466
+Ref: semantic-tag-leaf-p92219
+Ref: semantic-tag-static-p92851
+Node: Tag File Reference93363
+Ref: semantic-dependency-system-include-path93689
+Ref: semantic-dependency-tag-file94149
+Ref: semantic-prototype-file94818
+Ref: semantic-texi-find-documentation95336
+Node: Jump to a Tag95752
+Ref: semantic-go-to-tag96089
+Node: Making New Methods96983
+Ref: define-overload97689
+Ref: define-mode-local-override98926
+Ref: defvar-mode-local99641
+Ref: defconst-mode-local99790
+Ref: setq-mode-local100114
+Node: Parser Features100531
+Node: Editing Buffers101715
+Node: Parser State102362
+Ref: semantic-parse-tree-needs-update-p102773
+Ref: semantic-parse-tree-needs-rebuild-p102893
+Ref: semantic-parse-tree-unparseable-p103011
+Ref: semantic-parse-tree-up-to-date-p103132
+Node: Parser Hooks103196
+Ref: semantic-after-toplevel-cache-change-hook103468
+Ref: semantic-after-partial-cache-change-hook104056
+Ref: semantic-before-toplevel-cache-flush-hook104648
+Node: Lexical Safety104969
+Ref: semantic-lex-catch-errors105464
+Node: Semantic Database106220
+Node: Semanticdb in Programs107147
+Ref: semanticdb-minor-mode-p107468
+Ref: semanticdb-file-stream107924
+Ref: semanticdb-file-table-object108263
+Node: Semanticdb Tag Queries108592
+Node: DB Results110596
+Ref: semanticdb-strip-find-results111175
+Ref: semanticdb-fast-strip-find-results111697
+Ref: semanticdb-find-results-p112131
+Ref: semanticdb-find-result-with-nil-p112396
+Ref: semanticdb-find-result-length112870
+Ref: semanticdb-find-result-nth112958
+Ref: semanticdb-find-result-nth-in-buffer113336
+Ref: semanticdb-find-result-mapc113676
+Node: DB Search Paths113870
+Ref: semanticdb-find-default-throttle114574
+Ref: semanticdb-find-translate-path116156
+Ref: semanticdb-find-table-for-include117941
+Ref: defcustom-mode-local-semantic-dependency-system-include-path118781
+Node: DB Basic Name Search119217
+Ref: semanticdb-find-tags-by-name119764
+Ref: semanticdb-find-tags-by-name-regexp120109
+Ref: semanticdb-find-tags-for-completion120456
+Ref: semanticdb-find-tags-by-class120796
+Ref: semanticdb-deep-find-tags-by-name121148
+Ref: semanticdb-deep-find-tags-by-name-regexp121560
+Ref: semanticdb-deep-find-tags-for-completion121974
+Node: DB Data Type Search122285
+Ref: semanticdb-have-typecache-p122956
+Ref: semanticdb-get-typecache123086
+Ref: semanticdb-typecache-find123398
+Ref: semanticdb-typecache-dump123821
+Node: DB Basic Brute Search123870
+Ref: semanticdb-brute-deep-find-tags-by-name124276
+Node: DB Advanced Search124630
+Ref: semanticdb-find-tags-external-children-of-type125359
+Ref: semanticdb-find-tags-subclasses-of-type125727
+Node: DB Generic Search125993
+Ref: semanticdb-find-tags-collector126405
+Node: System Databases127300
+Ref: semanticdb-project-database-emacs-lisp127878
+Ref: semanticdb-project-database-ebrowse128010
+Ref: semanticdb-create-ebrowse-database128241
+Node: Semanticdb references128433
+Ref: semanticdb-includes-in-table129165
+Ref: semanticdb-notify-references129370
+Ref: semanticdb-check-references129706
+Ref: semanticdb-ref-test129954
+Node: Idle Scheduling130136
+Ref: define-semantic-idle-service131225
+Ref: semantic-throw-on-input131805
+Ref: semantic-exit-on-input132261
+Node: Example Programs132763
+Node: Current Context132973
+Node: Blocks133693
+Ref: semantic-up-context134235
+Ref: semantic-beginning-of-context134855
+Ref: semantic-end-of-context135161
+Ref: semantic-end-of-command135559
+Ref: semantic-beginning-of-command135799
+Node: Local Variables136001
+Ref: semantic-get-local-variables136390
+Ref: semantic-get-local-arguments136706
+Ref: semantic-get-all-local-variables137292
+Node: Derived Context137659
+Ref: semantic-ctxt-current-symbol138247
+Ref: semantic-ctxt-current-assignment138536
+Ref: semantic-ctxt-current-function138853
+Ref: semantic-ctxt-current-argument139265
+Ref: semantic-ctxt-current-thing139473
+Ref: semantic-ctxt-current-class-list139855
+Ref: semantic-ctxt-scoped-types140297
+Node: Context Analysis140624
+Ref: semantic-analyze-current-context141394
+Ref: semantic-analyze-possible-completions142051
+Node: Analysis Overview143319
+Node: Analysis Objects145098
+Node: Completion Overview145318
+Node: Data Debugger145518
+Ref: data-debug-edebug-expr146383
+Ref: semantic-adebug-bovinate146740
+Ref: semantic-adebug-searchdb146853
+Ref: semantic-adebug-analyze146995
+Ref: semantic-adebug-mode147293
+Ref: semantic-adebug-new-buffer147874
+Ref: data-debug-insert-thing148271
+Node: GNU Free Documentation License148523
+Node: Index168267
 
 End Tag Table

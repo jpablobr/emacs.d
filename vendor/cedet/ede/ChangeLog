@@ -1,3 +1,296 @@
+2010-08-22  Eric M. Ludlam  <zappo@gnu.org>
+
+	* templates/ede-autoconf.srt: Comment fix.
+
+2010-08-19  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-cpp-root.el (ede-create-lots-of-projects-under-dir):
+	New command.  Needs work.
+
+2010-08-15  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-files.el (ede-find-file): Revert previous change.
+	(ede-flush-project-hash): New command.
+	(ede-project::ede-expand-filename): Fix doc.
+	Copy local file name query into below.
+	(ede-project::ede-expand-filename-local): New, copied contents from above.
+	(ede-project::ede-expand-filename-via-subproj): New.
+	(ede-project::ede-expand-filename-impl): Call new functions for
+	finding local files.
+
+	* ede-locate.el (ede-locate-base::initialize-instance): Fix typo.
+
+	* ede-locate.el (ede-locate-base::initialize-instance):
+	Call new fcn below.
+	(ede-locate-base::ede-locate-flush-hash): New fcn, copied parts from above.
+	(ede-locate-base::ede-locate-create/update-root-database)
+	(ede-locate-global::ede-locate-create/update-root-database)
+	(ede-locate-idutils::ede-locate-create/update-root-database)
+	(ede-locate-cscope::ede-locate-create/update-root-database):
+	New commands to make it easier to create different kinds of databases.
+
+2010-08-14  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-files.el (ede-find-file): Start at the root of the project.
+
+2010-08-01  Alex Ott <alexott@gmail.com>
+
+	* ede-proj-maven2.el:
+	small refactoring - move maven command into separate variable
+
+2010-07-31  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-base.el (ede-target, ede-project):
+	Fix menus to use new predicates for testing
+	the current buffer as belonging to a target or project.
+
+	* ede.el (ede-buffer-belongs-to-target-p,ede-buffer-belongs-to-project-p):
+	New.
+	(ede-target-forms-menu, ede-project-buffers): Use above.
+
+2010-07-25  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede.texi (Detecting a Project): Discuss .ede-ignore.
+
+	* ede-generic.el: Update Commentary.
+	Add seperator before ede-generic-new-autoloader.
+
+	* ede-files.el (ede-directory-project-p):
+	Always return nil of there is a file called
+	.ede-ignore in DIR.
+
+	* ede-simple.el: Make notes that this is obsolete.
+
+2010-07-24  Eric M. Ludlam  <zappo@gnu.org>
+
+	* Makefile (LOADPATH):
+	Updated after fixing Project.ede and regenerating this file.
+
+	* Project.ede ("projects"):
+	Add semantic and semantic-el as dependant packages.
+
+	* autoconf-edit.el (autoconf-new-automake-string): Deleted.
+	(autoconf-new-program): Use SRecode to fill an empty file.
+
+	* ede-proj-obj.el (ede-proj-target-makefile-objectcode):
+	Add support for lex and yacc
+
+	* ede-srecode.el (ede-srecode-setup):
+	Load in autoconf templates for SRecode.
+
+	* templates/Makefile (Templates_MISC): Add ede-autoconf.srt
+
+	* templates/Project.ede ("EDE_Templates"): Add ede-autoconf.srt
+
+	* templates/ede-autoconf.srt:
+	Templates for creating Autoconf (configure.ac) files.
+
+2010-07-18  Marco (Bj) Bardelli <safanaj@users.sourceforge.net>
+
+	* Makefile (LOADPATH): added semantic dirs for project-am.
+
+	* project-am.el (semantic):
+	Added dependency for find-tags-by... functions.
+	(project-am-meta-type-alist): A list to scan better Makefile.am
+	(project-am-scan-for-targets): Added some comments.
+	         Scan also over project-am-meta-type-alist.
+	(project-rescan::project-am-{lib,program}): Added a default source.
+	(ede-system-include-path::*): Simple implementation.
+
+2010-06-13  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-generic.el (ede-generic-new-autoloader): Expand doc.
+
+	* ede.texi (Simple projects): Fix menu.
+
+	* ede.texi (Simple projects):
+	Add menu items for Generic and Add Generic Support
+	(Generic, Add Generic Support): New nodes.
+	(ede-simple subclassing): Deleted.  Now replaced with Generic projects.
+
+	* Makefile (projects_LISP): Add ede-generic.el
+
+	* Project.ede (projects): Add ede-generic.el
+
+	* ede-generic.el (ede-generic-load):
+	Change default name to match the directory.
+	(ede-generic-target): Add a shortname class slot.
+	(ede-generic-target-c-cpp, ede-generic-target-el, ede-generic-target-fortran)
+	(ede-generic-target-texi, ede-generic-target-misc): Specify the shortname
+	(ede-generic-project::ede-find-target): Use shortname, not dirname.
+	(ede-generic-new-autoloader): New utility.
+	(ede-enable-generic-projects): New command/setup utility.
+	(ede-generic-makefile-project::ede-generic-setup-configuration)
+	(ede-generic-scons-project::ede-generic-setup-configuration)
+	(ede-generic-cmake-project::ede-generic-setup-configuration): Doc fix.
+
+2010-06-12  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-proj-skel.el (ede-proj-target-%NAME%): Quote initforms.
+
+	* ede-proj-shared.el (ede-proj-target-makefile-shared-object):
+	Quote initforms.
+
+	* ede-proj-obj.el (ede-proj-target-makefile-objectcode):
+	Quote initforms.
+
+	* ede-proj-misc.el (ede-proj-target-makefile-miscelaneous):
+	Quote initforms.
+
+	* ede-proj-info.el (ede-proj-target-makefile-info):
+	* ede-proj-elisp.el (ede-proj-target-elisp, ede-proj-target-elisp-autoloads):
+	Quote initforms.
+
+	* ede-proj-aux.el (ede-proj-target-aux): Quote initforms.
+
+	* ede-proj-archive.el (ede-proj-target-makefile-archive):
+	Quote initforms.
+
+2010-06-06  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-proj.el (ede-proj-target::ede-proj-compilers):
+	Add error if no compiler is found
+	(ede-proj-target::ede-proj-linkers): Remove comment suggesting it is
+	bad to not find a linker.
+
+	* ede-proj-obj.el (ede-source-c++): Add some more extensions for c++.
+
+2010-06-04  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-proj.el: (ede-proj-target::ede-proj-compilers)
+	(ede-proj-target::ede-proj-linkers): Remove error message as it fails tests.
+
+	* ede-proj.el (ede-proj-target::ede-proj-compilers):
+	Add a better error message.
+
+2010-05-30  Richard Y. Kim <emacs18@gmail.com>
+
+	* ede.texi:
+	Replaced ll tab charactersin all texinfo files with equivalent number of spaces assuming tab width of 8.
+
+2010-05-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-linux.el (ede-linux-project::initialize-instance):
+	Fix doc string.
+
+	* ede-emacs.el (ede-emacs-project::initialize-instance):
+	Fix doc string.
+
+	* ede.el (ede-constructing): Update doc string.
+	(ede-load-project-file): Set ede-constructing to the thing
+	being constructed instead of t.
+
+	* ede-custom.el:
+	(ede-customize-project, ede-customize-current-target, ede-customize-target)
+	Remove 'group argument, as it wasn't being used.
+	(ede-project::ede-customize, ede-target::ede-customize):
+	New methods.
+
+2010-05-16  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-proj-prog.el (ede-proj-target-makefile-program):
+	Add ldlibs-local slot.
+	(ede-proj-target-makefile-program::ede-proj-makefile-insert-automake-post-variables):
+	Use ldlibs-local slot.  Add a -l to ldlibs strings.
+
+	* ede-proj-prog.el (ede-proj-target-makefile-program):
+	Swap order of two slots so they
+	show up in the order in which they are presented in the command line.
+	(ede-proj-target-makefile-program::ede-proj-makefile-insert-automake-post-variables):
+	Don't create a DEPENDENCIES variable.  Glom everything into LDADD.
+
+2010-05-09  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-generic.el (ede-generic-config): change default debug command.
+	(ede-generic-project::ede-generic-get-configuration): Add call to
+	ede-generic-setup-configuration
+	(ede-generic-project::ede-generic-setup-configuration): New
+	(ede-generic-makefile-project::ede-generic-setup-configuration)
+	(ede-generic-scons-project, ede-generic-setup-configuration)
+	(ede-generic-cmake-project, ede-generic-setup-configuration): New
+
+2010-05-08  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-generic.el:
+	New generic EDE project for detecting some basic types of projects,
+	and generic support for those targets.
+
+2010-04-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* templates/Makefile (VERSION): Update to version 1.0
+
+	* Makefile (VERSION): Update to 1.0
+
+	* Project.ede ("EDE"): Update version to 1.0
+
+	* ede.el (ede-version): Update to 1.0
+
+	* ede-proj-obj.el (ede-cc-linker, ede-g++-linker, ede-ld-linker):
+	Use the LDDEPS
+	variable we've been creating.
+
+	* ede-proj-prog.el (ede-proj-makefile-insert-automake-post-variables):
+	Fix bytecomp warnings.
+
+	* ede-proj-prog.el (ede-proj-makefile-insert-automake-post-variables):
+	Add _DEPENDENCIES
+	var in addition to the _LDADD variable.
+	(ede-proj-makefile-insert-rules): Removed
+	(ede-proj-makefile-insert-variables): New, add LDDEPS
+
+	* ede-proj-shared.el (ede-g++-libtool-shared-compiler):
+	Fix inference rule to use cpp files.
+
+2010-04-09  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-dired.el (ede-dired-minor-mode):
+	call cedet-called-interactively-p instesd of interactive-p
+
+	* ede.el (ede-minor-mode): Use cedet-called-interactively-p.
+
+	* ede-make.el (ede-make-check-version):
+	Use cedet-called-interactively-p.
+
+	* ede-locate.el (ede-enable-locate-on-project):
+	Use cedet-called-interactively-p.
+
+2010-03-26  Lluís <xscript@users.sourceforge.net>
+
+	* ede-base.el, ede-cpp-root.el, ede-files.el, ede-locate.el, ede-make.el, ede-simple.el, ede.el:
+	Import CEDET changes from Emacs' trunk.
+
+2010-03-25  Lluís <xscript@users.sourceforge.net>
+
+	* ede-proj-comp.el, ede-proj-prog.el: Delete use of `declare-function'.
+	* ede-proj-prog.el (ede-shell-run-something): Ditto.
+	* ede-proj-comp.el (ede-pmake-insert-variable-once): Ditto.
+
+2010-03-16  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-pconf.el (ede-proj-project::ede-proj-configure-synchronize):
+	If user events occur while waiting for the compile process to finish,
+	pull them in and discard those events.
+
+2010-03-15  Lluís <xscript@users.sourceforge.net>
+
+	* autoconf-edit.el, ede-auto.el, ede-base.el, ede-cpp-root.el, ede-custom.el, ede-dired.el, ede-emacs.el, ede-files.el, ede-linux.el, ede-locate.el, ede-pconf.el, ede-pmake.el, ede-proj-aux.el, ede-proj-comp.el, ede-proj-elisp.el, ede-proj-misc.el, ede-proj-obj.el, ede-proj-prog.el, ede-proj-shared.el, ede-proj.el, ede-projects.texi, ede-shell.el, ede-source.el, ede-speedbar.el, ede-util.el, ede.el, makefile-edit.el, project-am.el:
+	Import CEDET changes from Emacs' trunk.
+
+2010-03-13  Marco (Bj) Bardelli <safanaj@users.sourceforge.net>
+
+	* project-am.el: * ede/project-am.el (project-am-extract-package-info):
+	  Fix configoutputfiles split char.
+
+2010-03-09  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede.el (ede-customize-forms-menu):
+	Prevent error if there is no project.
+
+2010-02-27  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-proj.el (ede-proj-project::ede-buffer-mine):
+	Add some more file names that belong to the project.
+
 2010-02-23  Eric M. Ludlam  <zappo@gnu.org>
 
 	* ede-shell.el (ede-shell-buffer): Add missing * to end of buffer name.
@@ -2078,7 +2371,7 @@
 	* Project.ede (ede-proj-project "EDE"): Fixed :version string to be
 	compatible with inversion decoder.
 
-2002-12-23  Richard Y. Kim <ryk@ap.com>
+2002-12-23  Richard Y. Kim <emacs18@gmail.com>
 
 	* ede-proj.el:
 	Surrounded (require 'ede) with eval-and-compile.  Without this fix, byte-compiled file is truncated after only one line of code!

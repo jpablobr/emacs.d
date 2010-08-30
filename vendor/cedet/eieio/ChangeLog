@@ -1,3 +1,106 @@
+2010-08-19  Eric M. Ludlam  <zappo@gnu.org>
+
+	* eieio.texi (Class Options): Discuss :c3
+	(Method Invocation): Wrote this section.
+
+2010-06-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* eieio-tests.el (test-subordinate, test-superior, broken-init):
+	New test classes.
+
+	* eieio.el (eieio-perform-slot-validation-for-default):
+	Don't do the check for
+	values that will eventually be evaluated.
+	(eieio-eval-default-p): New.
+	(eieio-default-eval-maybe): Use above.
+
+2010-06-12  Eric M. Ludlam  <zappo@gnu.org>
+
+	* eieio.texi (Building Classes):
+	List attributes that cannot be overriden.
+
+	* eieio-tests.el (class-a::generic1): Add impl
+	(generic1): New fully generic method
+	Test the above.
+	(eieio-test-permuting-value): New test variable.
+	(inittest): New class testing initializer evalulation temporality.
+	Test the above.
+
+	* eieio.el (eieio-specialized-key-to-generic-key): New utility
+	(eieio-defmethod, eieio-generic-form): Use above to calc generic key.
+	(eieio-default-eval-maybe): Eval val instead of unquoting only.
+	(class-precedence-list): If class is nil, return nil.
+	(eieio-generic-call): If class of first input arg is nil, then don't
+	look up static methods, and do check for primary methods.
+	Also use eieio-specialized-key-to-generic-key.
+	(eieio-default-superclass::initialize-instance):
+	See if the default needs to be evaluated during the constructor.
+
+2010-05-30  Richard Y. Kim <emacs18@gmail.com>
+
+	* eieio.texi:
+	Replaced ll tab charactersin all texinfo files with equivalent number of spaces assuming tab width of 8.
+
+2010-04-23  Eric M. Ludlam  <zappo@gnu.org>
+
+	* Makefile (VERSION): Update to 1.3
+
+	* Project.ede ("eieio"): Update to version 1.3
+
+	* eieio.el (eieio-version): Update to 1.3.
+
+2010-04-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* eieio-test-methodinvoke.el: (eieio-test-method-order-list)
+	(Ja::initialize-instance)
+	(Jd::initialize-instance): Remove some message printing.
+
+	* eieio.texi (Slot Options):
+	Remove bits about lambda and lambda-default.
+
+2010-04-09  Eric M. Ludlam  <zappo@gnu.org>
+
+	* eieio-opt.el (eieio-describe-class, eieio-describe-generic): call
+	cedet-called-interactively-p instead of interactive-p
+
+2010-03-29  Eric M. Ludlam  <zappo@gnu.org>
+
+	* eieio-comp.el (byte-compile-compiled-obj-to-list):
+	New impl from Aidan Kehoe
+
+2010-03-03  Eric M. Ludlam  <zappo@gnu.org>
+
+	* Makefile (test_LISP): add eieio-test-mro.el
+
+2010-03-03  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* Project.ede ("eieio"): added eieio-test-mro.el
+
+	* eieio-test-mro.el:
+	Initial revision; some tests for new class precedence list functions
+
+	* eieio.el (eieio-defclass): allow :c3 method-invocation-order
+	(eieio-c3-candidate):
+	(eieio-c3-merge-lists): new functions; used by c3 class precedence
+	list algorithm
+	(eieio-class-precedence-dfs): compute class precedence list using dfs
+	algorithm
+	(eieio-class-precedence-bfs): compute class precedence list using bfs
+	algorithm
+	(eieio-class-precedence-c3): compute class precedence list using c3
+	algorithm
+	(class-precedence-list): new function; compute class precedence list
+	according to dfs, bfs or c3 algorithm
+	(eieiomt-method-list):
+	(eieiomt-sym-optimize): use new function `class-precedence-list'
+	(inconsistent-class-hierarchy): new error symbol
+
+2010-02-27  Eric M. Ludlam  <zappo@gnu.org>
+
+	* chart.el (chart-width,chart-height): New.
+	(chart::initialize-instance): Use above.
+	(chart::chart-draw-title): Use above.
+
 2010-01-07  Eric M. Ludlam  <zappo@gnu.org>
 
 	* eieio.el:
@@ -1520,7 +1623,7 @@
 	* eieio-doc.el (eieiodoc-one-node):
 	Fixed texification of the doc string for the class.
 
-2001-04-24  Richard Y. Kim <ryk@ap.com>
+2001-04-24  Richard Y. Kim <emacs18@gmail.com>
 
 	* tree.el: Added autoload cookies for the three top level comands.
 	Also set `truncate-lines' to `t' in `tree-mode' function to prevent line-wrapping.
@@ -1531,7 +1634,7 @@
 	If a persistent write fails, make sure the user isn't asked about
 	killing the buffer that was temporarilly created for writing.
 
-2001-04-17  Richard Y. Kim <ryk@ap.com>
+2001-04-17  Richard Y. Kim <emacs18@gmail.com>
 
 	* call-tree.el: Added `;;;###autoload' for `call-tree'.
 

@@ -1,3 +1,34 @@
+2010-07-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* wisent-csharp.el (wisent-csharp-lex-ignore-region, wisent-csharp-lex-ignore-endregion):
+	Enforce these expressions as occuring at the beginning of a line.
+
+2010-06-12  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ede-gnustep.el:
+	(ede-step-target-ctool, ede-step-target-tool, ede-step-target-clibrary)
+	(ede-step-target-library, ede-step-target-application)
+	(ede-step-target-documentation): Quote initforms that are lists of symbols.
+
+2010-04-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* Makefile (VERSION): Update to 1.0
+
+	* Project.ede ("Contrib"): Update to 1.0
+
+	* cedet-contrib.el (cedet-contrib-version): Update to 1.0
+
+2010-04-09  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-tag-folding.el (semantic-tag-folding-mode):
+	call cedet-called-interactively-p instead
+	of interactive-p
+
+2010-03-15  Lluís <xscript@users.sourceforge.net>
+
+	* ede-gnustep.el, semantic-tag-folding.el:
+	Import CEDET changes from Emacs' trunk.
+
 2010-02-08  Eric M. Ludlam  <zappo@gnu.org>
 
 	* eassist.el: Patch from Kiwon Um

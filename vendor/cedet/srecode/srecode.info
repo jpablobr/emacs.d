@@ -27,14 +27,14 @@ commonality allows it to work in multiple languages with ease.
 * Menu:
 
 * Quick Start::                 Basic Setup for template insertion.
-* User Templates::	        Custom User Templates
-* Parts of SRecode::		Parts of the system
-* SRecode Minor Mode::		A minor mode for using templates
-* Template Writing::		How to write a template
+* User Templates::              Custom User Templates
+* Parts of SRecode::            Parts of the system
+* SRecode Minor Mode::          A minor mode for using templates
+* Template Writing::            How to write a template
 * Dictionaries::                How dictionaries work
 * Developing Template Functions:: How to write your own template insert functions.
 * Template Naming Conventions:: Creating a set of core templates
-* Inserting Tag Lists::	        Inserting Semantic tags via templates
+* Inserting Tag Lists::         Inserting Semantic tags via templates
 * Application Writing::         Writing an SRecoder application
 * Index::
 
@@ -567,7 +567,7 @@ A template represents a text pattern that can be inserted into a buffer.
      ----
      The text to your template goes here.
      ----
-     binding "a"
+     bind "a"
 
    Templates are stored in a template table by name, and are inserted by
 the TEMPLATENAME provided.
@@ -618,7 +618,7 @@ variable with a specialized value.
 character):
 
      template variable :el
-     "Inert a variable.
+     "Insert a variable.
      DOC is optional."
      ----
      (defvar $?NAME$ $^$
@@ -714,7 +714,7 @@ THAT will be inserted and either trimmed to, or expanded to 4
 characters in width.
 
    Macros that are prefixed with the "#" symbol denote a section.  A
-macro of the same name with a "\\" prefix denotes the end of that
+macro of the same name with a "/" prefix denotes the end of that
 section.
 
      {{#MOOSE}}
@@ -879,9 +879,9 @@ the *Note Template Argument Dictionary Entries:: section.
 * Menu:
 
 * Create a Dictionary::
-* Setting Dictionary Values::	Basic dictionary values
-* Compound Dictionary Values::	Complex dictionary values
-* Argument Resolution::	        Automatic template argument resolution
+* Setting Dictionary Values::   Basic dictionary values
+* Compound Dictionary Values::  Complex dictionary values
+* Argument Resolution::         Automatic template argument resolution
 * Creating new Arguments::      Create new arguments for use in templates
 * Querying a Dictionary::       Querying a dictionary for values.
 * Template Argument Dictionary Entries:: Catalog of arguments
@@ -990,16 +990,16 @@ methods:
 
      (defclass srecode-semantic-tag (srecode-dictionary-compound-value)
        ((prime :initarg :prime
-     	  :type semantic-tag
-     	  :documentation
-     	  "This is the primary insertion tag.")
+               :type semantic-tag
+               :documentation
+               "This is the primary insertion tag.")
         )
        "Wrap up a collection of semantic tag information.
      This class will be used to derive dictionary values.")
 
      (defmethod srecode-compound-toString((cp srecode-semantic-tag)
-     				     function
-     				     dictionary)
+                                          function
+                                          dictionary)
        "Convert the compound dictionary value CP to a string.
      If FUNCTION is non-nil, then FUNCTION is somehow applied to an
      aspect of the compound value."
@@ -1430,7 +1430,7 @@ Emacs Lisp code yourself.
    For example:
 
      (defun my-srecode-insert (template-name)
-       "Inesrt the template TEMPLATE-NAME into the current buffer at point."
+       "Insert the template TEMPLATE-NAME into the current buffer at point."
 
        ;; Read in a template name.
        (interactive (list (srecode-read-template-name "Template Name: ")))
@@ -1438,8 +1438,8 @@ Emacs Lisp code yourself.
            (error "No template table found for mode %s" major-mode))
        (let ((temp (srecode-template-get-table (srecode-table) template-name))
 
-             ;; Create a new dictionary
-             (newdict (srecode-create-dictionary)))
+            ;; Create a new dictionary
+     	(newdict (srecode-create-dictionary)))
 
          (if (not temp)
              (error "No Template named %s" template-name))
@@ -1557,7 +1557,7 @@ generally use the default copyright insertion mechanism.
 8.2 Context: Declaration
 ========================
 
-Functional languages should attempt to support the folowing:
+Functional languages should attempt to support the following:
 
 `function'
      A standalone function.  Not a method, external method, or other.
@@ -1663,7 +1663,7 @@ templates to make it work.
 
  -- Function: srecode-semantic-insert-tag tag &optional style-option
           point-insert-fcn &rest dict-entries
-     Insert TAG into a buffer useing srecode templates at point.
+     Insert TAG into a buffer using srecode templates at point.
 
      Optional STYLE-OPTION is a list of minor configuration of styles,
      such as the symbol `'prototype' for prototype functions, or
@@ -1697,7 +1697,7 @@ templates to make it work.
 
      This function returns to location in the buffer where the inserted
      tag ENDS, and will leave point inside the inserted text based on
-     any occurance of a point-inserter.  Templates such as "function"
+     any occurrence of a point-inserter.  Templates such as "function"
      will leave point where code might be inserted.
 
 
@@ -1743,59 +1743,59 @@ File: srecode.info,  Node: Index,  Prev: Application Writing,  Up: Top
 
 Tag Table:
 Node: Top168
-Node: Quick Start1518
-Ref: srecode-map-load-path2237
-Ref: srecode-insert2435
-Node: User Templates2828
-Ref: srecode-map-save-file3210
-Node: Parts of SRecode4719
-Node: SRecode Minor Mode8606
-Ref: srecode-insert-ask-variable-method9999
-Node: Template Writing11186
-Ref: `SRecode-template-mode'11330
-Node: Variables12449
-Node: String Values13475
-Node: Multi-string Values13904
-Node: Section Show14738
-Node: Special Variables15261
-Node: Automatic Loop Variables18347
-Node: Compound Variable Values18986
-Node: Templates19472
-Node: Template Section Dictionaries20350
-Node: Template Macros22859
-Node: Contexts26275
-Node: Prompts27317
-Node: Dictionaries29191
-Node: Create a Dictionary30131
-Ref: srecode-create-dictionary30340
-Node: Setting Dictionary Values30610
-Ref: srecode-dictionary-set-value31085
-Ref: srecode-dictionary-show-section31316
-Ref: srecode-dictionary-add-section-dictionary31483
-Node: Compound Dictionary Values32434
-Ref: srecode-dictionary-compound-value32906
-Ref: srecode-compound-toString33367
-Ref: srecode-dump33739
-Node: Argument Resolution34733
-Ref: srecode-resolve-arguments35203
-Node: Creating new Arguments35317
-Node: Querying a Dictionary36299
-Ref: srecode-dictionary-lookup-name36806
-Node: Template Argument Dictionary Entries37059
-Node: Base Arguments37685
-Node: Semantic Arguments40949
-Ref: srecode-semantic-selected-tag41587
-Node: Language Arguments43332
-Node: Developing Template Functions45421
-Ref: srecode-read-template-name47861
-Ref: srecode-table48240
-Ref: srecode-template-get-table48474
-Ref: srecode-insert-fcn49667
-Node: Template Naming Conventions49772
-Node: Inserting Tag Lists53443
-Ref: srecode-semantic-insert-tag54032
-Node: Application Writing55716
-Ref: srecode-load-tables-for-mode56645
-Node: Index56970
+Node: Quick Start1551
+Ref: srecode-map-load-path2270
+Ref: srecode-insert2468
+Node: User Templates2861
+Ref: srecode-map-save-file3243
+Node: Parts of SRecode4752
+Node: SRecode Minor Mode8639
+Ref: srecode-insert-ask-variable-method10032
+Node: Template Writing11219
+Ref: `SRecode-template-mode'11363
+Node: Variables12482
+Node: String Values13508
+Node: Multi-string Values13937
+Node: Section Show14771
+Node: Special Variables15294
+Node: Automatic Loop Variables18380
+Node: Compound Variable Values19019
+Node: Templates19505
+Node: Template Section Dictionaries20380
+Node: Template Macros22890
+Node: Contexts26305
+Node: Prompts27347
+Node: Dictionaries29221
+Node: Create a Dictionary30164
+Ref: srecode-create-dictionary30373
+Node: Setting Dictionary Values30643
+Ref: srecode-dictionary-set-value31118
+Ref: srecode-dictionary-show-section31349
+Ref: srecode-dictionary-add-section-dictionary31516
+Node: Compound Dictionary Values32467
+Ref: srecode-dictionary-compound-value32939
+Ref: srecode-compound-toString33400
+Ref: srecode-dump33772
+Node: Argument Resolution34843
+Ref: srecode-resolve-arguments35313
+Node: Creating new Arguments35427
+Node: Querying a Dictionary36409
+Ref: srecode-dictionary-lookup-name36916
+Node: Template Argument Dictionary Entries37169
+Node: Base Arguments37795
+Node: Semantic Arguments41059
+Ref: srecode-semantic-selected-tag41697
+Node: Language Arguments43442
+Node: Developing Template Functions45531
+Ref: srecode-read-template-name47963
+Ref: srecode-table48342
+Ref: srecode-template-get-table48576
+Ref: srecode-insert-fcn49769
+Node: Template Naming Conventions49874
+Node: Inserting Tag Lists53546
+Ref: srecode-semantic-insert-tag54135
+Node: Application Writing55819
+Ref: srecode-load-tables-for-mode56748
+Node: Index57073
 
 End Tag Table

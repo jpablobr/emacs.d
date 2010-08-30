@@ -1,3 +1,597 @@
+2010-08-19  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-grammar.el (semantic-grammar-create-package):
+	After evaluating the created buffer,
+	find all the defvars, and force them to be reset with eval-defun.
+
+2010-08-05  Eric M. Ludlam  <zappo@gnu.org>
+
+	* tests/testsubclass.cpp (deer): Add moose and ~moose implementations.
+	Add analyzer ref test here.
+
+	* tests/testsubclass.hh (deer::moose): un-implement
+	(deer::moose::~moose): new.
+
+	* semantic-ia-utest.el:
+	(semantic-ia-utest-buffer, semantic-ia-utest-buffer-refs)
+	(semantic-sr-utest-buffer-refs): Improve error output.
+
+	* semantic-ia.el (semantic-ia-show-summary):
+	If there isn't anything to show, say so.
+
+	* semanticdb-find.el (semanticdb-find-result-mapc):
+	Rename internal variables to something
+	less useful.
+
+	* bovine/semantic-c.el (semantic-c-reconstitute-token):
+	Use the optional initializers as a clue that some function is probably
+	a constructor.  When defining the type of these constructors, split
+	the parent name, and use only the class part ... if applicable.
+
+	* bovine/c.by (func-decl): Pass in the optional initializers.
+
+	* semantic-analyze-refs.el:
+	(semantic-analyze-references::semantic-analyze-refs-impl)
+	(semantic-analyze-references::semantic-analyze-refs-proto):
+	When calculating value, make sure the found tag is 'similar' to the
+	originating tag, thus stripping out tags that may have the same name.
+	Constructors and destructors in C++ had this problem.
+
+2010-07-25  Eric M. Ludlam  <zappo@gnu.org>
+
+	* Makefile (Database_LISP): Add semanticdb-cscope.el
+
+	* Project.ede ("Database"): Add semanticdb-cscope.el
+
+	* semanticdb-cscope.el (semanticdb-test-cscope-startfile):
+	Remove 'gnu' from name. Fix value.
+	(semanticdb-test-cscope): Remove 'gnu' from name, and fcns referenced.
+
+	* semanticdb-cscope.el (all symbols):
+	Deleted.  Replaced entire content with
+	semanticdb-global.el and rewrote to use cscope instead.
+
+	* semanticdb-global.el (semanticdb-enable-gnu-global-hook): Fix doc.
+
+2010-07-24  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-imenu.el (semantic-imenu-bucketize-type-members):
+	Make this buffer local, not the obsoleted variable.
+
+2010-07-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* tests/testusing.cpp (Found, unfoundfunc):
+	New test features for unfound stuff.
+
+2010-06-13  Eric M. Ludlam  <zappo@gnu.org>
+
+	* doc/user-guide.texi (Symref - Symbol References):
+	Add semantic-symref-regexp.
+
+	* symref/semantic-symref-list.el (semantic-symref-regexp): New command.
+
+2010-06-06  Eric M. Ludlam  <zappo@gnu.org>
+
+	* senator.el (senator-prefix-map):
+	Add m binding for jump to local members
+	(senator-menu-bar): Add menu for jumpt to local members.
+
+	* semantic-complete.el (semantic-complete-jump-local-members):
+	Make robust to funky tags.
+
+	* semantic-complete.el (semantic-collector-local-members): New class.
+	(semantic-complete-read-tag-local-members): New function
+	(semantic-complete-jump-local-members): New command.
+
+2010-05-30  Richard Y. Kim <emacs18@gmail.com>
+
+	* doc/C99-gram.texi, doc/app-dev-guide.texi, doc/grammar-fw.texi, doc/installation.texi, doc/internals.texi, doc/minor-modes.texi, doc/semantic.texi, doc/tags.texi, doc/user-guide.texi, doc/wisent.texi:
+	Replaced ll tab charactersin all texinfo files with equivalent number of spaces assuming tab width of 8.
+
+2010-05-21  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* semantic-idle.el (semantic-idle-breadcrumbs-format-tag-list-function):
+	updated
+	docstring to reflect that the function has to take an additional
+	argument
+	(semantic-idle-breadcrumbs--format-tag-list): call value of
+	semantic-idle-breadcrumbs-format-tag-list-function with additional
+	max-length argument
+	(semantic-idle-breadcrumbs--format-linear): added optional argument
+	max-length; it is ignored
+	(semantic-idle-breadcrumbs--format-innermost-first): mostly rewritten;
+	added optional argument max-length; use it to shorten innermost tag
+	format if required
+
+	* semantic-idle.el (semantic-idle-breadcrumbs--format-innermost-first):
+	use
+	semantic-idle-breadcrumbs--format-tag to format tag; otherwise the
+	appropriate text properties are not added
+	(semantic-idle-breadcrumbs--format-tag): accept the semantic tag
+	formatting function to use as an optional argument
+
+2010-05-04  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-idle.el: (semantic-idle-summary-current-symbol-info-default)
+	(semantic-idle-local-symbol-highlight)
+	(semantic-idle-completion-list-default):
+	Wrap contents in semanticdb-without-unloaded-file-searches so that
+	they are faster, and conform to the controls that specify if the idle
+	timer is supposed to be parsing unparsed includes.
+
+	* semantic-fw.el (semanticdb-without-unloaded-file-searches):
+	Fix indent function.
+
+	* semantic-fw.el (semanticdb-without-unloaded-file-searches): New.
+
+2010-05-03  Eric M. Ludlam  <zappo@gnu.org>
+
+	* symref/semantic-symref-grep.el (semantic-symref-derive-find-filepatterns):
+	Change error to indicate
+	what needs to be customized.
+
+	* semanticdb.el (semanticdb-current-database-list):
+	When calculating a root vai hooks, force it through true-filename, and
+	skip the list of possible roots.
+
+2010-05-02  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* semantic-idle.el (semantic-idle-breadcrumbs-display-function):
+	improved docstring
+	(semantic-idle-breadcrumbs-format-tag-list-function): new
+	customization option; function used to format lists of tags
+	(semantic-idle-breadcrumbs--display-in-header-line): call
+	`semantic-idle-breadcrumbs--format-tag-list'
+	(semantic-idle-breadcrumbs--display-in-mode-line): call
+	`semantic-idle-breadcrumbs--format-tag-list'
+	(semantic-idle-breadcrumbs--format-tag-list): renamed
+	`semantic-idle-breadcrumbs--make-format' ->
+	`semantic-idle-breadcrumbs--format-tag-list'
+	(semantic-idle-breadcrumbs--format-linear): new function; implements
+	old behavior of `semantic-idle-breadcrumbs--format-tag-list'
+	(semantic-idle-breadcrumbs--format-innermost-first): new function;
+	format a tag-list by placing the innermost tag first.
+
+2010-05-02  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-doc.el (semantic-documentation-comment-preceeding-tag):
+	If the mode doesn't
+	provide comment-start-skip, then do nothing.
+
+	* semantic-ia.el (semantic-ia-show-doc):
+	If the doc is empty, use message instead of a
+	tmp buffer.
+
+2010-04-27  Eric M. Ludlam  <zappo@gnu.org>
+
+	* doc/user-guide.texi (Smart Summary): Add semantic-ia-show-variants
+
+	* doc/app-dev-guide.texi (Context Analysis):
+	Update doc for semantic-analyze-possible-completions
+
+	* semantic-ia.el (semantic-ia-show-variants): New command.
+
+	* semantic-analyze-complete.el (semantic-analyze-possible-completions):
+	Add &rest FLAGS argument.
+	Mode specific.
+	(semantic-analyze-possible-completions-default): Add FLAGS arguments.
+	Add support for 'no-tc (type constraint) and
+	'no-unique, or no stripping duplicates.
+
+2010-04-26  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-ia-utest.el (semantic-ia-utest-buffer):
+	Sort actual and desired to force a match.
+
+2010-04-22  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* doc/minor-modes.texi (Code Helpers): added breadcrumbs mode
+	(Breadcrumbs Mode): new node; description of the idle breadcrumbs mode
+
+2010-04-20  Eric M. Ludlam  <zappo@gnu.org>
+
+	* doc/minor-modes.texi (Code Helpers): Add menu item for below.
+	(Local Symbol Highlight Mode): New.
+
+	* semantic-idle.el: (semantic-idle-symbol-highlight-face)
+	(semantic-idle-symbol-maybe-highlight): Fix doc.
+
+	* semantic-load.el (semantic-load-enable-excessive-code-helpers):
+	Rename
+	semantic-idle-tag-highlight-mode to
+	semantic-idle-local-symbol-highlight-mode
+
+	* senator.el ("Idle Symbol Highlight"): Renamed functions called.
+
+	* semantic-idle.el (semantic-idle-symbol-highlight-face):
+	Renamed from semantic-idle-symmary-highlight-face
+	(semantic-idle-symbol-maybe-highlight): Renamed from semantic-idle-summary-maybe-highlight
+	(semantic-idle-local-symbol-highlight): Renamed from semantic-idle-tag-highlight
+
+2010-04-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* wisent/Makefile, tests/Makefile (VERSION): Update to 2.0
+
+	* symref/Makefile (VERSION): Update to 2.0.
+
+	* doc/user-guide.texi (SymRef): Add a menu with:
+	(SymRef Results Mode): New node.  Some bits from above.
+	Add keybinding list.
+	(Configuring SymRef): New, with bits from the old node.
+	(Document): Remove a todo.
+
+	* doc/app-dev-guide.texi (Tags at Point):
+	Remove semantic-recursive-find-nonterminal-by-name
+
+	* doc/Makefile, ctags/Makefile, bovine/Makefile (VERSION):
+	Update to 2.0
+
+	* semantic-analyze.el (semantic-analyze-find-tag): doc fix.
+
+	* Makefile (VERSION): Update to 2.0
+
+	* Project.ede ("semantic"): Update to version 2.0.
+
+	* semantic-utest.el (semantic-utest-C,semantic-utest-generic):
+	Add sanity check calls.
+
+	* semantic.el (semantic-version): Update to 2.0.
+
+	* semantic-lex-spp.el (semantic-lex-spp-debug-symbol): New variable
+	(semantic-lex-spp-enable-debug-symbol): New command
+	(semantic-lex-spp-value-valid-p)
+	(semantic-lex-spp-validate-value): New functions
+	(semantic-lex-spp-symbol-set)
+	(semantic-lex-spp-symbol-push): Add call to validate value.
+	(semantic-lex-spp-table-write-slot-value): Instead of erroring on
+	invalid values during save, just save a nil.
+
+	* semanticdb-file.el (semanticdb-project-database-file::semanticdb-save-db):
+	Simplify error skip msg.
+
+	* semanticdb-typecache.el (semanticdb-typecache-find-default):
+	Wrap the find in a save-excursion
+	so that the current buffer won't change.
+
+2010-04-17  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* semantic-idle.el (semantic-idle-summary-current-symbol-info-default):
+	fixed typo in
+	comment
+
+	* senator.el (senator-register-mode-menu-entry semantic-idle-breadcrumbs-mode):
+	new
+	menu entry for the semantic idle breadcrumbs mode
+
+	* semantic-idle.el (require senator):
+	new; idle-breadcrumbs-mode uses `senator-menu-item'
+	(semantic-idle-breadcrumbs-display-function): new option; function
+	used display breadcrumbs (usually in mode-line or header-line)
+	(semantic-idle-breadcrumbs-format-tag-function): new option;
+	function used to format tags in breadcrumb string
+	(semantic-idle-breadcrumbs-separator): new option; string used to
+	separate tags in breadcrumb string
+	(semantic-idle-breadcrumbs-header-line-prefix): new option; prefix for
+	breadcrumb string in header-line
+	(semantic-idle-breadcrumbs--popup-menu): new function; helper for
+	breadcrumbs menu
+	(semantic-idle-breadcrumbs--tag-function): new macro; turns a function
+	into a lambda expression that can be used in a popup menu
+	(semantic-idle-breadcrumbs-popup-map): new variable; keymap used in
+	breadcrumbs popup menu
+	(semantic-idle-breadcrumbs-popup-menu): new variable; menu used in
+	breadcrumbs popup
+	(idle-service semantic-idle-breadcrumbs): new idle service; display
+	breadcrumbs in header-line or mode-line during idle time
+	(semantic-idle-breadcrumbs--display-in-header-line): new function;
+	display breadcrumbs string in header-line
+	(semantic-idle-breadcrumbs--display-in-mode-line): new function;
+	display breadcrumbs string in mode-line; NOTE: does not work yet
+	(semantic-idle-breadcrumbs--make-format): new function; construct
+	breadcrumbs string
+	(semantic-idle-breadcrumbs--format-tag): new function; add
+	text-properties to tag string
+
+2010-04-12  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-util.el (semantic-recursive-find-nonterminal-by-name):
+	Deleted
+	(semantic-describe-buffer): fix expand-nonterminal. Add
+	lex-syntax-mods.
+	Add type relation separator char, and command separation char.
+	(semantic-tag-current-interactive, semantic-hack-search): Deleted.
+	(semantic-sanity-check): Only msg if called interactively.
+
+2010-04-11  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* semantic-scope.el (semantic-scope-cache::scopetypes):
+	fixed typo in docstring
+
+2010-04-10  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-analyze-debug.el: (semantic-analyzer-debug-global-symbol)
+	(semantic-analyzer-debug-missing-innertype): In output, change
+	"prefix" to "symbol", since prefix is a term in the code.
+
+	* semantic-analyze-complete.el (semantic-analyze-possible-completions-default):
+	Be robust to
+	different scopes being nil.
+
+	* semantic-analyze.el (semantic-analyze-find-tag-sequence-default):
+	Be robust to various
+	calculated scopes being nil.
+
+	* semanticdb-typecache.el (semanticdb-typecache-find-default):
+	Return nil if semanticdb is not enabled.
+
+2010-04-09  Eric M. Ludlam  <zappo@gnu.org>
+
+	* ctags/Makefile (ELISPPRELOAD): New.
+	(ctags): Preload above.
+
+	* ctags/Project.ede ("ctags"):
+	Use preload compiler, and add cedet-compat.
+
+	* symref/semantic-symref-list.el (semantic-symref-symbol):
+	Allow any symbol.
+	(semantic-symref-results-mode-map): Add bindings for E and ( for doing
+	macro commands.
+	(semantic-symref-list-on-hit-p): New.
+	(semantic-symref-list-create-macro-on-open-hit)
+	(semantic-symref-list-call-macro-on-open-hits): New.
+	(semantic-symref-list-rename-open-hits): Add comments
+	(semantic-symref-list-map-open-hits): Move cursor to
+	beginning of match befor calling the mapped function.
+
+	* symref/semantic-symref-grep.el (semantic-symref-tool-grep::semantic-symref-perform-search):
+	Use semantic-symref-calculate-rootdir instead of calcing rootdir directly.
+
+	* ctags/semantic-ectag-lang.el (python-mode): Add ectag support.
+	(semantic-load-enable-primary-exuberent-ctags-support): Add hook to
+	python to enable ctags support.
+
+	* semantic-util-modes.el:
+	(semantic-highlight-edits-mode, semantic-show-unmatched-syntax-mode)
+	(semantic-show-parser-state-mode, semantic-stickyfunc-mode):
+	(semantic-highlight-func-mode): Call cedet-called-interactively-p
+	instead of called-interactively-p
+
+	* semantic-util.el (semantic-describe-buffer):
+	Call cedet-called-interactively-p instead
+	of called-interactively-p
+
+	* wisent/wisent-comp.el (wisent-toggle-verbose-flag):
+	Call cedet-called-interactively-p instead of called-interactively-p
+
+	* wisent/wisent-calc.el (wisent-calc):
+	call cedet-called-interactively-p instead of
+	interactive-p
+
+	* wisent/wisent.el (wisent-parse-toggle-verbose-flag):
+	Call cedet-called-interactively-p
+	instead of called-interactively-p
+
+	* semantic-analyze-complete.el (semantic-analyze-possible-completions):
+	call
+	cedet-called-interactively-p instead of interactive-p
+
+	* semantic-idle.el (semantic-idle-scheduler-mode, define-semantic-idle-service):
+	Call cedet-called-interactively-p instead of called-interactively-p
+
+	* semantic-complete.el: (semantic-complete-analyze-inline)
+	(semantic-complete-analyze-inline-idle):
+	Call cedet-called-interactively-p instead of called-interactively-p
+
+	* ctags/semantic-ectag-parse.el (semantic-ectag-parse-buffer):
+	call cedet-called-interactively-p
+	instead of interactive-p
+
+	* ctags/semantic-ectag-util.el (semantic-ectag-version):
+	call cedet-called-interactively-p instead of
+	interactive-p
+
+	* senator.el: (senator-minor-mode, beginning-of-defun, narrow-to-defun)
+	(senator-add-log-tokens, c-mark-function, senator-copy-tag)
+	(senator-kill-tag, senator-yank-tag, insert-register, jump-to-register):
+	call cedet-called-interactively-p instead of interactive-p
+
+	* semantic-fold.el (semantic-folding-mode):
+	call cedet-called-interactively-p instead of
+	interactive-p
+
+	* semantic-scope.el (semantic-calculate-scope):
+	Call cedet-called-interactively-p instead
+	of called-interactively-p
+
+	* symref/semantic-symref.el (semantic-symref-calculate-rootdir):
+	New, derived from below,
+	added support for metasubprojects in EDE.
+	(semantic-symref-detect-symref-tool): Pull out above.
+	(semantic-symref-find-references-by-name)
+	(semantic-symref-find-tags-by-name)
+	(semantic-symref-find-tags-by-regexp)
+	(semantic-symref-find-tags-by-completion)
+	(semantic-symref-find-file-references-by-name)
+	(semantic-symref-find-text):
+	Call cedet-called-interactively-p instead of called-interactively-p
+
+	* symref/semantic-symref-filter.el (semantic-symref-test-count-hits-in-tag):
+	call cedet-called-interactively-p instead of interactive-p
+
+	* semantic-decorate-include.el: (semantic-decoration-include-describe)
+	(semantic-decoration-unknown-include-describe)
+	(semantic-decoration-unparsed-include-describe)
+	(semantic-decoration-all-include-summary):
+	Call cedet-called-interactively-p instead of called-interactively-p
+
+	* semantic-analyze.el (semantic-analyze-current-context):
+	Call cedet-called-interactively-p
+	instead of called-interactively-p
+
+	* semantic-mru-bookmark.el (semantic-mru-bookmark-mode):
+	Call cedet-called-interactively-p
+	instead of called-interactively-p
+
+	* bovine/semantic-c.el (semantic-c-debug-mode-init):
+	Call cedet-called-interactively-p instead of called-interactively-p
+
+	* semantic-decorate-mode.el (semantic-decoration-mode, semantic-toggle-decoration-style):
+	Call cedet-called-interactively-p instead of called-interactively-p
+
+	* semanticdb-system.el (semanticdb-create-system-database):
+	call cedet-called-interactively-p
+	instead of interactive-p
+
+2010-04-07  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* semantic-idle.el (semantic-idle-tag-highlight):
+	Fixed typo in docstring.
+
+2010-03-30  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-idle.el (eldoc): New require.
+
+2010-03-29  Eric M. Ludlam  <zappo@gnu.org>
+
+	* symref/semantic-symref-list.el: Patch from Oleg Andreev
+	(senator): New reqwuire
+	(semantic-symref-list-menu): Use semantic-symref-list-menu-entries,
+	ie - fix a typo.
+
+	* semantic-analyze-complete.el (semantic-analyze-possible-completions):
+	Revert called-interactively-p
+	to interactive-p.
+	(semantic-analyze-possible-completions-default): If no completions are
+	found, then return the raw by-name-only completion list.
+
+	* symref/semantic-symref-list.el (semantic-symref-results-mode-map):
+	Add Rename
+	(semantic-symref-list-menu-entries)
+	(semantic-symref-list-menu): New menu stuff.
+	(semantic-symref-list-rename-open-hits): New command
+	(semantic-symref-list-map-open-hits, semantic-symref-list-update-open-hits):
+	New utilities.
+
+2010-03-28  Eric M. Ludlam  <zappo@gnu.org>
+
+	* symref/semantic-symref-list.el (semantic-symref-results-mode-map):
+	Add expand/contract all
+	(semantic-symref-auto-expand-results): New option.
+	(semantic-symref-results-mode-hook): Fix doc.
+	(semantic-symref-results-dump): Obey auto-expand
+	(semantic-symref-list-expand-all)
+	(semantic-symref-list-contract-all): New commands
+
+2010-03-27  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semanticdb-global.el (semanticdb-enable-gnu-global-in-buffer):
+	Don't show messages
+	if GNU Global is not available and we don't want to throw an error.
+
+	* semantic-complete.el (semantic-complete-self-insert):
+	Protect setup before entering
+	completion against the point moving.
+
+2010-03-26  Lluís <xscript@users.sourceforge.net>
+
+	* wisent/wisent.el, bovine/semantic-c.el, bovine/semantic-el.el, bovine/semantic-java.el, symref/semantic-symref.el, wisent/wisent-comp.el, wisent/wisent-javascript.el, wisent/wisent-python.el, wisent/wisent-python.wy, semanticdb-ebrowse.el, semanticdb-el.el, semanticdb-find.el, semanticdb-global.el, semanticdb-javascript.el, semanticdb-typecache.el, semanticdb.el, senator.el, semantic-lex.el, semantic-mru-bookmark.el, semantic-scope.el, semantic-util-modes.el, semantic-util.el, semantic.el, semantic-analyze-complete.el, semantic-analyze.el, semantic-complete.el, semantic-decorate-include.el, semantic-decorate-mode.el, semantic-edit.el, semantic-ia.el, semantic-idle.el:
+	Import CEDET changes from Emacs' trunk.
+
+2010-03-17  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* wisent/wisent-python.wy (AS):
+	new keyword; used in import and with statements
+	(import_as_name): optional part is as_name_opt, not name_name_opt
+	(dotted_as_name): optional part is as_name_opt, not name_name_opt;
+	fixed comment
+	(as_name_opt): renamed from name_name_opt; accept keyword AS followed
+	by a name; produce name as result
+
+	* semantic-utest.el (semantic-utest-Python-buffer-contents):
+	added fun_yield to test some
+	variants of the yield keyword
+	(semantic-utest-Python-name-contents): added tag for fun_yield
+
+	* wisent/wisent-python.wy (yield_stmt):
+	YIELD keyword can also occur without arguments
+
+	* wisent/wisent-python.wy (CONTINUE): fixed typo in summary string
+	(LAMBDA): fixed typo in put
+
+2010-03-15  Lluís <xscript@users.sourceforge.net>
+
+	* bovine/semantic-bovine.el, bovine/semantic-c.el, bovine/semantic-el.el, bovine/semantic-erlang.el, bovine/semantic-gcc.el, bovine/semantic-java.el, bovine/semantic-make.el, bovine/semantic-skel.el, ctags/semantic-ectag-lang.el, ctags/semantic-ectag-util.el, doc/lang-support-guide.texi, doc/minor-modes.texi, doc/user-guide.texi, semantic-html.el, semantic-ia-sb.el, semantic-idle.el, semantic-lex-spp.el, semantic-lex.el, semantic-mru-bookmark.el, semantic-sb.el, semantic-scope.el, semantic-tag-file.el, semantic-tag-ls.el, semantic-tag-write.el, semantic-tag.el, semantic-texi.el, semantic-util-modes.el, semantic-util.el, semantic.el, semanticdb-debug.el, semanticdb-ebrowse.el, semanticdb-el.el, semanticdb-file.el, semanticdb-find.el, semanticdb-global.el, semanticdb-javascript.el, semanticdb-typecache.el, semanticdb.el, senator.el, symref/semantic-symref-filter.el, symref/semantic-symref-grep.el, symref/semantic-symref-list.el, symref/semantic-symref.el, wisent/semantic-wisent.el, wisent/wisent-java-tags.el, wisent/wisent-python.el, wisent/wisent.el, semantic-adebug.el, semantic-analyze-complete.el, semantic-analyze-debug.el, semantic-analyze-fcn.el, semantic-analyze-refs.el, semantic-analyze.el, semantic-chart.el, semantic-complete.el, semantic-ctxt.el, semantic-debug.el, semantic-decorate-include.el, semantic-decorate-mode.el, semantic-dep.el, semantic-doc.el, semantic-ede-grammar.el, semantic-edit.el, semantic-find.el, semantic-format.el, semantic-fw.el, semantic-grammar-wy.el, semantic-grammar.el:
+	Import CEDET changes from Emacs' trunk.
+
+2010-03-14  Eric M. Ludlam  <zappo@gnu.org>
+
+	* doc/tags.texi (Copying Tags): Update semantic-tag-deep-copy-one-tag
+
+	* tests/testtypedefs.cpp (e_toto,t_toto,func): New test parts.
+
+	* bovine/semantic-c.el (semantic-expand-c-tag-namelist):
+	Do not split out a typedef'd inline
+	type if it is an anonymous type.
+
+	* semantic-tag.el (semantic-tag-deep-copy-one-tag):
+	Now copies the :filename property,
+	and the tag position.
+
+2010-03-08  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semanticdb-typecache.el (semanticdb-typecache-find-by-name-helper):
+	Merge found names down.
+	Handles case where a tag with unmerged contents exists.
+
+	* semantic-analyze-debug.el (semantic-analyzer-debug-insert-tag):
+	Force current buffer to be reset
+	to standard output.
+
+2010-03-06  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semanticdb-find.el (semanticdb-find-result-nth-in-buffer):
+	When trying to normalize the tag to a buffer, don't error
+	if the set-buffer method doesn't exist.  That will be some
+	sort of virtual table.
+
+2010-02-27  Eric M. Ludlam  <zappo@gnu.org>
+
+	* semantic-util-modes.el (semantic-stickyfunc-show-only-functions-p):
+	New option.
+	(semantic-stickyfunc-fetch-stickyline): Obey above.
+
+	* semantic-util-modes.el (semantic-stickyfunc-fetch-stickyline):
+	Don't show stickytext for the
+	very first line in a buffer.
+
+	* semantic-idle.el (semantic-idle-truncate-long-summaries): New option
+	(semantic-idle-summary): Use above, and truncate to minibuf width
+	(semantic-idle-completion-list-default): Only do completions at the
+	end of a symbol.
+
+	* symref/semantic-symref-grep.el (semantic-symref-grep-shell): New
+	(semantic-symref-tool-grep::semantic-symref-perform-search):
+	Use above.
+
+	* tests/testusing.cpp (togglemoose::MyOtherClass::testToggle*):
+	New methods
+	for testing the reference finder.
+
+	* tests/testusing.hh (togglemoose::MyOtherClass): New.
+
+	* semantic-analyze-refs.el (semantic--analyze-refs-full-lookup):
+	Doc fix.
+	(semantic--analyze-refs-find-tags-with-parent): Patch from David Engster
+	Attempt to identify matches via imported symbols of parents.
+	(semantic--analyze-refs-full-lookup-with-parents): Do a deep search
+	during the brute search in order to find symbols without direct
+	parental matches.
+
+	* bovine/semantic-c.el (c++-mode::semantic-ctxt-imported-packages):
+	New.
+
+	* semantic-ctxt.el (semantic-ctxt-scoped-types[-default]): New.
+
 2010-02-26  Eric M. Ludlam  <zappo@gnu.org>
 
 	* semantic-ia.el (semantic-ia-get-completions,semantic-ia-get-completions-deprecated):
@@ -12561,7 +13155,7 @@
 
 	* semantic-grammar-wy.el: Re-generated.
 
-2003-08-15  Richard Y. Kim <ryk@ap.com>
+2003-08-15  Richard Y. Kim <emacs18@gmail.com>
 
 	* doc/app-dev-guide.texi, doc/lang-support-guide.texi, doc/semantic.texi, doc/tags.texi:
 	Created a new file, tags.texi, which documents the API for accessing semantic tags.  This file is a section @include'd by app-dev-guide.texi.
@@ -12662,7 +13256,7 @@
 
 	* semantic-grammar-wy.el: Re-generated.
 
-2003-08-11  Richard Y. Kim <ryk@ap.com>
+2003-08-11  Richard Y. Kim <emacs18@gmail.com>
 
 	* doc/semantic.texi: Added @semantic{} macro.
 
@@ -13435,7 +14029,7 @@
 
 	* semantic-complete.el: Completion tools.
 
-2003-04-19  Richard Y. Kim <ryk@ap.com>
+2003-04-19  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic-tag.el: Rephrased the doc-string for semantic-tag-file-name.
 	Also added semantic-alias-obsolete form for semantic-equivalent-tokens-p.
@@ -13497,7 +14091,7 @@
 	Only set args if
 	appropriate.
 
-2003-04-09  Richard Y. Kim <ryk@ap.com>
+2003-04-09  Richard Y. Kim <emacs18@gmail.com>
 
 	* doc/app-dev-guide.texi, doc/glossary.texi, doc/lang-support-guide.texi, doc/semantic.texi, doc/user-guide.texi:
 	Cut and pasted the content of old semantic.texi into separate files.
@@ -14535,7 +15129,7 @@
 	New function.
 	(semantic-autogen-update-header): Use it.
 
-2003-03-18  Richard Y. Kim <ryk@ap.com>
+2003-03-18  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic-token.el, wisent/wisent-grammar.el, wisent/wisent-python.el, wisent/wisent-python.wy:
 	Created CODE-TAG builtin in wisent-grammar.el.  Then
@@ -14673,7 +15267,7 @@
 
 	* bovine/Makefile (languages_LISP): Removed semantic-java.el
 
-2003-03-15  Richard Y. Kim <ryk@ap.com>
+2003-03-15  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic-fw.el:
 	White space change only.  Simply lined up overlay related aliases.
@@ -14730,7 +15324,7 @@
 	(wisent-cook-tag): New.  Use `semantic-tag' API.
 	(wisent-parse-region): Use `semantic-tag' API.
 
-2003-03-14  Richard Y. Kim <ryk@ap.com>
+2003-03-14  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Replaced (wisent-token ...) with VARIABLE-TAG, FUNCTION-TAG, etc.
@@ -14984,7 +15578,7 @@
 	(semantic-token-*-p): Moved
 	(semantic-token, semantic-token-new-*): New
 
-2003-02-27  Richard Y. Kim <ryk@ap.com>
+2003-02-27  Richard Y. Kim <emacs18@gmail.com>
 
 	* doc/semantic.texi: Split copyright to two lines.
 
@@ -15052,7 +15646,7 @@
 	(semanticdb-find-nonterminal-external-children-of-type,
 	semanticdb-find-nonterminal-external-children-of-type-method): New
 
-2003-02-25  Richard Y. Kim <ryk@ap.com>
+2003-02-25  Richard Y. Kim <emacs18@gmail.com>
 
 	* doc/Makefile, doc/app-dev-guide.texi, doc/installation.texi, doc/internals.texi, doc/lang-support-guide.texi, doc/overview.texi, doc/semantic.texi, doc/user-guide.texi:
 	Initial check in of the merged semantic manual.
@@ -15103,7 +15697,7 @@
 	* semantic-grammar.el (semantic-grammar-as-string):
 	Requires `pp' feature.
 
-2003-02-20  Richard Y. Kim <ryk@ap.com>
+2003-02-20  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el:
 	Replaced one use of 'end' free variable with (cdr semantic-lex-analysis-bounds).
@@ -15178,7 +15772,7 @@
 
 	* bovine/semantic-java.el: Removed obsolete code related to java.bnf.
 
-2003-02-19  Richard Y. Kim <ryk@ap.com>
+2003-02-19  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el:
 	Replaced 'depth' free variable with semantic-lex-maximum-depth,
@@ -15186,7 +15780,7 @@
 	semantic-lex-unterminated-syntax-protection macro, and
 	added wisent-python-lex-buffer test command.
 
-2003-02-18  Richard Y. Kim <ryk@ap.com>
+2003-02-18  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el:
 	Fixed a regexp in python-next-line so that backquotes in python code do not break it.
@@ -15383,13 +15977,13 @@
 	* semanticdb.el (semanticdb-create-table):
 	Fixed name of object to not use scoped variable.
 
-2003-02-10  Richard Y. Kim <ryk@ap.com>
+2003-02-10  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Reworked the python parser to be able to parse member variables and
 	functions of classes sufficiently well to make ECB work!
 
-2003-02-08  Richard Y. Kim <ryk@ap.com>
+2003-02-08  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el:
 	Fixed semantic-lex-python-charquote lexical analyzer so that explicit line continuations via backslashes are handled properly.
@@ -15444,7 +16038,7 @@
 
 	* NEWS: no message
 
-2003-02-02  Richard Y. Kim <ryk@ap.com>
+2003-02-02  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el:
 	Lots of comment clean ups plus removal of unused code.
@@ -15501,7 +16095,7 @@
 	The analyzer created as a function now wraps up
 	the token stream so `semantic-lex-token' works.
 
-2003-01-31  Richard Y. Kim <ryk@ap.com>
+2003-01-31  Richard Y. Kim <emacs18@gmail.com>
 
 	* NEWS: Added mention of python parser in the Languages section.
 
@@ -15682,7 +16276,7 @@
 	Fixed resetting of `default' value.
 	More understandable warning message.
 
-2003-01-25  Richard Y. Kim <ryk@ap.com>
+2003-01-25  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Added comments for each keyword, deleted unused code, and scrubbed comments.
@@ -15743,7 +16337,7 @@
 
 	* NEWS: Completed "Grammar framework." topic.
 
-2003-01-24  Richard Y. Kim <ryk@ap.com>
+2003-01-24  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Deleted debug code that I forgot to take out before the last check in.
@@ -15779,7 +16373,7 @@
 	(semantic-lex-ignore-newline): Removed extra white spaces.
 	(semantic-lex-paren-or-list): Doc fix.
 
-2003-01-06  Richard Y. Kim <ryk@ap.com>
+2003-01-06  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Finally converted python's lexer to use the new lexer, i.e., wisent-lex, and not use the old lexer wisent-flex.
@@ -17292,12 +17886,12 @@
 	(semantic-bovinate-region-until-error): Moved back here from
 	semantic-bovine.el.  Use `semantic-lex' instead of `semantic-flex'.
 
-2002-07-12  Richard Y. Kim <ryk@ap.com>
+2002-07-12  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic-lex.el:
 	Added missing quote character for the newline symbol in semantic-lex-newline.
 
-2002-07-11  Richard Y. Kim <ryk@ap.com>
+2002-07-11  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Implemented new lexer for python using the C version in semantic-c.el as a model.
@@ -17361,7 +17955,7 @@
 	(wisent-flex-eoi): New macro.
 	(wisent-flex): Use it.
 
-2002-07-02  Richard Y. Kim <ryk@ap.com>
+2002-07-02  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el:
 	Updated with the latest CVS code to get in sync with the recent semantic/wisent changes.
@@ -17576,7 +18170,7 @@
 
 	* wisent/wisent.texi: Still more additions!
 
-2002-06-25  Richard Y. Kim <ryk@ap.com>
+2002-06-25  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Fixed up the flex handlers to handle "raw strings" delimited by
@@ -17589,7 +18183,7 @@
 
 	* wisent/wisent.texi: More additions & fixes.
 
-2002-06-24  Richard Y. Kim <ryk@ap.com>
+2002-06-24  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Added David's support for "raw strings" via the introduction of the raw-string token.  This needs to be revisited later to see if we can optimize it.
@@ -17603,7 +18197,7 @@
 	* wisent/fdl.texi:
 	New file.  Text of the GNU Free Documentation License.
 
-2002-06-23  Richard Y. Kim <ryk@ap.com>
+2002-06-23  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Added support for \ token which is the explicit line continuation token.
@@ -17614,7 +18208,7 @@
 
 	* wisent/wisent.texi: Fixes & more text added.
 
-2002-06-22  Richard Y. Kim <ryk@ap.com>
+2002-06-22  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	Fixed 'lambdef' NT by adding the missing 'varargslist_opt'.
@@ -17638,7 +18232,7 @@
 
 	* wisent/wisent.texi: Major update!
 
-2002-06-21  Richard Y. Kim <ryk@ap.com>
+2002-06-21  Richard Y. Kim <emacs18@gmail.com>
 
 	* wisent/wisent-python.el, wisent/wisent-python.wy:
 	The lexer must not generate NEWLINE, DEDENT, nor INDENT tokens when a
@@ -17671,7 +18265,7 @@
 	* wisent/wisent-python.wy:
 	Cosmetic indentation change only.  Lined up keywords so that they all start in the same column.
 
-2002-06-19  Richard Y. Kim <ryk@ap.com>
+2002-06-19  Richard Y. Kim <emacs18@gmail.com>
 
 	* tests/test.py: Python code to excersize the parser.
 
@@ -17789,7 +18383,7 @@
 	* java.bnf (setup): take into account new
 	`semantic-symbol->name-assoc-list-for-type-parts' option.
 
-2002-05-13  Richard Y. Kim <ryk@ap.com>
+2002-05-13  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic-bnf.el, semantic.el:
 	Corrected spelling in comments and doc-strings.
@@ -17798,7 +18392,7 @@
 	Corrected spelling and added "LocalWords" at the end of the file as
 	texinfo comments for the benefit of future ispell runs.
 
-2002-05-09  Richard Y. Kim <ryk@ap.com>
+2002-05-09  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic-bnf.el:
 	Added (eval-after-load "info-look" ...) form to hook up semantic-bnf-mode with semantic.info file.
@@ -18536,7 +19130,7 @@
 	(wisent-bovinate-toplevel): Synchronized with latest
 	`semantic-bovinate-toplevel' code.
 
-2001-12-18  Richard Y. Kim <ryk@ap.com>
+2001-12-18  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic.el:
 	Created semantic-flex-tokens variable to document the token types returend by semantic-flex.
@@ -18859,11 +19453,11 @@
 	(when semantic-load-turn-everything-on): Use
 	`global-semantic-summary-mode'.
 
-2001-11-26  Richard Y. Kim <ryk@ap.com>
+2001-11-26  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic.texi: Added "Lexer Overview" and "Lexer Output" nodes.
 
-2001-11-23  Richard Y. Kim <ryk@ap.com>
+2001-11-23  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic.texi: Fixed a typo in last checkin.  Sorry.
 
@@ -18932,7 +19526,7 @@
 	* semanticdb.el (global-semanticdb-minor-mode):  Fixed bad setting of
 	`semanticdb-global-mode'.
 
-2001-11-19  Richard Y. Kim <ryk@ap.com>
+2001-11-19  Richard Y. Kim <emacs18@gmail.com>
 
 	* semantic.texi:
 	Added comments on semantic-flex and in "document" node.

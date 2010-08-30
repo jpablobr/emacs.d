@@ -1,3 +1,211 @@
+2010-08-22  Eric M. Ludlam  <zappo@gnu.org>
+
+	* .cvsignore: Ignore info files.
+
+2010-07-31  Eric M. Ludlam  <zappo@gnu.org>
+
+	* pulse.el (pulse-flag): Update doc.
+	(pulse-momentary-highlight-overlay): If pulse-flag is 'never, then
+	disable all pulsing.
+
+2010-07-27  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-m3.el (cedet-m3-ede-items):
+	Support the case where a buffer supports
+	multiple targets.
+
+2010-07-25  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet.texi (CScope): Add Database section.
+
+2010-07-24  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-idutils.el (cedet-idutils-mkid-call): Fix doc.
+	(cedet-idutils-create/update-database): New.
+
+	* cedet-global.el (cedet-gnu-global-create/update-database): New.
+
+	* cedet-cscope.el (cedet-cscope-support-for-directory):
+	Make interactive.
+	Print message if interactive.
+	(cedet-cscope-create/update-database): New.
+
+2010-07-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-m3.el (cedet-m3-cogre-items): Protect against no ctxt found.
+
+2010-07-17  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet.el (cedet): New command that describes CEDET.
+
+2010-06-13  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* data-debug.el (data-debug-insert-hash-table-button):
+	added hash table count into
+	string representation
+
+2010-06-13  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet.texi (C++ Features): Add references to Generic projects.
+	(CScope): Fix typo.
+
+	* cedet-idutils.el (cedet-idutils-make-command): New option.
+	(cedet-idutils-mkid-call): New util fcn.
+
+	* cedet-global.el (cedet-gnu-global-gtags-command): New option.
+	(cedet-gnu-global-gtags-call): New util.
+
+	* cedet-cscope.el (cedet-cscope-min-version): Doc fix.
+	(cedet-cscope-create): New
+	(cedet-cscope-version-check): Doc fix.
+
+2010-05-30  Richard Y. Kim <emacs18@gmail.com>
+
+	* cedet.texi:
+	Replaced ll tab charactersin all texinfo files with equivalent number of spaces assuming tab width of 8.
+
+2010-05-21  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* data-debug.el (data-debug-insert-hash-table-button):
+	manually construct a compact
+	string for the hash table since the printed representation can get
+	arbitrarily large
+
+2010-05-19  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-m3.el (cedet-m3-mode-map): comment out kbd binding.
+
+2010-05-04  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-m3.el (cedet-m3-whatisit, cedet-m3-create-menu):
+	Wrap contents in semanticdb-without-unloaded-file-searches so that
+	they are fast, and don't unnecessarily load in too much data.
+
+2010-04-30  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-m3.el (cedet-m3-mode-map): Add binding for kbd command.
+	(cedet-m3-menu-kbd): New
+	(cedet-m3-whatisit): Add a few more details as needed.
+	(cedet-m3-context-items): Prevent tags w/ no positional data from complaining.
+
+2010-04-26  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet.el (cedet-version-print): Add \n to end.
+
+	* Makefile (ELISPPRELOAD): New.
+
+	* Project.ede ("lisp"): Add cedet-compat to preload packages.
+
+2010-04-23  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-utests.el (cedet-utest-test-alist):
+	Add version printing for CEDET packages.
+
+	* cedet.el (cedet-version): Pull out contents and then use below.
+	(cedet-version-print): New, derived from above.
+
+	* cedet.el (cedet-packages): Update eieio to version 1.3
+
+2010-04-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-m3.el (cedet-m3-create-menu): Add cogre
+	(cedet-m3-cogre-items): New.
+
+	* icons/Makefile (VERSION): Update to 1.0
+
+	* cedet.texi (Overview, C++ Features): it's fixes.
+
+	* Makefile (VERSION): Update to 1.0
+
+	* Project.ede ("common"): Update to version 1.0.
+
+	* cedet.el (cedet-version): Update to 1.0
+	(cedet-packages): Update all version numbers.
+
+2010-04-11  Eric M. Ludlam  <zappo@gnu.org>
+
+	* data-debug.el (data-debug-insert-thing):
+	Be robust to failed predicates.
+
+2010-04-09  Eric M. Ludlam  <zappo@gnu.org>
+
+	* Makefile (tests_LISP): Move.
+	(common): Use preload compiler.
+
+	* Project.ede ("common"): Use preload compiler.
+
+	* cedet-idutils.el (cedet-idutils-expand-filename, cedet-idutils-version-check):
+	Call
+	cedet-called-interactively-p instead of called-interactively-p
+
+	* pulse.el: (pulse-test, goto-line, exchange-point-and-mark, find-tag)
+	(tags-search, tags-loop-continue, pop-tag-mark): call
+	cedet-called-interactively-p instead of interactive-p
+
+	* cedet-cscope.el (cedet-cscope-expand-filename, cedet-cscope-version-check):
+	Call cedet-called-interactively-p instead of called-interactively-p
+
+	* cedet-global.el (cedet-gnu-global-expand-filename, cedet-gnu-global-version-check):
+	Call cedet-called-interactively-p instead of called-interactively-p
+
+	* cedet-graphviz.el (cedet-graphviz-dot-version-check):
+	call cedet-called-interactively-p
+	instead of interactive-p
+
+	* mode-local.el (describe-mode-local-bindings, describe-mode-local-bindings-in-mode):
+	call cedet-called-interactively-p instead of interactive-p
+
+	* cedet-utests.el (cedet-utest-test-alist): Add compat utest.
+	(cedet-utest): call cedet-called-interactively-p
+	instead of interactive-p
+
+	* cedet-compat.el (cedet-called-interactively-p):
+	New macro for different Emacsen
+	(cedet-compat-utest, cedet-utest-interactivep)
+	(cedet-utest-interactivep-subfcn): New tests.
+
+2010-03-26  Lluís <xscript@users.sourceforge.net>
+
+	* cedet-files.el, cedet-global.el, cedet-idutils.el, data-debug.el, mode-local.el, cedet-cscope.el:
+	Import CEDET changes from Emacs' trunk.
+
+2010-03-26  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-compat.el (called-interactively-p): New compatibility code.
+
+2010-03-24  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-m3.el (cedet-m3-context-items):
+	Show short completion lists if the
+	current sym is incomplete.
+
+	* cedet-m3.el (cedet-m3-context-items):
+	Fix bug where SYM is not a tag for rename menu item.
+
+2010-03-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-m3.el (cedet-m3-context-items):
+	Add local variable rename option.
+
+2010-03-17  Eric M. Ludlam  <zappo@gnu.org>
+
+	* mode-local.el (mode-local-post-major-mode-change): Doc fix
+	(make-obsolete-overload): Accept optional 'when'
+	(overload-docstring-extension, mode-local-setup-edebug-specs):
+	Merge w/ Emacs.
+
+2010-03-16  Eric M. Ludlam  <zappo@gnu.org>
+
+	* cedet-m3.el:
+	Minor mode for creating a mouse-3 menu for all CEDET tools together.
+
+	* Makefile (EMACSFLAGS): Moved/combinded.
+
+2010-03-15  Lluís <xscript@users.sourceforge.net>
+
+	* cedet-cscope.el, cedet-files.el, cedet-global.el, cedet-idutils.el, cedet.el, data-debug.el, mode-local.el:
+	Import CEDET changes from Emacs' trunk.
+
 2010-02-19  Eric M. Ludlam  <zappo@gnu.org>
 
 	* cedet-compat.el (find-coding-systems-region):

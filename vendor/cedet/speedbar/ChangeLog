@@ -1,3 +1,16 @@
+2010-08-22  Eric M. Ludlam  <zappo@gnu.org>
+
+	* .cvsignore: Ignore info files.
+
+2010-05-30  Richard Y. Kim <emacs18@gmail.com>
+
+	* speedbar.texi:
+	Replaced ll tab charactersin all texinfo files with equivalent number of spaces assuming tab width of 8.
+
+2010-05-21  Eric M. Ludlam  <zappo@gnu.org>
+
+	* dframe.el (custom): Remove old compat stuff for custom.
+
 2009-03-19  Eric M. Ludlam  <zappo@gnu.org>
 
 	* Makefile, Project.ede, speedbar.el (speedbar-version):

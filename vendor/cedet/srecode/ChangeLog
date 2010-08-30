@@ -1,3 +1,166 @@
+2010-06-12  Eric M. Ludlam  <zappo@gnu.org>
+
+	* srecode-template.wy (property syntax): Add the syntax keyword.
+
+	* srecode-mode.el (srecode-menu-bar): Add Show Macro Help in the menu.
+
+	* srecode-map.el (srecode-map-update-map):
+	Make map loading more robust.
+
+2010-06-06  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* srecode-insert.el (require cl): new; required for `lexical-let'
+	(srecode-template-inserter-point-override): changed documentation
+	string to the extend that the value is a cons cell
+	(srecode-template-inserter-point::srecode-insert-method): check
+	template nesting depth when using point inserter override
+	(srecode-template-inserter-include-wrap::srecode-insert-method):
+	install override with depth limit
+
+2010-05-30  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* srecode.texi (Templates): fixed binding -> bind in example
+	(Template Section Dictionaries): fixed typo in example
+	(Template Macros): ending a # inserter is done using / not \
+	(Context: Declaration): fixed a typo
+	(Inserting Tag Lists): fixed two typos
+
+2010-05-30  Richard Y. Kim <emacs18@gmail.com>
+
+	* srecode.texi:
+	Replaced ll tab charactersin all texinfo files with equivalent number of spaces assuming tab width of 8.
+
+2010-05-21  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* srecode-semantic.el (srecode-semantic-handle-:tag):
+	fixed typo in comment
+	(srecode-semantic-apply-tag-to-dict): fixed typo in docstring
+	(srecode-semantic-insert-tag): fixed comment
+
+2010-05-19  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* srecode-insert.el (srecode-insert-ask-variable-method):
+	fixed typo in type declaration;
+	cons -> const
+	(srecode-insert-fcn): fixed typo in comment
+
+2010-05-18  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* srecode-test.el (srecode-utest-output): whitespace changes
+	(srecode-utest-output::name): added type
+	(srecode-utest-output::output): added type
+	(srecode-utest-output::dict-entries): added type
+	(srecode-utest-output::pre-fill): added type
+	(srecode-utest-test): cosmetic changes; added some comments
+	(srecode-utest-output-entries): added three test cases for new-style
+	dictionary syntax
+
+	* templates/srecode-test.srt (nested-dictionary-syntax-flat):
+	new template; test for new-style
+	dictionary syntax
+	(nested-dictionary-syntax-nesting): new template; test for nesting of
+	new-style dictionaries
+	(nested-dictionary-syntax-mixed): new template; test for mixing
+	new-style and classic dictionary syntax
+
+	* srecode-template.wy (SECTION):
+	new keyword; start of a section dictionary
+	(END): new keyword; end of a section dictionary
+	(opt-section-dictionaries): removed; replaced by
+	section-dictionary-list
+	(flat-section-dictionary): renamed one-section-dictionary ->
+	flat-section-dictionary; this supports the classic "sectiondictionary"
+	syntax
+	(flat-dictionary-entry-list):
+	(flat-dictionary-entry): syntax for contents of flat dictionaries;
+	these can only contain "show" and "set"
+	(section-dictionary): rule for new "section ... end" syntax
+	(dictionary-entry-list):
+	(dictionary-entry): syntax for contents of new-style dictionaries;
+	these can be nested recursively
+
+	* srecode-template-mode.el (srecode-font-lock-keywords):
+	added new keywords section and end;
+	allow indentation for set and show
+
+	* srecode-compile.el (srecode-compile-one-template-tag): use
+	srecode-create-dictionaries-from-tags instead of
+	srecode-create-section-dictionary; changed some variable names; added
+	some comments
+
+2010-05-14  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* srecode-dictionary.el (srecode-create-dictionaries-from-tags):
+	new function; create a
+	hierarchy of dictionaries from the output of the template file parser
+
+	* srecode-dictionary.el (srecode-dictionary::srecode-dictionary-add-entries):
+	new method; take
+	a list of names and values and create dictionary entries according to
+	the types of the values
+
+	* srecode-dictionary.el (srecode-dictionary::srecode-dictionary-set-value):
+	use `unless'
+	instead of `if not'
+	(srecode-dictionary::srecode-dictionary-add-section-dictionary): added
+	optional argument force to allow adding sections even if an
+	identically named entry exists
+	(srecode-dictionary::srecode-dictionary-show-section):
+	(srecode-dictionary::srecode-dictionary-hide-section): use `unless'
+	instead of `if not'
+	(srecode-dictionary::srecode-dictionary-merge): added optional
+	argument force to allow adding values even if values of the same name
+	are already present in the dictionary
+	(srecode-dictionary::srecode-dictionary-lookup-name): improved
+	comments
+
+2010-05-11  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* srecode-dictionary.el (srecode-dictionary-lookup-name):
+	added optional argument
+	non-recursive which stops the lookup from visiting parents of the
+	dictionary; extended docstring
+
+	* srecode-dictionary.el (srecode-create-dictionary):
+	added some comments
+
+2010-05-07  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* srecode-cpp.el (srecode-semantic-apply-tag-to-dict):
+	handle template parameters by
+	calling `srecode-cpp-apply-templates'
+	(srecode-cpp-apply-templates): new function; add dictionary entries
+	for template parameters
+
+2010-05-03  Jan Moringen <scymtym@users.sourceforge.net>
+
+	* srecode-compile.el (srecode-template): fixed typo in comment
+
+2010-04-18  Eric M. Ludlam  <zappo@gnu.org>
+
+	* templates/Makefile (VERSION): 1.0
+
+	* Makefile (LOADPATH): Update.
+	(VERSION): Update to 1.0
+
+	* Project.ede ("SRecode"): Update to 1.0
+
+	* srecode.el (srecode-version): Update to 1.0
+
+2010-04-09  Eric M. Ludlam  <zappo@gnu.org>
+
+	* srecode-map.el (srecode-get-maps): Use cedet-called-interactively-p.
+
+2010-03-26  Lluís <xscript@users.sourceforge.net>
+
+	* srecode-args.el, srecode-dictionary.el, srecode-extract.el, srecode-insert.el, srecode-map.el, srecode.el:
+	Import CEDET changes from Emacs' trunk.
+
+2010-03-15  Lluís <xscript@users.sourceforge.net>
+
+	* srecode-args.el, srecode-compile.el, srecode-dictionary.el, srecode-document-vars.el, srecode-document.el, srecode-extract.el, srecode-getset.el, srecode-insert.el, srecode-map.el, srecode-semantic.el, srecode-srt.el, srecode-table.el, srecode-template-mode.el:
+	Import CEDET changes from Emacs' trunk.
+
 2010-02-22  Eric M. Ludlam  <zappo@gnu.org>
 
 	* srecode.texi (Parts of SRecode):
