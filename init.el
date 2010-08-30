@@ -49,7 +49,7 @@
 (require 'sinatra)
 (require 'rinari)
 (require 'plain-text)
-(require 'org)
+(require 'org-config)
 (require 'meta)
 (require 'markdown)
 (require 'haml)
