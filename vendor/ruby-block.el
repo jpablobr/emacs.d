@@ -1,6 +1,6 @@
 ;;; ruby-block.el --- highlight matching block
 
-;; Copyright (C) 2007-2008  khiker
+;; Copyright (C) 2007-2009  khiker
 
 ;; Author: khiker <khiker.mail+elisp@gmail.com>
 ;; Keywords: languages, faces, ruby
@@ -40,7 +40,7 @@
 ;;
 ;; Default is minibuffer.
 ;;
-;; Tested on Emacs 22.1 and Emacs 23.0.50.2.
+;; Tested on Emacs 22.3.2 and Emacs 23.0.95.2.
 
 ;;; Note:
 
@@ -52,7 +52,7 @@
 
 ;; Variables:
 
-(defconst ruby-block-version "0.0.7"
+(defconst ruby-block-version "0.0.8"
   "Ruby block package version.")
 
 (defconst ruby-block-keyword-list
@@ -206,6 +206,7 @@ to END keyword. this is Minor mode for ruby-mode only."
           (setq point -1 face "" string "" check nil))
         (when (and (eq face 'font-lock-keyword-face)
                    (not (string= string "elsif"))
+                   (member string ruby-block-keyword-list)
                    ;; case: STMT if(or unless, while, untill) EXPR
                    (if (member string '("if" "unless" "while" "until"))
                        (let ((col (- point (ruby-block-get-line-start-pos))))
