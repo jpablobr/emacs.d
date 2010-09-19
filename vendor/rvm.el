@@ -103,12 +103,18 @@ If no .rvmrc file is found, the default ruby is used insted."
 ;;;###autoload
 (defun rvm-open-gem (gemhome)
   (interactive (list (rvm--emacs-gemhome)))
-  (let ((gem-dir (concat gemhome "/gems/")))
-    (find-file (ido-open-find-directory-files
-                (concat gem-dir (rvm--completing-read "Gem: "
-                                                     (directory-files gem-dir nil "^[^.]")))))))
+  (let* ((gems-dir (concat gemhome "/gems/"))
+         (gem-name (rvm--completing-read "Gem: "
+                                         (directory-files gems-dir nil "^[^.]")))
+         (gem-file (ido-open-find-directory-files
+                    (concat gems-dir gem-name))))
+    (if (and (featurep 'perspective) persp-mode)
+        (let ((initialize (not (gethash gem-name perspectives-hash))))
+          (persp-switch gem-name)
+          (when initialize (find-file gem-file)))
+      (find-file gem-file))))
 
-;; TODO: take buffer switching into account
+;;;; TODO: take buffer switching into account
 (defun rvm-autodetect-ruby ()
   (interactive)
   (add-hook 'ruby-mode-hook 'rvm-activate-corresponding-ruby)
@@ -135,12 +141,12 @@ If no .rvmrc file is found, the default ruby is used insted."
     parsed-rubies))
 
 (defun rvm/gemset-list (ruby-version)
-  (let* ((gemset-result (rvm--call-process "gemset list" ruby-version))
+  (let* ((gemset-result (rvm--call-process ruby-version "gemset" "list"))
          (gemset-lines (split-string gemset-result "\n"))
          (parsed-gemsets (list rvm--gemset-default)))
-    (loop for i from 1 to (length gemset-lines) do
+    (loop for i from 2 to (length gemset-lines) do
           (let ((gemset (nth i gemset-lines)))
-            (when (and (> (length gemset) 0) (not (string-match "<e>" gemset)))
+            (when (and (> (length gemset) 0) (not (string-match "info:" gemset)))
               (add-to-list 'parsed-gemsets gemset t))))
     parsed-gemsets))
 

@@ -56,6 +56,7 @@
 (require 'autocomplete)
 (require 'webdev)
 (require 'wanderlust)
+(require 'java)
 
 (regen-autoloads)
 (load custom-file 'noerror)

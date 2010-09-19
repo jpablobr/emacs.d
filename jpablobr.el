@@ -4,6 +4,17 @@
 ;;; - Jose Pablo Barrantes <xjpablobrx@gmail.com>
 ;;;
 
+;;; ----------------------------------------------------------------------------
+;;; - Mathematica
+;;;
+;; (autoload 'mma-mode "mma.el" "Mathematica package file mode" t)
+;; (setq auto-mode-alist
+;;       (cons '("\\.m\\'" . mma-mode) auto-mode-alist))
+(load-library "mathematica")
+(setq mathematica-never-start-kernel-with-mode t)
+(setq auto-mode-alist
+      (cons '("\\.m\\'" . mathematica-mode) auto-mode-alist))
+
 ;;; ----------------------------------------------------------
 ;;; - Grep edit
 ;;;
