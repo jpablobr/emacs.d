@@ -57,6 +57,7 @@
 (require 'webdev)
 (require 'wanderlust)
 (require 'java)
+(require 'python)
 
 (regen-autoloads)
 (load custom-file 'noerror)
