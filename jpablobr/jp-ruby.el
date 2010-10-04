@@ -304,4 +304,4 @@ See the variable `align-rules-list' for more details.")
           (insert (format "'%s'" symbol-str))))))
     (goto-char initial-pos)))
 
-(provide 'ruby)
+(provide 'jp-ruby)

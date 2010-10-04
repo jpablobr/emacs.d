@@ -31,4 +31,4 @@
 (add-hook 'find-file-hooks (function (lambda ()
                                        (local-set-key (kbd "TAB") 'indent-or-complete))))
 
-(provide 'hippie)
+(provide 'jp-hippie)

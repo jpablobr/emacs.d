@@ -37,4 +37,4 @@
           '(lambda ()
              (setq yas/mode-symbol 'espresso-mode)))
 
-(provide 'yasnippet)
+(provide 'jp-yasnippet)

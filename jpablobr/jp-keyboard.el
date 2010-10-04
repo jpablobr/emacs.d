@@ -154,4 +154,4 @@
 
 (global-set-key [(control \])] 'indent-rigidly)
 
-(provide 'keyboard)
+(provide 'jp-keyboard)

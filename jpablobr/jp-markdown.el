@@ -16,4 +16,4 @@
           (lambda ()
             (setq imenu-generic-expression jpablobr-markdown-imenu-generic-expression)))
 
-(provide 'markdown)
+(provide 'jp-markdown)

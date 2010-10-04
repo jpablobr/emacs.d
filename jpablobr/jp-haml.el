@@ -14,4 +14,4 @@
 
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
-(provide 'haml)
+(provide 'jp-haml)

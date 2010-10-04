@@ -36,28 +36,29 @@
 ;;; ---------------------------------------------------------
 ;;; - Load jpablobr customizations:
 ;;;
-(require 'theme)
-(require 'cedet)
-(require 'misc)
-(require 'defuns)
-(require 'keyboard)
-(require 'registers)
-(require 'eshell)
-(require 'lisp)
-(require 'ruby)
-(require 'js)
+(require 'jp-theme)
+(require 'jp-cedet)
+(require 'jp-misc)
+(require 'jp-defuns)
+(require 'jp-keyboard)
+(require 'jp-registers)
+(require 'jp-eshell)
+(require 'jp-lisp)
+(require 'jp-ruby)
+(require 'jp-js)
 (require 'sinatra)
-(require 'rinari)
-(require 'plain-text)
-(require 'org-config)
-(require 'meta)
-(require 'markdown)
-(require 'haml)
-(require 'autocomplete)
-(require 'webdev)
-(require 'wanderlust)
-(require 'java)
-(require 'python)
+(require 'jp-rinari)
+(require 'jp-plain-text)
+(require 'jp-org-config)
+(require 'jp-meta)
+(require 'jp-markdown)
+(require 'jp-haml)
+(require 'jp-autocomplete)
+(require 'jp-webdev)
+(require 'jp-wanderlust)
+(require 'jp-java)
+(require 'jp-python)
+(require 'jp-erlang)
 
 (regen-autoloads)
 (load custom-file 'noerror)
@@ -74,8 +75,8 @@
 ;;; ---------------------------------------------------------
 ;;; - requiring yasnippets after everything has been loaded...
 ;;;
-(require 'yasnippet)
-(require 'hippie)
+(require 'jp-yasnippet)
+(require 'jp-hippie)
 
 ;;; ---------------------------------------------------------
 ;;; - Benchmarking

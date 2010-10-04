@@ -40,4 +40,4 @@
    "Face used to dim parentheses."
    :group 'jpablobr-faces)
 
-(provide 'lisp)
+(provide 'jp-lisp)

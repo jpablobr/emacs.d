@@ -24,4 +24,4 @@
 ;; Set to <your Dropbox root directory>/MobileOrg.
 (setq org-mobile-directory "~/Dropbox/MobileOrg")
 
-(provide 'org-config)
+(provide 'jp-org-config)

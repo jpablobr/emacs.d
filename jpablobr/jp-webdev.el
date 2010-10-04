@@ -61,4 +61,4 @@
           '(lambda()
             (set (make-local-variable 'apache-indent-level) 2)))
 
-(provide 'webdev)
+(provide 'jp-webdev)

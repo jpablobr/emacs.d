@@ -3,4 +3,4 @@
 ;;; - CEDET
 (load-file "~/.emacs.d/vendor/cedet/common/cedet.el")
 
-(provide 'cedet)
+(provide 'jp-cedet)

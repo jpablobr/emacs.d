@@ -70,4 +70,4 @@
 
 (require 'line-num)
 
-(provide 'meta)
+(provide 'jp-meta)

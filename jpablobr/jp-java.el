@@ -45,4 +45,4 @@
 
 (add-hook 'jde-mode-hook 'my-jde-mode-hook)
 (require 'jde)
-(provide 'java)
+(provide 'jp-java)

@@ -51,4 +51,4 @@
              (lambda ()
                (setq ac-omni-completion-sources '(("\\.\\=" ac-source-rcodetools)))));)
 
-(provide 'autocomplete)
+(provide 'jp-autocomplete)

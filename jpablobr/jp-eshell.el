@@ -79,4 +79,4 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
-(provide 'eshell)
+(provide 'jp-eshell)

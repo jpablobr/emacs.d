@@ -94,4 +94,4 @@
       'wl-draft-kill
       'mail-send-hook))
 
-(provide 'wanderlust)
+(provide 'jp-wanderlust)

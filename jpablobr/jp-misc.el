@@ -169,4 +169,4 @@ LIST defaults to all existing live buffers."
              (kill-buffer buffer))))
     (setq list (cdr list))))
 
-(provide 'misc)
+(provide 'jp-misc)

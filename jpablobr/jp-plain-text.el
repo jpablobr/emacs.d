@@ -15,4 +15,4 @@
   (revert-buffer t t t))
 (global-set-key [f5] 'refresh-file)
 
-(provide 'plain-text)
+(provide 'jp-plain-text)

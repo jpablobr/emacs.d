@@ -11,4 +11,4 @@
              (?r (file . ,(concat dotfiles-dir "jpablobr-registers.el")))))
   (set-register (car r) (cadr r)))
 
-(provide 'registers)
+(provide 'jp-registers)

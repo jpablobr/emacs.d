@@ -155,4 +155,4 @@
                        (t 0)))))))
 
 
-(provide 'js)
+(provide 'jp-js)

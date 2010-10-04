@@ -151,4 +151,4 @@
   (interactive)
   (message (if (y-or-n-p "Do you have a test for that? ") "Good." "Bad!")))
 
-(provide 'defuns)
+(provide 'jp-defuns)
