@@ -6,7 +6,7 @@
 ;;; ---------------------------------------------------------
 ;;; - nXML
 ;;;
-(load "~/.emacs.d/vendor/nxhtml/autostart.el")
+(load "~/.emacs.d/vendor/nxhtml/autostart22.el")
 
 (dolist (i '("xml" "xsd" "rng" "xsl" "xslt" "svg" "rss" "html"))
   (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'nxml-mode)))
@@ -39,7 +39,7 @@
 (autoload 'rng-clear-overlays "rng-valid" nil t)
 
 ;;; ---------------------------------------------------------
-;;; - CSSp
+;;; - CSS
 ;;;
 (add-to-list 'load-path (concat vendor-dir "/css-mode"))
 (require 'css-mode)
