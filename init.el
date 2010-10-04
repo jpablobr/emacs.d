@@ -59,6 +59,8 @@
 (require 'jp-java)
 (require 'jp-python)
 (require 'jp-erlang)
+(require 'jp-scheme)
+(require 'jp-haskell)
 
 (regen-autoloads)
 (load custom-file 'noerror)
