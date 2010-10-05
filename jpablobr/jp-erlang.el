@@ -1,6 +1,5 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Erlang
-;;; - 
 ;;;
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/erlware-mode"))
 (require 'erlang-start)

@@ -2,7 +2,6 @@
 ;;; - Scheme
 ;;; - 
 ;;;
-
 (require 'quack)
 
 (provide 'jp-scheme)
