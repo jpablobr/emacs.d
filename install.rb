@@ -7,6 +7,18 @@
 system %Q{ cd vendor && git clone git@github.com:jpablobr/yasnippets-jpablobr.git yasnippets-jpablobr }
 system %Q{ cd vendor && git add yasnippets-jpablobr/ && cd yasnippets-jpablobr && git pull }
 
+# pylookup
+system %Q{ cd vendor && git clone http://github.com/tsgates/pylookup.git pylookup }
+system %Q{ cd vendor && git add pylookup/ && cd pylookup && git pull }
+
+# erlware-mode
+system %Q{ cd vendor && git clone http://github.com/massemanet/erlware-mode.git erlware-mode }
+system %Q{ cd vendor && git add erlware-mode/ && cd erlware-mode && git pull }
+
+# erlware-mode
+system %Q{ cd vendor && git clone http://github.com/emacsmirror/haskell-mode.git haskell-mode }
+system %Q{ cd vendor && git add haskell-mode/ && cd haskell-mode && git pull }
+
 # twittering-mode
 system %Q{ cd vendor && git clone  git://github.com/hayamiz/twittering-mode.git twittering-mode }
 system %Q{ cd vendor && git add twittering-mode/ && cd twittering-mode && git pull }
