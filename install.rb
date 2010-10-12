@@ -7,6 +7,10 @@
 system %Q{ cd vendor && git clone git@github.com:jpablobr/yasnippets-jpablobr.git yasnippets-jpablobr }
 system %Q{ cd vendor && git add yasnippets-jpablobr/ && cd yasnippets-jpablobr && git pull }
 
+# clojure-mode
+system %Q{ cd vendor && git clone git://github.com/jochu/clojure-mode.git clojure-mode }
+system %Q{ cd vendor && git add clojure-mode/ && cd clojure-mode && git pull }
+
 # pylookup
 system %Q{ cd vendor && git clone http://github.com/tsgates/pylookup.git pylookup }
 system %Q{ cd vendor && git add pylookup/ && cd pylookup && git pull }

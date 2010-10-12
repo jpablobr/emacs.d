@@ -196,4 +196,10 @@ Eli Barzilay.  Actions: nil set current using sexp at point
   (pop-to-buffer "*scheme*" t)
   (other-window 1))
 
+(autoload 'enable-paredit-mode "paredit"
+  "Turn on pseudo-structural editing of Lisp code."
+  t)
+
+(add-hook 'scheme-mode-hook 'enable-paredit-mode)
+
 (provide 'jp-scheme)

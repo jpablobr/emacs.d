@@ -61,6 +61,7 @@
 (require 'jp-erlang)
 (require 'jp-scheme)
 (require 'jp-haskell)
+(require 'jp-clojure)
 
 (regen-autoloads)
 (load custom-file 'noerror)
