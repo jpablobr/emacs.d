@@ -1,12 +1,8 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Scheme
-;;; - 
+;;; - http://bc.tech.coop/scheme/scheme-emacs.htm
 ;;;
 (require 'quack)
-
-
-;;__________________________________________________________________________
-;;;;    Programming - Scheme
 
 ;; Specify modes for Scheme file extensions
 (setq auto-mode-alist
