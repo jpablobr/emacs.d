@@ -196,25 +196,4 @@ Eli Barzilay.  Actions: nil set current using sexp at point
   (pop-to-buffer "*scheme*" t)
   (other-window 1))
 
-;;__________________________________________________________________________
-;;;;    Programming - Elisp
-
-(add-hook 'emacs-lisp-mode-hook
-	  '(lambda ()
-	     (interactive)
-	     (require 'eldoc)
-	     (turn-on-eldoc-mode)
-	     (pretty-lambdas)
-	     (define-key emacs-lisp-mode-map [(control c) (x)] 'copy-eval-dwim-lisp)
-	     ;; Default to auto-indent on Enter
-	     (define-key emacs-lisp-mode-map [(control j)] 'newline)
-	     (define-key emacs-lisp-mode-map [(control m)] 'newline-and-indent)))
-
-(defun pretty-lambdas ()
-  (font-lock-add-keywords
-   nil `(("(\\(lambda\\>\\)"
-	  (0 (progn (compose-region (match-beginning 1) (match-end 1)
-				    ,(make-char 'greek-iso8859-7 107))
-		    nil))))))
-
 (provide 'jp-scheme)
