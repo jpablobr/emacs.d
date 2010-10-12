@@ -10,6 +10,10 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
+(add-hook 'org-mode-hook
+          (lambda ()
+            (visual-line-mode 1)))
+
 ;; Set to the location of your Org files on your local system
 (setq org-directory "~/Dropbox/org-mode")
 
