@@ -2,7 +2,7 @@
 ;; A lot of this is thanks to dima-exe:
 ;; http://github.com/dima-exe/emacs_rc/blob/master/emacs-rc-ruby.el
 
-(require 'sinatra)
+(require 'jp-sinatra)
 (require 'linum)
 (require 'ruby-electric)
 
