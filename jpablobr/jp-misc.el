@@ -130,8 +130,8 @@
 ;;; ---------------------------------------------------------
 ;;; - Set line numbers globally
 ;;;
-;;(require 'linum)
-;;(global-linum-mode)
+(require 'linum)
+(global-linum-mode)
 
 ;;; ---------------------------------------------------------
 ;;; - insert date into buffer at point

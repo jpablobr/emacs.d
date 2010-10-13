@@ -18,10 +18,23 @@
 
 (setq yas/root-directory (concat dotfiles-dir "vendor/yasnippets-jpablobr")) ;"~/.emacs.d/vendor/yasnippets-jpablobr")
 (yas/load-directory yas/root-directory)
-(setq yas/global-mode t)
-(setq yas/minor-mode t)
-(setq yas/minor-mode-on)
-(add-hook 'the-major-mode-hook 'yas/minor-mode-on)
+
+(add-hook 'python-mode-hook 'yas/minor-mode-on)
+(add-hook 'emacs-lisp-mode-hook 'yas/minor-mode-on)
+(add-hook 'ruby-mode-hook 'yas/minor-mode-on)
+(add-hook 'clojure-mode-hook 'yas/minor-mode-on)
+(add-hook 'scheme-mode-hook 'yas/minor-mode-on)
+(add-hook 'org-mode-hook 'yas/minor-mode-on)
+(add-hook 'haskell-mode-hook 'yas/minor-mode-on)
+(add-hook 'css-mode-hook 'yas/minor-mode-on)
+(add-hook 'nxhtml-mode-hook 'yas/minor-mode-on)
+(add-hook 'haml-mode-hook 'yas/minor-mode-on)
+(add-hook 'sass-mode-hook 'yas/minor-mode-on)
+(add-hook 'jse-mode-hook 'yas/minor-mode-on)
+(add-hook 'yaml-mode-hook 'yas/minor-mode-on)
+(add-hook 'lisp-mode-hook 'yas/minor-mode-on)
+(add-hook 'shell-mode-hook 'yas/minor-mode-on)
+(add-hook 'erlang-mode-hook 'yas/minor-mode-on)
 
 ;;; ---------------------------------------------------------
 ;;; - hooks for different modes on specific modes
