@@ -72,4 +72,4 @@
           (function (lambda ()
                       (setq imenu-create-index-function 'ruby-sinatra-imenu-create-index)
                       )))
-(provide 'sinatra)
+(provide 'jp-sinatra)

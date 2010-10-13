@@ -46,7 +46,7 @@
 (require 'jp-lisp)
 (require 'jp-ruby)
 (require 'jp-js)
-(require 'sinatra)
+(require 'jp-sinatra)
 (require 'jp-rinari)
 (require 'jp-plain-text)
 (require 'jp-org-config)
@@ -62,6 +62,7 @@
 (require 'jp-scheme)
 (require 'jp-haskell)
 (require 'jp-clojure)
+(require 'jp-yaml)
 
 (regen-autoloads)
 (load custom-file 'noerror)
