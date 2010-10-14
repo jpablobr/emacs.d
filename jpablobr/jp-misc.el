@@ -169,4 +169,62 @@ LIST defaults to all existing live buffers."
              (kill-buffer buffer))))
     (setq list (cdr list))))
 
+;;; ----------------------------------------------------------------------------
+;;; - Mathematica
+;;;
+;; (autoload 'mma-mode "mma.el" "Mathematica package file mode" t)
+;; (setq auto-mode-alist
+;;       (cons '("\\.m\\'" . mma-mode) auto-mode-alist))
+(load-library "mathematica")
+(setq mathematica-never-start-kernel-with-mode t)
+(setq auto-mode-alist
+      (cons '("\\.m\\'" . mathematica-mode) auto-mode-alist))
+
+;;; ----------------------------------------------------------
+;;; - Grep edit
+;;;
+(require 'grep-edit)
+
+;;; ---------------------------------------------------------
+;;; - Textmate
+;;;
+(require 'textmate)
+(textmate-mode)
+
+;;; ---------------------------------------------------------
+;;; - Artist-mode
+;;;
+(autoload 'artist-mode "artist" "Enter artist-mode" t)
+
+;;; ---------------------------------------------------------
+;;; - Twittering Mode
+;;;
+(add-to-list 'load-path (concat vendor-dir "/twittering-mode"))
+(require 'twittering-mode)
+(setq twittering-username "jpablobr")
+
+;;; ---------------------------------------------------------
+;;; - IRC
+;;;
+(require 'erc)
+(erc-autojoin-mode t)
+(setq erc-autojoin-channels-alist
+      '((".*\\.freenode.net" "#github" "#greasemonkey" "#emacs" "#heroku" "#sinatra")))
+
+;;; ---------------------------------------------------------
+;;; - Cheat
+;;;
+(add-to-list 'auto-mode-alist '("\\.cheat$" . cheat))
+
+;;; ---------------------------------------------------------
+;;; -Redo
+;;;
+(require 'redo)
+(global-set-key [(control -)] 'redo)
+
+;;; ---------------------------------------------------------
+;;; - Find-recursive
+;;;
+(require 'find-recursive)
+
 (provide 'jp-misc)

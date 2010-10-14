@@ -63,24 +63,23 @@
 (require 'jp-haskell)
 (require 'jp-clojure)
 (require 'jp-yaml)
-
-(regen-autoloads)
-(load custom-file 'noerror)
-
-;;; ---------------------------------------------------------
-;;; - user-specific customizations
-;;;
-(setq system-specific-config (concat dotfiles-dir system-name ".el")
-      user-specific-config (concat dotfiles-dir user-login-name ".el"))
-
-(if (file-exists-p system-specific-config) (load system-specific-config))
-(if (file-exists-p user-specific-config) (load user-specific-config))
-
 ;;; ---------------------------------------------------------
 ;;; - requiring yasnippets after everything has been loaded...
 ;;;
 (require 'jp-yasnippet)
 (require 'jp-hippie)
+
+(regen-autoloads)
+(load custom-file 'noerror)
+
+;;; ---------------------------------------------------------
+;;; - ECB
+;;;
+(add-to-list 'load-path (concat vendor-dir "/ecb"))
+(require 'ecb)
+(setq ecb-tip-of-the-day nil)
+(setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
+(ecb-activate)
 
 ;;; ---------------------------------------------------------
 ;;; - Benchmarking
