@@ -45,24 +45,27 @@
 (require 'jp-eshell)
 (require 'jp-lisp)
 (require 'jp-ruby)
-(require 'jp-js)
 (require 'jp-sinatra)
 (require 'jp-rinari)
+(require 'jp-js)
 (require 'jp-plain-text)
-(require 'jp-org-config)
 (require 'jp-meta)
 (require 'jp-markdown)
-(require 'jp-haml)
 (require 'jp-autocomplete)
+(require 'jp-haml)
 (require 'jp-webdev)
-(require 'jp-wanderlust)
-(require 'jp-java)
-(require 'jp-python)
-(require 'jp-erlang)
 (require 'jp-scheme)
-(require 'jp-haskell)
-(require 'jp-clojure)
 (require 'jp-yaml)
+(require 'jp-python)
+
+;; (require 'jp-haskell)
+;; (require 'jp-clojure)
+;; (require 'jp-java)
+;; (require 'jp-erlang)
+
+(autoload 'jp-org-config "jp-org-config" t)
+(autoload 'jp-wanderlust "jp-wanderlust" t)
+
 ;;; ---------------------------------------------------------
 ;;; - requiring yasnippets after everything has been loaded...
 ;;;
@@ -79,7 +82,7 @@
 (require 'ecb)
 (setq ecb-tip-of-the-day nil)
 (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
-(ecb-activate)
+;;(ecb-activate)
 
 ;;; ---------------------------------------------------------
 ;;; - Benchmarking
