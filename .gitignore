@@ -7,3 +7,4 @@ auto-save-list/*
 session*
 custom.el.before_ecb_*
 tramp
+.org-id-locations
