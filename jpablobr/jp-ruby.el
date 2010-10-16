@@ -31,16 +31,16 @@
 ;;; ---------------------------------------------------------
 ;;; - rcodetools
 ;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/icicles")
-(add-to-list 'load-path "~/.emacs.d/vendor/rcodetools")
-(require 'rcodetools)
-(require 'icicles-rcodetools)
-(require 'anything)
-(require 'anything-rcodetools)
+;; (add-to-list 'load-path "~/.emacs.d/vendor/icicles")
+;; (add-to-list 'load-path "~/.emacs.d/vendor/rcodetools")
+;; (require 'rcodetools)
+;; (require 'icicles-rcodetools)
+;; (require 'anything)
+;; (require 'anything-rcodetools)
 ;; Command to get all RI entries.
-(setq rct-get-all-methods-command "PAGER=cat fri -l")
+;; (setq rct-get-all-methods-command "PAGER=cat fri -l")
 ;; See docs
-(define-key anything-map "\C-z" 'anything-execute-persistent-action)
+;; (define-key anything-map "\C-z" 'anything-execute-persistent-action)
 
 ;;; ---------------------------------------------------------
 ;;; - rdebug
@@ -111,10 +111,12 @@
 ;;; - Autotest
 ;;; - http://blog.zenspider.com/emacs/
 ;;;
+;(load "~/.emacs.d/vendor/autotest/unit-test.el")
 (add-to-list 'load-path "~/.emacs.d/vendor/autotest")
+(require 'unit-test)
 (require 'toggle)
 (require 'autotest)
-(require 'unit-test)
+
 (autoload 'autotest-switch "autotest" "doco" t)
 (autoload 'autotest "autotest" "doco" t)
 (add-hook 'ruby-mode-hook

@@ -175,10 +175,10 @@ LIST defaults to all existing live buffers."
 ;; (autoload 'mma-mode "mma.el" "Mathematica package file mode" t)
 ;; (setq auto-mode-alist
 ;;       (cons '("\\.m\\'" . mma-mode) auto-mode-alist))
-(load-library "mathematica")
-(setq mathematica-never-start-kernel-with-mode t)
-(setq auto-mode-alist
-      (cons '("\\.m\\'" . mathematica-mode) auto-mode-alist))
+;; (load-library "mathematica")
+;; (setq mathematica-never-start-kernel-with-mode t)
+;; (setq auto-mode-alist
+;;       (cons '("\\.m\\'" . mathematica-mode) auto-mode-alist))
 
 ;;; ----------------------------------------------------------
 ;;; - Grep edit
@@ -199,9 +199,9 @@ LIST defaults to all existing live buffers."
 ;;; ---------------------------------------------------------
 ;;; - Twittering Mode
 ;;;
-(add-to-list 'load-path (concat vendor-dir "/twittering-mode"))
-(require 'twittering-mode)
-(setq twittering-username "jpablobr")
+;; (add-to-list 'load-path (concat vendor-dir "/twittering-mode"))
+;; (require 'twittering-mode)
+;; (setq twittering-username "jpablobr")
 
 ;;; ---------------------------------------------------------
 ;;; - IRC

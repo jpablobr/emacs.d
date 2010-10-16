@@ -8,6 +8,18 @@
 
    % ruby install.rb
 
+## EXTRAS
+
+   % sudo apt-get install org-mode 
+
+   % sudo apt-get install emacs-goodies
+
+   % sudo apt-get install wl
+
+   % sudo apt-get install curl
+
+   % bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )
+
 ## IMPORTANT MODES TO COMPILE
 
    M-x nxhtmlmaint-start-byte-compilation

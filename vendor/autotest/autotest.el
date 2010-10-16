@@ -94,30 +94,30 @@
 (eval-when-compile
   (require 'unit-test nil t))
 
-(if (and autotest-use-ui (require 'unit-test nil t))
-    (progn
-      (message "starting emacs server for autotest")
-      (setq unit-test-colours (acons "gray" "#999999" unit-test-colours))
-      (setq unit-test-colours (acons "dark-gray" "#666666" unit-test-colours))
-      (setq unit-test-running-xpm (unit-test-dot "gray"))
-      (server-start)
-      (defun autotest-update (status)
-        "Updates all buffer's modeline with the current test status."
-        (interactive "S")
-        (let ((autotest-map (make-sparse-keymap)))
-          (define-key autotest-map [mode-line mouse-1] 'autotest-switch)
-          (mapcar (lambda (buffer)
-                    (with-current-buffer buffer
-                      (if (eq status 'quit)
-                          (show-test-none)
-                        (progn
-                          (show-test-status status)
-                          (put-text-property
-                           0 3
-                           'keymap autotest-map
-                           (car mode-line-buffer-identification))))))
-                  (remove-if 'minibufferp (buffer-list))))
-        status))
-  (message "unit-test not found, not starting autotest/emacs integration"))
+;; (if (and autotest-use-ui (require 'unit-test nil t))
+;;     (progn
+;;       (message "starting emacs server for autotest")
+;;       (setq unit-test-colours (acons "gray" "#999999" unit-test-colours))
+;;       (setq unit-test-colours (acons "dark-gray" "#666666" unit-test-colours))
+;;       (setq unit-test-running-xpm (unit-test-dot "gray"))
+;;       (server-start)
+;;       (defun autotest-update (status)
+;;         "Updates all buffer's modeline with the current test status."
+;;         (interactive "S")
+;;         (let ((autotest-map (make-sparse-keymap)))
+;;           (define-key autotest-map [mode-line mouse-1] 'autotest-switch)
+;;           (mapcar (lambda (buffer)
+;;                     (with-current-buffer buffer
+;;                       (if (eq status 'quit)
+;;                           (show-test-none)
+;;                         (progn
+;;                           (show-test-status status)
+;;                           (put-text-property
+;;                            0 3
+;;                            'keymap autotest-map
+;;                            (car mode-line-buffer-identification))))))
+;;                   (remove-if 'minibufferp (buffer-list))))
+;;         status))
+;;   (message "unit-test not found, not starting autotest/emacs integration"))
 
 (provide 'autotest)
