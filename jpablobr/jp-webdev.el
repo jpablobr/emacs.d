@@ -6,7 +6,7 @@
 ;;; ---------------------------------------------------------
 ;;; - nXML
 ;;;
-(load "~/.emacs.d/vendor/nxhtml/autostart22.el")
+(load "~/.emacs.d/vendor/nxhtml/autostart.el")
 
 (dolist (i '("xml" "xsd" "rng" "xsl" "xslt" "svg" "rss" "html"))
   (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'nxml-mode)))
