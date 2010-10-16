@@ -8,7 +8,7 @@
 
    % ruby install.rb
 
-## IMPORTANT MODE TO COMPILE
+## IMPORTANT MODES TO COMPILE
 
    M-x nxhtmlmaint-start-byte-compilation
 
