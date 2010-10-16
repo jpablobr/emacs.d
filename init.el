@@ -53,10 +53,10 @@
 (require 'jp-markdown)
 (require 'jp-autocomplete)
 (require 'jp-haml)
-(require 'jp-webdev)
 (require 'jp-scheme)
 (require 'jp-yaml)
 (require 'jp-python)
+(require 'jp-webdev)
 
 ;; (require 'jp-haskell)
 ;; (require 'jp-clojure)
