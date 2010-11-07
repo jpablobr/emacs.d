@@ -79,4 +79,12 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
+;;; ----------------------------------------------------------------------------
+;;; - Movement keybindings
+;;;
+
+;; (local-set-key [(M-up)] 'beginning-of-buffer)
+;; (local-set-key [(M-down)] 'end-of-buffer)
+
+
 (provide 'jp-eshell)

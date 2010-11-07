@@ -57,10 +57,10 @@
 (require 'jp-yaml)
 (require 'jp-python)
 (require 'jp-webdev)
+;;(require 'jp-java)
 
 ;; (require 'jp-haskell)
 ;; (require 'jp-clojure)
-;; (require 'jp-java)
 ;; (require 'jp-erlang)
 
 (autoload 'jp-org-config "jp-org-config" t)
@@ -93,3 +93,5 @@
            (- (+ hi lo) (+ (first *emacs-load-start*) (second
                                                        *emacs-load-start*)))))
 (provide 'init)
+
+(put 'downcase-region 'disabled nil)
