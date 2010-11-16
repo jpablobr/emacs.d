@@ -1,6 +1,5 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Showoff Pesentations
-;;; - 
 ;;;
 
 (add-to-list 'load-path "~/.emacs.d/vendor/showoff-mode")
