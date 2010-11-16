@@ -102,7 +102,6 @@
 (global-set-key (kbd "C-c M-j") 'jabber-disconnect)
 (global-set-key (kbd "C-x g") 'magit-status)
 
-
 ;;; ----------------------------------------------------------------------------
 ;;; - This is a little hacky since VC doesn't support git add internally
 ;;;
