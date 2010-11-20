@@ -57,9 +57,9 @@
 (require 'jp-python)
 (require 'jp-webdev)
 (require 'jp-showoff)
-(require 'jp-haskell)
+(require 'jp-erlang)
+;; (require 'jp-haskell)
 ;; (require 'jp-clojure)
-;; (require 'jp-erlang)
 ;; (require 'jp-scheme)
 ;; (require 'jp-java)
 
