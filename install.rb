@@ -23,10 +23,6 @@ system %Q{ cd vendor && git add erlware-mode/ && cd erlware-mode && git pull }
 system %Q{ cd vendor && git clone http://github.com/emacsmirror/haskell-mode.git haskell-mode }
 system %Q{ cd vendor && git add haskell-mode/ && cd haskell-mode && git pull }
 
-# twittering-mode
-system %Q{ cd vendor && git clone  git://github.com/hayamiz/twittering-mode.git twittering-mode }
-system %Q{ cd vendor && git add twittering-mode/ && cd twittering-mode && git pull }
-
 # rspec-mode
 system %Q{ cd vendor && git clone  http://github.com/pezra/rspec-mode.git rspec-mode }
 system %Q{ cd vendor && git add rspec-mode/ && cd rspec-mode && git pull }
