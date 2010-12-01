@@ -2,7 +2,7 @@
 ;;; ---------------------------------------------------------
 ;;; - Some helpful Lisp code
 ;;;
-(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+;;(add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 (add-hook 'emacs-lisp-mode-hook 'coding-hook)
 (add-hook 'lisp-mode-hook 'coding-hook)
 

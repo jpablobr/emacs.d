@@ -57,7 +57,7 @@
 (require 'jp-python)
 (require 'jp-webdev)
 (require 'jp-showoff)
-(require 'jp-erlang)
+;; (require 'jp-erlang)
 ;; (require 'jp-haskell)
 ;; (require 'jp-clojure)
 ;; (require 'jp-scheme)
@@ -93,5 +93,13 @@
            (- (+ hi lo) (+ (first *emacs-load-start*) (second
                                                        *emacs-load-start*)))))
 (provide 'init)
+
+;;; ----------------------------------------------------------------------------
+;;; - Transparency
+;;; - 
+;;;
+ ;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
+ (set-frame-parameter (selected-frame) 'alpha '(90 90))
+ (add-to-list 'default-frame-alist '(alpha 90 90))
 
 (put 'downcase-region 'disabled nil)

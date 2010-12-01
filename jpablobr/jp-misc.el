@@ -227,4 +227,6 @@ LIST defaults to all existing live buffers."
 ;;;
 (require 'find-recursive)
 
+(set-frame-parameter (selected-frame) 'alpha '(85 50))
+
 (provide 'jp-misc)
