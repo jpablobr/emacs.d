@@ -227,6 +227,12 @@ LIST defaults to all existing live buffers."
 ;;;
 (require 'find-recursive)
 
-(set-frame-parameter (selected-frame) 'alpha '(85 50))
+;;; ----------------------------------------------------------------------------
+;;; - Transparency
+;;; - 
+;;;
+;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
+(set-frame-parameter (selected-frame) 'alpha '(90 90))
+(add-to-list 'default-frame-alist '(alpha 90 90))
 
 (provide 'jp-misc)
