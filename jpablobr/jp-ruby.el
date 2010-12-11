@@ -104,8 +104,11 @@
 ;;; ---------------------------------------------------------
 ;;; - RVM mode... use rvm’s default ruby for the current Emacs session
 ;;;
-(require 'rvm)
-(rvm-use-default)
+(if (eq system-type 'gnu/linux)
+    (progn
+      (require 'rvm)
+      (rvm-use-default))
+  (progn))
 
 ;;; ---------------------------------------------------------
 ;;; - Autotest
