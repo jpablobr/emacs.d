@@ -6,6 +6,7 @@
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
 (color-theme-tangotango)
 
+
 ;;; ----------------------------------------------------------------------------
 ;;; - Transparency
 ;;; - 
