@@ -6,6 +6,10 @@
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
 (color-theme-tangotango)
 
+;;(require 'color-theme)
+;;(color-theme-initialize)
+;;(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
+;;(color-theme-twilight)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Transparency
