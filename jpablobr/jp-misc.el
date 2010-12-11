@@ -223,6 +223,13 @@ LIST defaults to all existing live buffers."
 (global-set-key [(control -)] 'redo)
 
 ;;; ---------------------------------------------------------
+;;; - Windows dotbat batch files mode
+;;;
+(add-to-list 'load-path (concat vendor-dir "/dosbat"))
+(require 'dosbat)
+(add-to-list 'auto-mode-alist '("\\.bat$" . bat-mode))
+
+;;; ---------------------------------------------------------
 ;;; - Find-recursive
 ;;;
 (require 'find-recursive)
