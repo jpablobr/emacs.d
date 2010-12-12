@@ -4,17 +4,38 @@
 ;;;
 
 ;;; ----------------------------------------------------------------------------
-;;; - Manually set PATH for use by eshell, rspec-mode, etc.
+;;; - Manually set PATH for use by eshell
 ;;;
-(let ((path))
-  (setq path (concat "~/.gem/ruby/1.8/bin:"
-                     "~/bin:"
-                     "~/src/homebrew/bin:"
-                     "/usr/local/bin:"
-                     "/usr/bin:"
-                     "/bin"))
-  (setenv "PATH" path))
 
+ (if (eq system-type 'windows-nt)
+    (progn)
+  (progn
+    (let ((path))
+      (setq path (concat "~/.gem/ruby/1.8/bin:"
+                         "~/bin:"
+                         "~/src/homebrew/bin:"
+                         "/usr/local/bin:"
+                         "/usr/bin:"
+                         "/bin"))
+      (setenv "PATH" path))))
+
+;;; ----------------------------------------------------------------------------
+;;; - Hardcoding $JAVA_HOME
+;;;
+ (if (eq system-type 'windows-nt)
+    (progn
+    (let ((JAVA_HOME))
+      (setq path (concat "C:\j2sdk1.6.0_16"))
+      (setenv "JAVA_HOME" path)))
+  (progn
+    (let ((JAVA_HOME))
+      (setq path (concat "/usr/lib/jvm/java-6-sun"))
+      (setenv "JAVA_HOME" path))))
+
+
+;;; ----------------------------------------------------------------------------
+;;; - Completions
+;;;
 (setq eshell-cmpl-cycle-completions nil
       eshell-save-history-on-exit t
       eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")

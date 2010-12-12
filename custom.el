@@ -13,19 +13,18 @@
  '(jde-compile-option-debug (quote ("all" (t nil nil)))) 
  '(jde-debugger (quote ("jdb")))
  '(jde-sourcepath (quote (".")))
-
-(if (eq system-type 'windows-nt)
+ '(jde-jdk-doc-url "http://download.oracle.com/javase/1.5.0/docs/api/index.html")
+ (if (eq system-type 'windows-nt)
     (progn
-      '(jde-jdk-registry (quote (("1.5" . "C:\j2sdk1.6.0_16"))))
-      '(jde-bug-jre-home "C:\j2sdk1.6.0_16")
-      '(jde-global-classpath (quote ("." "/usr/share/java/" "C:\j2sdk1.6.0_16")))
-      '(jde-sourcepath (quote ("."))))
-
+      '(jde-jdk (quote "~/HAVA_HOME")) 
+      '(jde-jdk-registry (quote (("1.5" . "~/HAVA_HOME"))))
+      '(jde-bug-jre-home JAVA_HOME_PATH) 
+      '(jde-global-classpath (quote ("." "~/HAVA_HOME"))))
   (progn
+    '(jde-jdk (quote "/usr/lib/jvm/java-6-sun")) 
     '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun"))))
-    '(jde-bug-jre-home "/usr/lib/jvm/java-6-sun")
-    '(jde-global-classpath (quote ("." "/usr/share/java/" "/usr/lib/jvm/java-6-sun/")))
-    '(jde-jdk-doc-url "/usr/share/doc/sun-java6-jdk/html/api/index.html")
+    '(jde-bug-jre-home JAVA_HOME) 
+    '(jde-global-classpath (quote ("." "/usr/share/java/" "/usr/lib/jvm/java-6-sun")))
     '(jde-regexp-jar-file "/usr/share/java/regexp.jar"))))
 
 (custom-set-faces
@@ -34,4 +33,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 95 :width normal))))
- '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 95 :width normal)))))
+ '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 95 :width normal))))
+ )
