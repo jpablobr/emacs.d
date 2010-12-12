@@ -16,14 +16,14 @@
  '(jde-jdk-doc-url "http://download.oracle.com/javase/1.5.0/docs/api/index.html")
  (if (eq system-type 'windows-nt)
     (progn
-      '(jde-jdk (quote "~/HAVA_HOME")) 
-      '(jde-jdk-registry (quote (("1.5" . "~/HAVA_HOME"))))
-      '(jde-bug-jre-home JAVA_HOME_PATH) 
-      '(jde-global-classpath (quote ("." "~/HAVA_HOME"))))
+      '(jde-jdk (quote "C:\j2sdk1.6.0_16")) 
+      '(jde-jdk-registry (quote (("1.6" . "C:\j2sdk1.6.0_16"))))
+      '(jde-bug-jre-home "C:\j2sdk1.6.0_16") 
+      '(jde-global-classpath (quote ("." "C:\j2sdk1.6.0_16"))))
   (progn
     '(jde-jdk (quote "/usr/lib/jvm/java-6-sun")) 
     '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun"))))
-    '(jde-bug-jre-home JAVA_HOME) 
+    '(jde-bug-jre-home  "/usr/lib/jvm/java-6-sun") 
     '(jde-global-classpath (quote ("." "/usr/share/java/" "/usr/lib/jvm/java-6-sun")))
     '(jde-regexp-jar-file "/usr/share/java/regexp.jar"))))
 
