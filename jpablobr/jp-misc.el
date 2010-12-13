@@ -197,13 +197,6 @@ LIST defaults to all existing live buffers."
 (autoload 'artist-mode "artist" "Enter artist-mode" t)
 
 ;;; ---------------------------------------------------------
-;;; - Twittering Mode
-;;;
-;; (add-to-list 'load-path (concat vendor-dir "/twittering-mode"))
-;; (require 'twittering-mode)
-;; (setq twittering-username "jpablobr")
-
-;;; ---------------------------------------------------------
 ;;; - IRC
 ;;;
 (require 'erc)
