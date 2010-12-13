@@ -92,4 +92,6 @@
   (let ((inhibit-read-only t))
     (erase-buffer)))
 
+(auto-complete-mode 0)
+
 (provide 'jp-eshell)
