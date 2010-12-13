@@ -84,6 +84,7 @@
 (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
 ;;(ecb-activate)
 
+
 ;;; ---------------------------------------------------------
 ;;; - Benchmarking
 ;;;

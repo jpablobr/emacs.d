@@ -44,5 +44,14 @@
    ))
 
 (add-hook 'jde-mode-hook 'my-jde-mode-hook)
+
+;;; ----------------------------------------------------------------------------
+;;; - ECB 
+;;;
+(add-hook 'jde-mode-hook
+          '(lambda ()
+     (require 'ecb)
+     (ecb-minor-mode 1)))
+
 (require 'jde)
 (provide 'jp-java)
