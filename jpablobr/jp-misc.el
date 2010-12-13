@@ -232,4 +232,6 @@ LIST defaults to all existing live buffers."
 ;;;
 (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
 
+(setq initial-scratch-message "")
+
 (provide 'jp-misc)

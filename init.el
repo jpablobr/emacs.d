@@ -93,6 +93,9 @@
          (destructuring-bind (hi lo ms) (current-time)
            (- (+ hi lo) (+ (first *emacs-load-start*) (second
                                                        *emacs-load-start*)))))
+
 (provide 'init)
 
 (put 'downcase-region 'disabled nil)
+
+(setq initial-major-mode 'butterfly)
