@@ -43,7 +43,7 @@
 ;;    tempo-interactive t
 ;;    ))
 
-(add-hook 'jde-mode-hook 'my-jde-mode-hook)
+;; (add-hook 'jde-mode-hook 'my-jde-mode-hook)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - ECB 

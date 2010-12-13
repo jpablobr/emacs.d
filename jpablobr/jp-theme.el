@@ -2,22 +2,18 @@
 ;;; ---------------------------------------------------------
 ;;; - Theme Sat 2010-08-28 - 10:06 AM
 ;;;
+(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
 (color-theme-tangotango)
 
-;;(require 'color-theme)
-;;(color-theme-initialize)
-;;(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
-;;(color-theme-twilight)
+;; (require 'color-theme)
+;; ;;(color-theme-initialize)
 
-;;; ----------------------------------------------------------------------------
-;;; - Transparency
-;;; - 
-;;;
-;;(set-frame-parameter (selected-frame) 'alpha '(<active> [<inactive>]))
-(set-frame-parameter (selected-frame) 'alpha '(90 90))
-(add-to-list 'default-frame-alist '(alpha 90 90))
+;; (color-theme-twilight)
+
+;;(set-frame-parameter (selected-frame) 'alpha '(90 90))
+;;(add-to-list 'default-frame-alist '(alpha 90 90))
 
 ;;; ---------------------------------------------------------
 ;;; - maxframe

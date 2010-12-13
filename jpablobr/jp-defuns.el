@@ -6,6 +6,22 @@
 (require 'thingatpt)
 (require 'imenu)
 
+
+;;; ----------------------------------------------------------------------------
+;;; - Transparency helper functions
+;;;
+(defun transparency ()
+  "Sets transparency"
+    (interactive)
+  (set-frame-parameter (selected-frame) 'alpha '(90 90))
+  (add-to-list 'default-frame-alist '(alpha 90 90)))
+
+(defun reset-transparency ()
+  "Resets transparency"
+    (interactive)
+  (set-frame-parameter (selected-frame) 'alpha '(100 100))
+  (add-to-list 'default-frame-alist '(alpha 100 100)))
+
 ;;; ----------------------------------------------------------------------------
 ;;; - Network
 ;;;
