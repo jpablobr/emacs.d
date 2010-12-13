@@ -227,4 +227,9 @@ LIST defaults to all existing live buffers."
 ;;;
 (require 'find-recursive)
 
+;;; ----------------------------------------------------------------------------
+;;; - zsh
+;;;
+(add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
+
 (provide 'jp-misc)
