@@ -96,6 +96,9 @@
 
 (provide 'init)
 
+;;; ----------------------------------------------------------------------------
+;;; - Haks
+;;;
 (put 'downcase-region 'disabled nil)
 
 (setq initial-major-mode 'butterfly)

@@ -5,15 +5,14 @@
 (load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
-(color-theme-tangotango)
+(color-theme-tangotango) ;; (color-theme-twilight)
 
-;; (require 'color-theme)
-;; ;;(color-theme-initialize)
-
-;; (color-theme-twilight)
-
-;;(set-frame-parameter (selected-frame) 'alpha '(90 90))
-;;(add-to-list 'default-frame-alist '(alpha 90 90))
+;;; ----------------------------------------------------------------------------
+;;; - Transparency
+;;; - Also see (transparency) and (reset-trasnparency) helper functions
+;;;
+(set-frame-parameter (selected-frame) 'alpha '(90 90))
+(add-to-list 'default-frame-alist '(alpha 90 90))
 
 ;;; ---------------------------------------------------------
 ;;; - maxframe
@@ -26,12 +25,36 @@
 ;;; ---------------------------------------------------------
 ;;; - customization
 ;;;
-(custom-set-variables
-'(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color. "white") (background-color . "black") (menu-bar-lines . 1))))
-'(erc-modules (quote (autojoin button completion fill irccontrols match menu netsplit noncommands readonly ring scrolltobottom stamp track))))
-
 (custom-set-faces
- '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal))))
- '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal)))))
+ '(default ((t (:stipple nil
+                :background "black"
+                :foreground "white"
+                :inverse-video nil
+                :box nil
+                :strike-through nil
+                :overline nil
+                :underline nil
+                :slant normal
+                :weight normal
+                :height 90 normal))))
+ 
+ '(autoface-default ((t (:inherit default
+                         :background "black"
+                         :foreground "white"
+                         :inverse-video nil
+                         :box nil
+                         :strike-through nil
+                         :overline nil
+                         :underline nil
+                         :slant normal
+                         :weight normal
+                         :height 90
+                         :width normal)))))
+ '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode2 ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil))))
 
 (provide 'jp-theme)

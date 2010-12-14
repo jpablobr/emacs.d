@@ -6,7 +6,10 @@
 ;;; ---------------------------------------------------------
 ;;; - nXML
 ;;;
-(load "~/.emacs.d/vendor/nxhtml/autostart.el")
+
+(add-hook 'nxml-mode-hook
+          '(lambda ()
+     (load "~/.emacs.d/vendor/nxhtml/autostart.el")))
 
 (dolist (i '("xml" "xsd" "rng" "xsl" "xslt" "svg" "rss" "html"))
   (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'nxml-mode)))
@@ -37,6 +40,7 @@
 ;;;
 (add-to-list 'load-path "~/.emacs.d/vendor/nxhtml/util")
 (autoload 'rng-clear-overlays "rng-valid" nil t)
+(custom-set-faces '(mumamo-background-chunk-submode ((((class color) (min-colors 88) (background dark)) nil))))
 
 ;;; ---------------------------------------------------------
 ;;; - CSS
