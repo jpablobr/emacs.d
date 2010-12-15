@@ -26,7 +26,7 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Turn on the menu bar for exploring new modes
 ;;;
-(global-set-key [f1] 'menu-bar-mode)
+;;; (global-set-key [f1] 'menu-bar-mode)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Use regex searches by default.
@@ -96,6 +96,7 @@
 (global-set-key (kbd "C-c j") (lambda () (interactive) (switch-or-start 'jabber-connect "*-jabber-*")))
 (global-set-key (kbd "C-c g") (lambda () (interactive) (switch-or-start 'gnus "*Group*")))
 (global-set-key (kbd "C-c i") (lambda () (interactive) (switch-or-start (lambda ()
+
                                                                           (rcirc-connect "irc.freenode.net"))
                                                                    "*irc.freenode.net*")))
 (global-set-key (kbd "C-c J") 'jabber-send-presence)
@@ -152,5 +153,23 @@
 (global-set-key [(meta N)] 'cleanup-buffer)
 
 (global-set-key [(control \])] 'indent-rigidly)
+
+;;; Jump to matching parent
+(global-set-key "%" 'match-paren)
+(global-set-key [f1] 'man-follow)
+(global-set-key [f4] 'speedbar-get-focus)
+(global-set-key [f6] 'buffer-menu)
+;; (global-set-key [C-tab] 'bs-cycle-next)
+;; (global-set-key [S-tab] 'bs-cycle-previous)
+;;; Bind scrolling functions from pager library.
+(global-set-key [next] 	   'pager-page-down)
+(global-set-key [prior]	   'pager-page-up)
+(global-set-key [M-up]    'pager-row-up)
+(global-set-key [M-down]  'pager-row-down)
+(global-set-key "\C-cs" 'dictionary-search)
+(global-set-key "\C-cm" 'dictionary-match-words)
+
+;; (global-set-key (kbd "C-c ]") 'comment-region)
+;; (global-set-key (kbd "C-c [") 'uncomment-region)
 
 (provide 'jp-keyboard)

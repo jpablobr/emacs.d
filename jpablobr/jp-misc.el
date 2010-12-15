@@ -37,46 +37,42 @@
 ;; (setq browse-url-browser-function 'browse-url-generic
 ;;       browse-url-generic-program "~/src/conkeror/conkeror")
 
-
-;;; ---------------------------------------------------------
-;;; - Transparently open compressed files
+;;; ----------------------------------------------------------------------------
+;;; - Custom Configs
 ;;;
-(auto-compression-mode t)
 
-;;; ---------------------------------------------------------
 ;;; - Smoother scrolling
-;;;
 (setq
  scroll-margin 0                  
   scroll-conservatively 100000
   scroll-preserve-screen-position 1)
   (put 'scroll-left 'disabled nil)
-  
-;;; ---------------------------------------------------------
+
+;;; - Transparently open compressed files
+(auto-compression-mode t)
+
+;;; - Make all yes-or-no questions as y-or-n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;;; - Enable syntax highlighting for older Emacsen that have it off
+(global-font-lock-mode t)
+
+;;; - Menu bar settings
+;;(menu-bar-mode -1)
+
 ;;; - X11 Copy & Paste to/from Emacs
-;;;
 (setq x-select-enable-clipboard t) ; as above
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
-;;; ---------------------------------------------------------
-;;; - Enable syntax highlighting for older Emacsen that have it off
-;;;
-(global-font-lock-mode t)
-
-;;; ---------------------------------------------------------
-;;; - Menu bar settings
-;;;
-;;(menu-bar-mode -1)
-
-;;; ---------------------------------------------------------
 ;;; - Save a list of recent files visited.
-;;;
 (recentf-mode 1)
 
-;;; ---------------------------------------------------------
 ;;; - Highlight matching parentheses when the point is on them.
-;;;
 (show-paren-mode 1)
+
+;;; - Hippie expand: at times perhaps too hip
+(delete 'try-expand-line hippie-expand-try-functions-list)
+(delete 'try-expand-list hippie-expand-try-functions-list)
 
 ;;; ---------------------------------------------------------
 ;;; - ido-mode is like magic pixie dust!
@@ -95,12 +91,6 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
-
-;;; ---------------------------------------------------------
-;;; - Hippie expand: at times perhaps too hip
-;;;
-(delete 'try-expand-line hippie-expand-try-functions-list)
-(delete 'try-expand-list hippie-expand-try-functions-list)
 
 ;;; ---------------------------------------------------------
 ;;; - Don't clutter up directories with files~
@@ -124,14 +114,10 @@
 ;;; ---------------------------------------------------------
 ;;; - linu and column default counters
 ;;;
-(setq line-number-mode t)
-(setq column-number-mode t)
-
-;;; ---------------------------------------------------------
-;;; - Set line numbers globally
-;;;
 (require 'linum)
 (global-linum-mode)
+(setq line-number-mode t)
+(setq column-number-mode t)
 
 ;;; ---------------------------------------------------------
 ;;; - insert date into buffer at point
@@ -231,9 +217,45 @@ LIST defaults to all existing live buffers."
 ;;; - zsh
 ;;;
 (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
-
 (setq initial-scratch-message "")
+
+;;; ----------------------------------------------------------------------------
+;;; - temp - tests
+;;;
 ;; (setq debug-on-error 0)
 ;; (setq debug-on-error nil)
+
+
+;;; ----------------------------------------------------------------------------
+;;; - Dictionary
+;;; - % sudo apt-get install dictionary-el
+;;; - 
+;;;
+(autoload 'dictionary-search "dictionary"
+  "Ask for a word and search it in all dictionaries" t)
+(autoload 'dictionary-match-words "dictionary"
+  "Ask for a word and search all matching words in the dictionaries" t)
+(autoload 'dictionary-lookup-definition "dictionary"
+  "Unconditionally lookup the word at point." t)
+(autoload 'dictionary "dictionary"
+  "Create a new dictionary buffer" t)
+(autoload 'dictionary-mouse-popup-matching-words "dictionary"
+  "Display entries matching the word at the cursor" t)
+(autoload 'dictionary-popup-matching-words "dictionary"
+  "Display entries matching the word at the point" t)
+(autoload 'dictionary-tooltip-mode "dictionary"
+  "Display tooltips for the current word" t)
+(autoload 'global-dictionary-tooltip-mode "dictionary"
+  "Enable/disable dictionary-tooltip-mode for all buffers" t)
+
+;;; ----------------------------------------------------------------------------
+;;; - Global custom variables
+;;;
+(custom-set-variables
+ '(fill-column 80)
+ '(font-lock-mode-maximum-decoration t)
+ '(global-font-lock-mode t nil (font-lock))
+ '(indent-tabs-mode nil)
+ '(scroll-preserve-screen-position t))
 
 (provide 'jp-misc)

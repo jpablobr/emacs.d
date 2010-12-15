@@ -49,12 +49,11 @@
                          :slant normal
                          :weight normal
                          :height 90
-                         :width normal)))))
+                         :width normal))))
  '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) nil)))
  '(mumamo-background-chunk-submode ((((class color) (min-colors 88) (background dark)) nil)))
  '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) nil)))
  '(mumamo-background-chunk-submode2 ((((class color) (min-colors 88) (background dark)) nil)))
  '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) nil)))
  '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil))))
-
 (provide 'jp-theme)
