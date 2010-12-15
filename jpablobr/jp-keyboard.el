@@ -78,7 +78,12 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Fetch the contents at a URL, display it raw.
 ;;;
-(global-set-key (kbd "C-x h") 'view-url)
+(global-set-key (kbd "C-x u") 'view-url)
+
+;;; ----------------------------------------------------------------------------
+;;; - mark-whole-buffer
+;;;
+(global-set-key (kbd "C-x h") 'mark-whole-buffer)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Help should search more than just commands
@@ -135,8 +140,8 @@
 (global-set-key (kbd "M-z") 'undo)
 (global-set-key (kbd "M-c") 'kill-ring-save) ;; Copy
 
-(global-set-key [(meta p)] 'beginning-of-buffer)
-(global-set-key [(meta n)] 'end-of-buffer)
+(global-set-key [(meta up)] 'beginning-of-buffer)
+(global-set-key [(meta down)] 'end-of-buffer)
 
 (global-set-key [(meta shift right)] 'ido-switch-buffer)
 (global-set-key [(meta shift up)] 'recentf-ido-find-file)
@@ -164,11 +169,9 @@
 ;;; Bind scrolling functions from pager library.
 (global-set-key [next] 	   'pager-page-down)
 (global-set-key [prior]	   'pager-page-up)
-(global-set-key [M-up]    'pager-row-up)
-(global-set-key [M-down]  'pager-row-down)
 (global-set-key "\C-cs" 'dictionary-search)
 (global-set-key "\C-cm" 'dictionary-match-words)
-
+(global-set-key (kbd "C-c C-i r") 'ispell-region)
 ;; (global-set-key (kbd "C-c ]") 'comment-region)
 ;; (global-set-key (kbd "C-c [") 'uncomment-region)
 

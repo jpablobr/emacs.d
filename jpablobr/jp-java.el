@@ -39,6 +39,8 @@
 ;;; - http://www.emacswiki.org/emacs/download/jde-jalopy.el
 (require 'jde-jalopy)
 
+(load "jde-autoload")
+
 ;;; ----------------------------------------------------------------------------
 ;;; - Custom configs
 ;;;
@@ -81,9 +83,9 @@
 ;;    tempo-interactive t
 ;;    ))
 ;; (add-hook 'jde-mode-hook 'indentation-jde-mode-hook)
-(add-hook 'jde-mode-hook
-          '(lambda ()
-     (load "jde-autoload")))
+;; (add-hook 'jde-mode-hook
+;;           '(lambda ()
+;;      (load "jde-autoload")))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - JAVA custome variables
@@ -118,7 +120,6 @@
     '(jde-bug-jre-home  "/usr/lib/jvm/java-6-sun") 
     '(jde-global-classpath (quote ("." "/usr/share/java/" "/usr/lib/jvm/java-6-sun")))
     '(jde-regexp-jar-file "/usr/share/java/regexp.jar"))))
-
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Hacks
