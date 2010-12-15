@@ -11,7 +11,7 @@
           '(lambda ()
      (load "~/.emacs.d/vendor/nxhtml/autostart.el")))
 
-(dolist (i '("xml" "xsd" "rng" "xsl" "xslt" "svg" "rss" "html"))
+(dolist (i '("xml" "xsd" "rng" "xsl" "xslt" "svg" "rss" "html" "php"))
   (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'nxml-mode)))
 
 ;;; ---------------------------------------------------------
@@ -23,7 +23,7 @@
 
 (setq auto-mode-alist  (cons '("\\.css$" . css-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.js$" .  js2-mode) auto-mode-alist))
-
+(setq auto-mode-alist  (cons '("\\.php$" . nxml-mode) auto-mode-alist))
 
 (add-hook 'html-mode-hook
           '(lambda()
@@ -40,7 +40,13 @@
 ;;;
 (add-to-list 'load-path "~/.emacs.d/vendor/nxhtml/util")
 (autoload 'rng-clear-overlays "rng-valid" nil t)
-(custom-set-faces '(mumamo-background-chunk-submode ((((class color) (min-colors 88) (background dark)) nil))))
+(custom-set-faces
+ '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode2 ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) nil)))
+ '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil))))
 
 ;;; ---------------------------------------------------------
 ;;; - CSS
