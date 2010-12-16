@@ -7,8 +7,9 @@
 (require 'espresso)
 (require 'yaml-mode)
 
-;; (add-to-list 'load-path
-;;              (concat dotfiles-dir "/vendor/yasnippet.el"))
+(add-to-list 'load-path
+             (concat dotfiles-dir "/vendor/yasnippet.el"))
+
 (require 'yasnippet)
 
 (require 'dropdown-list)
@@ -17,7 +18,6 @@
                                yas/ido-prompt))
 
 (setq yas/root-directory (concat dotfiles-dir "vendor/yasnippets-jpablobr"))
-;"~/.emacs.d/vendor/yasnippets-jpablobr")
 (yas/load-directory yas/root-directory)
 
 (add-hook 'python-mode-hook 'yas/minor-mode-on)
