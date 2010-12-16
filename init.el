@@ -1,6 +1,6 @@
 ;;; -*- coding: utf-8-unix; -*-
 ;;; ---------------------------------------------------------
-;;; - Jose Pablo Barrantes <xjpablobrx@gmail.com> 
+;;; - Jose Pablo Barrantes <xjpablobrx@gmail.com>
 ;;; - emacs.d initializations
 ;;;
 (setq dotfiles-dir (file-name-directory
@@ -100,5 +100,4 @@
 ;;; - Haks
 ;;;
 (put 'downcase-region 'disabled nil)
-
-(setq initial-major-mode 'butterfly)
+;; (setq initial-major-mode 'butterfly)
