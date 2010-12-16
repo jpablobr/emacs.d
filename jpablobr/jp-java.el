@@ -1,64 +1,33 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Java development
 ;;; - http://www.iiitmk.ac.in/wiki/index.php/IIITM-K_How-to_Knowledge_Base/How_to_configure_JDE_for_emacs
-
-;;; ----------------------------------------------------------------------------
-;;; - Better scrolling in emacs
+;;; - from: http://wttools.sourceforge.net/emacs-stuff/package.html#install-jdee
+;;; - http://www.emacswiki.org/cgi-bin/wiki/download/mic-paren.el
+;;; - http://www.hut.fi/u/rsaikkon/software/elisp/cparen.el
 ;;; - from: http://user.it.uu.se/~mic/pager.el
 ;;;
-(require 'pager)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/jdee/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/jdibug-0.2"))
 
-;;; ----------------------------------------------------------------------------
-;;; - Parens
-;;; - mic-paren.el is available at:
-;;; - http://www.emacswiki.org/cgi-bin/wiki/download/mic-paren.el
-;;; - cparen.el is available at:
-;;; - http://www.hut.fi/u/rsaikkon/software/elisp/cparen.el
-;;;
+(require 'jde)
+(require 'pager)
 (require 'mic-paren)
 (require 'cparen)
+(require 'jde-jalopy)
+(require 'jdibug)
+;; (require 'jde-testng)
+;; (require 'jde-maven2)
+
 (paren-activate)
 (cparen-activate)
 (show-paren-mode t)
-
-;;; ----------------------------------------------------------------------------
-;;; - JDE requires
-;;; - from: http://wttools.sourceforge.net/emacs-stuff/package.html#install-jdee
-;;;
-;;(add-to-list 'load-path "~/.emacs.d/vendor/elib")
-;;(add-to-list 'load-path "~/.emacs.d/vendor/eieio")
-;;(add-to-list 'load-path "~/.emacs.d/vendor/cedet/semantic")
-;;(add-to-list 'load-path "~/.emacs.d/vendor/speedbar")
-;;(add-to-list 'load-path "~/.emacs.d/vendor/jdee")
-;;(add-to-list 'load-path "~/.emacs.d/vendor/jdee/lisp")
-
-(require 'jde)
 (load "jde-autoload")
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/jdee/lisp"))
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/jdibug-0.2"))
-(require 'jde-jalopy)
-;; (require 'jde-testng)
-;; (require 'jde-maven2)
-(require 'jdibug)
 
 (semantic-add-system-include "/usr/lib/jvm/java-6-sun/jre/lib/*" 'jde-mode)
 (semantic-add-system-include "/usr/lib/jvm/java-6-sun/jre/lib" 'jde-mode)
 (semantic-add-system-include "/usr/lib/jvm/java-6-sun/jre/" 'jde-mode)
 (semantic-add-system-include "/usr/lib/jvm/java-6-sun/" 'jde-mode)
 
-(defun jde-semantic-hook ()
-  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
-  (local-set-key "." 'semantic-complete-self-insert)
-  (local-set-key ">" 'semantic-complete-self-insert)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  (imenu-add-to-menubar "TAGS"))
-(add-hook 'semantic-init-hooks 'jde-semantic-hook)
-
-;;; ----------------------------------------------------------------------------
-;;; - Custom configs
-;;;
 (setq jde-auto-parse-enable nil)
 (setq jde-enable-senator nil)
 (setq defer-loading-jde t); Defer loading the JDE until you open a Java file.

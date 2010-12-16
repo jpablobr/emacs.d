@@ -8,19 +8,16 @@
 ;;(require 'semantic-gcc)
 (require 'semantic-wisent)
 
-;; (require 'semanticdb)
-;; (global-semanticdb-minor-mode 1)
-;(semantic-load-enable-excessive-code-helpers)
-
-;; if you want to enable support for gnu global
-;(require 'semanticdb-global)
-;;(semantic-load-enable-semantic-debugging-helpers)
+(add-to-list 'load-path "~/.emacs.d/vendor/cedet/semantic")
+(require 'semanticdb)
+(global-semanticdb-minor-mode 1)
+(semantic-load-enable-excessive-code-helpers)
 
 ;; enable ctags for some languages:
 ;; Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
 ;; sudo apt-get install exuberant-ctags
 ;; http://blog.carduner.net/2007/07/02/exuberant-ctags-emacs/
-;(semantic-load-enable-primary-exuberent-ctags-support)
+;; (semantic-load-enable-primary-exuberent-ctags-support)
 
 (custom-set-variables
  '(ecb-layout-window-sizes (quote (("left8"
@@ -44,49 +41,67 @@
 (setq semantic-load-turn-everything-on t)
 (setq senator-minor-mode-name "SN")
 (setq semantic-imenu-auto-rebuild-directory-indexes nil)
-;(global-srecode-minor-mode 1)
-;(global-semantic-mru-bookmark-mode 1)
+;;(global-srecode-minor-mode 1)
+;;(global-semantic-mru-bookmark-mode 1)
 
-;(require 'semantic-decorate-include)
-;(require 'eassist)
+;; cedet is now managed by _el-get_ using latest source from cvs
+(defun my-semantic-hook ()
+  "feature setting hook for semantic"
+  (require 'semantic-ia)
+  (require 'semantic-gcc)
 
-;; customisation of modes
-(defun jpablobr-cedet-hook ()
-  (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
-  (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
-  ;;
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-c=" 'semantic-decoration-include-visit)
-
-  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
-  (local-set-key "\C-cq" 'semantic-ia-show-doc)
-  (local-set-key "\C-cs" 'semantic-ia-show-summary)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  )
-;; (add-hook 'semantic-init-hooks 'jpablobr-cedet-hook)
-(add-hook 'c-mode-common-hook 'jpablobr-cedet-hook)
-(add-hook 'lisp-mode-hook 'jpablobr-cedet-hook)
-(add-hook 'scheme-mode-hook 'jpablobr-cedet-hook)
-(add-hook 'emacs-lisp-mode-hook 'jpablobr-cedet-hook)
-(add-hook 'erlang-mode-hook 'jpablobr-cedet-hook)
-(add-hook 'jde-mode-hook 'jpablobr-cedet-hook)
-
-(defun jde-mode-cedet-hook ()
- ;; (local-set-key "." 'semantic-complete-self-insert)
- ;; (local-set-key ">" 'semantic-complete-self-insert)
-  (local-set-key "\C-ct" 'eassist-switch-h-cpp)
-  (local-set-key "\C-xt" 'eassist-switch-h-cpp)
-  (local-set-key "\C-ce" 'eassist-list-methods)
-  (local-set-key "\C-c\C-r" 'semantic-symref)
-  )
-(add-hook 'jde-mode-common-hook 'jde-mode-cedet-hook)
-
-;; hooks, specific for semantic
-(defun semantic-hook ()
-;; (semantic-tag-folding-mode 1)
   (imenu-add-to-menubar "TAGS")
- )
-(add-hook 'semantic-init-hooks 'semantic-hook)
+  (global-ede-mode t)
+  (global-srecode-minor-mode 1)
+
+  (semantic-load-enable-code-helpers)
+  (global-semantic-highlight-func-mode 1)
+  (global-semantic-show-unmatched-syntax-mode -1)
+  (global-semantic-tag-folding-mode -1)
+  (global-semantic-idle-scheduler-mode -1)
+  )
+
+(defun my-semantic-key-hook ()
+  "key bindings for semantic modes"
+  (local-set-key "\C-c=" 'semantic-decoration-include-visit)
+  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+  (local-set-key "\C-c\C-r" 'semantic-symref)
+
+  (local-set-key "\C-c/" 'semantic-ia-complete-symbol)
+  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
+  (local-set-key "\C-cd" 'semantic-ia-show-doc)
+  (local-set-key "\C-cs" 'semantic-ia-show-summary)
+
+  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+  (local-set-key "\C-ct" 'eassist-switch-h-cpp)
+  (local-set-key "\C-cm" 'eassist-list-methods)
+  )
+
+(defun my-semanticdb-hook ()
+  "semanticdb hook"
+  (setq semanticdb-default-save-directory "~/semanticdb")
+  (setq semanticdb-search-system-databases t)
+
+  (setq-mode-local c-mode semanticdb-find-default-throttle
+    '(project unloaded system recursive))
+  (setq-mode-local c++-mode semanticdb-find-default-throttle
+    '(project unloaded system recursive))
+
+  (semantic-load-enable-primary-exuberent-ctags-support)
+  )
+
+(defun my-semantic-init()
+  "all in one semantic init function"
+  (progn
+    (add-hook 'semantic-init-hooks 'my-semantic-hook)
+    (add-hook 'semantic-init-hooks 'my-semanticdb-hook)
+    (add-hook 'semantic-init-hooks 'my-semantic-key-hook)
+    )
+  )
+
+
+;;(require 'semantic-decorate-include)
+;;(require 'eassist)
 
 (custom-set-variables
  '(semantic-idle-scheduler-idle-time 3)

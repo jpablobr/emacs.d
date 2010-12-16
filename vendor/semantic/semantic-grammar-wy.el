@@ -1,0 +1,1 @@
+/usr/share/emacs/site-lisp/semantic/semantic-grammar-wy.el

@@ -1,0 +1,1 @@
+/usr/share/emacs/site-lisp/semantic/semanticdb-el.el
