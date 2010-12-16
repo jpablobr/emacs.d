@@ -24,6 +24,11 @@
 (setq auto-mode-alist  (cons '("\\.css$" . css-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.js$" .  js2-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.php$" . nxml-mode) auto-mode-alist))
+(setq auto-mode-alist  (cons '("\\.php$" . php-mode) auto-mode-alist))
+
+(add-hook 'php-mode-hook
+          '(lambda()
+            (yas/minor-mode 1)))
 
 (add-hook 'html-mode-hook
           '(lambda()
