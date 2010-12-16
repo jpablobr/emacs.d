@@ -264,6 +264,14 @@ LIST defaults to all existing live buffers."
 (add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
 
 ;;; ----------------------------------------------------------------------------
+;;; - Emacs w3m
+;;;
+(defun emacs-w3m-custom ()
+  "emacs-w3m-mode-hook"
+  (define-key w3m-mode-map [(meta right)] 'w3m-tab-next-buffer))
+(add-hook 'w3m-mode-hook '(lambda () (emacs-w3m-custom)))
+
+;;; ----------------------------------------------------------------------------
 ;;; - temp - tests
 ;;;
 ;; (setq debug-on-error 0)

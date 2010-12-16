@@ -175,4 +175,5 @@
 ;; (global-set-key (kbd "C-c ]") 'comment-region)
 ;; (global-set-key (kbd "C-c [") 'uncomment-region)
 
+(global-set-key (kbd "C-c C-i r") 'ispell-region)
 (provide 'jp-keyboard)

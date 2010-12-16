@@ -2,6 +2,7 @@
 ;;; ---------------------------------------------------------
 ;;; - CEDET
 ;;; - apt-get install cedet-common cedet-contrib cogre ede eieio semantic speedbar elib jde
+;;; - http://nullman.org/tutorial/emacs-files/.emacs.d/kyle-init/modes.el.html
 
 (require 'semantic)
 (require 'semantic-ia)
