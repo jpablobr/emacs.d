@@ -1,7 +1,7 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Haskell
-;;; - 
 ;;;
 
-(load "~/.emacs.d/vendor/haskell-mode/haskell-site-file")
+(require 'haskell-mode)
+
 (provide 'jp-haskell)

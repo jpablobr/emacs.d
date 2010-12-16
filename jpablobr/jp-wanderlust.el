@@ -14,7 +14,7 @@
 (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
 (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
 
-(setq 
+(setq
   elmo-maildir-folder-path "~/Maildir"          ;; where i store my mail
 
   wl-stay-folder-window t                       ;; show the folder pane (left)
@@ -44,18 +44,18 @@
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Maildirs
-;;; - note: all below are dirs (Maildirs) under elmo-maildir-folder-path 
+;;; - note: all below are dirs (Maildirs) under elmo-maildir-folder-path
 ;;; - the '.'-prefix is for marking them as maildirs
-;;;  
+;;;
   wl-fcc ".sent"                       ;; sent msgs go to the "sent"-folder
-  wl-fcc-force-as-read t               ;; mark sent messages as read 
-  wl-default-folder ".inbox"           ;; my main inbox 
+  wl-fcc-force-as-read t               ;; mark sent messages as read
+  wl-default-folder ".inbox"           ;; my main inbox
   wl-draft-folder ".drafts"            ;; store drafts in 'postponed'
   wl-trash-folder ".trash"             ;; put trash in 'trash'
   wl-spam-folder ".trash"              ;; ...spam as well
   wl-queue-folder ".queue"             ;; we don't use this
   wl-folder-check-async t
-  
+
 ;;; ----------------------------------------------------------------------------
 ;;; - check this folder periodically, and update modeline
 ;;;

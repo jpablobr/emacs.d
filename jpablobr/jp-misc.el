@@ -43,16 +43,13 @@
 
 ;;; - Smoother scrolling
 (setq
- scroll-margin 0                  
+ scroll-margin 0
   scroll-conservatively 100000
   scroll-preserve-screen-position 1)
   (put 'scroll-left 'disabled nil)
 
 ;;; - Transparently open compressed files
 (auto-compression-mode t)
-
-;;; - Make all yes-or-no questions as y-or-n
-(fset 'yes-or-no-p 'y-or-n-p)
 
 ;;; - Enable syntax highlighting for older Emacsen that have it off
 (global-font-lock-mode t)
@@ -73,6 +70,21 @@
 ;;; - Hippie expand: at times perhaps too hip
 (delete 'try-expand-line hippie-expand-try-functions-list)
 (delete 'try-expand-list hippie-expand-try-functions-list)
+
+;;; ----------------------------------------------------------------------------
+;;; - Whitespace mode
+;;; -  make whitespace-mode use “¶” for newline and “▷” for tab.
+;;;
+(global-whitespace-mode 1)
+(setq whitespace-display-mappings '(
+   (space-mark 32 [183] [46]) ; normal space
+   (space-mark 160 [164] [95])
+   (space-mark 2208 [2212] [95])
+   (space-mark 2336 [2340] [95])
+   (space-mark 3616 [3620] [95])
+   (space-mark 3872 [3876] [95])
+   (newline-mark 10 [182 10]) ; newlne
+   (tab-mark 9 [9655 9] [92 9])))
 
 ;;; ---------------------------------------------------------
 ;;; - ido-mode is like magic pixie dust!
@@ -220,16 +232,46 @@ LIST defaults to all existing live buffers."
 (setq initial-scratch-message "")
 
 ;;; ----------------------------------------------------------------------------
+;;; - Coffeescript mode
+;;;
+(add-to-list 'load-path (concat vendor-dir "/coffee-mode"))
+(require 'coffee-mode)
+
+(defun coffee-custom ()
+  "coffee-mode-hook"
+
+  (imenu-add-to-menubar "IMENU")
+
+  ;; CoffeeScript uses two spaces.
+  (set (make-local-variable 'tab-width) 2)
+
+  ;; If you don't want your compiled files to be wrapped
+  (setq coffee-args-compile '("-c" "--bare"))
+
+  ;; *Messages* spam
+  (setq coffee-debug-mode t)
+
+  ;; Emacs key binding
+  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
+  (define-key coffee-mode-map [(meta R)] 'coffee-compile-region)
+
+  ;; Compile '.coffee' files on every save
+  (add-hook 'after-save-hook
+      '(lambda ()
+         (when (string-match "\.coffee$" (buffer-name))
+          (coffee-compile-file)))))
+
+(add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
+
+;;; ----------------------------------------------------------------------------
 ;;; - temp - tests
 ;;;
 ;; (setq debug-on-error 0)
 ;; (setq debug-on-error nil)
 
-
 ;;; ----------------------------------------------------------------------------
 ;;; - Dictionary
 ;;; - % sudo apt-get install dictionary-el
-;;; - 
 ;;;
 (autoload 'dictionary-search "dictionary"
   "Ask for a word and search it in all dictionaries" t)

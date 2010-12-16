@@ -1,17 +1,17 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Java development
-;;;
+;;; - http://www.iiitmk.ac.in/wiki/index.php/IIITM-K_How-to_Knowledge_Base/How_to_configure_JDE_for_emacs
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Better scrolling in emacs
 ;;; - from: http://user.it.uu.se/~mic/pager.el
-;;; 
+;;;
 (require 'pager)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Parens
 ;;; - mic-paren.el is available at:
-;;; - http://www.emacswiki.org/cgi-bin/wiki/download/mic-paren.el 
+;;; - http://www.emacswiki.org/cgi-bin/wiki/download/mic-paren.el
 ;;; - cparen.el is available at:
 ;;; - http://www.hut.fi/u/rsaikkon/software/elisp/cparen.el
 ;;;
@@ -24,22 +24,37 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - JDE requires
 ;;; - from: http://wttools.sourceforge.net/emacs-stuff/package.html#install-jdee
-;;; 
-(add-to-list 'load-path "~/.emacs.d/vendor/elib")
-(add-to-list 'load-path "~/.emacs.d/vendor/eieio")
-(add-to-list 'load-path "~/.emacs.d/vendor/semantic")
-(add-to-list 'load-path "~/.emacs.d/vendor/speedbar")
-(add-to-list 'load-path "~/.emacs.d/vendor/jdee")
-(add-to-list 'load-path "~/.emacs.d/vendor/jdee/lisp")
+;;;
+;;(add-to-list 'load-path "~/.emacs.d/vendor/elib")
+;;(add-to-list 'load-path "~/.emacs.d/vendor/eieio")
+;;(add-to-list 'load-path "~/.emacs.d/vendor/cedet/semantic")
+;;(add-to-list 'load-path "~/.emacs.d/vendor/speedbar")
+;;(add-to-list 'load-path "~/.emacs.d/vendor/jdee")
+;;(add-to-list 'load-path "~/.emacs.d/vendor/jdee/lisp")
+
 (require 'jde)
-
-;;; ----------------------------------------------------------------------------
-;;; - jde-jalopy
-;;; - Interface between JDEE and Jalopy
-;;; - http://www.emacswiki.org/emacs/download/jde-jalopy.el
-(require 'jde-jalopy)
-
 (load "jde-autoload")
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/jdee/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/jdibug-0.2"))
+(require 'jde-jalopy)
+;; (require 'jde-testng)
+;; (require 'jde-maven2)
+(require 'jdibug)
+
+(semantic-add-system-include "/usr/lib/jvm/java-6-sun/jre/lib/*" 'jde-mode)
+(semantic-add-system-include "/usr/lib/jvm/java-6-sun/jre/lib" 'jde-mode)
+(semantic-add-system-include "/usr/lib/jvm/java-6-sun/jre/" 'jde-mode)
+(semantic-add-system-include "/usr/lib/jvm/java-6-sun/" 'jde-mode)
+
+(defun jde-semantic-hook ()
+  (local-set-key [(control return)] 'semantic-ia-complete-symbol)
+  (local-set-key "." 'semantic-complete-self-insert)
+  (local-set-key ">" 'semantic-complete-self-insert)
+  (local-set-key "\C-c?" 'semantic-ia-complete-symbol-menu)
+  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+  (imenu-add-to-menubar "TAGS"))
+(add-hook 'semantic-init-hooks 'jde-semantic-hook)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Custom configs
@@ -47,6 +62,15 @@
 (setq jde-auto-parse-enable nil)
 (setq jde-enable-senator nil)
 (setq defer-loading-jde t); Defer loading the JDE until you open a Java file.
+
+(if defer-loading-jde
+    (progn
+      (autoload 'jde-mode "jde" "JDE mode." t)
+      (setq auto-mode-alist
+            (append
+             '(("\\.java\\'" . jde-mode))
+             auto-mode-alist)))
+  (require 'jde))
 
 ;;; It works only if you manualy set CYGWIN_ROOT environment
 ;;; variable for your Windows system
@@ -66,7 +90,7 @@
       (setenv "SHELL" shell-file-name)
       (add-hook 'comint-output-filter-functions
                 'comint-strip-ctrl-m)))
- 
+
 ;; Sets the basic indentation for Java source files
 ;; to two spaces.
 ;; (defun indentation-jde-mode-hook ()
@@ -76,7 +100,7 @@
 ;;   (c-set-offset 'statement-case-open 0)
 ;;   (c-set-offset 'case-label '+)
 ;;  (wisent-java-default-setup)
-;;   (setq 
+;;   (setq
 ;;    indent-tabs-mode nil
 ;;    tab-width 2
 ;;    c-basic-offset 2
@@ -110,14 +134,14 @@
  '(jde-which-method-max-length 30)
   (if (eq system-type 'windows-nt)
     (progn
-      '(jde-jdk (quote "C:\j2sdk1.6.0_16")) 
+      '(jde-jdk (quote "C:\j2sdk1.6.0_16"))
       '(jde-jdk-registry (quote (("1.6" . "C:\j2sdk1.6.0_16"))))
-      '(jde-bug-jre-home "C:\j2sdk1.6.0_16") 
+      '(jde-bug-jre-home "C:\j2sdk1.6.0_16")
       '(jde-global-classpath (quote ("." "C:\j2sdk1.6.0_16"))))
   (progn
-    '(jde-jdk (quote "/usr/lib/jvm/java-6-sun")) 
+    '(jde-jdk (quote "/usr/lib/jvm/java-6-sun"))
     '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun"))))
-    '(jde-bug-jre-home  "/usr/lib/jvm/java-6-sun") 
+    '(jde-bug-jre-home  "/usr/lib/jvm/java-6-sun")
     '(jde-global-classpath (quote ("." "/usr/share/java/" "/usr/lib/jvm/java-6-sun")))
     '(jde-regexp-jar-file "/usr/share/java/regexp.jar"))))
 
