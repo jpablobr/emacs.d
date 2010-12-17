@@ -171,6 +171,7 @@
 (global-set-key [prior] 'pager-page-up)
 (global-set-key "\C-cs" 'dictionary-search)
 (global-set-key "\C-cm" 'dictionary-match-words)
+(global-set-key [(meta I)] 'ispell-region)
+(global-set-key [(meta F)] 'fill-region)
 
-(global-set-key (kbd "C-c C-i r") 'ispell-region)
 (provide 'jp-keyboard)
