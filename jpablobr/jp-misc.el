@@ -264,14 +264,6 @@ LIST defaults to all existing live buffers."
 (add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
 
 ;;; ----------------------------------------------------------------------------
-;;; - Emacs w3m
-;;;
-(defun emacs-w3m-custom ()
-  "emacs-w3m-mode-hook"
-  (define-key w3m-mode-map [(meta right)] 'w3m-tab-next-buffer))
-(add-hook 'w3m-mode-hook '(lambda () (emacs-w3m-custom)))
-
-;;; ----------------------------------------------------------------------------
 ;;; - temp - tests
 ;;;
 ;; (setq debug-on-error 0)
@@ -302,6 +294,12 @@ LIST defaults to all existing live buffers."
 ;;; - Global custom variables
 ;;;
 (custom-set-variables
+ '(w3m-arrived-file "~/Dropbox/.w3m/.arrived")
+ '(w3m-bookmark-file "~/Dropbox/.w3m/bookmark.html")
+ '(w3m-default-save-directory "~/Dropbox/.w3m")
+ '(w3m-form-textarea-directory "~/Dropbox/.w3m/.textarea")
+ '(w3m-profile-directory "~/Dropbox/.w3m")
+ '(w3m-session-file "~/Dropbox/.w3m/.sessions")
  '(fill-column 80)
  '(font-lock-mode-maximum-decoration t)
  '(global-font-lock-mode t nil (font-lock))

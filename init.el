@@ -58,13 +58,13 @@
 (require 'jp-webdev)
 (require 'jp-showoff)
 (require 'jp-java)
+(require 'jp-wanderlust)
 ;; (require 'jp-erlang)
 ;; (require 'jp-haskell)
 ;; (require 'jp-clojure)
 ;; (require 'jp-scheme)
 
 (autoload 'jp-org-config "jp-org-config" t)
-(autoload 'jp-wanderlust "jp-wanderlust" t)
 
 ;;; ---------------------------------------------------------
 ;;; - requiring yasnippets after everything has been loaded...

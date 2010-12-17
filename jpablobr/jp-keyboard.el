@@ -167,13 +167,10 @@
 ;; (global-set-key [C-tab] 'bs-cycle-next)
 ;; (global-set-key [S-tab] 'bs-cycle-previous)
 ;;; Bind scrolling functions from pager library.
-(global-set-key [next] 	   'pager-page-down)
-(global-set-key [prior]	   'pager-page-up)
+(global-set-key [next] 'pager-page-down)
+(global-set-key [prior] 'pager-page-up)
 (global-set-key "\C-cs" 'dictionary-search)
 (global-set-key "\C-cm" 'dictionary-match-words)
-(global-set-key (kbd "C-c C-i r") 'ispell-region)
-;; (global-set-key (kbd "C-c ]") 'comment-region)
-;; (global-set-key (kbd "C-c [") 'uncomment-region)
 
 (global-set-key (kbd "C-c C-i r") 'ispell-region)
 (provide 'jp-keyboard)

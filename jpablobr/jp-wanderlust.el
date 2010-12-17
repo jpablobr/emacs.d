@@ -2,7 +2,6 @@
 ;;; ---------------------------------------------------------
 ;;; - Wanderlust
 ;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/wanderlust")
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Wanderlust configuration
@@ -14,8 +13,20 @@
 (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
 (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
 
+;;; ----------------------------------------------------------------------------
+;;; - Emacs w3m
+;;;
+(defun emacs-w3m-custom ()
+  "emacs-w3m-mode-hook"
+  (define-key w3m-mode-map [(a)] 'wl-summary-reply)
+  (define-key w3m-mode-map [(meta right)] 'w3m-tab-next-buffer))
+(add-hook 'w3m-mode-hook '(lambda () (emacs-w3m-custom)))
+
 (setq
-  elmo-maildir-folder-path "~/Maildir"          ;; where i store my mail
+  wl-forward-subject-prefix "Fwd: " )
+
+(setq
+  elmo-maildir-folder-path "~/Dropbox/Maildir"
 
   wl-stay-folder-window t                       ;; show the folder pane (left)
   wl-folder-window-width 25                     ;; toggle on/off with 'i'
@@ -59,6 +70,7 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - check this folder periodically, and update modeline
 ;;;
+  wl-biff-check-folder-list '(".inbox") ;; check every 180 seconds
   wl-biff-check-folder-list '(".todo") ;; check every 180 seconds
                                        ;; (default: wl-biff-check-interval)
 
@@ -82,6 +94,58 @@
      "^Date"
      "^To"
      "^Cc"))
+
+(autoload 'wl-user-agent-compose "wl-draft" nil t)
+(if (boundp 'mail-user-agent)
+    (setq mail-user-agent 'wl-user-agent))
+(if (fboundp 'define-mail-user-agent)
+    (define-mail-user-agent
+      'wl-user-agent
+      'wl-user-agent-compose
+      'wl-draft-send
+      'wl-draft-kill
+      'mail-send-hook))
+
+;; from a WL-mailinglist post by David Bremner
+;; Invert behaviour of with and without argument replies.
+;; just the author
+(setq wl-draft-reply-without-argument-list
+  '(("Reply-To" ("Reply-To") nil nil)
+     ("Mail-Reply-To" ("Mail-Reply-To") nil nil)
+     ("From" ("From") nil nil)))
+
+;; bombard the world
+(setq wl-draft-reply-with-argument-list
+  '(("Followup-To" nil nil ("Followup-To"))
+     ("Mail-Followup-To" ("Mail-Followup-To") nil ("Newsgroups"))
+     ("Reply-To" ("Reply-To") ("To" "Cc" "From") ("Newsgroups"))
+     ("From" ("From") ("To" "Cc") ("Newsgroups"))))
+
+;; Automatically select the correct template based on which folder I'm visiting
+(setq wl-draft-config-matchone t)
+(setq wl-draft-config-alist
+      '(((and
+          (string-match ".*work" wl-draft-parent-folder)
+          (string-match "laptop" system-name))
+         (template . "Work-From-Home"))
+        ((and (string-match ".*work" wl-draft-parent-folder)
+              (string-match "work-computer" system-name))
+         (template . "Work"))
+        ((not (string-match ".*work" wl-draft-parent-folder))
+         (template . "gmail"))))
+
+;; Apply wl-draft-config-alist as soon as you enter in a draft buffer. Without
+;; this wanderlust would apply it only when actually sending the e-mail.
+(add-hook 'wl-mail-setup-hook 'wl-draft-config-exec)
+
+;(setq wl-draft-use-frame t)
+(add-hook 'wl-mail-setup-hook 'auto-fill-mode)
+
+;; Set the key "f" to browse-url when I'm reading an E-mail. If instead of an url I have an HTML code I can simple select the code and hit "F"
+(add-hook 'mime-view-mode-hook
+          (lambda ()
+            (local-set-key "f" 'browse-url)
+            (local-set-key "F" 'browse-url-of-region)))
 
 (autoload 'wl-user-agent-compose "wl-draft" nil t)
 (if (boundp 'mail-user-agent)

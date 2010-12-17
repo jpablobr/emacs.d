@@ -34,7 +34,13 @@
  '(quack-default-program "mit-scheme")
  '(scroll-preserve-screen-position t)
  '(semantic-idle-scheduler-idle-time 3)
- '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point)))))
+ '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
+ '(w3m-arrived-file "~/Dropbox/.w3m/.arrived")
+ '(w3m-bookmark-file "~/Dropbox/.w3m/bookmark.html")
+ '(w3m-default-save-directory "~/Dropbox/.w3m")
+ '(w3m-form-textarea-directory "~/Dropbox/.w3m/.textarea")
+ '(w3m-profile-directory "~/Dropbox/.w3m")
+ '(w3m-session-file "~/Dropbox/.w3m/.sessions"))
 
 
 ;;; ----------------------------------------------------------------------------
