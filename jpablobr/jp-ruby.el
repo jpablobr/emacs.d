@@ -134,9 +134,12 @@
 ;;; ---------------------------------------------------------
 ;;; - ri
 ;;;
-(setq ri-ruby-script "~/.emacs.d/vendor/ri-emacs/ri-emacs.rb")
-(autoload 'ri "~/.emacs.d/vendor/ri-emacs/ri-ruby.el" nil t)
-;;   (add-hook 'ruby-mode-hook (lambda ()
+(add-to-list 'load-path "~/.emacs.d/vendor/ri.el")
+
+;; (setq ri-ruby-script "~/.emacs.d/vendor/ri-emacs/ri-emacs.rb")
+;; (autoload 'ri "~/.emacs.d/vendor/ri-emacs/ri-ruby.el" nil t)
+;; (add-hook 'ri-mode-hook 'ansi-color-for-comint-mode-on)
+;; (add-hook 'ruby-mode-hook (lambda ()
 ;;                               (local-set-key 'f1 'ri)
 ;;                               (local-set-key "\M-\C-i" 'ri-ruby-complete-symbol)
 ;;                               (local-set-key 'f4 'ri-ruby-show-args)

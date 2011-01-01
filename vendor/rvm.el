@@ -36,6 +36,14 @@
 ;; M-x rvm-use allows you to switch the current session to the ruby
 ;; implementation of your choice. You can also change the active gemset.
 
+;;; Compiler support:
+
+(eval-when-compile (require 'cl))
+(defvar eshell-path-env)
+(defvar persp-mode)
+(defvar perspectives-hash)
+(declare-function persp-switch "perspective" (name))
+
 ;;; Code:
 
 (defcustom rvm-executable
@@ -105,11 +113,13 @@ If no .rvmrc file is found, the default ruby is used insted."
           (picked-gemset (rvm--completing-read "Gemset: "
                                                (rvm/gemset-list picked-ruby))))
      (list picked-ruby picked-gemset)))
-  (let* ((ruby-info (rvm/info new-ruby))
+  (let* ((new-ruby-with-gemset (concat new-ruby rvm--gemset-separator new-gemset))
+         (ruby-info (rvm/info new-ruby-with-gemset))
          (new-ruby-binary (cdr (assoc "ruby" ruby-info)))
-         (new-ruby-gemhome (cdr (assoc "GEM_HOME" ruby-info))))
+         (new-ruby-gemhome (cdr (assoc "GEM_HOME" ruby-info)))
+         (new-ruby-gempath (cdr (assoc "GEM_PATH" ruby-info))))
     (rvm--set-ruby (file-name-directory new-ruby-binary))
-    (rvm--set-gemhome new-ruby-gemhome new-gemset))
+    (rvm--set-gemhome new-ruby-gemhome new-ruby-gempath new-gemset))
   (message (concat "Ruby: " new-ruby " Gemset: " new-gemset)))
 
 ;;;###autoload
@@ -165,6 +175,7 @@ If no .rvmrc file is found, the default ruby is used insted."
   (let ((info (rvm--call-process "info" ruby-version))
         (start 0)
         (parsed-info '()))
+    (when (not info) (error "The ruby version: %s is not installed" ruby-version))
     (while (string-match "\s+\\(.+\\):\s+\"\\(.+\\)\"" info start)
       (let ((info-key (match-string 1 info))
             (info-value (match-string 2 info)))
@@ -223,23 +234,27 @@ If no .rvmrc file is found, the default ruby is used insted."
 (defun rvm--rvmrc-read-version (path-to-rvmrc)
   (with-temp-buffer
     (insert-file-contents path-to-rvmrc)
-    (goto-char (point-min))
-    (if (re-search-forward
-         (concat "rvm\s+\\(.+\\)" rvm--gemset-separator "\\(.*\\)") nil t)
-        (list (match-string 1) (match-string 2))
-      nil)))
+    (rvm--rvmrc-parse-version (buffer-substring-no-properties (point-min) (point-max)))))
 
-(defun rvm--set-gemhome (gemhome gemset)
-  (if (and gemhome gemset)
-      (let ((current-gemset (concat gemhome rvm--gemset-separator gemset)))
-        (setenv "GEM_HOME" current-gemset)
-        (setenv "GEM_PATH" (concat gemhome ":" current-gemset))
-        (setenv "BUNDLE_PATH" (if (string= gemset rvm--gemset-default)
-                                  gemhome current-gemset))
-        (rvm--change-path 'rvm--current-gem-binary-path
-                          (list (concat current-gemset "/bin")
-                                (concat gemhome
-                                        rvm--gemset-separator "global/bin"))))
+(defun rvm--rvmrc-parse-version (rvmrc-line)
+  (when (string-match
+         (concat "rvm\\(\s+use\\)?\s+\\([^" rvm--gemset-separator "]+\\)\\(" rvm--gemset-separator "\\(.*\\)\\)?")
+         rvmrc-line)
+    (list (match-string 2 rvmrc-line) (or
+                                       (match-string 4 rvmrc-line)
+                                       rvm--gemset-default))))
+
+(defun rvm--gem-binary-path-from-gem-path (gempath)
+  (let ((gem-paths (split-string gempath ":")))
+    (mapcar (lambda (path) (concat path "/bin")) gem-paths)))
+
+(defun rvm--set-gemhome (gemhome gempath gemset)
+  (if (and gemhome gempath gemset)
+      (progn
+        (setenv "GEM_HOME" gemhome)
+        (setenv "GEM_PATH" gempath)
+        (setenv "BUNDLE_PATH" gemhome)
+        (rvm--change-path 'rvm--current-gem-binary-path (rvm--gem-binary-path-from-gem-path gempath)))
     ;; TODO: make system gems work
     (setenv "GEM_HOME" "")
     (setenv "GEM_PATH" "")
@@ -247,6 +262,9 @@ If no .rvmrc file is found, the default ruby is used insted."
 
 (defun rvm--ruby-default ()
   (car (rvm/list t)))
+
+(defun rvm--default-gemset-p (gemset)
+  (string= gemset rvm--gemset-default))
 
 (defun rvm--call-process (&rest args)
   (with-temp-buffer

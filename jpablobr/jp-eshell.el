@@ -6,6 +6,8 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Manually set PATH for use by eshell
 ;;; - $JAVA_HOME
+(setq gem-bin-path (when (string-match "@global" (getenv "GEM_PATH"))
+  (replace-match "/bin" nil nil (getenv "GEM_PATH"))))
 
 (if (eq system-type 'windows-nt)
     (progn
@@ -17,12 +19,16 @@
       (setq path (concat "/usr/lib/jvm/java-6-sun"))
       (setenv "JAVA_HOME" path))
     (let ((path))
-      (setq path (concat "~/.gem/ruby/1.8/bin:"
-                         "~/bin:"
-                         "~/src/homebrew/bin:"
+      (setq path (concat ".:"
+                         "/usr/local/mysql/bin:"
+                         "/home/jpablobr/bin:"
                          "/usr/local/bin:"
+                         "/usr/local/sbin:"
+                         "/home/jpablobr/.rvm/bin:"
                          "/usr/bin:"
-                         "/bin"))
+                         "/bin:"
+                         "/home/jpablobr/.rvm/gems/ruby-1.9.2-p136@global/bin:"
+                         gem-bin-path))
       (setenv "PATH" path))))
 
 ;;; ----------------------------------------------------------------------------

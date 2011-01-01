@@ -5,8 +5,7 @@
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Wanderlust configuration
-;;; - % sudo apt-get install wl
-;;; - % sudo apt-get install gnutls-bin
+;;; - % sudo aptitude install wl gnutls-bin
 ;;; - http://www.emacswiki.org/emacs/WanderLust
 ;;;
 (autoload 'wl "wl" "Wanderlust" t)
@@ -16,6 +15,7 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Emacs w3m
 ;;;
+(require 'mime-w3m)
 (defun emacs-w3m-custom ()
   "emacs-w3m-mode-hook"
   (define-key w3m-mode-map [(a)] 'wl-summary-reply)

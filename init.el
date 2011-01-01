@@ -58,6 +58,7 @@
 (require 'jp-webdev)
 (require 'jp-showoff)
 (require 'jp-java)
+(require 'jp-w3m)
 (require 'jp-wanderlust)
 ;; (require 'jp-erlang)
 ;; (require 'jp-haskell)
@@ -83,7 +84,6 @@
 (setq ecb-tip-of-the-day nil)
 (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
 ;;(ecb-activate)
-
 
 ;;; ---------------------------------------------------------
 ;;; - Benchmarking

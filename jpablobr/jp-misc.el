@@ -28,15 +28,14 @@
 ;;; ---------------------------------------------------------
 ;;; - Browser
 ;;;
-(setq browse-url-browser-function 'browse-url-firefox)
+;; (setq browse-url-browser-function 'browse-url-firefox)
 ;; (setq browse-url-browser-function 'browse-default-macosx-browser)
 ;; (setq browse-url-browser-function 'browse-default-windows-browser)
 ;; (setq browse-url-browser-function 'browse-default-kde)
 ;; (setq browse-url-browser-function 'browse-default-epiphany)
-;; (setq browse-url-browser-function 'browse-default-w3m)
 ;; (setq browse-url-browser-function 'browse-url-generic
 ;;       browse-url-generic-program "~/src/conkeror/conkeror")
-
+(setq browse-url-browser-function 'browse-default-w3m)
 ;;; ----------------------------------------------------------------------------
 ;;; - Custom Configs
 ;;;
@@ -268,7 +267,7 @@ LIST defaults to all existing live buffers."
 ;;;
 ;; (setq debug-on-error 0)
 ;; (setq debug-on-error nil)
-
+(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 ;;; ----------------------------------------------------------------------------
 ;;; - Dictionary
 ;;; - % sudo apt-get install dictionary-el
@@ -305,5 +304,15 @@ LIST defaults to all existing live buffers."
  '(global-font-lock-mode t nil (font-lock))
  '(indent-tabs-mode nil)
  '(scroll-preserve-screen-position t))
+
+ (require 'ansi-color)
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'ri-mode-hook 'ansi-color-for-comint-mode-on)
+
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+(add-hook 'ri-filter-hook 'colorize-compilation-buffer)
 
 (provide 'jp-misc)
