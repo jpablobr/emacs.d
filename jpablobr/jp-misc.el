@@ -189,11 +189,6 @@ LIST defaults to all existing live buffers."
 (textmate-mode)
 
 ;;; ---------------------------------------------------------
-;;; - Artist-mode
-;;;
-(autoload 'artist-mode "artist" "Enter artist-mode" t)
-
-;;; ---------------------------------------------------------
 ;;; - IRC
 ;;;
 (require 'erc)
