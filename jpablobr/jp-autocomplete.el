@@ -13,10 +13,10 @@
 (define-key ac-complete-mode-map "\t" 'ac-complete)
 (define-key ac-complete-mode-map "\r" nil)
 
-;; (when (require 'auto-complete nil t)
-;;   (require 'auto-complete-yasnippet)
-;;   (require 'auto-complete-ruby)
-;;   (require 'auto-complete-css))
+;; (when (require 'auto-complete nil t)    
+  ;; (require 'auto-complete-yasnippet)
+  ;; (require 'auto-complete-ruby)
+  ;; (require 'auto-complete-css))
 
 (global-auto-complete-mode t)           ;enable global-mode
    (setq ac-auto-start t)                  ;automatically start
@@ -34,9 +34,9 @@
                    lisp-interaction-mode
                    c-mode cc-mode c++-mode java-mode
                    perl-mode cperl-mode python-mode ruby-mode jde-mode
-                   ecmascript-mode javascript-mode js2-mode espresso-mode php-mode css-mode
+                   ecmascript-mode javascript-mode js2-mode espresso-mode php-mode css-mode shell-mode
                    makefile-mode sh-mode fortran-mode f90-mode ada-mode inf-ruby-mode clojure-mode scheme-mode
-                   xml-mode sgml-mode sass-mode haml-mode html-mode RoR-mode rinari-mode rhtml-mode)));;shell-mode
+                   xml-mode sgml-mode sass-mode haml-mode html-mode RoR-mode rinari-mode rhtml-mode)))
    ;(add-to-list 'ac-trigger-commands 'org-self-insert-command)
 
   (add-hook 'emacs-lisp-mode-hook
@@ -44,9 +44,9 @@
              (setq ac-sources
                    '(ac-source-yasnippet ac-source-abbrev ac-source-words-in-buffer ac-source-symbols))))
 
-;; (add-hook 'eshell-mode-hook
-;;           (lambda ()
-;;             (setq ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-files-in-current-dir ac-source-words-in-buffer))))
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (setq ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-files-in-current-dir ac-source-words-in-buffer))))
 
    (add-hook 'ruby-mode-hook
              (lambda ()
