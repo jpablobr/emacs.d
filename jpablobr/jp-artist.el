@@ -42,6 +42,10 @@
   (shell-command
    (concat ditaa-cmd " " buffer-file-name)))
 
+;;; ----------------------------------------------------------------------------
+;;; - Graphviz
+;;; - sudo apt-get install graphviz
+;;;
 (load-file "~/.emacs.d/vendor/graphviz-dot-mode.el")
 
 (provide 'jp-artist)

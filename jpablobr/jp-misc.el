@@ -303,7 +303,7 @@ LIST defaults to all existing live buffers."
  '(scroll-preserve-screen-position t))
 
 (custom-set-faces
- '(whitespace-line ((t (:underline "green")))))
+ '(whitespace-line ((t (:background "purple" :foreground "green")))))
 
 (defun colorize-compilation-buffer ()
   (toggle-read-only)

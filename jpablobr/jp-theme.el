@@ -37,7 +37,7 @@
                 :slant normal
                 :weight normal
                 :height 90 normal))))
- 
+
  '(autoface-default ((t (:inherit default
                          :background "black"
                          :foreground "white"
