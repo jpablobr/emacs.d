@@ -2,7 +2,6 @@
 ;;; ---------------------------------------------------------
 ;;; - Define some custom functions
 ;;;
-
 (require 'thingatpt)
 (require 'imenu)
 
@@ -11,13 +10,13 @@
 ;;;
 (defun transparency ()
   "Sets transparency"
-    (interactive)
-  (set-frame-parameter (selected-frame) 'alpha '(90 90))
-  (add-to-list 'default-frame-alist '(alpha 90 90)))
+  (interactive)
+  (set-frame-parameter (selected-frame) 'alpha '(70 70))
+  (add-to-list 'default-frame-alist '(alpha 70 70)))
 
 (defun reset-transparency ()
   "Resets transparency"
-    (interactive)
+  (interactive)
   (set-frame-parameter (selected-frame) 'alpha '(100 100))
   (add-to-list 'default-frame-alist '(alpha 100 100)))
 
@@ -28,8 +27,8 @@
   "Go to the matching parenthesis if on parenthesis otherwise insert %."
   (interactive "p")
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-	(t (self-insert-command (or arg 1)))))
+        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+        (t (self-insert-command (or arg 1)))))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Network

@@ -6,8 +6,8 @@
 ;;; ---------------------------------------------------------
 ;;; - rails reloaded
 ;;;
-(setq load-path (cons (expand-file-name "~/.emacs.d/vendor/jpablobr-ror") load-path))
-(require 'rails-autoload)
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/emacs-rails"))
+(require 'rails)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Rinari

@@ -173,5 +173,6 @@
 (global-set-key "\C-cm" 'dictionary-match-words)
 (global-set-key [(meta I)] 'ispell-region)
 (global-set-key [(meta F)] 'fill-region)
+(global-set-key [(meta P)] 'mouse-buffer-menu)
 
 (provide 'jp-keyboard)

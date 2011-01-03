@@ -85,6 +85,8 @@
    (newline-mark 10 [182 10]) ; newlne
    (tab-mark 9 [9655 9] [92 9])))
 
+   (setq whitespace-line 'underline)
+
 ;;; ---------------------------------------------------------
 ;;; - ido-mode is like magic pixie dust!
 ;;;
@@ -300,9 +302,8 @@ LIST defaults to all existing live buffers."
  '(indent-tabs-mode nil)
  '(scroll-preserve-screen-position t))
 
- (require 'ansi-color)
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'ri-mode-hook 'ansi-color-for-comint-mode-on)
+(custom-set-faces
+ '(whitespace-line ((t (:underline "green")))))
 
 (defun colorize-compilation-buffer ()
   (toggle-read-only)
