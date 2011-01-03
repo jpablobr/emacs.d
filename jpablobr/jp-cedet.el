@@ -5,24 +5,26 @@
 ;;; - http://nullman.org/tutorial/emacs-files/.emacs.d/kyle-init/modes.el.html
 
 (load-file "~/.emacs.d/vendor/cedet-1.0pre7/common/cedet.el")
+(add-to-list 'load-path "~/.emacs.d/vendor/cedet-1.0pre7/semantic")
 (require 'semantic)
 (require 'semantic-ia)
 (require 'semantic-gcc)
 (require 'semantic-wisent)
-
-(add-to-list 'load-path "~/.emacs.d/vendor/cedet-1.0pre7/semantic")
+(require 'semantic-decorate-include)
+(require 'eassist)
+(require 'semantic-lex-spp)
 (require 'semanticdb)
 (global-semanticdb-minor-mode 1)
-(semantic-load-enable-excessive-code-helpers)
-(semantic-load-enable-semantic-debugging-helpers)
 
 ;; enable ctags for some languages:
 ;; Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
 ;; sudo apt-get install exuberant-ctags
 ;; http://blog.carduner.net/2007/07/02/exuberant-ctags-emacs/
-(semantic-load-enable-primary-exuberent-ctags-support)
 (require 'semanticdb-ectag)
 (semantic-load-enable-primary-exuberent-ctags-support)
+
+(require 'semanticdb-global)
+(semanticdb-enable-gnu-global-databases 'ruby-mode)
 
 (custom-set-variables
  '(ecb-layout-window-sizes (quote (("left8"
@@ -33,8 +35,6 @@
  '(ecb-options-version "2.40")
  '(ecb-source-path (quote ("~/code/"))))
 
-(global-ede-mode t)
-(semantic-load-enable-code-helpers)
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semantic-idle-summary-mode
                                   global-semantic-decoration-mode
@@ -44,42 +44,55 @@
 
 (setq semantic-load-turn-everything-on t)
 (setq senator-minor-mode-name "SN")
-(setq semantic-imenu-auto-rebuild-directory-indexes nil)
-;;(global-srecode-minor-mode 1)
-;;(global-semantic-mru-bookmark-mode 1)
+(setq semantic-imenu-auto-rebuild-directory-indexes nil) ;
+(global-semantic-mru-bookmark-mode 1)
 
-;; cedet is now managed by _el-get_ using latest source from cvs
-(defun my-semantic-hook ()
+;; (setq-mode-local ruby-mode semanticdb-find-default-throttle
+;;                  '(project unloaded system recursive))
+
+;; customisation of modes
+(defun jpablobr/cedet-hook ()
+  "key bindings for semantic modes"
+  (local-set-key "\C-c=" 'semantic-decoration-include-visit)
+  (local-set-key "\C-c\C-r" 'semantic-symref)
+  (local-set-key "\C-ct" 'eassist-switch-h-cpp)
+  (local-set-key "\C-cm" 'eassist-list-methods)
+  (local-set-key [(control return)] 'semantic-ia-complete-symbol-menu)
+  (local-set-key "\C-c?" 'semantic-ia-complete-symbol)
+  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
+  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
+  (local-set-key "\C-cq" 'semantic-ia-show-doc)
+  (local-set-key "\C-cs" 'semantic-ia-show-summary)
+  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
+  )
+;; (add-hook 'semantic-init-hooks 'jpablobr/cedet-hook)
+(add-hook 'c-mode-common-hook 'jpablobr/cedet-hook)
+(add-hook 'lisp-mode-hook 'jpablobr/cedet-hook)
+(add-hook 'scheme-mode-hook 'jpablobr/cedet-hook)
+(add-hook 'emacs-lisp-mode-hook 'jpablobr/cedet-hook)
+(add-hook 'erlang-mode-hook 'jpablobr/cedet-hook)
+(add-hook 'ruby-mode-hook 'jpablobr/cedet-hook)
+
+
+(defun jpablobr/semantic-hook ()
   "feature setting hook for semantic"
-  (require 'semantic-ia)
-  (require 'semantic-gcc)
-
   (imenu-add-to-menubar "TAGS")
   (global-ede-mode t)
-  (global-srecode-minor-mode 1)
-
+  (semantic-load-enable-excessive-code-helpers)
+  (semantic-load-enable-semantic-debugging-helpers)
+; (global-srecode-minor-mode 1)
   (semantic-load-enable-code-helpers)
   (global-semantic-highlight-func-mode 1)
   (global-semantic-show-unmatched-syntax-mode -1)
-  (global-semantic-tag-folding-mode -1)
   (global-semantic-idle-scheduler-mode -1)
   )
+(add-hook 'semantic-init-hooks 'jpablobr/semantic-hook)
 
-(defun my-semantic-key-hook ()
-  "key bindings for semantic modes"
-  (local-set-key "\C-c=" 'semantic-decoration-include-visit)
-  (local-set-key "\C-cp" 'semantic-analyze-proto-impl-toggle)
-  (local-set-key "\C-c\C-r" 'semantic-symref)
-
-  (local-set-key "\C-c/" 'semantic-ia-complete-symbol)
-  (local-set-key "\C-cj" 'semantic-ia-fast-jump)
-  (local-set-key "\C-cd" 'semantic-ia-show-doc)
-  (local-set-key "\C-cs" 'semantic-ia-show-summary)
-
-  (local-set-key "\C-c>" 'semantic-complete-analyze-inline)
-  (local-set-key "\C-ct" 'eassist-switch-h-cpp)
-  (local-set-key "\C-cm" 'eassist-list-methods)
-  )
+(custom-set-variables
+ '(semantic-idle-scheduler-idle-time 3)
+ '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
+ '(global-semantic-tag-folding-mode t nil (semantic-util-modes)))
+; (global-semantic-folding-mode 1)	
 
 (defun my-semanticdb-hook ()
   "semanticdb hook"
@@ -99,13 +112,9 @@
   (progn
     (add-hook 'semantic-init-hooks 'my-semantic-hook)
     (add-hook 'semantic-init-hooks 'my-semanticdb-hook)
-    (add-hook 'semantic-init-hooks 'my-semantic-key-hook)
+    (add-hook 'semantic-init-hooks 'jpablobr/cedet-hook)
     )
   )
-
-
-;;(require 'semantic-decorate-include)
-;;(require 'eassist)
 
 (custom-set-variables
  '(semantic-idle-scheduler-idle-time 3)
@@ -137,11 +146,6 @@
     (let ((cfiles (recur-list-files boost-root "\\(config\\|user\\)\\.hpp")))
       (dolist (file cfiles)
         (add-to-list 'semantic-lex-c-preprocessor-symbol-file file)))))
-
-;;; ede customization
-(require 'semantic-lex-spp)
-(global-ede-mode t)
-;;(ede-enable-generic-projects)
 
 ;; my functions for EDE
 (defun ede-get-local-var (fname var)
