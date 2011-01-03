@@ -80,7 +80,7 @@
 ;;; ---------------------------------------------------------
 ;;; - ECB
 ;;;
-(add-to-list 'load-path (concat vendor-dir "/ecb"))
+(add-to-list 'load-path (concat vendor-dir "/ecb-2.40"))
 (require 'ecb)
 (setq ecb-tip-of-the-day nil)
 (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))

@@ -1,1 +1,0 @@
-/usr/share/emacs/site-lisp/semantic/bovine/erlang-edoc.el

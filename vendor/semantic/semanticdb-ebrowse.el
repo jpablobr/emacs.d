@@ -1,1 +1,0 @@
-/usr/share/emacs/site-lisp/semantic/semanticdb-ebrowse.el

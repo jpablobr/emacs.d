@@ -6,7 +6,7 @@
 ;;; - http://www.hut.fi/u/rsaikkon/software/elisp/cparen.el
 ;;; - from: http://user.it.uu.se/~mic/pager.el
 ;;;
-(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/jdee/lisp"))
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/jdee-2.4.0.1/lisp"))
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/jdibug-0.2"))
 
 (require 'jde)

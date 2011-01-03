@@ -4,21 +4,25 @@
 ;;; - apt-get install cedet-common cedet-contrib cogre ede eieio semantic speedbar elib jde
 ;;; - http://nullman.org/tutorial/emacs-files/.emacs.d/kyle-init/modes.el.html
 
+(load-file "~/.emacs.d/vendor/cedet-1.0pre7/common/cedet.el")
 (require 'semantic)
 (require 'semantic-ia)
-;;(require 'semantic-gcc)
+(require 'semantic-gcc)
 (require 'semantic-wisent)
 
-(add-to-list 'load-path "~/.emacs.d/vendor/cedet/semantic")
+(add-to-list 'load-path "~/.emacs.d/vendor/cedet-1.0pre7/semantic")
 (require 'semanticdb)
 (global-semanticdb-minor-mode 1)
 (semantic-load-enable-excessive-code-helpers)
+(semantic-load-enable-semantic-debugging-helpers)
 
 ;; enable ctags for some languages:
 ;; Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
 ;; sudo apt-get install exuberant-ctags
 ;; http://blog.carduner.net/2007/07/02/exuberant-ctags-emacs/
-;; (semantic-load-enable-primary-exuberent-ctags-support)
+(semantic-load-enable-primary-exuberent-ctags-support)
+(require 'semanticdb-ectag)
+(semantic-load-enable-primary-exuberent-ctags-support)
 
 (custom-set-variables
  '(ecb-layout-window-sizes (quote (("left8"
@@ -30,7 +34,6 @@
  '(ecb-source-path (quote ("~/code/"))))
 
 (global-ede-mode t)
-(semantic-load-enable-excessive-code-helpers)
 (semantic-load-enable-code-helpers)
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semantic-idle-summary-mode
@@ -111,10 +114,6 @@
      nil
      (semantic-ia-complete-symbol-menu
       (point)))))
-
-;; ctags
-;(require 'semanticdb-ectag)
-;(semantic-load-enable-primary-exuberent-ctags-support)
 
 (defun recur-list-files (dir re)
   "Returns list of files in directory matching to given regex"

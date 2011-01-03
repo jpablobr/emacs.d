@@ -2,7 +2,7 @@
 ;;; - Artist-mode
 ;;; -
 ;;;
-(autoload 'artist-mode "artist" "Enter artist-mode" t)
+;(autoload 'artist-mode "artist" "Enter artist-mode" t)
 
 ;;; integrate ido with artist-mode
 (defun artist-ido-select-operation (type)
@@ -33,12 +33,14 @@
 (add-hook 'artist-mode-init-hook
           (lambda ()
             (define-key artist-mode-map (kbd "C-c C-a C-o") 'artist-ido-select-operation)
+            (define-key artist-mode-map (kbd "mouse-8") 'artist-mouse-choose-operation)
+            (define-key artist-mode-map [mouse-8] 'artist-mouse-choose-operation)
             (define-key artist-mode-map (kbd "C-c C-a C-c") 'artist-ido-select-settings)))
 
 (setq ditaa-cmd "java -jar ~/.emacs.d/vendor/ditaa/ditaa0_9.jar")
 (defun djcb-ditaa-generate ()
   (interactive)
   (shell-command
-    (concat ditaa-cmd " " buffer-file-name)))'
+    (concat ditaa-cmd " " buffer-file-name)))
 
 (provide 'jp-artist)
