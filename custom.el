@@ -15,6 +15,7 @@
  '(global-font-lock-mode t nil (font-lock))
  '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
  '(indent-tabs-mode nil)
+ '(ispell-alternate-dictionary "~/.emacs.d/vendor/spanish-dictionary")
  '(jde-ant-enable-find t)
  '(jde-ant-home "$ANT_HOME")
  '(jde-auto-parse-max-buffer-size 0)

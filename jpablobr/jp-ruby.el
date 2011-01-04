@@ -20,6 +20,7 @@
             (set (make-local-variable 'tab-width) 2)
             (ruby-electric-mode t)
             (ruby-hs-minor-mode t)
+            (flyspell-prog-mode)
             (imenu-add-to-menubar "IMENU")
             (modify-syntax-entry ?! "w" (syntax-table))
             (modify-syntax-entry ?: "w" (syntax-table))
