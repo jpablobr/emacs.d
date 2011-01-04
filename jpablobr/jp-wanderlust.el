@@ -50,7 +50,7 @@
   wl-smtp-posting-user "xjpablobrx"
   wl-smtp-posting-server "smtp.gmail.com"
   wl-local-domain "gmail.com"
-  wl-message-id-domain "myhost.example.com"
+  wl-message-id-domain "jpablobr.com"
   wl-from "Jose Pablo Barrantes <xjpablobrx@gmail.com>"
 
 ;;; ----------------------------------------------------------------------------
