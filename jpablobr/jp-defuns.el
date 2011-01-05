@@ -11,8 +11,8 @@
 (defun transparency ()
   "Sets transparency"
   (interactive)
-  (set-frame-parameter (selected-frame) 'alpha '(70 70))
-  (add-to-list 'default-frame-alist '(alpha 70 70)))
+  (set-frame-parameter (selected-frame) 'alpha '(85 85))
+  (add-to-list 'default-frame-alist '(alpha 85 85)))
 
 (defun reset-transparency ()
   "Resets transparency"
