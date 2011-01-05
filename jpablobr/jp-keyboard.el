@@ -164,6 +164,7 @@
 (global-set-key [(backtab)] 'textmate-shift-left)
 (global-set-key [(meta /)] 'comment-or-uncomment-region-or-line)
 (global-set-key [(meta L)] 'textmate-select-line)
+(global-set-key [(meta l)] 'goto-line)
 
 ;;; Jump to matching parent
 (global-set-key "%" 'match-paren)
