@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: Logger</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />Logger</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../files/activesupport/lib/active_support/core_ext/logger_rb.html">activesupport/lib/active_support/core_ext/logger.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+Adds the &#8216;around_level&#8217; method to Logger.
+</p>
+<hr style="height: 1px"></hr><p>
+Extensions to the built-in Ruby logger.
+</p>
+<p>
+If you want to use the default log formatter as defined in the Ruby core,
+then you will need to set the formatter for the logger as in:
+</p>
+<pre>
+  logger.formatter = Formatter.new
+</pre>
+<p>
+You can then specify the datetime format, for example:
+</p>
+<pre>
+  logger.datetime_format = &quot;%Y-%m-%d&quot;
+</pre>
+<p>
+Note: This logger is deprecated in favor of <a
+href="ActiveSupport/BufferedLogger.html">ActiveSupport::BufferedLogger</a>
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+      </ul>
+
+
+
+
+                                </div>
+  </div>
+  </body>
+</html>

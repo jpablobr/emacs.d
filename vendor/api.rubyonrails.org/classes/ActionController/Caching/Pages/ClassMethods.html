@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionController::Caching::Pages::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionController::Caching::Pages::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/actionpack/lib/action_controller/caching/pages_rb.html">actionpack/lib/action_controller/caching/pages.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-cache_page">cache_page</a></li>
+                <li><a href="#method-i-caches_page">caches_page</a></li>
+                <li><a href="#method-i-expire_page">expire_page</a></li>
+                <li><a href="#method-i-instrument_page_cache">instrument_page_cache</a></li>
+                <li><a href="#method-i-page_cache_file">page_cache_file</a></li>
+                <li><a href="#method-i-page_cache_path">page_cache_path</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-cache_page"></a>
+            <b>cache_page</b>(content, path)          
+        </div>
+
+                  <div class="description">
+            <p>
+Manually cache the <tt>content</tt> in the key determined by <tt>path</tt>.
+Example:
+</p>
+<pre>
+  cache_page &quot;I'm the cached content&quot;, &quot;/lists/show&quot;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('cache-page_source')"
+                 id="l_method-i-cache_page_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="cache-page_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching/pages.rb, line 74</span>
+74:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache_page</span>(<span class="ruby-identifier">content</span>, <span class="ruby-identifier">path</span>)
+75:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">perform_caching</span>
+76:           <span class="ruby-identifier">path</span> = <span class="ruby-identifier">page_cache_path</span>(<span class="ruby-identifier">path</span>)
+77: 
+78:           <span class="ruby-identifier">instrument_page_cache</span> <span class="ruby-value">:write_page</span>, <span class="ruby-identifier">path</span> <span class="ruby-keyword kw">do</span>
+79:             <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">makedirs</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">path</span>))
+80:             <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">path</span>, <span class="ruby-value str">&quot;wb+&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">content</span>) }
+81:           <span class="ruby-keyword kw">end</span>
+82:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-caches_page"></a>
+            <b>caches_page</b>(*actions)          
+        </div>
+
+                  <div class="description">
+            <p>
+Caches the <tt>actions</tt> using the page-caching approach that&#8217;ll
+store the cache in a path within the page_cache_directory that matches the
+triggering url.
+</p>
+<p>
+Usage:
+</p>
+<pre>
+  # cache the index action
+  caches_page :index
+
+  # cache the index action except for JSON requests
+  caches_page :index, :if =&gt; Proc.new { |c| !c.request.format.json? }</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('caches-page_source')"
+                 id="l_method-i-caches_page_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="caches-page_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching/pages.rb, line 94</span>
+94:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">caches_page</span>(*<span class="ruby-identifier">actions</span>)
+95:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">perform_caching</span>
+96:           <span class="ruby-identifier">options</span> = <span class="ruby-identifier">actions</span>.<span class="ruby-identifier">extract_options!</span>
+97:           <span class="ruby-identifier">after_filter</span>({<span class="ruby-value">:only</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">actions</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)) { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">cache_page</span> }
+98:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-expire_page"></a>
+            <b>expire_page</b>(path)          
+        </div>
+
+                  <div class="description">
+            <p>
+Expires the page that was cached with the <tt>path</tt> as a key. Example:
+</p>
+<pre>
+  expire_page &quot;/lists/show&quot;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('expire-page_source')"
+                 id="l_method-i-expire_page_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="expire-page_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching/pages.rb, line 63</span>
+63:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">expire_page</span>(<span class="ruby-identifier">path</span>)
+64:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">perform_caching</span>
+65:           <span class="ruby-identifier">path</span> = <span class="ruby-identifier">page_cache_path</span>(<span class="ruby-identifier">path</span>)
+66: 
+67:           <span class="ruby-identifier">instrument_page_cache</span> <span class="ruby-value">:expire_page</span>, <span class="ruby-identifier">path</span> <span class="ruby-keyword kw">do</span>
+68:             <span class="ruby-constant">File</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">path</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">path</span>)
+69:           <span class="ruby-keyword kw">end</span>
+70:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-instrument_page_cache"></a>
+            <b>instrument_page_cache</b>(name, path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('instrument-page-cache_source')"
+                 id="l_method-i-instrument_page_cache_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="instrument-page-cache_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching/pages.rb, line 111</span>
+111:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instrument_page_cache</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">path</span>)
+112:             <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Notifications</span>.<span class="ruby-identifier">instrument</span>(<span class="ruby-node">&quot;#{name}.action_controller&quot;</span>, <span class="ruby-value">:path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">path</span>){ <span class="ruby-keyword kw">yield</span> }
+113:           <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-page_cache_file"></a>
+            <b>page_cache_file</b>(path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('page-cache-file_source')"
+                 id="l_method-i-page_cache_file_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="page-cache-file_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching/pages.rb, line 101</span>
+101:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">page_cache_file</span>(<span class="ruby-identifier">path</span>)
+102:             <span class="ruby-identifier">name</span> = (<span class="ruby-identifier">path</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;/&quot;</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;/index&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-constant">URI</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-identifier">path</span>.<span class="ruby-identifier">chomp</span>(<span class="ruby-value str">'/'</span>))
+103:             <span class="ruby-identifier">name</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">page_cache_extension</span> <span class="ruby-keyword kw">unless</span> (<span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'/'</span>).<span class="ruby-identifier">last</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">name</span>).<span class="ruby-identifier">include?</span> <span class="ruby-value str">'.'</span>
+104:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">name</span>
+105:           <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-page_cache_path"></a>
+            <b>page_cache_path</b>(path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('page-cache-path_source')"
+                 id="l_method-i-page_cache_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="page-cache-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching/pages.rb, line 107</span>
+107:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">page_cache_path</span>(<span class="ruby-identifier">path</span>)
+108:             <span class="ruby-identifier">page_cache_directory</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">page_cache_file</span>(<span class="ruby-identifier">path</span>)
+109:           <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

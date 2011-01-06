@@ -1,0 +1,2109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionView::Helpers::AssetTagHelper</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionView::Helpers::AssetTagHelper</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/action_view/helpers/asset_tag_helper_rb.html">actionpack/lib/action_view/helpers/asset_tag_helper.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+This module provides methods for generating HTML that links views to assets
+such as images, javascripts, stylesheets, and feeds. These methods do not
+verify the assets exist before linking to them:
+</p>
+<pre>
+  image_tag(&quot;rails.png&quot;)
+  # =&gt; &lt;img alt=&quot;Rails&quot; src=&quot;/images/rails.png?1230601161&quot; /&gt;
+  stylesheet_link_tag(&quot;application&quot;)
+  # =&gt; &lt;link href=&quot;/stylesheets/application.css?1232285206&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+</pre>
+<h3>Using asset hosts</h3>
+<p>
+By default, <a href="../../Rails.html">Rails</a> links to these assets on
+the current host in the public folder, but you can direct <a
+href="../../Rails.html">Rails</a> to link to assets from a dedicated asset
+server by setting ActionController::Base.asset_host in the application
+configuration, typically in <tt>config/environments/production.rb</tt>. For
+example, you&#8217;d define <tt>assets.example.com</tt> to be your asset
+host this way:
+</p>
+<pre>
+  ActionController::Base.asset_host = &quot;assets.example.com&quot;
+</pre>
+<p>
+Helpers take that into account:
+</p>
+<pre>
+  image_tag(&quot;rails.png&quot;)
+  # =&gt; &lt;img alt=&quot;Rails&quot; src=&quot;http://assets.example.com/images/rails.png?1230601161&quot; /&gt;
+  stylesheet_link_tag(&quot;application&quot;)
+  # =&gt; &lt;link href=&quot;http://assets.example.com/stylesheets/application.css?1232285206&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+</pre>
+<p>
+Browsers typically open at most two simultaneous connections to a single
+host, which means your assets often have to wait for other assets to finish
+downloading. You can alleviate this by using a <tt>%d</tt> wildcard in the
+<tt>asset_host</tt>. For example, &#8220;assets%d.example.com&#8220;. If
+that wildcard is present <a href="../../Rails.html">Rails</a> distributes
+asset requests among the corresponding four hosts
+&#8220;assets0.example.com&#8220;, &#8230;,
+&#8220;assets3.example.com&#8220;. With this trick browsers will open eight
+simultaneous connections rather than two.
+</p>
+<pre>
+  image_tag(&quot;rails.png&quot;)
+  # =&gt; &lt;img alt=&quot;Rails&quot; src=&quot;http://assets0.example.com/images/rails.png?1230601161&quot; /&gt;
+  stylesheet_link_tag(&quot;application&quot;)
+  # =&gt; &lt;link href=&quot;http://assets2.example.com/stylesheets/application.css?1232285206&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+</pre>
+<p>
+To do this, you can either setup four actual hosts, or you can use wildcard
+DNS to CNAME the wildcard to a single asset host. You can read more about
+setting up your DNS CNAME records from your ISP.
+</p>
+<p>
+Note: This is purely a browser performance optimization and is not meant
+for server load balancing. See <a
+href="http://www.die.net/musings/page_load_time/">www.die.net/musings/page_load_time/</a>
+for background.
+</p>
+<p>
+Alternatively, you can exert more control over the asset host by setting
+<tt>asset_host</tt> to a proc like this:
+</p>
+<pre>
+  ActionController::Base.asset_host = Proc.new { |source|
+    &quot;http://assets#{source.hash % 2 + 1}.example.com&quot;
+  }
+  image_tag(&quot;rails.png&quot;)
+  # =&gt; &lt;img alt=&quot;Rails&quot; src=&quot;http://assets1.example.com/images/rails.png?1230601161&quot; /&gt;
+  stylesheet_link_tag(&quot;application&quot;)
+  # =&gt; &lt;link href=&quot;http://assets2.example.com/stylesheets/application.css?1232285206&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+</pre>
+<p>
+The example above generates &#8220;<a
+href="http://assets1.example.com">assets1.example.com</a>&#8220; and
+&#8220;<a href="http://assets2.example.com">assets2.example.com</a>&#8220;.
+This option is useful for example if you need fewer/more than four hosts,
+custom host names, etc.
+</p>
+<p>
+As you see the proc takes a <tt>source</tt> parameter. That&#8217;s a
+string with the absolute path of the asset with any extensions and
+timestamps in place, for example
+&#8220;/images/rails.png?1230601161&#8221;.
+</p>
+<pre>
+   ActionController::Base.asset_host = Proc.new { |source|
+     if source.starts_with?('/images')
+       &quot;http://images.example.com&quot;
+     else
+       &quot;http://assets.example.com&quot;
+     end
+   }
+  image_tag(&quot;rails.png&quot;)
+  # =&gt; &lt;img alt=&quot;Rails&quot; src=&quot;http://images.example.com/images/rails.png?1230601161&quot; /&gt;
+  stylesheet_link_tag(&quot;application&quot;)
+  # =&gt; &lt;link href=&quot;http://assets.example.com/stylesheets/application.css?1232285206&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+</pre>
+<p>
+Alternatively you may ask for a second parameter <tt>request</tt>. That one
+is particularly useful for serving assets from an SSL-protected page. The
+example proc below disables asset hosting for HTTPS connections, while
+still sending assets for plain HTTP requests from asset hosts. If you
+don&#8217;t have SSL certificates for each of the asset hosts this
+technique allows you to avoid warnings in the client about mixed media.
+</p>
+<pre>
+  ActionController::Base.asset_host = Proc.new { |source, request|
+    if request.ssl?
+      &quot;#{request.protocol}#{request.host_with_port}&quot;
+    else
+      &quot;#{request.protocol}assets.example.com&quot;
+    end
+  }
+</pre>
+<p>
+You can also implement a custom asset host object that responds to
+<tt>call</tt> and takes either one or two parameters just like the proc.
+</p>
+<pre>
+  config.action_controller.asset_host = AssetHostingWithMinimumSsl.new(
+    &quot;http://asset%d.example.com&quot;, &quot;https://asset1.example.com&quot;
+  )
+</pre>
+<h3>Customizing the asset path</h3>
+<p>
+By default, <a href="../../Rails.html">Rails</a> appends asset&#8217;s
+timestamps to all asset paths. This allows you to set a cache-expiration
+date for the asset far into the future, but still be able to instantly
+invalidate it by simply updating the file (and hence updating the
+timestamp, which then updates the URL as the timestamp is part of that,
+which in turn busts the cache).
+</p>
+<p>
+It&#8217;s the responsibility of the web server you use to set the
+far-future expiration date on cache assets that you need to take advantage
+of this feature. Here&#8217;s an example for Apache:
+</p>
+<pre>
+  # Asset Expiration
+  ExpiresActive On
+  &lt;FilesMatch &quot;\.(ico|gif|jpe?g|png|js|css)$&quot;&gt;
+    ExpiresDefault &quot;access plus 1 year&quot;
+  &lt;/FilesMatch&gt;
+</pre>
+<p>
+Also note that in order for this to work, all your application servers must
+return the same timestamps. This means that they must have their clocks
+synchronized. If one of them drifts out of sync, you&#8217;ll see different
+timestamps at random and the cache won&#8217;t work. In that case the
+browser will request the same assets over and over again even thought they
+didn&#8217;t change. You can use something like Live HTTP Headers for
+Firefox to verify that the cache is indeed working.
+</p>
+<p>
+This strategy works well enough for most server setups and requires the
+least configuration, but if you deploy several application servers at
+different times - say to handle a temporary spike in load - then the asset
+time stamps will be out of sync. In a setup like this you may want to set
+the way that asset paths are generated yourself.
+</p>
+<p>
+Altering the asset paths that <a href="../../Rails.html">Rails</a>
+generates can be done in two ways. The easiest is to define the
+RAILS_ASSET_ID environment variable. The contents of this variable will
+always be used in preference to calculated timestamps. A more complex but
+flexible way is to set <tt>ActionController::Base.config.asset_path</tt> to
+a proc that takes the unmodified asset path and returns the path needed for
+your asset caching to work. Typically you&#8217;d do something like this in
+<tt>config/environments/production.rb</tt>:
+</p>
+<pre>
+  # Normally you'd calculate RELEASE_NUMBER at startup.
+  RELEASE_NUMBER = 12345
+  config.action_controller.asset_path_template = proc { |asset_path|
+    &quot;/release-#{RELEASE_NUMBER}#{asset_path}&quot;
+  }
+</pre>
+<p>
+This example would cause the following behaviour on all servers no matter
+when they were deployed:
+</p>
+<pre>
+  image_tag(&quot;rails.png&quot;)
+  # =&gt; &lt;img alt=&quot;Rails&quot; src=&quot;/release-12345/images/rails.png&quot; /&gt;
+  stylesheet_link_tag(&quot;application&quot;)
+  # =&gt; &lt;link href=&quot;/release-12345/stylesheets/application.css?1232285206&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+</pre>
+<p>
+Changing the asset_path does require that your web servers have knowledge
+of the asset template paths that you rewrite to so it&#8217;s not suitable
+for out-of-the-box use. To use the example given above you could use
+something like this in your Apache VirtualHost configuration:
+</p>
+<pre>
+  &lt;LocationMatch &quot;^/release-\d+/(images|javascripts|stylesheets)/.*$&quot;&gt;
+    # Some browsers still send conditional-GET requests if there's a
+    # Last-Modified header or an ETag header even if they haven't
+    # reached the expiry date sent in the Expires header.
+    Header unset Last-Modified
+    Header unset ETag
+    FileETag None
+
+    # Assets requested using a cache-busting filename should be served
+    # only once and then cached for a really long time. The HTTP/1.1
+    # spec frowns on hugely-long expiration times though and suggests
+    # that assets which never expire be served with an expiration date
+    # 1 year from access.
+    ExpiresActive On
+    ExpiresDefault &quot;access plus 1 year&quot;
+  &lt;/LocationMatch&gt;
+
+  # We use cached-busting location names with the far-future expires
+  # headers to ensure that if a file does change it can force a new
+  # request. The actual asset filenames are still the same though so we
+  # need to rewrite the location from the cache-busting location to the
+  # real asset location so that we can serve it.
+  RewriteEngine On
+  RewriteRule ^/release-\d+/(images|javascripts|stylesheets)/(.*)$ /$1/$2 [L]</pre>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-asset_file_path">asset_file_path</a></li>
+                <li><a href="#method-i-asset_file_path%21">asset_file_path!</a></li>
+                <li><a href="#method-i-audio_path">audio_path</a></li>
+                <li><a href="#method-i-audio_tag">audio_tag</a></li>
+                <li><a href="#method-i-auto_discovery_link_tag">auto_discovery_link_tag</a></li>
+                <li><a href="#method-i-collect_asset_files">collect_asset_files</a></li>
+                <li><a href="#method-i-compute_asset_host">compute_asset_host</a></li>
+                <li><a href="#method-i-compute_javascript_paths">compute_javascript_paths</a></li>
+                <li><a href="#method-i-compute_public_path">compute_public_path</a></li>
+                <li><a href="#method-i-compute_stylesheet_paths">compute_stylesheet_paths</a></li>
+                <li><a href="#method-i-determine_source">determine_source</a></li>
+                <li><a href="#method-i-ensure_javascript_sources%21">ensure_javascript_sources!</a></li>
+                <li><a href="#method-i-ensure_stylesheet_sources%21">ensure_stylesheet_sources!</a></li>
+                <li><a href="#method-i-expand_javascript_sources">expand_javascript_sources</a></li>
+                <li><a href="#method-i-expand_stylesheet_sources">expand_stylesheet_sources</a></li>
+                <li><a href="#method-i-favicon_link_tag">favicon_link_tag</a></li>
+                <li><a href="#method-i-image_path">image_path</a></li>
+                <li><a href="#method-i-image_tag">image_tag</a></li>
+                <li><a href="#method-i-is_uri%3F">is_uri?</a></li>
+                <li><a href="#method-i-javascript_include_tag">javascript_include_tag</a></li>
+                <li><a href="#method-i-javascript_path">javascript_path</a></li>
+                <li><a href="#method-i-javascript_src_tag">javascript_src_tag</a></li>
+                <li><a href="#method-i-join_asset_file_contents">join_asset_file_contents</a></li>
+                                              <li><a href="#method-i-rails_asset_id">rails_asset_id</a></li>
+                <li><a href="#method-c-register_javascript_expansion">register_javascript_expansion</a></li>
+                <li><a href="#method-c-register_javascript_include_default">register_javascript_include_default</a></li>
+                <li><a href="#method-c-register_stylesheet_expansion">register_stylesheet_expansion</a></li>
+                <li><a href="#method-c-reset_javascript_include_default">reset_javascript_include_default</a></li>
+                <li><a href="#method-i-rewrite_asset_path">rewrite_asset_path</a></li>
+                <li><a href="#method-i-rewrite_extension%3F">rewrite_extension?</a></li>
+                <li><a href="#method-i-rewrite_host_and_protocol">rewrite_host_and_protocol</a></li>
+                <li><a href="#method-i-stylesheet_link_tag">stylesheet_link_tag</a></li>
+                <li><a href="#method-i-stylesheet_path">stylesheet_path</a></li>
+                <li><a href="#method-i-stylesheet_tag">stylesheet_tag</a></li>
+                <li><a href="#method-i-video_path">video_path</a></li>
+                <li><a href="#method-i-video_tag">video_tag</a></li>
+                <li><a href="#method-i-write_asset_file_contents">write_asset_file_contents</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-register_javascript_expansion"></a>
+            <b>register_javascript_expansion</b>(expansions)          
+        </div>
+
+                  <div class="description">
+            <p>
+Register one or more javascript files to be included when <tt>symbol</tt>
+is passed to <tt><a
+href="AssetTagHelper.html#method-i-javascript_include_tag">javascript_include_tag</a></tt>.
+This method is typically intended to be called from plugin initialization
+to register javascript files that the plugin installed in
+<tt>public/javascripts</tt>.
+</p>
+<pre>
+  ActionView::Helpers::AssetTagHelper.register_javascript_expansion :monkey =&gt; [&quot;head&quot;, &quot;body&quot;, &quot;tail&quot;]
+
+  javascript_include_tag :monkey # =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/head.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/body.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/tail.js&quot;&gt;&lt;/script&gt;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('register-javascript-expansion_source')"
+                 id="l_method-c-register_javascript_expansion_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="register-javascript-expansion_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 377</span>
+377:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">register_javascript_expansion</span>(<span class="ruby-identifier">expansions</span>)
+378:         <span class="ruby-identifier">@@javascript_expansions</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">expansions</span>)
+379:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-register_javascript_include_default"></a>
+            <b>register_javascript_include_default</b>(*args)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('register-javascript-include-default_source')"
+                 id="l_method-c-register_javascript_include_default_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="register-javascript-include-default_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 402</span>
+402:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">register_javascript_include_default</span>(*<span class="ruby-identifier">args</span>)
+403:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;register_javascript_include_default is deprecated. Please &quot;</span>            <span class="ruby-value str">&quot;manipulate config.action_view.javascript_expansions[:defaults] directly&quot;</span>, <span class="ruby-identifier">caller</span>
+404:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">javascript_expansions</span>[<span class="ruby-value">:defaults</span>].<span class="ruby-identifier">concat</span> <span class="ruby-identifier">args</span>
+405:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-register_stylesheet_expansion"></a>
+            <b>register_stylesheet_expansion</b>(expansions)          
+        </div>
+
+                  <div class="description">
+            <p>
+Register one or more stylesheet files to be included when <tt>symbol</tt>
+is passed to <tt><a
+href="AssetTagHelper.html#method-i-stylesheet_link_tag">stylesheet_link_tag</a></tt>.
+This method is typically intended to be called from plugin initialization
+to register stylesheet files that the plugin installed in
+<tt>public/stylesheets</tt>.
+</p>
+<pre>
+  ActionView::Helpers::AssetTagHelper.register_stylesheet_expansion :monkey =&gt; [&quot;head&quot;, &quot;body&quot;, &quot;tail&quot;]
+
+  stylesheet_link_tag :monkey # =&gt;
+    &lt;link href=&quot;/stylesheets/head.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;/stylesheets/body.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;/stylesheets/tail.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('register-stylesheet-expansion_source')"
+                 id="l_method-c-register_stylesheet_expansion_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="register-stylesheet-expansion_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 392</span>
+392:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">register_stylesheet_expansion</span>(<span class="ruby-identifier">expansions</span>)
+393:         <span class="ruby-identifier">@@stylesheet_expansions</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">expansions</span>)
+394:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-reset_javascript_include_default"></a>
+            <b>reset_javascript_include_default</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('reset-javascript-include-default_source')"
+                 id="l_method-c-reset_javascript_include_default_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="reset-javascript-include-default_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 396</span>
+396:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">reset_javascript_include_default</span>
+397:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;reset_javascript_include_default is deprecated. Please manipulate &quot;</span>            <span class="ruby-value str">&quot;config.action_view.javascript_expansions[:defaults] directly&quot;</span>, <span class="ruby-identifier">caller</span>
+398:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">javascript_expansions</span>[<span class="ruby-value">:defaults</span>] = [<span class="ruby-value str">'prototype'</span>, <span class="ruby-value str">'effects'</span>, <span class="ruby-value str">'dragdrop'</span>, <span class="ruby-value str">'controls'</span>, <span class="ruby-value str">'rails'</span>]
+399:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-audio_path"></a>
+            <b>audio_path</b>(source)          
+        </div>
+
+                  <div class="description">
+            <p>
+Computes the path to an audio asset in the public audios directory. Full
+paths from the document root will be passed through. Used internally by
+<tt><a href="AssetTagHelper.html#method-i-audio_tag">audio_tag</a></tt> to
+build the audio path.
+</p>
+<h4>Examples</h4>
+<pre>
+  audio_path(&quot;horse&quot;)                                            # =&gt; /audios/horse
+  audio_path(&quot;horse.wav&quot;)                                        # =&gt; /audios/horse.avi
+  audio_path(&quot;sounds/horse.wav&quot;)                                 # =&gt; /audios/sounds/horse.avi
+  audio_path(&quot;/sounds/horse.wav&quot;)                                # =&gt; /sounds/horse.avi
+  audio_path(&quot;http://www.railsapplication.com/sounds/horse.wav&quot;) # =&gt; http://www.railsapplication.com/sounds/horse.wav</pre>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="AssetTagHelper.html#method-i-path_to_audio">path_to_audio</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('audio-path_source')"
+                 id="l_method-i-audio_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="audio-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 590</span>
+590:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">audio_path</span>(<span class="ruby-identifier">source</span>)
+591:         <span class="ruby-identifier">compute_public_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-value str">'audios'</span>)
+592:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-audio_tag"></a>
+            <b>audio_tag</b>(source, options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns an html audio tag for the <tt>source</tt>. The <tt>source</tt> can
+be full path or file that exists in your public audios directory.
+</p>
+<h4>Examples</h4>
+<pre>
+ audio_tag(&quot;sound&quot;)  # =&gt;
+   &lt;audio src=&quot;/audios/sound&quot; /&gt;
+ audio_tag(&quot;sound.wav&quot;)  # =&gt;
+   &lt;audio src=&quot;/audios/sound.wav&quot; /&gt;
+ audio_tag(&quot;sound.wav&quot;, :autoplay =&gt; true, :controls =&gt; true)  # =&gt;
+   &lt;audio autoplay=&quot;autoplay&quot; controls=&quot;controls&quot; src=&quot;/audios/sound.wav&quot; /&gt;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('audio-tag_source')"
+                 id="l_method-i-audio_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="audio-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 712</span>
+712:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">audio_tag</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">options</span> = {})
+713:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">symbolize_keys!</span>
+714:         <span class="ruby-identifier">options</span>[<span class="ruby-value">:src</span>] = <span class="ruby-identifier">path_to_audio</span>(<span class="ruby-identifier">source</span>)
+715:         <span class="ruby-identifier">tag</span>(<span class="ruby-value str">&quot;audio&quot;</span>, <span class="ruby-identifier">options</span>)
+716:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-auto_discovery_link_tag"></a>
+            <b>auto_discovery_link_tag</b>(type = :rss, url_options = {}, tag_options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns a link tag that browsers and news readers can use to auto-detect an
+RSS or ATOM feed. The <tt>type</tt> can either be <tt>:rss</tt> (default)
+or <tt>:atom</tt>. Control the link options in url_for format using the
+<tt>url_options</tt>. You can modify the LINK tag itself in
+<tt>tag_options</tt>.
+</p>
+<h4>Options</h4>
+<ul>
+<li><p>
+<tt>:rel</tt>  - Specify the relation of this link, defaults to
+&#8220;alternate&#8220;
+</p>
+</li>
+<li><p>
+<tt>:type</tt>  - Override the auto-generated mime type
+</p>
+</li>
+<li><p>
+<tt>:title</tt>  - Specify the title of the link, defaults to the
+<tt>type</tt>
+</p>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+ auto_discovery_link_tag # =&gt;
+    &lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;RSS&quot; href=&quot;http://www.currenthost.com/controller/action&quot; /&gt;
+ auto_discovery_link_tag(:atom) # =&gt;
+    &lt;link rel=&quot;alternate&quot; type=&quot;application/atom+xml&quot; title=&quot;ATOM&quot; href=&quot;http://www.currenthost.com/controller/action&quot; /&gt;
+ auto_discovery_link_tag(:rss, {:action =&gt; &quot;feed&quot;}) # =&gt;
+    &lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;RSS&quot; href=&quot;http://www.currenthost.com/controller/feed&quot; /&gt;
+ auto_discovery_link_tag(:rss, {:action =&gt; &quot;feed&quot;}, {:title =&gt; &quot;My RSS&quot;}) # =&gt;
+    &lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;My RSS&quot; href=&quot;http://www.currenthost.com/controller/feed&quot; /&gt;
+ auto_discovery_link_tag(:rss, {:controller =&gt; &quot;news&quot;, :action =&gt; &quot;feed&quot;}) # =&gt;
+    &lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;RSS&quot; href=&quot;http://www.currenthost.com/news/feed&quot; /&gt;
+ auto_discovery_link_tag(:rss, &quot;http://www.example.com/feed.rss&quot;, {:title =&gt; &quot;Example RSS&quot;}) # =&gt;
+    &lt;link rel=&quot;alternate&quot; type=&quot;application/rss+xml&quot; title=&quot;Example RSS&quot; href=&quot;http://www.example.com/feed&quot; /&gt;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('auto-discovery-link-tag_source')"
+                 id="l_method-i-auto_discovery_link_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="auto-discovery-link-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 234</span>
+234:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">auto_discovery_link_tag</span>(<span class="ruby-identifier">type</span> = <span class="ruby-value">:rss</span>, <span class="ruby-identifier">url_options</span> = {}, <span class="ruby-identifier">tag_options</span> = {})
+235:         <span class="ruby-identifier">tag</span>(
+236:           <span class="ruby-value str">&quot;link&quot;</span>,
+237:           <span class="ruby-value str">&quot;rel&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tag_options</span>[<span class="ruby-value">:rel</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;alternate&quot;</span>,
+238:           <span class="ruby-value str">&quot;type&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tag_options</span>[<span class="ruby-value">:type</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Mime</span><span class="ruby-operator">::</span><span class="ruby-constant">Type</span>.<span class="ruby-identifier">lookup_by_extension</span>(<span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_s</span>).<span class="ruby-identifier">to_s</span>,
+239:           <span class="ruby-value str">&quot;title&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">tag_options</span>[<span class="ruby-value">:title</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>,
+240:           <span class="ruby-value str">&quot;href&quot;</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">url_options</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">url_for</span>(<span class="ruby-identifier">url_options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-value">:only_path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>)) <span class="ruby-operator">:</span> <span class="ruby-identifier">url_options</span>
+241:         )
+242:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-favicon_link_tag"></a>
+            <b>favicon_link_tag</b>(source='/favicon.ico', options={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Web browsers cache favicons. If you just throw a <tt>favicon.ico</tt> into
+the document root of your application and it changes later, clients that
+have it in their cache won&#8217;t see the update. Using this helper
+prevents that because it appends an asset ID:
+</p>
+<pre>
+  &lt;%= favicon_link_tag %&gt;
+</pre>
+<p>
+generates
+</p>
+<pre>
+  &lt;link href=&quot;/favicon.ico?4649789979&quot; rel=&quot;shortcut icon&quot; type=&quot;image/vnd.microsoft.icon&quot; /&gt;
+</pre>
+<p>
+You may specify a different file in the first argument:
+</p>
+<pre>
+  &lt;%= favicon_link_tag 'favicon.ico' %&gt;
+</pre>
+<p>
+That&#8217;s passed to <tt><a
+href="AssetTagHelper.html#method-i-path_to_image">path_to_image</a></tt> as
+is, so it gives
+</p>
+<pre>
+  &lt;link href=&quot;/images/favicon.ico?4649789979&quot; rel=&quot;shortcut icon&quot; type=&quot;image/vnd.microsoft.icon&quot; /&gt;
+</pre>
+<p>
+The helper accepts an additional options hash where you can override
+&#8220;rel&#8221; and &#8220;type&#8221;.
+</p>
+<p>
+For example, Mobile Safari looks for a different LINK tag, pointing to an
+image that will be used if you add the page to the home screen of an iPod
+Touch, iPhone, or iPad. The following call would generate such a tag:
+</p>
+<pre>
+  &lt;%= favicon_link_tag 'mb-icon.png', :rel =&gt; 'apple-touch-icon', :type =&gt; 'image/png' %&gt;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('favicon-link-tag_source')"
+                 id="l_method-i-favicon_link_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="favicon-link-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 539</span>
+539:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">favicon_link_tag</span>(<span class="ruby-identifier">source</span>=<span class="ruby-value str">'/favicon.ico'</span>, <span class="ruby-identifier">options</span>={})
+540:         <span class="ruby-identifier">tag</span>(<span class="ruby-value str">'link'</span>, {
+541:           <span class="ruby-value">:rel</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'shortcut icon'</span>,
+542:           <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'image/vnd.microsoft.icon'</span>,
+543:           <span class="ruby-value">:href</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">path_to_image</span>(<span class="ruby-identifier">source</span>)
+544:         }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">symbolize_keys</span>))
+545:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-image_path"></a>
+            <b>image_path</b>(source)          
+        </div>
+
+                  <div class="description">
+            <p>
+Computes the path to an image asset in the public images directory. Full
+paths from the document root will be passed through. Used internally by
+<tt><a href="AssetTagHelper.html#method-i-image_tag">image_tag</a></tt> to
+build the image path:
+</p>
+<pre>
+  image_path(&quot;edit&quot;)                                         # =&gt; &quot;/images/edit&quot;
+  image_path(&quot;edit.png&quot;)                                     # =&gt; &quot;/images/edit.png&quot;
+  image_path(&quot;icons/edit.png&quot;)                               # =&gt; &quot;/images/icons/edit.png&quot;
+  image_path(&quot;/icons/edit.png&quot;)                              # =&gt; &quot;/icons/edit.png&quot;
+  image_path(&quot;http://www.railsapplication.com/img/edit.png&quot;) # =&gt; &quot;http://www.railsapplication.com/img/edit.png&quot;
+</pre>
+<p>
+If you have images as application resources this method may conflict with
+their named routes. The alias <tt><a
+href="AssetTagHelper.html#method-i-path_to_image">path_to_image</a></tt> is
+provided to avoid that. <a href="../../Rails.html">Rails</a> uses the alias
+internally, and plugin authors are encouraged to do so.
+</p>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="AssetTagHelper.html#method-i-path_to_image">path_to_image</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('image-path_source')"
+                 id="l_method-i-image_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="image-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 560</span>
+560:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">image_path</span>(<span class="ruby-identifier">source</span>)
+561:         <span class="ruby-identifier">compute_public_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-value str">'images'</span>)
+562:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-image_tag"></a>
+            <b>image_tag</b>(source, options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns an html image tag for the <tt>source</tt>. The <tt>source</tt> can
+be a full path or a file that exists in your public images directory.
+</p>
+<h4>Options</h4>
+<p>
+You can add HTML attributes using the <tt>options</tt>. The
+<tt>options</tt> supports three additional keys for convenience and
+conformance:
+</p>
+<ul>
+<li><p>
+<tt>:alt</tt>  - If no alt text is given, the file name part of the
+<tt>source</tt> is used (capitalized and without the extension)
+</p>
+</li>
+<li><p>
+<tt>:size</tt> - Supplied as &#8220;{Width}x{Height}&#8221;, so
+&#8220;30x45&#8221; becomes width=&#8220;30&#8221; and
+height=&#8220;45&#8221;. <tt>:size</tt> will be ignored if the value is not
+in the correct format.
+</p>
+</li>
+<li><p>
+<tt>:mouseover</tt> - Set an alternate image to be used when the
+onmouseover event is fired, and sets the original image to be replaced
+onmouseout. This can be used to implement an easy image toggle that fires
+on onmouseover.
+</p>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+ image_tag(&quot;icon&quot;)  # =&gt;
+   &lt;img src=&quot;/images/icon&quot; alt=&quot;Icon&quot; /&gt;
+ image_tag(&quot;icon.png&quot;)  # =&gt;
+   &lt;img src=&quot;/images/icon.png&quot; alt=&quot;Icon&quot; /&gt;
+ image_tag(&quot;icon.png&quot;, :size =&gt; &quot;16x10&quot;, :alt =&gt; &quot;Edit Entry&quot;)  # =&gt;
+   &lt;img src=&quot;/images/icon.png&quot; width=&quot;16&quot; height=&quot;10&quot; alt=&quot;Edit Entry&quot; /&gt;
+ image_tag(&quot;/icons/icon.gif&quot;, :size =&gt; &quot;16x16&quot;)  # =&gt;
+   &lt;img src=&quot;/icons/icon.gif&quot; width=&quot;16&quot; height=&quot;16&quot; alt=&quot;Icon&quot; /&gt;
+ image_tag(&quot;/icons/icon.gif&quot;, :height =&gt; '32', :width =&gt; '32') # =&gt;
+   &lt;img alt=&quot;Icon&quot; height=&quot;32&quot; src=&quot;/icons/icon.gif&quot; width=&quot;32&quot; /&gt;
+ image_tag(&quot;/icons/icon.gif&quot;, :class =&gt; &quot;menu_icon&quot;) # =&gt;
+   &lt;img alt=&quot;Icon&quot; class=&quot;menu_icon&quot; src=&quot;/icons/icon.gif&quot; /&gt;
+ image_tag(&quot;mouse.png&quot;, :mouseover =&gt; &quot;/images/mouse_over.png&quot;) # =&gt;
+   &lt;img src=&quot;/images/mouse.png&quot; onmouseover=&quot;this.src='/images/mouse_over.png'&quot; onmouseout=&quot;this.src='/images/mouse.png'&quot; alt=&quot;Mouse&quot; /&gt;
+ image_tag(&quot;mouse.png&quot;, :mouseover =&gt; image_path(&quot;mouse_over.png&quot;)) # =&gt;
+   &lt;img src=&quot;/images/mouse.png&quot; onmouseover=&quot;this.src='/images/mouse_over.png'&quot; onmouseout=&quot;this.src='/images/mouse.png'&quot; alt=&quot;Mouse&quot; /&gt;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('image-tag_source')"
+                 id="l_method-i-image_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="image-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 628</span>
+628:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">image_tag</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">options</span> = {})
+629:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">symbolize_keys!</span>
+630: 
+631:         <span class="ruby-identifier">src</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:src</span>] = <span class="ruby-identifier">path_to_image</span>(<span class="ruby-identifier">source</span>)
+632: 
+633:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">src</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^cid:/</span>
+634:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:alt</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:alt</span>){ <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">src</span>, <span class="ruby-value str">'.*'</span>).<span class="ruby-identifier">capitalize</span> }
+635:         <span class="ruby-keyword kw">end</span>
+636: 
+637:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">size</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:size</span>)
+638:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:width</span>], <span class="ruby-identifier">options</span>[<span class="ruby-value">:height</span>] = <span class="ruby-identifier">size</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;x&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">size</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%{^\d+x\d+$}</span>
+639:         <span class="ruby-keyword kw">end</span>
+640: 
+641:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mouseover</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:mouseover</span>)
+642:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:onmouseover</span>] = <span class="ruby-node">&quot;this.src='#{path_to_image(mouseover)}'&quot;</span>
+643:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:onmouseout</span>]  = <span class="ruby-node">&quot;this.src='#{src}'&quot;</span>
+644:         <span class="ruby-keyword kw">end</span>
+645: 
+646:         <span class="ruby-identifier">tag</span>(<span class="ruby-value str">&quot;img&quot;</span>, <span class="ruby-identifier">options</span>)
+647:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-javascript_include_tag"></a>
+            <b>javascript_include_tag</b>(*sources)          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns an html script tag for each of the <tt>sources</tt> provided. You
+can pass in the filename (.js extension is optional) of javascript files
+that exist in your public/javascripts directory for inclusion into the
+current page or you can pass the full path relative to your document root.
+To include the Prototype and Scriptaculous javascript libraries in your
+application, pass <tt>:defaults</tt> as the source. When using
+<tt>:defaults</tt>, if an application.js file exists in your public
+javascripts directory, it will be included as well. You can modify the html
+attributes of the script tag by passing a hash as the last argument.
+</p>
+<h4>Examples</h4>
+<pre>
+  javascript_include_tag &quot;xmlhr&quot; # =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/xmlhr.js&quot;&gt;&lt;/script&gt;
+
+  javascript_include_tag &quot;xmlhr.js&quot; # =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/xmlhr.js&quot;&gt;&lt;/script&gt;
+
+  javascript_include_tag &quot;common.javascript&quot;, &quot;/elsewhere/cools&quot; # =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/common.javascript&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/elsewhere/cools.js&quot;&gt;&lt;/script&gt;
+
+  javascript_include_tag &quot;http://www.railsapplication.com/xmlhr&quot; # =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;http://www.railsapplication.com/xmlhr.js&quot;&gt;&lt;/script&gt;
+
+  javascript_include_tag &quot;http://www.railsapplication.com/xmlhr.js&quot; # =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;http://www.railsapplication.com/xmlhr.js&quot;&gt;&lt;/script&gt;
+
+  javascript_include_tag :defaults # =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/prototype.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/effects.js&quot;&gt;&lt;/script&gt;
+    ...
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/application.js&quot;&gt;&lt;/script&gt;
+</pre>
+<ul>
+<li><h1>The application.js file is only referenced if it exists</h1>
+</li>
+</ul>
+<p>
+Though it&#8217;s not really recommended practice, if you need to extend
+the default JavaScript set for any reason (e.g., you&#8217;re going to be
+using a certain .js file in every action), then take a look at the <a
+href="AssetTagHelper.html#method-c-register_javascript_include_default">register_javascript_include_default</a>
+method.
+</p>
+<p>
+You can also include all javascripts in the javascripts directory using
+<tt>:all</tt> as the source:
+</p>
+<pre>
+  javascript_include_tag :all # =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/prototype.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/effects.js&quot;&gt;&lt;/script&gt;
+    ...
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/application.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/shop.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/checkout.js&quot;&gt;&lt;/script&gt;
+</pre>
+<p>
+Note that the default javascript files will be included first. So Prototype
+and Scriptaculous are available to all subsequently included files.
+</p>
+<p>
+If you want <a href="../../Rails.html">Rails</a> to search in all the
+subdirectories under javascripts, you should explicitly set
+<tt>:recursive</tt>:
+</p>
+<pre>
+  javascript_include_tag :all, :recursive =&gt; true
+</pre>
+<h2>Caching multiple javascripts into one</h2>
+<p>
+You can also cache multiple javascripts into one file, which requires less
+HTTP connections to download and can better be compressed by gzip (leading
+to faster transfers). Caching will only happen if config.perform_caching is
+set to <tt>true</tt> (which is the case by default for the <a
+href="../../Rails.html">Rails</a> production environment, but not for the
+development environment).
+</p>
+<h4>Examples</h4>
+<pre>
+  javascript_include_tag :all, :cache =&gt; true # when config.perform_caching is false =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/prototype.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/effects.js&quot;&gt;&lt;/script&gt;
+    ...
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/application.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/shop.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/checkout.js&quot;&gt;&lt;/script&gt;
+
+  javascript_include_tag :all, :cache =&gt; true # when config.perform_caching is true =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/all.js&quot;&gt;&lt;/script&gt;
+
+  javascript_include_tag &quot;prototype&quot;, &quot;cart&quot;, &quot;checkout&quot;, :cache =&gt; &quot;shop&quot; # when config.perform_caching is false =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/prototype.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/cart.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/checkout.js&quot;&gt;&lt;/script&gt;
+
+  javascript_include_tag &quot;prototype&quot;, &quot;cart&quot;, &quot;checkout&quot;, :cache =&gt; &quot;shop&quot; # when config.perform_caching is true =&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/javascripts/shop.js&quot;&gt;&lt;/script&gt;
+</pre>
+<p>
+The <tt>:recursive</tt> option is also available for caching:
+</p>
+<pre>
+  javascript_include_tag :all, :cache =&gt; true, :recursive =&gt; true</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('javascript-include-tag_source')"
+                 id="l_method-i-javascript_include_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="javascript-include-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 345</span>
+345:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">javascript_include_tag</span>(*<span class="ruby-identifier">sources</span>)
+346:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">extract_options!</span>.<span class="ruby-identifier">stringify_keys</span>
+347:         <span class="ruby-identifier">concat</span>  = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot;concat&quot;</span>)
+348:         <span class="ruby-identifier">cache</span>   = <span class="ruby-identifier">concat</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot;cache&quot;</span>)
+349:         <span class="ruby-identifier">recursive</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot;recursive&quot;</span>)
+350: 
+351:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">concat</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">config</span>.<span class="ruby-identifier">perform_caching</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">cache</span>)
+352:           <span class="ruby-identifier">joined_javascript_name</span> = (<span class="ruby-identifier">cache</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span> <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;all&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">cache</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.js&quot;</span>
+353:           <span class="ruby-identifier">joined_javascript_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">joined_javascript_name</span>[<span class="ruby-node">/^#{File::SEPARATOR}/</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">assets_dir</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">javascripts_dir</span>, <span class="ruby-identifier">joined_javascript_name</span>)
+354: 
+355:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">perform_caching</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">joined_javascript_path</span>)
+356:             <span class="ruby-identifier">write_asset_file_contents</span>(<span class="ruby-identifier">joined_javascript_path</span>, <span class="ruby-identifier">compute_javascript_paths</span>(<span class="ruby-identifier">sources</span>, <span class="ruby-identifier">recursive</span>))
+357:           <span class="ruby-keyword kw">end</span>
+358:           <span class="ruby-identifier">javascript_src_tag</span>(<span class="ruby-identifier">joined_javascript_name</span>, <span class="ruby-identifier">options</span>)
+359:         <span class="ruby-keyword kw">else</span>
+360:           <span class="ruby-identifier">sources</span> = <span class="ruby-identifier">expand_javascript_sources</span>(<span class="ruby-identifier">sources</span>, <span class="ruby-identifier">recursive</span>)
+361:           <span class="ruby-identifier">ensure_javascript_sources!</span>(<span class="ruby-identifier">sources</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cache</span>
+362:           <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">javascript_src_tag</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">options</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">html_safe</span>
+363:         <span class="ruby-keyword kw">end</span>
+364:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-javascript_path"></a>
+            <b>javascript_path</b>(source)          
+        </div>
+
+                  <div class="description">
+            <p>
+Computes the path to a javascript asset in the public javascripts
+directory. If the <tt>source</tt> filename has no extension, .js will be
+appended (except for explicit URIs) Full paths from the document root will
+be passed through. Used internally by <a
+href="AssetTagHelper.html#method-i-javascript_include_tag">javascript_include_tag</a>
+to build the script path.
+</p>
+<h4>Examples</h4>
+<pre>
+  javascript_path &quot;xmlhr&quot; # =&gt; /javascripts/xmlhr.js
+  javascript_path &quot;dir/xmlhr.js&quot; # =&gt; /javascripts/dir/xmlhr.js
+  javascript_path &quot;/dir/xmlhr&quot; # =&gt; /dir/xmlhr.js
+  javascript_path &quot;http://www.railsapplication.com/js/xmlhr&quot; # =&gt; http://www.railsapplication.com/js/xmlhr
+  javascript_path &quot;http://www.railsapplication.com/js/xmlhr.js&quot; # =&gt; http://www.railsapplication.com/js/xmlhr.js</pre>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="AssetTagHelper.html#method-i-path_to_javascript">path_to_javascript</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('javascript-path_source')"
+                 id="l_method-i-javascript_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="javascript-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 255</span>
+255:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">javascript_path</span>(<span class="ruby-identifier">source</span>)
+256:         <span class="ruby-identifier">compute_public_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-value str">'javascripts'</span>, <span class="ruby-value str">'js'</span>)
+257:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                                        
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-stylesheet_link_tag"></a>
+            <b>stylesheet_link_tag</b>(*sources)          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns a stylesheet link tag for the sources specified as arguments. If
+you don&#8217;t specify an extension, <tt>.css</tt> will be appended
+automatically. You can modify the link attributes by passing a hash as the
+last argument.
+</p>
+<h4>Examples</h4>
+<pre>
+  stylesheet_link_tag &quot;style&quot; # =&gt;
+    &lt;link href=&quot;/stylesheets/style.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+
+  stylesheet_link_tag &quot;style.css&quot; # =&gt;
+    &lt;link href=&quot;/stylesheets/style.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+
+  stylesheet_link_tag &quot;http://www.railsapplication.com/style.css&quot; # =&gt;
+    &lt;link href=&quot;http://www.railsapplication.com/style.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+
+  stylesheet_link_tag &quot;style&quot;, :media =&gt; &quot;all&quot; # =&gt;
+    &lt;link href=&quot;/stylesheets/style.css&quot; media=&quot;all&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+
+  stylesheet_link_tag &quot;style&quot;, :media =&gt; &quot;print&quot; # =&gt;
+    &lt;link href=&quot;/stylesheets/style.css&quot; media=&quot;print&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+
+  stylesheet_link_tag &quot;random.styles&quot;, &quot;/css/stylish&quot; # =&gt;
+    &lt;link href=&quot;/stylesheets/random.styles&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;/css/stylish.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+</pre>
+<p>
+You can also include all styles in the stylesheets directory using
+<tt>:all</tt> as the source:
+</p>
+<pre>
+  stylesheet_link_tag :all # =&gt;
+    &lt;link href=&quot;/stylesheets/style1.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;/stylesheets/styleB.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;/stylesheets/styleX2.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+</pre>
+<p>
+If you want <a href="../../Rails.html">Rails</a> to search in all the
+subdirectories under stylesheets, you should explicitly set
+<tt>:recursive</tt>:
+</p>
+<pre>
+  stylesheet_link_tag :all, :recursive =&gt; true
+</pre>
+<h2>Caching multiple stylesheets into one</h2>
+<p>
+You can also cache multiple stylesheets into one file, which requires less
+HTTP connections and can better be compressed by gzip (leading to faster
+transfers). Caching will only happen if config.perform_caching is set to
+true (which is the case by default for the <a
+href="../../Rails.html">Rails</a> production environment, but not for the
+development environment). Examples:
+</p>
+<h4>Examples</h4>
+<pre>
+  stylesheet_link_tag :all, :cache =&gt; true # when config.perform_caching is false =&gt;
+    &lt;link href=&quot;/stylesheets/style1.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;/stylesheets/styleB.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;/stylesheets/styleX2.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+
+  stylesheet_link_tag :all, :cache =&gt; true # when config.perform_caching is true =&gt;
+    &lt;link href=&quot;/stylesheets/all.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+
+  stylesheet_link_tag &quot;shop&quot;, &quot;cart&quot;, &quot;checkout&quot;, :cache =&gt; &quot;payment&quot; # when config.perform_caching is false =&gt;
+    &lt;link href=&quot;/stylesheets/shop.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;/stylesheets/cart.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+    &lt;link href=&quot;/stylesheets/checkout.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+
+  stylesheet_link_tag &quot;shop&quot;, &quot;cart&quot;, &quot;checkout&quot;, :cache =&gt; &quot;payment&quot; # when config.perform_caching is true =&gt;
+    &lt;link href=&quot;/stylesheets/payment.css&quot;  media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;
+</pre>
+<p>
+The <tt>:recursive</tt> option is also available for caching:
+</p>
+<pre>
+  stylesheet_link_tag :all, :cache =&gt; true, :recursive =&gt; true
+</pre>
+<p>
+To force concatenation (even in development mode) set <tt>:concat</tt> to
+true. This is useful if you have too many stylesheets for IE to load.
+</p>
+<pre>
+  stylesheet_link_tag :all, :concat =&gt; true</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('stylesheet-link-tag_source')"
+                 id="l_method-i-stylesheet_link_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="stylesheet-link-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 492</span>
+492:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stylesheet_link_tag</span>(*<span class="ruby-identifier">sources</span>)
+493:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">extract_options!</span>.<span class="ruby-identifier">stringify_keys</span>
+494:         <span class="ruby-identifier">concat</span>  = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot;concat&quot;</span>)
+495:         <span class="ruby-identifier">cache</span>   = <span class="ruby-identifier">concat</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot;cache&quot;</span>)
+496:         <span class="ruby-identifier">recursive</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot;recursive&quot;</span>)
+497: 
+498:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">concat</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">config</span>.<span class="ruby-identifier">perform_caching</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">cache</span>)
+499:           <span class="ruby-identifier">joined_stylesheet_name</span> = (<span class="ruby-identifier">cache</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span> <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;all&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">cache</span>) <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.css&quot;</span>
+500:           <span class="ruby-identifier">joined_stylesheet_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">joined_stylesheet_name</span>[<span class="ruby-node">/^#{File::SEPARATOR}/</span>] <span class="ruby-operator">?</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">assets_dir</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">stylesheets_dir</span>, <span class="ruby-identifier">joined_stylesheet_name</span>)
+501: 
+502:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">perform_caching</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">joined_stylesheet_path</span>)
+503:             <span class="ruby-identifier">write_asset_file_contents</span>(<span class="ruby-identifier">joined_stylesheet_path</span>, <span class="ruby-identifier">compute_stylesheet_paths</span>(<span class="ruby-identifier">sources</span>, <span class="ruby-identifier">recursive</span>))
+504:           <span class="ruby-keyword kw">end</span>
+505:           <span class="ruby-identifier">stylesheet_tag</span>(<span class="ruby-identifier">joined_stylesheet_name</span>, <span class="ruby-identifier">options</span>)
+506:         <span class="ruby-keyword kw">else</span>
+507:           <span class="ruby-identifier">sources</span> = <span class="ruby-identifier">expand_stylesheet_sources</span>(<span class="ruby-identifier">sources</span>, <span class="ruby-identifier">recursive</span>)
+508:           <span class="ruby-identifier">ensure_stylesheet_sources!</span>(<span class="ruby-identifier">sources</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cache</span>
+509:           <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">stylesheet_tag</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">options</span>) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">html_safe</span>
+510:         <span class="ruby-keyword kw">end</span>
+511:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-stylesheet_path"></a>
+            <b>stylesheet_path</b>(source)          
+        </div>
+
+                  <div class="description">
+            <p>
+Computes the path to a stylesheet asset in the public stylesheets
+directory. If the <tt>source</tt> filename has no extension, <tt>.css</tt>
+will be appended (except for explicit URIs). Full paths from the document
+root will be passed through. Used internally by <tt><a
+href="AssetTagHelper.html#method-i-stylesheet_link_tag">stylesheet_link_tag</a></tt>
+to build the stylesheet path.
+</p>
+<h4>Examples</h4>
+<pre>
+  stylesheet_path &quot;style&quot; # =&gt; /stylesheets/style.css
+  stylesheet_path &quot;dir/style.css&quot; # =&gt; /stylesheets/dir/style.css
+  stylesheet_path &quot;/dir/style.css&quot; # =&gt; /dir/style.css
+  stylesheet_path &quot;http://www.railsapplication.com/css/style&quot; # =&gt; http://www.railsapplication.com/css/style
+  stylesheet_path &quot;http://www.railsapplication.com/css/style.css&quot; # =&gt; http://www.railsapplication.com/css/style.css</pre>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="AssetTagHelper.html#method-i-path_to_stylesheet">path_to_stylesheet</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('stylesheet-path_source')"
+                 id="l_method-i-stylesheet_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="stylesheet-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 419</span>
+419:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stylesheet_path</span>(<span class="ruby-identifier">source</span>)
+420:         <span class="ruby-identifier">compute_public_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-value str">'stylesheets'</span>, <span class="ruby-value str">'css'</span>)
+421:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-video_path"></a>
+            <b>video_path</b>(source)          
+        </div>
+
+                  <div class="description">
+            <p>
+Computes the path to a video asset in the public videos directory. Full
+paths from the document root will be passed through. Used internally by
+<tt><a href="AssetTagHelper.html#method-i-video_tag">video_tag</a></tt> to
+build the video path.
+</p>
+<h4>Examples</h4>
+<pre>
+  video_path(&quot;hd&quot;)                                            # =&gt; /videos/hd
+  video_path(&quot;hd.avi&quot;)                                        # =&gt; /videos/hd.avi
+  video_path(&quot;trailers/hd.avi&quot;)                               # =&gt; /videos/trailers/hd.avi
+  video_path(&quot;/trailers/hd.avi&quot;)                              # =&gt; /trailers/hd.avi
+  video_path(&quot;http://www.railsapplication.com/vid/hd.avi&quot;) # =&gt; http://www.railsapplication.com/vid/hd.avi</pre>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="AssetTagHelper.html#method-i-path_to_video">path_to_video</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('video-path_source')"
+                 id="l_method-i-video_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="video-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 575</span>
+575:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">video_path</span>(<span class="ruby-identifier">source</span>)
+576:         <span class="ruby-identifier">compute_public_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-value str">'videos'</span>)
+577:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-video_tag"></a>
+            <b>video_tag</b>(sources, options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns an html video tag for the <tt>sources</tt>. If <tt>sources</tt> is
+a string, a single video tag will be returned. If <tt>sources</tt> is an
+array, a video tag with nested source tags for each source will be
+returned. The <tt>sources</tt> can be full paths or files that exists in
+your public videos directory.
+</p>
+<h4>Options</h4>
+<p>
+You can add HTML attributes using the <tt>options</tt>. The
+<tt>options</tt> supports two additional keys for convenience and
+conformance:
+</p>
+<ul>
+<li><p>
+<tt>:poster</tt> - Set an image (like a screenshot) to be shown before the
+video loads. The path is calculated like the <tt>src</tt> of <tt><a
+href="AssetTagHelper.html#method-i-image_tag">image_tag</a></tt>.
+</p>
+</li>
+<li><p>
+<tt>:size</tt> - Supplied as &#8220;{Width}x{Height}&#8221;, so
+&#8220;30x45&#8221; becomes width=&#8220;30&#8221; and
+height=&#8220;45&#8221;. <tt>:size</tt> will be ignored if the value is not
+in the correct format.
+</p>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+ video_tag(&quot;trailer&quot;)  # =&gt;
+   &lt;video src=&quot;/videos/trailer&quot; /&gt;
+ video_tag(&quot;trailer.ogg&quot;)  # =&gt;
+   &lt;video src=&quot;/videos/trailer.ogg&quot; /&gt;
+ video_tag(&quot;trailer.ogg&quot;, :controls =&gt; true, :autobuffer =&gt; true)  # =&gt;
+   &lt;video autobuffer=&quot;autobuffer&quot; controls=&quot;controls&quot; src=&quot;/videos/trailer.ogg&quot; /&gt;
+ video_tag(&quot;trailer.m4v&quot;, :size =&gt; &quot;16x10&quot;, :poster =&gt; &quot;screenshot.png&quot;)  # =&gt;
+   &lt;video src=&quot;/videos/trailer.m4v&quot; width=&quot;16&quot; height=&quot;10&quot; poster=&quot;/images/screenshot.png&quot; /&gt;
+ video_tag(&quot;/trailers/hd.avi&quot;, :size =&gt; &quot;16x16&quot;)  # =&gt;
+   &lt;video src=&quot;/trailers/hd.avi&quot; width=&quot;16&quot; height=&quot;16&quot; /&gt;
+ video_tag(&quot;/trailers/hd.avi&quot;, :height =&gt; '32', :width =&gt; '32') # =&gt;
+   &lt;video height=&quot;32&quot; src=&quot;/trailers/hd.avi&quot; width=&quot;32&quot; /&gt;
+ video_tag([&quot;trailer.ogg&quot;, &quot;trailer.flv&quot;]) # =&gt;
+   &lt;video&gt;&lt;source src=&quot;trailer.ogg&quot; /&gt;&lt;source src=&quot;trailer.ogg&quot; /&gt;&lt;source src=&quot;trailer.flv&quot; /&gt;&lt;/video&gt;
+ video_tag([&quot;trailer.ogg&quot;, &quot;trailer.flv&quot;] :size =&gt; &quot;160x120&quot;) # =&gt;
+   &lt;video height=&quot;120&quot; width=&quot;160&quot;&gt;&lt;source src=&quot;trailer.ogg&quot; /&gt;&lt;source src=&quot;trailer.flv&quot; /&gt;&lt;/video&gt;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('video-tag_source')"
+                 id="l_method-i-video_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="video-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 682</span>
+682:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">video_tag</span>(<span class="ruby-identifier">sources</span>, <span class="ruby-identifier">options</span> = {})
+683:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">symbolize_keys!</span>
+684: 
+685:         <span class="ruby-identifier">options</span>[<span class="ruby-value">:poster</span>] = <span class="ruby-identifier">path_to_image</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:poster</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:poster</span>]
+686: 
+687:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">size</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:size</span>)
+688:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:width</span>], <span class="ruby-identifier">options</span>[<span class="ruby-value">:height</span>] = <span class="ruby-identifier">size</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;x&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">size</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%{^\d+x\d+$}</span>
+689:         <span class="ruby-keyword kw">end</span>
+690: 
+691:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+692:           <span class="ruby-identifier">content_tag</span>(<span class="ruby-value str">&quot;video&quot;</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword kw">do</span>
+693:             <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">tag</span>(<span class="ruby-value str">&quot;source&quot;</span>, <span class="ruby-value">:src</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">source</span>) }.<span class="ruby-identifier">join</span>.<span class="ruby-identifier">html_safe</span>
+694:           <span class="ruby-keyword kw">end</span>
+695:         <span class="ruby-keyword kw">else</span>
+696:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:src</span>] = <span class="ruby-identifier">path_to_video</span>(<span class="ruby-identifier">sources</span>)
+697:           <span class="ruby-identifier">tag</span>(<span class="ruby-value str">&quot;video&quot;</span>, <span class="ruby-identifier">options</span>)
+698:         <span class="ruby-keyword kw">end</span>
+699:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-asset_file_path"></a>
+            <b>asset_file_path</b>(path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('asset-file-path_source')"
+                 id="l_method-i-asset_file_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="asset-file-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 898</span>
+898:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">asset_file_path</span>(<span class="ruby-identifier">path</span>)
+899:           <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">assets_dir</span>, <span class="ruby-identifier">path</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'?'</span>).<span class="ruby-identifier">first</span>)
+900:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-asset_file_path%21"></a>
+            <b>asset_file_path!</b>(path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('asset-file-path-_source')"
+                 id="l_method-i-asset_file_path%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="asset-file-path-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 902</span>
+902:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">asset_file_path!</span>(<span class="ruby-identifier">path</span>)
+903:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">is_uri?</span>(<span class="ruby-identifier">path</span>)
+904:             <span class="ruby-identifier">absolute_path</span> = <span class="ruby-identifier">asset_file_path</span>(<span class="ruby-identifier">path</span>)
+905:             <span class="ruby-identifier">raise</span>(<span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ENOENT</span>, <span class="ruby-node">&quot;Asset file not found at '#{absolute_path}'&quot;</span> ) <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">absolute_path</span>)
+906:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">absolute_path</span>
+907:           <span class="ruby-keyword kw">end</span>
+908:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-collect_asset_files"></a>
+            <b>collect_asset_files</b>(*path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('collect-asset-files_source')"
+                 id="l_method-i-collect_asset_files_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="collect-asset-files_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 910</span>
+910:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collect_asset_files</span>(*<span class="ruby-identifier">path</span>)
+911:           <span class="ruby-identifier">dir</span> = <span class="ruby-identifier">path</span>.<span class="ruby-identifier">first</span>
+912: 
+913:           <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(*<span class="ruby-identifier">path</span>.<span class="ruby-identifier">compact</span>)].<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+914:             <span class="ruby-identifier">file</span>[<span class="ruby-operator">-</span>(<span class="ruby-identifier">file</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">dir</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)<span class="ruby-operator">..</span><span class="ruby-value">1</span>].<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/\.\w+$/</span>, <span class="ruby-value str">''</span>)
+915:           <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">sort</span>
+916:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-compute_asset_host"></a>
+            <b>compute_asset_host</b>(source)          
+        </div>
+
+                  <div class="description">
+            <p>
+Pick an asset host for this source. Returns <tt>nil</tt> if no host is set,
+the host if no wildcard is set, the host interpolated with the numbers 0-3
+if it contains <tt>%d</tt> (the number is the source hash mod 4), or the
+value returned from invoking the proc if it&#8217;s a proc or the value
+from invoking call if it&#8217;s an object responding to call.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('compute-asset-host_source')"
+                 id="l_method-i-compute_asset_host_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="compute-asset-host_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 762</span>
+762:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compute_asset_host</span>(<span class="ruby-identifier">source</span>)
+763:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">host</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">asset_host</span>
+764:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Proc</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:call</span>)
+765:               <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Proc</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">arity</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">method</span>(<span class="ruby-value">:call</span>).<span class="ruby-identifier">arity</span>
+766:               <span class="ruby-keyword kw">when</span> <span class="ruby-value">2</span>
+767:                 <span class="ruby-identifier">request</span> = <span class="ruby-identifier">controller</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:request</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">controller</span>.<span class="ruby-identifier">request</span>
+768:                 <span class="ruby-identifier">host</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">request</span>)
+769:               <span class="ruby-keyword kw">else</span>
+770:                 <span class="ruby-identifier">host</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">source</span>)
+771:               <span class="ruby-keyword kw">end</span>
+772:             <span class="ruby-keyword kw">else</span>
+773:               (<span class="ruby-identifier">host</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/%d/</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">host</span> <span class="ruby-operator">%</span> (<span class="ruby-identifier">source</span>.<span class="ruby-identifier">hash</span> <span class="ruby-operator">%</span> <span class="ruby-value">4</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">host</span>
+774:             <span class="ruby-keyword kw">end</span>
+775:           <span class="ruby-keyword kw">end</span>
+776:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-compute_javascript_paths"></a>
+            <b>compute_javascript_paths</b>(*args)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('compute-javascript-paths_source')"
+                 id="l_method-i-compute_javascript_paths_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="compute-javascript-paths_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 829</span>
+829:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compute_javascript_paths</span>(*<span class="ruby-identifier">args</span>)
+830:           <span class="ruby-identifier">expand_javascript_sources</span>(*<span class="ruby-identifier">args</span>).<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">compute_public_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-value str">'javascripts'</span>, <span class="ruby-value str">'js'</span>, <span class="ruby-keyword kw">false</span>) }
+831:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-compute_public_path"></a>
+            <b>compute_public_path</b>(source, dir, ext = nil, include_host = true)          
+        </div>
+
+                  <div class="description">
+            <p>
+Add the the extension <tt>ext</tt> if not present. Return full URLs
+otherwise untouched. Prefix with <tt>/dir/</tt> if lacking a leading
+<tt>/</tt>. Account for relative URL roots. Rewrite the asset path for
+cache-busting asset ids. Include asset host, if configured, with the
+correct request protocol.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('compute-public-path_source')"
+                 id="l_method-i-compute_public_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="compute-public-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 737</span>
+737:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compute_public_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">dir</span>, <span class="ruby-identifier">ext</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">include_host</span> = <span class="ruby-keyword kw">true</span>)
+738:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">source</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_uri?</span>(<span class="ruby-identifier">source</span>)
+739: 
+740:           <span class="ruby-identifier">source</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;.#{ext}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rewrite_extension?</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">dir</span>, <span class="ruby-identifier">ext</span>)
+741:           <span class="ruby-identifier">source</span>  = <span class="ruby-node">&quot;/#{dir}/#{source}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">source</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value">//</span>
+742:           <span class="ruby-identifier">source</span> = <span class="ruby-identifier">rewrite_asset_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">asset_path</span>)
+743: 
+744:           <span class="ruby-identifier">has_request</span> = <span class="ruby-identifier">controller</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:request</span>)
+745:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_request</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">include_host</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">source</span> <span class="ruby-operator">!~</span> <span class="ruby-node">%{^#{controller.config.relative_url_root}/}</span>
+746:             <span class="ruby-identifier">source</span> = <span class="ruby-node">&quot;#{controller.config.relative_url_root}#{source}&quot;</span>
+747:           <span class="ruby-keyword kw">end</span>
+748:           <span class="ruby-identifier">source</span> = <span class="ruby-identifier">rewrite_host_and_protocol</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">has_request</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">include_host</span>
+749: 
+750:           <span class="ruby-identifier">source</span>
+751:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-compute_stylesheet_paths"></a>
+            <b>compute_stylesheet_paths</b>(*args)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('compute-stylesheet-paths_source')"
+                 id="l_method-i-compute_stylesheet_paths_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="compute-stylesheet-paths_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 833</span>
+833:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compute_stylesheet_paths</span>(*<span class="ruby-identifier">args</span>)
+834:           <span class="ruby-identifier">expand_stylesheet_sources</span>(*<span class="ruby-identifier">args</span>).<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span> <span class="ruby-identifier">compute_public_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-value str">'stylesheets'</span>, <span class="ruby-value str">'css'</span>, <span class="ruby-keyword kw">false</span>) }
+835:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-determine_source"></a>
+            <b>determine_source</b>(source, collection)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('determine-source_source')"
+                 id="l_method-i-determine_source_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="determine-source_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 860</span>
+860:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">determine_source</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">collection</span>)
+861:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">source</span>
+862:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Symbol</span>
+863:             <span class="ruby-identifier">collection</span>[<span class="ruby-identifier">source</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">raise</span>(<span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;No expansion found for #{source.inspect}&quot;</span>)
+864:           <span class="ruby-keyword kw">else</span>
+865:             <span class="ruby-identifier">source</span>
+866:           <span class="ruby-keyword kw">end</span>
+867:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-ensure_javascript_sources%21"></a>
+            <b>ensure_javascript_sources!</b>(sources)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('ensure-javascript-sources-_source')"
+                 id="l_method-i-ensure_javascript_sources%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="ensure-javascript-sources-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 876</span>
+876:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ensure_javascript_sources!</span>(<span class="ruby-identifier">sources</span>)
+877:           <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span>
+878:             <span class="ruby-identifier">asset_file_path!</span>(<span class="ruby-identifier">path_to_javascript</span>(<span class="ruby-identifier">source</span>))
+879:           <span class="ruby-keyword kw">end</span>
+880:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">sources</span>
+881:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-ensure_stylesheet_sources%21"></a>
+            <b>ensure_stylesheet_sources!</b>(sources)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('ensure-stylesheet-sources-_source')"
+                 id="l_method-i-ensure_stylesheet_sources%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="ensure-stylesheet-sources-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 869</span>
+869:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ensure_stylesheet_sources!</span>(<span class="ruby-identifier">sources</span>)
+870:           <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span>
+871:             <span class="ruby-identifier">asset_file_path!</span>(<span class="ruby-identifier">path_to_stylesheet</span>(<span class="ruby-identifier">source</span>))
+872:           <span class="ruby-keyword kw">end</span>
+873:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">sources</span>
+874:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-expand_javascript_sources"></a>
+            <b>expand_javascript_sources</b>(sources, recursive = false)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('expand-javascript-sources_source')"
+                 id="l_method-i-expand_javascript_sources_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="expand-javascript-sources_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 837</span>
+837:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">expand_javascript_sources</span>(<span class="ruby-identifier">sources</span>, <span class="ruby-identifier">recursive</span> = <span class="ruby-keyword kw">false</span>)
+838:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:all</span>)
+839:             <span class="ruby-identifier">all_javascript_files</span> = (<span class="ruby-identifier">collect_asset_files</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">javascripts_dir</span>, (<span class="ruby-value str">'**'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">recursive</span>), <span class="ruby-value str">'*.js'</span>) <span class="ruby-operator">-</span> [<span class="ruby-value str">'application'</span>]) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'application'</span>
+840:             ((<span class="ruby-identifier">determine_source</span>(<span class="ruby-value">:defaults</span>, <span class="ruby-identifier">@@javascript_expansions</span>).<span class="ruby-identifier">dup</span> &amp; <span class="ruby-identifier">all_javascript_files</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">all_javascript_files</span>).<span class="ruby-identifier">uniq</span>
+841:           <span class="ruby-keyword kw">else</span>
+842:             <span class="ruby-identifier">expanded_sources</span> = <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span>
+843:               <span class="ruby-identifier">determine_source</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">@@javascript_expansions</span>)
+844:             <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>
+845:             <span class="ruby-identifier">expanded_sources</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;application&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:defaults</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">javascripts_dir</span>, <span class="ruby-value str">&quot;application.js&quot;</span>))
+846:             <span class="ruby-identifier">expanded_sources</span>
+847:           <span class="ruby-keyword kw">end</span>
+848:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-expand_stylesheet_sources"></a>
+            <b>expand_stylesheet_sources</b>(sources, recursive)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('expand-stylesheet-sources_source')"
+                 id="l_method-i-expand_stylesheet_sources_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="expand-stylesheet-sources_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 850</span>
+850:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">expand_stylesheet_sources</span>(<span class="ruby-identifier">sources</span>, <span class="ruby-identifier">recursive</span>)
+851:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-value">:all</span>
+852:             <span class="ruby-identifier">collect_asset_files</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">stylesheets_dir</span>, (<span class="ruby-value str">'**'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">recursive</span>), <span class="ruby-value str">'*.css'</span>)
+853:           <span class="ruby-keyword kw">else</span>
+854:             <span class="ruby-identifier">sources</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">source</span><span class="ruby-operator">|</span>
+855:               <span class="ruby-identifier">determine_source</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">@@stylesheet_expansions</span>)
+856:             <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>
+857:           <span class="ruby-keyword kw">end</span>
+858:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-is_uri%3F"></a>
+            <b>is_uri?</b>(path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('is-uri-_source')"
+                 id="l_method-i-is_uri%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="is-uri-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 753</span>
+753:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_uri?</span>(<span class="ruby-identifier">path</span>)
+754:           <span class="ruby-identifier">path</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%{^[-a-z]+://|^cid:}</span>
+755:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-javascript_src_tag"></a>
+            <b>javascript_src_tag</b>(source, options)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('javascript-src-tag_source')"
+                 id="l_method-i-javascript_src_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="javascript-src-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 821</span>
+821:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">javascript_src_tag</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">options</span>)
+822:           <span class="ruby-identifier">content_tag</span>(<span class="ruby-value str">&quot;script&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>, { <span class="ruby-value str">&quot;type&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Mime</span><span class="ruby-operator">::</span><span class="ruby-constant">JS</span>, <span class="ruby-value str">&quot;src&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">path_to_javascript</span>(<span class="ruby-identifier">source</span>) }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>))
+823:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-join_asset_file_contents"></a>
+            <b>join_asset_file_contents</b>(paths)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('join-asset-file-contents_source')"
+                 id="l_method-i-join_asset_file_contents_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="join-asset-file-contents_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 883</span>
+883:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">join_asset_file_contents</span>(<span class="ruby-identifier">paths</span>)
+884:           <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">asset_file_path!</span>(<span class="ruby-identifier">path</span>)) }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n\n&quot;</span>)
+885:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-rails_asset_id"></a>
+            <b>rails_asset_id</b>(source)          
+        </div>
+
+                  <div class="description">
+            <p>
+Use the RAILS_ASSET_ID environment variable or the source&#8217;s
+modification time as its cache-busting asset id.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rails-asset-id_source')"
+                 id="l_method-i-rails_asset_id_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rails-asset-id_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 783</span>
+783:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rails_asset_id</span>(<span class="ruby-identifier">source</span>)
+784:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">asset_id</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;RAILS_ASSET_ID&quot;</span>]
+785:             <span class="ruby-identifier">asset_id</span>
+786:           <span class="ruby-keyword kw">else</span>
+787:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">@@cache_asset_timestamps</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">asset_id</span> = <span class="ruby-identifier">@@asset_timestamps_cache</span>[<span class="ruby-identifier">source</span>])
+788:               <span class="ruby-identifier">asset_id</span>
+789:             <span class="ruby-keyword kw">else</span>
+790:               <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">assets_dir</span>, <span class="ruby-identifier">source</span>)
+791:               <span class="ruby-identifier">asset_id</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">mtime</span>(<span class="ruby-identifier">path</span>).<span class="ruby-identifier">to_i</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-value str">''</span>
+792: 
+793:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">@@cache_asset_timestamps</span>
+794:                 <span class="ruby-identifier">@@asset_timestamps_cache_guard</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword kw">do</span>
+795:                   <span class="ruby-identifier">@@asset_timestamps_cache</span>[<span class="ruby-identifier">source</span>] = <span class="ruby-identifier">asset_id</span>
+796:                 <span class="ruby-keyword kw">end</span>
+797:               <span class="ruby-keyword kw">end</span>
+798: 
+799:               <span class="ruby-identifier">asset_id</span>
+800:             <span class="ruby-keyword kw">end</span>
+801:           <span class="ruby-keyword kw">end</span>
+802:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-rewrite_asset_path"></a>
+            <b>rewrite_asset_path</b>(source, path = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Break out the asset path rewrite in case plugins wish to put the asset id
+someplace other than the query string.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rewrite-asset-path_source')"
+                 id="l_method-i-rewrite_asset_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rewrite-asset-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 806</span>
+806:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rewrite_asset_path</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">path</span> = <span class="ruby-keyword kw">nil</span>)
+807:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">path</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:call</span>)
+808:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">path</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">source</span>)
+809:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">path</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+810:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">source</span>]
+811:           <span class="ruby-keyword kw">end</span>
+812: 
+813:           <span class="ruby-identifier">asset_id</span> = <span class="ruby-identifier">rails_asset_id</span>(<span class="ruby-identifier">source</span>)
+814:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">asset_id</span>.<span class="ruby-identifier">blank?</span>
+815:             <span class="ruby-identifier">source</span>
+816:           <span class="ruby-keyword kw">else</span>
+817:             <span class="ruby-identifier">source</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;?#{asset_id}&quot;</span>
+818:           <span class="ruby-keyword kw">end</span>
+819:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-rewrite_extension%3F"></a>
+            <b>rewrite_extension?</b>(source, dir, ext)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rewrite-extension-_source')"
+                 id="l_method-i-rewrite_extension%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rewrite-extension-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 720</span>
+720:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rewrite_extension?</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">dir</span>, <span class="ruby-identifier">ext</span>)
+721:           <span class="ruby-identifier">source_ext</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">extname</span>(<span class="ruby-identifier">source</span>)[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>]
+722:           <span class="ruby-identifier">ext</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">source_ext</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> (<span class="ruby-identifier">ext</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">source_ext</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">assets_dir</span>, <span class="ruby-identifier">dir</span>, <span class="ruby-node">&quot;#{source}.#{ext}&quot;</span>))))
+723:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-rewrite_host_and_protocol"></a>
+            <b>rewrite_host_and_protocol</b>(source, has_request)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rewrite-host-and-protocol_source')"
+                 id="l_method-i-rewrite_host_and_protocol_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rewrite-host-and-protocol_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 725</span>
+725:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rewrite_host_and_protocol</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">has_request</span>)
+726:           <span class="ruby-identifier">host</span> = <span class="ruby-identifier">compute_asset_host</span>(<span class="ruby-identifier">source</span>)
+727:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">has_request</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">present?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">is_uri?</span>(<span class="ruby-identifier">host</span>)
+728:             <span class="ruby-identifier">host</span> = <span class="ruby-node">&quot;#{controller.request.protocol}#{host}&quot;</span>
+729:           <span class="ruby-keyword kw">end</span>
+730:           <span class="ruby-node">&quot;#{host}#{source}&quot;</span>
+731:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-stylesheet_tag"></a>
+            <b>stylesheet_tag</b>(source, options)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('stylesheet-tag_source')"
+                 id="l_method-i-stylesheet_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="stylesheet-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 825</span>
+825:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stylesheet_tag</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">options</span>)
+826:           <span class="ruby-identifier">tag</span>(<span class="ruby-value str">&quot;link&quot;</span>, { <span class="ruby-value str">&quot;rel&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;stylesheet&quot;</span>, <span class="ruby-value str">&quot;type&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Mime</span><span class="ruby-operator">::</span><span class="ruby-constant">CSS</span>, <span class="ruby-value str">&quot;media&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;screen&quot;</span>, <span class="ruby-value str">&quot;href&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">html_escape</span>(<span class="ruby-identifier">path_to_stylesheet</span>(<span class="ruby-identifier">source</span>)) }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>), <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>)
+827:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-write_asset_file_contents"></a>
+            <b>write_asset_file_contents</b>(joined_asset_path, asset_paths)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('write-asset-file-contents_source')"
+                 id="l_method-i-write_asset_file_contents_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="write-asset-file-contents_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/asset_tag_helper.rb, line 887</span>
+887:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_asset_file_contents</span>(<span class="ruby-identifier">joined_asset_path</span>, <span class="ruby-identifier">asset_paths</span>)
+888: 
+889:           <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">mkdir_p</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">joined_asset_path</span>))
+890:           <span class="ruby-constant">File</span>.<span class="ruby-identifier">atomic_write</span>(<span class="ruby-identifier">joined_asset_path</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">cache</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cache</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">join_asset_file_contents</span>(<span class="ruby-identifier">asset_paths</span>)) }
+891: 
+892:           <span class="ruby-comment cmt"># Set mtime to the latest of the combined files to allow for</span>
+893:           <span class="ruby-comment cmt"># consistent ETag without a shared filesystem.</span>
+894:           <span class="ruby-identifier">mt</span> = <span class="ruby-identifier">asset_paths</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">mtime</span>(<span class="ruby-identifier">asset_file_path</span>(<span class="ruby-identifier">p</span>)) }.<span class="ruby-identifier">max</span>
+895:           <span class="ruby-constant">File</span>.<span class="ruby-identifier">utime</span>(<span class="ruby-identifier">mt</span>, <span class="ruby-identifier">mt</span>, <span class="ruby-identifier">joined_asset_path</span>)
+896:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionView::Helpers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionView::Helpers</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_view/helpers/date_helper_rb.html">actionpack/lib/action_view/helpers/date_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/atom_feed_helper_rb.html">actionpack/lib/action_view/helpers/atom_feed_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/active_model_helper_rb.html">actionpack/lib/action_view/helpers/active_model_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/record_tag_helper_rb.html">actionpack/lib/action_view/helpers/record_tag_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/asset_tag_helper_rb.html">actionpack/lib/action_view/helpers/asset_tag_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/form_options_helper_rb.html">actionpack/lib/action_view/helpers/form_options_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/url_helper_rb.html">actionpack/lib/action_view/helpers/url_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/number_helper_rb.html">actionpack/lib/action_view/helpers/number_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/debug_helper_rb.html">actionpack/lib/action_view/helpers/debug_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/text_helper_rb.html">actionpack/lib/action_view/helpers/text_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/scriptaculous_helper_rb.html">actionpack/lib/action_view/helpers/scriptaculous_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/raw_output_helper_rb.html">actionpack/lib/action_view/helpers/raw_output_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/csrf_helper_rb.html">actionpack/lib/action_view/helpers/csrf_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/sanitize_helper_rb.html">actionpack/lib/action_view/helpers/sanitize_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/tag_helper_rb.html">actionpack/lib/action_view/helpers/tag_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/javascript_helper_rb.html">actionpack/lib/action_view/helpers/javascript_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/capture_helper_rb.html">actionpack/lib/action_view/helpers/capture_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/prototype_helper_rb.html">actionpack/lib/action_view/helpers/prototype_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/translation_helper_rb.html">actionpack/lib/action_view/helpers/translation_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/form_tag_helper_rb.html">actionpack/lib/action_view/helpers/form_tag_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/form_helper_rb.html">actionpack/lib/action_view/helpers/form_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers/cache_helper_rb.html">actionpack/lib/action_view/helpers/cache_helper.rb</a>:
+<a href="../../files/actionpack/lib/action_view/helpers_rb.html">actionpack/lib/action_view/helpers.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><h1>Action View Atom Feed Helpers</h1>
+<hr style="height: 1px"></hr><h1>Active Model Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Record Tag Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Asset Tag Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Form Option Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View URL Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Number Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Debug Helper</h1>
+<p>
+Provides a set of methods for making it easier to debug <a
+href="../Rails.html">Rails</a> objects.
+</p>
+<hr style="height: 1px"></hr><h1>Action View Text Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Scriptaculous Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Raw Output Helper</h1>
+<hr style="height: 1px"></hr><h1>Action View CSRF Helper</h1>
+<hr style="height: 1px"></hr><h1>Action View Sanitize Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Tag Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View JavaScript Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Capture Helper</h1>
+<hr style="height: 1px"></hr><h1>Action View Prototype Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Translation Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Form Tag Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Form Helpers</h1>
+<hr style="height: 1px"></hr><h1>Action View Cache Helper</h1>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+      </ul>
+
+
+
+
+                                </div>
+  </div>
+  </body>
+</html>

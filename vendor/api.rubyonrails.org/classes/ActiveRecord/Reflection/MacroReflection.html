@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveRecord::Reflection::MacroReflection</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveRecord::Reflection::MacroReflection</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activerecord/lib/active_record/reflection_rb.html">activerecord/lib/active_record/reflection.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+Abstract base class for AggregateReflection and AssociationReflection.
+Objects of AggregateReflection and AssociationReflection are returned by
+the <a href="ClassMethods.html">Reflection::ClassMethods</a>.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-%3D%3D">==</a></li>
+                <li><a href="#method-i-class_name">class_name</a></li>
+                <li><a href="#method-i-derive_class_name">derive_class_name</a></li>
+                <li><a href="#method-i-klass">klass</a></li>
+                <li><a href="#method-c-new">new</a></li>
+      </ul>
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>active_record</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>name</td>
+    <td class='attr-desc'>
+              <p>
+Returns the name of the macro.
+</p>
+<p>
+<tt>composed_of :balance, :<a
+href="MacroReflection.html#method-i-class_name">class_name</a> =&gt;
+'Money'</tt> returns <tt>:balance</tt> <tt>has_many :clients</tt> returns
+<tt>:clients</tt>
+</p>          </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>macro</td>
+    <td class='attr-desc'>
+              <p>
+Returns the macro type.
+</p>
+<p>
+<tt>composed_of :balance, :<a
+href="MacroReflection.html#method-i-class_name">class_name</a> =&gt;
+'Money'</tt> returns <tt>:composed_of</tt> <tt>has_many :clients</tt>
+returns <tt>:has_many</tt>
+</p>          </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>options</td>
+    <td class='attr-desc'>
+              <p>
+Returns the hash of options used for the macro.
+</p>
+<p>
+<tt>composed_of :balance, :<a
+href="MacroReflection.html#method-i-class_name">class_name</a> =&gt;
+'Money'</tt> returns <tt>{ :<a
+href="MacroReflection.html#method-i-class_name">class_name</a> =&gt;
+&quot;Money&quot; }</tt> <tt>has_many :clients</tt> returns +{}+
+</p>          </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(macro, name, options, active_record)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/reflection.rb, line 86</span>
+86:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">macro</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">active_record</span>)
+87:         <span class="ruby-ivar">@macro</span>, <span class="ruby-ivar">@name</span>, <span class="ruby-ivar">@options</span>, <span class="ruby-ivar">@active_record</span> = <span class="ruby-identifier">macro</span>, <span class="ruby-identifier">name</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">active_record</span>
+88:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-%3D%3D"></a>
+            <b>==</b>(other_aggregation)          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns <tt>true</tt> if <tt>self</tt> and <tt>other_aggregation</tt> have
+the same <tt>name</tt> attribute, <tt><a
+href="MacroReflection.html#active_record">active_record</a></tt> attribute,
+and <tt>other_aggregation</tt> has an options hash assigned to it.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-i-%3D%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/reflection.rb, line 126</span>
+126:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">other_aggregation</span>)
+127:         <span class="ruby-identifier">other_aggregation</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other_aggregation</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">other_aggregation</span>.<span class="ruby-identifier">options</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">active_record</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other_aggregation</span>.<span class="ruby-identifier">active_record</span>
+128:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-class_name"></a>
+            <b>class_name</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the class name for the macro.
+</p>
+<p>
+<tt>composed_of :balance, :<a
+href="MacroReflection.html#method-i-class_name">class_name</a> =&gt;
+'Money'</tt> returns <tt>'Money'</tt> <tt>has_many :clients</tt> returns
+<tt>'Client'</tt>
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('class-name_source')"
+                 id="l_method-i-class_name_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="class-name_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/reflection.rb, line 120</span>
+120:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">class_name</span>
+121:         <span class="ruby-ivar">@class_name</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:class_name</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">derive_class_name</span>
+122:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-klass"></a>
+            <b>klass</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the class for the macro.
+</p>
+<p>
+<tt>composed_of :balance, :<a
+href="MacroReflection.html#method-i-class_name">class_name</a> =&gt;
+'Money'</tt> returns the Money class <tt>has_many :clients</tt> returns the
+Client class
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('klass_source')"
+                 id="l_method-i-klass_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="klass_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/reflection.rb, line 112</span>
+112:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">klass</span>
+113:         <span class="ruby-ivar">@klass</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">class_name</span>.<span class="ruby-identifier">constantize</span>
+114:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-derive_class_name"></a>
+            <b>derive_class_name</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('derive-class-name_source')"
+                 id="l_method-i-derive_class_name_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="derive-class-name_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/reflection.rb, line 135</span>
+135:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">derive_class_name</span>
+136:           <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">camelize</span>
+137:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

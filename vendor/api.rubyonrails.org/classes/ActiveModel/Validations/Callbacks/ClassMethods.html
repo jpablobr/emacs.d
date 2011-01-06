@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveModel::Validations::Callbacks::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveModel::Validations::Callbacks::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/activemodel/lib/active_model/validations/callbacks_rb.html">activemodel/lib/active_model/validations/callbacks.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-after_validation">after_validation</a></li>
+                <li><a href="#method-i-before_validation">before_validation</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-after_validation"></a>
+            <b>after_validation</b>(*args, &block)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('after-validation_source')"
+                 id="l_method-i-after_validation_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="after-validation_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations/callbacks.rb, line 39</span>
+39:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">after_validation</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+40:           <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">extract_options!</span>
+41:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:prepend</span>] = <span class="ruby-keyword kw">true</span>
+42:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>])
+43:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;!halted&quot;</span>
+44:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;self.validation_context == :#{options[:on]}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:on</span>]
+45:           <span class="ruby-identifier">set_callback</span>(<span class="ruby-value">:validation</span>, <span class="ruby-value">:after</span>, *(<span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">options</span>), &amp;<span class="ruby-identifier">block</span>)
+46:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-before_validation"></a>
+            <b>before_validation</b>(*args, &block)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('before-validation_source')"
+                 id="l_method-i-before_validation_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="before-validation_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations/callbacks.rb, line 30</span>
+30:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">before_validation</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+31:           <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">extract_options!</span>
+32:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:on</span>]
+33:             <span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>])
+34:             <span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;self.validation_context == :#{options[:on]}&quot;</span>
+35:           <span class="ruby-keyword kw">end</span>
+36:           <span class="ruby-identifier">set_callback</span>(<span class="ruby-value">:validation</span>, <span class="ruby-value">:before</span>, *(<span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">options</span>), &amp;<span class="ruby-identifier">block</span>)
+37:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

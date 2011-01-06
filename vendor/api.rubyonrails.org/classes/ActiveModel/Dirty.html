@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveModel::Dirty</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveModel::Dirty</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activemodel/lib/active_model/dirty_rb.html">activemodel/lib/active_model/dirty.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><h2>Active Model <a href="Dirty.html">Dirty</a></h2>
+<p>
+Provides a way to track changes in your object in the same way as Active
+Record does.
+</p>
+<p>
+The requirements to implement <a href="Dirty.html">ActiveModel::Dirty</a>
+are to:
+</p>
+<ul>
+<li><p>
+<tt>include ActiveModel::Dirty</tt> in your object
+</p>
+</li>
+<li><p>
+Call <tt>define_attribute_methods</tt> passing each method you want to
+track
+</p>
+</li>
+<li><p>
+Call <tt>attr_name_will_change!</tt> before each change to the tracked
+attribute
+</p>
+</li>
+</ul>
+<p>
+If you wish to also track previous changes on save or update, you need to
+add
+</p>
+<pre>
+  @previously_changed = changes
+</pre>
+<p>
+inside of your save or update method.
+</p>
+<p>
+A minimal implementation could be:
+</p>
+<pre>
+  class Person
+
+    include ActiveModel::Dirty
+
+    define_attribute_methods [:name]
+
+    def name
+      @name
+    end
+
+    def name=(val)
+      name_will_change! unless val == @name
+      @name = val
+    end
+
+    def save
+      @previously_changed = changes
+      @changed_attributes.clear
+    end
+
+  end
+</pre>
+<h2>Examples:</h2>
+<p>
+A newly instantiated object is unchanged:
+</p>
+<pre>
+  person = Person.find_by_name('Uncle Bob')
+  person.changed?       # =&gt; false
+</pre>
+<p>
+Change the name:
+</p>
+<pre>
+  person.name = 'Bob'
+  person.changed?       # =&gt; true
+  person.name_changed?  # =&gt; true
+  person.name_was       # =&gt; 'Uncle Bob'
+  person.name_change    # =&gt; ['Uncle Bob', 'Bob']
+  person.name = 'Bill'
+  person.name_change    # =&gt; ['Uncle Bob', 'Bill']
+</pre>
+<p>
+Save the changes:
+</p>
+<pre>
+  person.save
+  person.changed?       # =&gt; false
+  person.name_changed?  # =&gt; false
+</pre>
+<p>
+Assigning the same value leaves the attribute unchanged:
+</p>
+<pre>
+  person.name = 'Bill'
+  person.name_changed?  # =&gt; false
+  person.name_change    # =&gt; nil
+</pre>
+<p>
+Which attributes have changed?
+</p>
+<pre>
+  person.name = 'Bob'
+  person.changed        # =&gt; ['name']
+  person.changes        # =&gt; { 'name' =&gt; ['Bill', 'Bob'] }
+</pre>
+<p>
+If an attribute is modified in-place then make use of
+<tt>[attribute_name]_will_change!</tt> to mark that the attribute is
+changing. Otherwise ActiveModel can&#8217;t track changes to in-place
+attributes.
+</p>
+<pre>
+  person.name_will_change!
+  person.name &lt;&lt; 'y'
+  person.name_change    # =&gt; ['Bill', 'Billy']</pre>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-attribute_change">attribute_change</a></li>
+                <li><a href="#method-i-attribute_changed%3F">attribute_changed?</a></li>
+                <li><a href="#method-i-attribute_was">attribute_was</a></li>
+                <li><a href="#method-i-attribute_will_change%21">attribute_will_change!</a></li>
+                <li><a href="#method-i-changed">changed</a></li>
+                <li><a href="#method-i-changed%3F">changed?</a></li>
+                <li><a href="#method-i-changed_attributes">changed_attributes</a></li>
+                <li><a href="#method-i-changes">changes</a></li>
+                <li><a href="#method-i-previous_changes">previous_changes</a></li>
+                <li><a href="#method-i-reset_attribute%21">reset_attribute!</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          <a href="AttributeMethods.html">ActiveModel::AttributeMethods</a>      </li>
+</ul>
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-changed"></a>
+            <b>changed</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+List of attributes with unsaved changes.
+</p>
+<pre>
+  person.changed # =&gt; []
+  person.name = 'bob'
+  person.changed # =&gt; ['name']</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('changed_source')"
+                 id="l_method-i-changed_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="changed_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 109</span>
+109:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">changed</span>
+110:       <span class="ruby-identifier">changed_attributes</span>.<span class="ruby-identifier">keys</span>
+111:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-changed%3F"></a>
+            <b>changed?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Do any attributes have unsaved changes?
+</p>
+<pre>
+  person.changed? # =&gt; false
+  person.name = 'bob'
+  person.changed? # =&gt; true</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('changed-_source')"
+                 id="l_method-i-changed%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="changed-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 101</span>
+101:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">changed?</span>
+102:       <span class="ruby-operator">!</span><span class="ruby-identifier">changed_attributes</span>.<span class="ruby-identifier">empty?</span>
+103:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-changed_attributes"></a>
+            <b>changed_attributes</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Map of change <tt>attr =&gt; original value</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('changed-attributes_source')"
+                 id="l_method-i-changed_attributes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="changed-attributes_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 131</span>
+131:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">changed_attributes</span>
+132:       <span class="ruby-ivar">@changed_attributes</span> <span class="ruby-operator">||=</span> {}
+133:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-changes"></a>
+            <b>changes</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Map of changed attrs => [original value, new value].
+</p>
+<pre>
+  person.changes # =&gt; {}
+  person.name = 'bob'
+  person.changes # =&gt; { 'name' =&gt; ['bill', 'bob'] }</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('changes_source')"
+                 id="l_method-i-changes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="changes_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 117</span>
+117:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">changes</span>
+118:       <span class="ruby-identifier">changed</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-constant">HashWithIndifferentAccess</span>.<span class="ruby-identifier">new</span>){ <span class="ruby-operator">|</span><span class="ruby-identifier">h</span>, <span class="ruby-identifier">attr</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">attr</span>] = <span class="ruby-identifier">attribute_change</span>(<span class="ruby-identifier">attr</span>); <span class="ruby-identifier">h</span> }
+119:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-previous_changes"></a>
+            <b>previous_changes</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Map of attributes that were changed when the model was saved.
+</p>
+<pre>
+  person.name # =&gt; 'bob'
+  person.name = 'robert'
+  person.save
+  person.previous_changes # =&gt; {'name' =&gt; ['bob, 'robert']}</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('previous-changes_source')"
+                 id="l_method-i-previous_changes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="previous-changes_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 126</span>
+126:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">previous_changes</span>
+127:       <span class="ruby-ivar">@previously_changed</span>
+128:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attribute_change"></a>
+            <b>attribute_change</b>(attr)          
+        </div>
+
+                  <div class="description">
+            <p>
+Handle <tt>*_change</tt> for <tt>method_missing</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attribute-change_source')"
+                 id="l_method-i-attribute_change_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attribute-change_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 143</span>
+143:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attribute_change</span>(<span class="ruby-identifier">attr</span>)
+144:         [<span class="ruby-identifier">changed_attributes</span>[<span class="ruby-identifier">attr</span>], <span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">attr</span>)] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attribute_changed?</span>(<span class="ruby-identifier">attr</span>)
+145:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attribute_changed%3F"></a>
+            <b>attribute_changed?</b>(attr)          
+        </div>
+
+                  <div class="description">
+            <p>
+Handle <tt>*_changed?</tt> for <tt>method_missing</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attribute-changed-_source')"
+                 id="l_method-i-attribute_changed%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attribute-changed-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 138</span>
+138:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attribute_changed?</span>(<span class="ruby-identifier">attr</span>)
+139:         <span class="ruby-identifier">changed_attributes</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">attr</span>)
+140:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attribute_was"></a>
+            <b>attribute_was</b>(attr)          
+        </div>
+
+                  <div class="description">
+            <p>
+Handle <tt>*_was</tt> for <tt>method_missing</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attribute-was_source')"
+                 id="l_method-i-attribute_was_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attribute-was_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 148</span>
+148:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attribute_was</span>(<span class="ruby-identifier">attr</span>)
+149:         <span class="ruby-identifier">attribute_changed?</span>(<span class="ruby-identifier">attr</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">changed_attributes</span>[<span class="ruby-identifier">attr</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">attr</span>)
+150:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attribute_will_change%21"></a>
+            <b>attribute_will_change!</b>(attr)          
+        </div>
+
+                  <div class="description">
+            <p>
+Handle <tt>*_will_change!</tt> for <tt>method_missing</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attribute-will-change-_source')"
+                 id="l_method-i-attribute_will_change%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attribute-will-change-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 153</span>
+153:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attribute_will_change!</span>(<span class="ruby-identifier">attr</span>)
+154:         <span class="ruby-keyword kw">begin</span>
+155:           <span class="ruby-identifier">value</span> = <span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">attr</span>)
+156:           <span class="ruby-identifier">value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">duplicable?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">clone</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">value</span>
+157:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-constant">NoMethodError</span>
+158:         <span class="ruby-keyword kw">end</span>
+159: 
+160:         <span class="ruby-identifier">changed_attributes</span>[<span class="ruby-identifier">attr</span>] = <span class="ruby-identifier">value</span>
+161:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-reset_attribute%21"></a>
+            <b>reset_attribute!</b>(attr)          
+        </div>
+
+                  <div class="description">
+            <p>
+Handle <tt>reset_*!</tt> for <tt>method_missing</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('reset-attribute-_source')"
+                 id="l_method-i-reset_attribute%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="reset-attribute-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/dirty.rb, line 164</span>
+164:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reset_attribute!</span>(<span class="ruby-identifier">attr</span>)
+165:         <span class="ruby-identifier">__send__</span>(<span class="ruby-node">&quot;#{attr}=&quot;</span>, <span class="ruby-identifier">changed_attributes</span>[<span class="ruby-identifier">attr</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attribute_changed?</span>(<span class="ruby-identifier">attr</span>)
+166:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

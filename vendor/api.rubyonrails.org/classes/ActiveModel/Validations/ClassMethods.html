@@ -1,0 +1,611 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveModel::Validations::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveModel::Validations::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activemodel/lib/active_model/validations_rb.html">activemodel/lib/active_model/validations.rb</a>:
+<a href="../../../files/activemodel/lib/active_model/validations/with_rb.html">activemodel/lib/active_model/validations/with.rb</a>:
+<a href="../../../files/activemodel/lib/active_model/validations/validates_rb.html">activemodel/lib/active_model/validations/validates.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-attribute_method%3F">attribute_method?</a></li>
+                <li><a href="#method-i-inherited">inherited</a></li>
+                <li><a href="#method-i-validate">validate</a></li>
+                <li><a href="#method-i-validates">validates</a></li>
+                <li><a href="#method-i-validates_each">validates_each</a></li>
+                <li><a href="#method-i-validates_with">validates_with</a></li>
+                <li><a href="#method-i-validators">validators</a></li>
+                <li><a href="#method-i-validators_on">validators_on</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attribute_method%3F"></a>
+            <b>attribute_method?</b>(attribute)          
+        </div>
+
+                  <div class="description">
+            <p>
+Check if method is an attribute method or not.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attribute-method-_source')"
+                 id="l_method-i-attribute_method%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attribute-method-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations.rb, line 156</span>
+156:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attribute_method?</span>(<span class="ruby-identifier">attribute</span>)
+157:         <span class="ruby-identifier">method_defined?</span>(<span class="ruby-identifier">attribute</span>)
+158:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-inherited"></a>
+            <b>inherited</b>(base)          
+        </div>
+
+                  <div class="description">
+            <p>
+Copy validators on inheritance.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('inherited_source')"
+                 id="l_method-i-inherited_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="inherited_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations.rb, line 161</span>
+161:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">base</span>)
+162:         <span class="ruby-identifier">dup</span> = <span class="ruby-identifier">_validators</span>.<span class="ruby-identifier">dup</span>
+163:         <span class="ruby-identifier">base</span>.<span class="ruby-identifier">_validators</span> = <span class="ruby-identifier">dup</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">dup</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">dup</span> }
+164:         <span class="ruby-keyword kw">super</span>
+165:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-validate"></a>
+            <b>validate</b>(*args, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Adds a validation method or block to the class. This is useful when
+overriding the <tt>validate</tt> instance method becomes too unwieldy and
+you&#8217;re looking for more descriptive declaration of your validations.
+</p>
+<p>
+This can be done with a symbol pointing to a method:
+</p>
+<pre>
+  class Comment
+    include ActiveModel::Validations
+
+    validate :must_be_friends
+
+    def must_be_friends
+      errors.add(:base, &quot;Must be friends to leave a comment&quot;) unless commenter.friend_of?(commentee)
+    end
+  end
+</pre>
+<p>
+Or with a block which is passed with the current record to be validated:
+</p>
+<pre>
+  class Comment
+    include ActiveModel::Validations
+
+    validate do |comment|
+      comment.must_be_friends
+    end
+
+    def must_be_friends
+      errors.add(:base, (&quot;Must be friends to leave a comment&quot;) unless commenter.friend_of?(commentee)
+    end
+  end</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('validate_source')"
+                 id="l_method-i-validate_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="validate_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations.rb, line 121</span>
+121:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+122:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">extract_options!</span>
+123:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:on</span>)
+124:           <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">dup</span>
+125:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>] = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>])
+126:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:if</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;validation_context == :#{options[:on]}&quot;</span>
+127:         <span class="ruby-keyword kw">end</span>
+128:         <span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">options</span>
+129:         <span class="ruby-identifier">set_callback</span>(<span class="ruby-value">:validate</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+130:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-validates"></a>
+            <b>validates</b>(*attributes)          
+        </div>
+
+                  <div class="description">
+            <p>
+This method is a shortcut to all default validators and any custom
+validator classes ending in &#8216;Validator&#8217;. Note that <a
+href="../../Rails.html">Rails</a> default validators can be overridden
+inside specific classes by creating custom validator classes in their place
+such as <a href="PresenceValidator.html">PresenceValidator</a>.
+</p>
+<p>
+Examples of using the default rails validators:
+</p>
+<pre>
+  validates :terms, :acceptance =&gt; true
+  validates :password, :confirmation =&gt; true
+  validates :username, :exclusion =&gt; { :in =&gt; %w(admin superuser) }
+  validates :email, :format =&gt; { :with =&gt; /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :on =&gt; :create }
+  validates :age, :inclusion =&gt; { :in =&gt; 0..9 }
+  validates :first_name, :length =&gt; { :maximum =&gt; 30 }
+  validates :age, :numericality =&gt; true
+  validates :username, :presence =&gt; true
+  validates :username, :uniqueness =&gt; true
+</pre>
+<p>
+The power of the <tt>validates</tt> method comes when using custom
+validators and default validators in one call for a given attribute e.g.
+</p>
+<pre>
+  class EmailValidator &lt; ActiveModel::EachValidator
+    def validate_each(record, attribute, value)
+      record.errors[attribute] &lt;&lt; (options[:message] || &quot;is not an email&quot;) unless
+        value =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+    end
+  end
+
+  class Person
+    include ActiveModel::Validations
+    attr_accessor :name, :email
+
+    validates :name, :presence =&gt; true, :uniqueness =&gt; true, :length =&gt; { :maximum =&gt; 100 }
+    validates :email, :presence =&gt; true, :email =&gt; true
+  end
+</pre>
+<p>
+<a href="../Validator.html">Validator</a> classes may also exist within the
+class being validated allowing custom modules of validators to be included
+as needed e.g.
+</p>
+<pre>
+  class Film
+    include ActiveModel::Validations
+
+    class TitleValidator &lt; ActiveModel::EachValidator
+      def validate_each(record, attribute, value)
+        record.errors[attribute] &lt;&lt; &quot;must start with 'the'&quot; unless value =~ /\Athe/i
+      end
+    end
+
+    validates :name, :title =&gt; true
+  end
+</pre>
+<p>
+The validators hash can also handle regular expressions, ranges and arrays:
+</p>
+<pre>
+  validates :email, :format =&gt; /@/
+  validates :gender, :inclusion =&gt; %w(male female)
+  validates :password, :length =&gt; 6..20
+</pre>
+<p>
+Finally, the options :if, :unless, :on, :allow_blank and :allow_nil can be
+given to one specific validator:
+</p>
+<pre>
+  validates :password, :presence =&gt; { :if =&gt; :password_required? }, :confirmation =&gt; true
+</pre>
+<p>
+Or to all at the same time:
+</p>
+<pre>
+  validates :password, :presence =&gt; true, :confirmation =&gt; true, :if =&gt; :password_required?</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('validates_source')"
+                 id="l_method-i-validates_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="validates_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations/validates.rb, line 73</span>
+73:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validates</span>(*<span class="ruby-identifier">attributes</span>)
+74:         <span class="ruby-identifier">defaults</span> = <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">extract_options!</span>
+75:         <span class="ruby-identifier">validations</span> = <span class="ruby-identifier">defaults</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">:if</span>, <span class="ruby-value">:unless</span>, <span class="ruby-value">:on</span>, <span class="ruby-value">:allow_blank</span>, <span class="ruby-value">:allow_nil</span>)
+76: 
+77:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;You need to supply at least one attribute&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">empty?</span>
+78:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Attribute names must be symbols&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">any?</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">attribute</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) }
+79:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;You need to supply at least one validation&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">validations</span>.<span class="ruby-identifier">empty?</span>
+80: 
+81:         <span class="ruby-identifier">defaults</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-value">:attributes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attributes</span>)
+82: 
+83:         <span class="ruby-identifier">validations</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">options</span><span class="ruby-operator">|</span>
+84:           <span class="ruby-keyword kw">begin</span>
+85:             <span class="ruby-identifier">validator</span> = <span class="ruby-identifier">const_get</span>(<span class="ruby-node">&quot;#{key.to_s.camelize}Validator&quot;</span>)
+86:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NameError</span>
+87:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;Unknown validator: '#{key}'&quot;</span>
+88:           <span class="ruby-keyword kw">end</span>
+89: 
+90:           <span class="ruby-identifier">validates_with</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">defaults</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">_parse_validates_options</span>(<span class="ruby-identifier">options</span>)))
+91:         <span class="ruby-keyword kw">end</span>
+92:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-validates_each"></a>
+            <b>validates_each</b>(*attr_names, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Validates each attribute against a block.
+</p>
+<pre>
+  class Person
+    include ActiveModel::Validations
+
+    attr_accessor :first_name, :last_name
+
+    validates_each :first_name, :last_name do |record, attr, value|
+      record.errors.add attr, 'starts with z.' if value.to_s[0] == ?z
+    end
+  end
+</pre>
+<p>
+Options:
+</p>
+<ul>
+<li><p>
+<tt>:on</tt> - Specifies when this validation is active (default is
+<tt>:save</tt>, other options <tt>:create</tt>, <tt>:update</tt>).
+</p>
+</li>
+<li><p>
+<tt>:allow_nil</tt> - Skip validation if attribute is <tt>nil</tt>.
+</p>
+</li>
+<li><p>
+<tt>:allow_blank</tt> - Skip validation if attribute is blank.
+</p>
+</li>
+<li><p>
+<tt>:if</tt> - Specifies a method, proc or string to call to determine if
+the validation should occur (e.g. <tt>:if =&gt; :allow_validation</tt>, or
+<tt>:if =&gt; Proc.new { |user| user.signup_step &gt; 2 }</tt>). The
+method, proc or string should return or evaluate to a true or false value.
+</p>
+</li>
+<li><p>
+<tt>:unless</tt> - Specifies a method, proc or string to call to determine
+if the validation should not occur (e.g. <tt>:unless =&gt;
+:skip_validation</tt>, or <tt>:unless =&gt; Proc.new { |user|
+user.signup_step &lt;= 2 }</tt>).  The method, proc or string should return
+or evaluate to a true or false value.
+</p>
+</li>
+</ul>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('validates-each_source')"
+                 id="l_method-i-validates_each_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="validates-each_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations.rb, line 86</span>
+86:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validates_each</span>(*<span class="ruby-identifier">attr_names</span>, &amp;<span class="ruby-identifier">block</span>)
+87:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">attr_names</span>.<span class="ruby-identifier">extract_options!</span>.<span class="ruby-identifier">symbolize_keys</span>
+88:         <span class="ruby-identifier">validates_with</span> <span class="ruby-constant">BlockValidator</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-value">:attributes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">attr_names</span>.<span class="ruby-identifier">flatten</span>), &amp;<span class="ruby-identifier">block</span>
+89:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-validates_with"></a>
+            <b>validates_with</b>(*args, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Passes the record off to the class or classes specified and allows them to
+add errors based on more complex conditions.
+</p>
+<pre>
+  class Person
+    include ActiveModel::Validations
+    validates_with MyValidator
+  end
+
+  class MyValidator &lt; ActiveModel::Validator
+    def validate(record)
+      if some_complex_logic
+        record.errors[:base] &lt;&lt; &quot;This record is invalid&quot;
+      end
+    end
+
+    private
+      def some_complex_logic
+        # ...
+      end
+  end
+</pre>
+<p>
+You may also pass it multiple classes, like so:
+</p>
+<pre>
+  class Person
+    include ActiveModel::Validations
+    validates_with MyValidator, MyOtherValidator, :on =&gt; :create
+  end
+</pre>
+<p>
+Configuration options:
+</p>
+<ul>
+<li><p>
+<tt>on</tt> - Specifies when this validation is active (<tt>:create</tt> or
+<tt>:update</tt>
+</p>
+</li>
+<li><p>
+<tt>if</tt> - Specifies a method, proc or string to call to determine if
+the validation should occur (e.g. <tt>:if =&gt; :allow_validation</tt>, or
+<tt>:if =&gt; Proc.new { |user| user.signup_step &gt; 2 }</tt>). The
+method, proc or string should return or evaluate to a true or false value.
+</p>
+</li>
+<li><p>
+<tt>unless</tt> - Specifies a method, proc or string to call to determine
+if the validation should not occur (e.g. <tt>:unless =&gt;
+:skip_validation</tt>, or <tt>:unless =&gt; Proc.new { |user|
+user.signup_step &lt;= 2 }</tt>). The method, proc or string should return
+or evaluate to a true or false value.
+</p>
+</li>
+</ul>
+<p>
+If you pass any additional configuration options, they will be passed to
+the class and available as <tt>options</tt>:
+</p>
+<pre>
+  class Person
+    include ActiveModel::Validations
+    validates_with MyValidator, :my_custom_key =&gt; &quot;my custom value&quot;
+  end
+
+  class MyValidator &lt; ActiveModel::Validator
+    def validate(record)
+      options[:my_custom_key] # =&gt; &quot;my custom value&quot;
+    end
+  end</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('validates-with_source')"
+                 id="l_method-i-validates_with_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="validates-with_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations/with.rb, line 67</span>
+67:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validates_with</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+68:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">extract_options!</span>
+69:         <span class="ruby-identifier">args</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span>
+70:           <span class="ruby-identifier">validator</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">options</span>, &amp;<span class="ruby-identifier">block</span>)
+71:           <span class="ruby-identifier">validator</span>.<span class="ruby-identifier">setup</span>(<span class="ruby-keyword kw">self</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">validator</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:setup</span>)
+72: 
+73:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">validator</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:attributes</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">validator</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">empty?</span>
+74:             <span class="ruby-identifier">validator</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attribute</span><span class="ruby-operator">|</span>
+75:               <span class="ruby-identifier">_validators</span>[<span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">to_sym</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">validator</span>
+76:             <span class="ruby-keyword kw">end</span>
+77:           <span class="ruby-keyword kw">else</span>
+78:             <span class="ruby-identifier">_validators</span>[<span class="ruby-keyword kw">nil</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">validator</span>
+79:           <span class="ruby-keyword kw">end</span>
+80: 
+81:           <span class="ruby-identifier">validate</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">options</span>)
+82:         <span class="ruby-keyword kw">end</span>
+83:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-validators"></a>
+            <b>validators</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+List all validators that are being used to validate the model using <tt><a
+href="ClassMethods.html#method-i-validates_with">validates_with</a></tt>
+method.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('validators_source')"
+                 id="l_method-i-validators_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="validators_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations.rb, line 146</span>
+146:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validators</span>
+147:         <span class="ruby-identifier">_validators</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+148:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-validators_on"></a>
+            <b>validators_on</b>(attribute)          
+        </div>
+
+                  <div class="description">
+            <p>
+List all validators that being used to validate a specific attribute.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('validators-on_source')"
+                 id="l_method-i-validators_on_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="validators-on_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/validations.rb, line 151</span>
+151:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validators_on</span>(<span class="ruby-identifier">attribute</span>)
+152:         <span class="ruby-identifier">_validators</span>[<span class="ruby-identifier">attribute</span>.<span class="ruby-identifier">to_sym</span>]
+153:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

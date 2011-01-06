@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveRecord::ConnectionAdapters::DatabaseLimits</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveRecord::ConnectionAdapters::DatabaseLimits</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activerecord/lib/active_record/connection_adapters/abstract/database_limits_rb.html">activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-column_name_length">column_name_length</a></li>
+                <li><a href="#method-i-columns_per_multicolumn_index">columns_per_multicolumn_index</a></li>
+                <li><a href="#method-i-columns_per_table">columns_per_table</a></li>
+                <li><a href="#method-i-in_clause_length">in_clause_length</a></li>
+                <li><a href="#method-i-index_name_length">index_name_length</a></li>
+                <li><a href="#method-i-indexes_per_table">indexes_per_table</a></li>
+                <li><a href="#method-i-joins_per_query">joins_per_query</a></li>
+                <li><a href="#method-i-sql_query_length">sql_query_length</a></li>
+                <li><a href="#method-i-table_alias_length">table_alias_length</a></li>
+                <li><a href="#method-i-table_name_length">table_name_length</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-column_name_length"></a>
+            <b>column_name_length</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+the maximum length of a column name
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('column-name-length_source')"
+                 id="l_method-i-column_name_length_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="column-name-length_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 11</span>
+11:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">column_name_length</span>
+12:         <span class="ruby-value">64</span>
+13:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-columns_per_multicolumn_index"></a>
+            <b>columns_per_multicolumn_index</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+the maximum number of columns in a multicolumn index
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('columns-per-multicolumn-index_source')"
+                 id="l_method-i-columns_per_multicolumn_index_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="columns-per-multicolumn-index_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 36</span>
+36:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">columns_per_multicolumn_index</span>
+37:         <span class="ruby-value">16</span>
+38:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-columns_per_table"></a>
+            <b>columns_per_table</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+the maximum number of columns per table
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('columns-per-table_source')"
+                 id="l_method-i-columns_per_table_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="columns-per-table_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 26</span>
+26:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">columns_per_table</span>
+27:         <span class="ruby-value">1024</span>
+28:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-in_clause_length"></a>
+            <b>in_clause_length</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+the maximum number of elements in an IN (x,y,z) clause
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('in-clause-length_source')"
+                 id="l_method-i-in_clause_length_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="in-clause-length_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 41</span>
+41:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">in_clause_length</span>
+42:         <span class="ruby-value">65535</span>
+43:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-index_name_length"></a>
+            <b>index_name_length</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+the maximum length of an index name
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('index-name-length_source')"
+                 id="l_method-i-index_name_length_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="index-name-length_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 21</span>
+21:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">index_name_length</span>
+22:         <span class="ruby-value">64</span>
+23:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-indexes_per_table"></a>
+            <b>indexes_per_table</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+the maximum number of indexes per table
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('indexes-per-table_source')"
+                 id="l_method-i-indexes_per_table_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="indexes-per-table_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 31</span>
+31:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">indexes_per_table</span>
+32:         <span class="ruby-value">16</span>
+33:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-joins_per_query"></a>
+            <b>joins_per_query</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+maximum number of joins in a single query
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('joins-per-query_source')"
+                 id="l_method-i-joins_per_query_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="joins-per-query_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 51</span>
+51:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">joins_per_query</span>
+52:         <span class="ruby-value">256</span>
+53:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-sql_query_length"></a>
+            <b>sql_query_length</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+the maximum length of an SQL query
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('sql-query-length_source')"
+                 id="l_method-i-sql_query_length_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="sql-query-length_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 46</span>
+46:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sql_query_length</span>
+47:         <span class="ruby-value">1048575</span>
+48:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-table_alias_length"></a>
+            <b>table_alias_length</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+the maximum length of a table alias
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('table-alias-length_source')"
+                 id="l_method-i-table_alias_length_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="table-alias-length_source">
+<pre>
+     <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 6</span>
+6:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">table_alias_length</span>
+7:         <span class="ruby-value">255</span>
+8:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-table_name_length"></a>
+            <b>table_name_length</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+the maximum length of a table name
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('table-name-length_source')"
+                 id="l_method-i-table_name_length_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="table-name-length_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/connection_adapters/abstract/database_limits.rb, line 16</span>
+16:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">table_name_length</span>
+17:         <span class="ruby-value">64</span>
+18:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

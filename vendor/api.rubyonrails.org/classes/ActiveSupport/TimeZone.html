@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveSupport::TimeZone</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveSupport::TimeZone</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activesupport/lib/active_support/values/time_zone_rb.html">activesupport/lib/active_support/values/time_zone.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-%3C%3D%3E"><=></a></li>
+                <li><a href="#method-i-%3D%7E">=~</a></li>
+                <li><a href="#method-c-%5B%5D">[]</a></li>
+                <li><a href="#method-c-all">all</a></li>
+                <li><a href="#method-i-at">at</a></li>
+                      <li><a href="#method-c-find_tzinfo">find_tzinfo</a></li>
+                <li><a href="#method-i-formatted_offset">formatted_offset</a></li>
+                <li><a href="#method-i-local">local</a></li>
+                <li><a href="#method-i-local_to_utc">local_to_utc</a></li>
+                <li><a href="#method-c-lookup">lookup</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-now">now</a></li>
+                <li><a href="#method-i-parse">parse</a></li>
+                <li><a href="#method-i-period_for_local">period_for_local</a></li>
+                <li><a href="#method-i-period_for_utc">period_for_utc</a></li>
+                <li><a href="#method-c-seconds_to_utc_offset">seconds_to_utc_offset</a></li>
+                <li><a href="#method-i-to_s">to_s</a></li>
+                <li><a href="#method-i-today">today</a></li>
+                <li><a href="#method-c-us_zones">us_zones</a></li>
+                <li><a href="#method-i-utc_offset">utc_offset</a></li>
+                <li><a href="#method-i-utc_to_local">utc_to_local</a></li>
+                <li><a href="#method-c-zones_map">zones_map</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          Comparable      </li>
+</ul>
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">MAPPING</td>
+    <td>=</td>
+    <td class="attr-value">{       "International Date Line West" => "Pacific/Midway",       "Midway Island"                => "Pacific/Midway",       "Samoa"                        => "Pacific/Pago_Pago",       "Hawaii"                       => "Pacific/Honolulu",       "Alaska"                       => "America/Juneau",       "Pacific Time (US & Canada)"   => "America/Los_Angeles",       "Tijuana"                      => "America/Tijuana",       "Mountain Time (US & Canada)"  => "America/Denver",       "Arizona"                      => "America/Phoenix",       "Chihuahua"                    => "America/Chihuahua",       "Mazatlan"                     => "America/Mazatlan",       "Central Time (US & Canada)"   => "America/Chicago",       "Saskatchewan"                 => "America/Regina",       "Guadalajara"                  => "America/Mexico_City",       "Mexico City"                  => "America/Mexico_City",       "Monterrey"                    => "America/Monterrey",       "Central America"              => "America/Guatemala",       "Eastern Time (US & Canada)"   => "America/New_York",       "Indiana (East)"               => "America/Indiana/Indianapolis",       "Bogota"                       => "America/Bogota",       "Lima"                         => "America/Lima",       "Quito"                        => "America/Lima",       "Atlantic Time (Canada)"       => "America/Halifax",       "Caracas"                      => "America/Caracas",       "La Paz"                       => "America/La_Paz",       "Santiago"                     => "America/Santiago",       "Newfoundland"                 => "America/St_Johns",       "Brasilia"                     => "America/Sao_Paulo",       "Buenos Aires"                 => "America/Argentina/Buenos_Aires",       "Georgetown"                   => "America/Guyana",       "Greenland"                    => "America/Godthab",       "Mid-Atlantic"                 => "Atlantic/South_Georgia",       "Azores"                       => "Atlantic/Azores",       "Cape Verde Is."               => "Atlantic/Cape_Verde",       "Dublin"                       => "Europe/Dublin",       "Edinburgh"                    => "Europe/London",       "Lisbon"                       => "Europe/Lisbon",       "London"                       => "Europe/London",       "Casablanca"                   => "Africa/Casablanca",       "Monrovia"                     => "Africa/Monrovia",       "UTC"                          => "Etc/UTC",       "Belgrade"                     => "Europe/Belgrade",       "Bratislava"                   => "Europe/Bratislava",       "Budapest"                     => "Europe/Budapest",       "Ljubljana"                    => "Europe/Ljubljana",       "Prague"                       => "Europe/Prague",       "Sarajevo"                     => "Europe/Sarajevo",       "Skopje"                       => "Europe/Skopje",       "Warsaw"                       => "Europe/Warsaw",       "Zagreb"                       => "Europe/Zagreb",       "Brussels"                     => "Europe/Brussels",       "Copenhagen"                   => "Europe/Copenhagen",       "Madrid"                       => "Europe/Madrid",       "Paris"                        => "Europe/Paris",       "Amsterdam"                    => "Europe/Amsterdam",       "Berlin"                       => "Europe/Berlin",       "Bern"                         => "Europe/Berlin",       "Rome"                         => "Europe/Rome",       "Stockholm"                    => "Europe/Stockholm",       "Vienna"                       => "Europe/Vienna",       "West Central Africa"          => "Africa/Algiers",       "Bucharest"                    => "Europe/Bucharest",       "Cairo"                        => "Africa/Cairo",       "Helsinki"                     => "Europe/Helsinki",       "Kyiv"                         => "Europe/Kiev",       "Riga"                         => "Europe/Riga",       "Sofia"                        => "Europe/Sofia",       "Tallinn"                      => "Europe/Tallinn",       "Vilnius"                      => "Europe/Vilnius",       "Athens"                       => "Europe/Athens",       "Istanbul"                     => "Europe/Istanbul",       "Minsk"                        => "Europe/Minsk",       "Jerusalem"                    => "Asia/Jerusalem",       "Harare"                       => "Africa/Harare",       "Pretoria"                     => "Africa/Johannesburg",       "Moscow"                       => "Europe/Moscow",       "St. Petersburg"               => "Europe/Moscow",       "Volgograd"                    => "Europe/Moscow",       "Kuwait"                       => "Asia/Kuwait",       "Riyadh"                       => "Asia/Riyadh",       "Nairobi"                      => "Africa/Nairobi",       "Baghdad"                      => "Asia/Baghdad",       "Tehran"                       => "Asia/Tehran",       "Abu Dhabi"                    => "Asia/Muscat",       "Muscat"                       => "Asia/Muscat",       "Baku"                         => "Asia/Baku",       "Tbilisi"                      => "Asia/Tbilisi",       "Yerevan"                      => "Asia/Yerevan",       "Kabul"                        => "Asia/Kabul",       "Ekaterinburg"                 => "Asia/Yekaterinburg",       "Islamabad"                    => "Asia/Karachi",       "Karachi"                      => "Asia/Karachi",       "Tashkent"                     => "Asia/Tashkent",       "Chennai"                      => "Asia/Kolkata",       "Kolkata"                      => "Asia/Kolkata",       "Mumbai"                       => "Asia/Kolkata",       "New Delhi"                    => "Asia/Kolkata",       "Kathmandu"                    => "Asia/Kathmandu",       "Astana"                       => "Asia/Dhaka",       "Dhaka"                        => "Asia/Dhaka",       "Sri Jayawardenepura"          => "Asia/Colombo",       "Almaty"                       => "Asia/Almaty",       "Novosibirsk"                  => "Asia/Novosibirsk",       "Rangoon"                      => "Asia/Rangoon",       "Bangkok"                      => "Asia/Bangkok",       "Hanoi"                        => "Asia/Bangkok",       "Jakarta"                      => "Asia/Jakarta",       "Krasnoyarsk"                  => "Asia/Krasnoyarsk",       "Beijing"                      => "Asia/Shanghai",       "Chongqing"                    => "Asia/Chongqing",       "Hong Kong"                    => "Asia/Hong_Kong",       "Urumqi"                       => "Asia/Urumqi",       "Kuala Lumpur"                 => "Asia/Kuala_Lumpur",       "Singapore"                    => "Asia/Singapore",       "Taipei"                       => "Asia/Taipei",       "Perth"                        => "Australia/Perth",       "Irkutsk"                      => "Asia/Irkutsk",       "Ulaan Bataar"                 => "Asia/Ulaanbaatar",       "Seoul"                        => "Asia/Seoul",       "Osaka"                        => "Asia/Tokyo",       "Sapporo"                      => "Asia/Tokyo",       "Tokyo"                        => "Asia/Tokyo",       "Yakutsk"                      => "Asia/Yakutsk",       "Darwin"                       => "Australia/Darwin",       "Adelaide"                     => "Australia/Adelaide",       "Canberra"                     => "Australia/Melbourne",       "Melbourne"                    => "Australia/Melbourne",       "Sydney"                       => "Australia/Sydney",       "Brisbane"                     => "Australia/Brisbane",       "Hobart"                       => "Australia/Hobart",       "Vladivostok"                  => "Asia/Vladivostok",       "Guam"                         => "Pacific/Guam",       "Port Moresby"                 => "Pacific/Port_Moresby",       "Magadan"                      => "Asia/Magadan",       "Solomon Is."                  => "Asia/Magadan",       "New Caledonia"                => "Pacific/Noumea",       "Fiji"                         => "Pacific/Fiji",       "Kamchatka"                    => "Asia/Kamchatka",       "Marshall Is."                 => "Pacific/Majuro",       "Auckland"                     => "Pacific/Auckland",       "Wellington"                   => "Pacific/Auckland",       "Nuku'alofa"                   => "Pacific/Tongatapu"     }.each { |name, zone| name.freeze;</td>
+  </tr>
+  <tr valign='top'>
+    <td>&nbsp;</td>
+    <td colspan="2" class="attr-desc"><p>
+Keys are <a href="../Rails.html">Rails</a> <a
+href="TimeZone.html">TimeZone</a> names, values are TZInfo identifiers
+</p></td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">UTC_OFFSET_WITH_COLON</td>
+    <td>=</td>
+    <td class="attr-value">'%s%02d:%02d'</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">UTC_OFFSET_WITHOUT_COLON</td>
+    <td>=</td>
+    <td class="attr-value">UTC_OFFSET_WITH_COLON.sub(':', '')</td>
+  </tr>
+  </table>
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>name</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>tzinfo</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-%5B%5D"></a>
+            <b>[]</b>(arg)          
+        </div>
+
+                  <div class="description">
+            <p>
+Locate a specific time zone object. If the argument is a string, it is
+interpreted to mean the name of the timezone to locate. If it is a numeric
+value it is either the hour offset, or the second offset, of the timezone
+to find. (The first one with that offset will be returned.) Returns
+<tt>nil</tt> if no such time zone is known to the system.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-c-%5B%5D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 350</span>
+350:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">arg</span>)
+351:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">arg</span>
+352:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+353:           <span class="ruby-keyword kw">begin</span>
+354:             <span class="ruby-identifier">zones_map</span>[<span class="ruby-identifier">arg</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">lookup</span>(<span class="ruby-identifier">arg</span>).<span class="ruby-identifier">tap</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">tz</span><span class="ruby-operator">|</span> <span class="ruby-identifier">tz</span>.<span class="ruby-identifier">utc_offset</span> }
+355:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">TZInfo</span><span class="ruby-operator">::</span><span class="ruby-constant">InvalidTimezoneIdentifier</span>
+356:             <span class="ruby-keyword kw">nil</span>
+357:           <span class="ruby-keyword kw">end</span>
+358:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Numeric</span>, <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Duration</span>
+359:             <span class="ruby-identifier">arg</span> <span class="ruby-operator">*=</span> <span class="ruby-value">3600</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">abs</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">13</span>
+360:             <span class="ruby-identifier">all</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">z</span><span class="ruby-operator">|</span> <span class="ruby-identifier">z</span>.<span class="ruby-identifier">utc_offset</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">to_i</span> }
+361:           <span class="ruby-keyword kw">else</span>
+362:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;invalid argument to TimeZone[]: #{arg.inspect}&quot;</span>
+363:         <span class="ruby-keyword kw">end</span>
+364:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-all"></a>
+            <b>all</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Return an array of all <a href="TimeZone.html">TimeZone</a> objects. There
+are multiple <a href="TimeZone.html">TimeZone</a> objects per time zone, in
+many cases, to make it easier for users to find their own time zone.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('all_source')"
+                 id="l_method-c-all_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="all_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 337</span>
+337:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">all</span>
+338:         <span class="ruby-ivar">@zones</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">zones_map</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">sort</span>
+339:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-find_tzinfo"></a>
+            <b>find_tzinfo</b>(name)          
+        </div>
+
+                  <div class="description">
+            <p>
+TODO: Preload instead of lazy load for thread safety
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('find-tzinfo_source')"
+                 id="l_method-c-find_tzinfo_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="find-tzinfo_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 319</span>
+319:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find_tzinfo</span>(<span class="ruby-identifier">name</span>)
+320:       <span class="ruby-identifier">require</span> <span class="ruby-value str">'active_support/tzinfo'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">TZInfo</span>)
+321:       <span class="ruby-operator">::</span><span class="ruby-constant">TZInfo</span><span class="ruby-operator">::</span><span class="ruby-constant">TimezoneProxy</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">MAPPING</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">name</span>)
+322:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(name, utc_offset = nil, tzinfo = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Create a new <a href="TimeZone.html">TimeZone</a> object with the given
+name and offset. The offset is the number of seconds that this time zone is
+offset from UTC (GMT). Seconds were chosen as the offset unit because that
+is the unit that Ruby uses to represent time zone offsets (see
+Time#utc_offset).
+</p>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="TimeZone.html#method-c-create">create</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 197</span>
+197:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">utc_offset</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">tzinfo</span> = <span class="ruby-keyword kw">nil</span>)
+198:       <span class="ruby-keyword kw">begin</span>
+199:         <span class="ruby-identifier">require</span> <span class="ruby-value str">'tzinfo'</span>
+200:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">LoadError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+201:         <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;You don't have tzinfo installed in your application. Please add it to your Gemfile and run bundle install&quot;</span>
+202:         <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+203:       <span class="ruby-keyword kw">end</span>
+204:       <span class="ruby-ivar">@name</span> = <span class="ruby-identifier">name</span>
+205:       <span class="ruby-ivar">@utc_offset</span> = <span class="ruby-identifier">utc_offset</span>
+206:       <span class="ruby-ivar">@tzinfo</span> = <span class="ruby-identifier">tzinfo</span> <span class="ruby-operator">||</span> <span class="ruby-constant">TimeZone</span>.<span class="ruby-identifier">find_tzinfo</span>(<span class="ruby-identifier">name</span>)
+207:       <span class="ruby-ivar">@current_period</span> = <span class="ruby-keyword kw">nil</span>
+208:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(name)          
+        </div>
+
+                  <div class="description">
+            <p>
+Return a <a href="TimeZone.html">TimeZone</a> instance with the given name,
+or <tt>nil</tt> if no such <a href="TimeZone.html">TimeZone</a> instance
+exists. (This exists to support the use of this class with the
+<tt>composed_of</tt> macro.)
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 330</span>
+330:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>)
+331:         <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">name</span>]
+332:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-seconds_to_utc_offset"></a>
+            <b>seconds_to_utc_offset</b>(seconds, colon = true)          
+        </div>
+
+                  <div class="description">
+            <p>
+Assumes self represents an offset from UTC in seconds (as returned from
+Time#utc_offset) and turns this into an +HH:MM formatted string. Example:
+</p>
+<pre>
+  TimeZone.seconds_to_utc_offset(-21_600) # =&gt; &quot;-06:00&quot;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('seconds-to-utc-offset_source')"
+                 id="l_method-c-seconds_to_utc_offset_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="seconds-to-utc-offset_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 181</span>
+181:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">seconds_to_utc_offset</span>(<span class="ruby-identifier">seconds</span>, <span class="ruby-identifier">colon</span> = <span class="ruby-keyword kw">true</span>)
+182:       <span class="ruby-identifier">format</span> = <span class="ruby-identifier">colon</span> <span class="ruby-operator">?</span> <span class="ruby-constant">UTC_OFFSET_WITH_COLON</span> <span class="ruby-operator">:</span> <span class="ruby-constant">UTC_OFFSET_WITHOUT_COLON</span>
+183:       <span class="ruby-identifier">sign</span> = (<span class="ruby-identifier">seconds</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'-'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'+'</span>)
+184:       <span class="ruby-identifier">hours</span> = <span class="ruby-identifier">seconds</span>.<span class="ruby-identifier">abs</span> <span class="ruby-operator">/</span> <span class="ruby-value">3600</span>
+185:       <span class="ruby-identifier">minutes</span> = (<span class="ruby-identifier">seconds</span>.<span class="ruby-identifier">abs</span> <span class="ruby-operator">%</span> <span class="ruby-value">3600</span>) <span class="ruby-operator">/</span> <span class="ruby-value">60</span>
+186:       <span class="ruby-identifier">format</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">sign</span>, <span class="ruby-identifier">hours</span>, <span class="ruby-identifier">minutes</span>]
+187:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-us_zones"></a>
+            <b>us_zones</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+A convenience method for returning a collection of <a
+href="TimeZone.html">TimeZone</a> objects for time zones in the USA.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('us-zones_source')"
+                 id="l_method-c-us_zones_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="us-zones_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 368</span>
+368:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">us_zones</span>
+369:         <span class="ruby-ivar">@us_zones</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">all</span>.<span class="ruby-identifier">find_all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">z</span><span class="ruby-operator">|</span> <span class="ruby-identifier">z</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/US|Arizona|Indiana|Hawaii|Alaska/</span> }
+370:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-zones_map"></a>
+            <b>zones_map</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('zones-map_source')"
+                 id="l_method-c-zones_map_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="zones-map_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 341</span>
+341:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">zones_map</span>
+342:         <span class="ruby-ivar">@zones_map</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Hash</span>[<span class="ruby-constant">MAPPING</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">place</span>, <span class="ruby-identifier">_</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">place</span>, <span class="ruby-identifier">create</span>(<span class="ruby-identifier">place</span>)] }]
+343:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-lookup"></a>
+            <b>lookup</b>(name)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('lookup_source')"
+                 id="l_method-c-lookup_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="lookup_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 374</span>
+374:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lookup</span>(<span class="ruby-identifier">name</span>)
+375:           (<span class="ruby-identifier">tzinfo</span> = <span class="ruby-identifier">find_tzinfo</span>(<span class="ruby-identifier">name</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">tzinfo</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">freeze</span>)
+376:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-%3C%3D%3E"></a>
+            <b><=></b>(zone)          
+        </div>
+
+                  <div class="description">
+            <p>
+Compare this time zone to the parameter. The two are compared first on
+their offsets, and then by name.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-i-%3C%3D%3E_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 227</span>
+227:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">zone</span>)
+228:       <span class="ruby-identifier">result</span> = (<span class="ruby-identifier">utc_offset</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">zone</span>.<span class="ruby-identifier">utc_offset</span>)
+229:       <span class="ruby-identifier">result</span> = (<span class="ruby-identifier">name</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">zone</span>.<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+230:       <span class="ruby-identifier">result</span>
+231:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-%3D%7E"></a>
+            <b>=~</b>(re)          
+        </div>
+
+                  <div class="description">
+            <p>
+Compare name and TZInfo identifier to a supplied regexp, returning true if
+a match is found.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-i-%3D%7E_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 235</span>
+235:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">=~</span>(<span class="ruby-identifier">re</span>)
+236:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span> <span class="ruby-operator">=~</span> <span class="ruby-identifier">re</span> <span class="ruby-operator">||</span> <span class="ruby-constant">MAPPING</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">=~</span> <span class="ruby-identifier">re</span>
+237:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-at"></a>
+            <b>at</b>(secs)          
+        </div>
+
+                  <div class="description">
+            <p>
+Method for creating new <a
+href="TimeWithZone.html">ActiveSupport::TimeWithZone</a> instance in time
+zone of <tt>self</tt> from number of seconds since the Unix epoch. Example:
+</p>
+<pre>
+  Time.zone = &quot;Hawaii&quot;        # =&gt; &quot;Hawaii&quot;
+  Time.utc(2000).to_f         # =&gt; 946684800.0
+  Time.zone.at(946684800.0)   # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('at_source')"
+                 id="l_method-i-at_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="at_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 258</span>
+258:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">at</span>(<span class="ruby-identifier">secs</span>)
+259:       <span class="ruby-identifier">utc</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-identifier">secs</span>).<span class="ruby-identifier">utc</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">civil</span>(<span class="ruby-value">1970</span>).<span class="ruby-identifier">since</span>(<span class="ruby-identifier">secs</span>)
+260:       <span class="ruby-identifier">utc</span>.<span class="ruby-identifier">in_time_zone</span>(<span class="ruby-keyword kw">self</span>)
+261:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-formatted_offset"></a>
+            <b>formatted_offset</b>(colon=true, alternate_utc_string = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the offset of this time zone as a formatted string, of the format
+&#8220;+HH:MM&#8221;.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('formatted-offset_source')"
+                 id="l_method-i-formatted_offset_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="formatted-offset_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 221</span>
+221:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">formatted_offset</span>(<span class="ruby-identifier">colon</span>=<span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">alternate_utc_string</span> = <span class="ruby-keyword kw">nil</span>)
+222:       <span class="ruby-identifier">utc_offset</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">alternate_utc_string</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">seconds_to_utc_offset</span>(<span class="ruby-identifier">utc_offset</span>, <span class="ruby-identifier">colon</span>)
+223:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-local"></a>
+            <b>local</b>(*args)          
+        </div>
+
+                  <div class="description">
+            <p>
+Method for creating new <a
+href="TimeWithZone.html">ActiveSupport::TimeWithZone</a> instance in time
+zone of <tt>self</tt> from given values. Example:
+</p>
+<pre>
+  Time.zone = &quot;Hawaii&quot;                      # =&gt; &quot;Hawaii&quot;
+  Time.zone.local(2007, 2, 1, 15, 30, 45)   # =&gt; Thu, 01 Feb 2007 15:30:45 HST -10:00</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('local_source')"
+                 id="l_method-i-local_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="local_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 248</span>
+248:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">local</span>(*<span class="ruby-identifier">args</span>)
+249:       <span class="ruby-identifier">time</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">utc_time</span>(*<span class="ruby-identifier">args</span>)
+250:       <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">TimeWithZone</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">time</span>)
+251:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-local_to_utc"></a>
+            <b>local_to_utc</b>(time, dst=true)          
+        </div>
+
+                  <div class="description">
+            <p>
+Adjust the given time to the simultaneous time in UTC. Returns a Time.utc()
+instance.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('local-to-utc_source')"
+                 id="l_method-i-local_to_utc_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="local-to-utc_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 304</span>
+304:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">local_to_utc</span>(<span class="ruby-identifier">time</span>, <span class="ruby-identifier">dst</span>=<span class="ruby-keyword kw">true</span>)
+305:       <span class="ruby-identifier">tzinfo</span>.<span class="ruby-identifier">local_to_utc</span>(<span class="ruby-identifier">time</span>, <span class="ruby-identifier">dst</span>)
+306:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-now"></a>
+            <b>now</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns an <a href="TimeWithZone.html">ActiveSupport::TimeWithZone</a>
+instance representing the current time in the time zone represented by
+<tt>self</tt>. Example:
+</p>
+<pre>
+  Time.zone = 'Hawaii'  # =&gt; &quot;Hawaii&quot;
+  Time.zone.now         # =&gt; Wed, 23 Jan 2008 20:24:27 HST -10:00</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('now_source')"
+                 id="l_method-i-now_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="now_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 288</span>
+288:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">now</span>
+289:       <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">in_time_zone</span>(<span class="ruby-keyword kw">self</span>)
+290:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-parse"></a>
+            <b>parse</b>(str, now=now)          
+        </div>
+
+                  <div class="description">
+            <p>
+Method for creating new <a
+href="TimeWithZone.html">ActiveSupport::TimeWithZone</a> instance in time
+zone of <tt>self</tt> from parsed string. Example:
+</p>
+<pre>
+  Time.zone = &quot;Hawaii&quot;                      # =&gt; &quot;Hawaii&quot;
+  Time.zone.parse('1999-12-31 14:00:00')    # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+</pre>
+<p>
+If upper components are missing from the string, they are supplied from <a
+href="TimeZone.html#method-i-now">TimeZone#now</a>:
+</p>
+<pre>
+  Time.zone.now                 # =&gt; Fri, 31 Dec 1999 14:00:00 HST -10:00
+  Time.zone.parse('22:30:00')   # =&gt; Fri, 31 Dec 1999 22:30:00 HST -10:00</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('parse_source')"
+                 id="l_method-i-parse_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="parse_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 272</span>
+272:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-identifier">str</span>, <span class="ruby-identifier">now</span>=<span class="ruby-identifier">now</span>)
+273:       <span class="ruby-identifier">date_parts</span> = <span class="ruby-constant">Date</span>.<span class="ruby-identifier">_parse</span>(<span class="ruby-identifier">str</span>)
+274:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">date_parts</span>.<span class="ruby-identifier">blank?</span>
+275:       <span class="ruby-identifier">time</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">str</span>, <span class="ruby-identifier">now</span>) <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">str</span>)
+276:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">date_parts</span>[<span class="ruby-value">:offset</span>].<span class="ruby-identifier">nil?</span>
+277:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">TimeWithZone</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">time</span>)
+278:       <span class="ruby-keyword kw">else</span>
+279:         <span class="ruby-identifier">time</span>.<span class="ruby-identifier">in_time_zone</span>(<span class="ruby-keyword kw">self</span>)
+280:       <span class="ruby-keyword kw">end</span>
+281:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-period_for_local"></a>
+            <b>period_for_local</b>(time, dst=true)          
+        </div>
+
+                  <div class="description">
+            <p>
+Available so that <a href="TimeZone.html">TimeZone</a> instances respond
+like TZInfo::Timezone instances
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('period-for-local_source')"
+                 id="l_method-i-period_for_local_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="period-for-local_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 314</span>
+314:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">period_for_local</span>(<span class="ruby-identifier">time</span>, <span class="ruby-identifier">dst</span>=<span class="ruby-keyword kw">true</span>)
+315:       <span class="ruby-identifier">tzinfo</span>.<span class="ruby-identifier">period_for_local</span>(<span class="ruby-identifier">time</span>, <span class="ruby-identifier">dst</span>)
+316:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-period_for_utc"></a>
+            <b>period_for_utc</b>(time)          
+        </div>
+
+                  <div class="description">
+            <p>
+Available so that <a href="TimeZone.html">TimeZone</a> instances respond
+like TZInfo::Timezone instances
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('period-for-utc_source')"
+                 id="l_method-i-period_for_utc_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="period-for-utc_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 309</span>
+309:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">period_for_utc</span>(<span class="ruby-identifier">time</span>)
+310:       <span class="ruby-identifier">tzinfo</span>.<span class="ruby-identifier">period_for_utc</span>(<span class="ruby-identifier">time</span>)
+311:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_s"></a>
+            <b>to_s</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns a textual representation of this time zone.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to-s_source')"
+                 id="l_method-i-to_s_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to-s_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 240</span>
+240:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+241:       <span class="ruby-node">&quot;(GMT#{formatted_offset}) #{name}&quot;</span>
+242:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-today"></a>
+            <b>today</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Return the current date in this time zone.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('today_source')"
+                 id="l_method-i-today_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="today_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 293</span>
+293:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">today</span>
+294:       <span class="ruby-identifier">tzinfo</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_date</span>
+295:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-utc_offset"></a>
+            <b>utc_offset</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('utc-offset_source')"
+                 id="l_method-i-utc_offset_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="utc-offset_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 210</span>
+210:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">utc_offset</span>
+211:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@utc_offset</span>
+212:         <span class="ruby-ivar">@utc_offset</span>
+213:       <span class="ruby-keyword kw">else</span>
+214:         <span class="ruby-ivar">@current_period</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">tzinfo</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:current_period</span>)
+215:         <span class="ruby-ivar">@current_period</span>.<span class="ruby-identifier">try</span>(<span class="ruby-value">:utc_offset</span>)
+216:       <span class="ruby-keyword kw">end</span>
+217:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-utc_to_local"></a>
+            <b>utc_to_local</b>(time)          
+        </div>
+
+                  <div class="description">
+            <p>
+Adjust the given time to the simultaneous time in the time zone represented
+by <tt>self</tt>. Returns a Time.utc() instance &#8212; if you want an <a
+href="TimeWithZone.html">ActiveSupport::TimeWithZone</a> instance, use <a
+href="../Time.html#method-i-in_time_zone">Time#in_time_zone()</a> instead.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('utc-to-local_source')"
+                 id="l_method-i-utc_to_local_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="utc-to-local_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/values/time_zone.rb, line 299</span>
+299:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">utc_to_local</span>(<span class="ruby-identifier">time</span>)
+300:       <span class="ruby-identifier">tzinfo</span>.<span class="ruby-identifier">utc_to_local</span>(<span class="ruby-identifier">time</span>)
+301:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

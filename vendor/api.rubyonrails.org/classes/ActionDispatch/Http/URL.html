@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionDispatch::Http::URL</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionDispatch::Http::URL</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/action_dispatch/http/url_rb.html">actionpack/lib/action_dispatch/http/url.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-domain">domain</a></li>
+                <li><a href="#method-i-host">host</a></li>
+                <li><a href="#method-i-host_with_port">host_with_port</a></li>
+                <li><a href="#method-i-named_host%3F">named_host?</a></li>
+                <li><a href="#method-i-port">port</a></li>
+                <li><a href="#method-i-port_string">port_string</a></li>
+                <li><a href="#method-i-protocol">protocol</a></li>
+                <li><a href="#method-i-raw_host_with_port">raw_host_with_port</a></li>
+                <li><a href="#method-i-request_uri">request_uri</a></li>
+                <li><a href="#method-i-scheme">scheme</a></li>
+                <li><a href="#method-i-server_port">server_port</a></li>
+                <li><a href="#method-i-ssl%3F">ssl?</a></li>
+                <li><a href="#method-i-standard_port">standard_port</a></li>
+                <li><a href="#method-i-standard_port%3F">standard_port?</a></li>
+                <li><a href="#method-i-subdomain">subdomain</a></li>
+                <li><a href="#method-i-subdomains">subdomains</a></li>
+                <li><a href="#method-i-url">url</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-domain"></a>
+            <b>domain</b>(tld_length = 1)          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the domain part of a host, such as &#8220;rubyonrails.org&#8220; in
+&#8220;<a href="http://www.rubyonrails.org">www.rubyonrails.org</a>&#8220;.
+You can specify a different <tt>tld_length</tt>, such as 2 to catch
+rubyonrails.co.uk in &#8220;<a
+href="http://www.rubyonrails.co.uk">www.rubyonrails.co.uk</a>&#8220;.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('domain_source')"
+                 id="l_method-i-domain_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="domain_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 78</span>
+78:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">domain</span>(<span class="ruby-identifier">tld_length</span> = <span class="ruby-value">1</span>)
+79:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">named_host?</span>(<span class="ruby-identifier">host</span>)
+80: 
+81:         <span class="ruby-identifier">host</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'.'</span>).<span class="ruby-identifier">last</span>(<span class="ruby-value">1</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">tld_length</span>).<span class="ruby-identifier">join</span>(<span class="ruby-value str">'.'</span>)
+82:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-host"></a>
+            <b>host</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the host for this request, such as example.com.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('host_source')"
+                 id="l_method-i-host_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="host_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 34</span>
+34:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">host</span>
+35:         <span class="ruby-identifier">raw_host_with_port</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/:\d+$/</span>, <span class="ruby-value str">''</span>)
+36:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-host_with_port"></a>
+            <b>host_with_port</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns a host:port string for this request, such as
+&#8220;example.com&#8220; or &#8220;example.com:8080&#8221;.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('host-with-port_source')"
+                 id="l_method-i-host_with_port_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="host-with-port_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 40</span>
+40:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">host_with_port</span>
+41:         <span class="ruby-node">&quot;#{host}#{port_string}&quot;</span>
+42:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-port"></a>
+            <b>port</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the port number of this request as an integer.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('port_source')"
+                 id="l_method-i-port_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="port_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 45</span>
+45:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">port</span>
+46:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">raw_host_with_port</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/:(\d+)$/</span>
+47:           <span class="ruby-node">$1</span>.<span class="ruby-identifier">to_i</span>
+48:         <span class="ruby-keyword kw">else</span>
+49:           <span class="ruby-identifier">standard_port</span>
+50:         <span class="ruby-keyword kw">end</span>
+51:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-port_string"></a>
+            <b>port_string</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns a port suffix like &#8220;:8080&#8221; if the port number of this
+request is not the default HTTP port 80 or HTTPS port 443.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('port-string_source')"
+                 id="l_method-i-port_string_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="port-string_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 68</span>
+68:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">port_string</span>
+69:         <span class="ruby-identifier">port</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">standard_port</span> <span class="ruby-operator">?</span> <span class="ruby-value str">''</span> <span class="ruby-operator">:</span> <span class="ruby-node">&quot;:#{port}&quot;</span>
+70:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-protocol"></a>
+            <b>protocol</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns &#8216;https://&#8217; if this is an SSL request and
+&#8216;http://&#8217; otherwise.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('protocol_source')"
+                 id="l_method-i-protocol_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="protocol_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 15</span>
+15:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">protocol</span>
+16:         <span class="ruby-identifier">ssl?</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'https://'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'http://'</span>
+17:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-raw_host_with_port"></a>
+            <b>raw_host_with_port</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the host for this request, such as &#8220;example.com&#8220;.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('raw-host-with-port_source')"
+                 id="l_method-i-raw_host_with_port_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="raw-host-with-port_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 25</span>
+25:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raw_host_with_port</span>
+26:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">forwarded</span> = <span class="ruby-identifier">env</span>[<span class="ruby-value str">&quot;HTTP_X_FORWARDED_HOST&quot;</span>]
+27:           <span class="ruby-identifier">forwarded</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/,\s?/</span>).<span class="ruby-identifier">last</span>
+28:         <span class="ruby-keyword kw">else</span>
+29:           <span class="ruby-identifier">env</span>[<span class="ruby-value str">'HTTP_HOST'</span>] <span class="ruby-operator">||</span> <span class="ruby-node">&quot;#{env['SERVER_NAME'] || env['SERVER_ADDR']}:#{env['SERVER_PORT']}&quot;</span>
+30:         <span class="ruby-keyword kw">end</span>
+31:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-request_uri"></a>
+            <b>request_uri</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the request URI, accounting for server idiosyncrasies. WEBrick
+includes the full URL. IIS leaves REQUEST_URI blank.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('request-uri_source')"
+                 id="l_method-i-request_uri_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="request-uri_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 100</span>
+100:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">request_uri</span>
+101:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;Using #request_uri is deprecated. Use fullpath instead.&quot;</span>, <span class="ruby-identifier">caller</span>
+102:         <span class="ruby-identifier">fullpath</span>
+103:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-scheme"></a>
+            <b>scheme</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns &#8216;https&#8217; if this is an SSL request and
+&#8216;http&#8217; otherwise.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('scheme_source')"
+                 id="l_method-i-scheme_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="scheme_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 10</span>
+10:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">scheme</span>
+11:         <span class="ruby-identifier">ssl?</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'https'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'http'</span>
+12:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-server_port"></a>
+            <b>server_port</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('server-port_source')"
+                 id="l_method-i-server_port_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="server-port_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 72</span>
+72:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">server_port</span>
+73:         <span class="ruby-ivar">@env</span>[<span class="ruby-value str">'SERVER_PORT'</span>].<span class="ruby-identifier">to_i</span>
+74:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-ssl%3F"></a>
+            <b>ssl?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Is this an SSL request?
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('ssl-_source')"
+                 id="l_method-i-ssl%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="ssl-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 20</span>
+20:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssl?</span>
+21:         <span class="ruby-ivar">@env</span>[<span class="ruby-value str">'HTTPS'</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'on'</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@env</span>[<span class="ruby-value str">'HTTP_X_FORWARDED_PROTO'</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'https'</span>
+22:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-standard_port"></a>
+            <b>standard_port</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the standard port number for this request&#8217;s protocol.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('standard-port_source')"
+                 id="l_method-i-standard_port_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="standard-port_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 54</span>
+54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">standard_port</span>
+55:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">protocol</span>
+56:           <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'https://'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-value">443</span>
+57:           <span class="ruby-keyword kw">else</span> <span class="ruby-value">80</span>
+58:         <span class="ruby-keyword kw">end</span>
+59:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-standard_port%3F"></a>
+            <b>standard_port?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns whether this request is using the standard port
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('standard-port-_source')"
+                 id="l_method-i-standard_port%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="standard-port-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 62</span>
+62:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">standard_port?</span>
+63:         <span class="ruby-identifier">port</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">standard_port</span>
+64:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-subdomain"></a>
+            <b>subdomain</b>(tld_length = 1)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('subdomain_source')"
+                 id="l_method-i-subdomain_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="subdomain_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 94</span>
+94:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subdomain</span>(<span class="ruby-identifier">tld_length</span> = <span class="ruby-value">1</span>)
+95:         <span class="ruby-identifier">subdomains</span>(<span class="ruby-identifier">tld_length</span>).<span class="ruby-identifier">join</span>(<span class="ruby-value str">'.'</span>)
+96:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-subdomains"></a>
+            <b>subdomains</b>(tld_length = 1)          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns all the subdomains as an array, so <tt>[&quot;dev&quot;,
+&quot;www&quot;]</tt> would be returned for
+&#8220;dev.www.rubyonrails.org&#8220;. You can specify a different
+<tt>tld_length</tt>, such as 2 to catch <tt>[&quot;www&quot;]</tt> instead
+of <tt>[&quot;www&quot;, &quot;rubyonrails&quot;]</tt> in &#8220;<a
+href="http://www.rubyonrails.co.uk">www.rubyonrails.co.uk</a>&#8220;.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('subdomains_source')"
+                 id="l_method-i-subdomains_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="subdomains_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 88</span>
+88:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subdomains</span>(<span class="ruby-identifier">tld_length</span> = <span class="ruby-value">1</span>)
+89:         <span class="ruby-keyword kw">return</span> [] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">named_host?</span>(<span class="ruby-identifier">host</span>)
+90:         <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">host</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'.'</span>)
+91:         <span class="ruby-identifier">parts</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-operator">-</span>(<span class="ruby-identifier">tld_length</span><span class="ruby-operator">+</span><span class="ruby-value">2</span>)]
+92:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-url"></a>
+            <b>url</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the complete URL used for this request.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('url_source')"
+                 id="l_method-i-url_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="url_source">
+<pre>
+     <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 5</span>
+5:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">url</span>
+6:         <span class="ruby-identifier">protocol</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">host_with_port</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">fullpath</span>
+7:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-named_host%3F"></a>
+            <b>named_host?</b>(host)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('named-host-_source')"
+                 id="l_method-i-named_host%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="named-host-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/url.rb, line 107</span>
+107:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">named_host?</span>(<span class="ruby-identifier">host</span>)
+108:         <span class="ruby-operator">!</span>(<span class="ruby-identifier">host</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-regexp re">/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">host</span>))
+109:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionView::Helpers::CsrfHelper</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionView::Helpers::CsrfHelper</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/action_view/helpers/csrf_helper_rb.html">actionpack/lib/action_view/helpers/csrf_helper.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-csrf_meta_tag">csrf_meta_tag</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-csrf_meta_tag"></a>
+            <b>csrf_meta_tag</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns a meta tag with the cross-site request forgery protection token for
+forms to use. Place this in your head.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('csrf-meta-tag_source')"
+                 id="l_method-i-csrf_meta_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="csrf-meta-tag_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_view/helpers/csrf_helper.rb, line 7</span>
+ 7:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">csrf_meta_tag</span>
+ 8:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">protect_against_forgery?</span>
+ 9:           <span class="ruby-node">%(&lt;meta name=&quot;csrf-param&quot; content=&quot;#{Rack::Utils.escape_html(request_forgery_protection_token)}&quot;/&gt;\n&lt;meta name=&quot;csrf-token&quot; content=&quot;#{Rack::Utils.escape_html(form_authenticity_token)}&quot;/&gt;)</span>.<span class="ruby-identifier">html_safe</span>
+10:         <span class="ruby-keyword kw">end</span>
+11:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

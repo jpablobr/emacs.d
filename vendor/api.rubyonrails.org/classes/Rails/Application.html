@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: Rails::Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />Rails::Application</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/railties/lib/rails/application_rb.html">railties/lib/rails/application.rb</a>:
+<a href="../../files/railties/lib/rails/application/finisher_rb.html">railties/lib/rails/application/finisher.rb</a>:
+<a href="../../files/railties/lib/rails/application/configuration_rb.html">railties/lib/rails/application/configuration.rb</a>:
+<a href="../../files/railties/lib/rails/application/bootstrap_rb.html">railties/lib/rails/application/bootstrap.rb</a>:
+<a href="../../files/railties/lib/rails/application/configurable_rb.html">railties/lib/rails/application/configurable.rb</a>:
+<a href="../../files/railties/lib/rails/application/railties_rb.html">railties/lib/rails/application/railties.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="Engine.html">Rails::Engine</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+In <a href="../Rails.html">Rails</a> 3.0, a <a
+href="Application.html">Rails::Application</a> object was introduced which
+is nothing more than an <a href="Engine.html">Engine</a> but with the
+responsibility of coordinating the whole boot process.
+</p>
+<h2>Initialization</h2>
+<p>
+<a href="Application.html">Rails::Application</a> is responsible for
+executing all railties, engines and plugin initializers. Besides, it also
+executed some bootstrap initializers (check <a
+href="Application/Bootstrap.html">Rails::Application::Bootstrap</a>) and
+finishing initializers, after all the others are executed (check <a
+href="Application/Finisher.html">Rails::Application::Finisher</a>).
+</p>
+<h2><a href="Application/Configuration.html">Configuration</a></h2>
+<p>
+Besides providing the same configuration as <a
+href="Engine.html">Rails::Engine</a> and <a
+href="Railtie.html">Rails::Railtie</a>, the application object has several
+specific configurations, for example &#8220;allow_concurrency&#8220;,
+&#8220;cache_classes&#8220;, &#8220;consider_all_requests_local&#8220;,
+&#8220;filter_parameters&#8220;, &#8220;logger&#8221;,
+&#8220;reload_plugins&#8220; and so forth.
+</p>
+<p>
+Check <a
+href="Application/Configuration.html">Rails::Application::Configuration</a>
+to see them all.
+</p>
+<h2>Routes</h2>
+<p>
+The application object is also responsible for holding the routes and
+reloading routes whenever the files change in development.
+</p>
+<h2>Middlewares</h2>
+<p>
+The <a href="Application.html">Application</a> is also responsible for
+building the middleware stack.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-app">app</a></li>
+                      <li><a href="#method-i-call">call</a></li>
+                <li><a href="#method-c-configure">configure</a></li>
+                <li><a href="#method-i-default_middleware_stack">default_middleware_stack</a></li>
+                <li><a href="#method-i-env_defaults">env_defaults</a></li>
+                <li><a href="#method-c-inherited">inherited</a></li>
+                <li><a href="#method-i-initialize%21">initialize!</a></li>
+                <li><a href="#method-i-initialize_console">initialize_console</a></li>
+                <li><a href="#method-i-initialize_generators">initialize_generators</a></li>
+                <li><a href="#method-i-initialize_tasks">initialize_tasks</a></li>
+                <li><a href="#method-i-initializers">initializers</a></li>
+                <li><a href="#method-c-instance">instance</a></li>
+                <li><a href="#method-i-load_console">load_console</a></li>
+                <li><a href="#method-i-load_generators">load_generators</a></li>
+                <li><a href="#method-i-load_tasks">load_tasks</a></li>
+                <li><a href="#method-c-method_missing">method_missing</a></li>
+                <li><a href="#method-i-railties">railties</a></li>
+                <li><a href="#method-i-reload_routes%21">reload_routes!</a></li>
+                <li><a href="#method-c-respond_to%3F">respond_to?</a></li>
+                <li><a href="#method-i-routes">routes</a></li>
+                <li><a href="#method-i-routes_reloader">routes_reloader</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-configure"></a>
+            <b>configure</b>(&block)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('configure_source')"
+                 id="l_method-c-configure_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="configure_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 46</span>
+46:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">configure</span>(&amp;<span class="ruby-identifier">block</span>)
+47:         <span class="ruby-identifier">class_eval</span>(&amp;<span class="ruby-identifier">block</span>)
+48:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-inherited"></a>
+            <b>inherited</b>(base)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('inherited_source')"
+                 id="l_method-c-inherited_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="inherited_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 62</span>
+62:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">base</span>)
+63:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;You cannot have more than one Rails::Application&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>
+64:         <span class="ruby-keyword kw">super</span>
+65:         <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span> = <span class="ruby-identifier">base</span>.<span class="ruby-identifier">instance</span>
+66:         <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>.<span class="ruby-identifier">add_lib_to_load_path!</span>
+67:         <span class="ruby-constant">ActiveSupport</span>.<span class="ruby-identifier">run_load_hooks</span>(<span class="ruby-value">:before_configuration</span>, <span class="ruby-identifier">base</span>.<span class="ruby-identifier">instance</span>)
+68:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-instance"></a>
+            <b>instance</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('instance_source')"
+                 id="l_method-c-instance_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="instance_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 50</span>
+50:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance</span>
+51:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Application</span>
+52:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>
+53:             <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;Calling a method in Rails::Application is deprecated, &quot;</span> <span class="ruby-operator">&lt;&lt;</span>
+54:               <span class="ruby-node">&quot;please call it directly in your application constant #{Rails.application.class.name}.&quot;</span>, <span class="ruby-identifier">caller</span>
+55:           <span class="ruby-keyword kw">end</span>
+56:           <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>
+57:         <span class="ruby-keyword kw">else</span>
+58:           <span class="ruby-identifier">@@instance</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">new</span>
+59:         <span class="ruby-keyword kw">end</span>
+60:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-respond_to%3F"></a>
+            <b>respond_to?</b>(*args)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('respond-to-_source')"
+                 id="l_method-c-respond_to%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="respond-to-_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 70</span>
+70:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">respond_to?</span>(*<span class="ruby-identifier">args</span>)
+71:         <span class="ruby-keyword kw">super</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">respond_to?</span>(*<span class="ruby-identifier">args</span>)
+72:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-method_missing"></a>
+            <b>method_missing</b>(*args, &block)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('method-missing_source')"
+                 id="l_method-c-method_missing_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="method-missing_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 76</span>
+76:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+77:         <span class="ruby-identifier">instance</span>.<span class="ruby-identifier">send</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+78:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                  
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-app"></a>
+            <b>app</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="Application.html#method-i-build_middleware_stack">build_middleware_stack</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('app_source')"
+                 id="l_method-i-app_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="app_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 159</span>
+159:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">app</span>
+160:       <span class="ruby-ivar">@app</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">begin</span>
+161:         <span class="ruby-identifier">config</span>.<span class="ruby-identifier">middleware</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">merge_into</span>(<span class="ruby-identifier">default_middleware_stack</span>)
+162:         <span class="ruby-identifier">config</span>.<span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">build</span>(<span class="ruby-identifier">routes</span>)
+163:       <span class="ruby-keyword kw">end</span>
+164:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-call"></a>
+            <b>call</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('call_source')"
+                 id="l_method-i-call_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="call_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 167</span>
+167:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>)
+168:       <span class="ruby-identifier">app</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>.<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-identifier">env_defaults</span>))
+169:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-env_defaults"></a>
+            <b>env_defaults</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('env-defaults_source')"
+                 id="l_method-i-env_defaults_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="env-defaults_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 171</span>
+171:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">env_defaults</span>
+172:       <span class="ruby-ivar">@env_defaults</span> <span class="ruby-operator">||=</span> {
+173:         <span class="ruby-value str">&quot;action_dispatch.parameter_filter&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">filter_parameters</span>,
+174:         <span class="ruby-value str">&quot;action_dispatch.secret_token&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">secret_token</span>
+175:       }
+176:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-initialize%21"></a>
+            <b>initialize!</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('initialize-_source')"
+                 id="l_method-i-initialize%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="initialize-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 133</span>
+133:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize!</span>
+134:       <span class="ruby-identifier">run_initializers</span>(<span class="ruby-keyword kw">self</span>)
+135:       <span class="ruby-keyword kw">self</span>
+136:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-initializers"></a>
+            <b>initializers</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('initializers_source')"
+                 id="l_method-i-initializers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="initializers_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 178</span>
+178:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initializers</span>
+179:       <span class="ruby-identifier">initializers</span> = <span class="ruby-constant">Bootstrap</span>.<span class="ruby-identifier">initializers_for</span>(<span class="ruby-keyword kw">self</span>)
+180:       <span class="ruby-identifier">railties</span>.<span class="ruby-identifier">all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">initializers</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">initializers</span> }
+181:       <span class="ruby-identifier">initializers</span> <span class="ruby-operator">+=</span> <span class="ruby-keyword kw">super</span>
+182:       <span class="ruby-identifier">initializers</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">Finisher</span>.<span class="ruby-identifier">initializers_for</span>(<span class="ruby-keyword kw">self</span>)
+183:       <span class="ruby-identifier">initializers</span>
+184:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_console"></a>
+            <b>load_console</b>(sandbox=false)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-console_source')"
+                 id="l_method-i-load_console_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-console_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 152</span>
+152:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_console</span>(<span class="ruby-identifier">sandbox</span>=<span class="ruby-keyword kw">false</span>)
+153:       <span class="ruby-identifier">initialize_console</span>(<span class="ruby-identifier">sandbox</span>)
+154:       <span class="ruby-identifier">railties</span>.<span class="ruby-identifier">all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">load_console</span> }
+155:       <span class="ruby-keyword kw">super</span>()
+156:       <span class="ruby-keyword kw">self</span>
+157:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_generators"></a>
+            <b>load_generators</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-generators_source')"
+                 id="l_method-i-load_generators_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-generators_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 145</span>
+145:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_generators</span>
+146:       <span class="ruby-identifier">initialize_generators</span>
+147:       <span class="ruby-identifier">railties</span>.<span class="ruby-identifier">all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">load_generators</span> }
+148:       <span class="ruby-keyword kw">super</span>
+149:       <span class="ruby-keyword kw">self</span>
+150:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_tasks"></a>
+            <b>load_tasks</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-tasks_source')"
+                 id="l_method-i-load_tasks_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-tasks_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 138</span>
+138:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_tasks</span>
+139:       <span class="ruby-identifier">initialize_tasks</span>
+140:       <span class="ruby-identifier">railties</span>.<span class="ruby-identifier">all</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">load_tasks</span> }
+141:       <span class="ruby-keyword kw">super</span>
+142:       <span class="ruby-keyword kw">self</span>
+143:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-railties"></a>
+            <b>railties</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('railties_source')"
+                 id="l_method-i-railties_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="railties_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 115</span>
+115:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">railties</span>
+116:       <span class="ruby-ivar">@railties</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Railties</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>)
+117:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-reload_routes%21"></a>
+            <b>reload_routes!</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('reload-routes-_source')"
+                 id="l_method-i-reload_routes%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="reload-routes-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 123</span>
+123:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reload_routes!</span>
+124:       <span class="ruby-identifier">_routes</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">routes</span>
+125:       <span class="ruby-identifier">_routes</span>.<span class="ruby-identifier">disable_clear_and_finalize</span> = <span class="ruby-keyword kw">true</span>
+126:       <span class="ruby-identifier">_routes</span>.<span class="ruby-identifier">clear!</span>
+127:       <span class="ruby-identifier">routes_reloader</span>.<span class="ruby-identifier">paths</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-identifier">load</span>(<span class="ruby-identifier">path</span>) }
+128:       <span class="ruby-constant">ActiveSupport</span>.<span class="ruby-identifier">on_load</span>(<span class="ruby-value">:action_controller</span>) { <span class="ruby-identifier">_routes</span>.<span class="ruby-identifier">finalize!</span> }
+129:     <span class="ruby-keyword kw">ensure</span>
+130:       <span class="ruby-identifier">_routes</span>.<span class="ruby-identifier">disable_clear_and_finalize</span> = <span class="ruby-keyword kw">false</span>
+131:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-routes"></a>
+            <b>routes</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('routes_source')"
+                 id="l_method-i-routes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="routes_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 111</span>
+111:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">routes</span>
+112:       <span class="ruby-ivar">@routes</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Routing</span><span class="ruby-operator">::</span><span class="ruby-constant">RouteSet</span>.<span class="ruby-identifier">new</span>
+113:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-routes_reloader"></a>
+            <b>routes_reloader</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('routes-reloader_source')"
+                 id="l_method-i-routes_reloader_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="routes-reloader_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 119</span>
+119:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">routes_reloader</span>
+120:       <span class="ruby-ivar">@routes_reloader</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">FileUpdateChecker</span>.<span class="ruby-identifier">new</span>([]){ <span class="ruby-identifier">reload_routes!</span> }
+121:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-default_middleware_stack"></a>
+            <b>default_middleware_stack</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('default-middleware-stack_source')"
+                 id="l_method-i-default_middleware_stack_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="default-middleware-stack_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 188</span>
+188:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_middleware_stack</span>
+189:       <span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">MiddlewareStack</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">tap</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">middleware</span><span class="ruby-operator">|</span>
+190:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Static</span>, <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">public</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">first</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">serve_static_assets</span>
+191:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Lock</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">config</span>.<span class="ruby-identifier">allow_concurrency</span>
+192:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Runtime</span>
+193:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Logger</span>
+194:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">ShowExceptions</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">consider_all_requests_local</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">action_dispatch</span>.<span class="ruby-identifier">show_exceptions</span>
+195:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">RemoteIp</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">action_dispatch</span>.<span class="ruby-identifier">ip_spoofing_check</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">action_dispatch</span>.<span class="ruby-identifier">trusted_proxies</span>
+196:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Sendfile</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">action_dispatch</span>.<span class="ruby-identifier">x_sendfile_header</span>
+197:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Callbacks</span>, <span class="ruby-operator">!</span><span class="ruby-identifier">config</span>.<span class="ruby-identifier">cache_classes</span>
+198:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Cookies</span>
+199: 
+200:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">session_store</span>
+201:           <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">session_store</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">session_options</span>
+202:           <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Flash</span>
+203:         <span class="ruby-keyword kw">end</span>
+204: 
+205:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">ParamsParser</span>
+206:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">MethodOverride</span>
+207:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Head</span>
+208:         <span class="ruby-identifier">middleware</span>.<span class="ruby-identifier">use</span> <span class="ruby-operator">::</span><span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">BestStandardsSupport</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">action_dispatch</span>.<span class="ruby-identifier">best_standards_support</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">action_dispatch</span>.<span class="ruby-identifier">best_standards_support</span>
+209:       <span class="ruby-keyword kw">end</span>
+210:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-initialize_console"></a>
+            <b>initialize_console</b>(sandbox=false)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('initialize-console_source')"
+                 id="l_method-i-initialize_console_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="initialize-console_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 224</span>
+224:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_console</span>(<span class="ruby-identifier">sandbox</span>=<span class="ruby-keyword kw">false</span>)
+225:       <span class="ruby-identifier">require</span> <span class="ruby-value str">&quot;rails/console/app&quot;</span>
+226:       <span class="ruby-identifier">require</span> <span class="ruby-value str">&quot;rails/console/sandbox&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sandbox</span>
+227:       <span class="ruby-identifier">require</span> <span class="ruby-value str">&quot;rails/console/helpers&quot;</span>
+228:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-initialize_generators"></a>
+            <b>initialize_generators</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('initialize-generators_source')"
+                 id="l_method-i-initialize_generators_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="initialize-generators_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 220</span>
+220:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_generators</span>
+221:       <span class="ruby-identifier">require</span> <span class="ruby-value str">&quot;rails/generators&quot;</span>
+222:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-initialize_tasks"></a>
+            <b>initialize_tasks</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('initialize-tasks_source')"
+                 id="l_method-i-initialize_tasks_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="initialize-tasks_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/application.rb, line 212</span>
+212:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_tasks</span>
+213:       <span class="ruby-identifier">require</span> <span class="ruby-value str">&quot;rails/tasks&quot;</span>
+214:       <span class="ruby-identifier">task</span> <span class="ruby-value">:environment</span> <span class="ruby-keyword kw">do</span>
+215:         <span class="ruby-identifier">$rails_rake_task</span> = <span class="ruby-keyword kw">true</span>
+216:         <span class="ruby-identifier">require_environment!</span>
+217:       <span class="ruby-keyword kw">end</span>
+218:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

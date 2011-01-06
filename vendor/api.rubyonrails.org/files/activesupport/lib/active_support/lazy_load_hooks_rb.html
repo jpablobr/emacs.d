@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>File: lazy_load_hooks.rb</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table border='0' cellpadding='0' cellspacing='0' width="100%" class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr><td>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0'><tr>
+      <td class="file-title" colspan="2"><span class="file-title-prefix">File</span><br />lazy_load_hooks.rb</td>
+      <td align="right">
+        <table border='0' cellspacing="0" cellpadding="2">
+          <tr>
+            <td>Path:</td>
+            <td>activesupport/lib/active_support/lazy_load_hooks.rb            </td>
+          </tr>
+          <tr>
+            <td>Modified:</td>
+            <td>Tue Nov 16 17:09:20 +0000 2010</td>
+          </tr>
+        </table>
+      </td></tr>
+    </table>
+  </td></tr>
+</table><br />
+  <div id="bodyContent">
+  <div id="content">
+  <div class="description"><p>
+lazy_load_hooks allows rails to lazily load a lot of components and thus
+making the app boot faster. Because of this feature now there is no need to
+require <tt>ActiveRecord::Base</tt> at boot time purely to apply
+configuration. Instead a hook is registered that applies configuration once
+<tt>ActiveRecord::Base</tt> is loaded. Here <tt>ActiveRecord::Base</tt> is
+used as example but this feature can be applied elsewhere too.
+</p>
+<p>
+Here is an example where <tt>on_load</tt> method is called to register a
+hook.
+</p>
+<pre>
+ initializer &quot;active_record.initialize_timezone&quot; do
+   ActiveSupport.on_load(:active_record) do
+     self.time_zone_aware_attributes = true
+     self.default_timezone = :utc
+   end
+ end
+</pre>
+<p>
+When the entirety of <tt><a
+href="../../../activerecord/lib/active_record/base_rb.html">activerecord/lib/active_record/base.rb</a></tt>
+has been evaluated then <tt>run_load_hooks</tt> is invoked. The very last
+line of <tt><a
+href="../../../activerecord/lib/active_record/base_rb.html">activerecord/lib/active_record/base.rb</a></tt>
+is:
+</p>
+<pre>
+ ActiveSupport.run_load_hooks(:active_record, ActiveRecord::Base)</pre>
+</div>
+  </div>
+</div>
+  </body>
+</html>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionController::MimeResponds::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionController::MimeResponds::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/action_controller/metal/mime_responds_rb.html">actionpack/lib/action_controller/metal/mime_responds.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-clear_respond_to">clear_respond_to</a></li>
+                <li><a href="#method-i-respond_to">respond_to</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-clear_respond_to"></a>
+            <b>clear_respond_to</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Clear all mime types in <tt><a
+href="ClassMethods.html#method-i-respond_to">respond_to</a></tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('clear-respond-to_source')"
+                 id="l_method-i-clear_respond_to_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="clear-respond-to_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/mime_responds.rb, line 57</span>
+57:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clear_respond_to</span>
+58:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">mimes_for_respond_to</span> = <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">OrderedHash</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">freeze</span>
+59:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-respond_to"></a>
+            <b>respond_to</b>(*mimes)          
+        </div>
+
+                  <div class="description">
+            <p>
+Defines mime types that are rendered by default when invoking
+<tt>respond_with</tt>.
+</p>
+<p>
+Examples:
+</p>
+<pre>
+  respond_to :html, :xml, :json
+</pre>
+<p>
+Specifies that all actions in the controller respond to requests for
+<tt>:html</tt>, <tt>:xml</tt> and <tt>:json</tt>.
+</p>
+<p>
+To specify on per-action basis, use <tt>:only</tt> and <tt>:except</tt>
+with an array of actions or a single action:
+</p>
+<pre>
+  respond_to :html
+  respond_to :xml, :json, :except =&gt; [ :edit ]
+</pre>
+<p>
+This specifies that all actions respond to <tt>:html</tt> and all actions
+except <tt>:edit</tt> respond to <tt>:xml</tt> and <tt>:json</tt>.
+</p>
+<pre>
+  respond_to :rjs, :only =&gt; :create
+</pre>
+<p>
+This specifies that the <tt>:create</tt> action and no other responds to
+<tt>:rjs</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('respond-to_source')"
+                 id="l_method-i-respond_to_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="respond-to_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/mime_responds.rb, line 39</span>
+39:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">respond_to</span>(*<span class="ruby-identifier">mimes</span>)
+40:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">mimes</span>.<span class="ruby-identifier">extract_options!</span>
+41: 
+42:         <span class="ruby-identifier">only_actions</span>   = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:only</span>))
+43:         <span class="ruby-identifier">except_actions</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:except</span>))
+44: 
+45:         <span class="ruby-identifier">new</span> = <span class="ruby-identifier">mimes_for_respond_to</span>.<span class="ruby-identifier">dup</span>
+46:         <span class="ruby-identifier">mimes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mime</span><span class="ruby-operator">|</span>
+47:           <span class="ruby-identifier">mime</span> = <span class="ruby-identifier">mime</span>.<span class="ruby-identifier">to_sym</span>
+48:           <span class="ruby-identifier">new</span>[<span class="ruby-identifier">mime</span>]          = {}
+49:           <span class="ruby-identifier">new</span>[<span class="ruby-identifier">mime</span>][<span class="ruby-value">:only</span>]   = <span class="ruby-identifier">only_actions</span>   <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">only_actions</span>.<span class="ruby-identifier">empty?</span>
+50:           <span class="ruby-identifier">new</span>[<span class="ruby-identifier">mime</span>][<span class="ruby-value">:except</span>] = <span class="ruby-identifier">except_actions</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">except_actions</span>.<span class="ruby-identifier">empty?</span>
+51:         <span class="ruby-keyword kw">end</span>
+52:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">mimes_for_respond_to</span> = <span class="ruby-identifier">new</span>.<span class="ruby-identifier">freeze</span>
+53:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

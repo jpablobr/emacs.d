@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionDispatch::Routing::Mapper</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionDispatch::Routing::Mapper</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/action_dispatch/routing/mapper_rb.html">actionpack/lib/action_dispatch/routing/mapper.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-c-normalize_name">normalize_name</a></li>
+                <li><a href="#method-c-normalize_path">normalize_path</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          Base      </li>
+  <li>
+          HttpHelpers      </li>
+  <li>
+          Scoping      </li>
+  <li>
+          Resources      </li>
+  <li>
+          Shorthand      </li>
+</ul>
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-normalize_name"></a>
+            <b>normalize_name</b>(name)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('normalize-name_source')"
+                 id="l_method-c-normalize_name_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="normalize-name_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/routing/mapper.rb, line 233</span>
+233:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">normalize_name</span>(<span class="ruby-identifier">name</span>)
+234:         <span class="ruby-identifier">normalize_path</span>(<span class="ruby-identifier">name</span>)[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>].<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;/&quot;</span>, <span class="ruby-value str">&quot;_&quot;</span>)
+235:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-normalize_path"></a>
+            <b>normalize_path</b>(path)          
+        </div>
+
+                  <div class="description">
+            <p>
+Invokes Rack::Mount::Utils.normalize path and ensure that (:locale) becomes
+(/:locale) instead of /(:locale). Except for root cases, where the latter
+is the correct one.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('normalize-path_source')"
+                 id="l_method-c-normalize_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="normalize-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/routing/mapper.rb, line 227</span>
+227:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">normalize_path</span>(<span class="ruby-identifier">path</span>)
+228:         <span class="ruby-identifier">path</span> = <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Mount</span><span class="ruby-operator">::</span><span class="ruby-constant">Utils</span>.<span class="ruby-identifier">normalize_path</span>(<span class="ruby-identifier">path</span>)
+229:         <span class="ruby-identifier">path</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp re">%{/(\(+)/?}</span>, <span class="ruby-value str">'\1/'</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">%{^/\(+[^/]+\)$}</span>
+230:         <span class="ruby-identifier">path</span>
+231:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                              </div>
+  </div>
+  </body>
+</html>

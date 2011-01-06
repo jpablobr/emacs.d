@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionController::Caching::ConfigMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionController::Caching::ConfigMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/action_controller/caching_rb.html">actionpack/lib/action_controller/caching.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-cache_configured%3F">cache_configured?</a></li>
+                <li><a href="#method-i-cache_store">cache_store</a></li>
+                <li><a href="#method-i-cache_store%3D">cache_store=</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-cache_store"></a>
+            <b>cache_store</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('cache-store_source')"
+                 id="l_method-i-cache_store_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="cache-store_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching.rb, line 44</span>
+44:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache_store</span>
+45:         <span class="ruby-identifier">config</span>.<span class="ruby-identifier">cache_store</span>
+46:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-cache_store%3D"></a>
+            <b>cache_store=</b>(store)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('cache-store-_source')"
+                 id="l_method-i-cache_store%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="cache-store-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching.rb, line 48</span>
+48:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache_store=</span>(<span class="ruby-identifier">store</span>)
+49:         <span class="ruby-identifier">config</span>.<span class="ruby-identifier">cache_store</span> = <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span>.<span class="ruby-identifier">lookup_store</span>(<span class="ruby-identifier">store</span>)
+50:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-cache_configured%3F"></a>
+            <b>cache_configured?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('cache-configured-_source')"
+                 id="l_method-i-cache_configured%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="cache-configured-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching.rb, line 54</span>
+54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache_configured?</span>
+55:         <span class="ruby-identifier">perform_caching</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">cache_store</span>
+56:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

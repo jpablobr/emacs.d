@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveRecord::AttributeMethods::Read::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveRecord::AttributeMethods::Read::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/activerecord/lib/active_record/attribute_methods/read_rb.html">activerecord/lib/active_record/attribute_methods/read.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-cache_attribute%3F">cache_attribute?</a></li>
+                <li><a href="#method-i-cache_attributes">cache_attributes</a></li>
+                <li><a href="#method-i-cached_attributes">cached_attributes</a></li>
+                <li><a href="#method-i-define_method_attribute">define_method_attribute</a></li>
+                <li><a href="#method-i-define_read_method">define_read_method</a></li>
+                <li><a href="#method-i-define_read_method_for_serialized_attribute">define_read_method_for_serialized_attribute</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-cache_attribute%3F"></a>
+            <b>cache_attribute?</b>(attr_name)          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns <tt>true</tt> if the provided attribute is being cached.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('cache-attribute-_source')"
+                 id="l_method-i-cache_attribute%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="cache-attribute-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods/read.rb, line 34</span>
+34:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache_attribute?</span>(<span class="ruby-identifier">attr_name</span>)
+35:           <span class="ruby-identifier">cached_attributes</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">attr_name</span>)
+36:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-cache_attributes"></a>
+            <b>cache_attributes</b>(*attribute_names)          
+        </div>
+
+                  <div class="description">
+            <p>
+<tt><a
+href="ClassMethods.html#method-i-cache_attributes">cache_attributes</a></tt>
+allows you to declare which converted attribute values should be cached.
+Usually caching only pays off for attributes with expensive conversion
+methods, like time related columns (e.g. <tt>created_at</tt>,
+<tt>updated_at</tt>).
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('cache-attributes_source')"
+                 id="l_method-i-cache_attributes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="cache-attributes_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods/read.rb, line 22</span>
+22:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache_attributes</span>(*<span class="ruby-identifier">attribute_names</span>)
+23:           <span class="ruby-identifier">attribute_names</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">attr</span><span class="ruby-operator">|</span> <span class="ruby-identifier">cached_attributes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">attr</span>.<span class="ruby-identifier">to_s</span>}
+24:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-cached_attributes"></a>
+            <b>cached_attributes</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the attributes which are cached. By default time related columns
+with datatype <tt>:datetime, :timestamp, :time, :date</tt> are cached.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('cached-attributes_source')"
+                 id="l_method-i-cached_attributes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="cached-attributes_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods/read.rb, line 28</span>
+28:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cached_attributes</span>
+29:           <span class="ruby-ivar">@cached_attributes</span> <span class="ruby-operator">||=</span>
+30:             <span class="ruby-identifier">columns</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">attribute_types_cached_by_default</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">c</span>.<span class="ruby-identifier">type</span>)}.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span> <span class="ruby-identifier">col</span>.<span class="ruby-identifier">name</span>}.<span class="ruby-identifier">to_set</span>
+31:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-define_method_attribute"></a>
+            <b>define_method_attribute</b>(attr_name)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('define-method-attribute_source')"
+                 id="l_method-i-define_method_attribute_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="define-method-attribute_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods/read.rb, line 39</span>
+39:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define_method_attribute</span>(<span class="ruby-identifier">attr_name</span>)
+40:             <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">serialized_attributes</span>[<span class="ruby-identifier">attr_name</span>]
+41:               <span class="ruby-identifier">define_read_method_for_serialized_attribute</span>(<span class="ruby-identifier">attr_name</span>)
+42:             <span class="ruby-keyword kw">else</span>
+43:               <span class="ruby-identifier">define_read_method</span>(<span class="ruby-identifier">attr_name</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">attr_name</span>, <span class="ruby-identifier">columns_hash</span>[<span class="ruby-identifier">attr_name</span>])
+44:             <span class="ruby-keyword kw">end</span>
+45: 
+46:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attr_name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">primary_key</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">attr_name</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;id&quot;</span>
+47:               <span class="ruby-identifier">define_read_method</span>(<span class="ruby-value">:id</span>, <span class="ruby-identifier">attr_name</span>, <span class="ruby-identifier">columns_hash</span>[<span class="ruby-identifier">attr_name</span>])
+48:             <span class="ruby-keyword kw">end</span>
+49:           <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-define_read_method"></a>
+            <b>define_read_method</b>(symbol, attr_name, column)          
+        </div>
+
+                  <div class="description">
+            <p>
+Define an attribute reader method.  Cope with nil column.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('define-read-method_source')"
+                 id="l_method-i-define_read_method_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="define-read-method_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods/read.rb, line 58</span>
+58:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define_read_method</span>(<span class="ruby-identifier">symbol</span>, <span class="ruby-identifier">attr_name</span>, <span class="ruby-identifier">column</span>)
+59:             <span class="ruby-identifier">cast_code</span> = <span class="ruby-identifier">column</span>.<span class="ruby-identifier">type_cast_code</span>(<span class="ruby-value str">'v'</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">column</span>
+60:             <span class="ruby-identifier">access_code</span> = <span class="ruby-identifier">cast_code</span> <span class="ruby-operator">?</span> <span class="ruby-node">&quot;(v=@attributes['#{attr_name}']) &amp;&amp; #{cast_code}&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-node">&quot;@attributes['#{attr_name}']&quot;</span>
+61: 
+62:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">attr_name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">primary_key</span>.<span class="ruby-identifier">to_s</span>
+63:               <span class="ruby-identifier">access_code</span> = <span class="ruby-identifier">access_code</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-value">0</span>, <span class="ruby-node">&quot;missing_attribute('#{attr_name}', caller) unless @attributes.has_key?('#{attr_name}'); &quot;</span>)
+64:             <span class="ruby-keyword kw">end</span>
+65: 
+66:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cache_attribute?</span>(<span class="ruby-identifier">attr_name</span>)
+67:               <span class="ruby-identifier">access_code</span> = <span class="ruby-node">&quot;@attributes_cache['#{attr_name}'] ||= (#{access_code})&quot;</span>
+68:             <span class="ruby-keyword kw">end</span>
+69:             <span class="ruby-identifier">generated_attribute_methods</span>.<span class="ruby-identifier">module_eval</span>(<span class="ruby-node">&quot;def #{symbol}; #{access_code}; end&quot;</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span>)
+70:           <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-define_read_method_for_serialized_attribute"></a>
+            <b>define_read_method_for_serialized_attribute</b>(attr_name)          
+        </div>
+
+                  <div class="description">
+            <p>
+Define read method for serialized attribute.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('define-read-method-for-serialized-attribute_source')"
+                 id="l_method-i-define_read_method_for_serialized_attribute_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="define-read-method-for-serialized-attribute_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods/read.rb, line 53</span>
+53:           <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define_read_method_for_serialized_attribute</span>(<span class="ruby-identifier">attr_name</span>)
+54:             <span class="ruby-identifier">generated_attribute_methods</span>.<span class="ruby-identifier">module_eval</span>(<span class="ruby-node">&quot;def #{attr_name}; unserialize_attribute('#{attr_name}'); end&quot;</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span>)
+55:           <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

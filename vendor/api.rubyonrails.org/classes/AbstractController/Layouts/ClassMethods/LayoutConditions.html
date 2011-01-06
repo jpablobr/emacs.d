@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: AbstractController::Layouts::ClassMethods::LayoutConditions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />AbstractController::Layouts::ClassMethods::LayoutConditions</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/actionpack/lib/abstract_controller/layouts_rb.html">actionpack/lib/abstract_controller/layouts.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+This module is mixed in if layout conditions are provided. This means that
+if no layout conditions are used, this method is not used
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-action_has_layout%3F">action_has_layout?</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-action_has_layout%3F"></a>
+            <b>action_has_layout?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Determines whether the current action has a layout by checking the action
+name against the :only and :except conditions set on the layout.
+</p>
+<h4>Returns</h4>
+<ul>
+<li><p>
+<tt> Boolean</tt> - True if the action has a layout, false otherwise.
+</p>
+</li>
+</ul>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('action-has-layout-_source')"
+                 id="l_method-i-action_has_layout%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="action-has-layout-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/layouts.rb, line 189</span>
+189:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">action_has_layout?</span>
+190:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">super</span>
+191: 
+192:           <span class="ruby-identifier">conditions</span> = <span class="ruby-identifier">_layout_conditions</span>
+193: 
+194:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">only</span> = <span class="ruby-identifier">conditions</span>[<span class="ruby-value">:only</span>]
+195:             <span class="ruby-identifier">only</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">action_name</span>)
+196:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">except</span> = <span class="ruby-identifier">conditions</span>[<span class="ruby-value">:except</span>]
+197:             <span class="ruby-operator">!</span><span class="ruby-identifier">except</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">action_name</span>)
+198:           <span class="ruby-keyword kw">else</span>
+199:             <span class="ruby-keyword kw">true</span>
+200:           <span class="ruby-keyword kw">end</span>
+201:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

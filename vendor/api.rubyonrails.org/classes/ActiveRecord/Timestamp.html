@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveRecord::Timestamp</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveRecord::Timestamp</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activerecord/lib/active_record/timestamp_rb.html">activerecord/lib/active_record/timestamp.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><h1>Active Record <a href="Timestamp.html">Timestamp</a></h1>
+<p>
+Active Record automatically timestamps create and update operations if the
+table has fields named <tt>created_at/created_on</tt> or
+<tt>updated_at/updated_on</tt>.
+</p>
+<p>
+Timestamping can be turned off by setting:
+</p>
+<pre>
+  &lt;tt&gt;ActiveRecord::Base.record_timestamps = false&lt;/tt&gt;
+</pre>
+<p>
+Timestamps are in the local timezone by default but you can use UTC by
+setting:
+</p>
+<pre>
+  &lt;tt&gt;ActiveRecord::Base.default_timezone = :utc&lt;/tt&gt;
+</pre>
+<h2><a href="../Time.html">Time</a> Zone aware attributes</h2>
+<p>
+By default, <a href="Base.html">ActiveRecord::Base</a> keeps all the
+datetime columns time zone aware by executing following code.
+</p>
+<pre>
+  ActiveRecord::Base.time_zone_aware_attributes = true
+</pre>
+<p>
+This feature can easily be turned off by assigning value <tt>false</tt> .
+</p>
+<p>
+If your attributes are time zone aware and you desire to skip time zone
+conversion for certain attributes then you can do following:
+</p>
+<pre>
+  Topic.skip_time_zone_conversion_for_attributes = [:written_on]</pre>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-should_record_timestamps%3F">should_record_timestamps?</a></li>
+                <li><a href="#method-i-timestamp_attributes_for_update_in_model">timestamp_attributes_for_update_in_model</a></li>
+      </ul>
+
+
+
+
+                                
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-should_record_timestamps%3F"></a>
+            <b>should_record_timestamps?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('should-record-timestamps-_source')"
+                 id="l_method-i-should_record_timestamps%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="should-record-timestamps-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/timestamp.rb, line 63</span>
+63:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">should_record_timestamps?</span>
+64:       <span class="ruby-identifier">record_timestamps</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">partial_updates?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">changed?</span>)
+65:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-timestamp_attributes_for_update_in_model"></a>
+            <b>timestamp_attributes_for_update_in_model</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('timestamp-attributes-for-update-in-model_source')"
+                 id="l_method-i-timestamp_attributes_for_update_in_model_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="timestamp-attributes-for-update-in-model_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/timestamp.rb, line 67</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">timestamp_attributes_for_update_in_model</span>
+68:       <span class="ruby-identifier">timestamp_attributes_for_update</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">c</span>) }
+69:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

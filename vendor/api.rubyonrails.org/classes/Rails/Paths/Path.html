@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: Rails::Paths::Path</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />Rails::Paths::Path</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/railties/lib/rails/paths_rb.html">railties/lib/rails/paths.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                      <li><a href="#method-i-concat">concat</a></li>
+                <li><a href="#method-i-each">each</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-paths">paths</a></li>
+                <li><a href="#method-i-push">push</a></li>
+                      <li><a href="#method-i-unshift">unshift</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          PathParent      </li>
+  <li>
+          <a href="../../Enumerable.html">Enumerable</a>      </li>
+</ul>
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>path</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>glob</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(root, *paths)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/paths.rb, line 86</span>
+86:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">root</span>, *<span class="ruby-identifier">paths</span>)
+87:         <span class="ruby-identifier">options</span>   = <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">pop</span> <span class="ruby-operator">:</span> {}
+88:         <span class="ruby-ivar">@children</span> = {}
+89:         <span class="ruby-ivar">@root</span>     = <span class="ruby-identifier">root</span>
+90:         <span class="ruby-ivar">@paths</span>    = <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">flatten</span>
+91:         <span class="ruby-ivar">@glob</span>     = <span class="ruby-identifier">options</span>[<span class="ruby-value">:glob</span>]
+92: 
+93:         <span class="ruby-identifier">autoload_once!</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:autoload_once</span>]
+94:         <span class="ruby-identifier">eager_load!</span>    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:eager_load</span>]
+95:         <span class="ruby-identifier">autoload!</span>      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:autoload</span>]
+96:         <span class="ruby-identifier">load_path!</span>     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:load_path</span>]
+97: 
+98:         <span class="ruby-ivar">@root</span>.<span class="ruby-identifier">all_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>
+99:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-concat"></a>
+            <b>concat</b>(paths)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('concat_source')"
+                 id="l_method-i-concat_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="concat_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/paths.rb, line 115</span>
+115:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">concat</span>(<span class="ruby-identifier">paths</span>)
+116:         <span class="ruby-ivar">@paths</span>.<span class="ruby-identifier">concat</span> <span class="ruby-identifier">paths</span>
+117:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-each"></a>
+            <b>each</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('each_source')"
+                 id="l_method-i-each_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="each_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/paths.rb, line 101</span>
+101:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>
+102:         <span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">p</span> }
+103:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-paths"></a>
+            <b>paths</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="Path.html#method-i-to_a">to_a</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('paths_source')"
+                 id="l_method-i-paths_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="paths_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/paths.rb, line 135</span>
+135:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">paths</span>
+136:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;You need to set a path root&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@root</span>.<span class="ruby-identifier">path</span>
+137: 
+138:         <span class="ruby-identifier">result</span> = <span class="ruby-ivar">@paths</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+139:           <span class="ruby-identifier">path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">p</span>, <span class="ruby-ivar">@root</span>.<span class="ruby-identifier">path</span>)
+140:           <span class="ruby-ivar">@glob</span> <span class="ruby-operator">?</span> <span class="ruby-constant">Dir</span>[<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-ivar">@glob</span>)] <span class="ruby-operator">:</span> <span class="ruby-identifier">path</span>
+141:         <span class="ruby-keyword kw">end</span>
+142: 
+143:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">flatten!</span>
+144:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">uniq!</span>
+145:         <span class="ruby-identifier">result</span>
+146:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-push"></a>
+            <b>push</b>(path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="Path.html#method-i-%3C%3C"><<</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('push_source')"
+                 id="l_method-i-push_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="push_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/paths.rb, line 105</span>
+105:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">push</span>(<span class="ruby-identifier">path</span>)
+106:         <span class="ruby-ivar">@paths</span>.<span class="ruby-identifier">push</span> <span class="ruby-identifier">path</span>
+107:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-unshift"></a>
+            <b>unshift</b>(path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('unshift_source')"
+                 id="l_method-i-unshift_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="unshift_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/paths.rb, line 111</span>
+111:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">path</span>)
+112:         <span class="ruby-ivar">@paths</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">path</span>
+113:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

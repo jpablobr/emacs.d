@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveRecord::Validations</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveRecord::Validations</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activerecord/lib/active_record/validations_rb.html">activerecord/lib/active_record/validations.rb</a>:
+<a href="../../files/activerecord/lib/active_record/validations/associated_rb.html">activerecord/lib/active_record/validations/associated.rb</a>:
+<a href="../../files/activerecord/lib/active_record/validations/uniqueness_rb.html">activerecord/lib/active_record/validations/uniqueness.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-perform_validations">perform_validations</a></li>
+                <li><a href="#method-i-save">save</a></li>
+                <li><a href="#method-i-save%21">save!</a></li>
+                <li><a href="#method-i-valid%3F">valid?</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          <a href="../ActiveModel/Validations.html">ActiveModel::Validations</a>      </li>
+</ul>
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-save"></a>
+            <b>save</b>(options={})          
+        </div>
+
+                  <div class="description">
+            <p>
+The validation process on save can be skipped by passing false. The regular
+Base#save method is replaced with this when the validations module is mixed
+in, which it is by default.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('save_source')"
+                 id="l_method-i-save_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="save_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/validations.rb, line 42</span>
+42:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save</span>(<span class="ruby-identifier">options</span>={})
+43:       <span class="ruby-identifier">perform_validations</span>(<span class="ruby-identifier">options</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">false</span>
+44:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-save%21"></a>
+            <b>save!</b>(options={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Attempts to save the record just like Base#save but will raise a <a
+href="RecordInvalid.html">RecordInvalid</a> exception instead of returning
+false if the record is not valid.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('save-_source')"
+                 id="l_method-i-save%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="save-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/validations.rb, line 48</span>
+48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save!</span>(<span class="ruby-identifier">options</span>={})
+49:       <span class="ruby-identifier">perform_validations</span>(<span class="ruby-identifier">options</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword kw">super</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">raise</span>(<span class="ruby-constant">RecordInvalid</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>))
+50:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-valid%3F"></a>
+            <b>valid?</b>(context = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Runs all the specified validations and returns true if no errors were added
+otherwise false.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('valid-_source')"
+                 id="l_method-i-valid%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="valid-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/validations.rb, line 53</span>
+53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">valid?</span>(<span class="ruby-identifier">context</span> = <span class="ruby-keyword kw">nil</span>)
+54:       <span class="ruby-identifier">context</span> <span class="ruby-operator">||=</span> (<span class="ruby-identifier">persisted?</span> <span class="ruby-operator">?</span> <span class="ruby-value">:update</span> <span class="ruby-operator">:</span> <span class="ruby-value">:create</span>)
+55:       <span class="ruby-identifier">output</span> = <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">context</span>)
+56: 
+57:       <span class="ruby-identifier">deprecated_callback_method</span>(<span class="ruby-value">:validate</span>)
+58:       <span class="ruby-identifier">deprecated_callback_method</span>(<span class="ruby-value">:&quot;validate_on_#{context}&quot;</span>)
+59: 
+60:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">output</span>
+61:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-perform_validations"></a>
+            <b>perform_validations</b>(options={})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('perform-validations_source')"
+                 id="l_method-i-perform_validations_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="perform-validations_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/validations.rb, line 65</span>
+65:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">perform_validations</span>(<span class="ruby-identifier">options</span>={})
+66:       <span class="ruby-identifier">perform_validation</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">options</span>
+67:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+68:         <span class="ruby-identifier">options</span>[<span class="ruby-value">:validate</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">false</span>
+69:       <span class="ruby-keyword kw">else</span>
+70:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;save(#{options}) is deprecated, please give save(:validate =&gt; #{options}) instead&quot;</span>, <span class="ruby-identifier">caller</span>
+71:         <span class="ruby-identifier">options</span>
+72:       <span class="ruby-keyword kw">end</span>
+73: 
+74:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">perform_validation</span>
+75:         <span class="ruby-identifier">valid?</span>(<span class="ruby-identifier">options</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:context</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>)
+76:       <span class="ruby-keyword kw">else</span>
+77:         <span class="ruby-keyword kw">true</span>
+78:       <span class="ruby-keyword kw">end</span>
+79:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

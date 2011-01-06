@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveSupport::Testing::Isolation::Subprocess</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveSupport::Testing::Isolation::Subprocess</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/activesupport/lib/active_support/testing/isolation_rb.html">activesupport/lib/active_support/testing/isolation.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-run_in_isolation">run_in_isolation</a></li>
+      </ul>
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">ORIG_ARGV</td>
+    <td>=</td>
+    <td class="attr-value">ARGV.dup unless defined?(ORIG_ARGV)</td>
+  </tr>
+  </table>
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-run_in_isolation"></a>
+            <b>run_in_isolation</b>(&blk)          
+        </div>
+
+                  <div class="description">
+            <p>
+Crazy H4X to get this working in windows / jruby with no forking.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('run-in-isolation_source')"
+                 id="l_method-i-run_in_isolation_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="run-in-isolation_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/testing/isolation.rb, line 117</span>
+117:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_in_isolation</span>(&amp;<span class="ruby-identifier">blk</span>)
+118:           <span class="ruby-identifier">require</span> <span class="ruby-value str">&quot;tempfile&quot;</span>
+119: 
+120:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;ISOLATION_TEST&quot;</span>]
+121:             <span class="ruby-identifier">proxy</span> = <span class="ruby-constant">ProxyTestResult</span>.<span class="ruby-identifier">new</span>
+122:             <span class="ruby-identifier">retval</span> = <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">proxy</span>
+123:             <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;ISOLATION_OUTPUT&quot;</span>], <span class="ruby-value str">&quot;w&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+124:               <span class="ruby-identifier">file</span>.<span class="ruby-identifier">puts</span> [<span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>([<span class="ruby-identifier">retval</span>, <span class="ruby-identifier">proxy</span>])].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;m&quot;</span>)
+125:             <span class="ruby-keyword kw">end</span>
+126:             <span class="ruby-identifier">exit!</span>
+127:           <span class="ruby-keyword kw">else</span>
+128:             <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">open</span>(<span class="ruby-value str">&quot;isolation&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">tmpfile</span><span class="ruby-operator">|</span>
+129:               <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;ISOLATION_TEST&quot;</span>]   = <span class="ruby-ivar">@method_name</span>
+130:               <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;ISOLATION_OUTPUT&quot;</span>] = <span class="ruby-identifier">tmpfile</span>.<span class="ruby-identifier">path</span>
+131: 
+132:               <span class="ruby-identifier">load_paths</span> = <span class="ruby-identifier">$-I</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;-I\&quot;#{File.expand_path(p)}\&quot;&quot;</span> }.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; &quot;</span>)
+133:               <span class="ruby-node">`#{Gem.ruby} #{load_paths} #{$0} #{ORIG_ARGV.join(&quot; &quot;)} -t\&quot;#{self.class}\&quot;`</span>
+134: 
+135:               <span class="ruby-constant">ENV</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot;ISOLATION_TEST&quot;</span>)
+136:               <span class="ruby-constant">ENV</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">&quot;ISOLATION_OUTPUT&quot;</span>)
+137: 
+138:               <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">tmpfile</span>.<span class="ruby-identifier">read</span>.<span class="ruby-identifier">unpack</span>(<span class="ruby-value str">&quot;m&quot;</span>)[<span class="ruby-value">0</span>]
+139:             <span class="ruby-keyword kw">end</span>
+140:           <span class="ruby-keyword kw">end</span>
+141:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

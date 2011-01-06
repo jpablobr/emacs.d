@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionController::Caching::Actions::ActionCachePath</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionController::Caching::Actions::ActionCachePath</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/actionpack/lib/action_controller/caching/actions_rb.html">actionpack/lib/action_controller/caching/actions.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../../../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-normalize%21">normalize!</a></li>
+      </ul>
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>path</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>extension</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(controller, options = {}, infer_extension = true)          
+        </div>
+
+                  <div class="description">
+            <p>
+If <tt>infer_extension</tt> is true, the cache path extension is looked up
+from the request&#8217;s path &amp; format. This is desirable when reading
+and writing the cache, but not when expiring the cache - expire_action
+should expire the same files regardless of the request format.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching/actions.rb, line 150</span>
+150:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">controller</span>, <span class="ruby-identifier">options</span> = {}, <span class="ruby-identifier">infer_extension</span> = <span class="ruby-keyword kw">true</span>)
+151:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">infer_extension</span>
+152:             <span class="ruby-ivar">@extension</span> = <span class="ruby-identifier">controller</span>.<span class="ruby-identifier">params</span>[<span class="ruby-value">:format</span>]
+153:             <span class="ruby-identifier">options</span>.<span class="ruby-identifier">reverse_merge!</span>(<span class="ruby-value">:format</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@extension</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+154:           <span class="ruby-keyword kw">end</span>
+155: 
+156:           <span class="ruby-identifier">path</span> = <span class="ruby-identifier">controller</span>.<span class="ruby-identifier">url_for</span>(<span class="ruby-identifier">options</span>).<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">%{://}</span>).<span class="ruby-identifier">last</span>
+157:           <span class="ruby-ivar">@path</span> = <span class="ruby-identifier">normalize!</span>(<span class="ruby-identifier">path</span>)
+158:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-normalize%21"></a>
+            <b>normalize!</b>(path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('normalize-_source')"
+                 id="l_method-i-normalize%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="normalize-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/caching/actions.rb, line 161</span>
+161:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">normalize!</span>(<span class="ruby-identifier">path</span>)
+162:           <span class="ruby-identifier">path</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'index'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">path</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-value">//</span>
+163:           <span class="ruby-identifier">path</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;.#{extension}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">extension</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">path</span>.<span class="ruby-identifier">ends_with?</span>(<span class="ruby-identifier">extension</span>)
+164:           <span class="ruby-constant">URI</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-identifier">path</span>)
+165:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

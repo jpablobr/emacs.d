@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionController::Instrumentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionController::Instrumentation</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_controller/metal/instrumentation_rb.html">actionpack/lib/action_controller/metal/instrumentation.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+Adds instrumentation to several ends in <a
+href="Base.html">ActionController::Base</a>. It also provides some hooks
+related with <a
+href="Instrumentation.html#method-i-process_action">process_action</a>,
+this allows an ORM like Active Record and/or DataMapper to plug in
+ActionController and show related information.
+</p>
+<p>
+Check <a
+href="../ActiveRecord/Railties/ControllerRuntime.html">ActiveRecord::Railties::ControllerRuntime</a>
+for an example.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-process_action">process_action</a></li>
+                <li><a href="#method-i-redirect_to">redirect_to</a></li>
+                <li><a href="#method-i-render">render</a></li>
+                <li><a href="#method-i-send_data">send_data</a></li>
+                <li><a href="#method-i-send_file">send_file</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          <a href="../AbstractController/Logger.html">AbstractController::Logger</a>      </li>
+</ul>
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-process_action"></a>
+            <b>process_action</b>(action, *args)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('process-action_source')"
+                 id="l_method-i-process_action_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="process-action_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/instrumentation.rb, line 17</span>
+17:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">process_action</span>(<span class="ruby-identifier">action</span>, *<span class="ruby-identifier">args</span>)
+18:       <span class="ruby-identifier">raw_payload</span> = {
+19:         <span class="ruby-value">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>,
+20:         <span class="ruby-value">:action</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">action_name</span>,
+21:         <span class="ruby-value">:params</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">filtered_parameters</span>,
+22:         <span class="ruby-value">:formats</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">formats</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:to_sym</span>),
+23:         <span class="ruby-value">:method</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">method</span>,
+24:         <span class="ruby-value">:path</span>       =<span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">request</span>.<span class="ruby-identifier">fullpath</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-value str">&quot;unknown&quot;</span>)
+25:       }
+26: 
+27:       <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Notifications</span>.<span class="ruby-identifier">instrument</span>(<span class="ruby-value str">&quot;start_processing.action_controller&quot;</span>, <span class="ruby-identifier">raw_payload</span>.<span class="ruby-identifier">dup</span>)
+28: 
+29:       <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Notifications</span>.<span class="ruby-identifier">instrument</span>(<span class="ruby-value str">&quot;process_action.action_controller&quot;</span>, <span class="ruby-identifier">raw_payload</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">payload</span><span class="ruby-operator">|</span>
+30:         <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">super</span>
+31:         <span class="ruby-identifier">payload</span>[<span class="ruby-value">:status</span>] = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">status</span>
+32:         <span class="ruby-identifier">append_info_to_payload</span>(<span class="ruby-identifier">payload</span>)
+33:         <span class="ruby-identifier">result</span>
+34:       <span class="ruby-keyword kw">end</span>
+35:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-redirect_to"></a>
+            <b>redirect_to</b>(*args)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('redirect-to_source')"
+                 id="l_method-i-redirect_to_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="redirect-to_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/instrumentation.rb, line 58</span>
+58:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">redirect_to</span>(*<span class="ruby-identifier">args</span>)
+59:       <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Notifications</span>.<span class="ruby-identifier">instrument</span>(<span class="ruby-value str">&quot;redirect_to.action_controller&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">payload</span><span class="ruby-operator">|</span>
+60:         <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">super</span>
+61:         <span class="ruby-identifier">payload</span>[<span class="ruby-value">:status</span>]   = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">status</span>
+62:         <span class="ruby-identifier">payload</span>[<span class="ruby-value">:location</span>] = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">location</span>
+63:         <span class="ruby-identifier">result</span>
+64:       <span class="ruby-keyword kw">end</span>
+65:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-render"></a>
+            <b>render</b>(*args)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('render_source')"
+                 id="l_method-i-render_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="render_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/instrumentation.rb, line 37</span>
+37:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render</span>(*<span class="ruby-identifier">args</span>)
+38:       <span class="ruby-identifier">render_output</span> = <span class="ruby-keyword kw">nil</span>
+39:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">view_runtime</span> = <span class="ruby-identifier">cleanup_view_runtime</span> <span class="ruby-keyword kw">do</span>
+40:         <span class="ruby-constant">Benchmark</span>.<span class="ruby-identifier">ms</span> { <span class="ruby-identifier">render_output</span> = <span class="ruby-keyword kw">super</span> }
+41:       <span class="ruby-keyword kw">end</span>
+42:       <span class="ruby-identifier">render_output</span>
+43:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-send_data"></a>
+            <b>send_data</b>(data, options = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('send-data_source')"
+                 id="l_method-i-send_data_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="send-data_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/instrumentation.rb, line 52</span>
+52:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send_data</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">options</span> = {})
+53:       <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Notifications</span>.<span class="ruby-identifier">instrument</span>(<span class="ruby-value str">&quot;send_data.action_controller&quot;</span>, <span class="ruby-identifier">options</span>) <span class="ruby-keyword kw">do</span>
+54:         <span class="ruby-keyword kw">super</span>
+55:       <span class="ruby-keyword kw">end</span>
+56:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-send_file"></a>
+            <b>send_file</b>(path, options={})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('send-file_source')"
+                 id="l_method-i-send_file_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="send-file_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/instrumentation.rb, line 45</span>
+45:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send_file</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">options</span>={})
+46:       <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Notifications</span>.<span class="ruby-identifier">instrument</span>(<span class="ruby-value str">&quot;send_file.action_controller&quot;</span>,
+47:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-value">:path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">path</span>)) <span class="ruby-keyword kw">do</span>
+48:         <span class="ruby-keyword kw">super</span>
+49:       <span class="ruby-keyword kw">end</span>
+50:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

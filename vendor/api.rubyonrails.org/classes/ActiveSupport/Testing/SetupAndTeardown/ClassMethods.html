@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveSupport::Testing::SetupAndTeardown::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveSupport::Testing::SetupAndTeardown::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/activesupport/lib/active_support/testing/setup_and_teardown_rb.html">activesupport/lib/active_support/testing/setup_and_teardown.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-setup">setup</a></li>
+                <li><a href="#method-i-teardown">teardown</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-setup"></a>
+            <b>setup</b>(*args, &block)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('setup_source')"
+                 id="l_method-i-setup_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="setup_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/testing/setup_and_teardown.rb, line 21</span>
+21:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+22:           <span class="ruby-identifier">set_callback</span>(<span class="ruby-value">:setup</span>, <span class="ruby-value">:before</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+23:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-teardown"></a>
+            <b>teardown</b>(*args, &block)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('teardown_source')"
+                 id="l_method-i-teardown_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="teardown_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/testing/setup_and_teardown.rb, line 25</span>
+25:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">teardown</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+26:           <span class="ruby-identifier">set_callback</span>(<span class="ruby-value">:teardown</span>, <span class="ruby-value">:after</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+27:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

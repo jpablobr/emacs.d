@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionDispatch::ParamsParser</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionDispatch::ParamsParser</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_dispatch/middleware/params_parser_rb.html">actionpack/lib/action_dispatch/middleware/params_parser.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-call">call</a></li>
+                <li><a href="#method-i-content_type_from_legacy_post_data_format_header">content_type_from_legacy_post_data_format_header</a></li>
+                <li><a href="#method-i-logger">logger</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-parse_formatted_parameters">parse_formatted_parameters</a></li>
+      </ul>
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">DEFAULT_PARSERS</td>
+    <td>=</td>
+    <td class="attr-value">{       Mime::XML => :xml_simple,       Mime::JSON => :json     }</td>
+  </tr>
+  </table>
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(app, parsers = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/params_parser.rb, line 12</span>
+12:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">app</span>, <span class="ruby-identifier">parsers</span> = {})
+13:       <span class="ruby-ivar">@app</span>, <span class="ruby-ivar">@parsers</span> = <span class="ruby-identifier">app</span>, <span class="ruby-constant">DEFAULT_PARSERS</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">parsers</span>)
+14:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-call"></a>
+            <b>call</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('call_source')"
+                 id="l_method-i-call_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="call_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/params_parser.rb, line 16</span>
+16:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>)
+17:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">params</span> = <span class="ruby-identifier">parse_formatted_parameters</span>(<span class="ruby-identifier">env</span>)
+18:         <span class="ruby-identifier">env</span>[<span class="ruby-value str">&quot;action_dispatch.request.request_parameters&quot;</span>] = <span class="ruby-identifier">params</span>
+19:       <span class="ruby-keyword kw">end</span>
+20: 
+21:       <span class="ruby-ivar">@app</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>)
+22:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-content_type_from_legacy_post_data_format_header"></a>
+            <b>content_type_from_legacy_post_data_format_header</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('content-type-from-legacy-post-data-format-header_source')"
+                 id="l_method-i-content_type_from_legacy_post_data_format_header_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="content-type-from-legacy-post-data-format-header_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/params_parser.rb, line 65</span>
+65:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">content_type_from_legacy_post_data_format_header</span>(<span class="ruby-identifier">env</span>)
+66:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">x_post_format</span> = <span class="ruby-identifier">env</span>[<span class="ruby-value str">'HTTP_X_POST_DATA_FORMAT'</span>]
+67:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">x_post_format</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">downcase</span>
+68:           <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'yaml'</span> <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Mime</span><span class="ruby-operator">::</span><span class="ruby-constant">YAML</span>
+69:           <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'xml'</span>  <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Mime</span><span class="ruby-operator">::</span><span class="ruby-constant">XML</span>
+70:           <span class="ruby-keyword kw">end</span>
+71:         <span class="ruby-keyword kw">end</span>
+72: 
+73:         <span class="ruby-keyword kw">nil</span>
+74:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-logger"></a>
+            <b>logger</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('logger_source')"
+                 id="l_method-i-logger_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="logger_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/params_parser.rb, line 76</span>
+76:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logger</span>
+77:         <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">logger</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">logger</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">$stderr</span>)
+78:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-parse_formatted_parameters"></a>
+            <b>parse_formatted_parameters</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('parse-formatted-parameters_source')"
+                 id="l_method-i-parse_formatted_parameters_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="parse-formatted-parameters_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/params_parser.rb, line 25</span>
+25:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_formatted_parameters</span>(<span class="ruby-identifier">env</span>)
+26:         <span class="ruby-identifier">request</span> = <span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">env</span>)
+27: 
+28:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">content_length</span>.<span class="ruby-identifier">zero?</span>
+29: 
+30:         <span class="ruby-identifier">mime_type</span> = <span class="ruby-identifier">content_type_from_legacy_post_data_format_header</span>(<span class="ruby-identifier">env</span>) <span class="ruby-operator">||</span>
+31:           <span class="ruby-identifier">request</span>.<span class="ruby-identifier">content_mime_type</span>
+32: 
+33:         <span class="ruby-identifier">strategy</span> = <span class="ruby-ivar">@parsers</span>[<span class="ruby-identifier">mime_type</span>]
+34: 
+35:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">strategy</span>
+36: 
+37:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">strategy</span>
+38:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Proc</span>
+39:           <span class="ruby-identifier">strategy</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">raw_post</span>)
+40:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">:xml_simple</span>, <span class="ruby-value">:xml_node</span>
+41:           <span class="ruby-identifier">data</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">from_xml</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">read</span>) <span class="ruby-operator">||</span> {}
+42:           <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">rewind</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:rewind</span>)
+43:           <span class="ruby-identifier">data</span>.<span class="ruby-identifier">with_indifferent_access</span>
+44:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">:yaml</span>
+45:           <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">raw_post</span>)
+46:         <span class="ruby-keyword kw">when</span> <span class="ruby-value">:json</span>
+47:           <span class="ruby-identifier">data</span> = <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">JSON</span>.<span class="ruby-identifier">decode</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span>)
+48:           <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">rewind</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:rewind</span>)
+49:           <span class="ruby-identifier">data</span> = {<span class="ruby-value">:_json</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>} <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+50:           <span class="ruby-identifier">data</span>.<span class="ruby-identifier">with_indifferent_access</span>
+51:         <span class="ruby-keyword kw">else</span>
+52:           <span class="ruby-keyword kw">false</span>
+53:         <span class="ruby-keyword kw">end</span>
+54:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span> <span class="ruby-comment cmt"># YAML, XML or Ruby code block errors</span>
+55:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Error occurred while parsing request parameters.\nContents:\n\n#{request.raw_post}&quot;</span>
+56: 
+57:         <span class="ruby-identifier">raise</span>
+58:           { <span class="ruby-value str">&quot;body&quot;</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">raw_post</span>,
+59:             <span class="ruby-value str">&quot;content_type&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">content_mime_type</span>,
+60:             <span class="ruby-value str">&quot;content_length&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">content_length</span>,
+61:             <span class="ruby-value str">&quot;exception&quot;</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{e.message} (#{e.class})&quot;</span>,
+62:             <span class="ruby-value str">&quot;backtrace&quot;</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span> }
+63:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

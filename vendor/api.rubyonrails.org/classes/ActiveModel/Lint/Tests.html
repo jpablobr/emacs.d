@@ -1,0 +1,425 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveModel::Lint::Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveModel::Lint::Tests</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activemodel/lib/active_model/lint_rb.html">activemodel/lib/active_model/lint.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-assert_boolean">assert_boolean</a></li>
+                <li><a href="#method-i-model">model</a></li>
+                <li><a href="#method-i-test_errors_aref">test_errors_aref</a></li>
+                <li><a href="#method-i-test_errors_full_messages">test_errors_full_messages</a></li>
+                <li><a href="#method-i-test_model_naming">test_model_naming</a></li>
+                <li><a href="#method-i-test_persisted%3F">test_persisted?</a></li>
+                <li><a href="#method-i-test_to_key">test_to_key</a></li>
+                <li><a href="#method-i-test_to_param">test_to_param</a></li>
+                <li><a href="#method-i-test_valid%3F">test_valid?</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-test_errors_aref"></a>
+            <b>test_errors_aref</b>()          
+        </div>
+
+                  <div class="description">
+            <h2><a href="../Errors.html">Errors</a> Testing</h2>
+<p>
+Returns an object that has :[] and :full_messages defined on it. See below
+for more details.
+</p>
+<p>
+Returns an Array of Strings that are the errors for the attribute in
+question. If localization is used, the Strings should be localized for the
+current locale. If no error is present, this method should return an empty
+Array.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('test-errors-aref_source')"
+                 id="l_method-i-test_errors_aref_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="test-errors-aref_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/lint.rb, line 91</span>
+91:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_errors_aref</span>
+92:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:errors</span>), <span class="ruby-value str">&quot;The model should respond to errors&quot;</span>
+93:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">errors</span>[<span class="ruby-value">:hello</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>), <span class="ruby-node">&quot;errors#[] should return an Array&quot;</span>
+94:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-test_errors_full_messages"></a>
+            <b>test_errors_full_messages</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns an Array of all error messages for the object. Each message should
+contain information about the field, if applicable.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('test-errors-full-messages_source')"
+                 id="l_method-i-test_errors_full_messages_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="test-errors-full-messages_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/lint.rb, line 98</span>
+ 98:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_errors_full_messages</span>
+ 99:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:errors</span>), <span class="ruby-value str">&quot;The model should respond to errors&quot;</span>
+100:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>), <span class="ruby-node">&quot;errors#full_messages should return an Array&quot;</span>
+101:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-test_model_naming"></a>
+            <b>test_model_naming</b>()          
+        </div>
+
+                  <div class="description">
+            <h2><a href="../Naming.html">Naming</a></h2>
+<p>
+Model.model_name must return a string with some convenience methods as
+:human and :partial_path. Check <a
+href="../Naming.html">ActiveModel::Naming</a> for more information.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('test-model-naming_source')"
+                 id="l_method-i-test_model_naming_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="test-model-naming_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/lint.rb, line 72</span>
+72:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_model_naming</span>
+73:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:model_name</span>), <span class="ruby-value str">&quot;The model should respond to model_name&quot;</span>
+74:         <span class="ruby-identifier">model_name</span> = <span class="ruby-identifier">model</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">model_name</span>
+75:         <span class="ruby-identifier">assert_kind_of</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">model_name</span>
+76:         <span class="ruby-identifier">assert_kind_of</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">human</span>
+77:         <span class="ruby-identifier">assert_kind_of</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">partial_path</span>
+78:         <span class="ruby-identifier">assert_kind_of</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">singular</span>
+79:         <span class="ruby-identifier">assert_kind_of</span> <span class="ruby-constant">String</span>, <span class="ruby-identifier">model_name</span>.<span class="ruby-identifier">plural</span>
+80:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-test_persisted%3F"></a>
+            <b>test_persisted?</b>()          
+        </div>
+
+                  <div class="description">
+            <h2>Responds to <tt>persisted?</tt></h2>
+<p>
+Returns a boolean that specifies whether the object has been persisted yet.
+This is used when calculating the URL for an object. If the object is not
+persisted, a form for that object, for instance, will be POSTed to the
+collection. If it is persisted, a form for the object will be PUT to the
+URL for the object.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('test-persisted-_source')"
+                 id="l_method-i-test_persisted%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="test-persisted-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/lint.rb, line 62</span>
+62:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_persisted?</span>
+63:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:persisted?</span>), <span class="ruby-value str">&quot;The model should respond to persisted?&quot;</span>
+64:         <span class="ruby-identifier">assert_boolean</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">persisted?</span>, <span class="ruby-value str">&quot;persisted?&quot;</span>
+65:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-test_to_key"></a>
+            <b>test_to_key</b>()          
+        </div>
+
+                  <div class="description">
+            <h2>Responds to <tt>to_key</tt></h2>
+<p>
+Returns an <a href="../../Enumerable.html">Enumerable</a> of all (primary)
+key attributes or nil if model.persisted? is false
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('test-to-key_source')"
+                 id="l_method-i-test_to_key_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="test-to-key_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/lint.rb, line 23</span>
+23:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_to_key</span>
+24:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_key</span>), <span class="ruby-value str">&quot;The model should respond to to_key&quot;</span>
+25:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">persisted?</span>() <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">end</span>
+26:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_key</span>.<span class="ruby-identifier">nil?</span>
+27:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-test_to_param"></a>
+            <b>test_to_param</b>()          
+        </div>
+
+                  <div class="description">
+            <h2>Responds to <tt>to_param</tt></h2>
+<p>
+Returns a string representing the object&#8217;s key suitable for use in
+URLs or nil if model.persisted? is false.
+</p>
+<p>
+Implementers can decide to either raise an exception or provide a default
+in case the record uses a composite primary key. There are no tests for
+this behavior in lint because it doesn&#8217;t make sense to force any of
+the possible implementation strategies on the implementer. However, if the
+resource is not persisted?, then to_param should always return nil.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('test-to-param_source')"
+                 id="l_method-i-test_to_param_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="test-to-param_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/lint.rb, line 39</span>
+39:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_to_param</span>
+40:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_param</span>), <span class="ruby-value str">&quot;The model should respond to to_param&quot;</span>
+41:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_key</span>() [<span class="ruby-value">1</span>] <span class="ruby-keyword kw">end</span>
+42:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">persisted?</span>() <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">end</span>
+43:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">to_param</span>.<span class="ruby-identifier">nil?</span>
+44:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-test_valid%3F"></a>
+            <b>test_valid?</b>()          
+        </div>
+
+                  <div class="description">
+            <h2>Responds to <tt>valid?</tt></h2>
+<p>
+Returns a boolean that specifies whether the object is in a valid or
+invalid state.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('test-valid-_source')"
+                 id="l_method-i-test_valid%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="test-valid-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/lint.rb, line 50</span>
+50:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">test_valid?</span>
+51:         <span class="ruby-identifier">assert</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:valid?</span>), <span class="ruby-value str">&quot;The model should respond to valid?&quot;</span>
+52:         <span class="ruby-identifier">assert_boolean</span> <span class="ruby-identifier">model</span>.<span class="ruby-identifier">valid?</span>, <span class="ruby-value str">&quot;valid?&quot;</span>
+53:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-assert_boolean"></a>
+            <b>assert_boolean</b>(result, name)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('assert-boolean_source')"
+                 id="l_method-i-assert_boolean_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="assert-boolean_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/lint.rb, line 109</span>
+109:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">assert_boolean</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">name</span>)
+110:           <span class="ruby-identifier">assert</span> <span class="ruby-identifier">result</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">result</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span>, <span class="ruby-node">&quot;#{name} should be a boolean&quot;</span>
+111:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-model"></a>
+            <b>model</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('model_source')"
+                 id="l_method-i-model_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="model_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/lint.rb, line 104</span>
+104:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">model</span>
+105:           <span class="ruby-identifier">assert</span> <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_model</span>), <span class="ruby-value str">&quot;The object should respond_to to_model&quot;</span>
+106:           <span class="ruby-ivar">@model</span>.<span class="ruby-identifier">to_model</span>
+107:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

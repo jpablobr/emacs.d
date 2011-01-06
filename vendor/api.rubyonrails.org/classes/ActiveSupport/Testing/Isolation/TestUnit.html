@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveSupport::Testing::Isolation::TestUnit</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveSupport::Testing::Isolation::TestUnit</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/activesupport/lib/active_support/testing/isolation_rb.html">activesupport/lib/active_support/testing/isolation.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-run">run</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-run"></a>
+            <b>run</b>(result)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('run_source')"
+                 id="l_method-i-run_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="run_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/testing/isolation.rb, line 56</span>
+56:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">result</span>)
+57:           <span class="ruby-identifier">_run_class_setup</span>
+58: 
+59:           <span class="ruby-keyword kw">yield</span>(<span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Unit</span><span class="ruby-operator">::</span><span class="ruby-constant">TestCase</span><span class="ruby-operator">::</span><span class="ruby-constant">STARTED</span>, <span class="ruby-identifier">name</span>)
+60: 
+61:           <span class="ruby-ivar">@_result</span> = <span class="ruby-identifier">result</span>
+62: 
+63:           <span class="ruby-identifier">serialized</span> = <span class="ruby-identifier">run_in_isolation</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">proxy</span><span class="ruby-operator">|</span>
+64:             <span class="ruby-keyword kw">begin</span>
+65:               <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">proxy</span>) { }
+66:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+67:               <span class="ruby-identifier">proxy</span>.<span class="ruby-identifier">add_error</span>(<span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Unit</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">e</span>))
+68:             <span class="ruby-keyword kw">end</span>
+69:           <span class="ruby-keyword kw">end</span>
+70: 
+71:           <span class="ruby-identifier">retval</span>, <span class="ruby-identifier">proxy</span> = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">serialized</span>)
+72:           <span class="ruby-identifier">proxy</span>.<span class="ruby-identifier">__replay__</span>(<span class="ruby-ivar">@_result</span>)
+73: 
+74:           <span class="ruby-keyword kw">yield</span>(<span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">Unit</span><span class="ruby-operator">::</span><span class="ruby-constant">TestCase</span><span class="ruby-operator">::</span><span class="ruby-constant">FINISHED</span>, <span class="ruby-identifier">name</span>)
+75:           <span class="ruby-identifier">retval</span>
+76:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

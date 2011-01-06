@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionMailer::Base::DeprecatedHeaderProxy</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionMailer::Base::DeprecatedHeaderProxy</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionmailer/lib/action_mailer/base_rb.html">actionmailer/lib/action_mailer/base.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../../ActiveSupport/BasicObject.html">ActiveSupport::BasicObject</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-%5B%5D%3D">[]=</a></li>
+                <li><a href="#method-i-headers">headers</a></li>
+                <li><a href="#method-i-method_missing">method_missing</a></li>
+                <li><a href="#method-c-new">new</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(message)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionmailer/lib/action_mailer/base.rb, line 450</span>
+450:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">message</span>)
+451:         <span class="ruby-ivar">@message</span> = <span class="ruby-identifier">message</span>
+452:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-%5B%5D%3D"></a>
+            <b>[]=</b>(key, value)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-i-%5B%5D%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionmailer/lib/action_mailer/base.rb, line 454</span>
+454:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+455:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">String</span>)
+456:           <span class="ruby-operator">::</span><span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-value str">&quot;Using a non-String object for a header's value is deprecated. &quot;</span>              <span class="ruby-node">&quot;You specified #{value.inspect} (a #{value.class}) for #{key}&quot;</span>, <span class="ruby-identifier">caller</span>)
+457: 
+458:           <span class="ruby-identifier">value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>
+459:         <span class="ruby-keyword kw">end</span>
+460: 
+461:         <span class="ruby-ivar">@message</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">value</span>
+462:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-headers"></a>
+            <b>headers</b>(hash = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('headers_source')"
+                 id="l_method-i-headers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="headers_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionmailer/lib/action_mailer/base.rb, line 465</span>
+465:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">headers</span>(<span class="ruby-identifier">hash</span> = {})
+466:         <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+467:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
+468:         <span class="ruby-keyword kw">end</span>
+469:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-method_missing"></a>
+            <b>method_missing</b>(meth, *args, &block)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('method-missing_source')"
+                 id="l_method-i-method_missing_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="method-missing_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionmailer/lib/action_mailer/base.rb, line 471</span>
+471:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">meth</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+472:         <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">meth</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+473:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

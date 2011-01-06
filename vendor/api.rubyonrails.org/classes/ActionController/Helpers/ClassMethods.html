@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionController::Helpers::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionController::Helpers::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/action_controller/metal/helpers_rb.html">actionpack/lib/action_controller/metal/helpers.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-all_application_helpers">all_application_helpers</a></li>
+                <li><a href="#method-i-helper_attr">helper_attr</a></li>
+                <li><a href="#method-i-helpers">helpers</a></li>
+                <li><a href="#method-i-helpers_dir">helpers_dir</a></li>
+                <li><a href="#method-i-helpers_dir%3D">helpers_dir=</a></li>
+                <li><a href="#method-i-modules_for_helpers">modules_for_helpers</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-helper_attr"></a>
+            <b>helper_attr</b>(*attrs)          
+        </div>
+
+                  <div class="description">
+            <p>
+Declares helper accessors for controller attributes. For example, the
+following adds new <tt>name</tt> and <tt>name=</tt> instance methods to a
+controller and makes them available to the view:
+</p>
+<pre>
+  helper_attr :name
+  attr_accessor :name
+</pre>
+<h4>Parameters</h4>
+<table>
+<tr><td valign="top">*attrs<Array[String, Symbol]></td><td><p>
+Names of attributes to be converted
+</p>
+</td></tr>
+</table>
+<pre>
+  into helpers.</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('helper-attr_source')"
+                 id="l_method-i-helper_attr_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="helper-attr_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/helpers.rb, line 80</span>
+80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">helper_attr</span>(*<span class="ruby-identifier">attrs</span>)
+81:         <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">attr</span><span class="ruby-operator">|</span> <span class="ruby-identifier">helper_method</span>(<span class="ruby-identifier">attr</span>, <span class="ruby-node">&quot;#{attr}=&quot;</span>) }
+82:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-helpers"></a>
+            <b>helpers</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Provides a proxy to access helpers methods from outside the view.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('helpers_source')"
+                 id="l_method-i-helpers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="helpers_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/helpers.rb, line 85</span>
+85:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">helpers</span>
+86:         <span class="ruby-ivar">@helper_proxy</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-identifier">_helpers</span>)
+87:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-helpers_dir"></a>
+            <b>helpers_dir</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('helpers-dir_source')"
+                 id="l_method-i-helpers_dir_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="helpers-dir_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/helpers.rb, line 61</span>
+61:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">helpers_dir</span>
+62:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;helpers_dir is deprecated, use helpers_path instead&quot;</span>, <span class="ruby-identifier">caller</span>
+63:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">helpers_path</span>
+64:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-helpers_dir%3D"></a>
+            <b>helpers_dir=</b>(value)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('helpers-dir-_source')"
+                 id="l_method-i-helpers_dir%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="helpers-dir-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/helpers.rb, line 66</span>
+66:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">helpers_dir=</span>(<span class="ruby-identifier">value</span>)
+67:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;helpers_dir= is deprecated, use helpers_path= instead&quot;</span>, <span class="ruby-identifier">caller</span>
+68:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">helpers_path</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">value</span>)
+69:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-all_application_helpers"></a>
+            <b>all_application_helpers</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Extract helper names from files in app/helpers/**/*_helper.rb
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('all-application-helpers_source')"
+                 id="l_method-i-all_application_helpers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="all-application-helpers_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/helpers.rb, line 105</span>
+105:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">all_application_helpers</span>
+106:           <span class="ruby-identifier">helpers</span> = []
+107:           <span class="ruby-constant">Array</span>.<span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">helpers_path</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
+108:             <span class="ruby-identifier">extract</span>  = <span class="ruby-node">/^#{Regexp.quote(path.to_s)}\/?(.*)_helper.rb$/</span>
+109:             <span class="ruby-identifier">helpers</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">Dir</span>[<span class="ruby-node">&quot;#{path}/**/*_helper.rb&quot;</span>].<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-identifier">extract</span>, <span class="ruby-value str">'\1'</span>) }
+110:           <span class="ruby-keyword kw">end</span>
+111:           <span class="ruby-identifier">helpers</span>.<span class="ruby-identifier">sort!</span>
+112:           <span class="ruby-identifier">helpers</span>.<span class="ruby-identifier">uniq!</span>
+113:           <span class="ruby-identifier">helpers</span>
+114:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-modules_for_helpers"></a>
+            <b>modules_for_helpers</b>(args)          
+        </div>
+
+                  <div class="description">
+            <p>
+Overwrite <a
+href="ClassMethods.html#method-i-modules_for_helpers">modules_for_helpers</a>
+to accept :all as argument, which loads all helpers in helpers_dir.
+</p>
+<h4>Parameters</h4>
+<table>
+<tr><td valign="top">args<Array[String, Symbol, Module, all]></td><td><p>
+A list of helpers
+</p>
+</td></tr>
+</table>
+<h4>Returns</h4>
+<table>
+<tr><td valign="top">Array[Module]</td><td><p>
+A normalized list of modules for the list of
+</p>
+</td></tr>
+</table>
+<pre>
+  helpers provided.</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('modules-for-helpers_source')"
+                 id="l_method-i-modules_for_helpers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="modules-for-helpers_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/helpers.rb, line 99</span>
+ 99:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">modules_for_helpers</span>(<span class="ruby-identifier">args</span>)
+100:           <span class="ruby-identifier">args</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">all_application_helpers</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:all</span>)
+101:           <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">args</span>)
+102:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

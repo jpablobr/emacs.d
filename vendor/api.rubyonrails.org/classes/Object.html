@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: Object</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />Object</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../files/activesupport/lib/active_support/json/encoding_rb.html">activesupport/lib/active_support/json/encoding.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/object/to_query_rb.html">activesupport/lib/active_support/core_ext/object/to_query.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/object/instance_variables_rb.html">activesupport/lib/active_support/core_ext/object/instance_variables.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/object/returning_rb.html">activesupport/lib/active_support/core_ext/object/returning.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/object/to_param_rb.html">activesupport/lib/active_support/core_ext/object/to_param.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/object/with_options_rb.html">activesupport/lib/active_support/core_ext/object/with_options.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/object/try_rb.html">activesupport/lib/active_support/core_ext/object/try.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/object/duplicable_rb.html">activesupport/lib/active_support/core_ext/object/duplicable.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/object/acts_like_rb.html">activesupport/lib/active_support/core_ext/object/acts_like.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/object/blank_rb.html">activesupport/lib/active_support/core_ext/object/blank.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/string/output_safety_rb.html">activesupport/lib/active_support/core_ext/string/output_safety.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/kernel/agnostics_rb.html">activesupport/lib/active_support/core_ext/kernel/agnostics.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+Most objects are cloneable, but not all. For example you can&#8217;t dup
+<tt>nil</tt>:
+</p>
+<pre>
+  nil.dup # =&gt; TypeError: can't dup NilClass
+</pre>
+<p>
+Classes may signal their instances are not duplicable removing
+<tt>dup</tt>/<tt>clone</tt> or raising exceptions from them. So, to dup an
+arbitrary object you normally use an optimistic approach and are ready to
+catch an exception, say:
+</p>
+<pre>
+  arbitrary_object.dup rescue object
+</pre>
+<p>
+<a href="Rails.html">Rails</a> dups objects in a few critical spots where
+they are not that arbitrary. That rescue is very expensive (like 40 times
+slower than a predicate), and it is often triggered.
+</p>
+<p>
+That&#8217;s why we hardcode the following cases and check duplicable?
+instead of using that rescue idiom.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-acts_like%3F">acts_like?</a></li>
+                <li><a href="#method-i-app">app</a></li>
+                <li><a href="#method-i-blank%3F">blank?</a></li>
+                <li><a href="#method-i-controller">controller</a></li>
+                <li><a href="#method-i-create_fixtures">create_fixtures</a></li>
+                <li><a href="#method-i-duplicable%3F">duplicable?</a></li>
+                <li><a href="#method-i-helper">helper</a></li>
+                <li><a href="#method-i-html_safe%3F">html_safe?</a></li>
+                <li><a href="#method-i-instance_variable_names">instance_variable_names</a></li>
+                <li><a href="#method-i-new_session">new_session</a></li>
+                <li><a href="#method-i-presence">presence</a></li>
+                <li><a href="#method-i-present%3F">present?</a></li>
+                <li><a href="#method-i-reload%21">reload!</a></li>
+                <li><a href="#method-i-returning">returning</a></li>
+                <li><a href="#method-i-to_param">to_param</a></li>
+                <li><a href="#method-i-to_query">to_query</a></li>
+                <li><a href="#method-i-try">try</a></li>
+                <li><a href="#method-i-unescape">unescape</a></li>
+                <li><a href="#method-i-with_options">with_options</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-acts_like%3F"></a>
+            <b>acts_like?</b>(duck)          
+        </div>
+
+                  <div class="description">
+            <p>
+A duck-type assistant method. For example, Active Support extends Date to
+define an acts_like_date? method, and extends <a href="Time.html">Time</a>
+to define acts_like_time?. As a result, we can do
+&#8220;x.acts_like?(:time)&#8221; and &#8220;x.acts_like?(:date)&#8221; to
+do duck-type-safe comparisons, since classes that we want to act like <a
+href="Time.html">Time</a> simply need to define an acts_like_time? method.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('acts-like-_source')"
+                 id="l_method-i-acts_like%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="acts-like-_source">
+<pre>
+     <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/acts_like.rb, line 7</span>
+7:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">acts_like?</span>(<span class="ruby-identifier">duck</span>)
+8:     <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:&quot;acts_like_#{duck}?&quot;</span>
+9:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-app"></a>
+            <b>app</b>(create=false)          
+        </div>
+
+                  <div class="description">
+            <p>
+reference the global &#8220;app&#8221; instance, created on demand. To
+recreate the instance, pass a non-false value as the parameter.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('app_source')"
+                 id="l_method-i-app_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="app_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/console/app.rb, line 10</span>
+10: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">app</span>(<span class="ruby-identifier">create</span>=<span class="ruby-keyword kw">false</span>)
+11:   <span class="ruby-ivar">@app_integration_instance</span> = <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">create</span>
+12:   <span class="ruby-ivar">@app_integration_instance</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">new_session</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sess</span><span class="ruby-operator">|</span>
+13:     <span class="ruby-identifier">sess</span>.<span class="ruby-identifier">host!</span> <span class="ruby-value str">&quot;www.example.com&quot;</span>
+14:   <span class="ruby-keyword kw">end</span>
+15: <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-blank%3F"></a>
+            <b>blank?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+An object is blank if it&#8217;s false, empty, or a whitespace string. For
+example, &#8220;&#8221;, &#8220;   &#8220;, <tt>nil</tt>, [], and {} are
+blank.
+</p>
+<p>
+This simplifies:
+</p>
+<pre>
+  if !address.nil? &amp;&amp; !address.empty?
+</pre>
+<p>
+&#8230;to:
+</p>
+<pre>
+  if !address.blank?</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('blank-_source')"
+                 id="l_method-i-blank%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="blank-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/blank.rb, line 12</span>
+12:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">blank?</span>
+13:     <span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:empty?</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">empty?</span> <span class="ruby-operator">:</span> <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>
+14:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-controller"></a>
+            <b>controller</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('controller_source')"
+                 id="l_method-i-controller_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="controller_source">
+<pre>
+     <span class="ruby-comment cmt"># File railties/lib/rails/console/helpers.rb, line 5</span>
+5: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">controller</span>
+6:   <span class="ruby-ivar">@controller</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ApplicationController</span>.<span class="ruby-identifier">new</span>
+7: <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-create_fixtures"></a>
+            <b>create_fixtures</b>(*table_names, &block)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('create-fixtures_source')"
+                 id="l_method-i-create_fixtures_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="create-fixtures_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/test_help.rb, line 26</span>
+26:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_fixtures</span>(*<span class="ruby-identifier">table_names</span>, &amp;<span class="ruby-identifier">block</span>)
+27:     <span class="ruby-constant">Fixtures</span>.<span class="ruby-identifier">create_fixtures</span>(<span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">TestCase</span>.<span class="ruby-identifier">fixture_path</span>, <span class="ruby-identifier">table_names</span>, {}, &amp;<span class="ruby-identifier">block</span>)
+28:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-duplicable%3F"></a>
+            <b>duplicable?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Can you safely .dup this object? False for nil, false, true, symbols,
+numbers, class and module objects; true otherwise.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('duplicable-_source')"
+                 id="l_method-i-duplicable%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="duplicable-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/duplicable.rb, line 20</span>
+20:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">duplicable?</span>
+21:     <span class="ruby-keyword kw">true</span>
+22:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-helper"></a>
+            <b>helper</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('helper_source')"
+                 id="l_method-i-helper_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="helper_source">
+<pre>
+     <span class="ruby-comment cmt"># File railties/lib/rails/console/helpers.rb, line 1</span>
+1: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">helper</span>
+2:   <span class="ruby-ivar">@helper</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ApplicationController</span>.<span class="ruby-identifier">helpers</span>
+3: <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-html_safe%3F"></a>
+            <b>html_safe?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('html-safe-_source')"
+                 id="l_method-i-html_safe%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="html-safe-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/string/output_safety.rb, line 55</span>
+55:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">html_safe?</span>
+56:     <span class="ruby-keyword kw">false</span>
+57:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-instance_variable_names"></a>
+            <b>instance_variable_names</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('instance-variable-names_source')"
+                 id="l_method-i-instance_variable_names_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="instance-variable-names_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/instance_variables.rb, line 30</span>
+30:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_variable_names</span>
+31:       <span class="ruby-identifier">instance_variables</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">var</span><span class="ruby-operator">|</span> <span class="ruby-identifier">var</span>.<span class="ruby-identifier">to_s</span> }
+32:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-new_session"></a>
+            <b>new_session</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+create a new session. If a block is given, the new session will be yielded
+to the block before being returned.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new-session_source')"
+                 id="l_method-i-new_session_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new-session_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/console/app.rb, line 19</span>
+19: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_session</span>
+20:   <span class="ruby-identifier">app</span> = <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">application</span>
+21:   <span class="ruby-identifier">session</span> = <span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Integration</span><span class="ruby-operator">::</span><span class="ruby-constant">Session</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">app</span>)
+22:   <span class="ruby-keyword kw">yield</span> <span class="ruby-identifier">session</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+23:   <span class="ruby-identifier">session</span>
+24: <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-presence"></a>
+            <b>presence</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns object if it&#8217;s <a
+href="Object.html#method-i-present%3F">present?</a> otherwise returns nil.
+object.presence is equivalent to object.present? ? object : nil.
+</p>
+<p>
+This is handy for any representation of objects where blank is the same as
+not present at all.  For example, this simplifies a common check for HTTP
+POST/query parameters:
+</p>
+<pre>
+  state   = params[:state]   if params[:state].present?
+  country = params[:country] if params[:country].present?
+  region  = state || country || 'US'
+</pre>
+<p>
+&#8230;becomes:
+</p>
+<pre>
+  region = params[:state].presence || params[:country].presence || 'US'</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('presence_source')"
+                 id="l_method-i-presence_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="presence_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/blank.rb, line 35</span>
+35:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">presence</span>
+36:     <span class="ruby-keyword kw">self</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">present?</span>
+37:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-present%3F"></a>
+            <b>present?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+An object is present if it&#8217;s not blank.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('present-_source')"
+                 id="l_method-i-present%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="present-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/blank.rb, line 17</span>
+17:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">present?</span>
+18:     <span class="ruby-operator">!</span><span class="ruby-identifier">blank?</span>
+19:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-reload%21"></a>
+            <b>reload!</b>(print=true)          
+        </div>
+
+                  <div class="description">
+            <p>
+reloads the environment
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('reload-_source')"
+                 id="l_method-i-reload%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="reload-_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/console/app.rb, line 27</span>
+27: <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reload!</span>(<span class="ruby-identifier">print</span>=<span class="ruby-keyword kw">true</span>)
+28:   <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Reloading...&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">print</span>
+29:   <span class="ruby-comment cmt"># This triggers the to_prepare callbacks</span>
+30:   <span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Callbacks</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Proc</span>.<span class="ruby-identifier">new</span> {}, <span class="ruby-keyword kw">false</span>).<span class="ruby-identifier">call</span>({})
+31:   <span class="ruby-keyword kw">true</span>
+32: <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-returning"></a>
+            <b>returning</b>(value)          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns <tt>value</tt> after yielding <tt>value</tt> to the block. This
+simplifies the process of constructing an object, performing work on the
+object, and then returning the object from a method. It is a Ruby-ized
+realization of the K combinator, courtesy of Mikael Brockman.
+</p>
+<h4>Examples</h4>
+<pre>
+ # Without returning
+ def foo
+   values = []
+   values &lt;&lt; &quot;bar&quot;
+   values &lt;&lt; &quot;baz&quot;
+   return values
+ end
+
+ foo # =&gt; ['bar', 'baz']
+
+ # returning with a local variable
+ def foo
+   returning values = [] do
+     values &lt;&lt; 'bar'
+     values &lt;&lt; 'baz'
+   end
+ end
+
+ foo # =&gt; ['bar', 'baz']
+
+ # returning with a block argument
+ def foo
+   returning [] do |values|
+     values &lt;&lt; 'bar'
+     values &lt;&lt; 'baz'
+   end
+ end
+
+ foo # =&gt; ['bar', 'baz']</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('returning_source')"
+                 id="l_method-i-returning_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="returning_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/returning.rb, line 38</span>
+38:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">returning</span>(<span class="ruby-identifier">value</span>)
+39:     <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-value str">'Object#returning has been deprecated in favor of Object#tap.'</span>, <span class="ruby-identifier">caller</span>)
+40:     <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">value</span>)
+41:     <span class="ruby-identifier">value</span>
+42:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_param"></a>
+            <b>to_param</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Alias of <tt>to_s</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to-param_source')"
+                 id="l_method-i-to_param_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to-param_source">
+<pre>
+     <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/to_param.rb, line 5</span>
+5:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_param</span>
+6:     <span class="ruby-identifier">to_s</span>
+7:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_query"></a>
+            <b>to_query</b>(key)          
+        </div>
+
+                  <div class="description">
+            <p>
+Converts an object into a string suitable for use as a URL query string,
+using the given <tt>key</tt> as the param name.
+</p>
+<p>
+Note: This method is defined as a default implementation for all Objects
+for Hash#to_query to work.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to-query_source')"
+                 id="l_method-i-to_query_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to-query_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/to_query.rb, line 8</span>
+ 8:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_query</span>(<span class="ruby-identifier">key</span>)
+ 9:     <span class="ruby-identifier">require</span> <span class="ruby-value str">'cgi'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">CGI</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">CGI</span><span class="ruby-operator">::</span><span class="ruby-identifier">escape</span>)
+10:     <span class="ruby-node">&quot;#{CGI.escape(key.to_s).gsub(/%(5B|5D)/n) { [$1].pack('H*') }}=#{CGI.escape(to_param.to_s)}&quot;</span>
+11:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-try"></a>
+            <b>try</b>(method, *args, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Invokes the method identified by the symbol <tt>method</tt>, passing it any
+arguments and/or the block specified, just like the regular Ruby
+<tt>Object#send</tt> does.
+</p>
+<p>
+<b>Unlike</b> that method however, a <tt>NoMethodError</tt> exception will
+<b>not</b> be raised and <tt>nil</tt> will be returned instead, if the
+receiving object is a <tt>nil</tt> object or NilClass.
+</p>
+<h4>Examples</h4>
+<p>
+Without try
+</p>
+<pre>
+  @person &amp;&amp; @person.name
+</pre>
+<p>
+or
+</p>
+<pre>
+  @person ? @person.name : nil
+</pre>
+<p>
+With try
+</p>
+<pre>
+  @person.try(:name)
+</pre>
+<p>
+<tt>try</tt> also accepts arguments and/or a block, for the method it is
+trying
+</p>
+<pre>
+  Person.try(:find, 1)
+  @people.try(:collect) {|p| p.name}</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('try_source')"
+                 id="l_method-i-try_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="try_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/try.rb, line 25</span>
+25:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">try</span>(<span class="ruby-identifier">method</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+26:     <span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>, *<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+27:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-unescape"></a>
+            <b>unescape</b>(str, escaped = /%[a-fA-F\d]{2}/)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('unescape_source')"
+                 id="l_method-i-unescape_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="unescape_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/uri.rb, line 13</span>
+13:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unescape</span>(<span class="ruby-identifier">str</span>, <span class="ruby-identifier">escaped</span> = <span class="ruby-regexp re">/%[a-fA-F\d]{2}/</span>)
+14:         <span class="ruby-comment cmt"># TODO: Are we actually sure that ASCII == UTF-8?</span>
+15:         <span class="ruby-comment cmt"># YK: My initial experiments say yes, but let's be sure please</span>
+16:         <span class="ruby-identifier">enc</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">encoding</span>
+17:         <span class="ruby-identifier">enc</span> = <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">UTF_8</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">enc</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Encoding</span><span class="ruby-operator">::</span><span class="ruby-constant">US_ASCII</span>
+18:         <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-identifier">escaped</span>) { [<span class="ruby-node">$&amp;</span>[<span class="ruby-value">1</span>, <span class="ruby-value">2</span>].<span class="ruby-identifier">hex</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">'C'</span>) }.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-identifier">enc</span>)
+19:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-with_options"></a>
+            <b>with_options</b>(options)          
+        </div>
+
+                  <div class="description">
+            <p>
+An elegant way to factor duplication out of options passed to a series of
+method calls. Each method called in the block, with the block variable as
+the receiver, will have its options merged with the default
+<tt>options</tt> hash provided. Each method called on the block variable
+must take an options hash as its final argument.
+</p>
+<pre>
+  with_options :order =&gt; 'created_at', :class_name =&gt; 'Comment' do |post|
+    post.has_many :comments, :conditions =&gt; ['approved = ?', true], :dependent =&gt; :delete_all
+    post.has_many :unapproved_comments, :conditions =&gt; ['approved = ?', false]
+    post.has_many :all_comments
+  end
+</pre>
+<p>
+Can also be used with an explicit receiver:
+</p>
+<pre>
+  map.with_options :controller =&gt; &quot;people&quot; do |people|
+    people.connect &quot;/people&quot;,     :action =&gt; &quot;index&quot;
+    people.connect &quot;/people/:id&quot;, :action =&gt; &quot;show&quot;
+  end</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('with-options_source')"
+                 id="l_method-i-with_options_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="with-options_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/object/with_options.rb, line 23</span>
+23:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with_options</span>(<span class="ruby-identifier">options</span>)
+24:     <span class="ruby-keyword kw">yield</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">OptionMerger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>)
+25:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

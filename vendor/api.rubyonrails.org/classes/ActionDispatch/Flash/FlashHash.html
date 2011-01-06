@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionDispatch::Flash::FlashHash</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionDispatch::Flash::FlashHash</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/action_dispatch/middleware/flash_rb.html">actionpack/lib/action_dispatch/middleware/flash.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../../Hash.html">Hash</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-alert">alert</a></li>
+                <li><a href="#method-i-alert%3D">alert=</a></li>
+                <li><a href="#method-i-discard">discard</a></li>
+                <li><a href="#method-i-keep">keep</a></li>
+                <li><a href="#method-i-notice">notice</a></li>
+                <li><a href="#method-i-notice%3D">notice=</a></li>
+                <li><a href="#method-i-now">now</a></li>
+                <li><a href="#method-i-use">use</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-alert"></a>
+            <b>alert</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Convenience accessor for flash[:alert]
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('alert_source')"
+                 id="l_method-i-alert_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="alert_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 140</span>
+140:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">alert</span>
+141:         <span class="ruby-keyword kw">self</span>[<span class="ruby-value">:alert</span>]
+142:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-alert%3D"></a>
+            <b>alert=</b>(message)          
+        </div>
+
+                  <div class="description">
+            <p>
+Convenience accessor for flash[:alert]=
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('alert-_source')"
+                 id="l_method-i-alert%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="alert-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 145</span>
+145:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">alert=</span>(<span class="ruby-identifier">message</span>)
+146:         <span class="ruby-keyword kw">self</span>[<span class="ruby-value">:alert</span>] = <span class="ruby-identifier">message</span>
+147:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-discard"></a>
+            <b>discard</b>(k = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Marks the entire flash or a single flash entry to be discarded by the end
+of the current action:
+</p>
+<pre>
+    flash.discard              # discard the entire flash at the end of the current action
+    flash.discard(:warning)    # discard only the &quot;warning&quot; entry at the end of the current action</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('discard_source')"
+                 id="l_method-i-discard_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="discard_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 118</span>
+118:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">discard</span>(<span class="ruby-identifier">k</span> = <span class="ruby-keyword kw">nil</span>)
+119:         <span class="ruby-identifier">use</span>(<span class="ruby-identifier">k</span>)
+120:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-keep"></a>
+            <b>keep</b>(k = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Keeps either the entire current flash or a specific flash entry available
+for the next action:
+</p>
+<pre>
+   flash.keep            # keeps the entire flash
+   flash.keep(:notice)   # keeps only the &quot;notice&quot; entry, the rest of the flash is discarded</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('keep_source')"
+                 id="l_method-i-keep_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="keep_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 110</span>
+110:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">keep</span>(<span class="ruby-identifier">k</span> = <span class="ruby-keyword kw">nil</span>)
+111:         <span class="ruby-identifier">use</span>(<span class="ruby-identifier">k</span>, <span class="ruby-keyword kw">false</span>)
+112:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-notice"></a>
+            <b>notice</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Convenience accessor for flash[:notice]
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('notice_source')"
+                 id="l_method-i-notice_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="notice_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 150</span>
+150:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notice</span>
+151:         <span class="ruby-keyword kw">self</span>[<span class="ruby-value">:notice</span>]
+152:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-notice%3D"></a>
+            <b>notice=</b>(message)          
+        </div>
+
+                  <div class="description">
+            <p>
+Convenience accessor for flash[:notice]=
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('notice-_source')"
+                 id="l_method-i-notice%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="notice-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 155</span>
+155:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notice=</span>(<span class="ruby-identifier">message</span>)
+156:         <span class="ruby-keyword kw">self</span>[<span class="ruby-value">:notice</span>] = <span class="ruby-identifier">message</span>
+157:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-now"></a>
+            <b>now</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets a flash that will not be available to the next action, only to the
+current.
+</p>
+<pre>
+    flash.now[:message] = &quot;Hello current action&quot;
+</pre>
+<p>
+This method enables you to use the flash as a central messaging system in
+your app. When you need to pass an object to the next action, you use the
+standard flash assign (<tt>[]=</tt>). When you need to pass an object to
+the current action, you use <tt>now</tt>, and your object will vanish when
+the current action is done.
+</p>
+<p>
+Entries set via <tt>now</tt> are accessed the same way as standard entries:
+<tt>flash['my-key']</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('now_source')"
+                 id="l_method-i-now_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="now_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 102</span>
+102:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">now</span>
+103:         <span class="ruby-constant">FlashNow</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+104:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-use"></a>
+            <b>use</b>(key = nil, used = true)          
+        </div>
+
+                  <div class="description">
+            <p>
+Used internally by the <tt>keep</tt> and <tt>discard</tt> methods
+</p>
+<pre>
+    use()               # marks the entire flash as used
+    use('msg')          # marks the &quot;msg&quot; entry as used
+    use(nil, false)     # marks the entire flash as unused (keeps it around for one more action)
+    use('msg', false)   # marks the &quot;msg&quot; entry as unused (keeps it around for one more action)
+</pre>
+<p>
+Returns the single value for the key you asked to be marked (un)used or the
+<a href="FlashHash.html">FlashHash</a> itself if no key is passed.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('use_source')"
+                 id="l_method-i-use_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="use_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 167</span>
+167:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">use</span>(<span class="ruby-identifier">key</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">used</span> = <span class="ruby-keyword kw">true</span>)
+168:           <span class="ruby-constant">Array</span>(<span class="ruby-identifier">key</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">keys</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">used</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@used</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@used</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">k</span>) }
+169:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">key</span> <span class="ruby-operator">?</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">key</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword kw">self</span>
+170:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

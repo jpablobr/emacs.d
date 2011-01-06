@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveModel::Validator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveModel::Validator</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activemodel/lib/active_model/validator_rb.html">activemodel/lib/active_model/validator.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><h2>Active Model <a href="Validator.html">Validator</a></h2>
+<p>
+A simple base class that can be used along with <a
+href="Validations/ClassMethods.html#method-i-validates_with">ActiveModel::Validations::ClassMethods.validates_with</a>
+</p>
+<pre>
+  class Person
+    include ActiveModel::Validations
+    validates_with MyValidator
+  end
+
+  class MyValidator &lt; ActiveModel::Validator
+    def validate(record)
+      if some_complex_logic
+        record.errors[:base] = &quot;This record is invalid&quot;
+      end
+    end
+
+    private
+      def some_complex_logic
+        # ...
+      end
+  end
+</pre>
+<p>
+Any class that inherits from <a
+href="Validator.html">ActiveModel::Validator</a> must implement a method
+called <tt>validate</tt> which accepts a <tt>record</tt>.
+</p>
+<pre>
+  class Person
+    include ActiveModel::Validations
+    validates_with MyValidator
+  end
+
+  class MyValidator &lt; ActiveModel::Validator
+    def validate(record)
+      record # =&gt; The person instance being validated
+      options # =&gt; Any non-standard options passed to validates_with
+    end
+  end
+</pre>
+<p>
+To cause a validation error, you must add to the <tt>record</tt>&#8217;s
+errors directly from within the validators message
+</p>
+<pre>
+  class MyValidator &lt; ActiveModel::Validator
+    def validate(record)
+      record.errors[:base] &lt;&lt; &quot;This is some custom error message&quot;
+      record.errors[:first_name] &lt;&lt; &quot;This is some complex validation&quot;
+      # etc...
+    end
+  end
+</pre>
+<p>
+To add behavior to the initialize method, use the following signature:
+</p>
+<pre>
+  class MyValidator &lt; ActiveModel::Validator
+    def initialize(record, options)
+      super
+      @my_custom_field = options[:field_name] || :first_name
+    end
+  end
+</pre>
+<p>
+The easiest way to add custom validators for validating individual
+attributes is with the convenient <a
+href="EachValidator.html">ActiveModel::EachValidator</a> for example:
+</p>
+<pre>
+  class TitleValidator &lt; ActiveModel::EachValidator
+    def validate_each(record, attribute, value)
+      record.errors[attribute] &lt;&lt; 'must be Mr. Mrs. or Dr.' unless ['Mr.', 'Mrs.', 'Dr.'].include?(value)
+    end
+  end
+</pre>
+<p>
+This can now be used in combination with the <tt>validates</tt> method (see
+<a
+href="Validations/ClassMethods.html#method-i-validates">ActiveModel::Validations::ClassMethods.validates</a>
+for more on this)
+</p>
+<pre>
+  class Person
+    include ActiveModel::Validations
+    attr_accessor :title
+
+    validates :title, :presence =&gt; true, :title =&gt; true
+  end
+</pre>
+<p>
+<a href="Validator.html">Validator</a> may also define a <tt>setup</tt>
+instance method which will get called with the class that using that
+validator as it&#8217;s argument. This can be useful when there are
+prerequisites such as an attr_accessor being present for example:
+</p>
+<pre>
+  class MyValidator &lt; ActiveModel::Validator
+    def setup(klass)
+      klass.send :attr_accessor, :custom_attribute
+    end
+  end
+</pre>
+<p>
+This setup method is only called when used with validation macros or the
+class level <tt>validates_with</tt> method.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-c-kind">kind</a></li>
+                <li><a href="#method-i-kind">kind</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-validate">validate</a></li>
+      </ul>
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>options</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-kind"></a>
+            <b>kind</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the kind of the validator.
+</p>
+<h2>Examples</h2>
+<pre>
+  PresenceValidator.kind   # =&gt; :presence
+  UniquenessValidator.kind # =&gt; :uniqueness</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('kind_source')"
+                 id="l_method-c-kind_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="kind_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/validator.rb, line 108</span>
+108:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">kind</span>
+109:       <span class="ruby-ivar">@kind</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'::'</span>).<span class="ruby-identifier">last</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/_validator$/</span>, <span class="ruby-value str">''</span>).<span class="ruby-identifier">to_sym</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">anonymous?</span>
+110:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(options)          
+        </div>
+
+                  <div class="description">
+            <p>
+Accepts options that will be made available through the <tt>options</tt>
+reader.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/validator.rb, line 113</span>
+113:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>)
+114:       <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">freeze</span>
+115:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-kind"></a>
+            <b>kind</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Return the kind for this validator.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('kind_source')"
+                 id="l_method-i-kind_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="kind_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/validator.rb, line 118</span>
+118:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">kind</span>
+119:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">kind</span>
+120:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-validate"></a>
+            <b>validate</b>(record)          
+        </div>
+
+                  <div class="description">
+            <p>
+Override this method in subclasses with validation logic, adding errors to
+the records <tt>errors</tt> array where necessary.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('validate_source')"
+                 id="l_method-i-validate_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="validate_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/validator.rb, line 124</span>
+124:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate</span>(<span class="ruby-identifier">record</span>)
+125:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotImplementedError</span>
+126:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

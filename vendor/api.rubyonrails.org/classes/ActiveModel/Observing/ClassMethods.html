@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveModel::Observing::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveModel::Observing::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activemodel/lib/active_model/observing_rb.html">activemodel/lib/active_model/observing.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-add_observer">add_observer</a></li>
+                <li><a href="#method-i-count_observers">count_observers</a></li>
+                <li><a href="#method-i-inherited">inherited</a></li>
+                <li><a href="#method-i-instantiate_observers">instantiate_observers</a></li>
+                <li><a href="#method-i-notify_observers">notify_observers</a></li>
+                <li><a href="#method-i-observers">observers</a></li>
+                <li><a href="#method-i-observers%3D">observers=</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-add_observer"></a>
+            <b>add_observer</b>(observer)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('add-observer_source')"
+                 id="l_method-i-add_observer_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="add-observer_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/observing.rb, line 42</span>
+42:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_observer</span>(<span class="ruby-identifier">observer</span>)
+43:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">observer</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:update</span>
+44:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;observer needs to respond to `update'&quot;</span>
+45:         <span class="ruby-keyword kw">end</span>
+46:         <span class="ruby-ivar">@observer_instances</span> <span class="ruby-operator">||=</span> []
+47:         <span class="ruby-ivar">@observer_instances</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">observer</span>
+48:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-count_observers"></a>
+            <b>count_observers</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('count-observers_source')"
+                 id="l_method-i-count_observers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="count-observers_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/observing.rb, line 58</span>
+58:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">count_observers</span>
+59:         <span class="ruby-ivar">@observer_instances</span>.<span class="ruby-identifier">size</span>
+60:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-instantiate_observers"></a>
+            <b>instantiate_observers</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Instantiate the global Active Record observers.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('instantiate-observers_source')"
+                 id="l_method-i-instantiate_observers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="instantiate-observers_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/observing.rb, line 38</span>
+38:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instantiate_observers</span>
+39:         <span class="ruby-identifier">observers</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">instantiate_observer</span>(<span class="ruby-identifier">o</span>) }
+40:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-notify_observers"></a>
+            <b>notify_observers</b>(*arg)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('notify-observers_source')"
+                 id="l_method-i-notify_observers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="notify-observers_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/observing.rb, line 50</span>
+50:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notify_observers</span>(*<span class="ruby-identifier">arg</span>)
+51:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span> <span class="ruby-ivar">@observer_instances</span>
+52:           <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">observer</span> <span class="ruby-keyword kw">in</span> <span class="ruby-ivar">@observer_instances</span>
+53:             <span class="ruby-identifier">observer</span>.<span class="ruby-identifier">update</span>(*<span class="ruby-identifier">arg</span>)
+54:           <span class="ruby-keyword kw">end</span>
+55:         <span class="ruby-keyword kw">end</span>
+56:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-observers"></a>
+            <b>observers</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the current observers.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('observers_source')"
+                 id="l_method-i-observers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="observers_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/observing.rb, line 33</span>
+33:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">observers</span>
+34:         <span class="ruby-ivar">@observers</span> <span class="ruby-operator">||=</span> []
+35:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-observers%3D"></a>
+            <b>observers=</b>(*values)          
+        </div>
+
+                  <div class="description">
+            <h2>Active Model Observers Activation</h2>
+<p>
+Activates the observers assigned. Examples:
+</p>
+<pre>
+  # Calls PersonObserver.instance
+  ActiveRecord::Base.observers = :person_observer
+
+  # Calls Cacher.instance and GarbageCollector.instance
+  ActiveRecord::Base.observers = :cacher, :garbage_collector
+
+  # Same as above, just using explicit class references
+  ActiveRecord::Base.observers = Cacher, GarbageCollector
+</pre>
+<p>
+Note: Setting this does not instantiate the observers yet. <tt><a
+href="ClassMethods.html#method-i-instantiate_observers">instantiate_observers</a></tt>
+is called during startup, and before each development request.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('observers-_source')"
+                 id="l_method-i-observers%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="observers-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/observing.rb, line 28</span>
+28:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">observers=</span>(*<span class="ruby-identifier">values</span>)
+29:         <span class="ruby-ivar">@observers</span> = <span class="ruby-identifier">values</span>.<span class="ruby-identifier">flatten</span>
+30:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-inherited"></a>
+            <b>inherited</b>(subclass)          
+        </div>
+
+                  <div class="description">
+            <p>
+Notify observers when the observed class is subclassed.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('inherited_source')"
+                 id="l_method-i-inherited_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="inherited_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/observing.rb, line 75</span>
+75:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">subclass</span>)
+76:           <span class="ruby-keyword kw">super</span>
+77:           <span class="ruby-identifier">notify_observers</span> <span class="ruby-value">:observed_class_inherited</span>, <span class="ruby-identifier">subclass</span>
+78:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

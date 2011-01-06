@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionView::Context</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionView::Context</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_view/context_rb.html">actionpack/lib/action_view/context.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><h1>Action View <a href="Context.html">Context</a></h1>
+<p>
+Action View contexts are supplied to Action Controller to render template.
+The default Action View context is <a
+href="Base.html">ActionView::Base</a>.
+</p>
+<p>
+In order to work with ActionController, a <a
+href="Context.html">Context</a> must implement:
+</p>
+<p>
+Context#render_partial[options]
+</p>
+<pre>
+  - responsible for setting options[:_template]
+  - Returns String with the rendered partial
+  options&lt;Hash&gt;:: see _render_partial in ActionView::Base
+</pre>
+<p>
+Context#render_template[template, layout, options, partial]
+</p>
+<pre>
+  - Returns String with the rendered template
+  template&lt;ActionView::Template&gt;:: The template to render
+  layout&lt;ActionView::Template&gt;:: The layout to render around the template
+  options&lt;Hash&gt;:: See _render_template_with_layout in ActionView::Base
+  partial&lt;Boolean&gt;:: Whether or not the template to render is a partial
+</pre>
+<p>
+An Action View context can also mix in Action View&#8217;s helpers. In
+order to mix in helpers, a context must implement:
+</p>
+<p>
+Context#controller
+</p>
+<ul>
+<li><p>
+Returns an instance of <a
+href="../AbstractController.html">AbstractController</a>
+</p>
+</li>
+</ul>
+<p>
+In any case, a context must mix in <a
+href="Context.html">ActionView::Context</a>, which stores compiled template
+and provides the output buffer.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-convert_to_model">convert_to_model</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          CompiledTemplates      </li>
+</ul>
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>output_buffer</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-convert_to_model"></a>
+            <b>convert_to_model</b>(object)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('convert-to-model_source')"
+                 id="l_method-i-convert_to_model_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="convert-to-model_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_view/context.rb, line 35</span>
+35:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_to_model</span>(<span class="ruby-identifier">object</span>)
+36:       <span class="ruby-identifier">object</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_model</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">to_model</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">object</span>
+37:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

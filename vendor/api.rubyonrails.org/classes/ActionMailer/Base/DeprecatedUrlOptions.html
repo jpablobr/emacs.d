@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionMailer::Base::DeprecatedUrlOptions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionMailer::Base::DeprecatedUrlOptions</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionmailer/lib/action_mailer/base_rb.html">actionmailer/lib/action_mailer/base.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-default_url_options">default_url_options</a></li>
+                <li><a href="#method-i-default_url_options%3D">default_url_options=</a></li>
+                <li><a href="#method-i-deprecated_url_options">deprecated_url_options</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-default_url_options"></a>
+            <b>default_url_options</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('default-url-options_source')"
+                 id="l_method-i-default_url_options_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="default-url-options_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionmailer/lib/action_mailer/base.rb, line 751</span>
+751:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_url_options</span>
+752:         <span class="ruby-identifier">deprecated_url_options</span>
+753:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-default_url_options%3D"></a>
+            <b>default_url_options=</b>(val)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('default-url-options-_source')"
+                 id="l_method-i-default_url_options%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="default-url-options-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionmailer/lib/action_mailer/base.rb, line 755</span>
+755:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_url_options=</span>(<span class="ruby-identifier">val</span>)
+756:         <span class="ruby-identifier">deprecated_url_options</span>
+757:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-deprecated_url_options"></a>
+            <b>deprecated_url_options</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('deprecated-url-options_source')"
+                 id="l_method-i-deprecated_url_options_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="deprecated-url-options_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionmailer/lib/action_mailer/base.rb, line 759</span>
+759:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deprecated_url_options</span>
+760:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;You can no longer call ActionMailer::Base.default_url_options &quot;</span>                <span class="ruby-value str">&quot;directly. You need to set config.action_mailer.default_url_options. &quot;</span>                <span class="ruby-value str">&quot;If you are using ActionMailer standalone, you need to include the &quot;</span>                <span class="ruby-value str">&quot;routing url_helpers directly.&quot;</span>
+761:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: BigDecimal</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />BigDecimal</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../files/activesupport/lib/active_support/json/encoding_rb.html">activesupport/lib/active_support/json/encoding.rb</a>:
+<a href="../files/activesupport/lib/active_support/core_ext/big_decimal/conversions_rb.html">activesupport/lib/active_support/core_ext/big_decimal/conversions.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                      <li><a href="#method-i-as_json">as_json</a></li>
+                <li><a href="#method-i-to_formatted_s">to_formatted_s</a></li>
+                      <li><a href="#method-i-to_yaml">to_yaml</a></li>
+      </ul>
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">YAML_TAG</td>
+    <td>=</td>
+    <td class="attr-value">'tag:yaml.org,2002:float'</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">YAML_MAPPING</td>
+    <td>=</td>
+    <td class="attr-value">{ 'Infinity' => '.Inf', '-Infinity' => '-.Inf', 'NaN' => '.NaN' }</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">DEFAULT_STRING_FORMAT</td>
+    <td>=</td>
+    <td class="attr-value">'F'</td>
+  </tr>
+  </table>
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-as_json"></a>
+            <b>as_json</b>(options = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+A <a href="BigDecimal.html">BigDecimal</a> would be naturally represented
+as a JSON number. Most libraries, however, parse non-integer JSON numbers
+directly as floats. Clients using those libraries would get in general a
+wrong number and no way to recover other than manually inspecting the
+string with the JSON code itself.
+</p>
+<p>
+That&#8217;s why a JSON string is returned. The JSON literal is not
+numeric, but if the other end knows by contract that the data is supposed
+to be a <a href="BigDecimal.html">BigDecimal</a>, it still has the chance
+to post-process the string and get the real value.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('as-json_source')"
+                 id="l_method-i-as_json_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="as-json_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/json/encoding.rb, line 194</span>
+194:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">as_json</span>(<span class="ruby-identifier">options</span> = <span class="ruby-keyword kw">nil</span>) <span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_formatted_s"></a>
+            <b>to_formatted_s</b>(format = DEFAULT_STRING_FORMAT)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="BigDecimal.html#method-i-to_s">to_s</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to-formatted-s_source')"
+                 id="l_method-i-to_formatted_s_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to-formatted-s_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/big_decimal/conversions.rb, line 22</span>
+22:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_formatted_s</span>(<span class="ruby-identifier">format</span> = <span class="ruby-constant">DEFAULT_STRING_FORMAT</span>)
+23:     <span class="ruby-identifier">_original_to_s</span>(<span class="ruby-identifier">format</span>)
+24:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_yaml"></a>
+            <b>to_yaml</b>(opts = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+This emits the number without any scientific notation. This is better than
+self.to_f.to_s since it doesn&#8217;t lose precision.
+</p>
+<p>
+Note that reconstituting YAML floats to native floats may lose precision.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to-yaml_source')"
+                 id="l_method-i-to_yaml_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to-yaml_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/big_decimal/conversions.rb, line 14</span>
+14:   <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_yaml</span>(<span class="ruby-identifier">opts</span> = {})
+15:     <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">quick_emit</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">opts</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">out</span><span class="ruby-operator">|</span>
+16:       <span class="ruby-identifier">string</span> = <span class="ruby-identifier">to_s</span>
+17:       <span class="ruby-identifier">out</span>.<span class="ruby-identifier">scalar</span>(<span class="ruby-constant">YAML_TAG</span>, <span class="ruby-constant">YAML_MAPPING</span>[<span class="ruby-identifier">string</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">string</span>, <span class="ruby-value">:plain</span>)
+18:     <span class="ruby-keyword kw">end</span>
+19:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

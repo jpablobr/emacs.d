@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveResource::Response</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveResource::Response</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activeresource/lib/active_resource/http_mock_rb.html">activeresource/lib/active_resource/http_mock.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-%3D%3D">==</a></li>
+                <li><a href="#method-i-%5B%5D">[]</a></li>
+                <li><a href="#method-i-%5B%5D%3D">[]=</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-success%3F">success?</a></li>
+      </ul>
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>body</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>message</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>code</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>headers</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(body, message = 200, headers = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/http_mock.rb, line 256</span>
+256:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">message</span> = <span class="ruby-value">200</span>, <span class="ruby-identifier">headers</span> = {})
+257:       <span class="ruby-ivar">@body</span>, <span class="ruby-ivar">@message</span>, <span class="ruby-ivar">@headers</span> = <span class="ruby-identifier">body</span>, <span class="ruby-identifier">message</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">headers</span>
+258:       <span class="ruby-ivar">@code</span> = <span class="ruby-ivar">@message</span>[<span class="ruby-value">0</span>,<span class="ruby-value">3</span>].<span class="ruby-identifier">to_i</span>
+259: 
+260:       <span class="ruby-identifier">resp_cls</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPResponse</span><span class="ruby-operator">::</span><span class="ruby-constant">CODE_TO_OBJ</span>[<span class="ruby-ivar">@code</span>.<span class="ruby-identifier">to_s</span>]
+261:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">resp_cls</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">resp_cls</span>.<span class="ruby-identifier">body_permitted?</span>
+262:         <span class="ruby-ivar">@body</span> = <span class="ruby-keyword kw">nil</span>
+263:       <span class="ruby-keyword kw">end</span>
+264: 
+265:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">nil?</span>
+266:         <span class="ruby-keyword kw">self</span>[<span class="ruby-value str">'Content-Length'</span>] = <span class="ruby-value str">&quot;0&quot;</span>
+267:       <span class="ruby-keyword kw">else</span>
+268:         <span class="ruby-keyword kw">self</span>[<span class="ruby-value str">'Content-Length'</span>] = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">size</span>.<span class="ruby-identifier">to_s</span>
+269:       <span class="ruby-keyword kw">end</span>
+270:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-%3D%3D"></a>
+            <b>==</b>(other)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-i-%3D%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/http_mock.rb, line 284</span>
+284:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">other</span>)
+285:       <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Response</span>))
+286:         <span class="ruby-identifier">other</span>.<span class="ruby-identifier">body</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">body</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">message</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">message</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">headers</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">headers</span>
+287:       <span class="ruby-keyword kw">else</span>
+288:         <span class="ruby-keyword kw">false</span>
+289:       <span class="ruby-keyword kw">end</span>
+290:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-%5B%5D"></a>
+            <b>[]</b>(key)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-i-%5B%5D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/http_mock.rb, line 276</span>
+276:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
+277:       <span class="ruby-identifier">headers</span>[<span class="ruby-identifier">key</span>]
+278:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-%5B%5D%3D"></a>
+            <b>[]=</b>(key, value)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-i-%5B%5D%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/http_mock.rb, line 280</span>
+280:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+281:       <span class="ruby-identifier">headers</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">value</span>
+282:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-success%3F"></a>
+            <b>success?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('success-_source')"
+                 id="l_method-i-success%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="success-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/http_mock.rb, line 272</span>
+272:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">success?</span>
+273:       (<span class="ruby-value">200</span><span class="ruby-operator">..</span><span class="ruby-value">299</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">code</span>)
+274:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

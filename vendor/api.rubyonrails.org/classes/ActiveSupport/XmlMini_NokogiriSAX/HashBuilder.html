@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveSupport::XmlMini_NokogiriSAX::HashBuilder</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveSupport::XmlMini_NokogiriSAX::HashBuilder</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activesupport/lib/active_support/xml_mini/nokogirisax_rb.html">activesupport/lib/active_support/xml_mini/nokogirisax.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      Nokogiri::XML::SAX::Document         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+Class that will build the hash while the XML document is being parsed using
+SAX events.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                      <li><a href="#method-i-characters">characters</a></li>
+                <li><a href="#method-i-current_hash">current_hash</a></li>
+                <li><a href="#method-i-end_document">end_document</a></li>
+                <li><a href="#method-i-end_element">end_element</a></li>
+                <li><a href="#method-i-error">error</a></li>
+                <li><a href="#method-i-start_document">start_document</a></li>
+                <li><a href="#method-i-start_element">start_element</a></li>
+      </ul>
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">CONTENT_KEY</td>
+    <td>=</td>
+    <td class="attr-value">'__content__'.freeze</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">HASH_SIZE_KEY</td>
+    <td>=</td>
+    <td class="attr-value">'__hash_size__'.freeze</td>
+  </tr>
+  </table>
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>hash</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-characters"></a>
+            <b>characters</b>(string)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="HashBuilder.html#method-i-cdata_block">cdata_block</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('characters_source')"
+                 id="l_method-i-characters_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="characters_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini/nokogirisax.rb, line 61</span>
+61:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">characters</span>(<span class="ruby-identifier">string</span>)
+62:         <span class="ruby-identifier">current_hash</span>[<span class="ruby-constant">CONTENT_KEY</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">string</span>
+63:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-current_hash"></a>
+            <b>current_hash</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('current-hash_source')"
+                 id="l_method-i-current_hash_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="current-hash_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini/nokogirisax.rb, line 23</span>
+23:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">current_hash</span>
+24:         <span class="ruby-ivar">@hash_stack</span>.<span class="ruby-identifier">last</span>
+25:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-end_document"></a>
+            <b>end_document</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('end-document_source')"
+                 id="l_method-i-end_document_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="end-document_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini/nokogirisax.rb, line 32</span>
+32:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">end_document</span>
+33:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Parse stack not empty!&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@hash_stack</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+34:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-end_element"></a>
+            <b>end_element</b>(name)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('end-element_source')"
+                 id="l_method-i-end_element_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="end-element_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini/nokogirisax.rb, line 54</span>
+54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">end_element</span>(<span class="ruby-identifier">name</span>)
+55:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">current_hash</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">current_hash</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-constant">HASH_SIZE_KEY</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">current_hash</span>[<span class="ruby-constant">CONTENT_KEY</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">current_hash</span>[<span class="ruby-constant">CONTENT_KEY</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">''</span>
+56:           <span class="ruby-identifier">current_hash</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-constant">CONTENT_KEY</span>)
+57:         <span class="ruby-keyword kw">end</span>
+58:         <span class="ruby-ivar">@hash_stack</span>.<span class="ruby-identifier">pop</span>
+59:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-error"></a>
+            <b>error</b>(error_message)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('error_source')"
+                 id="l_method-i-error_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="error_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini/nokogirisax.rb, line 36</span>
+36:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">error</span>(<span class="ruby-identifier">error_message</span>)
+37:         <span class="ruby-identifier">raise</span> <span class="ruby-identifier">error_message</span>
+38:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-start_document"></a>
+            <b>start_document</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('start-document_source')"
+                 id="l_method-i-start_document_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="start-document_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini/nokogirisax.rb, line 27</span>
+27:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start_document</span>
+28:         <span class="ruby-ivar">@hash</span> = {}
+29:         <span class="ruby-ivar">@hash_stack</span> = [<span class="ruby-ivar">@hash</span>]
+30:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-start_element"></a>
+            <b>start_element</b>(name, attrs = [])          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('start-element_source')"
+                 id="l_method-i-start_element_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="start-element_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini/nokogirisax.rb, line 40</span>
+40:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start_element</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">attrs</span> = [])
+41:         <span class="ruby-identifier">new_hash</span> = { <span class="ruby-constant">CONTENT_KEY</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">''</span> }
+42:         <span class="ruby-identifier">new_hash</span>[<span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">shift</span>] = <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+43:         <span class="ruby-identifier">new_hash</span>[<span class="ruby-constant">HASH_SIZE_KEY</span>] = <span class="ruby-identifier">new_hash</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+44: 
+45:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">current_hash</span>[<span class="ruby-identifier">name</span>]
+46:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">current_hash</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">new_hash</span>
+47:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>  <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">current_hash</span>[<span class="ruby-identifier">name</span>] = [<span class="ruby-identifier">current_hash</span>[<span class="ruby-identifier">name</span>], <span class="ruby-identifier">new_hash</span>]
+48:           <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">current_hash</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">new_hash</span>
+49:         <span class="ruby-keyword kw">end</span>
+50: 
+51:         <span class="ruby-ivar">@hash_stack</span>.<span class="ruby-identifier">push</span>(<span class="ruby-identifier">new_hash</span>)
+52:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

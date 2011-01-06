@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionView::LogSubscriber</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionView::LogSubscriber</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_view/log_subscriber_rb.html">actionpack/lib/action_view/log_subscriber.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../ActiveSupport/LogSubscriber.html">ActiveSupport::LogSubscriber</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><h1>Action View Log Subscriber</h1>
+<p>
+Provides functionality so that <a href="../Rails.html">Rails</a> can output
+logs from Action View.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-from_rails_root">from_rails_root</a></li>
+                <li><a href="#method-i-logger">logger</a></li>
+                            <li><a href="#method-i-render_template">render_template</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-logger"></a>
+            <b>logger</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+TODO: Ideally, ActionView should have its own logger so it does not depend
+on AC.logger
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('logger_source')"
+                 id="l_method-i-logger_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="logger_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_view/log_subscriber.rb, line 16</span>
+16:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logger</span>
+17:       <span class="ruby-constant">ActionController</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">logger</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">ActionController</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>)
+18:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-render_template"></a>
+            <b>render_template</b>(event)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="LogSubscriber.html#method-i-render_partial">render_partial</a>                          <a href="LogSubscriber.html#method-i-render_collection">render_collection</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('render-template_source')"
+                 id="l_method-i-render_template_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="render-template_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_view/log_subscriber.rb, line 6</span>
+ 6:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render_template</span>(<span class="ruby-identifier">event</span>)
+ 7:       <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;Rendered #{from_rails_root(event.payload[:identifier])}&quot;</span>
+ 8:       <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; within #{from_rails_root(event.payload[:layout])}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">event</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:layout</span>]
+ 9:       <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-value str">&quot; (%.1fms)&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">event</span>.<span class="ruby-identifier">duration</span>)
+10:       <span class="ruby-identifier">info</span>(<span class="ruby-identifier">message</span>)
+11:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-from_rails_root"></a>
+            <b>from_rails_root</b>(string)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('from-rails-root_source')"
+                 id="l_method-i-from_rails_root_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="from-rails-root_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_view/log_subscriber.rb, line 22</span>
+22:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">from_rails_root</span>(<span class="ruby-identifier">string</span>)
+23:       <span class="ruby-identifier">string</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-node">&quot;#{Rails.root}/&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>).<span class="ruby-identifier">sub</span>(<span class="ruby-regexp re">/^app\/views\//</span>, <span class="ruby-value str">&quot;&quot;</span>)
+24:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

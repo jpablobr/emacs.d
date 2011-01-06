@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: Rails</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />Rails</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../files/railties/lib/rails/generators_rb.html">railties/lib/rails/generators.rb</a>:
+<a href="../files/railties/lib/rails/engine/configuration_rb.html">railties/lib/rails/engine/configuration.rb</a>:
+<a href="../files/railties/lib/rails/engine/configurable_rb.html">railties/lib/rails/engine/configurable.rb</a>:
+<a href="../files/railties/lib/rails/initializable_rb.html">railties/lib/rails/initializable.rb</a>:
+<a href="../files/railties/lib/rails/plugin_rb.html">railties/lib/rails/plugin.rb</a>:
+<a href="../files/railties/lib/rails/commands/console_rb.html">railties/lib/rails/commands/console.rb</a>:
+<a href="../files/railties/lib/rails/commands/dbconsole_rb.html">railties/lib/rails/commands/dbconsole.rb</a>:
+<a href="../files/railties/lib/rails/commands/server_rb.html">railties/lib/rails/commands/server.rb</a>:
+<a href="../files/railties/lib/rails/paths_rb.html">railties/lib/rails/paths.rb</a>:
+<a href="../files/railties/lib/rails/configuration_rb.html">railties/lib/rails/configuration.rb</a>:
+<a href="../files/railties/lib/rails/application_rb.html">railties/lib/rails/application.rb</a>:
+<a href="../files/railties/lib/rails/rack/debugger_rb.html">railties/lib/rails/rack/debugger.rb</a>:
+<a href="../files/railties/lib/rails/rack/logger_rb.html">railties/lib/rails/rack/logger.rb</a>:
+<a href="../files/railties/lib/rails/rack/log_tailer_rb.html">railties/lib/rails/rack/log_tailer.rb</a>:
+<a href="../files/railties/lib/rails/deprecation_rb.html">railties/lib/rails/deprecation.rb</a>:
+<a href="../files/railties/lib/rails/test_unit/railtie_rb.html">railties/lib/rails/test_unit/railtie.rb</a>:
+<a href="../files/railties/lib/rails/railtie/configuration_rb.html">railties/lib/rails/railtie/configuration.rb</a>:
+<a href="../files/railties/lib/rails/railtie/configurable_rb.html">railties/lib/rails/railtie/configurable.rb</a>:
+<a href="../files/railties/lib/rails/script_rails_loader_rb.html">railties/lib/rails/script_rails_loader.rb</a>:
+<a href="../files/railties/lib/rails/backtrace_cleaner_rb.html">railties/lib/rails/backtrace_cleaner.rb</a>:
+<a href="../files/railties/lib/rails/info_rb.html">railties/lib/rails/info.rb</a>:
+<a href="../files/railties/lib/rails/generators/actions_rb.html">railties/lib/rails/generators/actions.rb</a>:
+<a href="../files/railties/lib/rails/generators/migration_rb.html">railties/lib/rails/generators/migration.rb</a>:
+<a href="../files/railties/lib/rails/generators/active_model_rb.html">railties/lib/rails/generators/active_model.rb</a>:
+<a href="../files/railties/lib/rails/generators/resource_helpers_rb.html">railties/lib/rails/generators/resource_helpers.rb</a>:
+<a href="../files/railties/lib/rails/generators/test_case_rb.html">railties/lib/rails/generators/test_case.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/stylesheets/stylesheets_generator_rb.html">railties/lib/rails/generators/rails/stylesheets/stylesheets_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/model/model_generator_rb.html">railties/lib/rails/generators/rails/model/model_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/app/app_generator_rb.html">railties/lib/rails/generators/rails/app/app_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/helper/helper_generator_rb.html">railties/lib/rails/generators/rails/helper/helper_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/controller/controller_generator_rb.html">railties/lib/rails/generators/rails/controller/controller_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/resource/resource_generator_rb.html">railties/lib/rails/generators/rails/resource/resource_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/plugin/plugin_generator_rb.html">railties/lib/rails/generators/rails/plugin/plugin_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/observer/observer_generator_rb.html">railties/lib/rails/generators/rails/observer/observer_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/scaffold_controller/scaffold_controller_generator_rb.html">railties/lib/rails/generators/rails/scaffold_controller/scaffold_controller_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/integration_test/integration_test_generator_rb.html">railties/lib/rails/generators/rails/integration_test/integration_test_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/migration/migration_generator_rb.html">railties/lib/rails/generators/rails/migration/migration_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/session_migration/session_migration_generator_rb.html">railties/lib/rails/generators/rails/session_migration/session_migration_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/scaffold/scaffold_generator_rb.html">railties/lib/rails/generators/rails/scaffold/scaffold_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/generator/generator_generator_rb.html">railties/lib/rails/generators/rails/generator/generator_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/rails/performance_test/performance_test_generator_rb.html">railties/lib/rails/generators/rails/performance_test/performance_test_generator.rb</a>:
+<a href="../files/railties/lib/rails/generators/named_base_rb.html">railties/lib/rails/generators/named_base.rb</a>:
+<a href="../files/railties/lib/rails/generators/generated_attribute_rb.html">railties/lib/rails/generators/generated_attribute.rb</a>:
+<a href="../files/railties/lib/rails/generators/base_rb.html">railties/lib/rails/generators/base.rb</a>:
+<a href="../files/railties/lib/rails/railtie_rb.html">railties/lib/rails/railtie.rb</a>:
+<a href="../files/railties/lib/rails/rack_rb.html">railties/lib/rails/rack.rb</a>:
+<a href="../files/railties/lib/rails/version_rb.html">railties/lib/rails/version.rb</a>:
+<a href="../files/railties/lib/rails/application/finisher_rb.html">railties/lib/rails/application/finisher.rb</a>:
+<a href="../files/railties/lib/rails/application/configuration_rb.html">railties/lib/rails/application/configuration.rb</a>:
+<a href="../files/railties/lib/rails/application/bootstrap_rb.html">railties/lib/rails/application/bootstrap.rb</a>:
+<a href="../files/railties/lib/rails/application/configurable_rb.html">railties/lib/rails/application/configurable.rb</a>:
+<a href="../files/railties/lib/rails/application/railties_rb.html">railties/lib/rails/application/railties.rb</a>:
+<a href="../files/railties/lib/rails/engine_rb.html">railties/lib/rails/engine.rb</a>:
+<a href="../files/railties/lib/rails_rb.html">railties/lib/rails.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-c-application">application</a></li>
+                <li><a href="#method-c-application%3D">application=</a></li>
+                <li><a href="#method-c-backtrace_cleaner">backtrace_cleaner</a></li>
+                <li><a href="#method-c-cache">cache</a></li>
+                <li><a href="#method-c-configuration">configuration</a></li>
+                <li><a href="#method-c-env">env</a></li>
+                <li><a href="#method-c-env%3D">env=</a></li>
+                <li><a href="#method-c-initialize%21">initialize!</a></li>
+                <li><a href="#method-c-initialized%3D">initialized=</a></li>
+                <li><a href="#method-c-initialized%3F">initialized?</a></li>
+                <li><a href="#method-c-logger">logger</a></li>
+                <li><a href="#method-c-logger%3D">logger=</a></li>
+                <li><a href="#method-c-public_path">public_path</a></li>
+                <li><a href="#method-c-public_path%3D">public_path=</a></li>
+                <li><a href="#method-c-root">root</a></li>
+                <li><a href="#method-c-version">version</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-application"></a>
+            <b>application</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('application_source')"
+                 id="l_method-c-application_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="application_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 34</span>
+34:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">application</span>
+35:       <span class="ruby-identifier">@@application</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">nil</span>
+36:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-application%3D"></a>
+            <b>application=</b>(application)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('application-_source')"
+                 id="l_method-c-application%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="application-_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 38</span>
+38:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">application=</span>(<span class="ruby-identifier">application</span>)
+39:       <span class="ruby-identifier">@@application</span> = <span class="ruby-identifier">application</span>
+40:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-backtrace_cleaner"></a>
+            <b>backtrace_cleaner</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('backtrace-cleaner_source')"
+                 id="l_method-c-backtrace_cleaner_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="backtrace-cleaner_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 67</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">backtrace_cleaner</span>
+68:       <span class="ruby-identifier">@@backtrace_cleaner</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">begin</span>
+69:         <span class="ruby-comment cmt"># Relies on Active Support, so we have to lazy load to postpone definition until AS has been loaded</span>
+70:         <span class="ruby-identifier">require</span> <span class="ruby-value str">'rails/backtrace_cleaner'</span>
+71:         <span class="ruby-constant">Rails</span><span class="ruby-operator">::</span><span class="ruby-constant">BacktraceCleaner</span>.<span class="ruby-identifier">new</span>
+72:       <span class="ruby-keyword kw">end</span>
+73:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-cache"></a>
+            <b>cache</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('cache_source')"
+                 id="l_method-c-cache_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="cache_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 87</span>
+87:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cache</span>
+88:       <span class="ruby-constant">RAILS_CACHE</span>
+89:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-configuration"></a>
+            <b>configuration</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+The <a href="Rails/Configuration.html">Configuration</a> instance used to
+configure the <a href="Rails.html">Rails</a> environment
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('configuration_source')"
+                 id="l_method-c-configuration_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="configuration_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 43</span>
+43:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">configuration</span>
+44:       <span class="ruby-identifier">application</span>.<span class="ruby-identifier">config</span>
+45:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-env"></a>
+            <b>env</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('env_source')"
+                 id="l_method-c-env_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="env_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 79</span>
+79:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">env</span>
+80:       <span class="ruby-ivar">@_env</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">StringInquirer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;RAILS_ENV&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;RACK_ENV&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;development&quot;</span>)
+81:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-env%3D"></a>
+            <b>env=</b>(environment)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('env-_source')"
+                 id="l_method-c-env%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="env-_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 83</span>
+83:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">env=</span>(<span class="ruby-identifier">environment</span>)
+84:       <span class="ruby-ivar">@_env</span> = <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">StringInquirer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">environment</span>)
+85:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-initialize%21"></a>
+            <b>initialize!</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('initialize-_source')"
+                 id="l_method-c-initialize%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="initialize-_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 47</span>
+47:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize!</span>
+48:       <span class="ruby-identifier">application</span>.<span class="ruby-identifier">initialize!</span>
+49:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-initialized%3D"></a>
+            <b>initialized=</b>(initialized)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('initialized-_source')"
+                 id="l_method-c-initialized%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="initialized-_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 55</span>
+55:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialized=</span>(<span class="ruby-identifier">initialized</span>)
+56:       <span class="ruby-identifier">@@initialized</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">initialized</span>
+57:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-initialized%3F"></a>
+            <b>initialized?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('initialized-_source')"
+                 id="l_method-c-initialized%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="initialized-_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 51</span>
+51:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialized?</span>
+52:       <span class="ruby-identifier">@@initialized</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">false</span>
+53:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-logger"></a>
+            <b>logger</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('logger_source')"
+                 id="l_method-c-logger_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="logger_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 59</span>
+59:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logger</span>
+60:       <span class="ruby-identifier">@@logger</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">nil</span>
+61:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-logger%3D"></a>
+            <b>logger=</b>(logger)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('logger-_source')"
+                 id="l_method-c-logger%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="logger-_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 63</span>
+63:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logger=</span>(<span class="ruby-identifier">logger</span>)
+64:       <span class="ruby-identifier">@@logger</span> = <span class="ruby-identifier">logger</span>
+65:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-public_path"></a>
+            <b>public_path</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('public-path_source')"
+                 id="l_method-c-public_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="public-path_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 95</span>
+95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">public_path</span>
+96:       <span class="ruby-identifier">application</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">application</span>.<span class="ruby-identifier">paths</span>.<span class="ruby-identifier">public</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">first</span>
+97:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-public_path%3D"></a>
+            <b>public_path=</b>(path)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('public-path-_source')"
+                 id="l_method-c-public_path%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="public-path-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 99</span>
+ 99:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">public_path=</span>(<span class="ruby-identifier">path</span>)
+100:       <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;Setting Rails.public_path= is deprecated. &quot;</span> <span class="ruby-operator">&lt;&lt;</span>
+101:         <span class="ruby-value str">&quot;Please set paths.public = in config/application.rb instead.&quot;</span>, <span class="ruby-identifier">caller</span>
+102:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-root"></a>
+            <b>root</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('root_source')"
+                 id="l_method-c-root_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="root_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 75</span>
+75:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">root</span>
+76:       <span class="ruby-identifier">application</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">application</span>.<span class="ruby-identifier">config</span>.<span class="ruby-identifier">root</span>
+77:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-version"></a>
+            <b>version</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('version_source')"
+                 id="l_method-c-version_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="version_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails.rb, line 91</span>
+91:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">version</span>
+92:       <span class="ruby-constant">VERSION</span><span class="ruby-operator">::</span><span class="ruby-constant">STRING</span>
+93:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                              </div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveSupport::Notifications::Event</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveSupport::Notifications::Event</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activesupport/lib/active_support/notifications/instrumenter_rb.html">activesupport/lib/active_support/notifications/instrumenter.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-parent_of%3F">parent_of?</a></li>
+      </ul>
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>name</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>time</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>end</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>transaction_id</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>payload</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>duration</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(name, start, ending, transaction_id, payload)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/notifications/instrumenter.rb, line 39</span>
+39:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">start</span>, <span class="ruby-identifier">ending</span>, <span class="ruby-identifier">transaction_id</span>, <span class="ruby-identifier">payload</span>)
+40:         <span class="ruby-ivar">@name</span>           = <span class="ruby-identifier">name</span>
+41:         <span class="ruby-ivar">@payload</span>        = <span class="ruby-identifier">payload</span>.<span class="ruby-identifier">dup</span>
+42:         <span class="ruby-ivar">@time</span>           = <span class="ruby-identifier">start</span>
+43:         <span class="ruby-ivar">@transaction_id</span> = <span class="ruby-identifier">transaction_id</span>
+44:         <span class="ruby-ivar">@end</span>            = <span class="ruby-identifier">ending</span>
+45:         <span class="ruby-ivar">@duration</span>       = <span class="ruby-value">1000.0</span> * (<span class="ruby-ivar">@end</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@time</span>)
+46:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-parent_of%3F"></a>
+            <b>parent_of?</b>(event)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('parent-of-_source')"
+                 id="l_method-i-parent_of%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="parent-of-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/notifications/instrumenter.rb, line 48</span>
+48:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parent_of?</span>(<span class="ruby-identifier">event</span>)
+49:         <span class="ruby-identifier">start</span> = (<span class="ruby-identifier">time</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">event</span>.<span class="ruby-identifier">time</span>) * <span class="ruby-value">1000</span>
+50:         <span class="ruby-identifier">start</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">start</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">duration</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">event</span>.<span class="ruby-identifier">duration</span>)
+51:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

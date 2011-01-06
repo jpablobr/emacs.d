@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionController::TestCase</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionController::TestCase</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/railties/lib/rails/test_help_rb.html">railties/lib/rails/test_help.rb</a>:
+<a href="../../files/actionpack/lib/action_controller/test_case_rb.html">actionpack/lib/action_controller/test_case.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../ActiveSupport/TestCase.html">ActiveSupport::TestCase</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+Superclass for ActionController functional tests. Functional tests allow
+you to test a single controller action per test method. This should not be
+confused with integration tests (see <a
+href="../ActionDispatch/IntegrationTest.html">ActionController::IntegrationTest</a>),
+which are more like &#8220;stories&#8221; that can involve multiple
+controllers and multiple actions (i.e. multiple different HTTP requests).
+</p>
+<h2>Basic example</h2>
+<p>
+Functional tests are written as follows:
+</p>
+<ol>
+<li><p>
+First, one uses the <tt>get</tt>, <tt>post</tt>, <tt>put</tt>,
+<tt>delete</tt> or <tt>head</tt> method to simulate an HTTP request.
+</p>
+</li>
+<li><p>
+Then, one asserts whether the current state is as expected.
+&#8220;State&#8221; can be anything: the controller&#8217;s HTTP response,
+the database contents, etc.
+</p>
+</li>
+</ol>
+<p>
+For example:
+</p>
+<pre>
+  class BooksControllerTest &lt; ActionController::TestCase
+    def test_create
+      # Simulate a POST response with the given HTTP parameters.
+      post(:create, :book =&gt; { :title =&gt; &quot;Love Hina&quot; })
+
+      # Assert that the controller tried to redirect us to
+      # the created book's URI.
+      assert_response :found
+
+      # Assert that the controller really put the book in the database.
+      assert_not_nil Book.find_by_title(&quot;Love Hina&quot;)
+    end
+  end
+</pre>
+<h2>Special instance variables</h2>
+<p>
+<a href="TestCase.html">ActionController::TestCase</a> will also
+automatically provide the following instance variables for use in the
+tests:
+</p>
+<table>
+<tr><td valign="top"><b>@controller</b></td><td><p>
+The controller instance that will be tested.
+</p>
+</td></tr>
+<tr><td valign="top"><b>@request</b></td><td><p>
+An ActionController::TestRequest, representing the current HTTP request.
+You can modify this object before sending the HTTP request. For example,
+you might want to set some session properties before sending a GET request.
+</p>
+</td></tr>
+<tr><td valign="top"><b>@response</b></td><td><p>
+An <a href="TestResponse.html">ActionController::TestResponse</a> object,
+representing the response of the last HTTP response. In the above example,
+<tt>@response</tt> becomes valid after calling <tt>post</tt>. If the
+various assert methods are not sufficient, then you may use this object to
+inspect the HTTP response in detail.
+</p>
+</td></tr>
+</table>
+<p>
+(Earlier versions of <a href="../Rails.html">Rails</a> required each
+functional test to subclass Test::Unit::TestCase and define @controller,
+@request, @response in <tt>setup</tt>.)
+</p>
+<h2>Controller is automatically inferred</h2>
+<p>
+<a href="TestCase.html">ActionController::TestCase</a> will automatically
+infer the controller under test from the test class name. If the controller
+cannot be inferred from the test class name, you can explicitly set it with
+<tt>tests</tt>.
+</p>
+<pre>
+  class SpecialEdgeCaseWidgetsControllerTest &lt; ActionController::TestCase
+    tests WidgetController
+  end
+</pre>
+<h2><a href="Testing.html">Testing</a> controller internals</h2>
+<p>
+In addition to these specific assertions, you also have easy access to
+various collections that the regular test/unit assertions can be used
+against. These collections are:
+</p>
+<ul>
+<li><p>
+assigns: Instance variables assigned in the action that are available for
+the view.
+</p>
+</li>
+<li><p>
+session: Objects being saved in the session.
+</p>
+</li>
+<li><p>
+flash: The flash objects currently in the session.
+</p>
+</li>
+<li><p>
+cookies: <a href="Cookies.html">Cookies</a> being sent to the user on this
+request.
+</p>
+</li>
+</ul>
+<p>
+These collections can be used just like any other hash:
+</p>
+<pre>
+  assert_not_nil assigns(:person) # makes sure that a @person instance variable was set
+  assert_equal &quot;Dave&quot;, cookies[:name] # makes sure that a cookie called :name was set as &quot;Dave&quot;
+  assert flash.empty? # makes sure that there's nothing in the flash
+</pre>
+<p>
+For historic reasons, the assigns hash uses string-based keys. So
+assigns[:person] won&#8217;t work, but assigns[&#8220;person&#8221;] will.
+To appease our yearning for symbols, though, an alternative accessor has
+been devised using a method call instead of index referencing. So
+assigns(:person) will work just like assigns[&#8220;person&#8221;], but
+again, assigns[:person] will not work.
+</p>
+<p>
+On top of the collections, you have the complete url that a given action
+redirected to available in redirect_to_url.
+</p>
+<p>
+For redirects within the same controller, you can even call follow_redirect
+and the redirect will be followed, triggering another action call which can
+then be asserted against.
+</p>
+<h2>Manipulating the request collections</h2>
+<p>
+The collections described above link to the response, so you can test if
+what the actions were expected to do happened. But sometimes you also want
+to manipulate these collections in the incoming request. This is really
+only relevant for sessions and cookies, though. For sessions, you just do:
+</p>
+<pre>
+  @request.session[:key] = &quot;value&quot;
+  @request.cookies[&quot;key&quot;] = &quot;value&quot;
+</pre>
+<h2><a href="Testing.html">Testing</a> named routes</h2>
+<p>
+If you&#8217;re using named routes, they can be easily tested using the
+original named routes&#8217; methods straight in the test case. Example:
+</p>
+<pre>
+ assert_redirected_to page_url(:title =&gt; 'foo')</pre>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          Behavior      </li>
+</ul>
+
+
+
+                                </div>
+  </div>
+  </body>
+</html>

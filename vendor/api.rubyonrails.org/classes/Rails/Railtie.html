@@ -1,0 +1,658 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: Rails::Railtie</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />Rails::Railtie</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/railties/lib/rails/railtie/configuration_rb.html">railties/lib/rails/railtie/configuration.rb</a>:
+<a href="../../files/railties/lib/rails/railtie/configurable_rb.html">railties/lib/rails/railtie/configurable.rb</a>:
+<a href="../../files/railties/lib/rails/railtie_rb.html">railties/lib/rails/railtie.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+<a href="Railtie.html">Railtie</a> is the core of the <a
+href="../Rails.html">Rails</a> Framework and provides several hooks to
+extend <a href="../Rails.html">Rails</a> and/or modify the initialization
+process.
+</p>
+<p>
+Every major component of <a href="../Rails.html">Rails</a> (Action Mailer,
+Action Controller, Action View, Active Record and Active Resource) are all
+Railties, so each of them is responsible to set their own initialization.
+This makes, for example, <a href="../Rails.html">Rails</a> absent of any
+Active Record hook, allowing any other ORM framework to hook in.
+</p>
+<p>
+Developing a <a href="../Rails.html">Rails</a> extension does <em>not</em>
+require any implementation of <a href="Railtie.html">Railtie</a>, but if
+you need to interact with the <a href="../Rails.html">Rails</a> framework
+during or after boot, then <a href="Railtie.html">Railtie</a> is what you
+need to do that interaction.
+</p>
+<p>
+For example, the following would need you to implement <a
+href="Railtie.html">Railtie</a> in your plugin:
+</p>
+<ul>
+<li><p>
+creating initializers
+</p>
+</li>
+<li><p>
+configuring a <a href="../Rails.html">Rails</a> framework or the <a
+href="Application.html">Application</a>, like setting a generator
+</p>
+</li>
+<li><p>
+adding <a href="../Rails.html">Rails</a> config.* keys to the environment
+</p>
+</li>
+<li><p>
+setting up a subscriber to the <a href="../Rails.html">Rails</a>
++ActiveSupport::Notifications+
+</p>
+</li>
+<li><p>
+adding rake tasks into rails
+</p>
+</li>
+</ul>
+<h2>Creating your <a href="Railtie.html">Railtie</a></h2>
+<p>
+Implementing <a href="Railtie.html">Railtie</a> in your <a
+href="../Rails.html">Rails</a> extension is done by creating a class <a
+href="Railtie.html">Railtie</a> that has your extension name and making
+sure that this gets loaded during boot time of the <a
+href="../Rails.html">Rails</a> stack.
+</p>
+<p>
+You can do this however you wish, but here is an example if you want to
+provide it for a gem that can be used with or without Rails:
+</p>
+<ul>
+<li><p>
+Create a file (say, lib/my_gem/railtie.rb) which contains class <a
+href="Railtie.html">Railtie</a> inheriting from <a
+href="Railtie.html">Rails::Railtie</a> and is namespaced to your gem:
+</p>
+<pre>
+  # lib/my_gem/railtie.rb
+  module MyGem
+    class Railtie &lt; Rails::Railtie
+    end
+  end
+</pre>
+</li>
+<li><p>
+Require your own gem as well as rails in this file:
+</p>
+<pre>
+  # lib/my_gem/railtie.rb
+  require 'my_gem'
+  require 'rails'
+
+  module MyGem
+    class Railtie &lt; Rails::Railtie
+    end
+  end
+</pre>
+</li>
+</ul>
+<h2>Initializers</h2>
+<p>
+To add an initialization step from your <a href="Railtie.html">Railtie</a>
+to <a href="../Rails.html">Rails</a> boot process, you just need to create
+an initializer block:
+</p>
+<pre>
+  class MyRailtie &lt; Rails::Railtie
+    initializer &quot;my_railtie.configure_rails_initialization&quot; do
+      # some initialization behavior
+    end
+  end
+</pre>
+<p>
+If specified, the block can also receive the application object, in case
+you need to access some application specific configuration, like
+middleware:
+</p>
+<pre>
+  class MyRailtie &lt; Rails::Railtie
+    initializer &quot;my_railtie.configure_rails_initialization&quot; do |app|
+      app.middleware.use MyRailtie::Middleware
+    end
+  end
+</pre>
+<p>
+Finally, you can also pass :before and :after as option to initializer, in
+case you want to couple it with a specific step in the initialization
+process.
+</p>
+<h2><a href="Railtie/Configuration.html">Configuration</a></h2>
+<p>
+Inside the <a href="Railtie.html">Railtie</a> class, you can access a
+config object which contains configuration shared by all railties and the
+application:
+</p>
+<pre>
+  class MyRailtie &lt; Rails::Railtie
+    # Customize the ORM
+    config.app_generators.orm :my_railtie_orm
+
+    # Add a to_prepare block which is executed once in production
+    # and before which request in development
+    config.to_prepare do
+      MyRailtie.setup!
+    end
+  end
+</pre>
+<h2>Loading rake tasks and generators</h2>
+<p>
+If your railtie has rake tasks, you can tell <a
+href="../Rails.html">Rails</a> to load them through the method rake tasks:
+</p>
+<pre>
+  class MyRailtie &lt; Railtie
+    rake_tasks do
+      load &quot;path/to/my_railtie.tasks&quot;
+    end
+  end
+</pre>
+<p>
+By default, <a href="../Rails.html">Rails</a> load generators from your
+load path. However, if you want to place your generators at a different
+location, you can specify in your <a href="Railtie.html">Railtie</a> a
+block which will load them during normal generators lookup:
+</p>
+<pre>
+  class MyRailtie &lt; Railtie
+    generators do
+      require &quot;path/to/my_railtie_generator&quot;
+    end
+  end
+</pre>
+<h2><a href="Application.html">Application</a>, <a href="Plugin.html">Plugin</a> and <a href="Engine.html">Engine</a></h2>
+<p>
+A <a href="Engine.html">Rails::Engine</a> is nothing more than a <a
+href="Railtie.html">Railtie</a> with some initializers already set. And
+since <a href="Application.html">Rails::Application</a> and <a
+href="Plugin.html">Rails::Plugin</a> are engines, the same configuration
+described here can be used in all three.
+</p>
+<p>
+Be sure to look at the documentation of those specific classes for more
+information.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-c-abstract_railtie%3F">abstract_railtie?</a></li>
+                <li><a href="#method-c-console">console</a></li>
+                <li><a href="#method-i-eager_load%21">eager_load!</a></li>
+                <li><a href="#method-c-generators">generators</a></li>
+                <li><a href="#method-c-inherited">inherited</a></li>
+                <li><a href="#method-i-load_console">load_console</a></li>
+                <li><a href="#method-i-load_generators">load_generators</a></li>
+                <li><a href="#method-i-load_tasks">load_tasks</a></li>
+                <li><a href="#method-c-log_subscriber">log_subscriber</a></li>
+                <li><a href="#method-c-railtie_name">railtie_name</a></li>
+                <li><a href="#method-c-rake_tasks">rake_tasks</a></li>
+                <li><a href="#method-c-subclasses">subclasses</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          Initializable      </li>
+</ul>
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">ABSTRACT_RAILTIES</td>
+    <td>=</td>
+    <td class="attr-value">%w(Rails::Railtie Rails::Plugin Rails::Engine Rails::Application)</td>
+  </tr>
+  </table>
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-abstract_railtie%3F"></a>
+            <b>abstract_railtie?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('abstract-railtie-_source')"
+                 id="l_method-c-abstract_railtie%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="abstract-railtie-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 171</span>
+171:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">abstract_railtie?</span>
+172:         <span class="ruby-constant">ABSTRACT_RAILTIES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">name</span>)
+173:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-console"></a>
+            <b>console</b>(&blk)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('console_source')"
+                 id="l_method-c-console_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="console_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 159</span>
+159:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">console</span>(&amp;<span class="ruby-identifier">blk</span>)
+160:         <span class="ruby-ivar">@load_console</span> <span class="ruby-operator">||=</span> []
+161:         <span class="ruby-ivar">@load_console</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">blk</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blk</span>
+162:         <span class="ruby-ivar">@load_console</span>
+163:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-generators"></a>
+            <b>generators</b>(&blk)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('generators_source')"
+                 id="l_method-c-generators_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="generators_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 165</span>
+165:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generators</span>(&amp;<span class="ruby-identifier">blk</span>)
+166:         <span class="ruby-ivar">@generators</span> <span class="ruby-operator">||=</span> []
+167:         <span class="ruby-ivar">@generators</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">blk</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blk</span>
+168:         <span class="ruby-ivar">@generators</span>
+169:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-inherited"></a>
+            <b>inherited</b>(base)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('inherited_source')"
+                 id="l_method-c-inherited_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="inherited_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 138</span>
+138:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">base</span>)
+139:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">base</span>.<span class="ruby-identifier">abstract_railtie?</span>
+140:           <span class="ruby-identifier">base</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:include</span>, <span class="ruby-keyword kw">self</span><span class="ruby-operator">::</span><span class="ruby-constant">Configurable</span>)
+141:           <span class="ruby-identifier">subclasses</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">base</span>
+142:         <span class="ruby-keyword kw">end</span>
+143:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-log_subscriber"></a>
+            <b>log_subscriber</b>(*)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('log-subscriber_source')"
+                 id="l_method-c-log_subscriber_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="log-subscriber_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 149</span>
+149:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">log_subscriber</span>(*)
+150:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;log_subscriber is deprecated and has no effect&quot;</span>, <span class="ruby-identifier">caller</span>
+151:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-railtie_name"></a>
+            <b>railtie_name</b>(*)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('railtie-name_source')"
+                 id="l_method-c-railtie_name_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="railtie-name_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 145</span>
+145:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">railtie_name</span>(*)
+146:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;railtie_name is deprecated and has no effect&quot;</span>, <span class="ruby-identifier">caller</span>
+147:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-rake_tasks"></a>
+            <b>rake_tasks</b>(&blk)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rake-tasks_source')"
+                 id="l_method-c-rake_tasks_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rake-tasks_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 153</span>
+153:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rake_tasks</span>(&amp;<span class="ruby-identifier">blk</span>)
+154:         <span class="ruby-ivar">@rake_tasks</span> <span class="ruby-operator">||=</span> []
+155:         <span class="ruby-ivar">@rake_tasks</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">blk</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">blk</span>
+156:         <span class="ruby-ivar">@rake_tasks</span>
+157:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-subclasses"></a>
+            <b>subclasses</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('subclasses_source')"
+                 id="l_method-c-subclasses_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="subclasses_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 134</span>
+134:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subclasses</span>
+135:         <span class="ruby-ivar">@subclasses</span> <span class="ruby-operator">||=</span> []
+136:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-eager_load%21"></a>
+            <b>eager_load!</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('eager-load-_source')"
+                 id="l_method-i-eager_load%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="eager-load-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 176</span>
+176:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eager_load!</span>
+177:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_console"></a>
+            <b>load_console</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-console_source')"
+                 id="l_method-i-load_console_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-console_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 179</span>
+179:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_console</span>
+180:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">console</span>.<span class="ruby-identifier">each</span>(&amp;<span class="ruby-value">:call</span>)
+181:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_generators"></a>
+            <b>load_generators</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-generators_source')"
+                 id="l_method-i-load_generators_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-generators_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 187</span>
+187:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_generators</span>
+188:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">generators</span>.<span class="ruby-identifier">each</span>(&amp;<span class="ruby-value">:call</span>)
+189:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_tasks"></a>
+            <b>load_tasks</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-tasks_source')"
+                 id="l_method-i-load_tasks_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-tasks_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/railtie.rb, line 183</span>
+183:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_tasks</span>
+184:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">rake_tasks</span>.<span class="ruby-identifier">each</span>(&amp;<span class="ruby-value">:call</span>)
+185:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveRecord::AttributeMethods::PrimaryKey::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveRecord::AttributeMethods::PrimaryKey::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/activerecord/lib/active_record/attribute_methods/primary_key_rb.html">activerecord/lib/active_record/attribute_methods/primary_key.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-primary_key">primary_key</a></li>
+                      <li><a href="#method-i-set_primary_key">set_primary_key</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-primary_key"></a>
+            <b>primary_key</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Defines the primary key field &#8212; can be overridden in subclasses.
+Overwriting will negate any effect of the primary_key_prefix_type setting,
+though.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('primary-key_source')"
+                 id="l_method-i-primary_key_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="primary-key_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods/primary_key.rb, line 16</span>
+16:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">primary_key</span>
+17:           <span class="ruby-identifier">reset_primary_key</span>
+18:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-set_primary_key"></a>
+            <b>set_primary_key</b>(value = nil, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets the name of the primary key column to use to the given value, or (if
+the value is nil or false) to the value returned by the given block.
+</p>
+<pre>
+  class Project &lt; ActiveRecord::Base
+    set_primary_key &quot;sysid&quot;
+  end</pre>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="ClassMethods.html#method-i-primary_key%3D">primary_key=</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('set-primary-key_source')"
+                 id="l_method-i-set_primary_key_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="set-primary-key_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods/primary_key.rb, line 44</span>
+44:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_primary_key</span>(<span class="ruby-identifier">value</span> = <span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+45:           <span class="ruby-identifier">define_attr_method</span> <span class="ruby-value">:primary_key</span>, <span class="ruby-identifier">value</span>, &amp;<span class="ruby-identifier">block</span>
+46:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

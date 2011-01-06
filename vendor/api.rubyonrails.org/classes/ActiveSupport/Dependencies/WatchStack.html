@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveSupport::Dependencies::WatchStack</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveSupport::Dependencies::WatchStack</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activesupport/lib/active_support/dependencies_rb.html">activesupport/lib/active_support/dependencies.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../../Hash.html">Hash</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+The <a href="WatchStack.html">WatchStack</a> keeps a stack of the modules
+being watched as files are loaded. If a file in the process of being loaded
+(parent.rb) triggers the load of  another file (child.rb) the stack will
+ensure that child.rb handles the new  constants.
+</p>
+<p>
+If child.rb is being autoloaded, its constants will be added to
+autoloaded_constants. If it was being `require`d, they will be discarded.
+</p>
+<p>
+This is handled by walking back up the watch stack and adding the constants
+found by child.rb to the list of original constants in parent.rb
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-new_constants">new_constants</a></li>
+                <li><a href="#method-i-pop_modules">pop_modules</a></li>
+                <li><a href="#method-i-watch_namespaces">watch_namespaces</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+@watching is a stack of lists of constants being watched. For instance, if
+parent.rb is autoloaded, the stack will look like [[Object]]. If parent.rb
+then requires namespace/child.rb, the stack will look like [[Object],
+[Namespace]].
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/dependencies.rb, line 81</span>
+81:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+82:         <span class="ruby-ivar">@watching</span> = []
+83:         <span class="ruby-keyword kw">super</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">h</span>,<span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">h</span>[<span class="ruby-identifier">k</span>] = [] }
+84:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-new_constants"></a>
+            <b>new_constants</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+return a list of new constants found since the last call to watch_modules
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new-constants_source')"
+                 id="l_method-i-new_constants_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new-constants_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/dependencies.rb, line 87</span>
+ 87:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_constants</span>
+ 88:         <span class="ruby-identifier">constants</span> = []
+ 89: 
+ 90:         <span class="ruby-comment cmt"># Grab the list of namespaces that we're looking for new constants under</span>
+ 91:         <span class="ruby-ivar">@watching</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">namespace</span><span class="ruby-operator">|</span>
+ 92:           <span class="ruby-comment cmt"># Retrieve the constants that were present under the namespace when watch_modules</span>
+ 93:           <span class="ruby-comment cmt"># was originally called</span>
+ 94:           <span class="ruby-identifier">original_constants</span> = <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">namespace</span>].<span class="ruby-identifier">last</span>
+ 95: 
+ 96:           <span class="ruby-identifier">mod</span> = <span class="ruby-constant">Inflector</span>.<span class="ruby-identifier">constantize</span>(<span class="ruby-identifier">namespace</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Dependencies</span>.<span class="ruby-identifier">qualified_const_defined?</span>(<span class="ruby-identifier">namespace</span>)
+ 97:           <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Module</span>)
+ 98: 
+ 99:           <span class="ruby-comment cmt"># Get a list of the constants that were added</span>
+100:           <span class="ruby-identifier">new_constants</span> = <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">local_constant_names</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">original_constants</span>
+101: 
+102:           <span class="ruby-comment cmt"># self[namespace] returns an Array of the constants that are being evaluated</span>
+103:           <span class="ruby-comment cmt"># for that namespace. For instance, if parent.rb requires child.rb, the first</span>
+104:           <span class="ruby-comment cmt"># element of self[Object] will be an Array of the constants that were present</span>
+105:           <span class="ruby-comment cmt"># before parent.rb was required. The second element will be an Array of the</span>
+106:           <span class="ruby-comment cmt"># constants that were present before child.rb was required.</span>
+107:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">namespace</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">namespace_constants</span><span class="ruby-operator">|</span>
+108:             <span class="ruby-identifier">namespace_constants</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">new_constants</span>)
+109:           <span class="ruby-keyword kw">end</span>
+110: 
+111:           <span class="ruby-comment cmt"># Normalize the list of new constants, and add them to the list we will return</span>
+112:           <span class="ruby-identifier">new_constants</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">suffix</span><span class="ruby-operator">|</span>
+113:             <span class="ruby-identifier">constants</span> <span class="ruby-operator">&lt;&lt;</span> ([<span class="ruby-identifier">namespace</span>, <span class="ruby-identifier">suffix</span>] <span class="ruby-operator">-</span> [<span class="ruby-value str">&quot;Object&quot;</span>]).<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;::&quot;</span>)
+114:           <span class="ruby-keyword kw">end</span>
+115:         <span class="ruby-keyword kw">end</span>
+116:         <span class="ruby-identifier">constants</span>
+117:       <span class="ruby-keyword kw">ensure</span>
+118:         <span class="ruby-comment cmt"># A call to new_constants is always called after a call to watch_modules</span>
+119:         <span class="ruby-identifier">pop_modules</span>(<span class="ruby-ivar">@watching</span>.<span class="ruby-identifier">pop</span>)
+120:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-pop_modules"></a>
+            <b>pop_modules</b>(modules)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('pop-modules_source')"
+                 id="l_method-i-pop_modules_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="pop-modules_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/dependencies.rb, line 136</span>
+136:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">pop_modules</span>(<span class="ruby-identifier">modules</span>)
+137:         <span class="ruby-identifier">modules</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">mod</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">mod</span>].<span class="ruby-identifier">pop</span> }
+138:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-watch_namespaces"></a>
+            <b>watch_namespaces</b>(namespaces)          
+        </div>
+
+                  <div class="description">
+            <p>
+Add a set of modules to the watch stack, remembering the initial constants
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('watch-namespaces_source')"
+                 id="l_method-i-watch_namespaces_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="watch-namespaces_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/dependencies.rb, line 123</span>
+123:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">watch_namespaces</span>(<span class="ruby-identifier">namespaces</span>)
+124:         <span class="ruby-identifier">watching</span> = []
+125:         <span class="ruby-identifier">namespaces</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">namespace</span><span class="ruby-operator">|</span>
+126:           <span class="ruby-identifier">module_name</span> = <span class="ruby-constant">Dependencies</span>.<span class="ruby-identifier">to_constant_name</span>(<span class="ruby-identifier">namespace</span>)
+127:           <span class="ruby-identifier">original_constants</span> = <span class="ruby-constant">Dependencies</span>.<span class="ruby-identifier">qualified_const_defined?</span>(<span class="ruby-identifier">module_name</span>) <span class="ruby-operator">?</span>
+128:             <span class="ruby-constant">Inflector</span>.<span class="ruby-identifier">constantize</span>(<span class="ruby-identifier">module_name</span>).<span class="ruby-identifier">local_constant_names</span> <span class="ruby-operator">:</span> []
+129: 
+130:           <span class="ruby-identifier">watching</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">module_name</span>
+131:           <span class="ruby-keyword kw">self</span>[<span class="ruby-identifier">module_name</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">original_constants</span>
+132:         <span class="ruby-keyword kw">end</span>
+133:         <span class="ruby-ivar">@watching</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">watching</span>
+134:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

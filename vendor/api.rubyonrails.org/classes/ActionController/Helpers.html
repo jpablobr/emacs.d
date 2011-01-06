@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionController::Helpers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionController::Helpers</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_controller/metal/helpers_rb.html">actionpack/lib/action_controller/metal/helpers.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+The <a href="../Rails.html">Rails</a> framework provides a large number of
+helpers for working with <tt>assets</tt>, <tt>dates</tt>, <tt>forms</tt>,
+<tt>numbers</tt> and model objects, to name a few. These helpers are
+available to all templates by default.
+</p>
+<p>
+In addition to using the standard template helpers provided in the <a
+href="../Rails.html">Rails</a> framework, creating custom helpers to
+extract complicated logic or reusable functionality is strongly encouraged.
+By default, the controller will include a helper whose name matches that of
+the controller, e.g., <tt>MyController</tt> will automatically include
+<tt>MyHelper</tt>.
+</p>
+<p>
+Additional helpers can be specified using the <tt>helper</tt> class method
+in <tt>ActionController::Base</tt> or any controller which inherits from
+it.
+</p>
+<h4>Examples</h4>
+<p>
+The <tt>to_s</tt> method from the <a href="../Time.html">Time</a> class can
+be wrapped in a helper method to display a custom message if the <a
+href="../Time.html">Time</a> object is blank:
+</p>
+<pre>
+  module FormattedTimeHelper
+    def format_time(time, format=:long, blank_message=&quot;&amp;nbsp;&quot;)
+      time.blank? ? blank_message : time.to_s(format)
+    end
+  end
+</pre>
+<p>
+FormattedTimeHelper can now be included in a controller, using the
+<tt>helper</tt> class method:
+</p>
+<pre>
+  class EventsController &lt; ActionController::Base
+    helper FormattedTimeHelper
+    def index
+      @events = Event.find(:all)
+    end
+  end
+</pre>
+<p>
+Then, in any view rendered by <tt>EventController</tt>, the
+<tt>format_time</tt> method can be called:
+</p>
+<pre>
+  &lt;% @events.each do |event| -%&gt;
+    &lt;p&gt;
+      &lt;%= format_time(event.time, :short, &quot;N/A&quot;) %&gt; | &lt;%= event.name %&gt;
+    &lt;/p&gt;
+  &lt;% end -%&gt;
+</pre>
+<p>
+Finally, assuming we have two event instances, one which has a time and one
+which does not, the output might look like this:
+</p>
+<pre>
+  23 Aug 11:30 | Carolina Railhawks Soccer Match
+  N/A | Carolina Railhaws Training Workshop</pre>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          <a href="../AbstractController/Helpers.html">AbstractController::Helpers</a>      </li>
+</ul>
+
+
+
+                                </div>
+  </div>
+  </body>
+</html>

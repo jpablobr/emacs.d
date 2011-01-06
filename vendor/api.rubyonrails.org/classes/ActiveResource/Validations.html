@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveResource::Validations</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveResource::Validations</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activeresource/lib/active_resource/validations_rb.html">activeresource/lib/active_resource/validations.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+Module to support validation and errors with Active Resource objects. The
+module overrides <a href="Base.html#method-i-save">Base#save</a> to rescue
+ActiveResource::ResourceInvalid exceptions and parse the errors returned in
+the web service response. The module also adds an <tt>errors</tt>
+collection that mimics the interface of the errors provided by
+ActiveRecord::Errors.
+</p>
+<h4>Example</h4>
+<p>
+Consider a Person resource on the server requiring both a
+<tt>first_name</tt> and a <tt>last_name</tt> with a
+<tt>validates_presence_of :first_name, :last_name</tt> declaration in the
+model:
+</p>
+<pre>
+  person = Person.new(:first_name =&gt; &quot;Jim&quot;, :last_name =&gt; &quot;&quot;)
+  person.save                   # =&gt; false (server returns an HTTP 422 status code and errors)
+  person.valid?                 # =&gt; false
+  person.errors.empty?          # =&gt; false
+  person.errors.count           # =&gt; 1
+  person.errors.full_messages   # =&gt; [&quot;Last name can't be empty&quot;]
+  person.errors[:last_name]  # =&gt; [&quot;can't be empty&quot;]
+  person.last_name = &quot;Halpert&quot;
+  person.save                   # =&gt; true (and person is now saved to the remote service)</pre>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-errors">errors</a></li>
+                <li><a href="#method-i-save_with_validation">save_with_validation</a></li>
+                <li><a href="#method-i-valid%3F">valid?</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          <a href="../ActiveModel/Validations.html">ActiveModel::Validations</a>      </li>
+</ul>
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-errors"></a>
+            <b>errors</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the <a href="Errors.html">Errors</a> object that holds all
+information about attribute error messages.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('errors_source')"
+                 id="l_method-i-errors_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="errors_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/validations.rb, line 138</span>
+138:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">errors</span>
+139:       <span class="ruby-ivar">@errors</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Errors</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+140:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-save_with_validation"></a>
+            <b>save_with_validation</b>(options=nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Validate a resource and save (POST) it to the remote web service. If any
+local validations fail - the save (POST) will not be attempted.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('save-with-validation_source')"
+                 id="l_method-i-save_with_validation_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="save-with-validation_source">
+<pre>
+      <span class="ruby-comment cmt"># File activeresource/lib/active_resource/validations.rb, line 71</span>
+71:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save_with_validation</span>(<span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">nil</span>)
+72:       <span class="ruby-identifier">perform_validation</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">options</span>
+73:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+74:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:validate</span>] <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">false</span>
+75:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">NilClass</span>
+76:           <span class="ruby-keyword kw">true</span>
+77:         <span class="ruby-keyword kw">else</span>
+78:           <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;save(#{options}) is deprecated, please give save(:validate =&gt; #{options}) instead&quot;</span>, <span class="ruby-identifier">caller</span>
+79:           <span class="ruby-identifier">options</span>
+80:       <span class="ruby-keyword kw">end</span>
+81: 
+82:       <span class="ruby-comment cmt"># clear the remote validations so they don't interfere with the local</span>
+83:       <span class="ruby-comment cmt"># ones. Otherwise we get an endless loop and can never change the</span>
+84:       <span class="ruby-comment cmt"># fields so as to make the resource valid</span>
+85:       <span class="ruby-ivar">@remote_errors</span> = <span class="ruby-keyword kw">nil</span>
+86:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">perform_validation</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">valid?</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">perform_validation</span>
+87:         <span class="ruby-identifier">save_without_validation</span>
+88:         <span class="ruby-keyword kw">true</span>
+89:       <span class="ruby-keyword kw">else</span>
+90:         <span class="ruby-keyword kw">false</span>
+91:       <span class="ruby-keyword kw">end</span>
+92:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ResourceInvalid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">error</span>
+93:       <span class="ruby-comment cmt"># cache the remote errors because every call to &lt;tt&gt;valid?&lt;/tt&gt; clears</span>
+94:       <span class="ruby-comment cmt"># all errors. We must keep a copy to add these back after local</span>
+95:       <span class="ruby-comment cmt"># validations</span>
+96:       <span class="ruby-ivar">@remote_errors</span> = <span class="ruby-identifier">error</span>
+97:       <span class="ruby-identifier">load_remote_errors</span>(<span class="ruby-ivar">@remote_errors</span>, <span class="ruby-keyword kw">true</span>)
+98:       <span class="ruby-keyword kw">false</span>
+99:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-valid%3F"></a>
+            <b>valid?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Checks for errors on an object (i.e., is resource.errors empty?).
+</p>
+<p>
+Runs all the specified local validations and returns true if no errors were
+added, otherwise false. Runs local validations (eg those on your Active
+Resource model), and also any errors returned from the remote system the
+last time we saved. Remote errors can only be cleared by trying to re-save
+the resource.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_person = Person.create(params[:person])
+  my_person.valid?
+  # =&gt; true
+
+  my_person.errors.add('login', 'can not be empty') if my_person.login == ''
+  my_person.valid?
+  # =&gt; false</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('valid-_source')"
+                 id="l_method-i-valid%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="valid-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/validations.rb, line 131</span>
+131:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">valid?</span>
+132:       <span class="ruby-keyword kw">super</span>
+133:       <span class="ruby-identifier">load_remote_errors</span>(<span class="ruby-ivar">@remote_errors</span>, <span class="ruby-keyword kw">true</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@remote_errors</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@remote_errors</span>.<span class="ruby-identifier">present?</span>
+134:       <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">empty?</span>
+135:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

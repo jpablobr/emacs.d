@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: AbstractController::Rendering</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />AbstractController::Rendering</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/abstract_controller/rendering_rb.html">actionpack/lib/abstract_controller/rendering.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-_normalize_args">_normalize_args</a></li>
+                <li><a href="#method-i-_normalize_options">_normalize_options</a></li>
+                <li><a href="#method-i-_prefix">_prefix</a></li>
+                <li><a href="#method-i-_process_options">_process_options</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-render">render</a></li>
+                <li><a href="#method-i-render_to_body">render_to_body</a></li>
+                <li><a href="#method-i-render_to_string">render_to_string</a></li>
+                <li><a href="#method-i-view_assigns">view_assigns</a></li>
+                <li><a href="#method-i-view_context">view_context</a></li>
+                <li><a href="#method-i-view_context_class">view_context_class</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          <a href="ViewPaths.html">AbstractController::ViewPaths</a>      </li>
+</ul>
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[W]
+    </td>
+    <td class='attr-name'>view_context_class</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(*)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 71</span>
+71:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(*)
+72:       <span class="ruby-ivar">@view_context_class</span> = <span class="ruby-keyword kw">nil</span>
+73:       <span class="ruby-keyword kw">super</span>
+74:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-_prefix"></a>
+            <b>_prefix</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+The prefix used in render &#8220;foo&#8221; shortcuts.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-prefix_source')"
+                 id="l_method-i-_prefix_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-prefix_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 118</span>
+118:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_prefix</span>
+119:       <span class="ruby-identifier">controller_path</span>
+120:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-render"></a>
+            <b>render</b>(*args, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Normalize arguments, options and then delegates <a
+href="Rendering.html#method-i-render_to_body">render_to_body</a> and sticks
+the result in self.response_body.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('render_source')"
+                 id="l_method-i-render_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="render_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 91</span>
+91:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+92:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">response_body</span> = <span class="ruby-identifier">render_to_string</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+93:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-render_to_body"></a>
+            <b>render_to_body</b>(options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Raw rendering of a template to a Rack-compatible body. :api: plugin
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('render-to-body_source')"
+                 id="l_method-i-render_to_body_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="render-to-body_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 106</span>
+106:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render_to_body</span>(<span class="ruby-identifier">options</span> = {})
+107:       <span class="ruby-identifier">_process_options</span>(<span class="ruby-identifier">options</span>)
+108:       <span class="ruby-identifier">_render_template</span>(<span class="ruby-identifier">options</span>)
+109:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-render_to_string"></a>
+            <b>render_to_string</b>(*args, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Raw rendering of a template to a string. Just convert the results of <a
+href="Rendering.html#method-i-render_to_body">render_to_body</a> into a
+String. :api: plugin
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('render-to-string_source')"
+                 id="l_method-i-render_to_string_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="render-to-string_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 98</span>
+ 98:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render_to_string</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+ 99:       <span class="ruby-identifier">options</span> = <span class="ruby-identifier">_normalize_args</span>(*<span class="ruby-identifier">args</span>, &amp;<span class="ruby-identifier">block</span>)
+100:       <span class="ruby-identifier">_normalize_options</span>(<span class="ruby-identifier">options</span>)
+101:       <span class="ruby-identifier">render_to_body</span>(<span class="ruby-identifier">options</span>)
+102:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-view_context"></a>
+            <b>view_context</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+An instance of a view class. The default view class is <a
+href="../ActionView/Base.html">ActionView::Base</a>
+</p>
+<p>
+The view class must have the following methods: View.new[lookup_context,
+assigns, controller]
+</p>
+<pre>
+  Create a new ActionView instance for a controller
+</pre>
+<p>
+View#render[options]
+</p>
+<pre>
+  Returns String with the rendered template
+</pre>
+<p>
+Override this method in a module to change the default behavior.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('view-context_source')"
+                 id="l_method-i-view_context_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="view-context_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 85</span>
+85:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">view_context</span>
+86:       <span class="ruby-identifier">view_context_class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">lookup_context</span>, <span class="ruby-identifier">view_assigns</span>, <span class="ruby-keyword kw">self</span>)
+87:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-view_context_class"></a>
+            <b>view_context_class</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('view-context-class_source')"
+                 id="l_method-i-view_context_class_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="view-context-class_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 67</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">view_context_class</span>
+68:       <span class="ruby-ivar">@view_context_class</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">view_context_class</span>
+69:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-_normalize_args"></a>
+            <b>_normalize_args</b>(action=nil, options={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Normalize options by converting render &#8220;foo&#8221; to render :action
+=> &#8220;foo&#8221; and render &#8220;foo/bar&#8220; to render :file =>
+&#8220;foo/bar&#8220;.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-normalize-args_source')"
+                 id="l_method-i-_normalize_args_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-normalize-args_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 137</span>
+137:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_normalize_args</span>(<span class="ruby-identifier">action</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span>={})
+138:       <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">action</span>
+139:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">NilClass</span>
+140:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+141:         <span class="ruby-identifier">options</span>, <span class="ruby-identifier">action</span> = <span class="ruby-identifier">action</span>, <span class="ruby-keyword kw">nil</span>
+142:       <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>, <span class="ruby-constant">Symbol</span>
+143:         <span class="ruby-identifier">action</span> = <span class="ruby-identifier">action</span>.<span class="ruby-identifier">to_s</span>
+144:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">action</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">//</span>) <span class="ruby-operator">?</span> <span class="ruby-value">:file</span> <span class="ruby-operator">:</span> <span class="ruby-value">:action</span>
+145:         <span class="ruby-identifier">options</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">action</span>
+146:       <span class="ruby-keyword kw">else</span>
+147:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-value">:partial</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">action</span>)
+148:       <span class="ruby-keyword kw">end</span>
+149: 
+150:       <span class="ruby-identifier">options</span>
+151:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-_normalize_options"></a>
+            <b>_normalize_options</b>(options)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-normalize-options_source')"
+                 id="l_method-i-_normalize_options_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-normalize-options_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 153</span>
+153:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_normalize_options</span>(<span class="ruby-identifier">options</span>)
+154:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:partial</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span>
+155:         <span class="ruby-identifier">options</span>[<span class="ruby-value">:partial</span>] = <span class="ruby-identifier">action_name</span>
+156:       <span class="ruby-keyword kw">end</span>
+157: 
+158:       <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">options</span>.<span class="ruby-identifier">keys</span> &amp; [<span class="ruby-value">:partial</span>, <span class="ruby-value">:file</span>, <span class="ruby-value">:template</span>]).<span class="ruby-identifier">empty?</span>
+159:         <span class="ruby-identifier">options</span>[<span class="ruby-value">:prefix</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">_prefix</span>
+160:       <span class="ruby-keyword kw">end</span>
+161: 
+162:       <span class="ruby-identifier">options</span>[<span class="ruby-value">:template</span>] <span class="ruby-operator">||=</span> (<span class="ruby-identifier">options</span>[<span class="ruby-value">:action</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">action_name</span>).<span class="ruby-identifier">to_s</span>
+163:       <span class="ruby-identifier">options</span>
+164:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-_process_options"></a>
+            <b>_process_options</b>(options)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-process-options_source')"
+                 id="l_method-i-_process_options_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-process-options_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 166</span>
+166:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_process_options</span>(<span class="ruby-identifier">options</span>)
+167:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-view_assigns"></a>
+            <b>view_assigns</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+This method should return a hash with assigns. You can overwrite this
+configuration per controller. :api: public
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('view-assigns_source')"
+                 id="l_method-i-view_assigns_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="view-assigns_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/rendering.rb, line 127</span>
+127:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">view_assigns</span>
+128:       <span class="ruby-identifier">hash</span> = {}
+129:       <span class="ruby-identifier">variables</span>  = <span class="ruby-identifier">instance_variable_names</span>
+130:       <span class="ruby-identifier">variables</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">protected_instance_variables</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:protected_instance_variables</span>)
+131:       <span class="ruby-identifier">variables</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">hash</span>[<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>]] = <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-identifier">name</span>) }
+132:       <span class="ruby-identifier">hash</span>
+133:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

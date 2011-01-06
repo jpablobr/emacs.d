@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: Commands::Plugin</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />Commands::Plugin</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/railties/lib/rails/commands/plugin_rb.html">railties/lib/rails/commands/plugin.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-environment%3D">environment=</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-options">options</a></li>
+                <li><a href="#method-i-parse%21">parse!</a></li>
+                <li><a href="#method-c-parse%21">parse!</a></li>
+                <li><a href="#method-i-split_args">split_args</a></li>
+      </ul>
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>environment</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>script_name</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>sources</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/commands/plugin.rb, line 280</span>
+280:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+281:       <span class="ruby-ivar">@environment</span> = <span class="ruby-constant">RailsEnvironment</span>.<span class="ruby-identifier">default</span>
+282:       <span class="ruby-ivar">@rails_root</span> = <span class="ruby-constant">RailsEnvironment</span>.<span class="ruby-identifier">default</span>.<span class="ruby-identifier">root</span>
+283:       <span class="ruby-ivar">@script_name</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">$0</span>)
+284:       <span class="ruby-ivar">@sources</span> = []
+285:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-parse%21"></a>
+            <b>parse!</b>(args=ARGV)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('parse-_source')"
+                 id="l_method-c-parse%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="parse-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/commands/plugin.rb, line 351</span>
+351:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">args</span>=<span class="ruby-constant">ARGV</span>)
+352:       <span class="ruby-constant">Plugin</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">args</span>)
+353:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-environment%3D"></a>
+            <b>environment=</b>(value)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('environment-_source')"
+                 id="l_method-i-environment%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="environment-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/commands/plugin.rb, line 287</span>
+287:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">environment=</span>(<span class="ruby-identifier">value</span>)
+288:       <span class="ruby-ivar">@environment</span> = <span class="ruby-identifier">value</span>
+289:       <span class="ruby-constant">RailsEnvironment</span>.<span class="ruby-identifier">default</span> = <span class="ruby-identifier">value</span>
+290:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-options"></a>
+            <b>options</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('options_source')"
+                 id="l_method-i-options_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="options_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/commands/plugin.rb, line 292</span>
+292:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">options</span>
+293:       <span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span>
+294:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">set_summary_indent</span>(<span class="ruby-value str">'  '</span>)
+295:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">banner</span> =    <span class="ruby-value str">&quot;Usage: plugin [OPTIONS] command&quot;</span>
+296:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">define_head</span> <span class="ruby-value str">&quot;Rails plugin manager.&quot;</span>
+297: 
+298:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;&quot;</span>
+299:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;GENERAL OPTIONS&quot;</span>
+300: 
+301:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-r&quot;</span>, <span class="ruby-value str">&quot;--root=DIR&quot;</span>, <span class="ruby-constant">String</span>,
+302:              <span class="ruby-value str">&quot;Set an explicit rails app directory.&quot;</span>,
+303:              <span class="ruby-node">&quot;Default: #{@rails_root}&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">rails_root</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@rails_root</span> = <span class="ruby-identifier">rails_root</span>; <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">environment</span> = <span class="ruby-constant">RailsEnvironment</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@rails_root</span>) }
+304:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-s&quot;</span>, <span class="ruby-value str">&quot;--source=URL1,URL2&quot;</span>, <span class="ruby-constant">Array</span>,
+305:              <span class="ruby-value str">&quot;Use the specified plugin repositories instead of the defaults.&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">sources</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@sources</span> = <span class="ruby-identifier">sources</span>}
+306: 
+307:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-v&quot;</span>, <span class="ruby-value str">&quot;--verbose&quot;</span>, <span class="ruby-value str">&quot;Turn on verbose output.&quot;</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">verbose</span><span class="ruby-operator">|</span> <span class="ruby-identifier">$verbose</span> = <span class="ruby-identifier">verbose</span> }
+308:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">&quot;-h&quot;</span>, <span class="ruby-value str">&quot;--help&quot;</span>, <span class="ruby-value str">&quot;Show this help message.&quot;</span>) { <span class="ruby-identifier">puts</span> <span class="ruby-identifier">o</span>; <span class="ruby-identifier">exit</span> }
+309: 
+310:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;&quot;</span>
+311:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;COMMANDS&quot;</span>
+312: 
+313:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;  install    Install plugin(s) from known repositories or URLs.&quot;</span>
+314:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;  remove     Uninstall plugins.&quot;</span>
+315: 
+316:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;&quot;</span>
+317:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;EXAMPLES&quot;</span>
+318:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;  Install a plugin:&quot;</span>
+319:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-node">&quot;    #{@script_name} plugin install continuous_builder\n&quot;</span>
+320:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;  Install a plugin from a subversion URL:&quot;</span>
+321:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-node">&quot;    #{@script_name} plugin install http://dev.rubyonrails.com/svn/rails/plugins/continuous_builder\n&quot;</span>
+322:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;  Install a plugin from a git URL:&quot;</span>
+323:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-node">&quot;    #{@script_name} plugin install git://github.com/SomeGuy/my_awesome_plugin.git\n&quot;</span>
+324:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;  Install a plugin and add a svn:externals entry to vendor/plugins&quot;</span>
+325:         <span class="ruby-identifier">o</span>.<span class="ruby-identifier">separator</span> <span class="ruby-node">&quot;    #{@script_name} plugin install -x continuous_builder\n&quot;</span>
+326:       <span class="ruby-keyword kw">end</span>
+327:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-parse%21"></a>
+            <b>parse!</b>(args=ARGV)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('parse-_source')"
+                 id="l_method-i-parse%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="parse-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/commands/plugin.rb, line 329</span>
+329:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">args</span>=<span class="ruby-constant">ARGV</span>)
+330:       <span class="ruby-identifier">general</span>, <span class="ruby-identifier">sub</span> = <span class="ruby-identifier">split_args</span>(<span class="ruby-identifier">args</span>)
+331:       <span class="ruby-identifier">options</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">general</span>)
+332: 
+333:       <span class="ruby-identifier">command</span> = <span class="ruby-identifier">general</span>.<span class="ruby-identifier">shift</span>
+334:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">command</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(install|remove)$/</span>
+335:         <span class="ruby-identifier">command</span> = <span class="ruby-constant">Commands</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">command</span>.<span class="ruby-identifier">capitalize</span>).<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+336:         <span class="ruby-identifier">command</span>.<span class="ruby-identifier">parse!</span>(<span class="ruby-identifier">sub</span>)
+337:       <span class="ruby-keyword kw">else</span>
+338:         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Unknown command: #{command}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">command</span>.<span class="ruby-identifier">blank?</span>
+339:         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">options</span>
+340:         <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+341:       <span class="ruby-keyword kw">end</span>
+342:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-split_args"></a>
+            <b>split_args</b>(args)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('split-args_source')"
+                 id="l_method-i-split_args_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="split-args_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/commands/plugin.rb, line 344</span>
+344:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">split_args</span>(<span class="ruby-identifier">args</span>)
+345:       <span class="ruby-identifier">left</span> = []
+346:       <span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^-/</span>
+347:       <span class="ruby-identifier">left</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]
+348:       [<span class="ruby-identifier">left</span>, <span class="ruby-identifier">args</span>]
+349:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

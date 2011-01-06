@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: AbstractController::ViewPaths::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />AbstractController::ViewPaths::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/abstract_controller/view_paths_rb.html">actionpack/lib/abstract_controller/view_paths.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-append_view_path">append_view_path</a></li>
+                <li><a href="#method-i-prepend_view_path">prepend_view_path</a></li>
+                <li><a href="#method-i-view_paths">view_paths</a></li>
+                <li><a href="#method-i-view_paths%3D">view_paths=</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-append_view_path"></a>
+            <b>append_view_path</b>(path)          
+        </div>
+
+                  <div class="description">
+            <p>
+Append a path to the list of view paths for this controller.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><p>
+<tt>path</tt> - If a String is provided, it gets converted into the default
+view path. You may also provide a custom view path (see
+ActionView::ViewPathSet for more information)
+</p>
+</li>
+</ul>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('append-view-path_source')"
+                 id="l_method-i-append_view_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="append-view-path_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/view_paths.rb, line 40</span>
+40:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">append_view_path</span>(<span class="ruby-identifier">path</span>)
+41:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">view_paths</span> = <span class="ruby-identifier">view_paths</span>.<span class="ruby-identifier">dup</span> <span class="ruby-operator">+</span> <span class="ruby-constant">Array</span>(<span class="ruby-identifier">path</span>)
+42:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-prepend_view_path"></a>
+            <b>prepend_view_path</b>(path)          
+        </div>
+
+                  <div class="description">
+            <p>
+Prepend a path to the list of view paths for this controller.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><p>
+<tt>path</tt> - If a String is provided, it gets converted into the default
+view path. You may also provide a custom view path (see
+ActionView::ViewPathSet for more information)
+</p>
+</li>
+</ul>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('prepend-view-path_source')"
+                 id="l_method-i-prepend_view_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="prepend-view-path_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/view_paths.rb, line 50</span>
+50:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prepend_view_path</span>(<span class="ruby-identifier">path</span>)
+51:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">view_paths</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">view_paths</span>.<span class="ruby-identifier">dup</span>
+52:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-view_paths"></a>
+            <b>view_paths</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+A list of all of the default view paths for this controller.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('view-paths_source')"
+                 id="l_method-i-view_paths_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="view-paths_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/view_paths.rb, line 55</span>
+55:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">view_paths</span>
+56:         <span class="ruby-identifier">_view_paths</span>
+57:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-view_paths%3D"></a>
+            <b>view_paths=</b>(paths)          
+        </div>
+
+                  <div class="description">
+            <p>
+Set the view paths.
+</p>
+<h4>Parameters</h4>
+<ul>
+<li><p>
+<tt>paths</tt> - If a ViewPathSet is provided, use that; otherwise, process
+the parameter into a ViewPathSet.
+</p>
+</li>
+</ul>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('view-paths-_source')"
+                 id="l_method-i-view_paths%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="view-paths-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/view_paths.rb, line 64</span>
+64:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">view_paths=</span>(<span class="ruby-identifier">paths</span>)
+65:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_view_paths</span> = <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">process_view_paths</span>(<span class="ruby-identifier">paths</span>)
+66:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_view_paths</span>.<span class="ruby-identifier">freeze</span>
+67:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

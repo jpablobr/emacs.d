@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: Process</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />Process</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../files/activesupport/lib/active_support/core_ext/process/daemon_rb.html">activesupport/lib/active_support/core_ext/process/daemon.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-c-daemon">daemon</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-daemon"></a>
+            <b>daemon</b>(nochdir = nil, noclose = nil)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('daemon_source')"
+                 id="l_method-c-daemon_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="daemon_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/core_ext/process/daemon.rb, line 2</span>
+ 2:   <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">daemon</span>(<span class="ruby-identifier">nochdir</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">noclose</span> = <span class="ruby-keyword kw">nil</span>)
+ 3:     <span class="ruby-identifier">exit</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fork</span>                     <span class="ruby-comment cmt"># Parent exits, child continues.</span>
+ 4:     <span class="ruby-constant">Process</span>.<span class="ruby-identifier">setsid</span>                   <span class="ruby-comment cmt"># Become session leader.</span>
+ 5:     <span class="ruby-identifier">exit</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fork</span>                     <span class="ruby-comment cmt"># Zap session leader. See [1].</span>
+ 6: 
+ 7:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">nochdir</span>
+ 8:       <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span> <span class="ruby-value str">&quot;/&quot;</span>                  <span class="ruby-comment cmt"># Release old working directory.</span>
+ 9:     <span class="ruby-keyword kw">end</span>
+10: 
+11:     <span class="ruby-constant">File</span>.<span class="ruby-identifier">umask</span> <span class="ruby-value">0000</span>                  <span class="ruby-comment cmt"># Ensure sensible umask. Adjust as needed.</span>
+12: 
+13:     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">noclose</span>
+14:       <span class="ruby-constant">STDIN</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-value str">&quot;/dev/null&quot;</span>       <span class="ruby-comment cmt"># Free file descriptors and</span>
+15:       <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-value str">&quot;/dev/null&quot;</span>, <span class="ruby-value str">&quot;a&quot;</span> <span class="ruby-comment cmt"># point them somewhere sensible.</span>
+16:       <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-value str">'/dev/null'</span>, <span class="ruby-value str">'a'</span>
+17:     <span class="ruby-keyword kw">end</span>
+18: 
+19:     <span class="ruby-identifier">trap</span>(<span class="ruby-value str">&quot;TERM&quot;</span>) { <span class="ruby-identifier">exit</span> }
+20: 
+21:     <span class="ruby-keyword kw">return</span> <span class="ruby-value">0</span>
+22:   <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                              </div>
+  </div>
+  </body>
+</html>

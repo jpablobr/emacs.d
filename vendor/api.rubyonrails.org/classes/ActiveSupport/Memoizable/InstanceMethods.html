@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveSupport::Memoizable::InstanceMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveSupport::Memoizable::InstanceMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activesupport/lib/active_support/memoizable_rb.html">activesupport/lib/active_support/memoizable.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-flush_cache">flush_cache</a></li>
+                <li><a href="#method-i-freeze_with_memoizable">freeze_with_memoizable</a></li>
+                <li><a href="#method-c-included">included</a></li>
+                <li><a href="#method-i-memoize_all">memoize_all</a></li>
+                <li><a href="#method-i-prime_cache">prime_cache</a></li>
+                <li><a href="#method-i-unmemoize_all">unmemoize_all</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-included"></a>
+            <b>included</b>(base)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('included_source')"
+                 id="l_method-c-included_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="included_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/memoizable.rb, line 11</span>
+11:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">base</span>)
+12:         <span class="ruby-identifier">base</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-keyword kw">do</span>
+13:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">base</span>.<span class="ruby-identifier">method_defined?</span>(<span class="ruby-value">:freeze_without_memoizable</span>)
+14:             <span class="ruby-identifier">alias_method_chain</span> <span class="ruby-value">:freeze</span>, <span class="ruby-value">:memoizable</span>
+15:           <span class="ruby-keyword kw">end</span>
+16:         <span class="ruby-keyword kw">end</span>
+17:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-flush_cache"></a>
+            <b>flush_cache</b>(*syms)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('flush-cache_source')"
+                 id="l_method-i-flush_cache_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="flush-cache_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/memoizable.rb, line 47</span>
+47:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">flush_cache</span>(*<span class="ruby-identifier">syms</span>)
+48:         <span class="ruby-identifier">syms</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sym</span><span class="ruby-operator">|</span>
+49:           (<span class="ruby-identifier">methods</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">private_methods</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">protected_methods</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+50:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">=~</span> <span class="ruby-node">/^_unmemoized_(#{sym.to_s.gsub(/\?\Z/, '\?')})/</span>
+51:               <span class="ruby-identifier">ivar</span> = <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Memoizable</span>.<span class="ruby-identifier">memoized_ivar_for</span>(<span class="ruby-node">$1</span>)
+52:               <span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-identifier">ivar</span>).<span class="ruby-identifier">clear</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">instance_variable_defined?</span>(<span class="ruby-identifier">ivar</span>)
+53:             <span class="ruby-keyword kw">end</span>
+54:           <span class="ruby-keyword kw">end</span>
+55:         <span class="ruby-keyword kw">end</span>
+56:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-freeze_with_memoizable"></a>
+            <b>freeze_with_memoizable</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('freeze-with-memoizable_source')"
+                 id="l_method-i-freeze_with_memoizable_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="freeze-with-memoizable_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/memoizable.rb, line 19</span>
+19:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">freeze_with_memoizable</span>
+20:         <span class="ruby-identifier">memoize_all</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">frozen?</span>
+21:         <span class="ruby-identifier">freeze_without_memoizable</span>
+22:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-memoize_all"></a>
+            <b>memoize_all</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('memoize-all_source')"
+                 id="l_method-i-memoize_all_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="memoize-all_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/memoizable.rb, line 24</span>
+24:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">memoize_all</span>
+25:         <span class="ruby-identifier">prime_cache</span> <span class="ruby-value str">&quot;.*&quot;</span>
+26:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-prime_cache"></a>
+            <b>prime_cache</b>(*syms)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('prime-cache_source')"
+                 id="l_method-i-prime_cache_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="prime-cache_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/memoizable.rb, line 32</span>
+32:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prime_cache</span>(*<span class="ruby-identifier">syms</span>)
+33:         <span class="ruby-identifier">syms</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sym</span><span class="ruby-operator">|</span>
+34:           <span class="ruby-identifier">methods</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+35:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">=~</span> <span class="ruby-node">/^_unmemoized_(#{sym})/</span>
+36:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">method</span>(<span class="ruby-identifier">m</span>).<span class="ruby-identifier">arity</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+37:                 <span class="ruby-identifier">__send__</span>(<span class="ruby-node">$1</span>)
+38:               <span class="ruby-keyword kw">else</span>
+39:                 <span class="ruby-identifier">ivar</span> = <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Memoizable</span>.<span class="ruby-identifier">memoized_ivar_for</span>(<span class="ruby-node">$1</span>)
+40:                 <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-identifier">ivar</span>, {})
+41:               <span class="ruby-keyword kw">end</span>
+42:             <span class="ruby-keyword kw">end</span>
+43:           <span class="ruby-keyword kw">end</span>
+44:         <span class="ruby-keyword kw">end</span>
+45:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-unmemoize_all"></a>
+            <b>unmemoize_all</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('unmemoize-all_source')"
+                 id="l_method-i-unmemoize_all_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="unmemoize-all_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/memoizable.rb, line 28</span>
+28:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unmemoize_all</span>
+29:         <span class="ruby-identifier">flush_cache</span> <span class="ruby-value str">&quot;.*&quot;</span>
+30:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

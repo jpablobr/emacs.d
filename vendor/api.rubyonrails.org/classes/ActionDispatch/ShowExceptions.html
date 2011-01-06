@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionDispatch::ShowExceptions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionDispatch::ShowExceptions</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_dispatch/middleware/show_exceptions_rb.html">actionpack/lib/action_dispatch/middleware/show_exceptions.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+This middleware rescues any exception returned by the application and
+renders nice exception pages if it&#8217;s being rescued locally.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-application_trace">application_trace</a></li>
+                <li><a href="#method-i-call">call</a></li>
+                <li><a href="#method-i-clean_backtrace">clean_backtrace</a></li>
+                <li><a href="#method-i-framework_trace">framework_trace</a></li>
+                <li><a href="#method-i-full_trace">full_trace</a></li>
+                <li><a href="#method-i-log_error">log_error</a></li>
+                <li><a href="#method-i-logger">logger</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-public_path">public_path</a></li>
+                <li><a href="#method-i-render">render</a></li>
+                <li><a href="#method-i-render_exception">render_exception</a></li>
+                <li><a href="#method-i-rescue_action_in_public">rescue_action_in_public</a></li>
+                <li><a href="#method-i-rescue_action_locally">rescue_action_locally</a></li>
+                <li><a href="#method-i-status_code">status_code</a></li>
+      </ul>
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">RESCUES_TEMPLATE_PATH</td>
+    <td>=</td>
+    <td class="attr-value">File.join(File.dirname(__FILE__), 'templates')</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">FAILSAFE_RESPONSE</td>
+    <td>=</td>
+    <td class="attr-value">[500, {'Content-Type' => 'text/html'},       ["<html><body><h1>500 Internal Server Error</h1>" <<        "If you are the administrator of this website, then please read this web " <<        "application's log file and/or the web server's log file to find out what " <<        "went wrong.</body></html>"]]</td>
+  </tr>
+  </table>
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(app, consider_all_requests_local = false)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 40</span>
+40:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">app</span>, <span class="ruby-identifier">consider_all_requests_local</span> = <span class="ruby-keyword kw">false</span>)
+41:       <span class="ruby-ivar">@app</span> = <span class="ruby-identifier">app</span>
+42:       <span class="ruby-ivar">@consider_all_requests_local</span> = <span class="ruby-identifier">consider_all_requests_local</span>
+43:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-call"></a>
+            <b>call</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('call_source')"
+                 id="l_method-i-call_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="call_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 45</span>
+45:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>)
+46:       <span class="ruby-identifier">status</span>, <span class="ruby-identifier">headers</span>, <span class="ruby-identifier">body</span> = <span class="ruby-ivar">@app</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>)
+47: 
+48:       <span class="ruby-comment cmt"># Only this middleware cares about RoutingError. So, let's just raise</span>
+49:       <span class="ruby-comment cmt"># it here.</span>
+50:       <span class="ruby-comment cmt"># TODO: refactor this middleware to handle the X-Cascade scenario without</span>
+51:       <span class="ruby-comment cmt"># having to raise an exception.</span>
+52:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">headers</span>[<span class="ruby-value str">'X-Cascade'</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'pass'</span>
+53:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ActionController</span><span class="ruby-operator">::</span><span class="ruby-constant">RoutingError</span>, <span class="ruby-node">&quot;No route matches #{env['PATH_INFO'].inspect}&quot;</span>
+54:       <span class="ruby-keyword kw">end</span>
+55: 
+56:       [<span class="ruby-identifier">status</span>, <span class="ruby-identifier">headers</span>, <span class="ruby-identifier">body</span>]
+57:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">exception</span>
+58:       <span class="ruby-identifier">raise</span> <span class="ruby-identifier">exception</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">env</span>[<span class="ruby-value str">'action_dispatch.show_exceptions'</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">false</span>
+59:       <span class="ruby-identifier">render_exception</span>(<span class="ruby-identifier">env</span>, <span class="ruby-identifier">exception</span>)
+60:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-application_trace"></a>
+            <b>application_trace</b>(exception)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('application-trace_source')"
+                 id="l_method-i-application_trace_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="application-trace_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 136</span>
+136:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">application_trace</span>(<span class="ruby-identifier">exception</span>)
+137:         <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">exception</span>, <span class="ruby-value">:silent</span>)
+138:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-clean_backtrace"></a>
+            <b>clean_backtrace</b>(exception, *args)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('clean-backtrace_source')"
+                 id="l_method-i-clean_backtrace_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="clean-backtrace_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 148</span>
+148:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">exception</span>, *<span class="ruby-identifier">args</span>)
+149:         <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">Rails</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:backtrace_cleaner</span>) <span class="ruby-operator">?</span>
+150:           <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">backtrace_cleaner</span>.<span class="ruby-identifier">clean</span>(<span class="ruby-identifier">exception</span>.<span class="ruby-identifier">backtrace</span>, *<span class="ruby-identifier">args</span>) <span class="ruby-operator">:</span>
+151:           <span class="ruby-identifier">exception</span>.<span class="ruby-identifier">backtrace</span>
+152:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-framework_trace"></a>
+            <b>framework_trace</b>(exception)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('framework-trace_source')"
+                 id="l_method-i-framework_trace_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="framework-trace_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 140</span>
+140:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">framework_trace</span>(<span class="ruby-identifier">exception</span>)
+141:         <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">exception</span>, <span class="ruby-value">:noise</span>)
+142:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-full_trace"></a>
+            <b>full_trace</b>(exception)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('full-trace_source')"
+                 id="l_method-i-full_trace_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="full-trace_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 144</span>
+144:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">full_trace</span>(<span class="ruby-identifier">exception</span>)
+145:         <span class="ruby-identifier">clean_backtrace</span>(<span class="ruby-identifier">exception</span>, <span class="ruby-value">:all</span>)
+146:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-log_error"></a>
+            <b>log_error</b>(exception)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('log-error_source')"
+                 id="l_method-i-log_error_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="log-error_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 125</span>
+125:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">log_error</span>(<span class="ruby-identifier">exception</span>)
+126:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">logger</span>
+127: 
+128:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">silence</span> <span class="ruby-keyword kw">do</span>
+129:           <span class="ruby-identifier">message</span> = <span class="ruby-node">&quot;\n#{exception.class} (#{exception.message}):\n&quot;</span>
+130:           <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">exception</span>.<span class="ruby-identifier">annoted_source_code</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">exception</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:annoted_source_code</span>)
+131:           <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;  &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">application_trace</span>(<span class="ruby-identifier">exception</span>).<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n  &quot;</span>)
+132:           <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">fatal</span>(<span class="ruby-node">&quot;#{message}\n\n&quot;</span>)
+133:         <span class="ruby-keyword kw">end</span>
+134:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-logger"></a>
+            <b>logger</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('logger_source')"
+                 id="l_method-i-logger_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="logger_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 154</span>
+154:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">logger</span>
+155:         <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">logger</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">logger</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">$stderr</span>)
+156:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-public_path"></a>
+            <b>public_path</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('public-path_source')"
+                 id="l_method-i-public_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="public-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 121</span>
+121:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">public_path</span>
+122:         <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">Rails</span>.<span class="ruby-identifier">public_path</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">public_path</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'public_path'</span>
+123:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-render"></a>
+            <b>render</b>(status, body)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('render_source')"
+                 id="l_method-i-render_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="render_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 117</span>
+117:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render</span>(<span class="ruby-identifier">status</span>, <span class="ruby-identifier">body</span>)
+118:         [<span class="ruby-identifier">status</span>, {<span class="ruby-value str">'Content-Type'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'text/html'</span>, <span class="ruby-value str">'Content-Length'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">bytesize</span>.<span class="ruby-identifier">to_s</span>}, [<span class="ruby-identifier">body</span>]]
+119:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-render_exception"></a>
+            <b>render_exception</b>(env, exception)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('render-exception_source')"
+                 id="l_method-i-render_exception_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="render-exception_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 63</span>
+63:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">render_exception</span>(<span class="ruby-identifier">env</span>, <span class="ruby-identifier">exception</span>)
+64:         <span class="ruby-identifier">log_error</span>(<span class="ruby-identifier">exception</span>)
+65: 
+66:         <span class="ruby-identifier">request</span> = <span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">env</span>)
+67:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@consider_all_requests_local</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">local?</span>
+68:           <span class="ruby-identifier">rescue_action_locally</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">exception</span>)
+69:         <span class="ruby-keyword kw">else</span>
+70:           <span class="ruby-identifier">rescue_action_in_public</span>(<span class="ruby-identifier">exception</span>)
+71:         <span class="ruby-keyword kw">end</span>
+72:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">failsafe_error</span>
+73:         <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Error during failsafe response: #{failsafe_error}\n  #{failsafe_error.backtrace * &quot;\n  &quot;}&quot;</span>
+74:         <span class="ruby-constant">FAILSAFE_RESPONSE</span>
+75:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-rescue_action_in_public"></a>
+            <b>rescue_action_in_public</b>(exception)          
+        </div>
+
+                  <div class="description">
+            <p>
+Attempts to render a static error page based on the <tt><a
+href="ShowExceptions.html#method-i-status_code">status_code</a></tt>
+thrown, or just return headers if no such file exists. At first, it will
+try to render a localized static page. For example, if a 500 error is being
+handled <a href="../Rails.html">Rails</a> and locale is :da, it will first
+attempt to render the file at <tt>public/500.da.html</tt> then attempt to
+render <tt>public/500.html</tt>. If none of them exist, the body of the
+response will be left empty.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rescue-action-in-public_source')"
+                 id="l_method-i-rescue_action_in_public_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rescue-action-in-public_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 99</span>
+ 99:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rescue_action_in_public</span>(<span class="ruby-identifier">exception</span>)
+100:         <span class="ruby-identifier">status</span> = <span class="ruby-identifier">status_code</span>(<span class="ruby-identifier">exception</span>)
+101:         <span class="ruby-identifier">locale_path</span> = <span class="ruby-node">&quot;#{public_path}/#{status}.#{I18n.locale}.html&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">I18n</span>.<span class="ruby-identifier">locale</span>
+102:         <span class="ruby-identifier">path</span> = <span class="ruby-node">&quot;#{public_path}/#{status}.html&quot;</span>
+103: 
+104:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">locale_path</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">locale_path</span>)
+105:           <span class="ruby-identifier">render</span>(<span class="ruby-identifier">status</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">locale_path</span>))
+106:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">path</span>)
+107:           <span class="ruby-identifier">render</span>(<span class="ruby-identifier">status</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">path</span>))
+108:         <span class="ruby-keyword kw">else</span>
+109:           <span class="ruby-identifier">render</span>(<span class="ruby-identifier">status</span>, <span class="ruby-value str">''</span>)
+110:         <span class="ruby-keyword kw">end</span>
+111:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-rescue_action_locally"></a>
+            <b>rescue_action_locally</b>(request, exception)          
+        </div>
+
+                  <div class="description">
+            <p>
+Render detailed diagnostics for unhandled exceptions rescued from a
+controller action.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rescue-action-locally_source')"
+                 id="l_method-i-rescue_action_locally_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rescue-action-locally_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 79</span>
+79:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rescue_action_locally</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">exception</span>)
+80:         <span class="ruby-identifier">template</span> = <span class="ruby-constant">ActionView</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">new</span>([<span class="ruby-constant">RESCUES_TEMPLATE_PATH</span>],
+81:           <span class="ruby-value">:request</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">request</span>,
+82:           <span class="ruby-value">:exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">exception</span>,
+83:           <span class="ruby-value">:application_trace</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">application_trace</span>(<span class="ruby-identifier">exception</span>),
+84:           <span class="ruby-value">:framework_trace</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">framework_trace</span>(<span class="ruby-identifier">exception</span>),
+85:           <span class="ruby-value">:full_trace</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">full_trace</span>(<span class="ruby-identifier">exception</span>)
+86:         )
+87:         <span class="ruby-identifier">file</span> = <span class="ruby-node">&quot;rescues/#{@@rescue_templates[exception.class.name]}.erb&quot;</span>
+88:         <span class="ruby-identifier">body</span> = <span class="ruby-identifier">template</span>.<span class="ruby-identifier">render</span>(<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">file</span>, <span class="ruby-value">:layout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'rescues/layout.erb'</span>)
+89:         <span class="ruby-identifier">render</span>(<span class="ruby-identifier">status_code</span>(<span class="ruby-identifier">exception</span>), <span class="ruby-identifier">body</span>)
+90:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-status_code"></a>
+            <b>status_code</b>(exception)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('status-code_source')"
+                 id="l_method-i-status_code_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="status-code_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/show_exceptions.rb, line 113</span>
+113:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">status_code</span>(<span class="ruby-identifier">exception</span>)
+114:         <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Utils</span>.<span class="ruby-identifier">status_code</span>(<span class="ruby-identifier">@@rescue_responses</span>[<span class="ruby-identifier">exception</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>])
+115:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

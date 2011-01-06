@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveSupport::Cache::Entry</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveSupport::Cache::Entry</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activesupport/lib/active_support/cache_rb.html">activesupport/lib/active_support/cache.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+<a href="Entry.html">Entry</a> that is put into caches. It supports
+expiration time on entries and can compress values to save space in the
+cache.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-compressed%3F">compressed?</a></li>
+                <li><a href="#method-c-create">create</a></li>
+                <li><a href="#method-i-expired%3F">expired?</a></li>
+                <li><a href="#method-i-expires_at">expires_at</a></li>
+                <li><a href="#method-i-expires_at%3D">expires_at=</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-raw_value">raw_value</a></li>
+                <li><a href="#method-i-should_compress%3F">should_compress?</a></li>
+                <li><a href="#method-i-size">size</a></li>
+                <li><a href="#method-i-value">value</a></li>
+      </ul>
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">DEFAULT_COMPRESS_LIMIT</td>
+    <td>=</td>
+    <td class="attr-value">16.kilobytes</td>
+  </tr>
+  </table>
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>created_at</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>expires_in</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-create"></a>
+            <b>create</b>(raw_value, created_at, options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Create an entry with internal attributes set. This method is intended to be
+used by implementations that store cache entries in a native format instead
+of as serialized Ruby objects.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('create_source')"
+                 id="l_method-c-create_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="create_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 540</span>
+540:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span> (<span class="ruby-identifier">raw_value</span>, <span class="ruby-identifier">created_at</span>, <span class="ruby-identifier">options</span> = {})
+541:           <span class="ruby-identifier">entry</span> = <span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>)
+542:           <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value">:@value</span>, <span class="ruby-identifier">raw_value</span>)
+543:           <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value">:@created_at</span>, <span class="ruby-identifier">created_at</span>.<span class="ruby-identifier">to_f</span>)
+544:           <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value">:@compressed</span>, <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">options</span>[<span class="ruby-value">:compressed</span>])
+545:           <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value">:@expires_in</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:expires_in</span>])
+546:           <span class="ruby-identifier">entry</span>
+547:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(value, options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Create a new cache entry for the specified value. Options supported are
+<tt>:compress</tt>, <tt>:compress_threshold</tt>, and <tt>:<a
+href="Entry.html#expires_in">expires_in</a></tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 552</span>
+552:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">options</span> = {})
+553:         <span class="ruby-ivar">@compressed</span> = <span class="ruby-keyword kw">false</span>
+554:         <span class="ruby-ivar">@expires_in</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:expires_in</span>]
+555:         <span class="ruby-ivar">@expires_in</span> = <span class="ruby-ivar">@expires_in</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@expires_in</span>
+556:         <span class="ruby-ivar">@created_at</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span>
+557:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>
+558:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">should_compress?</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">options</span>)
+559:             <span class="ruby-ivar">@value</span> = <span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Deflate</span>.<span class="ruby-identifier">deflate</span>(<span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">value</span>))
+560:             <span class="ruby-ivar">@compressed</span> = <span class="ruby-keyword kw">true</span>
+561:           <span class="ruby-keyword kw">else</span>
+562:             <span class="ruby-ivar">@value</span> = <span class="ruby-identifier">value</span>
+563:           <span class="ruby-keyword kw">end</span>
+564:         <span class="ruby-keyword kw">else</span>
+565:           <span class="ruby-ivar">@value</span> = <span class="ruby-keyword kw">nil</span>
+566:         <span class="ruby-keyword kw">end</span>
+567:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-compressed%3F"></a>
+            <b>compressed?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('compressed-_source')"
+                 id="l_method-i-compressed%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="compressed-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 585</span>
+585:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">compressed?</span>
+586:         <span class="ruby-ivar">@compressed</span>
+587:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-expired%3F"></a>
+            <b>expired?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Check if the entry is expired. The <tt><a
+href="Entry.html#expires_in">expires_in</a></tt> parameter can override the
+value set when the entry was created.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('expired-_source')"
+                 id="l_method-i-expired%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="expired-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 591</span>
+591:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">expired?</span>
+592:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@expires_in</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@created_at</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@expires_in</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span>
+593:           <span class="ruby-keyword kw">true</span>
+594:         <span class="ruby-keyword kw">else</span>
+595:           <span class="ruby-keyword kw">false</span>
+596:         <span class="ruby-keyword kw">end</span>
+597:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-expires_at"></a>
+            <b>expires_at</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Seconds since the epoch when the entry will expire.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('expires-at_source')"
+                 id="l_method-i-expires_at_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="expires-at_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 609</span>
+609:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">expires_at</span>
+610:         <span class="ruby-ivar">@expires_in</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@created_at</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@expires_in</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+611:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-expires_at%3D"></a>
+            <b>expires_at=</b>(time)          
+        </div>
+
+                  <div class="description">
+            <p>
+Set a new time when the entry will expire.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('expires-at-_source')"
+                 id="l_method-i-expires_at%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="expires-at-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 600</span>
+600:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">expires_at=</span>(<span class="ruby-identifier">time</span>)
+601:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">time</span>
+602:           <span class="ruby-ivar">@expires_in</span> = <span class="ruby-identifier">time</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@created_at</span>
+603:         <span class="ruby-keyword kw">else</span>
+604:           <span class="ruby-ivar">@expires_in</span> = <span class="ruby-keyword kw">nil</span>
+605:         <span class="ruby-keyword kw">end</span>
+606:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-raw_value"></a>
+            <b>raw_value</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Get the raw value. This value may be serialized and compressed.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('raw-value_source')"
+                 id="l_method-i-raw_value_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="raw-value_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 570</span>
+570:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raw_value</span>
+571:         <span class="ruby-ivar">@value</span>
+572:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-size"></a>
+            <b>size</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the size of the cached value. This could be less than value.size if
+the data is compressed.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('size_source')"
+                 id="l_method-i-size_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="size_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 615</span>
+615:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">size</span>
+616:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">nil?</span>
+617:           <span class="ruby-value">0</span>
+618:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:bytesize</span>)
+619:           <span class="ruby-ivar">@value</span>.<span class="ruby-identifier">bytesize</span>
+620:         <span class="ruby-keyword kw">else</span>
+621:           <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-ivar">@value</span>).<span class="ruby-identifier">bytesize</span>
+622:         <span class="ruby-keyword kw">end</span>
+623:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-value"></a>
+            <b>value</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Get the value stored in the cache.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('value_source')"
+                 id="l_method-i-value_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="value_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 575</span>
+575:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
+576:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@value</span>
+577:           <span class="ruby-identifier">val</span> = <span class="ruby-identifier">compressed?</span> <span class="ruby-operator">?</span> <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">Zlib</span><span class="ruby-operator">::</span><span class="ruby-constant">Inflate</span>.<span class="ruby-identifier">inflate</span>(<span class="ruby-ivar">@value</span>)) <span class="ruby-operator">:</span> <span class="ruby-ivar">@value</span>
+578:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">frozen?</span>
+579:             <span class="ruby-identifier">val</span>.<span class="ruby-identifier">freeze</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+580:           <span class="ruby-keyword kw">end</span>
+581:           <span class="ruby-identifier">val</span>
+582:         <span class="ruby-keyword kw">end</span>
+583:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-should_compress%3F"></a>
+            <b>should_compress?</b>(value, options)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('should-compress-_source')"
+                 id="l_method-i-should_compress%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="should-compress-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/cache.rb, line 626</span>
+626:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">should_compress?</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">options</span>)
+627:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:compress</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">value</span>
+628:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Numeric</span>)
+629:               <span class="ruby-identifier">compress_threshold</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:compress_threshold</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_COMPRESS_LIMIT</span>
+630:               <span class="ruby-identifier">serialized_value</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">value</span>)
+631:               <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">serialized_value</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">compress_threshold</span>
+632:             <span class="ruby-keyword kw">end</span>
+633:           <span class="ruby-keyword kw">end</span>
+634:           <span class="ruby-keyword kw">false</span>
+635:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

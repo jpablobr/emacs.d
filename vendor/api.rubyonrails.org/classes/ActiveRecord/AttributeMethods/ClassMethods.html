@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveRecord::AttributeMethods::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveRecord::AttributeMethods::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activerecord/lib/active_record/attribute_methods_rb.html">activerecord/lib/active_record/attribute_methods.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-define_attribute_methods">define_attribute_methods</a></li>
+                <li><a href="#method-i-defined_activerecord_methods">defined_activerecord_methods</a></li>
+                <li><a href="#method-i-instance_method_already_implemented%3F">instance_method_already_implemented?</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-define_attribute_methods"></a>
+            <b>define_attribute_methods</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Generates all the attribute related methods for columns in the database
+accessors, mutators and query methods.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('define-attribute-methods_source')"
+                 id="l_method-i-define_attribute_methods_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="define-attribute-methods_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods.rb, line 12</span>
+12:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define_attribute_methods</span>
+13:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">columns_hash</span>.<span class="ruby-identifier">keys</span>)
+14:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-defined_activerecord_methods"></a>
+            <b>defined_activerecord_methods</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('defined-activerecord-methods_source')"
+                 id="l_method-i-defined_activerecord_methods_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="defined-activerecord-methods_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods.rb, line 27</span>
+27:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">defined_activerecord_methods</span>
+28:         <span class="ruby-identifier">active_record</span> = <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>
+29:         <span class="ruby-identifier">super_klass</span>   = <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">superclass</span>
+30:         <span class="ruby-identifier">methods</span> =  <span class="ruby-identifier">active_record</span>.<span class="ruby-identifier">public_instance_methods</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">super_klass</span>.<span class="ruby-identifier">public_instance_methods</span>
+31:         <span class="ruby-identifier">methods</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">active_record</span>.<span class="ruby-identifier">private_instance_methods</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">super_klass</span>.<span class="ruby-identifier">private_instance_methods</span>
+32:         <span class="ruby-identifier">methods</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">active_record</span>.<span class="ruby-identifier">protected_instance_methods</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">super_klass</span>.<span class="ruby-identifier">protected_instance_methods</span>
+33:         <span class="ruby-identifier">methods</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span> }.<span class="ruby-identifier">to_set</span>
+34:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-instance_method_already_implemented%3F"></a>
+            <b>instance_method_already_implemented?</b>(method_name)          
+        </div>
+
+                  <div class="description">
+            <p>
+Checks whether the method is defined in the model or any of its subclasses
+that also derive from Active Record. Raises <a
+href="../DangerousAttributeError.html">DangerousAttributeError</a> if the
+method is defined by Active Record though.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('instance-method-already-implemented-_source')"
+                 id="l_method-i-instance_method_already_implemented%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="instance-method-already-implemented-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/attribute_methods.rb, line 19</span>
+19:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_method_already_implemented?</span>(<span class="ruby-identifier">method_name</span>)
+20:         <span class="ruby-identifier">method_name</span> = <span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>
+21:         <span class="ruby-ivar">@_defined_class_methods</span>         <span class="ruby-operator">||=</span> <span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">first</span>(<span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">index</span>(<span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>)).<span class="ruby-identifier">sum</span>([]) { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">public_instance_methods</span>(<span class="ruby-keyword kw">false</span>) <span class="ruby-operator">|</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">private_instance_methods</span>(<span class="ruby-keyword kw">false</span>) <span class="ruby-operator">|</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">protected_instance_methods</span>(<span class="ruby-keyword kw">false</span>) }.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_s</span> }.<span class="ruby-identifier">to_set</span>
+22:         <span class="ruby-identifier">@@_defined_activerecord_methods</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">defined_activerecord_methods</span>
+23:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">DangerousAttributeError</span>, <span class="ruby-node">&quot;#{method_name} is defined by ActiveRecord&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">@@_defined_activerecord_methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method_name</span>)
+24:         <span class="ruby-ivar">@_defined_class_methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method_name</span>)
+25:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

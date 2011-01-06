@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionDispatch::Flash</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionDispatch::Flash</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_dispatch/middleware/flash_rb.html">actionpack/lib/action_dispatch/middleware/flash.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+The flash provides a way to pass temporary objects between actions.
+Anything you place in the flash will be exposed to the very next action and
+then cleared out. This is a great way of doing notices and alerts, such as
+a create action that sets <tt>flash[:notice] = &quot;Post successfully
+created&quot;</tt> before redirecting to a display action that can then
+expose the flash to its template. Actually, that exposure is automatically
+done. Example:
+</p>
+<pre>
+  class PostsController &lt; ActionController::Base
+    def create
+      # save post
+      flash[:notice] = &quot;Post successfully created&quot;
+      redirect_to posts_path(@post)
+    end
+
+    def show
+      # doesn't need to assign the flash notice to the template, that's done automatically
+    end
+  end
+
+  show.html.erb
+    &lt;% if flash[:notice] %&gt;
+      &lt;div class=&quot;notice&quot;&gt;&lt;%= flash[:notice] %&gt;&lt;/div&gt;
+    &lt;% end %&gt;
+</pre>
+<p>
+Since the <tt>notice</tt> and <tt>alert</tt> keys are a common idiom,
+convenience accessors are available:
+</p>
+<pre>
+  flash.alert = &quot;You must be logged in&quot;
+  flash.notice = &quot;Post successfully created&quot;
+</pre>
+<p>
+This example just places a string in the flash, but you can put any object
+in there. And of course, you can put as many as you like at a time too.
+Just remember: They&#8217;ll be gone by the time the next action has been
+performed.
+</p>
+<p>
+See docs on the <a href="Flash/FlashHash.html">FlashHash</a> class for more
+details about the flash.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-call">call</a></li>
+                <li><a href="#method-c-new">new</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(app)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 173</span>
+173:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">app</span>)
+174:       <span class="ruby-ivar">@app</span> = <span class="ruby-identifier">app</span>
+175:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-call"></a>
+            <b>call</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('call_source')"
+                 id="l_method-i-call_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="call_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/flash.rb, line 177</span>
+177:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>)
+178:       <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">session</span> = <span class="ruby-identifier">env</span>[<span class="ruby-value str">'rack.session'</span>]) <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">flash</span> = <span class="ruby-identifier">session</span>[<span class="ruby-value str">'flash'</span>])
+179:         <span class="ruby-identifier">flash</span>.<span class="ruby-identifier">sweep</span>
+180:       <span class="ruby-keyword kw">end</span>
+181: 
+182:       <span class="ruby-ivar">@app</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">env</span>)
+183:     <span class="ruby-keyword kw">ensure</span>
+184:       <span class="ruby-identifier">session</span>    = <span class="ruby-identifier">env</span>[<span class="ruby-value str">'rack.session'</span>] <span class="ruby-operator">||</span> {}
+185:       <span class="ruby-identifier">flash_hash</span> = <span class="ruby-identifier">env</span>[<span class="ruby-value str">'action_dispatch.request.flash_hash'</span>]
+186: 
+187:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flash_hash</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">flash_hash</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">session</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value str">'flash'</span>))
+188:         <span class="ruby-identifier">session</span>[<span class="ruby-value str">&quot;flash&quot;</span>] = <span class="ruby-identifier">flash_hash</span>
+189:       <span class="ruby-keyword kw">end</span>
+190: 
+191:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">session</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value str">'flash'</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">session</span>[<span class="ruby-value str">'flash'</span>].<span class="ruby-identifier">empty?</span>
+192:         <span class="ruby-identifier">session</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">'flash'</span>)
+193:       <span class="ruby-keyword kw">end</span>
+194:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

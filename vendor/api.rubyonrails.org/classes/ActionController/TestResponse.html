@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionController::TestResponse</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionController::TestResponse</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_controller/test_case_rb.html">actionpack/lib/action_controller/test_case.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../ActionDispatch/TestResponse.html">ActionDispatch::TestResponse</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-recycle%21">recycle!</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-recycle%21"></a>
+            <b>recycle!</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('recycle-_source')"
+                 id="l_method-i-recycle%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="recycle-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/test_case.rb, line 185</span>
+185:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">recycle!</span>
+186:       <span class="ruby-ivar">@status</span> = <span class="ruby-value">200</span>
+187:       <span class="ruby-ivar">@header</span> = {}
+188:       <span class="ruby-ivar">@writer</span> = <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@body</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">x</span> }
+189:       <span class="ruby-ivar">@block</span> = <span class="ruby-keyword kw">nil</span>
+190:       <span class="ruby-ivar">@length</span> = <span class="ruby-value">0</span>
+191:       <span class="ruby-ivar">@body</span> = []
+192:       <span class="ruby-ivar">@charset</span> = <span class="ruby-ivar">@content_type</span> = <span class="ruby-keyword kw">nil</span>
+193:       <span class="ruby-ivar">@request</span> = <span class="ruby-ivar">@template</span> = <span class="ruby-keyword kw">nil</span>
+194:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionController::HttpAuthentication::Digest::ControllerMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionController::HttpAuthentication::Digest::ControllerMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/actionpack/lib/action_controller/metal/http_authentication_rb.html">actionpack/lib/action_controller/metal/http_authentication.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-authenticate_or_request_with_http_digest">authenticate_or_request_with_http_digest</a></li>
+                <li><a href="#method-i-authenticate_with_http_digest">authenticate_with_http_digest</a></li>
+                <li><a href="#method-i-request_http_digest_authentication">request_http_digest_authentication</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-authenticate_or_request_with_http_digest"></a>
+            <b>authenticate_or_request_with_http_digest</b>(realm = "Application", &password_procedure)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('authenticate-or-request-with-http-digest_source')"
+                 id="l_method-i-authenticate_or_request_with_http_digest_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="authenticate-or-request-with-http-digest_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/http_authentication.rb, line 155</span>
+155:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">authenticate_or_request_with_http_digest</span>(<span class="ruby-identifier">realm</span> = <span class="ruby-value str">&quot;Application&quot;</span>, &amp;<span class="ruby-identifier">password_procedure</span>)
+156:           <span class="ruby-identifier">authenticate_with_http_digest</span>(<span class="ruby-identifier">realm</span>, &amp;<span class="ruby-identifier">password_procedure</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">request_http_digest_authentication</span>(<span class="ruby-identifier">realm</span>)
+157:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-authenticate_with_http_digest"></a>
+            <b>authenticate_with_http_digest</b>(realm = "Application", &password_procedure)          
+        </div>
+
+                  <div class="description">
+            <p>
+Authenticate with HTTP <a href="../Digest.html">Digest</a>, returns true or
+false
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('authenticate-with-http-digest_source')"
+                 id="l_method-i-authenticate_with_http_digest_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="authenticate-with-http-digest_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/http_authentication.rb, line 160</span>
+160:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">authenticate_with_http_digest</span>(<span class="ruby-identifier">realm</span> = <span class="ruby-value str">&quot;Application&quot;</span>, &amp;<span class="ruby-identifier">password_procedure</span>)
+161:           <span class="ruby-constant">HttpAuthentication</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span>.<span class="ruby-identifier">authenticate</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">realm</span>, &amp;<span class="ruby-identifier">password_procedure</span>)
+162:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-request_http_digest_authentication"></a>
+            <b>request_http_digest_authentication</b>(realm = "Application", message = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Render output including the HTTP <a href="../Digest.html">Digest</a>
+authentication header
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('request-http-digest-authentication_source')"
+                 id="l_method-i-request_http_digest_authentication_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="request-http-digest-authentication_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_controller/metal/http_authentication.rb, line 165</span>
+165:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">request_http_digest_authentication</span>(<span class="ruby-identifier">realm</span> = <span class="ruby-value str">&quot;Application&quot;</span>, <span class="ruby-identifier">message</span> = <span class="ruby-keyword kw">nil</span>)
+166:           <span class="ruby-constant">HttpAuthentication</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span>.<span class="ruby-identifier">authentication_request</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">realm</span>, <span class="ruby-identifier">message</span>)
+167:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

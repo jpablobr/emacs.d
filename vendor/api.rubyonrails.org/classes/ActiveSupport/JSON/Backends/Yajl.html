@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveSupport::JSON::Backends::Yajl</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveSupport::JSON::Backends::Yajl</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/activesupport/lib/active_support/json/backends/yajl_rb.html">activesupport/lib/active_support/json/backends/yajl.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-convert_dates_from">convert_dates_from</a></li>
+                <li><a href="#method-i-decode">decode</a></li>
+      </ul>
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">ParseError</td>
+    <td>=</td>
+    <td class="attr-value">::Yajl::ParseError</td>
+  </tr>
+  </table>
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-decode"></a>
+            <b>decode</b>(json)          
+        </div>
+
+                  <div class="description">
+            <p>
+Parses a <a href="../../JSON.html">JSON</a> string or IO and convert it
+into an object
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('decode_source')"
+                 id="l_method-i-decode_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="decode_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/json/backends/yajl.rb, line 11</span>
+11:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">json</span>)
+12:           <span class="ruby-identifier">data</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Yajl</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">json</span>)
+13:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ActiveSupport</span>.<span class="ruby-identifier">parse_json_times</span>
+14:             <span class="ruby-identifier">convert_dates_from</span>(<span class="ruby-identifier">data</span>)
+15:           <span class="ruby-keyword kw">else</span>
+16:             <span class="ruby-identifier">data</span>
+17:           <span class="ruby-keyword kw">end</span>
+18:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-convert_dates_from"></a>
+            <b>convert_dates_from</b>(data)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('convert-dates-from_source')"
+                 id="l_method-i-convert_dates_from_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="convert-dates-from_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/json/backends/yajl.rb, line 21</span>
+21:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">convert_dates_from</span>(<span class="ruby-identifier">data</span>)
+22:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">data</span>
+23:           <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span>
+24:             <span class="ruby-keyword kw">nil</span>
+25:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">DATE_REGEX</span>
+26:             <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">data</span>)
+27:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span>
+28:             <span class="ruby-identifier">data</span>.<span class="ruby-identifier">map!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span> <span class="ruby-identifier">convert_dates_from</span>(<span class="ruby-identifier">d</span>) }
+29:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+30:             <span class="ruby-identifier">data</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+31:               <span class="ruby-identifier">data</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">convert_dates_from</span>(<span class="ruby-identifier">value</span>)
+32:             <span class="ruby-keyword kw">end</span>
+33:           <span class="ruby-keyword kw">else</span>
+34:             <span class="ruby-identifier">data</span>
+35:           <span class="ruby-keyword kw">end</span>
+36:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

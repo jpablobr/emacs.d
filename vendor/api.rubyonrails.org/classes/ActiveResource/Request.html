@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveResource::Request</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveResource::Request</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activeresource/lib/active_resource/http_mock_rb.html">activeresource/lib/active_resource/http_mock.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-%3D%3D">==</a></li>
+                <li><a href="#method-i-headers_match%3F">headers_match?</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-to_s">to_s</a></li>
+      </ul>
+
+
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>path</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>method</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>body</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[RW]
+    </td>
+    <td class='attr-name'>headers</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(method, path, body = nil, headers = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/http_mock.rb, line 228</span>
+228:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">body</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">headers</span> = {})
+229:       <span class="ruby-ivar">@method</span>, <span class="ruby-ivar">@path</span>, <span class="ruby-ivar">@body</span>, <span class="ruby-ivar">@headers</span> = <span class="ruby-identifier">method</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">headers</span>
+230:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-%3D%3D"></a>
+            <b>==</b>(req)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-i-%3D%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/http_mock.rb, line 232</span>
+232:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">req</span>)
+233:       <span class="ruby-identifier">path</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">path</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">method</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">headers_match?</span>(<span class="ruby-identifier">req</span>)
+234:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_s"></a>
+            <b>to_s</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to-s_source')"
+                 id="l_method-i-to_s_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to-s_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/http_mock.rb, line 236</span>
+236:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+237:       <span class="ruby-node">&quot;&lt;#{method.to_s.upcase}: #{path} [#{headers}] (#{body})&gt;&quot;</span>
+238:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-headers_match%3F"></a>
+            <b>headers_match?</b>(req)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('headers-match-_source')"
+                 id="l_method-i-headers_match%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="headers-match-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/http_mock.rb, line 242</span>
+242:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">headers_match?</span>(<span class="ruby-identifier">req</span>)
+243:       <span class="ruby-comment cmt"># Ignore format header on equality if it's not defined</span>
+244:       <span class="ruby-identifier">format_header</span> = <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP_FORMAT_HEADER_NAMES</span>[<span class="ruby-identifier">method</span>]
+245:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">headers</span>[<span class="ruby-identifier">format_header</span>].<span class="ruby-identifier">present?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-identifier">format_header</span>].<span class="ruby-identifier">blank?</span>
+246:         <span class="ruby-identifier">headers</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">headers</span>
+247:       <span class="ruby-keyword kw">else</span>
+248:         <span class="ruby-identifier">headers</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">format_header</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-identifier">format_header</span>]) <span class="ruby-operator">==</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">headers</span>
+249:       <span class="ruby-keyword kw">end</span>
+250:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

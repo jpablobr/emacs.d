@@ -1,0 +1,841 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: Rails::Generators::Actions</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />Rails::Generators::Actions</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/railties/lib/rails/generators/actions_rb.html">railties/lib/rails/generators/actions.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-add_source">add_source</a></li>
+                      <li><a href="#method-i-capify%21">capify!</a></li>
+                <li><a href="#method-i-environment">environment</a></li>
+                <li><a href="#method-i-extify">extify</a></li>
+                <li><a href="#method-i-freeze%21">freeze!</a></li>
+                <li><a href="#method-i-gem">gem</a></li>
+                <li><a href="#method-i-generate">generate</a></li>
+                <li><a href="#method-i-git">git</a></li>
+                <li><a href="#method-i-initializer">initializer</a></li>
+                <li><a href="#method-i-lib">lib</a></li>
+                <li><a href="#method-i-log">log</a></li>
+                <li><a href="#method-i-plugin">plugin</a></li>
+                <li><a href="#method-i-rake">rake</a></li>
+                <li><a href="#method-i-rakefile">rakefile</a></li>
+                <li><a href="#method-i-readme">readme</a></li>
+                <li><a href="#method-i-route">route</a></li>
+                <li><a href="#method-i-vendor">vendor</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-add_source"></a>
+            <b>add_source</b>(source, options={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Add the given source to Gemfile
+</p>
+<h4>Example</h4>
+<pre>
+  add_source &quot;http://gems.github.com/&quot;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('add-source_source')"
+                 id="l_method-i-add_source_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="add-source_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 95</span>
+ 95:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_source</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">options</span>={})
+ 96:         <span class="ruby-identifier">log</span> <span class="ruby-value">:source</span>, <span class="ruby-identifier">source</span>
+ 97: 
+ 98:         <span class="ruby-identifier">in_root</span> <span class="ruby-keyword kw">do</span>
+ 99:           <span class="ruby-identifier">prepend_file</span> <span class="ruby-value str">&quot;Gemfile&quot;</span>, <span class="ruby-node">&quot;source #{source.inspect}\n&quot;</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
+100:         <span class="ruby-keyword kw">end</span>
+101:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-capify%21"></a>
+            <b>capify!</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Just run the capify command in root
+</p>
+<h4>Example</h4>
+<pre>
+  capify!</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('capify-_source')"
+                 id="l_method-i-capify%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="capify-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 255</span>
+255:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">capify!</span>
+256:         <span class="ruby-identifier">log</span> <span class="ruby-value">:capify</span>, <span class="ruby-value str">&quot;&quot;</span>
+257:         <span class="ruby-identifier">in_root</span> { <span class="ruby-identifier">run</span>(<span class="ruby-node">&quot;#{extify(:capify)} .&quot;</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>) }
+258:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-environment"></a>
+            <b>environment</b>(data=nil, options={}, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Adds a line inside the <a href="../Application.html">Application</a> class
+for config/application.rb.
+</p>
+<p>
+If options :env is specified, the line is appended to the corresponding
+file in config/environments.
+</p>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="Actions.html#method-i-application">application</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('environment_source')"
+                 id="l_method-i-environment_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="environment_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 108</span>
+108:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">environment</span>(<span class="ruby-identifier">data</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span>={}, &amp;<span class="ruby-identifier">block</span>)
+109:         <span class="ruby-identifier">sentinel</span> = <span class="ruby-regexp re">/class [a-z_:]+ &lt; Rails::Application/</span>
+110:         <span class="ruby-identifier">data</span> = <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">data</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">block_given?</span>
+111: 
+112:         <span class="ruby-identifier">in_root</span> <span class="ruby-keyword kw">do</span>
+113:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:env</span>].<span class="ruby-identifier">nil?</span>
+114:             <span class="ruby-identifier">inject_into_file</span> <span class="ruby-value str">'config/application.rb'</span>, <span class="ruby-node">&quot;\n  #{data}&quot;</span>, <span class="ruby-value">:after</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sentinel</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
+115:           <span class="ruby-keyword kw">else</span>
+116:             <span class="ruby-constant">Array</span>.<span class="ruby-identifier">wrap</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:env</span>]).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span><span class="ruby-operator">|</span><span class="ruby-identifier">env</span><span class="ruby-operator">|</span>
+117:               <span class="ruby-identifier">append_file</span> <span class="ruby-node">&quot;config/environments/#{env}.rb&quot;</span>, <span class="ruby-node">&quot;\n#{data}&quot;</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
+118:             <span class="ruby-keyword kw">end</span>
+119:           <span class="ruby-keyword kw">end</span>
+120:         <span class="ruby-keyword kw">end</span>
+121:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-freeze%21"></a>
+            <b>freeze!</b>(args={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Add <a href="../../Rails.html">Rails</a> to /vendor/rails
+</p>
+<h4>Example</h4>
+<pre>
+  freeze!</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('freeze-_source')"
+                 id="l_method-i-freeze%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="freeze-_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 266</span>
+266:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">freeze!</span>(<span class="ruby-identifier">args</span>={})
+267:         <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;freeze! is deprecated since your rails app now comes bundled with Rails by default, please check your Gemfile&quot;</span>
+268:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-gem"></a>
+            <b>gem</b>(*args)          
+        </div>
+
+                  <div class="description">
+            <p>
+Adds an entry into Gemfile for the supplied gem. If env is specified, add
+the gem to the given environment.
+</p>
+<h4>Example</h4>
+<pre>
+  gem &quot;rspec&quot;, :env =&gt; :test
+  gem &quot;technoweenie-restful-authentication&quot;, :lib =&gt; &quot;restful-authentication&quot;, :source =&gt; &quot;http://gems.github.com/&quot;
+  gem &quot;rails&quot;, &quot;3.0&quot;, :git =&gt; &quot;git://github.com/rails/rails&quot;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('gem_source')"
+                 id="l_method-i-gem_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="gem_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 52</span>
+52:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">gem</span>(*<span class="ruby-identifier">args</span>)
+53:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">extract_options!</span>
+54:         <span class="ruby-identifier">name</span>, <span class="ruby-identifier">version</span> = <span class="ruby-identifier">args</span>
+55: 
+56:         <span class="ruby-comment cmt"># Deal with deprecated options</span>
+57:         { <span class="ruby-value">:env</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:group</span>, <span class="ruby-value">:only</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:group</span>,
+58:           <span class="ruby-value">:lib</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:require</span>, <span class="ruby-value">:require_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:require</span> }.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">old</span>, <span class="ruby-identifier">new</span><span class="ruby-operator">|</span>
+59:           <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">old</span>]
+60:           <span class="ruby-identifier">options</span>[<span class="ruby-identifier">new</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">old</span>)
+61:           <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-node">&quot;#{old.inspect} option in gem is deprecated, use #{new.inspect} instead&quot;</span>
+62:         <span class="ruby-keyword kw">end</span>
+63: 
+64:         <span class="ruby-comment cmt"># Deal with deprecated source</span>
+65:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">source</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:source</span>)
+66:           <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Deprecation</span>.<span class="ruby-identifier">warn</span> <span class="ruby-value str">&quot;:source option in gem is deprecated, use add_source method instead&quot;</span>
+67:           <span class="ruby-identifier">add_source</span>(<span class="ruby-identifier">source</span>)
+68:         <span class="ruby-keyword kw">end</span>
+69: 
+70:         <span class="ruby-comment cmt"># Set the message to be shown in logs. Uses the git repo if one is given,</span>
+71:         <span class="ruby-comment cmt"># otherwise use name (version).</span>
+72:         <span class="ruby-identifier">parts</span>, <span class="ruby-identifier">message</span> = [ <span class="ruby-identifier">name</span>.<span class="ruby-identifier">inspect</span> ], <span class="ruby-identifier">name</span>
+73:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">version</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:version</span>)
+74:           <span class="ruby-identifier">parts</span>   <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">version</span>.<span class="ruby-identifier">inspect</span>
+75:           <span class="ruby-identifier">message</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; (#{version})&quot;</span>
+76:         <span class="ruby-keyword kw">end</span>
+77:         <span class="ruby-identifier">message</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:git</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:git</span>]
+78: 
+79:         <span class="ruby-identifier">log</span> <span class="ruby-value">:gemfile</span>, <span class="ruby-identifier">message</span>
+80: 
+81:         <span class="ruby-identifier">options</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">option</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+82:           <span class="ruby-identifier">parts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;:#{option} =&gt; #{value.inspect}&quot;</span>
+83:         <span class="ruby-keyword kw">end</span>
+84: 
+85:         <span class="ruby-identifier">in_root</span> <span class="ruby-keyword kw">do</span>
+86:           <span class="ruby-identifier">append_file</span> <span class="ruby-value str">&quot;Gemfile&quot;</span>, <span class="ruby-node">&quot;gem #{parts.join(&quot;, &quot;)}\n&quot;</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
+87:         <span class="ruby-keyword kw">end</span>
+88:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-generate"></a>
+            <b>generate</b>(what, *args)          
+        </div>
+
+                  <div class="description">
+            <p>
+Generate something using a generator from <a
+href="../../Rails.html">Rails</a> or a plugin. The second parameter is the
+argument string that is passed to the generator or an Array that is joined.
+</p>
+<h4>Example</h4>
+<pre>
+  generate(:authenticated, &quot;user session&quot;)</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('generate_source')"
+                 id="l_method-i-generate_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="generate_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 227</span>
+227:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate</span>(<span class="ruby-identifier">what</span>, *<span class="ruby-identifier">args</span>)
+228:         <span class="ruby-identifier">log</span> <span class="ruby-value">:generate</span>, <span class="ruby-identifier">what</span>
+229:         <span class="ruby-identifier">argument</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span> <span class="ruby-identifier">arg</span>.<span class="ruby-identifier">to_s</span> }.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; &quot;</span>)
+230: 
+231:         <span class="ruby-identifier">in_root</span> { <span class="ruby-identifier">run_ruby_script</span>(<span class="ruby-node">&quot;script/rails generate #{what} #{argument}&quot;</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>) }
+232:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-git"></a>
+            <b>git</b>(command={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Run a command in git.
+</p>
+<h4>Examples</h4>
+<pre>
+  git :init
+  git :add =&gt; &quot;this.file that.rb&quot;
+  git :add =&gt; &quot;onefile.rb&quot;, :rm =&gt; &quot;badfile.cxx&quot;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('git_source')"
+                 id="l_method-i-git_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="git_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 132</span>
+132:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">git</span>(<span class="ruby-identifier">command</span>={})
+133:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">command</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)
+134:           <span class="ruby-identifier">run</span> <span class="ruby-node">&quot;git #{command}&quot;</span>
+135:         <span class="ruby-keyword kw">else</span>
+136:           <span class="ruby-identifier">command</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">command</span>, <span class="ruby-identifier">options</span><span class="ruby-operator">|</span>
+137:             <span class="ruby-identifier">run</span> <span class="ruby-node">&quot;git #{command} #{options}&quot;</span>
+138:           <span class="ruby-keyword kw">end</span>
+139:         <span class="ruby-keyword kw">end</span>
+140:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-initializer"></a>
+            <b>initializer</b>(filename, data=nil, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Create a new initializer with the provided code (either in a block or a
+string).
+</p>
+<h4>Examples</h4>
+<pre>
+  initializer(&quot;globals.rb&quot;) do
+    data = &quot;&quot;
+
+    ['MY_WORK', 'ADMINS', 'BEST_COMPANY_EVAR'].each do
+      data &lt;&lt; &quot;#{const} = :entp&quot;
+    end
+
+    data
+  end
+
+  initializer(&quot;api.rb&quot;, &quot;API_KEY = '123456'&quot;)</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('initializer_source')"
+                 id="l_method-i-initializer_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="initializer_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 214</span>
+214:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initializer</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">data</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+215:         <span class="ruby-identifier">log</span> <span class="ruby-value">:initializer</span>, <span class="ruby-identifier">filename</span>
+216:         <span class="ruby-identifier">create_file</span>(<span class="ruby-node">&quot;config/initializers/#{filename}&quot;</span>, <span class="ruby-identifier">data</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>, &amp;<span class="ruby-identifier">block</span>)
+217:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-lib"></a>
+            <b>lib</b>(filename, data=nil, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Create a new file in the lib/ directory. Code can be specified in a block
+or a data string can be given.
+</p>
+<h4>Examples</h4>
+<pre>
+  lib(&quot;crypto.rb&quot;) do
+    &quot;crypted_special_value = '#{rand}--#{Time.now}--#{rand(1337)}--'&quot;
+  end
+
+  lib(&quot;foreign.rb&quot;, &quot;# Foreign code is fun&quot;)</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('lib_source')"
+                 id="l_method-i-lib_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="lib_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 170</span>
+170:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lib</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">data</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+171:         <span class="ruby-identifier">log</span> <span class="ruby-value">:lib</span>, <span class="ruby-identifier">filename</span>
+172:         <span class="ruby-identifier">create_file</span>(<span class="ruby-node">&quot;lib/#{filename}&quot;</span>, <span class="ruby-identifier">data</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>, &amp;<span class="ruby-identifier">block</span>)
+173:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-plugin"></a>
+            <b>plugin</b>(name, options)          
+        </div>
+
+                  <div class="description">
+            <p>
+Install a plugin. You must provide either a Subversion url or Git url.
+</p>
+<p>
+For a Git-hosted plugin, you can specify a branch and whether it should be
+added as a submodule instead of cloned.
+</p>
+<p>
+For a Subversion-hosted plugin you can specify a revision.
+</p>
+<h4>Examples</h4>
+<pre>
+  plugin 'restful-authentication', :git =&gt; 'git://github.com/technoweenie/restful-authentication.git'
+  plugin 'restful-authentication', :git =&gt; 'git://github.com/technoweenie/restful-authentication.git', :branch =&gt; 'stable'
+  plugin 'restful-authentication', :git =&gt; 'git://github.com/technoweenie/restful-authentication.git', :submodule =&gt; true
+  plugin 'restful-authentication', :svn =&gt; 'svn://svnhub.com/technoweenie/restful-authentication/trunk'
+  plugin 'restful-authentication', :svn =&gt; 'svn://svnhub.com/technoweenie/restful-authentication/trunk', :revision =&gt; 1234</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('plugin_source')"
+                 id="l_method-i-plugin_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="plugin_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 24</span>
+24:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">plugin</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">options</span>)
+25:         <span class="ruby-identifier">log</span> <span class="ruby-value">:plugin</span>, <span class="ruby-identifier">name</span>
+26: 
+27:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:git</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:submodule</span>]
+28:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:git</span>] = <span class="ruby-node">&quot;-b #{options[:branch]} #{options[:git]}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:branch</span>]
+29:           <span class="ruby-identifier">in_root</span> <span class="ruby-keyword kw">do</span>
+30:             <span class="ruby-identifier">run</span> <span class="ruby-node">&quot;git submodule add #{options[:git]} vendor/plugins/#{name}&quot;</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
+31:           <span class="ruby-keyword kw">end</span>
+32:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:git</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:svn</span>]
+33:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:git</span>] = <span class="ruby-node">&quot;-b #{options[:branch]} #{options[:git]}&quot;</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:branch</span>]
+34:           <span class="ruby-identifier">options</span>[<span class="ruby-value">:svn</span>] = <span class="ruby-node">&quot;-r #{options[:revision]} #{options[:svn]}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:revision</span>]
+35:           <span class="ruby-identifier">in_root</span> <span class="ruby-keyword kw">do</span>
+36:             <span class="ruby-identifier">run_ruby_script</span> <span class="ruby-node">&quot;script/rails plugin install #{options[:svn] || options[:git]}&quot;</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>
+37:           <span class="ruby-keyword kw">end</span>
+38:         <span class="ruby-keyword kw">else</span>
+39:           <span class="ruby-identifier">log</span> <span class="ruby-node">&quot;! no git or svn provided for #{name}. Skipping...&quot;</span>
+40:         <span class="ruby-keyword kw">end</span>
+41:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-rake"></a>
+            <b>rake</b>(command, options={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Runs the supplied rake task
+</p>
+<h4>Example</h4>
+<pre>
+  rake(&quot;db:migrate&quot;)
+  rake(&quot;db:migrate&quot;, :env =&gt; &quot;production&quot;)
+  rake(&quot;gems:install&quot;, :sudo =&gt; true)</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rake_source')"
+                 id="l_method-i-rake_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rake_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 242</span>
+242:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rake</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">options</span>={})
+243:         <span class="ruby-identifier">log</span> <span class="ruby-value">:rake</span>, <span class="ruby-identifier">command</span>
+244:         <span class="ruby-identifier">env</span>  = <span class="ruby-identifier">options</span>[<span class="ruby-value">:env</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">'development'</span>
+245:         <span class="ruby-identifier">sudo</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:sudo</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-value str">'host_os'</span>] <span class="ruby-operator">!~</span> <span class="ruby-regexp re">/mswin|mingw/</span> <span class="ruby-operator">?</span> <span class="ruby-value str">'sudo '</span> <span class="ruby-operator">:</span> <span class="ruby-value str">''</span>
+246:         <span class="ruby-identifier">in_root</span> { <span class="ruby-identifier">run</span>(<span class="ruby-node">&quot;#{sudo}#{extify(:rake)} #{command} RAILS_ENV=#{env}&quot;</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>) }
+247:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-rakefile"></a>
+            <b>rakefile</b>(filename, data=nil, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Create a new Rakefile with the provided code (either in a block or a
+string).
+</p>
+<h4>Examples</h4>
+<pre>
+  rakefile(&quot;bootstrap.rake&quot;) do
+    project = ask(&quot;What is the UNIX name of your project?&quot;)
+
+    &lt;&lt;-TASK
+      namespace :#{project} do
+        task :bootstrap do
+          puts &quot;i like boots!&quot;
+        end
+      end
+    TASK
+  end
+
+  rakefile(&quot;seed.rake&quot;, &quot;puts 'im plantin ur seedz'&quot;)</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rakefile_source')"
+                 id="l_method-i-rakefile_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rakefile_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 193</span>
+193:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rakefile</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">data</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+194:         <span class="ruby-identifier">log</span> <span class="ruby-value">:rakefile</span>, <span class="ruby-identifier">filename</span>
+195:         <span class="ruby-identifier">create_file</span>(<span class="ruby-node">&quot;lib/tasks/#{filename}&quot;</span>, <span class="ruby-identifier">data</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>, &amp;<span class="ruby-identifier">block</span>)
+196:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-readme"></a>
+            <b>readme</b>(path)          
+        </div>
+
+                  <div class="description">
+            <p>
+Reads the given file at the source root and prints it in the console.
+</p>
+<h3>Example</h3>
+<pre>
+  readme &quot;README&quot;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('readme_source')"
+                 id="l_method-i-readme_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="readme_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 291</span>
+291:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">readme</span>(<span class="ruby-identifier">path</span>)
+292:         <span class="ruby-identifier">say</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">find_in_source_paths</span>(<span class="ruby-identifier">path</span>))
+293:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-route"></a>
+            <b>route</b>(routing_code)          
+        </div>
+
+                  <div class="description">
+            <p>
+Make an entry in <a href="../../Rails.html">Rails</a> routing file
+config/routes.rb
+</p>
+<h3>Example</h3>
+<pre>
+  route &quot;root :to =&gt; 'welcome'&quot;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('route_source')"
+                 id="l_method-i-route_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="route_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 276</span>
+276:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">route</span>(<span class="ruby-identifier">routing_code</span>)
+277:         <span class="ruby-identifier">log</span> <span class="ruby-value">:route</span>, <span class="ruby-identifier">routing_code</span>
+278:         <span class="ruby-identifier">sentinel</span> = <span class="ruby-regexp re">/\.routes\.draw do(?:\s*\|map\|)?\s*$/</span>
+279: 
+280:         <span class="ruby-identifier">in_root</span> <span class="ruby-keyword kw">do</span>
+281:           <span class="ruby-identifier">inject_into_file</span> <span class="ruby-value str">'config/routes.rb'</span>, <span class="ruby-node">&quot;\n  #{routing_code}\n&quot;</span>, { <span class="ruby-value">:after</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sentinel</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span> }
+282:         <span class="ruby-keyword kw">end</span>
+283:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-vendor"></a>
+            <b>vendor</b>(filename, data=nil, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Create a new file in the vendor/ directory. Code can be specified in a
+block or a data string can be given.
+</p>
+<h4>Examples</h4>
+<pre>
+  vendor(&quot;sekrit.rb&quot;) do
+    sekrit_salt = &quot;#{Time.now}--#{3.years.ago}--#{rand}--&quot;
+    &quot;salt = '#{sekrit_salt}'&quot;
+  end
+
+  vendor(&quot;foreign.rb&quot;, &quot;# Foreign code is fun&quot;)</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('vendor_source')"
+                 id="l_method-i-vendor_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="vendor_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 154</span>
+154:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">vendor</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">data</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+155:         <span class="ruby-identifier">log</span> <span class="ruby-value">:vendor</span>, <span class="ruby-identifier">filename</span>
+156:         <span class="ruby-identifier">create_file</span>(<span class="ruby-node">&quot;vendor/#{filename}&quot;</span>, <span class="ruby-identifier">data</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>, &amp;<span class="ruby-identifier">block</span>)
+157:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-extify"></a>
+            <b>extify</b>(name)          
+        </div>
+
+                  <div class="description">
+            <p>
+Add an extension to the given name based on the platform.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('extify_source')"
+                 id="l_method-i-extify_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="extify_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 311</span>
+311:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extify</span>(<span class="ruby-identifier">name</span>)
+312:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-value str">'host_os'</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/mswin|mingw/</span>
+313:             <span class="ruby-node">&quot;#{name}.bat&quot;</span>
+314:           <span class="ruby-keyword kw">else</span>
+315:             <span class="ruby-identifier">name</span>
+316:           <span class="ruby-keyword kw">end</span>
+317:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-log"></a>
+            <b>log</b>(*args)          
+        </div>
+
+                  <div class="description">
+            <p>
+Define log for backwards compatibility. If just one argument is sent,
+invoke say, otherwise invoke say_status.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('log_source')"
+                 id="l_method-i-log_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="log_source">
+<pre>
+       <span class="ruby-comment cmt"># File railties/lib/rails/generators/actions.rb, line 300</span>
+300:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">log</span>(*<span class="ruby-identifier">args</span>)
+301:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+302:             <span class="ruby-identifier">say</span> <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">to_s</span>
+303:           <span class="ruby-keyword kw">else</span>
+304:             <span class="ruby-identifier">args</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">behavior</span> <span class="ruby-operator">==</span> <span class="ruby-value">:invoke</span> <span class="ruby-operator">?</span> <span class="ruby-value">:green</span> <span class="ruby-operator">:</span> <span class="ruby-value">:red</span>)
+305:             <span class="ruby-identifier">say_status</span> *<span class="ruby-identifier">args</span>
+306:           <span class="ruby-keyword kw">end</span>
+307:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

@@ -102,7 +102,7 @@
 (global-set-key (kbd "C-c g") (lambda () (interactive) (switch-or-start 'gnus "*Group*")))
 (global-set-key (kbd "C-c i") (lambda () (interactive) (switch-or-start (lambda ()
 
-                                                                          (rcirc-connect "irc.freenode.net"))
+                                                                     (rcirc-connect "irc.freenode.net"))
                                                                    "*irc.freenode.net*")))
 (global-set-key (kbd "C-c J") 'jabber-send-presence)
 (global-set-key (kbd "C-c M-j") 'jabber-disconnect)
@@ -160,13 +160,14 @@
 ;; (global-set-key [(control \])] 'indent-rigidly)
 
 ;; Texmate mode
-(global-set-key [C-tab] 'textmate-shift-right)
-(global-set-key [(backtab)] 'textmate-shift-left)
+(global-set-key [(control \})] 'textmate-shift-right)
+(global-set-key [(control \{)] 'textmate-shift-left)
+;; (global-set-key [(backtab)] 'textmate-shift-left)
 (global-set-key [(meta /)] 'comment-or-uncomment-region-or-line)
 (global-set-key [(meta L)] 'textmate-select-line)
 (global-set-key [(meta l)] 'goto-line)
 
-;;; Jump to matching parent
+    ;;; Jump to matching parent
 (global-set-key "%" 'match-paren)
 (global-set-key [f1] 'man-follow)
 (global-set-key [f4] 'speedbar-get-focus)

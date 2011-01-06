@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionDispatch::Http::Cache::Response</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionDispatch::Http::Cache::Response</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../../files/actionpack/lib/action_dispatch/http/cache_rb.html">actionpack/lib/action_dispatch/http/cache.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-etag">etag</a></li>
+                <li><a href="#method-i-etag%3D">etag=</a></li>
+                <li><a href="#method-i-etag%3F">etag?</a></li>
+                <li><a href="#method-i-handle_conditional_get%21">handle_conditional_get!</a></li>
+                <li><a href="#method-i-last_modified">last_modified</a></li>
+                <li><a href="#method-i-last_modified%3D">last_modified=</a></li>
+                <li><a href="#method-i-last_modified%3F">last_modified?</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-nonempty_ok_response%3F">nonempty_ok_response?</a></li>
+                <li><a href="#method-i-set_conditional_cache_control%21">set_conditional_cache_control!</a></li>
+                <li><a href="#method-i-string_body%3F">string_body?</a></li>
+      </ul>
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">DEFAULT_CACHE_CONTROL</td>
+    <td>=</td>
+    <td class="attr-value">"max-age=0, private, must-revalidate"</td>
+  </tr>
+  </table>
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>cache_control</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(*)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 44</span>
+44:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(*)
+45:           <span class="ruby-identifier">status</span>, <span class="ruby-identifier">header</span>, <span class="ruby-identifier">body</span> = <span class="ruby-keyword kw">super</span>
+46: 
+47:           <span class="ruby-ivar">@cache_control</span> = {}
+48:           <span class="ruby-ivar">@etag</span> = <span class="ruby-keyword kw">self</span>[<span class="ruby-value str">&quot;ETag&quot;</span>]
+49: 
+50:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cache_control</span> = <span class="ruby-keyword kw">self</span>[<span class="ruby-value str">&quot;Cache-Control&quot;</span>]
+51:             <span class="ruby-identifier">cache_control</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp re">/,\s*/</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">segment</span><span class="ruby-operator">|</span>
+52:               <span class="ruby-identifier">first</span>, <span class="ruby-identifier">last</span> = <span class="ruby-identifier">segment</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;=&quot;</span>)
+53:               <span class="ruby-identifier">last</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">true</span>
+54:               <span class="ruby-ivar">@cache_control</span>[<span class="ruby-identifier">first</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">last</span>
+55:             <span class="ruby-keyword kw">end</span>
+56:           <span class="ruby-keyword kw">end</span>
+57:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                      
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-etag"></a>
+            <b>etag</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('etag_source')"
+                 id="l_method-i-etag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="etag_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 73</span>
+73:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">etag</span>
+74:           <span class="ruby-ivar">@etag</span>
+75:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-etag%3D"></a>
+            <b>etag=</b>(etag)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('etag-_source')"
+                 id="l_method-i-etag%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="etag-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 81</span>
+81:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">etag=</span>(<span class="ruby-identifier">etag</span>)
+82:           <span class="ruby-identifier">key</span> = <span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Cache</span>.<span class="ruby-identifier">expand_cache_key</span>(<span class="ruby-identifier">etag</span>)
+83:           <span class="ruby-ivar">@etag</span> = <span class="ruby-keyword kw">self</span>[<span class="ruby-value str">&quot;ETag&quot;</span>] = <span class="ruby-node">%(&quot;#{Digest::MD5.hexdigest(key)}&quot;)</span>
+84:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-etag%3F"></a>
+            <b>etag?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('etag-_source')"
+                 id="l_method-i-etag%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="etag-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 77</span>
+77:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">etag?</span>
+78:           <span class="ruby-ivar">@etag</span>
+79:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-last_modified"></a>
+            <b>last_modified</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('last-modified_source')"
+                 id="l_method-i-last_modified_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="last-modified_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 59</span>
+59:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">last_modified</span>
+60:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">last</span> = <span class="ruby-identifier">headers</span>[<span class="ruby-value str">'Last-Modified'</span>]
+61:             <span class="ruby-constant">Time</span>.<span class="ruby-identifier">httpdate</span>(<span class="ruby-identifier">last</span>)
+62:           <span class="ruby-keyword kw">end</span>
+63:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-last_modified%3D"></a>
+            <b>last_modified=</b>(utc_time)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('last-modified-_source')"
+                 id="l_method-i-last_modified%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="last-modified-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 69</span>
+69:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">last_modified=</span>(<span class="ruby-identifier">utc_time</span>)
+70:           <span class="ruby-identifier">headers</span>[<span class="ruby-value str">'Last-Modified'</span>] = <span class="ruby-identifier">utc_time</span>.<span class="ruby-identifier">httpdate</span>
+71:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-last_modified%3F"></a>
+            <b>last_modified?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('last-modified-_source')"
+                 id="l_method-i-last_modified%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="last-modified-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 65</span>
+65:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">last_modified?</span>
+66:           <span class="ruby-identifier">headers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'Last-Modified'</span>)
+67:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-handle_conditional_get%21"></a>
+            <b>handle_conditional_get!</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('handle-conditional-get-_source')"
+                 id="l_method-i-handle_conditional_get%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="handle-conditional-get-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 88</span>
+ 88:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">handle_conditional_get!</span>
+ 89:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">etag?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">last_modified?</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@cache_control</span>.<span class="ruby-identifier">empty?</span>
+ 90:             <span class="ruby-identifier">set_conditional_cache_control!</span>
+ 91:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">nonempty_ok_response?</span>
+ 92:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">etag</span> = <span class="ruby-identifier">body</span>
+ 93: 
+ 94:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">etag_matches?</span>(<span class="ruby-identifier">etag</span>)
+ 95:               <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">status</span> = <span class="ruby-value">304</span>
+ 96:               <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">body</span> = []
+ 97:             <span class="ruby-keyword kw">end</span>
+ 98: 
+ 99:             <span class="ruby-identifier">set_conditional_cache_control!</span>
+100:           <span class="ruby-keyword kw">else</span>
+101:             <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Cache-Control&quot;</span>] = <span class="ruby-value str">&quot;no-cache&quot;</span>
+102:           <span class="ruby-keyword kw">end</span>
+103:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-nonempty_ok_response%3F"></a>
+            <b>nonempty_ok_response?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('nonempty-ok-response-_source')"
+                 id="l_method-i-nonempty_ok_response%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="nonempty-ok-response-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 105</span>
+105:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">nonempty_ok_response?</span>
+106:           <span class="ruby-ivar">@status</span> <span class="ruby-operator">==</span> <span class="ruby-value">200</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">string_body?</span>
+107:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-set_conditional_cache_control%21"></a>
+            <b>set_conditional_cache_control!</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('set-conditional-cache-control-_source')"
+                 id="l_method-i-set_conditional_cache_control%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="set-conditional-cache-control-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 115</span>
+115:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_conditional_cache_control!</span>
+116:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>[<span class="ruby-value str">&quot;Cache-Control&quot;</span>].<span class="ruby-identifier">present?</span>
+117: 
+118:           <span class="ruby-identifier">control</span> = <span class="ruby-ivar">@cache_control</span>
+119: 
+120:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">control</span>.<span class="ruby-identifier">empty?</span>
+121:             <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Cache-Control&quot;</span>] = <span class="ruby-constant">DEFAULT_CACHE_CONTROL</span>
+122:           <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@cache_control</span>[<span class="ruby-value">:no_cache</span>]
+123:             <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Cache-Control&quot;</span>] = <span class="ruby-value str">&quot;no-cache&quot;</span>
+124:           <span class="ruby-keyword kw">else</span>
+125:             <span class="ruby-identifier">extras</span>  = <span class="ruby-identifier">control</span>[<span class="ruby-value">:extras</span>]
+126:             <span class="ruby-identifier">max_age</span> = <span class="ruby-identifier">control</span>[<span class="ruby-value">:max_age</span>]
+127: 
+128:             <span class="ruby-identifier">options</span> = []
+129:             <span class="ruby-identifier">options</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;max-age=#{max_age.to_i}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">max_age</span>
+130:             <span class="ruby-identifier">options</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">control</span>[<span class="ruby-value">:public</span>] <span class="ruby-operator">?</span> <span class="ruby-value str">&quot;public&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-value str">&quot;private&quot;</span>)
+131:             <span class="ruby-identifier">options</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;must-revalidate&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">control</span>[<span class="ruby-value">:must_revalidate</span>]
+132:             <span class="ruby-identifier">options</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">extras</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">extras</span>
+133: 
+134:             <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Cache-Control&quot;</span>] = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;, &quot;</span>)
+135:           <span class="ruby-keyword kw">end</span>
+136:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-string_body%3F"></a>
+            <b>string_body?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('string-body-_source')"
+                 id="l_method-i-string_body%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="string-body-_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/http/cache.rb, line 109</span>
+109:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">string_body?</span>
+110:           <span class="ruby-operator">!</span><span class="ruby-ivar">@blank</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:all?</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@body</span>.<span class="ruby-identifier">all?</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">part</span><span class="ruby-operator">|</span> <span class="ruby-identifier">part</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) }
+111:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

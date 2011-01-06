@@ -1,0 +1,3941 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveResource::Base</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveResource::Base</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activeresource/lib/active_resource/base_rb.html">activeresource/lib/active_resource/base.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../Object.html">Object</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+<a href="Base.html">ActiveResource::Base</a> is the main class for mapping
+RESTful resources as models in a <a href="../Rails.html">Rails</a>
+application.
+</p>
+<p>
+For an outline of what Active Resource is capable of, see its <a
+href="../../files/activeresource/README_rdoc.html">README</a>.
+</p>
+<h2>Automated mapping</h2>
+<p>
+Active Resource objects represent your RESTful resources as manipulatable
+Ruby objects.  To map resources to Ruby objects, Active Resource only needs
+a class name that corresponds to the resource name (e.g., the class Person
+maps to the resources people, very similarly to Active Record) and a
+<tt>site</tt> value, which holds the URI of the resources.
+</p>
+<pre>
+  class Person &lt; ActiveResource::Base
+    self.site = &quot;http://api.people.com:3000/&quot;
+  end
+</pre>
+<p>
+Now the Person class is mapped to RESTful resources located at <tt><a
+href="http://api.people.com:3000/people/">api.people.com:3000/people/</a></tt>,
+and you can now use Active Resource&#8217;s life cycle methods to
+manipulate resources. In the case where you already have an existing model
+with the same name as the desired RESTful resource you can set the
+<tt>element_name</tt> value.
+</p>
+<pre>
+  class PersonResource &lt; ActiveResource::Base
+    self.site = &quot;http://api.people.com:3000/&quot;
+    self.element_name = &quot;person&quot;
+  end
+</pre>
+<p>
+If your Active Resource object is required to use an HTTP proxy you can set
+the <tt>proxy</tt> value which holds a URI.
+</p>
+<pre>
+  class PersonResource &lt; ActiveResource::Base
+    self.site = &quot;http://api.people.com:3000/&quot;
+    self.proxy = &quot;http://user:password@proxy.people.com:8080&quot;
+  end
+</pre>
+<h2>Life cycle methods</h2>
+<p>
+Active Resource exposes methods for creating, finding, updating, and
+deleting resources from REST web services.
+</p>
+<pre>
+  ryan = Person.new(:first =&gt; 'Ryan', :last =&gt; 'Daigle')
+  ryan.save                # =&gt; true
+  ryan.id                  # =&gt; 2
+  Person.exists?(ryan.id)  # =&gt; true
+  ryan.exists?             # =&gt; true
+
+  ryan = Person.find(1)
+  # Resource holding our newly created Person object
+
+  ryan.first = 'Rizzle'
+  ryan.save                # =&gt; true
+
+  ryan.destroy             # =&gt; true
+</pre>
+<p>
+As you can see, these are very similar to Active Record&#8217;s life cycle
+methods for database records. You can read more about each of these methods
+in their respective documentation.
+</p>
+<h3>Custom REST methods</h3>
+<p>
+Since simple CRUD/life cycle methods can&#8217;t accomplish every task,
+Active Resource also supports defining your own custom REST methods. To
+invoke them, Active Resource provides the <tt>get</tt>, <tt>post</tt>,
+<tt>put</tt> and <tt>delete</tt> methods where you can specify a custom
+REST method name to invoke.
+</p>
+<pre>
+  # POST to the custom 'register' REST method, i.e. POST /people/new/register.xml.
+  Person.new(:name =&gt; 'Ryan').post(:register)
+  # =&gt; { :id =&gt; 1, :name =&gt; 'Ryan', :position =&gt; 'Clerk' }
+
+  # PUT an update by invoking the 'promote' REST method, i.e. PUT /people/1/promote.xml?position=Manager.
+  Person.find(1).put(:promote, :position =&gt; 'Manager')
+  # =&gt; { :id =&gt; 1, :name =&gt; 'Ryan', :position =&gt; 'Manager' }
+
+  # GET all the positions available, i.e. GET /people/positions.xml.
+  Person.get(:positions)
+  # =&gt; [{:name =&gt; 'Manager'}, {:name =&gt; 'Clerk'}]
+
+  # DELETE to 'fire' a person, i.e. DELETE /people/1/fire.xml.
+  Person.find(1).delete(:fire)
+</pre>
+<p>
+For more information on using custom REST methods, see the <a
+href="CustomMethods.html">ActiveResource::CustomMethods</a> documentation.
+</p>
+<h2><a href="Validations.html">Validations</a></h2>
+<p>
+You can validate resources client side by overriding validation methods in
+the base class.
+</p>
+<pre>
+  class Person &lt; ActiveResource::Base
+     self.site = &quot;http://api.people.com:3000/&quot;
+     protected
+       def validate
+         errors.add(&quot;last&quot;, &quot;has invalid characters&quot;) unless last =~ /[a-zA-Z]*/
+       end
+  end
+</pre>
+<p>
+See the <a href="Validations.html">ActiveResource::Validations</a>
+documentation for more information.
+</p>
+<h2>Authentication</h2>
+<p>
+Many REST APIs will require authentication, usually in the form of basic
+HTTP authentication.  Authentication can be specified by:
+</p>
+<h3>HTTP Basic Authentication</h3>
+<ul>
+<li><p>
+putting the credentials in the URL for the <tt>site</tt> variable.
+</p>
+<pre>
+ class Person &lt; ActiveResource::Base
+   self.site = &quot;http://ryan:password@api.people.com:3000/&quot;
+ end
+</pre>
+</li>
+<li><p>
+defining <tt>user</tt> and/or <tt>password</tt> variables
+</p>
+<pre>
+ class Person &lt; ActiveResource::Base
+   self.site = &quot;http://api.people.com:3000/&quot;
+   self.user = &quot;ryan&quot;
+   self.password = &quot;password&quot;
+ end
+</pre>
+</li>
+</ul>
+<p>
+For obvious security reasons, it is probably best if such services are
+available over HTTPS.
+</p>
+<p>
+Note: Some values cannot be provided in the URL passed to site.  e.g. email
+addresses as usernames.  In those situations you should use the separate
+user and password option.
+</p>
+<h3>Certificate Authentication</h3>
+<ul>
+<li><p>
+End point uses an X509 certificate for authentication. <tt>See <a
+href="Base.html#method-c-ssl_options">ssl_options</a>=</tt> for all
+options.
+</p>
+<pre>
+ class Person &lt; ActiveResource::Base
+   self.site = &quot;https://secure.api.people.com/&quot;
+   self.ssl_options = {:cert         =&gt; OpenSSL::X509::Certificate.new(File.open(pem_file))
+                       :key          =&gt; OpenSSL::PKey::RSA.new(File.open(pem_file)),
+                       :ca_path      =&gt; &quot;/path/to/OpenSSL/formatted/CA_Certs&quot;,
+                       :verify_mode  =&gt; OpenSSL::SSL::VERIFY_PEER}
+ end
+</pre>
+</li>
+</ul>
+<h2><a href="Errors.html">Errors</a> &amp; Validation</h2>
+<p>
+Error handling and validation is handled in much the same manner as
+you&#8217;re used to seeing in Active Record.  Both the response code in
+the HTTP response and the body of the response are used to indicate that an
+error occurred.
+</p>
+<h3>Resource errors</h3>
+<p>
+When a GET is requested for a resource that does not exist, the HTTP
+<tt>404</tt> (Resource Not Found) response code will be returned from the
+server which will raise an <a
+href="ResourceNotFound.html">ActiveResource::ResourceNotFound</a>
+exception.
+</p>
+<pre>
+  # GET http://api.people.com:3000/people/999.xml
+  ryan = Person.find(999) # 404, raises ActiveResource::ResourceNotFound
+</pre>
+<p>
+<tt>404</tt> is just one of the HTTP error response codes that Active
+Resource will handle with its own exception. The following HTTP response
+codes will also result in these exceptions:
+</p>
+<ul>
+<li><p>
+200..399 - Valid response, no exception (other than 301, 302)
+</p>
+</li>
+<li><p>
+301, 302 - ActiveResource::Redirection
+</p>
+</li>
+<li><p>
+400 - <a href="BadRequest.html">ActiveResource::BadRequest</a>
+</p>
+</li>
+<li><p>
+401 - <a
+href="UnauthorizedAccess.html">ActiveResource::UnauthorizedAccess</a>
+</p>
+</li>
+<li><p>
+403 - <a href="ForbiddenAccess.html">ActiveResource::ForbiddenAccess</a>
+</p>
+</li>
+<li><p>
+404 - <a href="ResourceNotFound.html">ActiveResource::ResourceNotFound</a>
+</p>
+</li>
+<li><p>
+405 - ActiveResource::MethodNotAllowed
+</p>
+</li>
+<li><p>
+409 - <a href="ResourceConflict.html">ActiveResource::ResourceConflict</a>
+</p>
+</li>
+<li><p>
+410 - <a href="ResourceGone.html">ActiveResource::ResourceGone</a>
+</p>
+</li>
+<li><p>
+422 - ActiveResource::ResourceInvalid (rescued by save as validation
+errors)
+</p>
+</li>
+<li><p>
+401..499 - <a href="ClientError.html">ActiveResource::ClientError</a>
+</p>
+</li>
+<li><p>
+500..599 - <a href="ServerError.html">ActiveResource::ServerError</a>
+</p>
+</li>
+<li><p>
+Other - ActiveResource::ConnectionError
+</p>
+</li>
+</ul>
+<p>
+These custom exceptions allow you to deal with resource errors more
+naturally and with more precision rather than returning a general HTTP
+error.  For example:
+</p>
+<pre>
+  begin
+    ryan = Person.find(my_id)
+  rescue ActiveResource::ResourceNotFound
+    redirect_to :action =&gt; 'not_found'
+  rescue ActiveResource::ResourceConflict, ActiveResource::ResourceInvalid
+    redirect_to :action =&gt; 'new'
+  end
+</pre>
+<h3>Validation errors</h3>
+<p>
+Active Resource supports validations on resources and will return errors if
+any of these validations fail (e.g., &#8220;First name can not be
+blank&#8221; and so on).  These types of errors are denoted in the response
+by a response code of <tt>422</tt> and an XML or JSON representation of the
+validation errors.  The save operation will then fail (with a
+<tt>false</tt> return value) and the validation errors can be accessed on
+the resource in question.
+</p>
+<pre>
+  ryan = Person.find(1)
+  ryan.first # =&gt; ''
+  ryan.save  # =&gt; false
+
+  # When
+  # PUT http://api.people.com:3000/people/1.xml
+  # or
+  # PUT http://api.people.com:3000/people/1.json
+  # is requested with invalid values, the response is:
+  #
+  # Response (422):
+  # &lt;errors&gt;&lt;error&gt;First cannot be empty&lt;/error&gt;&lt;/errors&gt;
+  # or
+  # {&quot;errors&quot;:[&quot;First cannot be empty&quot;]}
+  #
+
+  ryan.errors.invalid?(:first)  # =&gt; true
+  ryan.errors.full_messages     # =&gt; ['First cannot be empty']
+</pre>
+<p>
+Learn more about Active Resource&#8217;s validation features in the <a
+href="Validations.html">ActiveResource::Validations</a> documentation.
+</p>
+<h3>Timeouts</h3>
+<p>
+Active Resource relies on HTTP to access RESTful APIs and as such is
+inherently susceptible to slow or unresponsive servers. In such cases, your
+Active Resource method calls could timeout. You can control the amount of
+time before Active Resource times out with the <tt>timeout</tt> variable.
+</p>
+<pre>
+  class Person &lt; ActiveResource::Base
+    self.site = &quot;http://api.people.com:3000/&quot;
+    self.timeout = 5
+  end
+</pre>
+<p>
+This sets the <tt>timeout</tt> to 5 seconds. You can adjust the
+<tt>timeout</tt> to a value suitable for the RESTful API you are accessing.
+It is recommended to set this to a reasonably low value to allow your
+Active Resource clients (especially if you are using Active Resource in a
+<a href="../Rails.html">Rails</a> application) to fail-fast (see <a
+href="http://en.wikipedia.org/wiki/Fail-fast">en.wikipedia.org/wiki/Fail-fast</a>)
+rather than cause cascading failures that could incapacitate your server.
+</p>
+<p>
+When a timeout occurs, an <a
+href="TimeoutError.html">ActiveResource::TimeoutError</a> is raised. You
+should rescue from <a
+href="TimeoutError.html">ActiveResource::TimeoutError</a> in your Active
+Resource method calls.
+</p>
+<p>
+Internally, Active Resource relies on Ruby&#8217;s Net::HTTP library to
+make HTTP requests. Setting <tt>timeout</tt> sets the <tt>read_timeout</tt>
+of the internal Net::HTTP instance to the same value. The default
+<tt>read_timeout</tt> is 60 seconds on most Ruby implementations.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-%3D%3D">==</a></li>
+                <li><a href="#method-c-all">all</a></li>
+                <li><a href="#method-c-auth_type">auth_type</a></li>
+                <li><a href="#method-c-auth_type%3D">auth_type=</a></li>
+                <li><a href="#method-c-build">build</a></li>
+                <li><a href="#method-i-clone">clone</a></li>
+                <li><a href="#method-i-collection_path">collection_path</a></li>
+                <li><a href="#method-c-collection_path">collection_path</a></li>
+                <li><a href="#method-c-connection">connection</a></li>
+                <li><a href="#method-i-connection">connection</a></li>
+                <li><a href="#method-i-create">create</a></li>
+                <li><a href="#method-c-create">create</a></li>
+                <li><a href="#method-c-create_proxy_uri_from">create_proxy_uri_from</a></li>
+                <li><a href="#method-c-create_site_uri_from">create_site_uri_from</a></li>
+                <li><a href="#method-c-delete">delete</a></li>
+                <li><a href="#method-i-destroy">destroy</a></li>
+                <li><a href="#method-i-dup">dup</a></li>
+                <li><a href="#method-i-element_path">element_path</a></li>
+                <li><a href="#method-c-element_path">element_path</a></li>
+                <li><a href="#method-i-encode">encode</a></li>
+                <li><a href="#method-i-eql%3F">eql?</a></li>
+                <li><a href="#method-i-exists%3F">exists?</a></li>
+                <li><a href="#method-c-exists%3F">exists?</a></li>
+                <li><a href="#method-c-find">find</a></li>
+                <li><a href="#method-c-find_every">find_every</a></li>
+                <li><a href="#method-c-find_one">find_one</a></li>
+                <li><a href="#method-i-find_or_create_resource_for">find_or_create_resource_for</a></li>
+                <li><a href="#method-i-find_or_create_resource_for_collection">find_or_create_resource_for_collection</a></li>
+                <li><a href="#method-i-find_resource_in_modules">find_resource_in_modules</a></li>
+                <li><a href="#method-c-find_single">find_single</a></li>
+                <li><a href="#method-c-first">first</a></li>
+                <li><a href="#method-c-format">format</a></li>
+                <li><a href="#method-c-format%3D">format=</a></li>
+                <li><a href="#method-i-hash">hash</a></li>
+                <li><a href="#method-c-headers">headers</a></li>
+                <li><a href="#method-i-id">id</a></li>
+                <li><a href="#method-i-id%3D">id=</a></li>
+                <li><a href="#method-i-id_from_response">id_from_response</a></li>
+                <li><a href="#method-c-instantiate_collection">instantiate_collection</a></li>
+                <li><a href="#method-c-instantiate_record">instantiate_record</a></li>
+                <li><a href="#method-c-known_attributes">known_attributes</a></li>
+                <li><a href="#method-i-known_attributes">known_attributes</a></li>
+                <li><a href="#method-c-last">last</a></li>
+                <li><a href="#method-i-load">load</a></li>
+                <li><a href="#method-i-load_attributes_from_response">load_attributes_from_response</a></li>
+                <li><a href="#method-c-logger">logger</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-new%3F">new?</a></li>
+                <li><a href="#method-c-new_element_path">new_element_path</a></li>
+                <li><a href="#method-i-new_element_path">new_element_path</a></li>
+                      <li><a href="#method-c-password">password</a></li>
+                <li><a href="#method-c-password%3D">password=</a></li>
+                <li><a href="#method-i-persisted%3F">persisted?</a></li>
+                <li><a href="#method-c-prefix">prefix</a></li>
+                <li><a href="#method-c-prefix%3D">prefix=</a></li>
+                <li><a href="#method-c-prefix_parameters">prefix_parameters</a></li>
+                <li><a href="#method-c-prefix_source">prefix_source</a></li>
+                <li><a href="#method-c-proxy">proxy</a></li>
+                <li><a href="#method-c-proxy%3D">proxy=</a></li>
+                <li><a href="#method-c-query_string">query_string</a></li>
+                <li><a href="#method-i-reload">reload</a></li>
+                <li><a href="#method-i-respond_to%3F">respond_to?</a></li>
+                      <li><a href="#method-i-save">save</a></li>
+                <li><a href="#method-i-save%21">save!</a></li>
+                <li><a href="#method-c-schema">schema</a></li>
+                <li><a href="#method-i-schema">schema</a></li>
+                <li><a href="#method-c-schema%3D">schema=</a></li>
+                      <li><a href="#method-c-site">site</a></li>
+                <li><a href="#method-c-site%3D">site=</a></li>
+                <li><a href="#method-c-split_options">split_options</a></li>
+                <li><a href="#method-i-split_options">split_options</a></li>
+                <li><a href="#method-c-ssl_options">ssl_options</a></li>
+                <li><a href="#method-c-ssl_options%3D">ssl_options=</a></li>
+                <li><a href="#method-c-timeout">timeout</a></li>
+                <li><a href="#method-c-timeout%3D">timeout=</a></li>
+                <li><a href="#method-i-to_json">to_json</a></li>
+                <li><a href="#method-i-to_xml">to_xml</a></li>
+                <li><a href="#method-i-update">update</a></li>
+                <li><a href="#method-i-update_attribute">update_attribute</a></li>
+                <li><a href="#method-i-update_attributes">update_attributes</a></li>
+                <li><a href="#method-c-uri_parser">uri_parser</a></li>
+                <li><a href="#method-c-user">user</a></li>
+                <li><a href="#method-c-user%3D">user=</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          CustomMethods      </li>
+  <li>
+          Observing      </li>
+  <li>
+          Validations      </li>
+  <li>
+          <a href="../ActiveModel/Conversion.html">ActiveModel::Conversion</a>      </li>
+  <li>
+          <a href="../ActiveModel/Serializers/JSON.html">ActiveModel::Serializers::JSON</a>      </li>
+  <li>
+          <a href="../ActiveModel/Serializers/Xml.html">ActiveModel::Serializers::Xml</a>      </li>
+</ul>
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-all"></a>
+            <b>all</b>(*args)          
+        </div>
+
+                  <div class="description">
+            <p>
+This is an alias for find(:all).  You can pass in all the same arguments to
+this method as you can to <tt>find(:all)</tt>
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('all_source')"
+                 id="l_method-c-all_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="all_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 802</span>
+802:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">all</span>(*<span class="ruby-identifier">args</span>)
+803:         <span class="ruby-identifier">find</span>(<span class="ruby-value">:all</span>, *<span class="ruby-identifier">args</span>)
+804:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-auth_type"></a>
+            <b>auth_type</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('auth-type_source')"
+                 id="l_method-c-auth_type_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="auth-type_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 459</span>
+459:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">auth_type</span>
+460:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@auth_type</span>)
+461:           <span class="ruby-ivar">@auth_type</span>
+462:         <span class="ruby-keyword kw">end</span>
+463:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-auth_type%3D"></a>
+            <b>auth_type=</b>(auth_type)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('auth-type-_source')"
+                 id="l_method-c-auth_type%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="auth-type-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 465</span>
+465:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">auth_type=</span>(<span class="ruby-identifier">auth_type</span>)
+466:         <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword kw">nil</span>
+467:         <span class="ruby-ivar">@auth_type</span> = <span class="ruby-identifier">auth_type</span>
+468:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-build"></a>
+            <b>build</b>(attributes = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Builds a new, unsaved record using the default values from the remote
+server so that it can be used with RESTful forms.
+</p>
+<h4>Options</h4>
+<ul>
+<li><p>
+<tt>attributes</tt> - A hash that overrides the default values from the
+server.
+</p>
+</li>
+</ul>
+<p>
+Returns the new resource instance.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('build_source')"
+                 id="l_method-c-build_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="build_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 680</span>
+680:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build</span>(<span class="ruby-identifier">attributes</span> = {})
+681:         <span class="ruby-identifier">attrs</span> = <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">get</span>(<span class="ruby-node">&quot;#{new_element_path}&quot;</span>).<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attributes</span>)
+682:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">attrs</span>)
+683:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-collection_path"></a>
+            <b>collection_path</b>(prefix_options = {}, query_options = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the collection path for the REST resources.  If the
+<tt>query_options</tt> parameter is omitted, <a
+href="../Rails.html">Rails</a> will split from the <tt>prefix_options</tt>.
+</p>
+<h4>Options</h4>
+<ul>
+<li><p>
+<tt>prefix_options</tt> - A hash to add a prefix to the request for nested
+URLs (e.g., <tt>:account_id =&gt; 19</tt> would yield a URL like
+<tt>/accounts/19/purchases.xml</tt>).
+</p>
+</li>
+<li><p>
+<tt>query_options</tt> - A hash to add items to the query string for the
+request.
+</p>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  Post.collection_path
+  # =&gt; /posts.xml
+
+  Comment.collection_path(:post_id =&gt; 5)
+  # =&gt; /posts/5/comments.xml
+
+  Comment.collection_path(:post_id =&gt; 5, :active =&gt; 1)
+  # =&gt; /posts/5/comments.xml?active=1
+
+  Comment.collection_path({:post_id =&gt; 5}, {:active =&gt; 1})
+  # =&gt; /posts/5/comments.xml?active=1</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('collection-path_source')"
+                 id="l_method-c-collection_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="collection-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 665</span>
+665:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collection_path</span>(<span class="ruby-identifier">prefix_options</span> = {}, <span class="ruby-identifier">query_options</span> = <span class="ruby-keyword kw">nil</span>)
+666:         <span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span> = <span class="ruby-identifier">split_options</span>(<span class="ruby-identifier">prefix_options</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">query_options</span>.<span class="ruby-identifier">nil?</span>
+667:         <span class="ruby-node">&quot;#{prefix(prefix_options)}#{collection_name}.#{format.extension}#{query_string(query_options)}&quot;</span>
+668:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-connection"></a>
+            <b>connection</b>(refresh = false)          
+        </div>
+
+                  <div class="description">
+            <p>
+An instance of <a href="Connection.html">ActiveResource::Connection</a>
+that is the base connection to the remote service. The <tt>refresh</tt>
+parameter toggles whether or not the connection is refreshed at every
+request or not (defaults to <tt>false</tt>).
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('connection_source')"
+                 id="l_method-c-connection_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="connection_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 535</span>
+535:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connection</span>(<span class="ruby-identifier">refresh</span> = <span class="ruby-keyword kw">false</span>)
+536:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@connection</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">superclass</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Object</span>
+537:           <span class="ruby-ivar">@connection</span> = <span class="ruby-constant">Connection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">site</span>, <span class="ruby-identifier">format</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">refresh</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">nil?</span>
+538:           <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">proxy</span> = <span class="ruby-identifier">proxy</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">proxy</span>
+539:           <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">user</span> = <span class="ruby-identifier">user</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">user</span>
+540:           <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">password</span> = <span class="ruby-identifier">password</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">password</span>
+541:           <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">auth_type</span> = <span class="ruby-identifier">auth_type</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">auth_type</span>
+542:           <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">timeout</span> = <span class="ruby-identifier">timeout</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">timeout</span>
+543:           <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">ssl_options</span> = <span class="ruby-identifier">ssl_options</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ssl_options</span>
+544:           <span class="ruby-ivar">@connection</span>
+545:         <span class="ruby-keyword kw">else</span>
+546:           <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">connection</span>
+547:         <span class="ruby-keyword kw">end</span>
+548:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-create"></a>
+            <b>create</b>(attributes = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Creates a new resource instance and makes a request to the remote service
+that it be saved, making it equivalent to the following simultaneous calls:
+</p>
+<pre>
+  ryan = Person.new(:first =&gt; 'ryan')
+  ryan.save
+</pre>
+<p>
+Returns the newly created resource.  If a failure has occurred an exception
+will be raised (see <tt>save</tt>).  If the resource is invalid and has not
+been saved then <tt>valid?</tt> will return <tt>false</tt>, while
+<tt>new?</tt> will still return <tt>true</tt>.
+</p>
+<h4>Examples</h4>
+<pre>
+  Person.create(:name =&gt; 'Jeremy', :email =&gt; 'myname@nospam.com', :enabled =&gt; true)
+  my_person = Person.find(:first)
+  my_person.email # =&gt; myname@nospam.com
+
+  dhh = Person.create(:name =&gt; 'David', :email =&gt; 'dhh@nospam.com', :enabled =&gt; true)
+  dhh.valid? # =&gt; true
+  dhh.new?   # =&gt; false
+
+  # We'll assume that there's a validation that requires the name attribute
+  that_guy = Person.create(:name =&gt; '', :email =&gt; 'thatguy@nospam.com', :enabled =&gt; true)
+  that_guy.valid? # =&gt; false
+  that_guy.new?   # =&gt; true</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('create_source')"
+                 id="l_method-c-create_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="create_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 709</span>
+709:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>(<span class="ruby-identifier">attributes</span> = {})
+710:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">attributes</span>).<span class="ruby-identifier">tap</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">resource</span><span class="ruby-operator">|</span> <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">save</span> }
+711:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-delete"></a>
+            <b>delete</b>(id, options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Deletes the resources with the ID in the <tt>id</tt> parameter.
+</p>
+<h4>Options</h4>
+<p>
+All options specify prefix and query parameters.
+</p>
+<h4>Examples</h4>
+<pre>
+  Event.delete(2) # sends DELETE /events/2
+
+  Event.create(:name =&gt; 'Free Concert', :location =&gt; 'Community Center')
+  my_event = Event.find(:first) # let's assume this is event with ID 7
+  Event.delete(my_event.id) # sends DELETE /events/7
+
+  # Let's assume a request to events/5/cancel.xml
+  Event.delete(params[:id]) # sends DELETE /events/5</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('delete_source')"
+                 id="l_method-c-delete_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="delete_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 821</span>
+821:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">options</span> = {})
+822:         <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">element_path</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">options</span>))
+823:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-element_path"></a>
+            <b>element_path</b>(id, prefix_options = {}, query_options = nil)          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the element path for the given ID in <tt>id</tt>.  If the
+<tt>query_options</tt> parameter is omitted, <a
+href="../Rails.html">Rails</a> will split from the prefix options.
+</p>
+<h4>Options</h4>
+<p>
+<tt>prefix_options</tt> - A hash to add a prefix to the request for nested
+URLs (e.g., <tt>:account_id =&gt; 19</tt>
+</p>
+<pre>
+                   would yield a URL like &lt;tt&gt;/accounts/19/purchases.xml&lt;/tt&gt;).
+</pre>
+<p>
+<tt>query_options</tt> - A hash to add items to the query string for the
+request.
+</p>
+<h4>Examples</h4>
+<pre>
+  Post.element_path(1)
+  # =&gt; /posts/1.xml
+
+  Comment.element_path(1, :post_id =&gt; 5)
+  # =&gt; /posts/5/comments/1.xml
+
+  Comment.element_path(1, :post_id =&gt; 5, :active =&gt; 1)
+  # =&gt; /posts/5/comments/1.xml?active=1
+
+  Comment.element_path(1, {:post_id =&gt; 5}, {:active =&gt; 1})
+  # =&gt; /posts/5/comments/1.xml?active=1</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('element-path_source')"
+                 id="l_method-c-element_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="element-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 623</span>
+623:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">element_path</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">prefix_options</span> = {}, <span class="ruby-identifier">query_options</span> = <span class="ruby-keyword kw">nil</span>)
+624:         <span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span> = <span class="ruby-identifier">split_options</span>(<span class="ruby-identifier">prefix_options</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">query_options</span>.<span class="ruby-identifier">nil?</span>
+625:         <span class="ruby-node">&quot;#{prefix(prefix_options)}#{collection_name}/#{URI.escape id.to_s}.#{format.extension}#{query_string(query_options)}&quot;</span>
+626:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-exists%3F"></a>
+            <b>exists?</b>(id, options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Asserts the existence of a resource, returning <tt>true</tt> if the
+resource is found.
+</p>
+<h4>Examples</h4>
+<pre>
+  Note.create(:title =&gt; 'Hello, world.', :body =&gt; 'Nothing more for now...')
+  Note.exists?(1) # =&gt; true
+
+  Note.exists(1349) # =&gt; false</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('exists-_source')"
+                 id="l_method-c-exists%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="exists-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 832</span>
+832:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">options</span> = {})
+833:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">id</span>
+834:           <span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span> = <span class="ruby-identifier">split_options</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:params</span>])
+835:           <span class="ruby-identifier">path</span> = <span class="ruby-identifier">element_path</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span>)
+836:           <span class="ruby-identifier">response</span> = <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">head</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span>)
+837:           <span class="ruby-identifier">response</span>.<span class="ruby-identifier">code</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-value">200</span>
+838:         <span class="ruby-keyword kw">end</span>
+839:         <span class="ruby-comment cmt"># id &amp;&amp; !find_single(id, options).nil?</span>
+840:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">ResourceNotFound</span>, <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">ResourceGone</span>
+841:         <span class="ruby-keyword kw">false</span>
+842:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-find"></a>
+            <b>find</b>(*arguments)          
+        </div>
+
+                  <div class="description">
+            <p>
+Core method for finding resources.  Used similarly to Active Record&#8217;s
+<tt>find</tt> method.
+</p>
+<h4>Arguments</h4>
+<p>
+The first argument is considered to be the scope of the query.  That is,
+how many resources are returned from the request.  It can be one of the
+following.
+</p>
+<ul>
+<li><p>
+<tt>:one</tt> - Returns a single resource.
+</p>
+</li>
+<li><p>
+<tt>:first</tt> - Returns the first resource found.
+</p>
+</li>
+<li><p>
+<tt>:last</tt> - Returns the last resource found.
+</p>
+</li>
+<li><p>
+<tt>:all</tt> - Returns every resource that matches the request.
+</p>
+</li>
+</ul>
+<h4>Options</h4>
+<ul>
+<li><p>
+<tt>:from</tt> - Sets the path or custom method that resources will be
+fetched from.
+</p>
+</li>
+<li><p>
+<tt>:params</tt> - Sets query and prefix (nested URL) parameters.
+</p>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  Person.find(1)
+  # =&gt; GET /people/1.xml
+
+  Person.find(:all)
+  # =&gt; GET /people.xml
+
+  Person.find(:all, :params =&gt; { :title =&gt; &quot;CEO&quot; })
+  # =&gt; GET /people.xml?title=CEO
+
+  Person.find(:first, :from =&gt; :managers)
+  # =&gt; GET /people/managers.xml
+
+  Person.find(:last, :from =&gt; :managers)
+  # =&gt; GET /people/managers.xml
+
+  Person.find(:all, :from =&gt; &quot;/companies/1/people.xml&quot;)
+  # =&gt; GET /companies/1/people.xml
+
+  Person.find(:one, :from =&gt; :leader)
+  # =&gt; GET /people/leader.xml
+
+  Person.find(:all, :from =&gt; :developers, :params =&gt; { :language =&gt; 'ruby' })
+  # =&gt; GET /people/developers.xml?language=ruby
+
+  Person.find(:one, :from =&gt; &quot;/companies/1/manager.xml&quot;)
+  # =&gt; GET /companies/1/manager.xml
+
+  StreetAddress.find(1, :params =&gt; { :person_id =&gt; 1 })
+  # =&gt; GET /people/1/street_addresses/1.xml
+</pre>
+<h2>Failure or missing data</h2>
+<pre>
+  A failure to find the requested object raises a ResourceNotFound
+  exception if the find was called with an id.
+  With any other scope, find returns nil when no data is returned.
+
+  Person.find(1)
+  # =&gt; raises ResourceNotFound
+
+  Person.find(:all)
+  Person.find(:first)
+  Person.find(:last)
+  # =&gt; nil</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('find_source')"
+                 id="l_method-c-find_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="find_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 772</span>
+772:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find</span>(*<span class="ruby-identifier">arguments</span>)
+773:         <span class="ruby-identifier">scope</span>   = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>)
+774:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">||</span> {}
+775: 
+776:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">scope</span>
+777:           <span class="ruby-keyword kw">when</span> <span class="ruby-value">:all</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">find_every</span>(<span class="ruby-identifier">options</span>)
+778:           <span class="ruby-keyword kw">when</span> <span class="ruby-value">:first</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">find_every</span>(<span class="ruby-identifier">options</span>).<span class="ruby-identifier">first</span>
+779:           <span class="ruby-keyword kw">when</span> <span class="ruby-value">:last</span>  <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">find_every</span>(<span class="ruby-identifier">options</span>).<span class="ruby-identifier">last</span>
+780:           <span class="ruby-keyword kw">when</span> <span class="ruby-value">:one</span>   <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">find_one</span>(<span class="ruby-identifier">options</span>)
+781:           <span class="ruby-keyword kw">else</span>             <span class="ruby-identifier">find_single</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">options</span>)
+782:         <span class="ruby-keyword kw">end</span>
+783:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-first"></a>
+            <b>first</b>(*args)          
+        </div>
+
+                  <div class="description">
+            <p>
+A convenience wrapper for <tt>find(:first, *args)</tt>. You can pass in all
+the same arguments to this method as you can to <tt>find(:first)</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('first_source')"
+                 id="l_method-c-first_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="first_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 789</span>
+789:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">first</span>(*<span class="ruby-identifier">args</span>)
+790:         <span class="ruby-identifier">find</span>(<span class="ruby-value">:first</span>, *<span class="ruby-identifier">args</span>)
+791:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-format"></a>
+            <b>format</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the current format, default is <a
+href="Formats/XmlFormat.html">ActiveResource::Formats::XmlFormat</a>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('format_source')"
+                 id="l_method-c-format_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="format_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 488</span>
+488:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format</span>
+489:         <span class="ruby-identifier">read_inheritable_attribute</span>(<span class="ruby-value">:format</span>) <span class="ruby-operator">||</span> <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">Formats</span><span class="ruby-operator">::</span><span class="ruby-constant">XmlFormat</span>
+490:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-format%3D"></a>
+            <b>format=</b>(mime_type_reference_or_format)          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets the format that attributes are sent and received in from a mime type
+reference:
+</p>
+<pre>
+  Person.format = :json
+  Person.find(1) # =&gt; GET /people/1.json
+
+  Person.format = ActiveResource::Formats::XmlFormat
+  Person.find(1) # =&gt; GET /people/1.xml
+</pre>
+<p>
+Default format is <tt>:xml</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('format-_source')"
+                 id="l_method-c-format%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="format-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 479</span>
+479:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format=</span>(<span class="ruby-identifier">mime_type_reference_or_format</span>)
+480:         <span class="ruby-identifier">format</span> = <span class="ruby-identifier">mime_type_reference_or_format</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">?</span>
+481:           <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">Formats</span>[<span class="ruby-identifier">mime_type_reference_or_format</span>] <span class="ruby-operator">:</span> <span class="ruby-identifier">mime_type_reference_or_format</span>
+482: 
+483:         <span class="ruby-identifier">write_inheritable_attribute</span>(<span class="ruby-value">:format</span>, <span class="ruby-identifier">format</span>)
+484:         <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">format</span> = <span class="ruby-identifier">format</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">site</span>
+485:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-headers"></a>
+            <b>headers</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('headers_source')"
+                 id="l_method-c-headers_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="headers_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 550</span>
+550:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">headers</span>
+551:         <span class="ruby-ivar">@headers</span> <span class="ruby-operator">||=</span> {}
+552:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-known_attributes"></a>
+            <b>known_attributes</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the list of known attributes for this resource, gathered from the
+provided <tt>schema</tt> Attributes that are known will cause your resource
+to return &#8216;true&#8217; when <tt>respond_to?</tt> is called on them. A
+known attribute will return nil if not set (rather than
+<t>MethodNotFound</tt>); thus known attributes can be used with
+<tt>validates_presence_of</tt> without a getter-method.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('known-attributes_source')"
+                 id="l_method-c-known_attributes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="known-attributes_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 369</span>
+369:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">known_attributes</span>
+370:         <span class="ruby-ivar">@known_attributes</span> <span class="ruby-operator">||=</span> []
+371:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-last"></a>
+            <b>last</b>(*args)          
+        </div>
+
+                  <div class="description">
+            <p>
+A convenience wrapper for <tt>find(:last, *args)</tt>. You can pass in all
+the same arguments to this method as you can to <tt>find(:last)</tt>.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('last_source')"
+                 id="l_method-c-last_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="last_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 796</span>
+796:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">last</span>(*<span class="ruby-identifier">args</span>)
+797:         <span class="ruby-identifier">find</span>(<span class="ruby-value">:last</span>, *<span class="ruby-identifier">args</span>)
+798:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-logger"></a>
+            <b>logger</b>          
+        </div>
+
+                  <div class="description">
+            <p>
+The logger for diagnosing and tracing Active Resource calls.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('logger_source')"
+                 id="l_method-c-logger_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="logger_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 252</span>
+252:     <span class="ruby-identifier">cattr_accessor</span> <span class="ruby-value">:logger</span>
+</pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(attributes = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Constructor method for new resources; the optional <tt>attributes</tt>
+parameter takes a hash of attributes for the new resource.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_course = Course.new
+  my_course.name = &quot;Western Civilization&quot;
+  my_course.lecturer = &quot;Don Trotter&quot;
+  my_course.save
+
+  my_other_course = Course.new(:name =&gt; &quot;Philosophy: Reason and Being&quot;, :lecturer =&gt; &quot;Ralph Cling&quot;)
+  my_other_course.save</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 962</span>
+962:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">attributes</span> = {})
+963:       <span class="ruby-ivar">@attributes</span>     = {}.<span class="ruby-identifier">with_indifferent_access</span>
+964:       <span class="ruby-ivar">@prefix_options</span> = {}
+965:       <span class="ruby-identifier">load</span>(<span class="ruby-identifier">attributes</span>)
+966:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new_element_path"></a>
+            <b>new_element_path</b>(prefix_options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the new element path for REST resources.
+</p>
+<h4>Options</h4>
+<ul>
+<li><p>
+<tt>prefix_options</tt> - A hash to add a prefix to the request for nested
+URLs (e.g., <tt>:account_id =&gt; 19</tt> would yield a URL like
+<tt>/accounts/19/purchases/new.xml</tt>).
+</p>
+</li>
+</ul>
+<h4>Examples</h4>
+<pre>
+  Post.new_element_path
+  # =&gt; /posts/new.xml
+
+  Comment.collection_path(:post_id =&gt; 5)
+  # =&gt; /posts/5/comments/new.xml</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new-element-path_source')"
+                 id="l_method-c-new_element_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new-element-path_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 640</span>
+640:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_element_path</span>(<span class="ruby-identifier">prefix_options</span> = {})
+641:         <span class="ruby-node">&quot;#{prefix(prefix_options)}#{collection_name}/new.#{format.extension}&quot;</span>
+642:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-password"></a>
+            <b>password</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the password for REST HTTP authentication.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('password_source')"
+                 id="l_method-c-password_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="password_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 444</span>
+444:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">password</span>
+445:         <span class="ruby-comment cmt"># Not using superclass_delegating_reader. See +site+ for explanation</span>
+446:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@password</span>)
+447:           <span class="ruby-ivar">@password</span>
+448:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">superclass</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">password</span>
+449:           <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">password</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">freeze</span>
+450:         <span class="ruby-keyword kw">end</span>
+451:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-password%3D"></a>
+            <b>password=</b>(password)          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets the password for REST HTTP authentication.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('password-_source')"
+                 id="l_method-c-password%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="password-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 454</span>
+454:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">password=</span>(<span class="ruby-identifier">password</span>)
+455:         <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword kw">nil</span>
+456:         <span class="ruby-ivar">@password</span> = <span class="ruby-identifier">password</span>
+457:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-prefix"></a>
+            <b>prefix</b>(options={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the prefix for a resource&#8217;s nested URL (e.g.,
+<tt>prefix/collectionname/1.xml</tt>) This method is regenerated at runtime
+based on what the prefix is set to.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('prefix_source')"
+                 id="l_method-c-prefix_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="prefix_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 561</span>
+561:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prefix</span>(<span class="ruby-identifier">options</span>={})
+562:         <span class="ruby-identifier">default</span> = <span class="ruby-identifier">site</span>.<span class="ruby-identifier">path</span>
+563:         <span class="ruby-identifier">default</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'/'</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">default</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'/'</span>
+564:         <span class="ruby-comment cmt"># generate the actual method based on the current site path</span>
+565:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">prefix</span> = <span class="ruby-identifier">default</span>
+566:         <span class="ruby-identifier">prefix</span>(<span class="ruby-identifier">options</span>)
+567:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-prefix%3D"></a>
+            <b>prefix=</b>(value = '/')          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets the prefix for a resource&#8217;s nested URL (e.g.,
+<tt>prefix/collectionname/1.xml</tt>). Default value is <tt>site.path</tt>.
+</p>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="Base.html#method-c-set_prefix">set_prefix</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('prefix-_source')"
+                 id="l_method-c-prefix%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="prefix-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 578</span>
+578:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prefix=</span>(<span class="ruby-identifier">value</span> = <span class="ruby-value str">'/'</span>)
+579:         <span class="ruby-comment cmt"># Replace :placeholders with '#{embedded options[:lookups]}'</span>
+580:         <span class="ruby-identifier">prefix_call</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/:\w+/</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span> <span class="ruby-node">&quot;\#{URI.escape options[#{key}].to_s}&quot;</span> }
+581: 
+582:         <span class="ruby-comment cmt"># Clear prefix parameters in case they have been cached</span>
+583:         <span class="ruby-ivar">@prefix_parameters</span> = <span class="ruby-keyword kw">nil</span>
+584: 
+585:         <span class="ruby-identifier">silence_warnings</span> <span class="ruby-keyword kw">do</span>
+586:           <span class="ruby-comment cmt"># Redefine the new methods.</span>
+587:           <span class="ruby-identifier">instance_eval</span> <span class="ruby-value str">            def prefix_source() &quot;#{value}&quot; end            def prefix(options={}) &quot;#{prefix_call}&quot; end</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+588:         <span class="ruby-keyword kw">end</span>
+589:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+590:         <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">error</span> <span class="ruby-node">&quot;Couldn't set prefix: #{e}\n  #{code}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logger</span>
+591:         <span class="ruby-identifier">raise</span>
+592:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-prefix_source"></a>
+            <b>prefix_source</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+An attribute reader for the source string for the resource path prefix. 
+This method is regenerated at runtime based on what the prefix is set to.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('prefix-source_source')"
+                 id="l_method-c-prefix_source_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="prefix-source_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 571</span>
+571:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prefix_source</span>
+572:         <span class="ruby-identifier">prefix</span> <span class="ruby-comment cmt"># generate #prefix and #prefix_source methods first</span>
+573:         <span class="ruby-identifier">prefix_source</span>
+574:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-proxy"></a>
+            <b>proxy</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the proxy variable if a proxy is required
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('proxy_source')"
+                 id="l_method-c-proxy_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="proxy_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 412</span>
+412:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">proxy</span>
+413:         <span class="ruby-comment cmt"># Not using superclass_delegating_reader. See +site+ for explanation</span>
+414:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@proxy</span>)
+415:           <span class="ruby-ivar">@proxy</span>
+416:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">superclass</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">proxy</span>
+417:           <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">proxy</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">freeze</span>
+418:         <span class="ruby-keyword kw">end</span>
+419:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-proxy%3D"></a>
+            <b>proxy=</b>(proxy)          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets the URI of the http proxy to the value in the <tt>proxy</tt> argument.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('proxy-_source')"
+                 id="l_method-c-proxy%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="proxy-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 422</span>
+422:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">proxy=</span>(<span class="ruby-identifier">proxy</span>)
+423:         <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword kw">nil</span>
+424:         <span class="ruby-ivar">@proxy</span> = <span class="ruby-identifier">proxy</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">create_proxy_uri_from</span>(<span class="ruby-identifier">proxy</span>)
+425:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-schema"></a>
+            <b>schema</b>(&block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Creates a schema for this resource - setting the attributes that are known
+prior to fetching an instance from the remote system.
+</p>
+<p>
+The schema helps define the set of <tt><a
+href="Base.html#method-c-known_attributes">known_attributes</a></tt> of the
+current resource.
+</p>
+<p>
+There is no need to specify a schema for your Active Resource. If you do
+not, the <tt><a
+href="Base.html#method-c-known_attributes">known_attributes</a></tt> will
+be guessed from the instance attributes returned when an instance is
+fetched from the remote system.
+</p>
+<p>
+example: class Person < <a href="Base.html">ActiveResource::Base</a>
+</p>
+<pre>
+  schema do
+    # define each attribute separately
+    attribute 'name', :string
+
+    # or use the convenience methods and pass &gt;=1 attribute names
+    string  'eye_colour', 'hair_colour'
+    integer 'age'
+    float   'height', 'weight'
+
+    # unsupported types should be left as strings
+    # overload the accessor methods if you need to convert them
+    attribute 'created_at', 'string'
+  end
+</pre>
+<p>
+end
+</p>
+<p>
+p = Person.new p.respond_to? :name   # => true p.respond_to? :age    # =>
+true p.name                # => nil p.age                 # => nil
+</p>
+<p>
+j = Person.find_by_name(&#8216;John&#8217;) #
+<person><name>John</name><age>34</age><num_children>3</num_children></person>
+j.respond_to? :name   # => true j.respond_to? :age    # => true j.name     
+# => &#8216;John&#8217; j.age                 # => &#8216;34&#8217;  # note
+this is a string! j.num_children        # => &#8216;3&#8217;  # note this
+is a string!
+</p>
+<p>
+p.num_children        # => NoMethodError
+</p>
+<p>
+Attribute-types must be one of:
+</p>
+<pre>
+ string, integer, float
+</pre>
+<p>
+Note: at present the attribute-type doesn&#8217;t do anything, but stay
+tuned... Shortly it will also <b>cast</b> the value of the returned
+attribute. ie: j.age                 # => 34   # cast to an integer
+j.weight              # => &#8216;65&#8217; # still a string!
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('schema_source')"
+                 id="l_method-c-schema_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="schema_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 308</span>
+308:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">schema</span>(&amp;<span class="ruby-identifier">block</span>)
+309:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+310:           <span class="ruby-identifier">schema_definition</span> = <span class="ruby-constant">Schema</span>.<span class="ruby-identifier">new</span>
+311:           <span class="ruby-identifier">schema_definition</span>.<span class="ruby-identifier">instance_eval</span>(&amp;<span class="ruby-identifier">block</span>)
+312: 
+313:           <span class="ruby-comment cmt"># skip out if we didn't define anything</span>
+314:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">schema_definition</span>.<span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">present?</span>
+315: 
+316:           <span class="ruby-ivar">@schema</span> <span class="ruby-operator">||=</span> {}.<span class="ruby-identifier">with_indifferent_access</span>
+317:           <span class="ruby-ivar">@known_attributes</span> <span class="ruby-operator">||=</span> []
+318: 
+319:           <span class="ruby-identifier">schema_definition</span>.<span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+320:             <span class="ruby-ivar">@schema</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
+321:             <span class="ruby-ivar">@known_attributes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">k</span>
+322:           <span class="ruby-keyword kw">end</span>
+323: 
+324:           <span class="ruby-identifier">schema</span>
+325:         <span class="ruby-keyword kw">else</span>
+326:           <span class="ruby-ivar">@schema</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">nil</span>
+327:         <span class="ruby-keyword kw">end</span>
+328:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-schema%3D"></a>
+            <b>schema=</b>(the_schema)          
+        </div>
+
+                  <div class="description">
+            <p>
+Alternative, direct way to specify a <tt>schema</tt> for this Resource.
+<tt>schema</tt> is more flexible, but this is quick for a very simple
+schema.
+</p>
+<p>
+Pass the schema as a hash with the keys being the attribute-names and the
+value being one of the accepted attribute types (as defined in
+<tt>schema</tt>)
+</p>
+<p>
+example:
+</p>
+<p>
+class Person < <a href="Base.html">ActiveResource::Base</a>
+</p>
+<pre>
+  schema = {'name' =&gt; :string, 'age' =&gt; :integer }
+</pre>
+<p>
+end
+</p>
+<p>
+The keys/values can be strings or symbols. They will be converted to
+strings.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('schema-_source')"
+                 id="l_method-c-schema%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="schema-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 347</span>
+347:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">schema=</span>(<span class="ruby-identifier">the_schema</span>)
+348:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">the_schema</span>.<span class="ruby-identifier">present?</span>
+349:           <span class="ruby-comment cmt"># purposefully nulling out the schema</span>
+350:           <span class="ruby-ivar">@schema</span> = <span class="ruby-keyword kw">nil</span>
+351:           <span class="ruby-ivar">@known_attributes</span> = []
+352:           <span class="ruby-keyword kw">return</span>
+353:         <span class="ruby-keyword kw">end</span>
+354: 
+355:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Expected a hash&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">the_schema</span>.<span class="ruby-identifier">kind_of?</span> <span class="ruby-constant">Hash</span>
+356: 
+357:         <span class="ruby-identifier">schema</span> <span class="ruby-keyword kw">do</span>
+358:           <span class="ruby-identifier">the_schema</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">attribute</span>(<span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span>) }
+359:         <span class="ruby-keyword kw">end</span>
+360:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-site"></a>
+            <b>site</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the URI of the REST resources to map for this class.  The site
+variable is required for Active Resource&#8217;s mapping to work.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('site_source')"
+                 id="l_method-c-site_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="site_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 375</span>
+375:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">site</span>
+376:         <span class="ruby-comment cmt"># Not using superclass_delegating_reader because don't want subclasses to modify superclass instance</span>
+377:         <span class="ruby-comment cmt">#</span>
+378:         <span class="ruby-comment cmt"># With superclass_delegating_reader</span>
+379:         <span class="ruby-comment cmt">#</span>
+380:         <span class="ruby-comment cmt">#   Parent.site = 'http://anonymous@test.com'</span>
+381:         <span class="ruby-comment cmt">#   Subclass.site # =&gt; 'http://anonymous@test.com'</span>
+382:         <span class="ruby-comment cmt">#   Subclass.site.user = 'david'</span>
+383:         <span class="ruby-comment cmt">#   Parent.site # =&gt; 'http://david@test.com'</span>
+384:         <span class="ruby-comment cmt">#</span>
+385:         <span class="ruby-comment cmt"># Without superclass_delegating_reader (expected behaviour)</span>
+386:         <span class="ruby-comment cmt">#</span>
+387:         <span class="ruby-comment cmt">#   Parent.site = 'http://anonymous@test.com'</span>
+388:         <span class="ruby-comment cmt">#   Subclass.site # =&gt; 'http://anonymous@test.com'</span>
+389:         <span class="ruby-comment cmt">#   Subclass.site.user = 'david' # =&gt; TypeError: can't modify frozen object</span>
+390:         <span class="ruby-comment cmt">#</span>
+391:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@site</span>)
+392:           <span class="ruby-ivar">@site</span>
+393:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">superclass</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">site</span>
+394:           <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">site</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">freeze</span>
+395:         <span class="ruby-keyword kw">end</span>
+396:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-site%3D"></a>
+            <b>site=</b>(site)          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets the URI of the REST resources to map for this class to the value in
+the <tt>site</tt> argument. The site variable is required for Active
+Resource&#8217;s mapping to work.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('site-_source')"
+                 id="l_method-c-site%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="site-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 400</span>
+400:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">site=</span>(<span class="ruby-identifier">site</span>)
+401:         <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword kw">nil</span>
+402:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">site</span>.<span class="ruby-identifier">nil?</span>
+403:           <span class="ruby-ivar">@site</span> = <span class="ruby-keyword kw">nil</span>
+404:         <span class="ruby-keyword kw">else</span>
+405:           <span class="ruby-ivar">@site</span> = <span class="ruby-identifier">create_site_uri_from</span>(<span class="ruby-identifier">site</span>)
+406:           <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">uri_parser</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-ivar">@site</span>.<span class="ruby-identifier">user</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@site</span>.<span class="ruby-identifier">user</span>
+407:           <span class="ruby-ivar">@password</span> = <span class="ruby-identifier">uri_parser</span>.<span class="ruby-identifier">unescape</span>(<span class="ruby-ivar">@site</span>.<span class="ruby-identifier">password</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@site</span>.<span class="ruby-identifier">password</span>
+408:         <span class="ruby-keyword kw">end</span>
+409:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-ssl_options"></a>
+            <b>ssl_options</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the SSL options hash.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('ssl-options_source')"
+                 id="l_method-c-ssl_options_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="ssl-options_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 524</span>
+524:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssl_options</span>
+525:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@ssl_options</span>)
+526:           <span class="ruby-ivar">@ssl_options</span>
+527:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">superclass</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">ssl_options</span>
+528:           <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">ssl_options</span>
+529:         <span class="ruby-keyword kw">end</span>
+530:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-ssl_options%3D"></a>
+            <b>ssl_options=</b>(opts={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Options that will get applied to an SSL connection.
+</p>
+<ul>
+<li><p>
+<tt>:key</tt> - An OpenSSL::PKey::RSA or OpenSSL::PKey::DSA object.
+</p>
+</li>
+<li><p>
+<tt>:cert</tt> - An OpenSSL::X509::Certificate object as client certificate
+</p>
+</li>
+<li><p>
+<tt>:ca_file</tt> - Path to a CA certification file in PEM format. The file
+can contrain several CA certificates.
+</p>
+</li>
+<li><p>
+<tt>:ca_path</tt> - Path of a CA certification directory containing
+certifications in PEM format.
+</p>
+</li>
+<li><p>
+<tt>:verify_mode</tt> - Flags for server the certification verification at
+begining of SSL/TLS session. (OpenSSL::SSL::VERIFY_NONE or
+OpenSSL::SSL::VERIFY_PEER is acceptable)
+</p>
+</li>
+<li><p>
+<tt>:verify_callback</tt> - The verify callback for the server
+certification verification.
+</p>
+</li>
+<li><p>
+<tt>:verify_depth</tt> - The maximum depth for the certificate chain
+verification.
+</p>
+</li>
+<li><p>
+<tt>:cert_store</tt> - OpenSSL::X509::Store to verify peer certificate.
+</p>
+</li>
+<li><p>
+<tt>:ssl_timeout</tt> -The SSL timeout in seconds.
+</p>
+</li>
+</ul>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('ssl-options-_source')"
+                 id="l_method-c-ssl_options%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="ssl-options-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 518</span>
+518:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ssl_options=</span>(<span class="ruby-identifier">opts</span>={})
+519:         <span class="ruby-ivar">@connection</span>   = <span class="ruby-keyword kw">nil</span>
+520:         <span class="ruby-ivar">@ssl_options</span>  = <span class="ruby-identifier">opts</span>
+521:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-timeout"></a>
+            <b>timeout</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the number of seconds after which requests to the REST API should time
+out.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('timeout_source')"
+                 id="l_method-c-timeout_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="timeout_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 499</span>
+499:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">timeout</span>
+500:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@timeout</span>)
+501:           <span class="ruby-ivar">@timeout</span>
+502:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">superclass</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">timeout</span>
+503:           <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">timeout</span>
+504:         <span class="ruby-keyword kw">end</span>
+505:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-timeout%3D"></a>
+            <b>timeout=</b>(timeout)          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets the number of seconds after which requests to the REST API should time
+out.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('timeout-_source')"
+                 id="l_method-c-timeout%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="timeout-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 493</span>
+493:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">timeout=</span>(<span class="ruby-identifier">timeout</span>)
+494:         <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword kw">nil</span>
+495:         <span class="ruby-ivar">@timeout</span> = <span class="ruby-identifier">timeout</span>
+496:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-user"></a>
+            <b>user</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the user for REST HTTP authentication.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('user_source')"
+                 id="l_method-c-user_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="user_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 428</span>
+428:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">user</span>
+429:         <span class="ruby-comment cmt"># Not using superclass_delegating_reader. See +site+ for explanation</span>
+430:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@user</span>)
+431:           <span class="ruby-ivar">@user</span>
+432:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">superclass</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Object</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">user</span>
+433:           <span class="ruby-identifier">superclass</span>.<span class="ruby-identifier">user</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">freeze</span>
+434:         <span class="ruby-keyword kw">end</span>
+435:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-user%3D"></a>
+            <b>user=</b>(user)          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets the user for REST HTTP authentication.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('user-_source')"
+                 id="l_method-c-user%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="user-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 438</span>
+438:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">user=</span>(<span class="ruby-identifier">user</span>)
+439:         <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword kw">nil</span>
+440:         <span class="ruby-ivar">@user</span> = <span class="ruby-identifier">user</span>
+441:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-create_proxy_uri_from"></a>
+            <b>create_proxy_uri_from</b>(proxy)          
+        </div>
+
+                  <div class="description">
+            <p>
+Accepts a URI and creates the proxy URI from that.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('create-proxy-uri-from_source')"
+                 id="l_method-c-create_proxy_uri_from_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="create-proxy-uri-from_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 901</span>
+901:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_proxy_uri_from</span>(<span class="ruby-identifier">proxy</span>)
+902:           <span class="ruby-identifier">proxy</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">URI</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">proxy</span>.<span class="ruby-identifier">dup</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">uri_parser</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">proxy</span>)
+903:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-create_site_uri_from"></a>
+            <b>create_site_uri_from</b>(site)          
+        </div>
+
+                  <div class="description">
+            <p>
+Accepts a URI and creates the site URI from that.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('create-site-uri-from_source')"
+                 id="l_method-c-create_site_uri_from_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="create-site-uri-from_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 896</span>
+896:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_site_uri_from</span>(<span class="ruby-identifier">site</span>)
+897:           <span class="ruby-identifier">site</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">URI</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">site</span>.<span class="ruby-identifier">dup</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">uri_parser</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">site</span>)
+898:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-find_every"></a>
+            <b>find_every</b>(options)          
+        </div>
+
+                  <div class="description">
+            <p>
+Find every resource
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('find-every_source')"
+                 id="l_method-c-find_every_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="find-every_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 846</span>
+846:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_every</span>(<span class="ruby-identifier">options</span>)
+847:           <span class="ruby-keyword kw">begin</span>
+848:             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">from</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:from</span>]
+849:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Symbol</span>
+850:               <span class="ruby-identifier">instantiate_collection</span>(<span class="ruby-identifier">get</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:params</span>]))
+851:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+852:               <span class="ruby-identifier">path</span> = <span class="ruby-node">&quot;#{from}#{query_string(options[:params])}&quot;</span>
+853:               <span class="ruby-identifier">instantiate_collection</span>(<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span>) <span class="ruby-operator">||</span> [])
+854:             <span class="ruby-keyword kw">else</span>
+855:               <span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span> = <span class="ruby-identifier">split_options</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:params</span>])
+856:               <span class="ruby-identifier">path</span> = <span class="ruby-identifier">collection_path</span>(<span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span>)
+857:               <span class="ruby-identifier">instantiate_collection</span>( (<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span>) <span class="ruby-operator">||</span> []), <span class="ruby-identifier">prefix_options</span> )
+858:             <span class="ruby-keyword kw">end</span>
+859:           <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">ResourceNotFound</span>
+860:             <span class="ruby-comment cmt"># Swallowing ResourceNotFound exceptions and return nil - as per</span>
+861:             <span class="ruby-comment cmt"># ActiveRecord.</span>
+862:             <span class="ruby-keyword kw">nil</span>
+863:           <span class="ruby-keyword kw">end</span>
+864:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-find_one"></a>
+            <b>find_one</b>(options)          
+        </div>
+
+                  <div class="description">
+            <p>
+Find a single resource from a one-off URL
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('find-one_source')"
+                 id="l_method-c-find_one_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="find-one_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 867</span>
+867:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_one</span>(<span class="ruby-identifier">options</span>)
+868:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">from</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:from</span>]
+869:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Symbol</span>
+870:             <span class="ruby-identifier">instantiate_record</span>(<span class="ruby-identifier">get</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:params</span>]))
+871:           <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+872:             <span class="ruby-identifier">path</span> = <span class="ruby-node">&quot;#{from}#{query_string(options[:params])}&quot;</span>
+873:             <span class="ruby-identifier">instantiate_record</span>(<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span>))
+874:           <span class="ruby-keyword kw">end</span>
+875:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-find_single"></a>
+            <b>find_single</b>(scope, options)          
+        </div>
+
+                  <div class="description">
+            <p>
+Find a single resource from the default URL
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('find-single_source')"
+                 id="l_method-c-find_single_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="find-single_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 878</span>
+878:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_single</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">options</span>)
+879:           <span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span> = <span class="ruby-identifier">split_options</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:params</span>])
+880:           <span class="ruby-identifier">path</span> = <span class="ruby-identifier">element_path</span>(<span class="ruby-identifier">scope</span>, <span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span>)
+881:           <span class="ruby-identifier">instantiate_record</span>(<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">headers</span>), <span class="ruby-identifier">prefix_options</span>)
+882:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-instantiate_collection"></a>
+            <b>instantiate_collection</b>(collection, prefix_options = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('instantiate-collection_source')"
+                 id="l_method-c-instantiate_collection_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="instantiate-collection_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 884</span>
+884:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instantiate_collection</span>(<span class="ruby-identifier">collection</span>, <span class="ruby-identifier">prefix_options</span> = {})
+885:           <span class="ruby-identifier">collection</span>.<span class="ruby-identifier">collect!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">record</span><span class="ruby-operator">|</span> <span class="ruby-identifier">instantiate_record</span>(<span class="ruby-identifier">record</span>, <span class="ruby-identifier">prefix_options</span>) }
+886:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-instantiate_record"></a>
+            <b>instantiate_record</b>(record, prefix_options = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('instantiate-record_source')"
+                 id="l_method-c-instantiate_record_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="instantiate-record_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 888</span>
+888:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instantiate_record</span>(<span class="ruby-identifier">record</span>, <span class="ruby-identifier">prefix_options</span> = {})
+889:           <span class="ruby-identifier">new</span>(<span class="ruby-identifier">record</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resource</span><span class="ruby-operator">|</span>
+890:             <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">prefix_options</span> = <span class="ruby-identifier">prefix_options</span>
+891:           <span class="ruby-keyword kw">end</span>
+892:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-prefix_parameters"></a>
+            <b>prefix_parameters</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+contains a set of the current prefix parameters.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('prefix-parameters_source')"
+                 id="l_method-c-prefix_parameters_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="prefix-parameters_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 906</span>
+906:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">prefix_parameters</span>
+907:           <span class="ruby-ivar">@prefix_parameters</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">prefix_source</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/:\w+/</span>).<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span> <span class="ruby-identifier">key</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>].<span class="ruby-identifier">to_sym</span> }.<span class="ruby-identifier">to_set</span>
+908:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-query_string"></a>
+            <b>query_string</b>(options)          
+        </div>
+
+                  <div class="description">
+            <p>
+Builds the query string for the request.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('query-string_source')"
+                 id="l_method-c-query_string_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="query-string_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 911</span>
+911:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">query_string</span>(<span class="ruby-identifier">options</span>)
+912:           <span class="ruby-node">&quot;?#{options.to_query}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">empty?</span>
+913:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-split_options"></a>
+            <b>split_options</b>(options = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+split an option hash into two hashes, one containing the prefix options,
+and the other containing the leftovers.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('split-options_source')"
+                 id="l_method-c-split_options_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="split-options_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 917</span>
+917:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">split_options</span>(<span class="ruby-identifier">options</span> = {})
+918:           <span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span> = {}, {}
+919: 
+920:           (<span class="ruby-identifier">options</span> <span class="ruby-operator">||</span> {}).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+921:             <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">blank?</span>
+922:             (<span class="ruby-identifier">prefix_parameters</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_sym</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">prefix_options</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">query_options</span>)[<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">value</span>
+923:           <span class="ruby-keyword kw">end</span>
+924: 
+925:           [ <span class="ruby-identifier">prefix_options</span>, <span class="ruby-identifier">query_options</span> ]
+926:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-uri_parser"></a>
+            <b>uri_parser</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('uri-parser_source')"
+                 id="l_method-c-uri_parser_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="uri-parser_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 928</span>
+928:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">uri_parser</span>
+929:           <span class="ruby-ivar">@uri_parser</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">URI</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-value">:Parser</span>) <span class="ruby-operator">?</span> <span class="ruby-constant">URI</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span> <span class="ruby-operator">:</span> <span class="ruby-constant">URI</span>
+930:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-%3D%3D"></a>
+            <b>==</b>(other)          
+        </div>
+
+                  <div class="description">
+            <p>
+<a href="../Test.html">Test</a> for equality.  Resource are equal if and
+only if <tt>other</tt> is the same object or is an instance of the same
+class, is not <tt>new?</tt>, and has the same <tt>id</tt>.
+</p>
+<h4>Examples</h4>
+<pre>
+  ryan = Person.create(:name =&gt; 'Ryan')
+  jamie = Person.create(:name =&gt; 'Jamie')
+
+  ryan == jamie
+  # =&gt; false (Different name attribute and id)
+
+  ryan_again = Person.new(:name =&gt; 'Ryan')
+  ryan == ryan_again
+  # =&gt; false (ryan_again is new?)
+
+  ryans_clone = Person.create(:name =&gt; 'Ryan')
+  ryan == ryans_clone
+  # =&gt; false (Different id attributes)
+
+  ryans_twin = Person.find(ryan.id)
+  ryan == ryans_twin
+  # =&gt; true</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-_source')"
+                 id="l_method-i-%3D%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1069</span>
+1069:     <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">other</span>)
+1070:       <span class="ruby-identifier">other</span>.<span class="ruby-identifier">equal?</span>(<span class="ruby-keyword kw">self</span>) <span class="ruby-operator">||</span> (<span class="ruby-identifier">other</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">prefix_options</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">prefix_options</span>)
+1071:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-clone"></a>
+            <b>clone</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns a clone of the resource that hasn&#8217;t been assigned an
+<tt>id</tt> yet and is treated as a new resource.
+</p>
+<pre>
+  ryan = Person.find(1)
+  not_ryan = ryan.clone
+  not_ryan.new?  # =&gt; true
+</pre>
+<p>
+Any active resource member attributes will NOT be cloned, though all other
+attributes are.  This is to prevent the conflict between any
+<tt>prefix_options</tt> that refer to the original parent resource and the
+newly cloned parent resource that does not exist.
+</p>
+<pre>
+  ryan = Person.find(1)
+  ryan.address = StreetAddress.find(1, :person_id =&gt; ryan.id)
+  ryan.hash = {:not =&gt; &quot;an ARes instance&quot;}
+
+  not_ryan = ryan.clone
+  not_ryan.new?            # =&gt; true
+  not_ryan.address         # =&gt; NoMethodError
+  not_ryan.hash            # =&gt; {:not =&gt; &quot;an ARes instance&quot;}</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('clone_source')"
+                 id="l_method-i-clone_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="clone_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 988</span>
+ 988:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clone</span>
+ 989:       <span class="ruby-comment cmt"># Clone all attributes except the pk and any nested ARes</span>
+ 990:       <span class="ruby-identifier">cloned</span> = <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">reject</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">primary_key</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>)}.<span class="ruby-identifier">inject</span>({}) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attrs</span>, (<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>)<span class="ruby-operator">|</span>
+ 991:         <span class="ruby-identifier">attrs</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">clone</span>
+ 992:         <span class="ruby-identifier">attrs</span>
+ 993:       <span class="ruby-keyword kw">end</span>
+ 994:       <span class="ruby-comment cmt"># Form the new resource - bypass initialize of resource with 'new' as that will call 'load' which</span>
+ 995:       <span class="ruby-comment cmt"># attempts to convert hashes into member objects and arrays into collections of objects.  We want</span>
+ 996:       <span class="ruby-comment cmt"># the raw objects to be cloned so we bypass load by directly setting the attributes hash.</span>
+ 997:       <span class="ruby-identifier">resource</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>({})
+ 998:       <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">prefix_options</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">prefix_options</span>
+ 999:       <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:instance_variable_set</span>, <span class="ruby-value str">'@attributes'</span>, <span class="ruby-identifier">cloned</span>
+1000:       <span class="ruby-identifier">resource</span>
+1001:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-destroy"></a>
+            <b>destroy</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Deletes the resource from the remote service.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_id = 3
+  my_person = Person.find(my_id)
+  my_person.destroy
+  Person.find(my_id) # 404 (Resource Not Found)
+
+  new_person = Person.create(:name =&gt; 'James')
+  new_id = new_person.id # =&gt; 7
+  new_person.destroy
+  Person.find(new_id) # 404 (Resource Not Found)</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('destroy_source')"
+                 id="l_method-i-destroy_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="destroy_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1149</span>
+1149:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span>
+1150:       <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">element_path</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">headers</span>)
+1151:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-dup"></a>
+            <b>dup</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Duplicates the current resource without saving it.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_invoice = Invoice.create(:customer =&gt; 'That Company')
+  next_invoice = my_invoice.dup
+  next_invoice.new? # =&gt; true
+
+  next_invoice.save
+  next_invoice == my_invoice # =&gt; false (different id attributes)
+
+  my_invoice.customer   # =&gt; That Company
+  next_invoice.customer # =&gt; That Company</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('dup_source')"
+                 id="l_method-i-dup_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="dup_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1096</span>
+1096:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dup</span>
+1097:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">tap</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resource</span><span class="ruby-operator">|</span>
+1098:         <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">attributes</span>     = <span class="ruby-ivar">@attributes</span>
+1099:         <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">prefix_options</span> = <span class="ruby-ivar">@prefix_options</span>
+1100:       <span class="ruby-keyword kw">end</span>
+1101:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-encode"></a>
+            <b>encode</b>(options={})          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns the serialized string representation of the resource in the
+configured serialization format specified in ActiveResource::Base.format.
+The options applicable depend on the configured encoding format.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('encode_source')"
+                 id="l_method-i-encode_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="encode_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1176</span>
+1176:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode</span>(<span class="ruby-identifier">options</span>={})
+1177:       <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;to_#{self.class.format.extension}&quot;</span>, <span class="ruby-identifier">options</span>)
+1178:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-eql%3F"></a>
+            <b>eql?</b>(other)          
+        </div>
+
+                  <div class="description">
+            <p>
+Tests for equality (delegates to ==).
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('eql-_source')"
+                 id="l_method-i-eql%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="eql-_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1074</span>
+1074:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">eql?</span>(<span class="ruby-identifier">other</span>)
+1075:       <span class="ruby-keyword kw">self</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>
+1076:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-exists%3F"></a>
+            <b>exists?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Evaluates to <tt>true</tt> if this resource is not <tt>new?</tt> and is
+found on the remote service.  Using this method, you can check for
+resources that may have been deleted between the object&#8217;s
+instantiation and actions on it.
+</p>
+<h4>Examples</h4>
+<pre>
+  Person.create(:name =&gt; 'Theodore Roosevelt')
+  that_guy = Person.find(:first)
+  that_guy.exists? # =&gt; true
+
+  that_lady = Person.new(:name =&gt; 'Paul Bean')
+  that_lady.exists? # =&gt; false
+
+  guys_id = that_guy.id
+  Person.delete(guys_id)
+  that_guy.exists? # =&gt; false</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('exists-_source')"
+                 id="l_method-i-exists%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="exists-_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1169</span>
+1169:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">exists?</span>
+1170:       <span class="ruby-operator">!</span><span class="ruby-identifier">new?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">to_param</span>, <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">prefix_options</span>)
+1171:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-hash"></a>
+            <b>hash</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Delegates to id in order to allow two resources of the same type and id to
+work with something like:
+</p>
+<pre>
+  [Person.find(1), Person.find(2)] &amp; [Person.find(1), Person.find(4)] # =&gt; [Person.find(1)]</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('hash_source')"
+                 id="l_method-i-hash_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="hash_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1080</span>
+1080:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">hash</span>
+1081:       <span class="ruby-identifier">id</span>.<span class="ruby-identifier">hash</span>
+1082:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-id"></a>
+            <b>id</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Gets the <tt>id</tt> attribute of the resource.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('id_source')"
+                 id="l_method-i-id_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="id_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1038</span>
+1038:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">id</span>
+1039:       <span class="ruby-identifier">attributes</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">primary_key</span>]
+1040:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-id%3D"></a>
+            <b>id=</b>(id)          
+        </div>
+
+                  <div class="description">
+            <p>
+Sets the <tt>id</tt> attribute of the resource.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('id-_source')"
+                 id="l_method-i-id%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="id-_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1043</span>
+1043:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">id=</span>(<span class="ruby-identifier">id</span>)
+1044:       <span class="ruby-identifier">attributes</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">primary_key</span>] = <span class="ruby-identifier">id</span>
+1045:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-known_attributes"></a>
+            <b>known_attributes</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+This is a list of known attributes for this resource. Either gathered from
+the provided <tt>schema</tt>, or from the attributes set on this instance
+after it has been fetched from the remote system.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('known-attributes_source')"
+                 id="l_method-i-known_attributes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="known-attributes_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 946</span>
+946:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">known_attributes</span>
+947:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">known_attributes</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">map</span>(&amp;<span class="ruby-value">:to_s</span>)
+948:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load"></a>
+            <b>load</b>(attributes)          
+        </div>
+
+                  <div class="description">
+            <p>
+A method to manually load attributes from a hash. Recursively loads
+collections of resources.  This method is called in <tt>initialize</tt> and
+<tt>create</tt> when a hash of attributes is provided.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_attrs = {:name =&gt; 'J&amp;J Textiles', :industry =&gt; 'Cloth and textiles'}
+  my_attrs = {:name =&gt; 'Marty', :colors =&gt; [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;]}
+
+  the_supplier = Supplier.find(:first)
+  the_supplier.name # =&gt; 'J&amp;M Textiles'
+  the_supplier.load(my_attrs)
+  the_supplier.name('J&amp;J Textiles')
+
+  # These two calls are the same as Supplier.new(my_attrs)
+  my_supplier = Supplier.new
+  my_supplier.load(my_attrs)
+
+  # These three calls are the same as Supplier.create(my_attrs)
+  your_supplier = Supplier.new
+  your_supplier.load(my_attrs)
+  your_supplier.save</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load_source')"
+                 id="l_method-i-load_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1216</span>
+1216:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load</span>(<span class="ruby-identifier">attributes</span>)
+1217:       <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;expected an attributes Hash, got #{attributes.inspect}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+1218:       <span class="ruby-ivar">@prefix_options</span>, <span class="ruby-identifier">attributes</span> = <span class="ruby-identifier">split_options</span>(<span class="ruby-identifier">attributes</span>)
+1219:       <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+1220:         <span class="ruby-ivar">@attributes</span>[<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>] =
+1221:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">value</span>
+1222:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span>
+1223:               <span class="ruby-identifier">resource</span> = <span class="ruby-identifier">find_or_create_resource_for_collection</span>(<span class="ruby-identifier">key</span>)
+1224:               <span class="ruby-identifier">value</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attrs</span><span class="ruby-operator">|</span>
+1225:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+1226:                   <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">attrs</span>)
+1227:                 <span class="ruby-keyword kw">else</span>
+1228:                   <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">duplicable?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">dup</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">attrs</span>
+1229:                 <span class="ruby-keyword kw">end</span>
+1230:               <span class="ruby-keyword kw">end</span>
+1231:             <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Hash</span>
+1232:               <span class="ruby-identifier">resource</span> = <span class="ruby-identifier">find_or_create_resource_for</span>(<span class="ruby-identifier">key</span>)
+1233:               <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">value</span>)
+1234:             <span class="ruby-keyword kw">else</span>
+1235:               <span class="ruby-identifier">value</span>.<span class="ruby-identifier">dup</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-identifier">value</span>
+1236:           <span class="ruby-keyword kw">end</span>
+1237:       <span class="ruby-keyword kw">end</span>
+1238:       <span class="ruby-keyword kw">self</span>
+1239:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-new%3F"></a>
+            <b>new?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns <tt>true</tt> if this object hasn&#8217;t yet been saved,
+otherwise, returns <tt>false</tt>.
+</p>
+<h4>Examples</h4>
+<pre>
+  not_new = Computer.create(:brand =&gt; 'Apple', :make =&gt; 'MacBook', :vendor =&gt; 'MacMall')
+  not_new.new? # =&gt; false
+
+  is_new = Computer.new(:brand =&gt; 'IBM', :make =&gt; 'Thinkpad', :vendor =&gt; 'IBM')
+  is_new.new? # =&gt; true
+
+  is_new.save
+  is_new.new? # =&gt; false</pre>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="Base.html#method-i-new_record%3F">new_record?</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new-_source')"
+                 id="l_method-i-new%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new-_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1016</span>
+1016:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new?</span>
+1017:       <span class="ruby-identifier">id</span>.<span class="ruby-identifier">nil?</span>
+1018:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-persisted%3F"></a>
+            <b>persisted?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns <tt>true</tt> if this object has been saved, otherwise returns
+<tt>false</tt>.
+</p>
+<h4>Examples</h4>
+<pre>
+  persisted = Computer.create(:brand =&gt; 'Apple', :make =&gt; 'MacBook', :vendor =&gt; 'MacMall')
+  persisted.persisted? # =&gt; true
+
+  not_persisted = Computer.new(:brand =&gt; 'IBM', :make =&gt; 'Thinkpad', :vendor =&gt; 'IBM')
+  not_persisted.persisted? # =&gt; false
+
+  not_persisted.save
+  not_persisted.persisted? # =&gt; true</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('persisted-_source')"
+                 id="l_method-i-persisted%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="persisted-_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1033</span>
+1033:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">persisted?</span>
+1034:       <span class="ruby-operator">!</span><span class="ruby-identifier">new?</span>
+1035:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-reload"></a>
+            <b>reload</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+A method to reload the attributes of this object from the remote web
+service.
+</p>
+<h4>Examples</h4>
+<pre>
+  my_branch = Branch.find(:first)
+  my_branch.name # =&gt; &quot;Wislon Raod&quot;
+
+  # Another client fixes the typo...
+
+  my_branch.name # =&gt; &quot;Wislon Raod&quot;
+  my_branch.reload
+  my_branch.name # =&gt; &quot;Wilson Road&quot;</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('reload_source')"
+                 id="l_method-i-reload_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="reload_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1191</span>
+1191:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">reload</span>
+1192:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">load</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">to_param</span>, <span class="ruby-value">:params</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@prefix_options</span>).<span class="ruby-identifier">attributes</span>)
+1193:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-respond_to%3F"></a>
+            <b>respond_to?</b>(method, include_priv = false)          
+        </div>
+
+                  <div class="description">
+            <p>
+A method to determine if an object responds to a message (e.g., a method
+call). In Active Resource, a Person object with a <tt>name</tt> attribute
+can answer <tt>true</tt> to <tt>my_person.respond_to?(:name)</tt>,
+<tt>my_person.respond_to?(:name=)</tt>, and
+<tt>my_person.respond_to?(:name?)</tt>.
+</p>          </div>
+        
+                  <div class="aka">
+            This method is also aliased as
+                          <a href="Base.html#method-i-respond_to_without_attributes%3F">respond_to_without_attributes?</a>                      </div>
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('respond-to-_source')"
+                 id="l_method-i-respond_to%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="respond-to-_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1277</span>
+1277:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">include_priv</span> = <span class="ruby-keyword kw">false</span>)
+1278:       <span class="ruby-identifier">method_name</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_s</span>
+1279:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">nil?</span>
+1280:         <span class="ruby-keyword kw">super</span>
+1281:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">known_attributes</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method_name</span>)
+1282:         <span class="ruby-keyword kw">true</span>
+1283:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">method_name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/(?:=|\?)$/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">$`</span>)
+1284:         <span class="ruby-keyword kw">true</span>
+1285:       <span class="ruby-keyword kw">else</span>
+1286:         <span class="ruby-comment cmt"># super must be called at the end of the method, because the inherited respond_to?</span>
+1287:         <span class="ruby-comment cmt"># would return true for generated readers, even if the attribute wasn't present</span>
+1288:         <span class="ruby-keyword kw">super</span>
+1289:       <span class="ruby-keyword kw">end</span>
+1290:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-save"></a>
+            <b>save</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Saves (<tt>POST</tt>) or updates (<tt>PUT</tt>) a resource.  Delegates to
+<tt>create</tt> if the object is new, <tt>update</tt> if it exists. If the
+response to the save includes a body, it will be assumed that this body is
+XML for the final object as it looked after the save (which would include
+attributes like <tt>created_at</tt> that weren&#8217;t part of the original
+submit).
+</p>
+<h4>Examples</h4>
+<pre>
+  my_company = Company.new(:name =&gt; 'RoleModel Software', :owner =&gt; 'Ken Auer', :size =&gt; 2)
+  my_company.new? # =&gt; true
+  my_company.save # sends POST /companies/ (create)
+
+  my_company.new? # =&gt; false
+  my_company.size = 10
+  my_company.save # sends PUT /companies/1 (update)</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('save_source')"
+                 id="l_method-i-save_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="save_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1116</span>
+1116:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save</span>
+1117:       <span class="ruby-identifier">new?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">create</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">update</span>
+1118:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-save%21"></a>
+            <b>save!</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Saves the resource.
+</p>
+<p>
+If the resource is new, it is created via <tt>POST</tt>, otherwise the
+existing resource is updated via <tt>PUT</tt>.
+</p>
+<p>
+With <tt>save!</tt> validations always run. If any of them fail
+ActiveResource::ResourceInvalid gets raised, and nothing is POSTed to the
+remote system. See <a
+href="Validations.html">ActiveResource::Validations</a> for more
+information.
+</p>
+<p>
+There&#8217;s a series of callbacks associated with <tt>save!</tt>. If any
+of the <tt>before_*</tt> callbacks return <tt>false</tt> the action is
+cancelled and <tt>save!</tt> raises ActiveResource::ResourceInvalid.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('save-_source')"
+                 id="l_method-i-save%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="save-_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1133</span>
+1133:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">save!</span>
+1134:       <span class="ruby-identifier">save</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">raise</span>(<span class="ruby-constant">ResourceInvalid</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>))
+1135:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-schema"></a>
+            <b>schema</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+If no schema has been defined for the class (see
+<tt>ActiveResource::schema=</tt>), the default automatic schema is
+generated from the current instance&#8217;s attributes
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('schema_source')"
+                 id="l_method-i-schema_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="schema_source">
+<pre>
+       <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 939</span>
+939:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">schema</span>
+940:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">schema</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">attributes</span>
+941:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_json"></a>
+            <b>to_json</b>(options={})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to-json_source')"
+                 id="l_method-i-to_json_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to-json_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1292</span>
+1292:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_json</span>(<span class="ruby-identifier">options</span>={})
+1293:       <span class="ruby-keyword kw">super</span>({ <span class="ruby-value">:root</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">element_name</span> }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>))
+1294:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_xml"></a>
+            <b>to_xml</b>(options={})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to-xml_source')"
+                 id="l_method-i-to_xml_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to-xml_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1296</span>
+1296:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_xml</span>(<span class="ruby-identifier">options</span>={})
+1297:       <span class="ruby-keyword kw">super</span>({ <span class="ruby-value">:root</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">element_name</span> }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>))
+1298:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-update_attribute"></a>
+            <b>update_attribute</b>(name, value)          
+        </div>
+
+                  <div class="description">
+            <p>
+Updates a single attribute and then saves the object.
+</p>
+<p>
+Note: Unlike ActiveRecord::Base.update_attribute, this method <b>is</b>
+subject to normal validation routines as an update sends the whole body of
+the resource in the request.  (See <a
+href="Validations.html">Validations</a>).
+</p>
+<p>
+As such, this method is equivalent to calling <a
+href="Base.html#method-i-update_attributes">update_attributes</a> with a
+single attribute/value pair.
+</p>
+<p>
+If the saving fails because of a connection or remote service error, an
+exception will be raised.  If saving fails because the resource is invalid
+then <tt>false</tt> will be returned.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('update-attribute_source')"
+                 id="l_method-i-update_attribute_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="update-attribute_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1252</span>
+1252:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_attribute</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span>)
+1253:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;#{name}=&quot;</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">value</span>)
+1254:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">save</span>
+1255:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-update_attributes"></a>
+            <b>update_attributes</b>(attributes)          
+        </div>
+
+                  <div class="description">
+            <p>
+Updates this resource with all the attributes from the passed-in Hash and
+requests that the record be saved.
+</p>
+<p>
+If the saving fails because of a connection or remote service error, an
+exception will be raised.  If saving fails because the resource is invalid
+then <tt>false</tt> will be returned.
+</p>
+<p>
+Note: Though this request can be made with a partial set of the
+resource&#8217;s attributes, the full body of the request will still be
+sent in the save request to the remote service.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('update-attributes_source')"
+                 id="l_method-i-update_attributes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="update-attributes_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1267</span>
+1267:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">attributes</span>)
+1268:       <span class="ruby-identifier">load</span>(<span class="ruby-identifier">attributes</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">save</span>
+1269:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-collection_path"></a>
+            <b>collection_path</b>(options = nil)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('collection-path_source')"
+                 id="l_method-i-collection_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="collection-path_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1339</span>
+1339:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collection_path</span>(<span class="ruby-identifier">options</span> = <span class="ruby-keyword kw">nil</span>)
+1340:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">collection_path</span>(<span class="ruby-identifier">options</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">prefix_options</span>)
+1341:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-connection"></a>
+            <b>connection</b>(refresh = false)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('connection_source')"
+                 id="l_method-i-connection_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="connection_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1301</span>
+1301:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connection</span>(<span class="ruby-identifier">refresh</span> = <span class="ruby-keyword kw">false</span>)
+1302:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">connection</span>(<span class="ruby-identifier">refresh</span>)
+1303:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-create"></a>
+            <b>create</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Create (i.e., save to the remote service) the new resource.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('create_source')"
+                 id="l_method-i-create_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="create_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1313</span>
+1313:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create</span>
+1314:         <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">post</span>(<span class="ruby-identifier">collection_path</span>, <span class="ruby-identifier">encode</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">headers</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">response</span><span class="ruby-operator">|</span>
+1315:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">id</span> = <span class="ruby-identifier">id_from_response</span>(<span class="ruby-identifier">response</span>)
+1316:           <span class="ruby-identifier">load_attributes_from_response</span>(<span class="ruby-identifier">response</span>)
+1317:         <span class="ruby-keyword kw">end</span>
+1318:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-element_path"></a>
+            <b>element_path</b>(options = nil)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('element-path_source')"
+                 id="l_method-i-element_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="element-path_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1331</span>
+1331:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">element_path</span>(<span class="ruby-identifier">options</span> = <span class="ruby-keyword kw">nil</span>)
+1332:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">element_path</span>(<span class="ruby-identifier">to_param</span>, <span class="ruby-identifier">options</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">prefix_options</span>)
+1333:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-id_from_response"></a>
+            <b>id_from_response</b>(response)          
+        </div>
+
+                  <div class="description">
+            <p>
+Takes a response from a typical create post and pulls the ID out
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('id-from-response_source')"
+                 id="l_method-i-id_from_response_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="id-from-response_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1327</span>
+1327:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">id_from_response</span>(<span class="ruby-identifier">response</span>)
+1328:         <span class="ruby-identifier">response</span>[<span class="ruby-value str">'Location'</span>][<span class="ruby-regexp re">/\/([^\/]*?)(\.\w+)?$/</span>, <span class="ruby-value">1</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>[<span class="ruby-value str">'Location'</span>]
+1329:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_attributes_from_response"></a>
+            <b>load_attributes_from_response</b>(response)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-attributes-from-response_source')"
+                 id="l_method-i-load_attributes_from_response_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-attributes-from-response_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1320</span>
+1320:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_attributes_from_response</span>(<span class="ruby-identifier">response</span>)
+1321:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>[<span class="ruby-value str">'Content-Length'</span>] <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;0&quot;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+1322:           <span class="ruby-identifier">load</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">format</span>.<span class="ruby-identifier">decode</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>))
+1323:         <span class="ruby-keyword kw">end</span>
+1324:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-new_element_path"></a>
+            <b>new_element_path</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new-element-path_source')"
+                 id="l_method-i-new_element_path_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new-element-path_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1335</span>
+1335:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new_element_path</span>
+1336:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new_element_path</span>(<span class="ruby-identifier">prefix_options</span>)
+1337:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-update"></a>
+            <b>update</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Update the resource on the remote service.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('update_source')"
+                 id="l_method-i-update_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="update_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1306</span>
+1306:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span>
+1307:         <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">put</span>(<span class="ruby-identifier">element_path</span>(<span class="ruby-identifier">prefix_options</span>), <span class="ruby-identifier">encode</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">headers</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">response</span><span class="ruby-operator">|</span>
+1308:           <span class="ruby-identifier">load_attributes_from_response</span>(<span class="ruby-identifier">response</span>)
+1309:         <span class="ruby-keyword kw">end</span>
+1310:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-find_or_create_resource_for"></a>
+            <b>find_or_create_resource_for</b>(name)          
+        </div>
+
+                  <div class="description">
+            <p>
+Tries to find a resource for a given name; if it fails, then the resource
+is created
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('find-or-create-resource-for_source')"
+                 id="l_method-i-find_or_create_resource_for_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="find-or-create-resource-for_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1364</span>
+1364:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_or_create_resource_for</span>(<span class="ruby-identifier">name</span>)
+1365:         <span class="ruby-identifier">resource_name</span> = <span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">camelize</span>
+1366:         <span class="ruby-identifier">ancestors</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;::&quot;</span>)
+1367:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+1368:           <span class="ruby-identifier">find_resource_in_modules</span>(<span class="ruby-identifier">resource_name</span>, <span class="ruby-identifier">ancestors</span>)
+1369:         <span class="ruby-keyword kw">else</span>
+1370:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">resource_name</span>)
+1371:         <span class="ruby-keyword kw">end</span>
+1372:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NameError</span>
+1373:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">resource_name</span>)
+1374:           <span class="ruby-identifier">resource</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">resource_name</span>)
+1375:         <span class="ruby-keyword kw">else</span>
+1376:           <span class="ruby-identifier">resource</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-identifier">resource_name</span>, <span class="ruby-constant">Class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ActiveResource</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>))
+1377:         <span class="ruby-keyword kw">end</span>
+1378:         <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">prefix</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">prefix</span>
+1379:         <span class="ruby-identifier">resource</span>.<span class="ruby-identifier">site</span>   = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">site</span>
+1380:         <span class="ruby-identifier">resource</span>
+1381:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-find_or_create_resource_for_collection"></a>
+            <b>find_or_create_resource_for_collection</b>(name)          
+        </div>
+
+                  <div class="description">
+            <p>
+Tries to find a resource for a given collection name; if it fails, then the
+resource is created
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('find-or-create-resource-for-collection_source')"
+                 id="l_method-i-find_or_create_resource_for_collection_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="find-or-create-resource-for-collection_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1345</span>
+1345:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_or_create_resource_for_collection</span>(<span class="ruby-identifier">name</span>)
+1346:         <span class="ruby-identifier">find_or_create_resource_for</span>(<span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Inflector</span>.<span class="ruby-identifier">singularize</span>(<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span>))
+1347:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-find_resource_in_modules"></a>
+            <b>find_resource_in_modules</b>(resource_name, module_names)          
+        </div>
+
+                  <div class="description">
+            <p>
+Tries to find a resource in a non empty list of nested modules Raises a <a
+href="../NameError.html">NameError</a> if it was not found in any of the
+given nested modules
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('find-resource-in-modules_source')"
+                 id="l_method-i-find_resource_in_modules_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="find-resource-in-modules_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1351</span>
+1351:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">find_resource_in_modules</span>(<span class="ruby-identifier">resource_name</span>, <span class="ruby-identifier">module_names</span>)
+1352:         <span class="ruby-identifier">receiver</span> = <span class="ruby-constant">Object</span>
+1353:         <span class="ruby-identifier">namespaces</span> = <span class="ruby-identifier">module_names</span>[<span class="ruby-value">0</span>, <span class="ruby-identifier">module_names</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">module_name</span><span class="ruby-operator">|</span>
+1354:           <span class="ruby-identifier">receiver</span> = <span class="ruby-identifier">receiver</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">module_name</span>)
+1355:         <span class="ruby-keyword kw">end</span>
+1356:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">namespace</span> = <span class="ruby-identifier">namespaces</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">detect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ns</span><span class="ruby-operator">|</span> <span class="ruby-identifier">ns</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">resource_name</span>) }
+1357:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">namespace</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">resource_name</span>)
+1358:         <span class="ruby-keyword kw">else</span>
+1359:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">NameError</span>
+1360:         <span class="ruby-keyword kw">end</span>
+1361:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-split_options"></a>
+            <b>split_options</b>(options = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('split-options_source')"
+                 id="l_method-i-split_options_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="split-options_source">
+<pre>
+        <span class="ruby-comment cmt"># File activeresource/lib/active_resource/base.rb, line 1383</span>
+1383:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">split_options</span>(<span class="ruby-identifier">options</span> = {})
+1384:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">__send__</span>(<span class="ruby-value">:split_options</span>, <span class="ruby-identifier">options</span>)
+1385:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

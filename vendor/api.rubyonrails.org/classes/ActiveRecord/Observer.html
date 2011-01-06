@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActiveRecord::Observer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActiveRecord::Observer</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activerecord/lib/active_record/observer_rb.html">activerecord/lib/active_record/observer.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="../ActiveModel/Observer.html">ActiveModel::Observer</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><h1>Active Record <a href="Observer.html">Observer</a></h1>
+<p>
+<a href="Observer.html">Observer</a> classes respond to life cycle
+callbacks to implement trigger-like behavior outside the original class.
+This is a great way to reduce the clutter that normally comes when the
+model class is burdened with functionality that doesn&#8217;t pertain to
+the core responsibility of the class. Example:
+</p>
+<pre>
+  class CommentObserver &lt; ActiveRecord::Observer
+    def after_save(comment)
+      Notifications.deliver_comment(&quot;admin@do.com&quot;, &quot;New comment was posted&quot;, comment)
+    end
+  end
+</pre>
+<p>
+This <a href="Observer.html">Observer</a> sends an email when a
+Comment#save is finished.
+</p>
+<pre>
+  class ContactObserver &lt; ActiveRecord::Observer
+    def after_create(contact)
+      contact.logger.info('New contact added!')
+    end
+
+    def after_destroy(contact)
+      contact.logger.warn(&quot;Contact with an id of #{contact.id} was destroyed!&quot;)
+    end
+  end
+</pre>
+<p>
+This <a href="Observer.html">Observer</a> uses logger to log when specific
+callbacks are triggered.
+</p>
+<h2>Observing a class that can&#8217;t be inferred</h2>
+<p>
+Observers will by default be mapped to the class with which they share a
+name. So CommentObserver will be tied to observing Comment,
+ProductManagerObserver to ProductManager, and so on. If you want to name
+your observer differently than the class you&#8217;re interested in
+observing, you can use the Observer.observe class method which takes either
+the concrete class (Product) or a symbol for that class (:product):
+</p>
+<pre>
+  class AuditObserver &lt; ActiveRecord::Observer
+    observe :account
+
+    def after_update(account)
+      AuditTrail.new(account, &quot;UPDATED&quot;)
+    end
+  end
+</pre>
+<p>
+If the audit observer needs to watch more than one kind of object, this can
+be specified with multiple arguments:
+</p>
+<pre>
+  class AuditObserver &lt; ActiveRecord::Observer
+    observe :account, :balance
+
+    def after_update(record)
+      AuditTrail.new(record, &quot;UPDATED&quot;)
+    end
+  end
+</pre>
+<p>
+The AuditObserver will now act on both updates to Account and Balance by
+treating them both as records.
+</p>
+<h2>Available callback methods</h2>
+<p>
+The observer can implement callback methods for each of the methods
+described in the <a href="Callbacks.html">Callbacks</a> module.
+</p>
+<h2>Storing Observers in <a href="../Rails.html">Rails</a></h2>
+<p>
+If you&#8217;re using Active Record within <a
+href="../Rails.html">Rails</a>, observer classes are usually stored in
+app/models with the naming convention of app/models/audit_observer.rb.
+</p>
+<h2>Configuration</h2>
+<p>
+In order to activate an observer, list it in the
+<tt>config.active_record.observers</tt> configuration setting in your
+<tt>config/application.rb</tt> file.
+</p>
+<pre>
+  config.active_record.observers = :comment_observer, :signup_observer
+</pre>
+<p>
+Observers will not be invoked unless you define these in your application
+configuration.
+</p>
+<h2>Loading</h2>
+<p>
+Observers register themselves in the model class they observe, since it is
+the class that notifies them of events when they occur. As a side-effect,
+when an observer is loaded its corresponding model class is loaded.
+</p>
+<p>
+Up to (and including) <a href="../Rails.html">Rails</a> 2.0.2 observers
+were instantiated between plugins and application initializers. Now
+observers are loaded after application initializers, so observed models can
+make use of extensions.
+</p>
+<p>
+If by any chance you are using observed models in the initialization you
+can still load their observers by calling <tt>ModelObserver.instance</tt>
+before. Observers are singletons and that call instantiates and registers
+them.
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-add_observer%21">add_observer!</a></li>
+                <li><a href="#method-i-define_callbacks">define_callbacks</a></li>
+                <li><a href="#method-c-method_added">method_added</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-observe_callbacks%3F">observe_callbacks?</a></li>
+                <li><a href="#method-i-observed_descendants">observed_descendants</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-method_added"></a>
+            <b>method_added</b>(method)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('method-added_source')"
+                 id="l_method-c-method_added_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="method-added_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/observer.rb, line 100</span>
+100:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">method_added</span>(<span class="ruby-identifier">method</span>)
+101:       <span class="ruby-identifier">method</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_sym</span>
+102: 
+103:       <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Callbacks</span><span class="ruby-operator">::</span><span class="ruby-constant">CALLBACKS</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method</span>)
+104:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">observed_methods</span> <span class="ruby-operator">+=</span> [<span class="ruby-identifier">method</span>]
+105:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">observed_methods</span>.<span class="ruby-identifier">freeze</span>
+106:       <span class="ruby-keyword kw">end</span>
+107:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File activerecord/lib/active_record/observer.rb, line 95</span>
+95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+96:       <span class="ruby-keyword kw">super</span>
+97:       <span class="ruby-identifier">observed_descendants</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span> <span class="ruby-identifier">add_observer!</span>(<span class="ruby-identifier">klass</span>) }
+98:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-add_observer%21"></a>
+            <b>add_observer!</b>(klass)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('add-observer-_source')"
+                 id="l_method-i-add_observer%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="add-observer-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/observer.rb, line 119</span>
+119:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_observer!</span>(<span class="ruby-identifier">klass</span>)
+120:         <span class="ruby-keyword kw">super</span>
+121:         <span class="ruby-identifier">define_callbacks</span> <span class="ruby-identifier">klass</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">observe_callbacks?</span>
+122:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-define_callbacks"></a>
+            <b>define_callbacks</b>(klass)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('define-callbacks_source')"
+                 id="l_method-i-define_callbacks_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="define-callbacks_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/observer.rb, line 124</span>
+124:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define_callbacks</span>(<span class="ruby-identifier">klass</span>)
+125:         <span class="ruby-identifier">existing_methods</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">to_sym</span> }
+126:         <span class="ruby-identifier">observer</span> = <span class="ruby-keyword kw">self</span>
+127:         <span class="ruby-identifier">observer_name</span> = <span class="ruby-identifier">observer</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">underscore</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">'/'</span>, <span class="ruby-value str">'__'</span>)
+128: 
+129:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">observed_methods</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">method</span><span class="ruby-operator">|</span>
+130:           <span class="ruby-identifier">callback</span> = <span class="ruby-value">:&quot;_notify_#{observer_name}_for_#{method}&quot;</span>
+131:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">existing_methods</span>.<span class="ruby-identifier">include?</span> <span class="ruby-identifier">callback</span>
+132:             <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:define_method</span>, <span class="ruby-identifier">callback</span>) <span class="ruby-keyword kw">do</span>  <span class="ruby-comment cmt"># def _notify_user_observer_for_before_save</span>
+133:               <span class="ruby-identifier">observer</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">method</span>, <span class="ruby-keyword kw">self</span>)          <span class="ruby-comment cmt">#   observer.update(:before_save, self)</span>
+134:             <span class="ruby-keyword kw">end</span>                                      <span class="ruby-comment cmt"># end</span>
+135:             <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">method</span>, <span class="ruby-identifier">callback</span>)             <span class="ruby-comment cmt"># before_save :_notify_user_observer_for_before_save</span>
+136:           <span class="ruby-keyword kw">end</span>
+137:         <span class="ruby-keyword kw">end</span>
+138:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-observe_callbacks%3F"></a>
+            <b>observe_callbacks?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('observe-callbacks-_source')"
+                 id="l_method-i-observe_callbacks%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="observe-callbacks-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/observer.rb, line 115</span>
+115:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">observe_callbacks?</span>
+116:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">observed_methods</span>.<span class="ruby-identifier">any?</span>
+117:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-observed_descendants"></a>
+            <b>observed_descendants</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('observed-descendants_source')"
+                 id="l_method-i-observed_descendants_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="observed-descendants_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/observer.rb, line 111</span>
+111:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">observed_descendants</span>
+112:         <span class="ruby-identifier">observed_classes</span>.<span class="ruby-identifier">sum</span>([]) { <span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">descendants</span> }
+113:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

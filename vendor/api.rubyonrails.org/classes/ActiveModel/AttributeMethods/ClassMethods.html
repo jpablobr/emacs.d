@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveModel::AttributeMethods::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveModel::AttributeMethods::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activemodel/lib/active_model/attribute_methods_rb.html">activemodel/lib/active_model/attribute_methods.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-alias_attribute">alias_attribute</a></li>
+                <li><a href="#method-i-attribute_method_affix">attribute_method_affix</a></li>
+                <li><a href="#method-i-attribute_method_prefix">attribute_method_prefix</a></li>
+                <li><a href="#method-i-attribute_method_suffix">attribute_method_suffix</a></li>
+                <li><a href="#method-i-attribute_methods_generated%3F">attribute_methods_generated?</a></li>
+                <li><a href="#method-i-define_attr_method">define_attr_method</a></li>
+                <li><a href="#method-i-define_attribute_methods">define_attribute_methods</a></li>
+                <li><a href="#method-i-instance_method_already_implemented%3F">instance_method_already_implemented?</a></li>
+                <li><a href="#method-i-undefine_attribute_methods">undefine_attribute_methods</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-alias_attribute"></a>
+            <b>alias_attribute</b>(new_name, old_name)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('alias-attribute_source')"
+                 id="l_method-i-alias_attribute_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="alias-attribute_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/attribute_methods.rb, line 225</span>
+225:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">alias_attribute</span>(<span class="ruby-identifier">new_name</span>, <span class="ruby-identifier">old_name</span>)
+226:         <span class="ruby-identifier">attribute_method_matchers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">matcher</span><span class="ruby-operator">|</span>
+227:           <span class="ruby-identifier">module_eval</span> <span class="ruby-value str">            def #{matcher.method_name(new_name)}(*args)              send(:#{matcher.method_name(old_name)}, *args)            end</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+228:         <span class="ruby-keyword kw">end</span>
+229:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attribute_method_affix"></a>
+            <b>attribute_method_affix</b>(*affixes)          
+        </div>
+
+                  <div class="description">
+            <p>
+Declares a method available for all attributes with the given prefix and
+suffix. Uses <tt>method_missing</tt> and <tt>respond_to?</tt> to rewrite
+the method.
+</p>
+<pre>
+  #{prefix}#{attr}#{suffix}(*args, &amp;block)
+</pre>
+<p>
+to
+</p>
+<pre>
+  #{prefix}attribute#{suffix}(#{attr}, *args, &amp;block)
+</pre>
+<p>
+An <tt>#{prefix}attribute#{suffix}</tt> instance method must exist and
+accept at least the <tt>attr</tt> argument.
+</p>
+<p>
+For example:
+</p>
+<pre>
+  class Person
+
+    include ActiveModel::AttributeMethods
+    attr_accessor :name
+    attribute_method_affix :prefix =&gt; 'reset_', :suffix =&gt; '_to_default!'
+    define_attribute_methods [:name]
+
+    private
+
+    def reset_attribute_to_default!(attr)
+      ...
+    end
+  end
+
+  person = Person.new
+  person.name                         # =&gt; 'Gem'
+  person.reset_name_to_default!
+  person.name                         # =&gt; 'Gemma'</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attribute-method-affix_source')"
+                 id="l_method-i-attribute_method_affix_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attribute-method-affix_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/attribute_methods.rb, line 220</span>
+220:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attribute_method_affix</span>(*<span class="ruby-identifier">affixes</span>)
+221:         <span class="ruby-identifier">attribute_method_matchers</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">affixes</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">affix</span><span class="ruby-operator">|</span> <span class="ruby-constant">AttributeMethodMatcher</span>.<span class="ruby-identifier">new</span> <span class="ruby-value">:prefix</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">affix</span>[<span class="ruby-value">:prefix</span>], <span class="ruby-value">:suffix</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">affix</span>[<span class="ruby-value">:suffix</span>] })
+222:         <span class="ruby-identifier">undefine_attribute_methods</span>
+223:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attribute_method_prefix"></a>
+            <b>attribute_method_prefix</b>(*prefixes)          
+        </div>
+
+                  <div class="description">
+            <p>
+Declares a method available for all attributes with the given prefix. Uses
+<tt>method_missing</tt> and <tt>respond_to?</tt> to rewrite the method.
+</p>
+<pre>
+  #{prefix}#{attr}(*args, &amp;block)
+</pre>
+<p>
+to
+</p>
+<pre>
+  #{prefix}attribute(#{attr}, *args, &amp;block)
+</pre>
+<p>
+An instance method <tt>#{prefix}attribute</tt> must exist and accept at
+least the <tt>attr</tt> argument.
+</p>
+<p>
+For example:
+</p>
+<pre>
+  class Person
+
+    include ActiveModel::AttributeMethods
+    attr_accessor :name
+    attribute_method_prefix 'clear_'
+    define_attribute_methods [:name]
+
+    private
+
+    def clear_attribute(attr)
+      send(&quot;#{attr}=&quot;, nil)
+    end
+  end
+
+  person = Person.new
+  person.name = &quot;Bob&quot;
+  person.name          # =&gt; &quot;Bob&quot;
+  person.clear_name
+  person.name          # =&gt; nil</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attribute-method-prefix_source')"
+                 id="l_method-i-attribute_method_prefix_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attribute-method-prefix_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/attribute_methods.rb, line 145</span>
+145:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attribute_method_prefix</span>(*<span class="ruby-identifier">prefixes</span>)
+146:         <span class="ruby-identifier">attribute_method_matchers</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">prefixes</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">prefix</span><span class="ruby-operator">|</span> <span class="ruby-constant">AttributeMethodMatcher</span>.<span class="ruby-identifier">new</span> <span class="ruby-value">:prefix</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">prefix</span> })
+147:         <span class="ruby-identifier">undefine_attribute_methods</span>
+148:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attribute_method_suffix"></a>
+            <b>attribute_method_suffix</b>(*suffixes)          
+        </div>
+
+                  <div class="description">
+            <p>
+Declares a method available for all attributes with the given suffix. Uses
+<tt>method_missing</tt> and <tt>respond_to?</tt> to rewrite the method.
+</p>
+<pre>
+  #{attr}#{suffix}(*args, &amp;block)
+</pre>
+<p>
+to
+</p>
+<pre>
+  attribute#{suffix}(#{attr}, *args, &amp;block)
+</pre>
+<p>
+An <tt>attribute#{suffix}</tt> instance method must exist and accept at
+least the <tt>attr</tt> argument.
+</p>
+<p>
+For example:
+</p>
+<pre>
+  class Person
+
+    include ActiveModel::AttributeMethods
+    attr_accessor :name
+    attribute_method_suffix '_short?'
+    define_attribute_methods [:name]
+
+    private
+
+    def attribute_short?(attr)
+      send(attr).length &lt; 5
+    end
+  end
+
+  person = Person.new
+  person.name = &quot;Bob&quot;
+  person.name          # =&gt; &quot;Bob&quot;
+  person.name_short?   # =&gt; true</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attribute-method-suffix_source')"
+                 id="l_method-i-attribute_method_suffix_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attribute-method-suffix_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/attribute_methods.rb, line 182</span>
+182:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attribute_method_suffix</span>(*<span class="ruby-identifier">suffixes</span>)
+183:         <span class="ruby-identifier">attribute_method_matchers</span>.<span class="ruby-identifier">concat</span>(<span class="ruby-identifier">suffixes</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">suffix</span><span class="ruby-operator">|</span> <span class="ruby-constant">AttributeMethodMatcher</span>.<span class="ruby-identifier">new</span> <span class="ruby-value">:suffix</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">suffix</span> })
+184:         <span class="ruby-identifier">undefine_attribute_methods</span>
+185:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attribute_methods_generated%3F"></a>
+            <b>attribute_methods_generated?</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Returns true if the attribute methods defined have been generated.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attribute-methods-generated-_source')"
+                 id="l_method-i-attribute_methods_generated%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attribute-methods-generated-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/attribute_methods.rb, line 304</span>
+304:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attribute_methods_generated?</span>
+305:         <span class="ruby-ivar">@attribute_methods_generated</span> <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">nil</span>
+306:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-define_attr_method"></a>
+            <b>define_attr_method</b>(name, value=nil, &block)          
+        </div>
+
+                  <div class="description">
+            <p>
+Defines an &#8220;attribute&#8221; method (like <tt>inheritance_column</tt>
+or <tt>table_name</tt>). A new (class) method will be created with the
+given name. If a value is specified, the new method will return that value
+(as a string). Otherwise, the given block will be used to compute the value
+of the method.
+</p>
+<p>
+The original method will be aliased, with the new name being prefixed with
+&#8220;original_&#8221;. This allows the new method to access the original
+value.
+</p>
+<p>
+Example:
+</p>
+<pre>
+  class Person
+
+    include ActiveModel::AttributeMethods
+
+    cattr_accessor :primary_key
+    cattr_accessor :inheritance_column
+
+    define_attr_method :primary_key, &quot;sysid&quot;
+    define_attr_method( :inheritance_column ) do
+      original_inheritance_column + &quot;_id&quot;
+    end
+
+  end
+</pre>
+<p>
+Provides you with:
+</p>
+<pre>
+  AttributePerson.primary_key
+  # =&gt; &quot;sysid&quot;
+  AttributePerson.inheritance_column = 'address'
+  AttributePerson.inheritance_column
+  # =&gt; 'address_id'</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('define-attr-method_source')"
+                 id="l_method-i-define_attr_method_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="define-attr-method_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/attribute_methods.rb, line 93</span>
+ 93:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define_attr_method</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span>=<span class="ruby-keyword kw">nil</span>, &amp;<span class="ruby-identifier">block</span>)
+ 94:         <span class="ruby-identifier">sing</span> = <span class="ruby-identifier">singleton_class</span>
+ 95:         <span class="ruby-identifier">sing</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-value str">          if method_defined?(:original_#{name})            undef :original_#{name}          end          alias_method :original_#{name}, :#{name}</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+ 96:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+ 97:           <span class="ruby-identifier">sing</span>.<span class="ruby-identifier">send</span> <span class="ruby-value">:define_method</span>, <span class="ruby-identifier">name</span>, &amp;<span class="ruby-identifier">block</span>
+ 98:         <span class="ruby-keyword kw">else</span>
+ 99:           <span class="ruby-comment cmt"># use eval instead of a block to work around a memory leak in dev</span>
+100:           <span class="ruby-comment cmt"># mode in fcgi</span>
+101:           <span class="ruby-identifier">sing</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-value str">            def #{name}; #{value.to_s.inspect}; end</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+102:         <span class="ruby-keyword kw">end</span>
+103:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-define_attribute_methods"></a>
+            <b>define_attribute_methods</b>(attr_names)          
+        </div>
+
+                  <div class="description">
+            <p>
+Declares a the attributes that should be prefixed and suffixed by <a
+href="../AttributeMethods.html">ActiveModel::AttributeMethods</a>.
+</p>
+<p>
+To use, pass in an array of attribute names (as strings or symbols), be
+sure to declare <tt><a
+href="ClassMethods.html#method-i-define_attribute_methods">define_attribute_methods</a></tt>
+after you define any prefix, suffix or affix methods, or they will not hook
+in.
+</p>
+<pre>
+  class Person
+
+    include ActiveModel::AttributeMethods
+    attr_accessor :name, :age, :address
+    attribute_method_prefix 'clear_'
+
+    # Call to define_attribute_methods must appear after the
+    # attribute_method_prefix, attribute_method_suffix or
+    # attribute_method_affix declares.
+    define_attribute_methods [:name, :age, :address]
+
+    private
+
+    def clear_attribute(attr)
+      ...
+    end
+  end</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('define-attribute-methods_source')"
+                 id="l_method-i-define_attribute_methods_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="define-attribute-methods_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/attribute_methods.rb, line 259</span>
+259:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">define_attribute_methods</span>(<span class="ruby-identifier">attr_names</span>)
+260:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attribute_methods_generated?</span>
+261:         <span class="ruby-identifier">attr_names</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">attr_name</span><span class="ruby-operator">|</span>
+262:           <span class="ruby-identifier">attribute_method_matchers</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">matcher</span><span class="ruby-operator">|</span>
+263:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">instance_method_already_implemented?</span>(<span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">method_name</span>(<span class="ruby-identifier">attr_name</span>))
+264:               <span class="ruby-identifier">generate_method</span> = <span class="ruby-node">&quot;define_method_#{matcher.prefix}attribute#{matcher.suffix}&quot;</span>
+265: 
+266:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">generate_method</span>)
+267:                 <span class="ruby-identifier">send</span>(<span class="ruby-identifier">generate_method</span>, <span class="ruby-identifier">attr_name</span>)
+268:               <span class="ruby-keyword kw">else</span>
+269:                 <span class="ruby-identifier">method_name</span> = <span class="ruby-identifier">matcher</span>.<span class="ruby-identifier">method_name</span>(<span class="ruby-identifier">attr_name</span>)
+270: 
+271:                 <span class="ruby-identifier">generated_attribute_methods</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-value str">                  if method_defined?(:#{method_name})                    undef :#{method_name}                  end                  def #{method_name}(*args)                    send(:#{matcher.method_missing_target}, '#{attr_name}', *args)                  end</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+272:               <span class="ruby-keyword kw">end</span>
+273:             <span class="ruby-keyword kw">end</span>
+274:           <span class="ruby-keyword kw">end</span>
+275:         <span class="ruby-keyword kw">end</span>
+276:         <span class="ruby-ivar">@attribute_methods_generated</span> = <span class="ruby-keyword kw">true</span>
+277:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-undefine_attribute_methods"></a>
+            <b>undefine_attribute_methods</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Removes all the previously dynamically defined methods from the class
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('undefine-attribute-methods_source')"
+                 id="l_method-i-undefine_attribute_methods_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="undefine-attribute-methods_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/attribute_methods.rb, line 287</span>
+287:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">undefine_attribute_methods</span>
+288:         <span class="ruby-identifier">generated_attribute_methods</span>.<span class="ruby-identifier">module_eval</span> <span class="ruby-keyword kw">do</span>
+289:           <span class="ruby-identifier">instance_methods</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">undef_method</span>(<span class="ruby-identifier">m</span>) }
+290:         <span class="ruby-keyword kw">end</span>
+291:         <span class="ruby-ivar">@attribute_methods_generated</span> = <span class="ruby-keyword kw">nil</span>
+292:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-instance_method_already_implemented%3F"></a>
+            <b>instance_method_already_implemented?</b>(method_name)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('instance-method-already-implemented-_source')"
+                 id="l_method-i-instance_method_already_implemented%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="instance-method-already-implemented-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/attribute_methods.rb, line 309</span>
+309:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instance_method_already_implemented?</span>(<span class="ruby-identifier">method_name</span>)
+310:           <span class="ruby-identifier">method_defined?</span>(<span class="ruby-identifier">method_name</span>)
+311:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

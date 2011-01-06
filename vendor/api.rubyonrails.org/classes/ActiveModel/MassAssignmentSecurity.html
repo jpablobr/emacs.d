@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveModel::MassAssignmentSecurity</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveModel::MassAssignmentSecurity</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activemodel/lib/active_model/mass_assignment_security_rb.html">activemodel/lib/active_model/mass_assignment_security.rb</a>:
+<a href="../../files/activemodel/lib/active_model/mass_assignment_security/permission_set_rb.html">activemodel/lib/active_model/mass_assignment_security/permission_set.rb</a>:
+<a href="../../files/activemodel/lib/active_model/mass_assignment_security/sanitizer_rb.html">activemodel/lib/active_model/mass_assignment_security/sanitizer.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><h1>Active Model Mass-Assignment Security</h1>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-mass_assignment_authorizer">mass_assignment_authorizer</a></li>
+                <li><a href="#method-i-sanitize_for_mass_assignment">sanitize_for_mass_assignment</a></li>
+      </ul>
+
+
+
+
+                            
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-mass_assignment_authorizer"></a>
+            <b>mass_assignment_authorizer</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('mass-assignment-authorizer_source')"
+                 id="l_method-i-mass_assignment_authorizer_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="mass-assignment-authorizer_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/mass_assignment_security.rb, line 156</span>
+156:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">mass_assignment_authorizer</span>
+157:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">active_authorizer</span>
+158:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-sanitize_for_mass_assignment"></a>
+            <b>sanitize_for_mass_assignment</b>(attributes)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('sanitize-for-mass-assignment_source')"
+                 id="l_method-i-sanitize_for_mass_assignment_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="sanitize-for-mass-assignment_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/mass_assignment_security.rb, line 152</span>
+152:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sanitize_for_mass_assignment</span>(<span class="ruby-identifier">attributes</span>)
+153:       <span class="ruby-identifier">mass_assignment_authorizer</span>.<span class="ruby-identifier">sanitize</span>(<span class="ruby-identifier">attributes</span>)
+154:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

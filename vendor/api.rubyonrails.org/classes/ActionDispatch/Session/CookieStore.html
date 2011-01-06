@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: ActionDispatch::Session::CookieStore</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />ActionDispatch::Session::CookieStore</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/action_dispatch/middleware/session/cookie_store_rb.html">actionpack/lib/action_dispatch/middleware/session/cookie_store.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="AbstractStore.html">ActionDispatch::Session::AbstractStore</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+This cookie-based session store is the <a href="../../Rails.html">Rails</a>
+default. Sessions typically contain at most a user_id and flash message;
+both fit within the 4K cookie size limit. Cookie-based sessions are
+dramatically faster than the alternatives.
+</p>
+<p>
+If you have more than 4K of session data or don&#8217;t want your data to
+be visible to the user, pick another session store.
+</p>
+<p>
+CookieOverflow is raised if you attempt to store more than 4K of data.
+</p>
+<p>
+A message digest is included with the cookie to ensure data integrity: a
+user cannot alter his <tt>user_id</tt> without knowing the secret key
+included in the hash. New apps are generated with a pregenerated secret in
+config/environment.rb. Set your own for old apps you&#8217;re upgrading.
+</p>
+<p>
+<a href="../Session.html">Session</a> options:
+</p>
+<ul>
+<li><p>
+<tt>:secret</tt>: An application-wide key string or block returning a
+string called per generated digest. The block is called with the
+CGI::Session instance as an argument. It&#8217;s important that the secret
+is not vulnerable to a dictionary attack. Therefore, you should choose a
+secret consisting of random numbers and letters and more than 30
+characters. Examples:
+</p>
+<pre>
+  :secret =&gt; '449fe2e7daee471bffae2fd8dc02313d'
+  :secret =&gt; Proc.new { User.current_user.secret_key }
+</pre>
+</li>
+<li><p>
+<tt>:digest</tt>: The message digest algorithm used to verify session
+integrity defaults to &#8216;SHA1&#8217; but may be any digest provided by
+OpenSSL, such as &#8216;MD5&#8217;, &#8216;RIPEMD160&#8217;,
+&#8216;SHA256&#8217;, etc.
+</p>
+</li>
+</ul>
+<p>
+To generate a secret key for an existing application, run &#8220;rake
+secret&#8221; and set the key in config/initializers/secret_token.rb.
+</p>
+<p>
+Note that changing digest or secret invalidates all existing sessions!
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-destroy">destroy</a></li>
+                <li><a href="#method-i-extract_session_id">extract_session_id</a></li>
+                <li><a href="#method-i-load_session">load_session</a></li>
+                <li><a href="#method-c-new">new</a></li>
+                <li><a href="#method-i-persistent_session_id%21">persistent_session_id!</a></li>
+                <li><a href="#method-i-set_cookie">set_cookie</a></li>
+                <li><a href="#method-i-set_session">set_session</a></li>
+                <li><a href="#method-i-unpacked_cookie_data">unpacked_cookie_data</a></li>
+      </ul>
+
+
+
+
+        
+    <div class="sectiontitle">
+      Public      Class      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-c-new"></a>
+            <b>new</b>(app, options = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('new_source')"
+                 id="l_method-c-new_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="new_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/session/cookie_store.rb, line 43</span>
+43:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">app</span>, <span class="ruby-identifier">options</span> = {})
+44:         <span class="ruby-keyword kw">super</span>(<span class="ruby-identifier">app</span>, <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-value">:cookie_only</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>))
+45:         <span class="ruby-identifier">freeze</span>
+46:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+                              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-destroy"></a>
+            <b>destroy</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('destroy_source')"
+                 id="l_method-i-destroy_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="destroy_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/session/cookie_store.rb, line 84</span>
+84:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destroy</span>(<span class="ruby-identifier">env</span>)
+85:           <span class="ruby-comment cmt"># session data is stored on client; nothing to do here</span>
+86:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-extract_session_id"></a>
+            <b>extract_session_id</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('extract-session-id_source')"
+                 id="l_method-i-extract_session_id_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="extract-session-id_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/session/cookie_store.rb, line 56</span>
+56:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extract_session_id</span>(<span class="ruby-identifier">env</span>)
+57:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span> = <span class="ruby-identifier">unpacked_cookie_data</span>(<span class="ruby-identifier">env</span>)
+58:             <span class="ruby-identifier">data</span>[<span class="ruby-value str">&quot;session_id&quot;</span>]
+59:           <span class="ruby-keyword kw">else</span>
+60:             <span class="ruby-keyword kw">nil</span>
+61:           <span class="ruby-keyword kw">end</span>
+62:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_session"></a>
+            <b>load_session</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-session_source')"
+                 id="l_method-i-load_session_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-session_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/session/cookie_store.rb, line 50</span>
+50:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_session</span>(<span class="ruby-identifier">env</span>)
+51:           <span class="ruby-identifier">data</span> = <span class="ruby-identifier">unpacked_cookie_data</span>(<span class="ruby-identifier">env</span>)
+52:           <span class="ruby-identifier">data</span> = <span class="ruby-identifier">persistent_session_id!</span>(<span class="ruby-identifier">data</span>)
+53:           [<span class="ruby-identifier">data</span>[<span class="ruby-value str">&quot;session_id&quot;</span>], <span class="ruby-identifier">data</span>]
+54:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-persistent_session_id%21"></a>
+            <b>persistent_session_id!</b>(data, sid=nil)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('persistent-session-id-_source')"
+                 id="l_method-i-persistent_session_id%21_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="persistent-session-id-_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/session/cookie_store.rb, line 88</span>
+88:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">persistent_session_id!</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">sid</span>=<span class="ruby-keyword kw">nil</span>)
+89:           <span class="ruby-identifier">data</span> <span class="ruby-operator">||=</span> {}
+90:           <span class="ruby-identifier">data</span>[<span class="ruby-value str">&quot;session_id&quot;</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">sid</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">generate_sid</span>
+91:           <span class="ruby-identifier">data</span>
+92:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-set_cookie"></a>
+            <b>set_cookie</b>(request, options)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('set-cookie_source')"
+                 id="l_method-i-set_cookie_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="set-cookie_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/session/cookie_store.rb, line 76</span>
+76:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_cookie</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">options</span>)
+77:           <span class="ruby-identifier">request</span>.<span class="ruby-identifier">cookie_jar</span>.<span class="ruby-identifier">signed</span>[<span class="ruby-ivar">@key</span>] = <span class="ruby-identifier">options</span>
+78:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-set_session"></a>
+            <b>set_session</b>(env, sid, session_data)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('set-session_source')"
+                 id="l_method-i-set_session_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="set-session_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/session/cookie_store.rb, line 80</span>
+80:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_session</span>(<span class="ruby-identifier">env</span>, <span class="ruby-identifier">sid</span>, <span class="ruby-identifier">session_data</span>)
+81:           <span class="ruby-identifier">persistent_session_id!</span>(<span class="ruby-identifier">session_data</span>, <span class="ruby-identifier">sid</span>)
+82:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-unpacked_cookie_data"></a>
+            <b>unpacked_cookie_data</b>(env)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('unpacked-cookie-data_source')"
+                 id="l_method-i-unpacked_cookie_data_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="unpacked-cookie-data_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/middleware/session/cookie_store.rb, line 64</span>
+64:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unpacked_cookie_data</span>(<span class="ruby-identifier">env</span>)
+65:           <span class="ruby-identifier">env</span>[<span class="ruby-value str">&quot;action_dispatch.request.unsigned_session_cookie&quot;</span>] <span class="ruby-operator">||=</span> <span class="ruby-keyword kw">begin</span>
+66:             <span class="ruby-identifier">stale_session_check!</span> <span class="ruby-keyword kw">do</span>
+67:               <span class="ruby-identifier">request</span> = <span class="ruby-constant">ActionDispatch</span><span class="ruby-operator">::</span><span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">env</span>)
+68:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">cookie_jar</span>.<span class="ruby-identifier">signed</span>[<span class="ruby-ivar">@key</span>]
+69:                 <span class="ruby-identifier">data</span>.<span class="ruby-identifier">stringify_keys!</span>
+70:               <span class="ruby-keyword kw">end</span>
+71:               <span class="ruby-identifier">data</span> <span class="ruby-operator">||</span> {}
+72:             <span class="ruby-keyword kw">end</span>
+73:           <span class="ruby-keyword kw">end</span>
+74:         <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

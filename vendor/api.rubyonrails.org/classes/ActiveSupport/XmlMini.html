@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveSupport::XmlMini</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveSupport::XmlMini</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activesupport/lib/active_support/xml_mini_rb.html">activesupport/lib/active_support/xml_mini.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><h1><a href="XmlMini.html">XmlMini</a></h1>
+<p>
+To use the much faster libxml parser:
+</p>
+<pre>
+  gem 'libxml-ruby', '=0.9.7'
+  XmlMini.backend = 'LibXML'</pre>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-_dasherize">_dasherize</a></li>
+                <li><a href="#method-i-_parse_file">_parse_file</a></li>
+                <li><a href="#method-i-backend%3D">backend=</a></li>
+                <li><a href="#method-i-rename_key">rename_key</a></li>
+                <li><a href="#method-i-to_tag">to_tag</a></li>
+                <li><a href="#method-i-with_backend">with_backend</a></li>
+      </ul>
+
+
+  <div class="sectiontitle">Constants</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class="attr-name">DEFAULT_ENCODINGS</td>
+    <td>=</td>
+    <td class="attr-value">{       "binary" => "base64"     } unless defined?(DEFAULT_ENCODINGS)</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">TYPE_NAMES</td>
+    <td>=</td>
+    <td class="attr-value">{       "Symbol"     => "symbol",       "Fixnum"     => "integer",       "Bignum"     => "integer",       "BigDecimal" => "decimal",       "Float"      => "float",       "TrueClass"  => "boolean",       "FalseClass" => "boolean",       "Date"       => "date",       "DateTime"   => "datetime",       "Time"       => "datetime",       "Array"      => "array",       "Hash"       => "hash"     } unless defined?(TYPE_NAMES)</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">FORMATTING</td>
+    <td>=</td>
+    <td class="attr-value">{       "symbol"   => Proc.new { |symbol| symbol.to_s },       "date"     => Proc.new { |date| date.to_s(:db) },       "datetime" => Proc.new { |time| time.xmlschema },       "binary"   => Proc.new { |binary| ActiveSupport::Base64.encode64(binary) },       "yaml"     => Proc.new { |yaml| yaml.to_yaml }</td>
+  </tr>
+  <tr valign='top'>
+    <td class="attr-name">PARSING</td>
+    <td>=</td>
+    <td class="attr-value">{         "symbol"       => Proc.new { |symbol|  symbol.to_sym },         "date"         => Proc.new { |date|    ::Date.parse(date) },         "datetime"     => Proc.new { |time|    ::Time.parse(time).utc rescue ::DateTime.parse(time).utc },         "integer"      => Proc.new { |integer| integer.to_i },         "float"        => Proc.new { |float|   float.to_f },         "decimal"      => Proc.new { |number|  BigDecimal(number) },         "boolean"      => Proc.new { |boolean| %w(1 true).include?(boolean.strip) },         "string"       => Proc.new { |string|  string.to_s },         "yaml"         => Proc.new { |yaml|    YAML::load(yaml) rescue yaml },         "base64Binary" => Proc.new { |bin|     ActiveSupport::Base64.decode64(bin) },         "binary"       => Proc.new { |bin, entity| _parse_binary(bin, entity) },         "file"         => Proc.new { |file, entity| _parse_file(file, entity) }</td>
+  </tr>
+  </table>
+
+  <div class="sectiontitle">Attributes</div>
+  <table border='0' cellpadding='5'>
+  <tr valign='top'>
+    <td class='attr-rw'>
+[R]
+    </td>
+    <td class='attr-name'>backend</td>
+    <td class='attr-desc'>
+                        </td>
+  </tr>
+  </table>
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-backend%3D"></a>
+            <b>backend=</b>(name)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('backend-_source')"
+                 id="l_method-i-backend%3D_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="backend-_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini.rb, line 80</span>
+80:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">backend=</span>(<span class="ruby-identifier">name</span>)
+81:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Module</span>)
+82:         <span class="ruby-ivar">@backend</span> = <span class="ruby-identifier">name</span>
+83:       <span class="ruby-keyword kw">else</span>
+84:         <span class="ruby-identifier">require</span> <span class="ruby-node">&quot;active_support/xml_mini/#{name.to_s.downcase}&quot;</span>
+85:         <span class="ruby-ivar">@backend</span> = <span class="ruby-constant">ActiveSupport</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-node">&quot;XmlMini_#{name}&quot;</span>)
+86:       <span class="ruby-keyword kw">end</span>
+87:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-rename_key"></a>
+            <b>rename_key</b>(key, options = {})          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('rename-key_source')"
+                 id="l_method-i-rename_key_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="rename-key_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini.rb, line 128</span>
+128:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rename_key</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">options</span> = {})
+129:       <span class="ruby-identifier">camelize</span>  = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:camelize</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:camelize</span>]
+130:       <span class="ruby-identifier">dasherize</span> = <span class="ruby-operator">!</span><span class="ruby-identifier">options</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-value">:dasherize</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:dasherize</span>]
+131:       <span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">camelize</span>  <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">camelize</span>
+132:       <span class="ruby-identifier">key</span> = <span class="ruby-identifier">_dasherize</span>(<span class="ruby-identifier">key</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">dasherize</span>
+133:       <span class="ruby-identifier">key</span>
+134:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-to_tag"></a>
+            <b>to_tag</b>(key, value, options)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('to-tag_source')"
+                 id="l_method-i-to_tag_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="to-tag_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini.rb, line 96</span>
+ 96:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_tag</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">options</span>)
+ 97:       <span class="ruby-identifier">type_name</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:type</span>)
+ 98:       <span class="ruby-identifier">merged_options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-value">:root</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:skip_instruct</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>)
+ 99: 
+100:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Method</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Proc</span>)
+101:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">arity</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+102:           <span class="ruby-identifier">value</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">merged_options</span>)
+103:         <span class="ruby-keyword kw">else</span>
+104:           <span class="ruby-identifier">value</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">merged_options</span>, <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">singularize</span>)
+105:         <span class="ruby-keyword kw">end</span>
+106:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_xml</span>)
+107:         <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_xml</span>(<span class="ruby-identifier">merged_options</span>)
+108:       <span class="ruby-keyword kw">else</span>
+109:         <span class="ruby-identifier">type_name</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">TYPE_NAMES</span>[<span class="ruby-identifier">value</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span>]
+110:         <span class="ruby-identifier">type_name</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">name</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">value</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:to_str</span>)
+111:         <span class="ruby-identifier">type_name</span>   = <span class="ruby-identifier">type_name</span>.<span class="ruby-identifier">to_s</span>   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type_name</span>
+112: 
+113:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rename_key</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-identifier">options</span>)
+114: 
+115:         <span class="ruby-identifier">attributes</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:skip_types</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">type_name</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> { } <span class="ruby-operator">:</span> { <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">type_name</span> }
+116:         <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:nil</span>] = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">nil?</span>
+117: 
+118:         <span class="ruby-identifier">encoding</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:encoding</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">DEFAULT_ENCODINGS</span>[<span class="ruby-identifier">type_name</span>]
+119:         <span class="ruby-identifier">attributes</span>[<span class="ruby-value">:encoding</span>] = <span class="ruby-identifier">encoding</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">encoding</span>
+120: 
+121:         <span class="ruby-identifier">formatted_value</span> = <span class="ruby-constant">FORMATTING</span>[<span class="ruby-identifier">type_name</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">value</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span>
+122:           <span class="ruby-constant">FORMATTING</span>[<span class="ruby-identifier">type_name</span>].<span class="ruby-identifier">call</span>(<span class="ruby-identifier">value</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">value</span>
+123: 
+124:         <span class="ruby-identifier">options</span>[<span class="ruby-value">:builder</span>].<span class="ruby-identifier">tag!</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">formatted_value</span>, <span class="ruby-identifier">attributes</span>)
+125:       <span class="ruby-keyword kw">end</span>
+126:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-with_backend"></a>
+            <b>with_backend</b>(name)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('with-backend_source')"
+                 id="l_method-i-with_backend_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="with-backend_source">
+<pre>
+      <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini.rb, line 89</span>
+89:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with_backend</span>(<span class="ruby-identifier">name</span>)
+90:       <span class="ruby-identifier">old_backend</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">backend</span> = <span class="ruby-identifier">backend</span>, <span class="ruby-identifier">name</span>
+91:       <span class="ruby-keyword kw">yield</span>
+92:     <span class="ruby-keyword kw">ensure</span>
+93:       <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">backend</span> = <span class="ruby-identifier">old_backend</span>
+94:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-_dasherize"></a>
+            <b>_dasherize</b>(key)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-dasherize_source')"
+                 id="l_method-i-_dasherize_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-dasherize_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini.rb, line 138</span>
+138:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_dasherize</span>(<span class="ruby-identifier">key</span>)
+139:       <span class="ruby-identifier">key</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/(?!^[_]*)_(?![_]*$)/</span>, <span class="ruby-value str">'-'</span>)
+140:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-_parse_file"></a>
+            <b>_parse_file</b>(file, entity)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-parse-file_source')"
+                 id="l_method-i-_parse_file_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-parse-file_source">
+<pre>
+       <span class="ruby-comment cmt"># File activesupport/lib/active_support/xml_mini.rb, line 152</span>
+152:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_parse_file</span>(<span class="ruby-identifier">file</span>, <span class="ruby-identifier">entity</span>)
+153:       <span class="ruby-identifier">f</span> = <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ActiveSupport</span><span class="ruby-operator">::</span><span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">file</span>))
+154:       <span class="ruby-identifier">f</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-constant">FileLike</span>)
+155:       <span class="ruby-identifier">f</span>.<span class="ruby-identifier">original_filename</span> = <span class="ruby-identifier">entity</span>[<span class="ruby-value str">'name'</span>]
+156:       <span class="ruby-identifier">f</span>.<span class="ruby-identifier">content_type</span> = <span class="ruby-identifier">entity</span>[<span class="ruby-value str">'content_type'</span>]
+157:       <span class="ruby-identifier">f</span>
+158:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

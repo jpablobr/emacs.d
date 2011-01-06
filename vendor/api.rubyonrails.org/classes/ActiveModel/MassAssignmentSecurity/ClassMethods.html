@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveModel::MassAssignmentSecurity::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveModel::MassAssignmentSecurity::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/activemodel/lib/active_model/mass_assignment_security_rb.html">activemodel/lib/active_model/mass_assignment_security.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"><p>
+Mass assignment security provides an interface for protecting attributes
+from end-user assignment. For more complex permissions, mass assignment
+security may be handled outside the model by extending a non-ActiveRecord
+class, such as a controller, with this behavior.
+</p>
+<p>
+For example, a logged in user may need to assign additional attributes
+depending on their role:
+</p>
+<p>
+class AccountsController < ApplicationController
+</p>
+<pre>
+  include ActiveModel::MassAssignmentSecurity
+
+  attr_accessible :first_name, :last_name
+
+  def self.admin_accessible_attributes
+    accessible_attributes + [ :plan_id ]
+  end
+
+  def update
+    ...
+    @account.update_attributes(account_params)
+    ...
+  end
+
+  protected
+
+  def account_params
+    sanitize_for_mass_assignment(params[:account])
+  end
+
+  def mass_assignment_authorizer
+    admin ? admin_accessible_attributes : super
+  end
+</pre>
+<p>
+end
+</p>
+</div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-accessible_attributes">accessible_attributes</a></li>
+                <li><a href="#method-i-active_authorizer">active_authorizer</a></li>
+                <li><a href="#method-i-attr_accessible">attr_accessible</a></li>
+                <li><a href="#method-i-attr_protected">attr_protected</a></li>
+                <li><a href="#method-i-attributes_protected_by_default">attributes_protected_by_default</a></li>
+                <li><a href="#method-i-protected_attributes">protected_attributes</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-accessible_attributes"></a>
+            <b>accessible_attributes</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('accessible-attributes_source')"
+                 id="l_method-i-accessible_attributes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="accessible-attributes_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/mass_assignment_security.rb, line 137</span>
+137:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">accessible_attributes</span>
+138:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_accessible_attributes</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">WhiteList</span>.<span class="ruby-identifier">new</span>.<span class="ruby-identifier">tap</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span> <span class="ruby-identifier">w</span>.<span class="ruby-identifier">logger</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">logger</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:logger</span>) }
+139:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-active_authorizer"></a>
+            <b>active_authorizer</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('active-authorizer_source')"
+                 id="l_method-i-active_authorizer_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="active-authorizer_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/mass_assignment_security.rb, line 141</span>
+141:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">active_authorizer</span>
+142:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_active_authorizer</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">protected_attributes</span>
+143:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attr_accessible"></a>
+            <b>attr_accessible</b>(*names)          
+        </div>
+
+                  <div class="description">
+            <p>
+Specifies a white list of model attributes that can be set via
+mass-assignment.
+</p>
+<p>
+This is the opposite of the <tt><a
+href="ClassMethods.html#method-i-attr_protected">attr_protected</a></tt>
+macro: Mass-assignment will only set attributes in this list, to assign to
+the rest of attributes you can use direct writer methods. This is meant to
+protect sensitive attributes from being overwritten by malicious users
+tampering with URLs or forms. If you&#8217;d rather start from an all-open
+default and restrict attributes as needed, have a look at <tt><a
+href="ClassMethods.html#method-i-attr_protected">attr_protected</a></tt>.
+</p>
+<pre>
+  class Customer
+    include ActiveModel::MassAssignmentSecurity
+
+    attr_accessor :name, :credit_rating
+    attr_accessible :name
+
+    def attributes=(values)
+      sanitize_for_mass_assignment(values).each do |k, v|
+        send(&quot;#{k}=&quot;, v)
+      end
+    end
+  end
+
+  customer = Customer.new
+  customer.attributes = { :name =&gt; &quot;David&quot;, :credit_rating =&gt; &quot;Excellent&quot; }
+  customer.name          # =&gt; &quot;David&quot;
+  customer.credit_rating # =&gt; nil
+
+  customer.credit_rating = &quot;Average&quot;
+  customer.credit_rating # =&gt; &quot;Average&quot;
+</pre>
+<p>
+Note that using <tt>Hash#except</tt> or <tt>Hash#slice</tt> in place of
+<tt><a
+href="ClassMethods.html#method-i-attr_accessible">attr_accessible</a></tt>
+to sanitize attributes won&#8217;t provide sufficient protection.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attr-accessible_source')"
+                 id="l_method-i-attr_accessible_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attr-accessible_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/mass_assignment_security.rb, line 126</span>
+126:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attr_accessible</span>(*<span class="ruby-identifier">names</span>)
+127:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_accessible_attributes</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">accessible_attributes</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">names</span>
+128:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_active_authorizer</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_accessible_attributes</span>
+129:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attr_protected"></a>
+            <b>attr_protected</b>(*names)          
+        </div>
+
+                  <div class="description">
+            <p>
+Attributes named in this macro are protected from mass-assignment whenever
+attributes are sanitized before assignment.
+</p>
+<p>
+Mass-assignment to these attributes will simply be ignored, to assign to
+them you can use direct writer methods. This is meant to protect sensitive
+attributes from being overwritten by malicious users tampering with URLs or
+forms.
+</p>
+<h2>Example</h2>
+<pre>
+  class Customer
+    include ActiveModel::MassAssignmentSecurity
+
+    attr_accessor :name, :credit_rating
+    attr_protected :credit_rating
+
+    def attributes=(values)
+      sanitize_for_mass_assignment(values).each do |k, v|
+        send(&quot;#{k}=&quot;, v)
+      end
+    end
+  end
+
+  customer = Customer.new
+  customer.attributes = { &quot;name&quot; =&gt; &quot;David&quot;, &quot;credit_rating&quot; =&gt; &quot;Excellent&quot; }
+  customer.name          # =&gt; &quot;David&quot;
+  customer.credit_rating # =&gt; nil
+
+  customer.credit_rating = &quot;Average&quot;
+  customer.credit_rating # =&gt; &quot;Average&quot;
+</pre>
+<p>
+To start from an all-closed default and enable attributes as needed, have a
+look at <tt><a
+href="ClassMethods.html#method-i-attr_accessible">attr_accessible</a></tt>.
+</p>
+<p>
+Note that using <tt>Hash#except</tt> or <tt>Hash#slice</tt> in place of
+<tt><a
+href="ClassMethods.html#method-i-attr_protected">attr_protected</a></tt> to
+sanitize attributes won&#8217;t provide sufficient protection.
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attr-protected_source')"
+                 id="l_method-i-attr_protected_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attr-protected_source">
+<pre>
+      <span class="ruby-comment cmt"># File activemodel/lib/active_model/mass_assignment_security.rb, line 87</span>
+87:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attr_protected</span>(*<span class="ruby-identifier">names</span>)
+88:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_protected_attributes</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">protected_attributes</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">names</span>
+89:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_active_authorizer</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_protected_attributes</span>
+90:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-attributes_protected_by_default"></a>
+            <b>attributes_protected_by_default</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('attributes-protected-by-default_source')"
+                 id="l_method-i-attributes_protected_by_default_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="attributes-protected-by-default_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/mass_assignment_security.rb, line 145</span>
+145:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attributes_protected_by_default</span>
+146:         []
+147:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-protected_attributes"></a>
+            <b>protected_attributes</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('protected-attributes_source')"
+                 id="l_method-i-protected_attributes_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="protected-attributes_source">
+<pre>
+       <span class="ruby-comment cmt"># File activemodel/lib/active_model/mass_assignment_security.rb, line 131</span>
+131:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">protected_attributes</span>
+132:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_protected_attributes</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">BlackList</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">attributes_protected_by_default</span>).<span class="ruby-identifier">tap</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">w</span><span class="ruby-operator">|</span>
+133:           <span class="ruby-identifier">w</span>.<span class="ruby-identifier">logger</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">logger</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:logger</span>)
+134:         <span class="ruby-keyword kw">end</span>
+135:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

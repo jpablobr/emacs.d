@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Class: Erb::Generators::ScaffoldGenerator</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Class</span><br />Erb::Generators::ScaffoldGenerator</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/railties/lib/rails/generators/erb/scaffold/scaffold_generator_rb.html">railties/lib/rails/generators/erb/scaffold/scaffold_generator.rb</a>:
+        </td>
+      </tr>
+      <tr>
+        <td>Parent:</td>
+        <td>
+
+      <a href="Base.html">Erb::Generators::Base</a>         </td>
+     </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-available_views">available_views</a></li>
+                <li><a href="#method-i-copy_view_files">copy_view_files</a></li>
+                <li><a href="#method-i-create_root_folder">create_root_folder</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          <a href="../../Rails/Generators/ResourceHelpers.html">Rails::Generators::ResourceHelpers</a>      </li>
+</ul>
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-copy_view_files"></a>
+            <b>copy_view_files</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('copy-view-files_source')"
+                 id="l_method-i-copy_view_files_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="copy-view-files_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/generators/erb/scaffold/scaffold_generator.rb, line 15</span>
+15:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">copy_view_files</span>
+16:         <span class="ruby-identifier">available_views</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">view</span><span class="ruby-operator">|</span>
+17:           <span class="ruby-identifier">filename</span> = <span class="ruby-identifier">filename_with_extensions</span>(<span class="ruby-identifier">view</span>)
+18:           <span class="ruby-identifier">template</span> <span class="ruby-identifier">filename</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;app/views&quot;</span>, <span class="ruby-identifier">controller_file_path</span>, <span class="ruby-identifier">filename</span>)
+19:         <span class="ruby-keyword kw">end</span>
+20:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-create_root_folder"></a>
+            <b>create_root_folder</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('create-root-folder_source')"
+                 id="l_method-i-create_root_folder_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="create-root-folder_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/generators/erb/scaffold/scaffold_generator.rb, line 11</span>
+11:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_root_folder</span>
+12:         <span class="ruby-identifier">empty_directory</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;app/views&quot;</span>, <span class="ruby-identifier">controller_file_path</span>)
+13:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+    <div class="sectiontitle">
+      Protected      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-available_views"></a>
+            <b>available_views</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('available-views_source')"
+                 id="l_method-i-available_views_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="available-views_source">
+<pre>
+      <span class="ruby-comment cmt"># File railties/lib/rails/generators/erb/scaffold/scaffold_generator.rb, line 24</span>
+24:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">available_views</span>
+25:         <span class="ruby-node">%(index edit show new _form)</span>
+26:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          </div>
+  </div>
+  </body>
+</html>

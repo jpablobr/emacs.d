@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActionDispatch::TestProcess</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActionDispatch::TestProcess</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/actionpack/lib/action_dispatch/testing/test_process_rb.html">actionpack/lib/action_dispatch/testing/test_process.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-assigns">assigns</a></li>
+                <li><a href="#method-i-cookies">cookies</a></li>
+                <li><a href="#method-i-fixture_file_upload">fixture_file_upload</a></li>
+                <li><a href="#method-i-flash">flash</a></li>
+                <li><a href="#method-i-redirect_to_url">redirect_to_url</a></li>
+                <li><a href="#method-i-session">session</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-assigns"></a>
+            <b>assigns</b>(key = nil)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('assigns_source')"
+                 id="l_method-i-assigns_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="assigns_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/testing/test_process.rb, line 6</span>
+ 6:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">assigns</span>(<span class="ruby-identifier">key</span> = <span class="ruby-keyword kw">nil</span>)
+ 7:       <span class="ruby-identifier">assigns</span> = {}.<span class="ruby-identifier">with_indifferent_access</span>
+ 8:       <span class="ruby-ivar">@controller</span>.<span class="ruby-identifier">instance_variable_names</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ivar</span><span class="ruby-operator">|</span>
+ 9:         <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ActionController</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">protected_instance_variables</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">ivar</span>)
+10:         <span class="ruby-identifier">assigns</span>[<span class="ruby-identifier">ivar</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>]] = <span class="ruby-ivar">@controller</span>.<span class="ruby-identifier">instance_variable_get</span>(<span class="ruby-identifier">ivar</span>)
+11:       <span class="ruby-keyword kw">end</span>
+12: 
+13:       <span class="ruby-identifier">key</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">assigns</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">assigns</span>[<span class="ruby-identifier">key</span>]
+14:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-cookies"></a>
+            <b>cookies</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('cookies_source')"
+                 id="l_method-i-cookies_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="cookies_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/testing/test_process.rb, line 24</span>
+24:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cookies</span>
+25:       <span class="ruby-ivar">@request</span>.<span class="ruby-identifier">cookies</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-ivar">@response</span>.<span class="ruby-identifier">cookies</span>)
+26:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-fixture_file_upload"></a>
+            <b>fixture_file_upload</b>(path, mime_type = nil, binary = false)          
+        </div>
+
+                  <div class="description">
+            <p>
+Shortcut for
+<tt>ARack::Test::UploadedFile.new(ActionController::TestCase.fixture_path +
+path, type)</tt>:
+</p>
+<pre>
+  post :change_avatar, :avatar =&gt; fixture_file_upload('/files/spongebob.png', 'image/png')
+</pre>
+<p>
+To upload binary files on Windows, pass <tt>:binary</tt> as the last
+parameter. This will not affect other platforms:
+</p>
+<pre>
+  post :change_avatar, :avatar =&gt; fixture_file_upload('/files/spongebob.png', 'image/png', :binary)</pre>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('fixture-file-upload_source')"
+                 id="l_method-i-fixture_file_upload_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="fixture-file-upload_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/testing/test_process.rb, line 40</span>
+40:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fixture_file_upload</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">mime_type</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">binary</span> = <span class="ruby-keyword kw">false</span>)
+41:       <span class="ruby-identifier">fixture_path</span> = <span class="ruby-constant">ActionController</span><span class="ruby-operator">::</span><span class="ruby-constant">TestCase</span>.<span class="ruby-identifier">send</span>(<span class="ruby-value">:fixture_path</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ActionController</span><span class="ruby-operator">::</span><span class="ruby-constant">TestCase</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:fixture_path</span>)
+42:       <span class="ruby-constant">Rack</span><span class="ruby-operator">::</span><span class="ruby-constant">Test</span><span class="ruby-operator">::</span><span class="ruby-constant">UploadedFile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{fixture_path}#{path}&quot;</span>, <span class="ruby-identifier">mime_type</span>, <span class="ruby-identifier">binary</span>)
+43:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-flash"></a>
+            <b>flash</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('flash_source')"
+                 id="l_method-i-flash_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="flash_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/testing/test_process.rb, line 20</span>
+20:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">flash</span>
+21:       <span class="ruby-ivar">@request</span>.<span class="ruby-identifier">flash</span>
+22:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-redirect_to_url"></a>
+            <b>redirect_to_url</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('redirect-to-url_source')"
+                 id="l_method-i-redirect_to_url_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="redirect-to-url_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/testing/test_process.rb, line 28</span>
+28:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">redirect_to_url</span>
+29:       <span class="ruby-ivar">@response</span>.<span class="ruby-identifier">redirect_url</span>
+30:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-session"></a>
+            <b>session</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('session_source')"
+                 id="l_method-i-session_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="session_source">
+<pre>
+      <span class="ruby-comment cmt"># File actionpack/lib/action_dispatch/testing/test_process.rb, line 16</span>
+16:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">session</span>
+17:       <span class="ruby-ivar">@request</span>.<span class="ruby-identifier">session</span>
+18:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>

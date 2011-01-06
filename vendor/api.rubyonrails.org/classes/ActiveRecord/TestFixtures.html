@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: ActiveRecord::TestFixtures</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />ActiveRecord::TestFixtures</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../files/activerecord/lib/active_record/fixtures_rb.html">activerecord/lib/active_record/fixtures.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-instantiate_fixtures">instantiate_fixtures</a></li>
+                <li><a href="#method-i-load_fixtures">load_fixtures</a></li>
+                <li><a href="#method-i-load_instances%3F">load_instances?</a></li>
+                <li><a href="#method-i-run_in_transaction%3F">run_in_transaction?</a></li>
+                <li><a href="#method-i-setup_fixtures">setup_fixtures</a></li>
+                <li><a href="#method-i-teardown_fixtures">teardown_fixtures</a></li>
+      </ul>
+
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-run_in_transaction%3F"></a>
+            <b>run_in_transaction?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('run-in-transaction-_source')"
+                 id="l_method-i-run_in_transaction%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="run-in-transaction-_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/fixtures.rb, line 918</span>
+918:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run_in_transaction?</span>
+919:       <span class="ruby-identifier">use_transactional_fixtures</span> <span class="ruby-operator">&amp;&amp;</span>
+920:         <span class="ruby-operator">!</span><span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">uses_transaction?</span>(<span class="ruby-identifier">method_name</span>)
+921:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-setup_fixtures"></a>
+            <b>setup_fixtures</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('setup-fixtures_source')"
+                 id="l_method-i-setup_fixtures_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="setup-fixtures_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/fixtures.rb, line 923</span>
+923:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup_fixtures</span>
+924:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">ActiveRecord</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">configurations</span>.<span class="ruby-identifier">blank?</span>
+925: 
+926:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pre_loaded_fixtures</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">use_transactional_fixtures</span>
+927:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">'pre_loaded_fixtures requires use_transactional_fixtures'</span>
+928:       <span class="ruby-keyword kw">end</span>
+929: 
+930:       <span class="ruby-ivar">@fixture_cache</span> = {}
+931:       <span class="ruby-identifier">@@already_loaded_fixtures</span> <span class="ruby-operator">||=</span> {}
+932: 
+933:       <span class="ruby-comment cmt"># Load fixtures once and begin transaction.</span>
+934:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">run_in_transaction?</span>
+935:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">@@already_loaded_fixtures</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>]
+936:           <span class="ruby-ivar">@loaded_fixtures</span> = <span class="ruby-identifier">@@already_loaded_fixtures</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>]
+937:         <span class="ruby-keyword kw">else</span>
+938:           <span class="ruby-identifier">load_fixtures</span>
+939:           <span class="ruby-identifier">@@already_loaded_fixtures</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>] = <span class="ruby-ivar">@loaded_fixtures</span>
+940:         <span class="ruby-keyword kw">end</span>
+941:         <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">increment_open_transactions</span>
+942:         <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">transaction_joinable</span> = <span class="ruby-keyword kw">false</span>
+943:         <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">begin_db_transaction</span>
+944:       <span class="ruby-comment cmt"># Load fixtures for every test.</span>
+945:       <span class="ruby-keyword kw">else</span>
+946:         <span class="ruby-constant">Fixtures</span>.<span class="ruby-identifier">reset_cache</span>
+947:         <span class="ruby-identifier">@@already_loaded_fixtures</span>[<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>] = <span class="ruby-keyword kw">nil</span>
+948:         <span class="ruby-identifier">load_fixtures</span>
+949:       <span class="ruby-keyword kw">end</span>
+950: 
+951:       <span class="ruby-comment cmt"># Instantiate fixtures for every test if requested.</span>
+952:       <span class="ruby-identifier">instantiate_fixtures</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">use_instantiated_fixtures</span>
+953:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-teardown_fixtures"></a>
+            <b>teardown_fixtures</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('teardown-fixtures_source')"
+                 id="l_method-i-teardown_fixtures_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="teardown-fixtures_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/fixtures.rb, line 955</span>
+955:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">teardown_fixtures</span>
+956:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">ActiveRecord</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">configurations</span>.<span class="ruby-identifier">blank?</span>
+957: 
+958:       <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">run_in_transaction?</span>
+959:         <span class="ruby-constant">Fixtures</span>.<span class="ruby-identifier">reset_cache</span>
+960:       <span class="ruby-keyword kw">end</span>
+961: 
+962:       <span class="ruby-comment cmt"># Rollback changes if a transaction is active.</span>
+963:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">run_in_transaction?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">open_transactions</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+964:         <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">rollback_db_transaction</span>
+965:         <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">connection</span>.<span class="ruby-identifier">decrement_open_transactions</span>
+966:       <span class="ruby-keyword kw">end</span>
+967:       <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">Base</span>.<span class="ruby-identifier">clear_active_connections!</span>
+968:     <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              
+    <div class="sectiontitle">
+      Private      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-instantiate_fixtures"></a>
+            <b>instantiate_fixtures</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('instantiate-fixtures_source')"
+                 id="l_method-i-instantiate_fixtures_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="instantiate-fixtures_source">
+<pre>
+        <span class="ruby-comment cmt"># File activerecord/lib/active_record/fixtures.rb, line 986</span>
+ 986:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">instantiate_fixtures</span>
+ 987:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pre_loaded_fixtures</span>
+ 988:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">'Load fixtures before instantiating them.'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Fixtures</span>.<span class="ruby-identifier">all_loaded_fixtures</span>.<span class="ruby-identifier">empty?</span>
+ 989:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">@@required_fixture_classes</span>
+ 990:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">require_fixture_classes</span> <span class="ruby-constant">Fixtures</span>.<span class="ruby-identifier">all_loaded_fixtures</span>.<span class="ruby-identifier">keys</span>
+ 991:             <span class="ruby-identifier">@@required_fixture_classes</span> = <span class="ruby-keyword kw">true</span>
+ 992:           <span class="ruby-keyword kw">end</span>
+ 993:           <span class="ruby-constant">Fixtures</span>.<span class="ruby-identifier">instantiate_all_loaded_fixtures</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">load_instances?</span>)
+ 994:         <span class="ruby-keyword kw">else</span>
+ 995:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">'Load fixtures before instantiating them.'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@loaded_fixtures</span>.<span class="ruby-identifier">nil?</span>
+ 996:           <span class="ruby-ivar">@loaded_fixtures</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">table_name</span>, <span class="ruby-identifier">fixtures</span><span class="ruby-operator">|</span>
+ 997:             <span class="ruby-constant">Fixtures</span>.<span class="ruby-identifier">instantiate_fixtures</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">table_name</span>, <span class="ruby-identifier">fixtures</span>, <span class="ruby-identifier">load_instances?</span>)
+ 998:           <span class="ruby-keyword kw">end</span>
+ 999:         <span class="ruby-keyword kw">end</span>
+1000:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_fixtures"></a>
+            <b>load_fixtures</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-fixtures_source')"
+                 id="l_method-i-load_fixtures_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-fixtures_source">
+<pre>
+       <span class="ruby-comment cmt"># File activerecord/lib/active_record/fixtures.rb, line 971</span>
+971:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_fixtures</span>
+972:         <span class="ruby-ivar">@loaded_fixtures</span> = {}
+973:         <span class="ruby-identifier">fixtures</span> = <span class="ruby-constant">Fixtures</span>.<span class="ruby-identifier">create_fixtures</span>(<span class="ruby-identifier">fixture_path</span>, <span class="ruby-identifier">fixture_table_names</span>, <span class="ruby-identifier">fixture_class_names</span>)
+974:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">fixtures</span>.<span class="ruby-identifier">nil?</span>
+975:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">fixtures</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">Fixtures</span>)
+976:             <span class="ruby-ivar">@loaded_fixtures</span>[<span class="ruby-identifier">fixtures</span>.<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">fixtures</span>
+977:           <span class="ruby-keyword kw">else</span>
+978:             <span class="ruby-identifier">fixtures</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@loaded_fixtures</span>[<span class="ruby-identifier">f</span>.<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">f</span> }
+979:           <span class="ruby-keyword kw">end</span>
+980:         <span class="ruby-keyword kw">end</span>
+981:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-load_instances%3F"></a>
+            <b>load_instances?</b>()          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('load-instances-_source')"
+                 id="l_method-i-load_instances%3F_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="load-instances-_source">
+<pre>
+        <span class="ruby-comment cmt"># File activerecord/lib/active_record/fixtures.rb, line 1002</span>
+1002:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">load_instances?</span>
+1003:         <span class="ruby-identifier">use_instantiated_fixtures</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:no_instances</span>
+1004:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+      </div>
+  </div>
+  </body>
+</html>

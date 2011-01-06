@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Module: AbstractController::Layouts::ClassMethods</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../../../rdoc-style.css" type="text/css" media="screen" />
+
+    <script language="JavaScript" type="text/javascript">
+    // <![CDATA[
+
+        function toggleSource( id )
+        {
+          var elem
+          var link
+
+          if( document.getElementById )
+          {
+            elem = document.getElementById( id )
+            link = document.getElementById( "l_" + id )
+          }
+          else if ( document.all )
+          {
+            elem = eval( "document.all." + id )
+            link = eval( "document.all.l_" + id )
+          }
+          else
+            return false;
+
+          if( elem.style.display == "block" )
+          {
+            elem.style.display = "none"
+            link.innerHTML = "show source"
+          }
+          else
+          {
+            elem.style.display = "block"
+            link.innerHTML = "hide source"
+          }
+        }
+
+        function openCode( url )
+        {
+          window.open( url, "SOURCE_CODE", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=480,width=750" ).focus();
+        }
+      // ]]>
+    </script>
+  </head>
+
+  <body>
+    <table width="100%" border='0' cellpadding='0' cellspacing='0' class='banner'>
+    <tr><td>Ruby on Rails v3.0.3</td></tr>
+    <tr>
+  <td class="file-title"><span class="file-title-prefix">Module</span><br />AbstractController::Layouts::ClassMethods</td>
+  <td align="right">
+    <table cellspacing="0" cellpadding="2">
+      <tr valign="top">
+        <td>In:</td>
+        <td>
+<a href="../../../files/actionpack/lib/abstract_controller/layouts_rb.html">actionpack/lib/abstract_controller/layouts.rb</a>:
+        </td>
+      </tr>
+         </table>
+        </td>
+        </tr>
+      </table>
+  <div id="bodyContent">
+  <div id="content">
+
+  <div class="description"></div>
+
+
+  <div class="sectiontitle">Methods</div>
+  <ul>
+                <li><a href="#method-i-_implied_layout_name">_implied_layout_name</a></li>
+                <li><a href="#method-i-_write_layout_method">_write_layout_method</a></li>
+                <li><a href="#method-i-inherited">inherited</a></li>
+                <li><a href="#method-i-layout">layout</a></li>
+      </ul>
+
+<div class="sectiontitle">Included Modules</div>
+<ul>
+  <li>
+          LayoutConditions      </li>
+</ul>
+
+
+
+                        
+    <div class="sectiontitle">
+      Public      Instance      methods
+    </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-_implied_layout_name"></a>
+            <b>_implied_layout_name</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+If no layout is supplied, look for a template named the return value of
+this method.
+</p>
+<h4>Returns</h4>
+<ul>
+<li><p>
+<tt>String</tt> - A template name
+</p>
+</li>
+</ul>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-implied-layout-name_source')"
+                 id="l_method-i-_implied_layout_name_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-implied-layout-name_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/layouts.rb, line 234</span>
+234:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_implied_layout_name</span>
+235:         <span class="ruby-identifier">controller_path</span>
+236:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-_write_layout_method"></a>
+            <b>_write_layout_method</b>()          
+        </div>
+
+                  <div class="description">
+            <p>
+Takes the specified layout and creates a _layout method to be called by
+_default_layout
+</p>
+<p>
+If there is no explicit layout specified: If a layout is found in the view
+paths with the controller&#8217;s name, return that string. Otherwise, use
+the superclass&#8217; layout (which might also be implied)
+</p>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('-write-layout-method_source')"
+                 id="l_method-i-_write_layout_method_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="-write-layout-method_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/layouts.rb, line 245</span>
+245:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_write_layout_method</span>
+246:         <span class="ruby-identifier">remove_possible_method</span>(<span class="ruby-value">:_layout</span>)
+247: 
+248:         <span class="ruby-keyword kw">case</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@_layout</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@_layout</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+249:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span>
+250:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-node">%{def _layout; #{@_layout.inspect} end}</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span>
+251:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Symbol</span>
+252:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-value str">            def _layout              #{@_layout}.tap do |layout|                unless layout.is_a?(String) || !layout                  raise ArgumentError, &quot;Your layout method :#{@_layout} returned \#{layout}. It &quot; \                    &quot;should have returned a String, false, or nil&quot;                end              end            end</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+253:         <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Proc</span>
+254:           <span class="ruby-identifier">define_method</span> <span class="ruby-value">:_layout_from_proc</span>, &amp;<span class="ruby-ivar">@_layout</span>
+255:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-value str">%{def _layout; _layout_from_proc(self) end}</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span>
+256:         <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">false</span>
+257:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-value str">%{def _layout; end}</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span>
+258:         <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">true</span>
+259:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Layouts must be specified as a String, Symbol, false, or nil&quot;</span>
+260:         <span class="ruby-keyword kw">when</span> <span class="ruby-keyword kw">nil</span>
+261:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">name</span>
+262:             <span class="ruby-identifier">_prefix</span> = <span class="ruby-value str">&quot;layouts&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">_implied_layout_name</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\blayouts/</span>
+263: 
+264:             <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class_eval</span> <span class="ruby-value str">              def _layout                if template_exists?(&quot;#{_implied_layout_name}&quot;, #{_prefix.inspect})                  &quot;#{_implied_layout_name}&quot;                else                  super                end              end</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+265:           <span class="ruby-keyword kw">end</span>
+266:         <span class="ruby-keyword kw">end</span>
+267:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class_eval</span> { <span class="ruby-identifier">private</span> <span class="ruby-value">:_layout</span> }
+268:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-inherited"></a>
+            <b>inherited</b>(klass)          
+        </div>
+
+                  <div class="description">
+                      </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('inherited_source')"
+                 id="l_method-i-inherited_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="inherited_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/layouts.rb, line 175</span>
+175:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
+176:         <span class="ruby-keyword kw">super</span>
+177:         <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">_write_layout_method</span>
+178:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+          
+      <div class="method">
+        <div class="title">
+                      <a name="method-i-layout"></a>
+            <b>layout</b>(layout, conditions = {})          
+        </div>
+
+                  <div class="description">
+            <p>
+Specify the layout to use for this class.
+</p>
+<p>
+If the specified layout is a:
+</p>
+<table>
+<tr><td valign="top">String</td><td><p>
+the String is the template name
+</p>
+</td></tr>
+<tr><td valign="top">Symbol</td><td><p>
+call the method specified by the symbol, which will return
+</p>
+</td></tr>
+</table>
+<pre>
+  the template name
+</pre>
+<table>
+<tr><td valign="top">false</td><td><p>
+There is no layout
+</p>
+</td></tr>
+<tr><td valign="top">true</td><td><p>
+raise an ArgumentError
+</p>
+</td></tr>
+</table>
+<h4>Parameters</h4>
+<ul>
+<li><p>
+<tt>String, Symbol, false</tt> - The layout to use.
+</p>
+</li>
+</ul>
+<h4>Options (conditions)</h4>
+<ul>
+<li><p>
+:only   - A list of actions to apply this layout to.
+</p>
+</li>
+<li><p>
+:except - Apply this layout to all actions but this one.
+</p>
+</li>
+</ul>          </div>
+        
+        
+                  <div class="sourcecode">
+            <p class="source-link">[
+            <a href="javascript:toggleSource('layout_source')"
+                 id="l_method-i-layout_source">
+              show source
+            </a> ]</p>
+            <div class="dyn-source"
+                    id="layout_source">
+<pre>
+       <span class="ruby-comment cmt"># File actionpack/lib/abstract_controller/layouts.rb, line 219</span>
+219:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">layout</span>(<span class="ruby-identifier">layout</span>, <span class="ruby-identifier">conditions</span> = {})
+220:         <span class="ruby-identifier">include</span> <span class="ruby-constant">LayoutConditions</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">empty?</span>
+221: 
+222:         <span class="ruby-identifier">conditions</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">conditions</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">v</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_s</span>} }
+223:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">_layout_conditions</span> = <span class="ruby-identifier">conditions</span>
+224: 
+225:         <span class="ruby-ivar">@_layout</span> = <span class="ruby-identifier">layout</span> <span class="ruby-operator">||</span> <span class="ruby-keyword kw">false</span> <span class="ruby-comment cmt"># Converts nil to false</span>
+226:         <span class="ruby-identifier">_write_layout_method</span>
+227:       <span class="ruby-keyword kw">end</span></pre>
+            </div>
+          </div>
+        
+      </div>
+
+              </div>
+  </div>
+  </body>
+</html>
