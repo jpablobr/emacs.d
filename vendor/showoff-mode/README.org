@@ -1,0 +1,25 @@
+* Overview
+  showoff-mode is a major-mode for editing [[http://github.com/schacon/showoff][showoff]] presentations, utilizing markdown-mode for font locking.
+
+*** Interactive methods with keybindings:
+
+- =M-x showoff-create-presentation=
+- =M-x showoff-add-slide= or =C-c ;a=
+- =M-x showoff-serve= or =C-c ;s=
+- =M-x showoff-view-presentation= or =C-c ;v=
+- =M-x showoff-view-manifest= or =C-c ;m=
+- =M-x showoff-goto-file= or =C-c ;f=
+
+** Installation:
+
+In your shell:
+
+:     $ cd ~/.emacs.d/site-lisp
+:     $ git clone git://github.com/developernotes/showoff-mode.git
+
+In your emacs config:
+
+:     (add-to-list 'load-path "~/.emacs.d/site-lisp/showoff-mode")
+:     (require 'showoff-mode)
+:     (add-to-list 'auto-mode-alist '("\\.md$" . showoff-mode))
+
