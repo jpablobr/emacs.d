@@ -15,6 +15,16 @@
 (setq vendor-dir (concat dotfiles-dir "/vendor"))
 
 ;;; ---------------------------------------------------------
+;;; - Load up ELPA, the package manager:
+;;;
+(require 'package)
+(dolist (source '(("technomancy" . "http://repo.technomancy.us/emacs/")
+                  ("elpa" . "http://tromey.com/elpa/")))
+  (add-to-list 'package-archives source t))
+(package-initialize)
+(require 'starter-kit-elpa)
+
+;;; ---------------------------------------------------------
 ;;; - These should be loaded on startup rather than
 ;;; - autoloaded on demand
 ;;; - since they are likely to be used in every session:
@@ -25,13 +35,6 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
-
-;;; ---------------------------------------------------------
-;;; - Load up ELPA, the package manager:
-;;;
-(require 'package)
-(package-initialize)
-(require 'elpa)
 
 ;;; ---------------------------------------------------------
 ;;; - Load jpablobr customizations:
