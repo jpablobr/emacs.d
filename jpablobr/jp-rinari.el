@@ -20,12 +20,4 @@
 (define-key rinari-minor-mode-map [(control meta shift up)] 'rinari-find-model)
 (define-key rinari-minor-mode-map [(control meta shift right)] 'rinari-find-view)
 
- ;; % wget -m api.rubyonrails.org ;)
-;; (add-hook 'rails-hook
-;;           (lambda()
-;;              (rails-api-root "~/.emacs.d/vendor/api.rubyonrails.org")
-;;              (rails-ask-when-reload-tags t)
-;;              (rails-browse-api-with-w3m t)
-;;              (rails-use-alternative-browse-url nil)))
-
 (provide 'jp-rinari)

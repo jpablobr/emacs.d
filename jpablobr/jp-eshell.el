@@ -58,12 +58,6 @@
      (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)))
 
 ;;; ----------------------------------------------------------------------------
-;;; - autocomplete
-;;;
-(setq eshell-cmpl-cycle-completions nil)
-(setq eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
-
-;;; ----------------------------------------------------------------------------
 ;;; - history
 ;;;
 (setq eshell-save-history-on-exit t)

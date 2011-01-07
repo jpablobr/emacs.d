@@ -36,9 +36,11 @@
 ;; (setq browse-url-browser-function 'browse-url-generic
 ;;       browse-url-generic-program "~/src/conkeror/conkeror")
 (setq browse-url-browser-function 'browse-default-w3m)
+
 ;;; ----------------------------------------------------------------------------
-;;; - Custom Configs
-;;;
+;;; - Git Blame
+(autoload 'git-blame-mode "git-blame"
+  "Minor mode for incremental blame for Git.")
 
 ;;; - Smoother scrolling
 (setq

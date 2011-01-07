@@ -9,11 +9,32 @@
 ;;; ---------------------------------------------------------
 ;;; - Ruby
 ;;;
-(autoload 'ruby-mode "ruby-mode" "Ruby editing mode." t)
+(autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode." t)
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 
-(add-to-list 'auto-mode-alist (cons (concat "\\.rb\\'") 'ruby-mode))
-(add-to-list 'auto-mode-alist (cons (concat "Rakefile\\'") 'ruby-mode))
+(eval-after-load 'ruby-mode
+  '(progn
+     (require 'ruby-compilation)
+     (add-hook 'ruby-mode-hook 'inf-ruby-keys)
+     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+     (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
+     (define-key ruby-mode-map (kbd "C-c l") "lambda")))
+
+;; Rake files are ruby, too, as are gemspecs, rackup files, etc.
+(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.builder$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+
+;; We never want to edit Rubinius bytecode
+(add-to-list 'completion-ignored-extensions ".rbc")
 
 (add-hook 'ruby-mode-hook
           '(lambda ()
@@ -25,8 +46,19 @@
             (modify-syntax-entry ?: "w" (syntax-table))
             (modify-syntax-entry ?_ "w" (syntax-table))
             (local-set-key (kbd "C-.") 'complete-tag)
+            (ri-bind-key)
             (local-set-key (kbd "C-:") 'my/ruby-toggle-string<>simbol)
             (local-set-key (kbd "<return>") 'newline-and-indent)))
+
+;;; ---------------------------------------------------------
+;;; - ri
+;;;
+(add-to-list 'load-path "~/.emacs.d/vendor/yari.el")
+(require 'yari)
+
+(defun ri-bind-key ()
+  (local-set-key [f1] 'yari-anything))
+(add-hook 'ruby-mode-hook 'ri-bind-key)
 
 ;;; ---------------------------------------------------------
 ;;; - rcodetools
@@ -93,20 +125,6 @@
 (require 'ruby-hacks)
 
 ;;; ---------------------------------------------------------
-;;; - ri
-;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/ri.el")
-
-;; (setq ri-ruby-script "~/.emacs.d/vendor/ri-emacs/ri-emacs.rb")
-;; (autoload 'ri "~/.emacs.d/vendor/ri-emacs/ri-ruby.el" nil t)
-;; (add-hook 'ri-mode-hook 'ansi-color-for-comint-mode-on)
-;; (add-hook 'ruby-mode-hook (lambda ()
-;;                               (local-set-key 'f1 'ri)
-;;                               (local-set-key "\M-\C-i" 'ri-ruby-complete-symbol)
-;;                               (local-set-key 'f4 'ri-ruby-show-args)
-;;                               ))
-
-;;; ---------------------------------------------------------
 ;;; - Complexity
 ;;; - $ gem install flog
 ;;;
@@ -134,40 +152,19 @@
 (add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
 (require 'rspec-mode)
 
-(eval-after-load 'ruby-mode
-  '(progn
-     (require 'ruby-compilation)
-     (add-hook 'ruby-mode-hook 'inf-ruby-keys)
-     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-     (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
-     (define-key ruby-mode-map (kbd "C-c l") "lambda")))
+;;; Rake
 
-(global-set-key (kbd "C-h r") 'ri)
-
-;; Rake files are ruby, too.
-(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.builder$" . ruby-mode))
-
-;; We never want to edit Rubinius bytecode
-(add-to-list 'completion-ignored-extensions ".rbc")
-
-;;; ---------------------------------------------------------
-;;; - Rake
-;;;
 (defun pcomplete/rake ()
   "Completion rules for the `ssh' command."
   (pcomplete-here (pcmpl-rake-tasks)))
 
 (defun pcmpl-rake-tasks ()
-   "Return a list of all the rake tasks defined in the current
+  "Return a list of all the rake tasks defined in the current
 projects.  I know this is a hack to put all the logic in the
 exec-to-string command, but it works and seems fast"
-   (delq nil (mapcar '(lambda(line)
-			(if (string-match "rake \\([^ ]+\\)" line) (match-string 1 line)))
-		     (split-string (shell-command-to-string "rake -T") "[\n]"))))
+  (delq nil (mapcar '(lambda(line)
+                       (if (string-match "rake \\([^ ]+\\)" line) (match-string 1 line)))
+                    (split-string (shell-command-to-string "rake -T") "[\n]"))))
 
 (defun rake (task)
   (interactive (list (completing-read "Rake (default: default): "
@@ -185,7 +182,46 @@ exec-to-string command, but it works and seems fast"
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
 
-(add-hook 'ruby-mode-hook 'coding-hook)
+(add-hook 'ruby-mode-hook 'run-coding-hook)
+
+;;; Flymake
+
+(defun flymake-ruby-init ()
+  (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                     'flymake-create-temp-inplace))
+         (local-file (file-relative-name
+                      temp-file
+                      (file-name-directory buffer-file-name))))
+    ;; Invoke ruby with '-c' to get syntax checking
+    (list "ruby" (list "-c" local-file))))
+
+(defun flymake-ruby-enable ()
+  (when (and buffer-file-name
+             (file-writable-p
+              (file-name-directory buffer-file-name))
+             (file-writable-p buffer-file-name)
+             (if (fboundp 'tramp-list-remote-buffers)
+                 (not (subsetp
+                       (list (current-buffer))
+                       (tramp-list-remote-buffers)))
+               t))
+    (local-set-key (kbd "C-c d")
+                   'flymake-display-err-menu-for-current-line)
+    (flymake-mode t)))
+
+(eval-after-load 'ruby-mode
+  '(progn
+     (require 'flymake)
+     (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
+     (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
+     (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)
+           flymake-err-line-patterns)
+     (add-hook 'ruby-mode-hook 'flymake-ruby-enable)))
+
+;; Rinari (Minor Mode for Ruby On Rails)
+(setq rinari-major-modes
+      (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
+            'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
 
 ;;; ---------------------------------------------------------
 ;;; - Align for ruby
@@ -215,62 +251,5 @@ See the variable `align-rules-list' for more details.")
 
 (dolist (it ruby-align-rules-list)
   (add-to-list 'align-rules-list it))
-
-
-;;; ---------------------------------------------------------
-;;; - Hideshow for ruby
-;;;
-(defun ruby-hs-minor-mode (&optional arg)
-  (interactive)
-  (require 'hideshow)
-  (unless (assoc 'ruby-mode hs-special-modes-alist)
-    (setq
-     hs-special-modes-alist
-     (cons (list 'ruby-mode
-                 "\\(def\\|do\\)"
-                 "end"
-                 "#"
-                 '(lambda (&rest args) (ruby-end-of-block)))
-           hs-special-modes-alist)))
-  (hs-minor-mode arg))
-
-;;; ---------------------------------------------------------
-;;; - Ruby functions
-;;;
-(defun my/ruby-toggle-string<>simbol ()
-  "Easy to switch between strings and symbols."
-  (interactive)
-  (let ((initial-pos (point)))
-    (save-excursion
-      (when (looking-at "[\"']") ;; skip beggining quote
-        (goto-char (+ (point) 1))
-        (unless (looking-at "\\w")
-          (goto-char (- (point) 1))))
-      (let* ((point (point))
-             (start (skip-syntax-backward "w"))
-             (end (skip-syntax-forward "w"))
-             (end (+ point start end))
-             (start (+ point start))
-             (start-quote (- start 1))
-             (end-quote (+ end 1))
-             (quoted-str (buffer-substring-no-properties start-quote end-quote))
-             (symbol-str (buffer-substring-no-properties start end)))
-        (cond
-         ((string-match "^\'\\w+\'$" quoted-str)
-          (setq quoted-str (substring quoted-str 1 (- (length quoted-str) 1)))
-          (kill-region start-quote end-quote)
-          (goto-char start-quote)
-          (insert (concat "\"" quoted-str "\"")))
-         ((string-match "^\"\\w+\"$" quoted-str)
-          (setq quoted-str (substring quoted-str 1 (- (length quoted-str) 1)))
-          (kill-region start-quote end-quote)
-          (goto-char start-quote)
-          (insert (concat ":" quoted-str)))
-         ((string-match "^\:\\w+$" symbol-str)
-          (setq symbol-str (substring symbol-str 1))
-          (kill-region start end)
-          (goto-char start)
-          (insert (format "'%s'" symbol-str))))))
-    (goto-char initial-pos)))
 
 (provide 'jp-ruby)
