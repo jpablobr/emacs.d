@@ -60,6 +60,62 @@
   (local-set-key [f1] 'yari-anything))
 (add-hook 'ruby-mode-hook 'ri-bind-key)
 
+(defalias 'rails-search-doc 'yari)
+(add-hook 'ruby-mode-hook 'yari-bind-key)
+(add-hook 'rhtml-mode-hook 'yari-bind-key)
+(add-hook 'haml-mode-hook 'yari-bind-key)
+(add-hook 'sass-mode-hook 'yari-bind-key)
+
+(require 'flymake-haml)
+(add-hook 'haml-mode-hook 'flymake-haml-load)
+(add-hook 'sass-mode-hook 'flymake-sass-load)
+
+(require 'scss-mode)
+(setq scss-compile-at-save nil)
+
+;;; ---------------------------------------------------------
+;;; - rdebug
+;;; - $ sudo gem install ruby-debug
+;;;
+(add-to-list 'load-path "~/.emacs.d/vendor/rdebug")
+(require 'rdebug)
+(setq rdebug-short-key-mode t)
+(add-hook 'comint-mode-hook 'turn-on-rdebug-track-mode)
+
+;; Add binding to insert ruby debugger with F7.
+(defun GAU-insert-ruby-debug ()
+  (interactive)
+  (let ((ruby-debug-string "require 'ruby-debug'; debugger; stop_here = 1;\n"))
+    (insert ruby-debug-string))
+  (previous-line)
+  (ruby-indent-line))
+
+(defun GAU-bind-insert-ruby-debug-key ()
+  (local-set-key [f7] 'GAU-insert-ruby-debug))
+
+(add-hook 'ruby-mode-hook 'GAU-bind-insert-ruby-debug-key)
+
+;; Inferion ruby
+(require 'inf-ruby)
+(add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
+(add-hook 'ruby-mode-hook 'inf-ruby-keys)
+
+(require 'hideshow)
+(add-to-list 'hs-special-modes-alist
+             '(ruby-mode
+               "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
+               (lambda (arg) (ruby-end-of-block)) nil))
+
+;; TODO: `filename' should be a function returns filename of file associated with
+;; current buffer.
+;; (add-hook 'ruby-mode-hook '(lambda ()
+;;                           (hs-minor-mode)
+;;                           (when (or (string-match "spec\.rb$" filename)
+;;                                     (string-match "\.rake$" filename))
+;;                             (hs-hide-level 2))))
+(add-hook 'ruby-mode-hook '(lambda ()
+			     (hs-minor-mode)))
+
 ;;; ---------------------------------------------------------
 ;;; - rcodetools
 ;;;
@@ -73,14 +129,6 @@
 ;; (setq rct-get-all-methods-command "PAGER=cat fri -l")
 ;; See docs
 ;; (define-key anything-map "\C-z" 'anything-execute-persistent-action)
-
-;;; ---------------------------------------------------------
-;;; - rdebug
-;;; - $ sudo gem install ruby-debug
-;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/rdebug")
-(require 'rdebug)
-(setq rdebug-short-key-mode t)
 
 ;;; ---------------------------------------------------------
 ;;; - ruby-block
