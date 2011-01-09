@@ -111,11 +111,10 @@
 
 ;;; Ruby Complexity
 (add-hook 'ruby-mode-hook
-         (function (lambda ()
-                     (flymake-mode)
-                     (linum-mode)
-                     (ruby-complexity-mode)
-                     )))
+          (function (lambda ()
+                      (linum-mode)
+                      (ruby-complexity-mode)
+                      )))
 
 (add-hook 'haml-mode-hook 'flymake-haml-load)
 (add-hook 'sass-mode-hook 'flymake-sass-load)

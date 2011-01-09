@@ -68,6 +68,4 @@
 
 (server-start)
 
-(require 'line-num)
-
 (provide 'jp-meta)

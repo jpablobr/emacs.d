@@ -107,11 +107,11 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
 
-;;; ---------------------------------------------------------
-;;; - Don't clutter up directories with files~
-;;;
-(setq backup-directory-alist `(("." . ,(expand-file-name
-                                        (concat dotfiles-dir "backups")))))
+;; ;;; ---------------------------------------------------------
+;; ;;; - Don't clutter up directories with files~
+;; ;;;
+;; (setq backup-directory-alist `(("." . ,(expand-file-name
+;;                                         (concat dotfiles-dir "backups")))))
 
 ;;; ---------------------------------------------------------
 ;;; - Cosmetics
