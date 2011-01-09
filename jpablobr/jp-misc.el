@@ -130,7 +130,7 @@
 ;;; - linu and column default counters
 ;;;
 (require 'linum)
-(global-linum-mode)
+;; (global-linum-mode)
 (setq line-number-mode t)
 (setq column-number-mode t)
 

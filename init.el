@@ -48,7 +48,6 @@
 (require 'jp-lisp)
 (require 'jp-ruby)
 (require 'jp-sinatra)
-(require 'jp-rinari)
 (require 'jp-js)
 (require 'jp-plain-text)
 (require 'jp-meta)

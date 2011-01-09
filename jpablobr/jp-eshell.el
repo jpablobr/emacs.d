@@ -83,7 +83,10 @@
 ;;; - escape the shell
 ;;;
 (add-hook 'eshell-mode-hook
-  '(lambda nil (local-set-key "\C-u" 'eshell-kill-input)))
+  '(lambda nil
+     (local-set-key "\C-u" 'eshell-kill-input)
+     (local-set-key [(meta P)] 'mouse-buffer-menu)
+     (local-set-key [(meta up)] 'beginning-of-buffer)))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - provides 'clear' command
