@@ -182,5 +182,7 @@
 (global-set-key [(meta I)] 'ispell-region)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta P)] 'mouse-buffer-menu)
+(global-set-key [(meta up)] 'beginning-of-buffer)
+(global-set-key [(meta down)] 'end-of-buffer)
 
 (provide 'jp-keyboard)

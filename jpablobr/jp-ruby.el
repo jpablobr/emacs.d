@@ -2,146 +2,6 @@
 ;; A lot of this is thanks to dima-exe:
 ;; http://github.com/dima-exe/emacs_rc/blob/master/emacs-rc-ruby.el
 
-(require 'jp-sinatra)
-(require 'linum)
-(require 'ruby-electric)
-
-;;; ---------------------------------------------------------
-;;; - Ruby
-;;;
-(autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
-(autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode." t)
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
-
-(eval-after-load 'ruby-mode
-  '(progn
-     (require 'ruby-compilation)
-     (add-hook 'ruby-mode-hook 'inf-ruby-keys)
-     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-     (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
-     (define-key ruby-mode-map (kbd "C-c l") "lambda")))
-
-;; Rake files are ruby, too, as are gemspecs, rackup files, etc.
-(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.builder$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-
-;; We never want to edit Rubinius bytecode
-(add-to-list 'completion-ignored-extensions ".rbc")
-
-(add-hook 'ruby-mode-hook
-          '(lambda ()
-            (set (make-local-variable 'tab-width) 2)
-            (ruby-electric-mode t)
-            (ruby-hs-minor-mode t)
-            (imenu-add-to-menubar "IMENU")
-            (modify-syntax-entry ?! "w" (syntax-table))
-            (modify-syntax-entry ?: "w" (syntax-table))
-            (modify-syntax-entry ?_ "w" (syntax-table))
-            (local-set-key (kbd "C-.") 'complete-tag)
-            (ri-bind-key)
-            (local-set-key (kbd "C-:") 'my/ruby-toggle-string<>simbol)
-            (local-set-key (kbd "<return>") 'newline-and-indent)))
-
-;;; ---------------------------------------------------------
-;;; - ri
-;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/yari.el")
-(require 'yari)
-
-(defun ri-bind-key ()
-  (local-set-key [f1] 'yari-anything))
-(add-hook 'ruby-mode-hook 'ri-bind-key)
-
-(defalias 'rails-search-doc 'yari)
-(add-hook 'ruby-mode-hook 'yari-bind-key)
-(add-hook 'rhtml-mode-hook 'yari-bind-key)
-(add-hook 'haml-mode-hook 'yari-bind-key)
-(add-hook 'sass-mode-hook 'yari-bind-key)
-
-(require 'flymake-haml)
-(add-hook 'haml-mode-hook 'flymake-haml-load)
-(add-hook 'sass-mode-hook 'flymake-sass-load)
-
-(require 'scss-mode)
-(setq scss-compile-at-save nil)
-
-;;; ---------------------------------------------------------
-;;; - rdebug
-;;; - $ sudo gem install ruby-debug
-;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/rdebug")
-(require 'rdebug)
-(setq rdebug-short-key-mode t)
-(add-hook 'comint-mode-hook 'turn-on-rdebug-track-mode)
-
-;; Add binding to insert ruby debugger with F7.
-(defun GAU-insert-ruby-debug ()
-  (interactive)
-  (let ((ruby-debug-string "require 'ruby-debug'; debugger; stop_here = 1;\n"))
-    (insert ruby-debug-string))
-  (previous-line)
-  (ruby-indent-line))
-
-(defun GAU-bind-insert-ruby-debug-key ()
-  (local-set-key [f7] 'GAU-insert-ruby-debug))
-
-(add-hook 'ruby-mode-hook 'GAU-bind-insert-ruby-debug-key)
-
-;; Inferion ruby
-(require 'inf-ruby)
-(add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
-(add-hook 'ruby-mode-hook 'inf-ruby-keys)
-
-(require 'hideshow)
-(add-to-list 'hs-special-modes-alist
-             '(ruby-mode
-               "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
-               (lambda (arg) (ruby-end-of-block)) nil))
-
-;; TODO: `filename' should be a function returns filename of file associated with
-;; current buffer.
-;; (add-hook 'ruby-mode-hook '(lambda ()
-;;                           (hs-minor-mode)
-;;                           (when (or (string-match "spec\.rb$" filename)
-;;                                     (string-match "\.rake$" filename))
-;;                             (hs-hide-level 2))))
-(add-hook 'ruby-mode-hook '(lambda ()
-			     (hs-minor-mode)))
-
-;;; ---------------------------------------------------------
-;;; - rcodetools
-;;;
-;; (add-to-list 'load-path "~/.emacs.d/vendor/icicles")
-;; (add-to-list 'load-path "~/.emacs.d/vendor/rcodetools")
-;; (require 'rcodetools)
-;; (require 'icicles-rcodetools)
-;; (require 'anything)
-;; (require 'anything-rcodetools)
-;; Command to get all RI entries.
-;; (setq rct-get-all-methods-command "PAGER=cat fri -l")
-;; See docs
-;; (define-key anything-map "\C-z" 'anything-execute-persistent-action)
-
-;;; ---------------------------------------------------------
-;;; - ruby-block
-;;;
-(require 'ruby-block)
-(ruby-block-mode t)
-;; do overlay
-(setq ruby-block-highlight-toggle 'overlay)
-;; display to minibuffer
-;(setq ruby-block-highlight-toggle 'minibuffer)
-;; display to minibuffer and do overlay
-;;(setq ruby-block-highlight-toggle t)
-
 ;;; ---------------------------------------------------------
 ;;; - RVM mode... use rvm’s default ruby for the current Emacs session
 ;;;
@@ -151,33 +11,100 @@
       (rvm-use-default))
   (progn))
 
-;;; ---------------------------------------------------------
-;;; - Autotest
-;;; - http://blog.zenspider.com/emacs/
-;;;
-;(load "~/.emacs.d/vendor/autotest/unit-test.el")
-(add-to-list 'load-path "~/.emacs.d/vendor/autotest")
+(add-to-list 'load-path (concat vendor-dir "/yari.el"))
+(add-to-list 'load-path (concat vendor-dir "/rdebug"))
+(add-to-list 'load-path (concat vendor-dir "/autotest"))
+(add-to-list 'load-path (concat vendor-dir "/rhtml"))
+(add-to-list 'load-path (concat vendor-dir "/rspec-mode"))
+(add-to-list 'load-path (concat vendor-dir "/rcodetools"))
+(add-to-list 'load-path (concat vendor-dir "/emacs-rails"))
+(add-to-list 'load-path (concat vendor-dir "/jump.el"))
+(add-to-list 'load-path (concat vendor-dir "/rinari"))
+
+;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
+;; (add-to-list 'load-path "~/.emacs.d/vendor/icicles")
+;; (load "~/.emacs.d/vendor/autotest/unit-test.el")
+
+(require 'jp-ruby-helpers)
+(require 'yari)
+(require 'flymake-haml)
+(require 'scss-mode)
+(require 'rdebug)
+(require 'inf-ruby)
+(require 'hideshow)
+(require 'ruby-block)
 (require 'unit-test)
 (require 'toggle)
 (require 'autotest)
+(require 'ruby-hacks)
+(require 'rhtml-mode)
+(require 'rspec-mode)
+(require 'align)
+(require 'jp-sinatra)
+(require 'linum)
+(require 'ruby-electric)
+(require 'anything)
+(require 'anything-rcodetools)
+(require 'rcodetools)
+(require 'rails)
+(require 'rinari)
+;; (require 'icicles-rcodetools)
+;; (require 'ruby-complexity)
 
+(autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
+(autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode." t)
 (autoload 'autotest-switch "autotest" "doco" t)
 (autoload 'autotest "autotest" "doco" t)
+(autoload 'rhtml-mode "rhtml-mode" "RHTML" t)
+
+;; We never want to edit Rubinius bytecode
+(add-to-list 'completion-ignored-extensions ".rbc")
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
+
+(eval-after-load 'ruby-mode
+  '(progn
+     (require 'ruby-compilation)
+     (add-hook 'ruby-mode-hook 'inf-ruby-keys)
+     (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+     (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
+     (define-key ruby-mode-map (kbd "C-c l") "lambda")
+     (define-key rinari-minor-mode-map [(control meta shift down)] 'rinari-find-rspec)
+     (define-key rinari-minor-mode-map [(control meta shift left)] 'rinari-find-controller)
+     (define-key rinari-minor-mode-map [(control meta shift up)] 'rinari-find-model)
+     (define-key rinari-minor-mode-map [(control meta shift right)] 'rinari-find-view)))
+
+(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.builder$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\spec.rb$" . rspec-mode))
+(add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
+(add-to-list 'auto-mode-alist '("\\.html\.erb$" . rhtml-mode))
+
 (add-hook 'ruby-mode-hook
           '(lambda ()
-             (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)))
+            (set (make-local-variable 'tab-width) 2)
+            (ruby-electric-mode t)
+            (ruby-hs-minor-mode t)
+            (ruby-block-mode t)
+            (imenu-add-to-menubar "IMENU")
+            (modify-syntax-entry ?! "w" (syntax-table))
+            (modify-syntax-entry ?: "w" (syntax-table))
+            (modify-syntax-entry ?_ "w" (syntax-table))
+            (local-set-key (kbd "C-.") 'complete-tag)
+            (ri-bind-key)
+            (inf-ruby-keys)
+            (auto-fill-mode 1)
+            (GAU-bind-insert-ruby-debug-key)
+            (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)
+            (local-set-key (kbd "<return>") 'newline-and-indent)))
 
-;;; ---------------------------------------------------------
-;;; - Ruby-hacks
-;;;
-(require 'ruby-hacks)
-
-;;; ---------------------------------------------------------
-;;; - Complexity
-;;; - $ gem install flog
-;;;
-;; (add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
-;; (require 'ruby-complexity)
+;;; Ruby Complexity
 ;; (add-hook 'ruby-mode-hook
 ;;          (function (lambda ()
 ;;                      (flymake-mode)
@@ -185,77 +112,17 @@
 ;;                      (ruby-complexity-mode)
 ;;                      )))
 
-;;; ---------------------------------------------------------
-;;; - rhtml mode
-;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/rhtml")
-(require 'rhtml-mode)
-(autoload 'rhtml-mode "rhtml-mode" "RHTML" t)
-(add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
-(add-to-list 'auto-mode-alist '("\\.html\.erb$" . rhtml-mode))
+(add-hook 'haml-mode-hook 'flymake-haml-load)
+(add-hook 'sass-mode-hook 'flymake-sass-load)
+(add-hook 'comint-mode-hook 'turn-on-rdebug-track-mode)
+(add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
+(add-hook 'rhtml-mode-hook 'ri-bind-key)
+(add-hook 'haml-mode-hook 'ri-bind-key)
+(add-hook 'sass-mode-hook 'ri-bind-key)
 
-;;; ---------------------------------------------------------
-;;; - Rspec
-;;;
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/rspec-mode"))
-(require 'rspec-mode)
-
-;;; Rake
-
-(defun pcomplete/rake ()
-  "Completion rules for the `ssh' command."
-  (pcomplete-here (pcmpl-rake-tasks)))
-
-(defun pcmpl-rake-tasks ()
-  "Return a list of all the rake tasks defined in the current
-projects.  I know this is a hack to put all the logic in the
-exec-to-string command, but it works and seems fast"
-  (delq nil (mapcar '(lambda(line)
-                       (if (string-match "rake \\([^ ]+\\)" line) (match-string 1 line)))
-                    (split-string (shell-command-to-string "rake -T") "[\n]"))))
-
-(defun rake (task)
-  (interactive (list (completing-read "Rake (default: default): "
-                                      (pcmpl-rake-tasks))))
-  (shell-command-to-string (concat "rake " (if (= 0 (length task)) "default" task))))
-
-
-;; Clear the compilation buffer between test runs.
-(eval-after-load 'ruby-compilation
-  '(progn
-     (defadvice ruby-do-run-w/compilation (before kill-buffer (name cmdlist))
-       (let ((comp-buffer-name (format "*%s*" name)))
-         (when (get-buffer comp-buffer-name)
-           (with-current-buffer comp-buffer-name
-             (delete-region (point-min) (point-max))))))
-     (ad-activate 'ruby-do-run-w/compilation)))
-
-(add-hook 'ruby-mode-hook 'run-coding-hook)
-
-;;; Flymake
-
-(defun flymake-ruby-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
-    ;; Invoke ruby with '-c' to get syntax checking
-    (list "ruby" (list "-c" local-file))))
-
-(defun flymake-ruby-enable ()
-  (when (and buffer-file-name
-             (file-writable-p
-              (file-name-directory buffer-file-name))
-             (file-writable-p buffer-file-name)
-             (if (fboundp 'tramp-list-remote-buffers)
-                 (not (subsetp
-                       (list (current-buffer))
-                       (tramp-list-remote-buffers)))
-               t))
-    (local-set-key (kbd "C-c d")
-                   'flymake-display-err-menu-for-current-line)
-    (flymake-mode t)))
+(setq scss-compile-at-save nil)
+(setq rdebug-short-key-mode t)
+(setq ruby-block-highlight-toggle 'overlay)
 
 (eval-after-load 'ruby-mode
   '(progn
@@ -270,34 +137,5 @@ exec-to-string command, but it works and seems fast"
 (setq rinari-major-modes
       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
             'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
-
-;;; ---------------------------------------------------------
-;;; - Align for ruby
-;;;
-(require 'align)
-
-(defconst align-ruby-modes '(ruby-mode)
-  "align-perl-modes is a variable defined in `align.el'.")
-
-(defconst ruby-align-rules-list
-  '((ruby-comma-delimiter
-     (regexp . ",\\(\\s-*\\)[^/ \t\n]")
-     (modes  . align-ruby-modes)
-     (repeat . t))
-    (ruby-string-after-func
-     (regexp . "^\\s-*[a-zA-Z0-9.:?_]+\\(\\s-+\\)['\"]\\w+['\"]")
-     (modes  . align-ruby-modes)
-     (repeat . t))
-    (ruby-symbol-after-func
-     (regexp . "^\\s-*[a-zA-Z0-9.:?_]+\\(\\s-+\\):\\w+")
-     (modes  . align-ruby-modes)))
-  "Alignment rules specific to the ruby mode.
-See the variable `align-rules-list' for more details.")
-
-(dolist (it '(align-perl-modes align-dq-string-modes align-sq-string-modes align-open-comment-modes))
-  (add-to-list it 'ruby-mode))
-
-(dolist (it ruby-align-rules-list)
-  (add-to-list 'align-rules-list it))
 
 (provide 'jp-ruby)

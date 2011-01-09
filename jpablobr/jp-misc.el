@@ -325,4 +325,9 @@ LIST defaults to all existing live buffers."
     (ispell-change-dictionary lang)))
 (global-set-key [f6] 'cycle-ispell-languages)
 
+(require 'simplenote)
+(setq simplenote-email "xjpablobrx@gmail.com")
+(setq simplenote-password nil)
+(simplenote-setup)
+
 (provide 'jp-misc)
