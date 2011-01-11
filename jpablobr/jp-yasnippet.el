@@ -8,7 +8,7 @@
 (require 'yaml-mode)
 
 (add-to-list 'load-path
-             (concat dotfiles-dir "/vendor/yasnippet.el"))
+             (concat dotfiles-dir "/vendor/yasnippet-dot-el"))
 
 (require 'yasnippet)
 

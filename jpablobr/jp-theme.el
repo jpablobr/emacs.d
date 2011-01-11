@@ -5,7 +5,8 @@
 (load-file "~/.emacs.d/vendor/color-theme-twilight.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
 (load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
-(color-theme-tangotango) ;; (color-theme-twilight)
+(load (concat dotfiles-dir "vendor/theme.el"))
+(color-theme-tangotango) ;; (color-theme-twilight) (color-theme-topfunky)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Transparency
