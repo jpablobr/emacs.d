@@ -60,8 +60,10 @@
 (setq show-paren-mode t)
 
 
-(add-to-list 'load-path
-	     (expand-file-name "~/.emacs.d/vendor/php_repl/data"))
+;; (add-to-list 'load-path
+;; 	     (expand-file-name "~/.emacs.d/vendor/php_repl/data"))
+;; (require 'php-repl)
+;; (setq php-repl-program (concat (getenv "HOME") ".emacs.d/vendor/php-repl/PHP/Repl.php"))
 
 (require 'php-mode)
 
@@ -76,9 +78,6 @@
 			    (setq c-basic-offset 4
 				  indent-tabs-mode nil)))
 
-(require 'php-repl)
-(setq php-repl-program (concat (getenv "HOME") ".emacs.d/vendor/php-repl/PHP/Repl.php"))
-
 (require 'phpunit)
 ;; Make clickalabe of standard PHP fatals too.
 (setq phpunit-regexp-alist (append phpunit-regexp-alist
@@ -89,10 +88,6 @@
 
 (require 'php-electric)
 (add-hook 'php-mode-hook '(lambda () (php-electric-mode)))
-
-(require 'smarty-mode)
-(add-to-list 'auto-mode-alist
-	     '( "\\.tpl" . smarty-mode))
 
 (autoload 'geben "geben" "PHP Debugger on Emacs" t)
 
