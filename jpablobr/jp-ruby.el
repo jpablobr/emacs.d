@@ -31,7 +31,7 @@
      (require 'flymake-haml)
      (require 'scss-mode)
      (require 'inf-ruby)
-     (require 'hideshow)
+     ;; (require 'hideshow)
      (require 'ruby-block)
      (require 'unit-test)
      (require 'toggle)
