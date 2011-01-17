@@ -62,6 +62,7 @@
 (require 'jp-java)
 (require 'jp-w3m)
 (require 'jp-artist)
+(require 'jp-perl)
 ;; (require 'jp-php)
 ;; (require 'jp-wanderlust)
 ;; (require 'jp-erlang)
