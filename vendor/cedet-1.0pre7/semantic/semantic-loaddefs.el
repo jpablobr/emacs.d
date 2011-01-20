@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (bison->wisent) "bison-wisent" "wisent/bison-wisent.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from wisent/bison-wisent.el
 
 (autoload 'bison->wisent "bison-wisent" "\
@@ -18,7 +18,7 @@ Deletes all actions, replacing them with small comments.
 ;;;***
 
 ;;;### (autoloads (semantic-bovine-debug-create-frame) "bovine-debug"
-;;;;;;  "bovine/bovine-debug.el" (19335 11025))
+;;;;;;  "bovine/bovine-debug.el" (19335 11024))
 ;;; Generated autoloads from bovine/bovine-debug.el
 
 (autoload 'semantic-bovine-debug-create-frame "bovine-debug" "\
@@ -44,7 +44,7 @@ LEXTOKEN, is a token returned by the lexer which is being matched.
 ;;;***
 
 ;;;### (autoloads (bovine-grammar-mode) "bovine-grammar" "bovine/bovine-grammar.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from bovine/bovine-grammar.el
 
 (autoload 'bovine-grammar-mode "bovine-grammar" "\
@@ -307,7 +307,7 @@ Toggle between the implementation, and a prototype of tag under point.
 ;;;***
 
 ;;;### (autoloads (semantic-bovinate-stream semantic-lambda) "semantic-bovine"
-;;;;;;  "bovine/semantic-bovine.el" (19335 11025))
+;;;;;;  "bovine/semantic-bovine.el" (19335 11024))
 ;;; Generated autoloads from bovine/semantic-bovine.el
 
 (defvar semantic-bovinate-nonterminal-check-obarray nil "\
@@ -337,7 +337,7 @@ list of semantic tokens found.
 ;;;### (autoloads (semantic-c-add-preprocessor-symbol semantic-default-c-setup
 ;;;;;;  semantic-c-member-of-autocast semantic-lex-c-preprocessor-symbol-file
 ;;;;;;  semantic-lex-c-preprocessor-symbol-map) "semantic-c" "bovine/semantic-c.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from bovine/semantic-c.el
 
 (defvar semantic-lex-c-preprocessor-symbol-map nil "\
@@ -1041,7 +1041,7 @@ just the lexical token and not the string.
 
 ;;;### (autoloads (semantic-load-enable-primary-exuberent-ctags-support)
 ;;;;;;  "semantic-ectag-lang" "ctags/semantic-ectag-lang.el" (19335
-;;;;;;  11025))
+;;;;;;  11024))
 ;;; Generated autoloads from ctags/semantic-ectag-lang.el
 
 (autoload 'semantic-load-enable-primary-exuberent-ctags-support "semantic-ectag-lang" "\
@@ -1055,7 +1055,7 @@ semantic parser.
 
 ;;;### (autoloads (semantic-load-enable-secondary-exuberent-ctags-support)
 ;;;;;;  "semantic-ectag-lang2" "ctags/semantic-ectag-lang2.el" (19335
-;;;;;;  11025))
+;;;;;;  11024))
 ;;; Generated autoloads from ctags/semantic-ectag-lang2.el
 
 (autoload 'semantic-load-enable-secondary-exuberent-ctags-support "semantic-ectag-lang2" "\
@@ -1068,7 +1068,7 @@ Any mode that has been tested to work will be added to this function.
 ;;;***
 
 ;;;### (autoloads (semantic-ectag-parse-buffer) "semantic-ectag-parse"
-;;;;;;  "ctags/semantic-ectag-parse.el" (19335 11025))
+;;;;;;  "ctags/semantic-ectag-parse.el" (19335 11024))
 ;;; Generated autoloads from ctags/semantic-ectag-parse.el
 
 (autoload 'semantic-ectag-parse-buffer "semantic-ectag-parse" "\
@@ -1141,7 +1141,7 @@ the semantic cache to see what needs to be changed.
 ;;;***
 
 ;;;### (autoloads (semantic-default-elisp-setup) "semantic-el" "bovine/semantic-el.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from bovine/semantic-el.el
 
 (autoload 'semantic-default-elisp-setup "semantic-el" "\
@@ -1637,7 +1637,7 @@ Optional argument COLOR means highlight the prototype with font-lock colors.
 
 ;;;### (autoloads (semantic-gcc-test-output-parser-this-machine semantic-gcc-test-output-parser
 ;;;;;;  semantic-gcc-setup) "semantic-gcc" "bovine/semantic-gcc.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from bovine/semantic-gcc.el
 
 (autoload 'semantic-gcc-setup "semantic-gcc" "\
@@ -2006,7 +2006,7 @@ If you just want to add new languages, use
 ;;;***
 
 ;;;### (autoloads (semantic-default-make-setup) "semantic-make" "bovine/semantic-make.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from bovine/semantic-make.el
 
 (autoload 'semantic-default-make-setup "semantic-make" "\
@@ -2105,7 +2105,7 @@ file-names. See this function for details about the optional argument
 ;;;***
 
 ;;;### (autoloads (semantic-default-scheme-setup) "semantic-scm"
-;;;;;;  "bovine/semantic-scm.el" (19335 11025))
+;;;;;;  "bovine/semantic-scm.el" (19335 11024))
 ;;; Generated autoloads from bovine/semantic-scm.el
 
 (autoload 'semantic-default-scheme-setup "semantic-scm" "\
@@ -2144,7 +2144,7 @@ The class returned from the scope calculation is variable
 ;;;***
 
 ;;;### (autoloads (semantic-default-skel-setup) "semantic-skel" "bovine/semantic-skel.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from bovine/semantic-skel.el
 
 (autoload 'semantic-default-skel-setup "semantic-skel" "\
@@ -2362,7 +2362,7 @@ likely derived, then this function is needed.
 ;;;### (autoloads (semantic-symref-find-text semantic-symref-find-file-references-by-name
 ;;;;;;  semantic-symref-find-tags-by-completion semantic-symref-find-tags-by-regexp
 ;;;;;;  semantic-symref-find-tags-by-name semantic-symref-find-references-by-name)
-;;;;;;  "semantic-symref" "symref/semantic-symref.el" (19335 11025))
+;;;;;;  "semantic-symref" "symref/semantic-symref.el" (19335 11024))
 ;;; Generated autoloads from symref/semantic-symref.el
 
 (autoload 'semantic-symref-find-references-by-name "semantic-symref" "\
@@ -2425,7 +2425,7 @@ Returns an object of class `semantic-symref-result'.
 ;;;***
 
 ;;;### (autoloads nil "semantic-symref-cscope" "symref/semantic-symref-cscope.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from symref/semantic-symref-cscope.el
 
 (eieio-defclass-autoload 'semantic-symref-tool-cscope '(semantic-symref-tool-baseclass) "semantic-symref-cscope" "A symref tool implementation using CScope.\nThe CScope command can be used to generate lists of tags in a way\nsimilar to that of `grep'.  This tool will parse the output to generate\nthe hit list.\n\nSee the function `cedet-cscope-search' for more details.")
@@ -2434,7 +2434,7 @@ Returns an object of class `semantic-symref-result'.
 
 ;;;### (autoloads (semantic-symref-rename-local-variable semantic-symref-test-count-hits-in-tag
 ;;;;;;  semantic-symref-hits-in-region) "semantic-symref-filter"
-;;;;;;  "symref/semantic-symref-filter.el" (19335 11025))
+;;;;;;  "symref/semantic-symref-filter.el" (19335 11024))
 ;;; Generated autoloads from symref/semantic-symref-filter.el
 
 (autoload 'semantic-symref-hits-in-region "semantic-symref-filter" "\
@@ -2464,7 +2464,7 @@ Depends on the SRecode Field editing API.
 ;;;***
 
 ;;;### (autoloads nil "semantic-symref-global" "symref/semantic-symref-global.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from symref/semantic-symref-global.el
 
 (eieio-defclass-autoload 'semantic-symref-tool-global '(semantic-symref-tool-baseclass) "semantic-symref-global" "A symref tool implementation using GNU Global.\nThe GNU Global command can be used to generate lists of tags in a way\nsimilar to that of `grep'.  This tool will parse the output to generate\nthe hit list.\n\nSee the function `cedet-gnu-global-search' for more details.")
@@ -2472,7 +2472,7 @@ Depends on the SRecode Field editing API.
 ;;;***
 
 ;;;### (autoloads nil "semantic-symref-grep" "symref/semantic-symref-grep.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from symref/semantic-symref-grep.el
 
 (eieio-defclass-autoload 'semantic-symref-tool-grep '(semantic-symref-tool-baseclass) "semantic-symref-grep" "A symref tool implementation using grep.\nThis tool uses EDE to find he root of the project, then executes\nfind-grep in the project.  The output is parsed for hits\nand those hits returned.")
@@ -2480,7 +2480,7 @@ Depends on the SRecode Field editing API.
 ;;;***
 
 ;;;### (autoloads nil "semantic-symref-idutils" "symref/semantic-symref-idutils.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from symref/semantic-symref-idutils.el
 
 (eieio-defclass-autoload 'semantic-symref-tool-idutils '(semantic-symref-tool-baseclass) "semantic-symref-idutils" "A symref tool implementation using ID Utils.\nThe udutils command set can be used to generate lists of tags in a way\nsimilar to that of `grep'.  This tool will parse the output to generate\nthe hit list.\n\nSee the function `cedet-idutils-search' for more details.")
@@ -2489,7 +2489,7 @@ Depends on the SRecode Field editing API.
 
 ;;;### (autoloads (semantic-symref-results-mode semantic-symref-symbol
 ;;;;;;  semantic-symref) "semantic-symref-list" "symref/semantic-symref-list.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from symref/semantic-symref-list.el
 
 (autoload 'semantic-symref "semantic-symref-list" "\
@@ -3031,7 +3031,7 @@ warn instead.
 ;;;***
 
 ;;;### (autoloads (semanticdb-enable-exuberent-ctags) "semanticdb-ectag"
-;;;;;;  "ctags/semanticdb-ectag.el" (19335 11025))
+;;;;;;  "ctags/semanticdb-ectag.el" (19335 11024))
 ;;; Generated autoloads from ctags/semanticdb-ectag.el
 
 (autoload 'semanticdb-enable-exuberent-ctags "semanticdb-ectag" "\
@@ -3750,7 +3750,7 @@ found, nil otherwise.
 ;;;***
 
 ;;;### (autoloads (wisent-parse-toggle-verbose-flag) "wisent" "wisent/wisent.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from wisent/wisent.el
 
 (defvar wisent-parse-verbose-flag nil "\
@@ -3764,7 +3764,7 @@ Toggle whether to issue more messages while parsing.
 ;;;***
 
 ;;;### (autoloads (wisent-calc-utest wisent-calc) "wisent-calc" "wisent/wisent-calc.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from wisent/wisent-calc.el
 
 (autoload 'wisent-calc "wisent-calc" "\
@@ -3782,7 +3782,7 @@ Test the wisent calculator.
 
 ;;;### (autoloads (wisent-byte-compile-grammar wisent-compile-grammar
 ;;;;;;  wisent-toggle-verbose-flag) "wisent-comp" "wisent/wisent-comp.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from wisent/wisent-comp.el
 
 (defvar wisent-verbose-flag nil "\
@@ -3849,7 +3849,7 @@ Automatically called by the Emacs Lisp byte compiler as a
 
 ;;;### (autoloads (wisent-debug-show-entry wisent-cancel-debug-on-entry
 ;;;;;;  wisent-debug-on-entry) "wisent-debug" "wisent/wisent-debug.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from wisent/wisent-debug.el
 
 (autoload 'wisent-debug-on-entry "wisent-debug" "\
@@ -3873,7 +3873,7 @@ FUNCTION must be a semantic action symbol that exists in AUTOMATON.
 ;;;***
 
 ;;;### (autoloads (wisent-grammar-mode) "wisent-grammar" "wisent/wisent-grammar.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from wisent/wisent-grammar.el
 
 (autoload 'wisent-grammar-mode "wisent-grammar" "\
@@ -3888,7 +3888,7 @@ Major mode for editing Wisent grammars.
 ;;;***
 
 ;;;### (autoloads (wisent-java-default-setup) "wisent-java-tags"
-;;;;;;  "wisent/wisent-java-tags.el" (19335 11025))
+;;;;;;  "wisent/wisent-java-tags.el" (19335 11024))
 ;;; Generated autoloads from wisent/wisent-java-tags.el
 
 (autoload 'wisent-java-default-setup "wisent-java-tags" "\
@@ -3902,7 +3902,7 @@ Use the alternate LALR(1) parser.
 ;;;***
 
 ;;;### (autoloads (wisent-javascript-setup-parser) "wisent-javascript"
-;;;;;;  "wisent/wisent-javascript.el" (19335 11025))
+;;;;;;  "wisent/wisent-javascript.el" (19335 11024))
 ;;; Generated autoloads from wisent/wisent-javascript.el
 
 (autoload 'wisent-javascript-setup-parser "wisent-javascript" "\
@@ -3917,7 +3917,7 @@ Setup buffer for parse.
 ;;;***
 
 ;;;### (autoloads (wisent-python-default-setup) "wisent-python" "wisent/wisent-python.el"
-;;;;;;  (19335 11025))
+;;;;;;  (19335 11024))
 ;;; Generated autoloads from wisent/wisent-python.el
 
 (autoload 'wisent-python-default-setup "wisent-python" "\
@@ -3940,7 +3940,7 @@ Setup buffer for parse.
 ;;;;;;  "wisent/wisent-calc-wy.el" "wisent/wisent-cim-wy.el" "wisent/wisent-expr.el"
 ;;;;;;  "wisent/wisent-grammar-macros.el" "wisent/wisent-java-tags-wy.el"
 ;;;;;;  "wisent/wisent-java-wy.el" "wisent/wisent-java.el" "wisent/wisent-javascript-jv-wy.el"
-;;;;;;  "wisent/wisent-python-wy.el") (19745 4276 194927))
+;;;;;;  "wisent/wisent-python-wy.el") (19768 49230 927737))
 
 ;;;***
 
