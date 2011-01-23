@@ -1,5 +1,5 @@
-/* Last modified Time-stamp: <Ye Wenbin 2007-12-30 16:29:58>
- * @(#)(>>>FILE<<<)
+/* Author: <Jose Pablo Barrantes>
+ * @(#)TEMPLATE.C.TPL
  */
 
 #include <stdio.h>
