@@ -184,5 +184,7 @@
 (global-set-key [(meta P)] 'mouse-buffer-menu)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
+(global-set-key [(meta p)] 'beginning-of-buffer)
+(global-set-key [(meta n)] 'end-of-buffer)
 
 (provide 'jp-keyboard)
