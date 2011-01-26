@@ -175,4 +175,15 @@
   (interactive)
   (message (if (y-or-n-p "Do you have a test for that? ") "Good." "Bad!")))
 
+(defun count-words (start end)
+  "Print number of words in the region."
+  (interactive "r")
+  (save-excursion
+    (save-restriction
+      (narrow-to-region start end)
+      (goto-char (point-min))
+      (count-matches "\\sw+"))))
+
+(defalias 'word-count 'count-words)
+
 (provide 'jp-defuns)

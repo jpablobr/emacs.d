@@ -330,4 +330,8 @@ LIST defaults to all existing live buffers."
 (setq simplenote-password nil)
 (simplenote-setup)
 
+(autoload 'word-count-mode "word-count"
+          "Minor mode to count words." t nil)
+(global-set-key "\M-+" 'word-count-mode)
+
 (provide 'jp-misc)
