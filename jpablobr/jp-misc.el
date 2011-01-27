@@ -324,4 +324,6 @@ LIST defaults to all existing live buffers."
 (setq simplenote-password nil)
 (simplenote-setup)
 
+(require 'gist)
+
 (provide 'jp-misc)
