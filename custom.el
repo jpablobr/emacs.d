@@ -3,6 +3,9 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(user-full-name "Jose Pablo Barrantes")
+ '(user-mail-address "xjpablobrx@gmail.com")
+ '(user-login-name "jpablobr")
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color\. "white") (background-color . "black") (menu-bar-lines . 1))))
