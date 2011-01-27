@@ -263,12 +263,6 @@ LIST defaults to all existing live buffers."
 (add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
 
 ;;; ----------------------------------------------------------------------------
-;;; - temp - tests
-;;;
-;; (setq debug-on-error 0)
-;; (setq debug-on-error nil)
-(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
-;;; ----------------------------------------------------------------------------
 ;;; - Dictionary
 ;;; - % sudo apt-get install dictionary-el
 ;;;
@@ -329,9 +323,5 @@ LIST defaults to all existing live buffers."
 (setq simplenote-email "xjpablobrx@gmail.com")
 (setq simplenote-password nil)
 (simplenote-setup)
-
-(autoload 'word-count-mode "word-count"
-          "Minor mode to count words." t nil)
-(global-set-key "\M-+" 'word-count-mode)
 
 (provide 'jp-misc)
