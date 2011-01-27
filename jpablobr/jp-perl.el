@@ -49,8 +49,6 @@
   (abbrev-mode t)
   (add-to-list 'cperl-style-alist
                '("PDE"
-                 (cperl-auto-newline                         . t)
-                 (cperl-electric-semi                        . 0)
                  (cperl-brace-offset                         . 0)
                  (cperl-close-paren-offset                   . -4)
                  (cperl-continued-brace-offset               . 0)
@@ -63,6 +61,9 @@
                  (cperl-merge-trailing-else                  . t)
                  (cperl-tab-always-indent                    . t)))
   (cperl-set-style "PDE"))
+
+(setq cperl-auto-newline nil)
+(setq cperl-electric-keywords t)
 
 (eval-after-load "imenu"
  '(defalias 'imenu--completion-buffer 'pde-ido-imenu-completion))
