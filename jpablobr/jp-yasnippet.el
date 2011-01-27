@@ -57,4 +57,8 @@
           '(lambda ()
              (setq yas/mode-symbol 'perl-mode)))
 
+(add-hook 'inf-perl-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'perl-mode)))
+
 (provide 'jp-yasnippet)

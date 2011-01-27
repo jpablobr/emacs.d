@@ -33,7 +33,7 @@
                  '(emacs-lisp-mode
                    lisp-interaction-mode
                    c-mode cc-mode c++-mode java-mode
-                   perl-mode cperl-mode python-mode ruby-mode jde-mode
+                   perl-mode cperl-mode python-mode ruby-mode jde-mode inf-perl-mode
                    ecmascript-mode javascript-mode js2-mode espresso-mode php-mode css-mode shell-mode
                    makefile-mode sh-mode fortran-mode f90-mode ada-mode inf-ruby-mode clojure-mode scheme-mode org-mode
                    xml-mode sgml-mode sass-mode haml-mode html-mode RoR-mode rinari-mode rhtml-mode)))
