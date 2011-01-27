@@ -50,6 +50,7 @@
   (add-to-list 'cperl-style-alist
                '("PDE"
                  (cperl-auto-newline                         . t)
+                 (cperl-electric-semi                        . 0)
                  (cperl-brace-offset                         . 0)
                  (cperl-close-paren-offset                   . -4)
                  (cperl-continued-brace-offset               . 0)

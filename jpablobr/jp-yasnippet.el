@@ -36,6 +36,8 @@
 (add-hook 'lisp-mode-hook 'yas/minor-mode-on)
 (add-hook 'shell-mode-hook 'yas/minor-mode-on)
 (add-hook 'erlang-mode-hook 'yas/minor-mode-on)
+(add-hook 'cperl-mode-hook 'yas/minor-mode-on)
+(add-hook 'perl-mode 'yas/minor-mode-on)
 
 ;;; ---------------------------------------------------------
 ;;; - hooks for different modes on specific modes
@@ -50,5 +52,9 @@
 (add-hook 'js2-mode-hook
           '(lambda ()
              (setq yas/mode-symbol 'espresso-mode)))
+
+(add-hook 'cperl-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'perl-mode)))
 
 (provide 'jp-yasnippet)
