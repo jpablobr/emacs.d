@@ -1,4 +1,4 @@
-;;; -*- coding: utf-8-unix; -*-
+ ;;; -*- coding: utf-8-unix; -*-
 ;;; ---------------------------------------------------------
 ;;; - Things that don't fit anywhere else
 ;;;
@@ -28,14 +28,14 @@
 ;;; ---------------------------------------------------------
 ;;; - Browser
 ;;;
-;; (setq browse-url-browser-function 'browse-url-firefox)
+(setq browse-url-browser-function 'browse-url-firefox)
 ;; (setq browse-url-browser-function 'browse-default-macosx-browser)
 ;; (setq browse-url-browser-function 'browse-default-windows-browser)
 ;; (setq browse-url-browser-function 'browse-default-kde)
 ;; (setq browse-url-browser-function 'browse-default-epiphany)
 ;; (setq browse-url-browser-function 'browse-url-generic
 ;;       browse-url-generic-program "~/src/conkeror/conkeror")
-(setq browse-url-browser-function 'browse-default-w3m)
+;; (setq browse-url-browser-function 'browse-default-w3m)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Git Blame
@@ -287,6 +287,10 @@ LIST defaults to all existing live buffers."
 ;;; - Global custom variables
 ;;;
 (custom-set-variables
+ '(user-full-name "Jose Pablo Barrantes")
+ '(user-mail-address "xjpablobrx@gmail.com")
+ '(user-login-name "jpablobr")
+ '(github-user "jpablobr")
  '(w3m-arrived-file "~/Dropbox/.w3m/.arrived")
  '(w3m-bookmark-file "~/Dropbox/.w3m/bookmark.html")
  '(w3m-default-save-directory "~/Dropbox/.w3m")
@@ -325,5 +329,6 @@ LIST defaults to all existing live buffers."
 (simplenote-setup)
 
 (require 'gist)
+(setq gist-view-gist t)
 
 (provide 'jp-misc)
