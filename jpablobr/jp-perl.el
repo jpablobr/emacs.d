@@ -23,18 +23,18 @@
 (global-set-key (kbd "C-c h") 'help-dwim)
 (setq cperl-lazy-help-time 2)
 
-;; (require 'template)
-;; (template-initialize)
-;; (require 'perlnow)
+(require 'template)
+(template-initialize)
+(require 'perlnow)
 
-;; (setq perlnow-script-location
-;;       (substitute-in-file-name "$HOME/bin"))
-;; (setq perlnow-pm-location
-;;       (substitute-in-file-name "$HOME/lib"))
-;; (setq perlnow-dev-location
-;;       (substitute-in-file-name "$HOME/dev"))
+(setq perlnow-script-location
+      (substitute-in-file-name "$HOME/bin"))
+(setq perlnow-pm-location
+      (substitute-in-file-name "$HOME/lib"))
+(setq perlnow-dev-location
+      (substitute-in-file-name "$HOME/dev"))
 
-;; (perlnow-define-standard-keymappings)
+(perlnow-define-standard-keymappings)
 
  ;; Rebinding keys for hideshow
 (require 'hideshow)
