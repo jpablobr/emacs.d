@@ -332,4 +332,7 @@ LIST defaults to all existing live buffers."
 (setq gist-view-gist t)
 (setq gist-use-curl t)
 
+(require 'template)
+(template-initialize)
+
 (provide 'jp-misc)
