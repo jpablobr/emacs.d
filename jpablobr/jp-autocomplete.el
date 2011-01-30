@@ -1,5 +1,5 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;; ---------------------------------------------------------
+;;jp-autocomplete.el ---------------------------------------------------------
 ;;; - Auto-complete
 ;;;
 (add-to-list 'load-path "~/.emacs.d/vendor/auto-complete")
@@ -34,7 +34,7 @@
                    lisp-interaction-mode
                    c-mode cc-mode c++-mode java-mode
                    perl-mode cperl-mode python-mode ruby-mode jde-mode inf-perl-mode
-                   ecmascript-mode javascript-mode js2-mode espresso-mode php-mode css-mode shell-mode
+                   ecmascript-mode javascript-mode js2-mode espresso-mode php-mode css-mode shell-mode text-mode
                    makefile-mode sh-mode fortran-mode f90-mode ada-mode inf-ruby-mode clojure-mode scheme-mode org-mode
                    xml-mode sgml-mode sass-mode haml-mode html-mode RoR-mode rinari-mode rhtml-mode)))
    ;(add-to-list 'ac-trigger-commands 'org-self-insert-command)

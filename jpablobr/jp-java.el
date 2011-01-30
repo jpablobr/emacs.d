@@ -1,4 +1,4 @@
-;;; ----------------------------------------------------------------------------
+;;jp-java.el ----------------------------------------------------------------------------
 ;;; - Java development
 ;;; - http://www.iiitmk.ac.in/wiki/index.php/IIITM-K_How-to_Knowledge_Base/How_to_configure_JDE_for_emacs
 ;;; - from: http://wttools.sourceforge.net/emacs-stuff/package.html#install-jdee

@@ -1,5 +1,5 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;; ---------------------------------------------------------
+;;jp-yasnippet.el ---------------------------------------------------------
 ;;; - Yasnippets
 ;;;
 (require 'css-mode)
@@ -37,7 +37,8 @@
 (add-hook 'shell-mode-hook 'yas/minor-mode-on)
 (add-hook 'erlang-mode-hook 'yas/minor-mode-on)
 (add-hook 'cperl-mode-hook 'yas/minor-mode-on)
-(add-hook 'perl-mode 'yas/minor-mode-on)
+(add-hook 'perl-mode-hook 'yas/minor-mode-on)
+(add-hook 'text-mode-hook 'yas/minor-mode-on)
 
 ;;; ---------------------------------------------------------
 ;;; - hooks for different modes on specific modes
