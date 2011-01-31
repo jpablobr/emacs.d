@@ -46,9 +46,9 @@
 (yas/define-snippets  'nxhtml-mode nil  'html-mode)
 (yas/define-snippets  'js2-mode nil  'javascript-mode)
 
-(add-hook 'emacs-lisp-mode-hook
-          '(lambda ()
-             (setq yas/mode-symbol 'text-mode)))
+;; (add-hook 'emacs-lisp-mode-hook
+;;           '(lambda ()
+;;              (setq yas/mode-symbol 'text-mode)))
 
 (add-hook 'js2-mode-hook
           '(lambda ()
@@ -61,5 +61,9 @@
 (add-hook 'inf-perl-mode-hook
           '(lambda ()
              (setq yas/mode-symbol 'perl-mode)))
+
+(add-hook 'org-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'text-mode)))
 
 (provide 'jp-yasnippet)
