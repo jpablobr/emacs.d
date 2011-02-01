@@ -66,4 +66,8 @@
           '(lambda ()
              (setq yas/mode-symbol 'text-mode)))
 
+(add-hook 'text-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'org-mode)))
+
 (provide 'jp-yasnippet)
