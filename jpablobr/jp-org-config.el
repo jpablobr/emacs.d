@@ -90,7 +90,7 @@ do this for the whole buffer."
 ;;; ----------------------------------------------------------------------------
 ;;; - Latex stuff
 ;;; - description
-;;; - % apt-get install wrapfig
+;;; - % apt-get install texlive-full\
 (require 'org-latex)
 (unless (boundp 'org-export-latex-classes)
   (setq org-export-latex-classes nil))
