@@ -2,10 +2,25 @@
 ;;jp-org-config.el ---------------------------------------------------------
 ;;; - ORG mode
 ;;;
+;; (setq load-path (cons "~/.emacs.d/vendor/org/lisp" load-path))
+;; (setq load-path (cons "~/.emacs.d/vendor/org/contrib/lisp" load-path))
+;; (add-to-list 'load-path (cons "~/.emacs.d/vendor/org/contrib/lisp" load-path))
+
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/org/lisp"))
+;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/org/contrib/lisp"))
+;; (require 'org)(require 'org-exp)(require 'ob)(require 'ob-tangle)
+
 (require 'org-install)
-(require 'org-babel-init)
-(require 'org-babel-R)
-(require 'org-babel-ruby)
+;; (require 'org-babel-init)
+;; (require 'org-babel-R)
+;; (require 'org-babel-ruby)
+;; (org-babel-load-library-of-babel)
+;; (require 'org-latex)
+;; (require 'ob-tangle)
+
+(add-to-list 'load-path (concat vendor-dir "/auctex"))
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
 
 (defun yas/org-very-safe-expand ()
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
@@ -164,15 +179,23 @@ do this for the whole buffer."
 
 
 ;;; ----------------------------------------------------------------------------
-;;; - Latex stuff
+;;; - Latex
 ;;; - description
-;;; - % apt-get install texlive-full\
+;;; - % apt-get install texlive-full
 (require 'org-latex)
-(unless (boundp 'org-export-latex-classes)
-  (setq org-export-latex-classes nil))
+(setq org-export-latex-listings t)
+(add-to-list 'org-export-latex-packages-alist
+             '(("AUTO" "inputenc" t)))
 (add-to-list 'org-export-latex-classes
-             '("article"
-               "\\documentclass{article}"
-               ("\\section{%s}" . "\\section*{%s}")))
+             '("org-article"
+               "\\documentclass{org-article}
+              [NO-DEFAULT-PACKAGES]
+              [PACKAGES]
+              [EXTRA]"
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 (provide 'jp-org-config)

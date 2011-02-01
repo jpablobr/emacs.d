@@ -3,9 +3,6 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(user-full-name "Jose Pablo Barrantes")
- '(user-mail-address "xjpablobrx@gmail.com")
- '(user-login-name "jpablobr")
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color\. "white") (background-color . "black") (menu-bar-lines . 1))))
@@ -15,8 +12,8 @@
  '(erc-modules (quote (autojoin button completion fill irccontrols match menu netsplit noncommands readonly ring scrolltobottom stamp track)))
  '(fill-column 80)
  '(font-lock-mode-maximum-decoration t)
+ '(github-user "jpablobr" t)
  '(global-font-lock-mode t nil (font-lock))
- ;; '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
  '(indent-tabs-mode nil)
  '(ispell-alternate-dictionary "~/.emacs.d/vendor/spanish-dictionary")
  '(jde-ant-enable-find t)
@@ -42,8 +39,9 @@
  '(rails-browse-api-with-w3m t)
  '(rails-use-alternative-browse-url nil)
  '(scroll-preserve-screen-position t)
- ;; '(semantic-idle-scheduler-idle-time 3)
- ;; '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
+ '(user-full-name "Jose Pablo Barrantes")
+ '(user-login-name "jpablobr" t)
+ '(user-mail-address "xjpablobrx@gmail.com")
  '(w3m-arrived-file "~/Dropbox/.w3m/.arrived")
  '(w3m-bookmark-file "~/Dropbox/.w3m/bookmark.html")
  '(w3m-default-save-directory "~/Dropbox/.w3m")
