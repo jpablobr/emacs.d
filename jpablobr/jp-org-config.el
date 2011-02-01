@@ -2,8 +2,6 @@
 ;;jp-org-config.el ---------------------------------------------------------
 ;;; - ORG mode
 ;;;
-                                        ;(custom-set-faces '(default ((t (:height 100 )))))
-
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
 (define-key global-map "\C-cl" 'org-store-link)
@@ -87,5 +85,18 @@ do this for the whole buffer."
   "Fix the built-in checkbox count to understand headlines."
   (setq ad-return-value
         (wicked/org-update-checkbox-count (ad-get-arg 1))))
+
+
+;;; ----------------------------------------------------------------------------
+;;; - Latex stuff
+;;; - description
+;;; - % apt-get install wrapfig
+(require 'org-latex)
+(unless (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
+(add-to-list 'org-export-latex-classes
+             '("article"
+               "\\documentclass{article}"
+               ("\\section{%s}" . "\\section*{%s}")))
 
 (provide 'jp-org-config)
