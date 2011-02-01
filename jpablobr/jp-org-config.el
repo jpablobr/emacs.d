@@ -184,14 +184,11 @@ do this for the whole buffer."
 ;;; - % apt-get install texlive-full
 (require 'org-latex)
 (setq org-export-latex-listings t)
-(add-to-list 'org-export-latex-packages-alist
-             '(("AUTO" "inputenc" t)))
 (add-to-list 'org-export-latex-classes
              '("org-article"
                "\\documentclass{org-article}
-              [NO-DEFAULT-PACKAGES]
-              [PACKAGES]
-              [EXTRA]"
+                 [NO-DEFAULT-PACKAGES]
+                 [EXTRA]"
                ("\\section{%s}" . "\\section*{%s}")
                ("\\subsection{%s}" . "\\subsection*{%s}")
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
