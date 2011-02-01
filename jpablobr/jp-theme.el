@@ -1,5 +1,5 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;; ---------------------------------------------------------
+;;jp-theme.el ---------------------------------------------------------
 ;;; - Theme Sat 2010-08-28 - 10:06 AM
 ;;;
 (load-file "~/.emacs.d/vendor/color-theme-twilight.el")
@@ -21,7 +21,7 @@
 (add-to-list  'load-path "~/.emacs.d/vendor/maxframe")
 (require 'maxframe)
 (add-hook 'window-setup-hook 'maximize-frame t)
-(add-hook 'window-setup-hook 'ecb-redraw-layout t)
+;;(add-hook 'window-setup-hook 'ecb-redraw-layout t)
 
 ;;; ---------------------------------------------------------
 ;;; - customization
