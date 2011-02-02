@@ -14,8 +14,7 @@
                                    'json
                                    'ruby-compilation
                                    'ruby-test-mode
-                                   ;;'test-unit
-                                   'w3
+                                   ;'test-unit
                                    'zenburn
                                    'project-local-variables
                                    'textmate

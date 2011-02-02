@@ -40,7 +40,7 @@
 ;;; - Load jpablobr customizations:
 ;;;
 (require 'jp-theme)
-;;(require 'jp-cedet)
+(require 'jp-cedet)
 (require 'jp-misc)
 (require 'jp-defuns)
 (require 'jp-keyboard)
@@ -85,11 +85,11 @@
 ;;; ---------------------------------------------------------
 ;;; - ECB
 ;;;
-;; (add-to-list 'load-path (concat vendor-dir "/ecb-2.40"))
-;; (require 'ecb)
-;; (setq ecb-tip-of-the-day nil)
-;; (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
-;;(ecb-activate)
+(add-to-list 'load-path (concat vendor-dir "/ecb-2.40"))
+(require 'ecb)
+(setq ecb-tip-of-the-day nil)
+(setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
+;; (ecb-activate)
 
 ;;; ---------------------------------------------------------
 ;;; - Benchmarking
