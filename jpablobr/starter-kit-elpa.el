@@ -7,6 +7,40 @@
 (defvar starter-kit-packages (list 'idle-highlight
                                    'ruby-mode
                                    'inf-ruby
+                                   'org
+                                   'auctex
+                                   'diff-git
+                                   'js2-mode
+                                   'json
+                                   'ruby-compilation
+                                   'ruby-test-mode
+                                   ;;'test-unit
+                                   'w3
+                                   'zenburn
+                                   'project-local-variables
+                                   'textmate
+                                   'rvm
+                                   'yari
+                                   'clojure-mode
+                                   'clojure-test-mode
+                                   ;;'rinari
+                                   'ruby-electric
+                                   'rspec-mode
+                                   'rainbow-mode
+                                   'less
+                                   'jump
+                                   ;;'hightlight-80+
+                                   ;;'hightlight-parentheses
+                                   ;;'hightlight-symbol
+                                   ;;'hightline
+                                   ;;'gdb-mi
+                                   'gdb-shell
+                                   'dired-isearch
+                                   'c-eldoc
+                                   'color-theme
+                                   'slime-repl
+                                   'slime
+                                   'markdown-mode
                                    'css-mode
                                    'yaml-mode
                                    'find-file-in-project

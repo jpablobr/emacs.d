@@ -18,9 +18,9 @@
 ;; (require 'org-latex)
 ;; (require 'ob-tangle)
 
-(add-to-list 'load-path (concat vendor-dir "/auctex"))
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+;; (add-to-list 'load-path (concat vendor-dir "/auctex"))
+;; (load "auctex.el" nil t t)
+;; (load "preview-latex.el" nil t t)
 
 (defun yas/org-very-safe-expand ()
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
@@ -37,10 +37,10 @@
             ;; display images
             (local-set-key "\M-I" 'org-toggle-iimage-in-org)
             ;; yasnippet (using the new org-cycle hooks)
-            (make-variable-buffer-local 'yas/trigger-key)
-            (setq yas/trigger-key [tab])
-            (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-            (define-key yas/keymap [tab] 'yas/next-field)
+            ;; (make-variable-buffer-local 'yas/trigger-key)
+            ;; (setq yas/trigger-key [tab])
+            ;; (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+            ;; (define-key yas/keymap [tab] 'yas/next-field)
             ))
 
 (setq org-use-speed-commands t)
