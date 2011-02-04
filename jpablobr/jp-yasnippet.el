@@ -39,7 +39,7 @@
 (add-hook 'cperl-mode-hook 'yas/minor-mode-on)
 (add-hook 'perl-mode-hook 'yas/minor-mode-on)
 (add-hook 'text-mode-hook 'yas/minor-mode-on)
-
+(add-hook 'fundamental-mode-hook 'yas/minor-mode-on)
 ;;; ---------------------------------------------------------
 ;;; - hooks for different modes on specific modes
 ;;;
@@ -69,5 +69,9 @@
 (add-hook 'text-mode-hook
           '(lambda ()
              (setq yas/mode-symbol 'org-mode)))
+
+(add-hook 'fundamental-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'text-mode)))
 
 (provide 'jp-yasnippet)
