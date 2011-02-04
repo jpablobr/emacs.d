@@ -361,4 +361,13 @@ LIST defaults to all existing live buffers."
   "Command to kill a compilation launched by `mode-compile'" t)
 (global-set-key "\C-ck" 'mode-compile-kill)
 
+;; Chrome emacs edit
+(require 'edit-server)
+(edit-server-start)
+(if (locate-library "edit-server")
+    (progn
+      (require 'edit-server)
+      (setq edit-server-new-frame nil)
+      (edit-server-start)))
+
 (provide 'jp-misc)
