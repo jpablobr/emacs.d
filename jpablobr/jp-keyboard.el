@@ -1,5 +1,5 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;; ---------------------------------------------------------
+;;jp-keyboard.el ---------------------------------------------------------
 ;;; - key bindings
 ;;;
 
@@ -138,7 +138,6 @@
 ;;;
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-z") 'undo)
-(global-set-key (kbd "M-c") 'kill-ring-save) ;; Copy
 
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
@@ -151,7 +150,7 @@
 (global-set-key [(control shift left)] 'previous-buffer)
 (global-set-key [(control shift right)] 'next-buffer)
 
-(global-set-key [(meta H)] 'delete-other-windows)
+(global-set-key [(meta H)] 'delefte-other-windows)
 
 (global-set-key [(meta D)] 'backward-kill-word) ;; (meta d) is opposite
 
@@ -186,5 +185,6 @@
 (global-set-key [(meta down)] 'end-of-buffer)
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
+(global-set-key (kbd "M-c") 'find-grep)
 
 (provide 'jp-keyboard)
