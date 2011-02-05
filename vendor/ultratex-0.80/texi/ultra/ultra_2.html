@@ -1,0 +1,1118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on November, 8 2010 by texi2html 1.70 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>Ultra-TeX Mode: 3. Installation</title>
+
+<meta name="description" content="Ultra-TeX Mode: 3. Installation">
+<meta name="keywords" content="Ultra-TeX Mode: 3. Installation">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.70">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="NOD12"></a>
+<a name="SEC12"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="ultra_1.html#SEC11" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC13" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra_1.html#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 3. Installation </h1>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC13">3.1 Basic installation</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC14">3.2 .ultex file</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                 
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC15">3.3 Customization variables</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">     
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="NOD13"></a>
+<a name="SEC13"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC12" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC14" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.1 Basic installation </h2>
+
+
+<p>Once you have the package in front of you, you should look at the file
+`<tt>INSTALLATION</tt>'.  That tells you how to byte-compile the Emacs lisp
+code and how to produce the documentation in various formats.  It also
+has basic instructions for how to modify your `<tt>.emacs</tt>' file.  Here
+are more details about `<tt>.emacs</tt>':
+
+</p><ul>
+<li>
+<p>Make sure the directory `<tt>ultratex-0.60/lisp</tt>' is in your load path.
+It might be good to make a symbolic link from `<tt>ultratex-0.60</tt>' to
+`<tt>ultratex</tt>' and then put `<tt>ultratex/lisp</tt>' in your load-path, so
+that if this package ever gets upgraded to `<tt>ultratex-0.61</tt>' and you
+choose to install it, you only have to change the symbolic link, not
+your `<tt>.emacs</tt>' file.  For example, I have the following line in my
+`<tt>.emacs</tt>' file.
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(setq load-path (cons &quot;/home/palmieri/emacs/ultratex/lisp&quot;
+                      load-path))
+</pre></td></tr></table></li><li>
+<p>Put the files `<tt>textree.el</tt>', `<tt>greek.el</tt>', and
+`<tt>skeleton.tex</tt>' someplace.  They start in the directory
+`<tt>ultratex/user</tt>', but if you change them from their defaults, you
+might want to move them elsewhere so they don't get overwritten when you
+install a new version of the Ultra-TeX package.
+</p></li><li>
+<p>Put the following line in your `<tt>.emacs</tt>' file:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(require 'ultex-setup)
+</pre></td></tr></table></li></ul>
+
+<p>Now the next time you start Emacs, whenever you find a TeX file, you
+will automatically be put into Ultra-TeX mode.
+
+</p>
+
+
+
+
+<hr size="6">
+<a name="NOD14"></a>
+<a name="SEC14"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC13" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.2 .ultex file </h2>
+
+
+<p>When Ultra-TeX starts up, it loads the file `<tt>.ultex</tt>'.  This was
+useful in versions of Ultra-TeX before 0.50, when one would set many
+options by hand and then wanted to avoid cluttering up the `<tt>.emacs</tt>'
+file with various Ultra-TeX settings.  This is not so useful in
+version 0.50 (or later) of the Ultra-TeX package, since all of the
+features can be customized, and the customizations get stored in
+`<tt>.emacs</tt>' automatically.
+
+</p><p>The name of the `<tt>.ultex</tt>' file is given by the variable
+<code>ultex-init-file</code>, so if you'd rather give this file a different
+name, like `<tt>.ultra-tex-stuff.el</tt>', then customize this variable
+accordingly.
+
+</p>
+
+
+
+
+<hr size="6">
+<a name="NOD15"></a>
+<a name="SEC15"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC14" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC16" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 3.3 Customization variables </h2>
+
+
+<p>Many of the features of Ultra-TeX mode are customizable.  The best way
+to change this is with the <em>customization</em> feature of Emacs: run
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group GRP
+</pre></td></tr></table>
+
+<p>where <var>GRP</var> is one of the Ultra-TeX <em>customization groups</em>,
+to each of which we devote a subsection.
+
+</p><table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC16">3.3.1 ultra-tex</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                   Basic settings for Ultra-TeX mode
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC17">3.3.2 ultra-tex-init</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              Initialization options for Ultra-TeX mode
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC18">3.3.3 ultra-tex-files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             Files used by Ultra-TeX mode
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC19">3.3.4 ultra-tex-commands</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">          TeX/LaTeX commands in Ultra-TeX mode
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC20">3.3.5 ultra-tex-parens</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            Parentheses, braces, brackets
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC21">3.3.6 ultra-tex-environments</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC22">3.3.7 ultra-tex-misc</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              Ultra-TeX mode miscellany
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC23">3.3.8 ultra-tex-auctex</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            Using AUC-TeX commands with Ultra-TeX mode
+                               See the variable <code>ultex-use-auctex</code>.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC24">3.3.9 ultra-tex-auctex-files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      File names and paths in Ultra-TeX/AUC-TeX.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC25">3.3.10 ultra-tex-auctex-commands</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">   External commands in Ultra-TeX via AUC-TeX.
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC26">3.3.11 ultra-tex-auctex-latex</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">      LaTex stuff for Ultra-TeX/AUC-TeX.
+</td></tr>
+</table>
+
+
+
+
+
+<hr size="6">
+<a name="NOD16"></a>
+<a name="SEC16"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC15" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC17" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.1 ultra-tex </h3>
+
+<p>To change these:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex
+</pre></td></tr></table>
+
+<p>All of the other Ultra-TeX mode groups can be accessed from this one,
+also.
+
+</p><dl compact="compact">
+<dt><code> ultex-complete-idle-time</code></dt>
+<dd><p>Default value: 0.5.  Effect: After this much idle time has elapsed, try
+to complete.  Measured in seconds.
+See section <a href="ultra_1.html#SEC4">Lightning completion</a>.
+
+</p></dd>
+<dt><code> ultra-tex-mode-hook</code></dt>
+<dd><p>Default value: nil.  Description: Hook for Ultra-TeX mode.  This is a
+list of commands, each of which is executed whenever Ultra-TeX mode
+starts.
+
+</p></dd>
+</dl>
+
+
+<hr size="6">
+<a name="NOD17"></a>
+<a name="SEC17"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC16" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC18" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.2 ultra-tex-init </h3>
+
+<p>To change these:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-init
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> ultex-init-file</code></dt>
+<dd><p>Default value: `<tt>~/.ultex</tt>'.  Description: The Ultra-TeX Emacs lisp
+startup file.  If you are setting Ultra-TeX options with customize, this
+file may be superfluous.  If a file with the .el or .elc suffix exists,
+it will be read instead.
+See section <a href="#SEC14">.ultex file</a>.
+
+</p></dd>
+<dt><code> ultex-use-color</code></dt>
+<dd><p>Default value: nil.  Effect: Toggle use of color in Ultra-TeX mode.
+This is pretty, but it can add a noticeable delay when starting
+Ultra-TeX mode.
+
+</p></dd>
+<dt><code> ultex-use-font-latex</code></dt>
+<dd><p>Default value: nil.  Effect: Toggle use of the <code>font-latex</code> package
+for colorization.  This variable is only relevant if
+<code>ultex-use-color</code> is `<samp>on</samp>'.  One version of the file
+`<tt>font-latex.el</tt>' is distributed with Ultra-TeX.  The most recent
+version is available from
+<a href="ftp://ftp.phys.ocean.dal.ca/users/rhogee/elisp/font-latex.el">ftp://ftp.phys.ocean.dal.ca/users/rhogee/elisp/font-latex.el</a>
+
+</p></dd>
+<dt><code> ultex-use-auctex</code></dt>
+<dd><p>Default value: nil.  Effect: Toggle use of files from AUC-TeX
+distribution.  This has one main effect: several commands are added to
+Ultra-TeX to allow one to typeset the current TeX document, spawn an
+external viewer, jump to the next error, etc.
+
+</p><p>This option requires the use of the file `<tt>tex-buf.el</tt>' from the
+AUC-TeX distribution.  This file is included with Ultra-TeX, but if you
+want the most up-to-date version, the AUC-TeX package is available from
+<a href="http://sunsite.auc.dk/auctex/">http://sunsite.auc.dk/auctex/</a>.
+See section <a href="#SEC23">ultra-tex-auctex</a>, for options related to this one.
+
+</p></dd>
+<dt><code> ultex-use-imenu</code></dt>
+<dd><p>Default value: nil.  Effect: Toggle use of <code>imenu</code> package in
+Ultra-TeX mode.  The `<samp>imenu</samp>' package lets you pop up a menu giving
+an outline of the buffer, so that you can move around to various section
+headings and theorem statements and so forth.  If this option is on,
+then S-mouse-3 (hold down the shift key, and hit (and release) the right
+mouse button) runs the command <code>imenu</code>, which pops up the
+aforementioned menu.
+
+</p></dd>
+<dt><code> ultex-use-bib-cite</code></dt>
+<dd><p>Default value: nil.  Effect: Toggle use of <code>bib-cite</code> package in
+Ultra-TeX mode.  The <code>bib-cite</code> package does stuff with your
+labels and citations - highlights them, lets you jump to them, etc.
+This option is not well-tested, and may yield unpredictable results.
+The latest version of <code>bib-cite</code> is available from
+<a href="ftp://ftp.phys.ocean.dal.ca/users/rhogee/elisp/bib-cite.el">ftp://ftp.phys.ocean.dal.ca/users/rhogee/elisp/bib-cite.el</a>.
+
+</p></dd>
+</dl>
+
+
+
+
+<hr size="6">
+<a name="NOD18"></a>
+<a name="SEC18"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC17" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC19" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.3 ultra-tex-files </h3>
+
+<p>To change these:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-files
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> ultex-tree-file</code></dt>
+<dd><p>Default value: The file `<tt>user/textree.el</tt>' in the Ultra-TeX
+distribution.  Description: This is the pathname for your textree file,
+the file containing a list of TeX commands on which to complete.
+See section <a href="ultra_1.html#SEC5">Making a list</a>.
+
+</p></dd>
+<dt><code> ultex-extra-tree-files</code></dt>
+<dd><p>Default value: nil.  Description: This is a list of triples.  The first
+element of each triple should be the name of a class, style, or package,
+the second the name of an associated file of TeX commands, the third
+a flag (t or nil).  When that class, style, or package is used in any
+given document, the associated file of TeX commands is loaded.  If
+the flags are nil for every class, style, and package used in the
+document, then the main TeX command file (<code>ultex-tree-file</code>) is
+not loaded.  See section <a href="ultra_1.html#SEC5">Making a list</a>.
+
+</p></dd>
+<dt><code> ultex-greek-keys-file</code></dt>
+<dd><p>Default value: The file `<tt>user/greek.el</tt>' in the Ultra-TeX
+distribution.  Description: This is the pathname for your greek keys
+file, the file containing mappings for the Greek keyboards in Ultra-TeX
+mode.
+See section <a href="ultra_1.html#SEC10">Greek keyboards</a>.
+
+</p></dd>
+<dt><code> ultex-latex-skel-file</code></dt>
+<dd><p>Default value: The file `<tt>user/skeleton.tex</tt>' in the Ultra-TeX
+distribution.  Description: This is the pathname for a file containing a
+template for a LaTeX document.  This file is inserted when the function
+<code>get-latex-skel</code> is run.  
+See section <a href="ultra_1.html#SEC11">Everything else</a>.
+
+</p></dd>
+<dt><code> ultex-skel-hook</code></dt>
+<dd><p>Default value: nil.  Description: This hook is called when the function
+<code>get-latex-skel</code> is run.
+See section <a href="ultra_1.html#SEC11">Everything else</a>.
+
+</p></dd>
+</dl>
+
+
+
+
+
+
+<hr size="6">
+<a name="NOD19"></a>
+<a name="SEC19"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC18" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC20" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.4 ultra-tex-commands </h3>
+
+<p>To change these:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-commands
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> ultex-alist-local-flag</code></dt>
+<dd><p>Default value: t.  Effect: When non-nil, each Ultra-TeX buffer
+maintains its own list of TeX commands on which to complete.
+See section <a href="ultra_1.html#SEC5">Making a list</a>.
+
+</p></dd>
+<dt><code> ultex-rescan-after-new-label</code></dt>
+<dd><p>Default value: nil.  Effect: When non-nil, Ultra-TeX rescans the
+buffer for labels whenever you enter a new label.  This is useful if you
+change labels a lot and you don't want Ultra-TeX completing on old
+labels that you have removed.
+
+</p></dd>
+<dt><code> ultex-return-checks-for-new-commands</code></dt>
+<dd><p>Default value: t.  Effect: When non-nil, Ultra-TeX checks the current
+line to see if the user just entered a new command, new environment,
+etc.; if so, it adds the new definition to its list of commands on which
+to complete.
+
+</p></dd>
+<dt><code> ultex-no-grab-if-space</code></dt>
+<dd><p>Default value: nil.  Effect: When non-nil, Ultra-TeX will ignore all
+\newcommands (etc.) that do not start at the beginning of the line.
+
+</p></dd>
+<dt><code> ultex-append-space-to-defs</code></dt>
+<dd><p>Default value: t.  Effect: When non-nil, Ultra-TeX adds a space to
+any TeX control sequence names it grabs from a file or buffer.
+
+</p></dd>
+</dl>
+
+
+
+
+
+
+<hr size="6">
+<a name="NOD20"></a>
+<a name="SEC20"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC19" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC21" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.5 ultra-tex-parens </h3>
+
+<p>To change these:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-parens
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> ultex-match-braces</code></dt>
+<dd><p>Default value: t.  Effect: If non-nil, hitting <kbd>{</kbd> inserts
+`<samp>{}</samp>'.
+See section <a href="ultra_1.html#SEC11">Everything else</a>.
+
+</p></dd>
+<dt><code> ultex-match-brackets</code></dt>
+<dd><p>Default value: nil.  Effect: If non-nil, hitting <kbd>[</kbd> inserts
+`<samp>[]</samp>'.
+See section <a href="ultra_1.html#SEC11">Everything else</a>.
+
+</p></dd>
+<dt><code> ultex-match-parens</code></dt>
+<dd><p>Default value: nil.  Effect: If non-nil, hitting <kbd>(</kbd> inserts
+`<samp>()</samp>'.
+See section <a href="ultra_1.html#SEC11">Everything else</a>.
+
+</p></dd>
+<dt><code> ultex-blink-matching-bracket</code></dt>
+<dd><p>Default value: t.  Effect: If non-nil, hitting <kbd>]</kbd> will briefly
+highlight the matching `<samp>[</samp>'.  More to the point, if this is nil,
+then the syntax type of brackets is changed from the default, in which
+case Ultra-TeX might do a better job of determining when the point is in
+math mode.  If you don't want to mess with the syntax table, but you do
+want to control the blinking of matching parentheses, look at the
+variable `blink-matching-paren' instead.
+
+</p></dd>
+<dt><code> ultex-blink-matching-paren</code></dt>
+<dd><p>Default value: t.  Effect: If non-nil, hitting <kbd>)</kbd> will briefly
+highlight the matching `<samp>(</samp>'.  More to the point, if this is nil,
+then the syntax type of parentheses is changed from the default, in
+which case Ultra-TeX might do a better job of determining when the point
+is in math mode.  If you don't want to mess with the syntax table, but
+you do want to control the blinking of matching parentheses, look at the
+variable `blink-matching-paren' instead.
+
+</p></dd>
+</dl>
+
+
+
+
+
+
+
+<hr size="6">
+<a name="NOD21"></a>
+<a name="SEC21"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC20" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC22" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.6 ultra-tex-environments </h3>
+
+<p>To change these:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-environments
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> ultex-array-environs</code></dt>
+<dd><p>Default value:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(array tabular eqnarray eqnarray* align gather alignat
+aligned gathered alignedat split CD matrix smallmatrix
+pmatrix bmatrix vmatrix Vmatrix xalignat xxalignat cases)
+</pre></td></tr></table>
+<p>Description: List of symbols of array environments.
+See section <a href="ultra_1.html#SEC11">Everything else</a>.
+
+</p></dd>
+<dt><code> ultex-math-start</code></dt>
+<dd><p>Default value: some long regular expression.  Description: Regular
+expression to match the start of math mode.
+
+</p></dd>
+<dt><code> ultex-math-end</code></dt>
+<dd><p>Default value: some long regular expression.  Description: Regular
+expression to match the end of math mode.
+
+</p></dd>
+<dt><code> ultex-itemizing-environments</code></dt>
+<dd><p>Default value: <code>(list trivlist itemize description enumerate)</code>.
+Description: List of symbols of LaTeX environments which use
+`<samp>\item</samp>'.  When the point is in one of these environments, hitting
+<kbd>\\</kbd> inserts a new line and the text `<samp>\item []</samp>' (but see the
+next variable).
+See section <a href="ultra_1.html#SEC11">Everything else</a>.
+
+</p></dd>
+<dt><code> ultex-item-insert-brackets</code></dt>
+<dd><p>Default value: t.  Effect: When non-nil, hitting <kbd>\\</kbd> in an
+itemizing environment inserts `<samp>\item []</samp>'; when nil, `<samp>\item </samp>'
+is inserted instead.
+
+</p></dd>
+<dt><code> ultex-math-cs-regexp</code></dt>
+<dd><p>Default value: nil.  Description: Regular expression to match TeX
+commands whose arguments are set in math mode.
+
+</p></dd>
+<dt><code> ultex-non-math-cs-regexp</code></dt>
+<dd><p>Default value: &quot;\\\\[a-z]*box{\\|\\\\text[a-z]*{&quot;.  Description: Regular
+expression to match TeX commands whose arguments are not set in math
+mode.
+
+</p></dd>
+<dt><code> ultex-def-regexp</code></dt>
+<dd><p>Default value: some long regular expression.  Description: Regular
+expression to match TeX commands whose arguments may or may not be in
+math mode (e.g., `<samp>newcommand</samp>').
+
+</p></dd>
+<dt><code> ultex-dollar-array-cursor</code></dt>
+<dd><p>Default value: &quot;|&quot;.  Description: String to use to mark the cursor
+position in <code>ultex-dollar-array</code>.
+See section <a href="ultra_1.html#SEC7">Dollar signs</a>.
+
+</p></dd>
+<dt><code> ultex-dollar-array</code></dt>
+<dd><p>Default value:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example"> &quot;$|$&quot;
+ &quot;\[\n|\n\]&quot;
+ &quot;\begin{equation}\label{|}\n\n\end{equation}&quot;
+ &quot;\begin{equation*}\n|\n\end{equation*}&quot;
+ &quot;\begin{align}\label{|}\n\n\end{align}&quot;
+ &quot;\begin{align*}\n|\n\end{align*}&quot;
+ &quot;\begin{gather}\label{|}\n\n\end{gather}&quot;
+ &quot;\begin{gather*}\n|\n\end{gather*}&quot;
+ &quot;\begin{multline}\label{|}\n\n\end{multline}&quot;
+ &quot;\begin{multline*}\n|\n\end{multline*}&quot;
+</pre></td></tr></table>
+
+<p>where I have written `<samp>\n</samp>' for `<samp>newline</samp>'.
+Description: List of strings inserted by hitting $.  The first time you
+hit $, the first string is inserted.  Hitting it again replaces the
+first string with the second, etc.  After inserting each string, the
+cursor is placed at the spot marked by the string
+<code>ultex-dollar-array-cursor</code>.  If you do not include the string
+<code>ultex-dollar-array-cursor</code> anywhere, Emacs will try to guess where
+to put the cursor.  
+
+</p><p>(Warning: customization sets the variable
+<code>ultex-dollar-array-external</code>, which has the above default value.
+If you want to set this directly, not via customize, then you should set
+<code>ultex-dollar-array</code>, which has a different syntax.  Read the
+documentation for that variable for help.)
+See section <a href="ultra_1.html#SEC7">Dollar signs</a>.
+
+</p></dd>
+<dt><code> ultex-dollar-back</code></dt>
+<dd><p>Default value: 1.  Description: Which element of
+<code>ultex-dollar-array</code> to start over with once the elements have been
+cycled through once.  The elements are numbered starting with 0.
+See section <a href="ultra_1.html#SEC7">Dollar signs</a>.
+
+</p></dd>
+</dl>
+
+
+
+
+
+
+<hr size="6">
+<a name="NOD22"></a>
+<a name="SEC22"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC21" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC23" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.7 ultra-tex-misc </h3>
+
+
+<p>To change these:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-misc
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> ultex-slash-dollar-is-not-math</code></dt>
+<dd><p>Default value: t.  Effect: If non-nil, then typing <kbd>$</kbd> right after
+`<samp>\</samp>' does not start math mode.
+
+</p></dd>
+<dt><code> ultex-dont-use-completion</code></dt>
+<dd><p>Default value: nil.  Effect: If non-nil, Ultra-TeX will not use
+lightning completion on TeX commands.  Instead, things will work sort
+of like regular Emacs completion: the <kbd>TAB</kbd> key will try to complete
+on command sequences, etc.
+
+</p></dd>
+<dt><code> ultex-subscript-delete-leading-space</code></dt>
+<dd><p>Default value: t.  Effect: If non-nil, Ultra-TeX will delete leading
+spaces before inserting a subscript, inserting a superscript, or hitting
+<kbd>RET</kbd> to exit math mode.  For example, suppose this variable is
+non-nil; if you have typed `<samp>$\alpha $</samp>' and the point is after the
+space, then hitting <kbd>^</kbd> deletes the space, producing this:
+`<samp>$\alpha^{}$</samp>', with the point inside the braces.
+
+</p></dd>
+<dt><code> ultex-display-pictures</code></dt>
+<dd><p>Default value: t if Emacs can display pictures in xpm or gif format; nil
+otherwise.  Effect: if non-nil, Greek keyboards are displayed with
+pictures of symbols rather than their names.
+
+</p></dd>
+<dt><code> ultex-picture-type</code></dt>
+<dd><p>Default value: 'xpm, 'gif, or nil, depending on what sort of pictures
+Emacs can display.  Effect: what format to use for picture files.
+
+</p></dd>
+<dt><code> ultex-picture-directory</code></dt>
+<dd><p>Default value: The directory `<tt>symbols</tt>' in the Ultra-TeX
+distribution.  Description: Emacs looks for picture files in
+subdirectories `<tt>xpm</tt>' or `<tt>gif</tt>' of this directory.
+
+</p></dd>
+</dl>
+
+
+
+
+
+
+
+
+<hr size="6">
+<a name="NOD23"></a>
+<a name="SEC23"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC22" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC24" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.8 ultra-tex-auctex </h3>
+
+<p>Except for <code>ultex-ignore-auctex-tex.el</code>, the rest of these come
+from AUC-TeX.  To change them:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-auctex
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> ultex-ignore-auctex-tex.el</code></dt>
+<dd><p>Default value: t.  Effect: If non-nil, then the AUC-TeX file
+`<tt>tex.el</tt>' will not be loaded by `<tt>tex-buf.el</tt>'.  In fact, if you
+want to load it, you have to do it with a <code>load</code> command (rather
+than <code>require</code>).  If the only piece of AUC-TeX you ever use is
+the part that comes with Ultra-TeX, then you have nothing to worry
+about.  If you use other parts of the AUC-TeX distribution, then you
+might want to set this variable to nil.  I can't guarantee that
+Ultra-TeX and AUC-TeX will interact well in that case, though.
+
+</p></dd>
+<dt><code> TeX-display-help</code></dt>
+<dd><p>Default value: t.  Effect: If non-nil, then pop-up help when stepping
+thrugh errors with <code>TeX-next-error</code>.
+
+</p></dd>
+<dt><code> TeX-debug-bad-boxes</code></dt>
+<dd><p>Default value: nil.  Effect: If non-nil, then also find
+overfull/underfull boxes warnings with <code>TeX-next-error</code>.
+
+</p></dd>
+</dl>
+
+
+
+
+
+
+
+<hr size="6">
+<a name="NOD24"></a>
+<a name="SEC24"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC23" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC25" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.9 ultra-tex-auctex-files </h3>
+
+<p>These options all come from AUC-TeX.  To change them:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-auctex-files
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> TeX-master</code></dt>
+<dd><p>Default value: t.  Description: The master file associated with the
+current buffer.  If the file being edited is actually included from
+another file, you can tell Ultra-TeX and AUC-TeX the name of the
+master file by setting this variable.  If there are multiple levels of
+nesting, specify the top level file.  If this variable is nil, Emacs
+will query you for the name.  If the variable is t, Emacs will assume
+the file is a master file itself.  If the variable is `<samp>'shared</samp>',
+Emacs will query for the name, but not change the file.
+See section <a href="ultra_1.html#SEC5">Making a list</a>.
+
+</p></dd>
+<dt><code> TeX-one-master</code></dt>
+<dd><p>Default value: &quot;\\.tex$&quot;.  Description: Regular expression matching
+ordinary TeX files.
+
+</p></dd>
+<dt><code> TeX-file-extensions</code></dt>
+<dd><p>Default value: `<samp>'(&quot;tex&quot; &quot;sty&quot; &quot;cls&quot; &quot;ltx&quot; &quot;texi&quot; &quot;texinfo&quot;)</samp>'.
+Description: List of file extensions used by manually generated TeX
+files.
+
+</p></dd>
+<dt><code> TeX-macro-global</code></dt>
+<dd><p>Default value: `<samp>'(&quot;/usr/local/lib/texmf/tex/&quot;)</samp>'.  Description:
+Directories containing the sites TeX macro files and style files. 
+
+</p></dd>
+<dt><code> TeX-macro-private</code></dt>
+<dd><p>Default value: obtained from environment variables <var>TEXINPUTS</var> and
+<var>BIBINPUTS</var>.  Description: Directories where you store your personal
+TeX macros.
+
+</p></dd>
+<dt><code> TeX-check-path</code></dt>
+<dd><p>Default value: all elements from <code>TeX-macro-private</code> and
+<code>TeX-macro-global</code>, as well as the current directory.  Description:
+Directory path to search for dependencies.
+
+</p></dd>
+<dt><code> BibTeX-file-extensions</code></dt>
+<dd><p>Default value: `<samp>(&quot;bib&quot;)</samp>'.  Description: List of valid file
+extensions for BibTeX files.
+
+</p></dd>
+<dt><code> BibTeX-style-extensions</code></dt>
+<dd><p>Default value: `<samp>(&quot;bst&quot;)</samp>'.  Description: List of valid file
+extensions for BibTeX style files.
+
+</p></dd>
+<dt><code> TeX-default-extension</code></dt>
+<dd><p>Default value: &quot;tex&quot;.  Description: Default extension for TeX
+files.
+
+</p></dd>
+</dl>
+
+
+
+
+
+<hr size="6">
+<a name="NOD25"></a>
+<a name="SEC25"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC24" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC26" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.10 ultra-tex-auctex-commands </h3>
+
+<p>These options all come from AUC-TeX.  To change them:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-auctex-commands
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> TeX-command-BibTeX</code></dt>
+<dd><p>Default value: &quot;BibTeX&quot;.  Description: The name of the BibTeX entry in
+<code>TeX-command-list</code>.
+
+</p></dd>
+<dt><code> TeX-command-Show</code></dt>
+<dd><p>Default value: &quot;View&quot;.  Description: The default command to show (view
+or print) a TeX file.
+
+</p></dd>
+<dt><code> TeX-command-Print</code></dt>
+<dd><p>Default value: &quot;Print&quot;.  Description: The name of the Print entry in
+<code>TeX-command-Print</code>.
+
+</p></dd>
+<dt><code> TeX-command-Queue</code></dt>
+<dd><p>Default value: &quot;Queue&quot;.  Description: The name of the Queue entry in
+<code>TeX-command-Queue</code>.
+
+</p></dd>
+<dt><code> TeX-print-command</code></dt>
+<dd><p>Default value: &quot;dvips %s -P%p&quot;.  Description: Command used to print a
+file.  First `<samp>%p</samp>' is expanded to the printer name, then ordinary
+expansion is performed as specified in <code>TeX-expand-list</code>.
+
+</p></dd>
+<dt><code> TeX-queue-command</code></dt>
+<dd><p>Default value: &quot;lpq -P%p&quot;.  Description: Command used to show the status
+of a printer queue.  First `<samp>%p</samp>' is expanded to the printer name,
+then ordinary expansion is performed as specified in
+<code>TeX-expand-list</code>.
+
+</p></dd>
+<dt><code> TeX-printer-list</code></dt>
+<dd><p>Default value:
+</p><table><tr><td>&nbsp;</td><td><pre class="example"> ((&quot;Local&quot; &quot;dvips -f %s | lpr&quot; &quot;lpq&quot;)
+  (&quot;lw&quot;)
+  (&quot;ps&quot;))
+</pre></td></tr></table>
+<p>Description: List of available printers.  The first element of each
+entry is the printer name.  The second element is the command used to
+print to this printer.  It defaults to the value of
+<code>TeX-print-command</code>.  The third element is the command used to
+examine the print queue for this printer.  It defaults to the value of
+<code>TeX-queue-command</code>.  Any occurence of `<samp>%p</samp>' in the second or
+third element is expanded to the printer name given in the first
+element, then ordinary expansion is performed as specified in
+<code>TeX-expand-list</code>.
+
+</p></dd>
+<dt><code> TeX-printer-default</code></dt>
+<dd><p>Default value: Derived from the environment variable <var>PRINTER</var>, or
+if that is not set, the car of <code>TeX-printer-list</code>, or if that is
+not set, &quot;lw&quot;.  Description: Default printer to use with
+<code>TeX-command</code>.
+
+</p></dd>
+<dt><code> TeX-view-style</code></dt>
+<dd><p>Default value:
+</p><table><tr><td>&nbsp;</td><td><pre class="example"> ((&quot;^a5$&quot; &quot;xdvi %d -paper a5&quot;)
+  (&quot;^landscape$&quot; &quot;xdvi %d -paper a4r -s 4&quot;)
+  (&quot;.&quot; &quot;xdvi %d&quot;))
+</pre></td></tr></table>
+
+<p>Description: List of style options and view options.  If the first
+element (a regular expresion) matches the name of one of the style
+files, any occurrence of the string `<samp>%v</samp>' in a command in
+<code>TeX-command-list</code> will be replaced with the second element.  The
+first match is used, if no match is found the `<samp>%v</samp>' is replaced with
+the empty string.
+
+</p></dd>
+<dt><code> TeX-expand-list </code></dt>
+<dd><p>Default value: a long list of things of the form
+</p><table><tr><td>&nbsp;</td><td><pre class="example">  (&quot;%s&quot; file nil t)
+</pre></td></tr></table>
+<p>Description: List of expansion strings for TeX command names.  Each
+entry is a list with two or more elements.  The first element is the
+string to be expanded.  The second element is the name of a function
+returning the expanded string when called with the remaining elements as
+arguments.  The special value `<samp>file</samp>' will be expanded to the name
+of the file being processed, with an optional extension.
+
+</p></dd>
+<dt><code> TeX-command-list</code></dt>
+<dd><p>Default value: a long list of things of the form
+</p><table><tr><td>&nbsp;</td><td><pre class="example"> (&quot;LaTeX&quot; &quot;%l '\\nonstopmode\\input{%t}'&quot; TeX-run-LaTeX nil t)
+</pre></td></tr></table>
+<p>Description: List of commands to execute on the current document.  Each
+element is a list of five elements, whose first element is the name of
+the command as it will be presented to the user.  The second element is
+the string handed to the shell after being expanded. The expansion is
+done using the information found in <code>TeX-expand-list</code>.  The third
+element is the function which actually start the process.  Several such
+hooks has been defined; see the function documentation for a
+description.  If the fourth element is non-nil, the user will get a
+chance to modify the expanded string.  The fifth element is obsolete and
+ignored.
+
+</p></dd>
+</dl>
+
+
+
+
+
+
+<hr size="6">
+<a name="NOD26"></a>
+<a name="SEC26"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC25" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC15" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h3 class="subsection"> 3.3.11 ultra-tex-auctex-latex </h3>
+
+<p>These options all come from AUC-TeX.  To change them:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group ultra-tex-auctex-latex
+</pre></td></tr></table>
+<dl compact="compact">
+<dt><code> LaTeX-version</code></dt>
+<dd><p>Default value: &quot;2e&quot;.  Description: Default LaTeX version.  The only
+choices are &quot;2&quot; and &quot;2e&quot;.
+
+</p></dd>
+<dt><code> LaTeX-command-style</code></dt>
+<dd><p>Default value: if <code>LaTeX-version</code> is &quot;2e&quot;, then ((&quot;.&quot; &quot;latex&quot;))).
+If <code>LaTeX-version</code> is &quot;2&quot;, then a longer list.  Description: List
+of style options and LaTeX commands.
+
+</p></dd>
+</dl>
+
+
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC12" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>John Palmieri</em> on <em>November, 8 2010</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.70</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

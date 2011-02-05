@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on November, 8 2010 by texi2html 1.70 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>Lightning Completion Manual: 4. Lightning completion</title>
+
+<meta name="description" content="Lightning Completion Manual: 4. Lightning completion">
+<meta name="keywords" content="Lightning Completion Manual: 4. Lightning completion">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.70">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="NOD4"></a>
+<a name="SEC4"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="light_2.html#SEC3" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light_2.html#SEC3" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_4.html#SEC7" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 4. Lightning completion </h1>
+
+<p>Suppose you want to find a file, and you want to use lightning
+completion on file names.  One way to accomplish this is to run
+<code>find-file</code> (by hitting <kbd>C-x C-f</kbd>, say), then once in the
+minibuffer, either running <code>completing-insert-according-to-mode</code> or
+<code>completing-insert-file-name</code> (by hitting <kbd>C-x c F</kbd>, say, if
+you have turned on the option <code>lc-ctrl-x-c-is-completion</code>
+(see section <a href="light_1.html#SEC2">Completion functions</a>)).
+
+</p><p>Another way to accomplish this is to have lightning completion
+potentially active whenever you enter the minibuffer, and to specify
+when &quot;potentially active&quot; should mean &quot;active&quot;.
+
+</p><table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC5">4.1 Enabling automatic lightning completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC6">4.2 Settings for lightning completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  Disabling lightning completion
+                                       in certain circumstances
+</td></tr>
+</table>
+
+
+<hr size="6">
+<a name="NOD5"></a>
+<a name="SEC5"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC4" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC6" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_4.html#SEC7" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 4.1 Enabling automatic lightning completion </h2>
+
+
+<p>To use lightning completion automatically in the minibuffer (in
+various circumstances), you should turn on the option 
+<code>toggle-lightning-completion</code>, either by customization or by
+setting the variable <code>toggle-lightning-completion</code> to t.
+Once you've done this, then the variable
+<code>lightning-completion-list</code> specifies in which contexts lightning
+completion should be active; the possible contexts 
+are:
+</p><dl compact="compact">
+<dt><code> file names</code></dt>
+<dt><code> commands</code></dt>
+<dt><code> lisp functions</code></dt>
+<dt><code> lisp variables</code></dt>
+<dt><code> lisp objects</code></dt>
+<dt><code> user variables</code></dt>
+<dt><code> buffer names</code></dt>
+<dt><code> info menu items</code></dt>
+<dt><code> query-replace</code></dt>
+<dd><p>Enable lightning completion on buffer contents when using
+<code>query-replace</code>.  This may not work very well, but I'm working on
+it...
+
+</p></dd>
+<dt><code> miscellaneous</code></dt>
+<dd><p>Enable lightning completion on everything else.
+
+</p></dd>
+</dl>
+
+<p>The easiest way to specify which contexts you want to enable is to
+customize the variable <code>lightning-completion-list</code> (in the
+customization group <code>lightning-completion</code>).  For each context, you
+can turn lightning completion on (with the default delay time) or off,
+or you can also specify a number.  If the number is negative, lightning
+completion is off; otherwise, lightning completion is on, with that
+number for the delay time for that context.  (You can instead use the
+<code>lightnify</code> function to turn completion on or off, if you prefer.
+This function is a bit obsolete; in particular, it does not allow you to
+set a different delay time for each context.)
+
+</p><p>I suppose I should explain the effect of the &quot;miscellaneous&quot; context.
+Basically, if in some situation you can complete in the minibuffer by
+hitting the <kbd>TAB</kbd> key, then enabling miscellaneous completion
+means that lightning completion will be on in that situation.  For
+example, in the news-reader Gnus, if you hit <kbd>j</kbd> (to run
+<code>gnus-group-jump-to-group</code>), then you will be thrown into lightning
+completion mode, completing on newsgroup names (you will see the message
+&quot;Completing something...&quot;).
+
+</p>
+
+
+<hr size="6">
+<a name="NOD6"></a>
+<a name="SEC6"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC5" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_4.html#SEC7" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_4.html#SEC7" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 4.2 Settings for lightning completion </h2>
+
+
+<p>Lightning completion doesn't always work the way you want it, so there
+are some ways of partially disabling it.
+
+</p><p>For example, lightning completion doesn't work terribly well with
+recursive minibuffers, so there is a customizable variable
+<code>lc-dark-recursive-minibufs</code>.  If this is nil, then lightning
+completion proceeds unhindered.  If this has a numerical value <var>N</var>,
+then lightning completion is disabled when the recursion depth is larger
+than <var>N</var>.  If this has some other non-nil value, then it is treated
+as if it had value 1 (disabling lightning completion in any recursive
+situation).
+
+</p><p>You might also want to, say, enable lightning completion on file names,
+but disable it for particular commands.  To do this, customize the
+variable <code>lc-dark-commands</code>, which is a list of functions.  For
+example, if you want to disable lightning completion when using
+<code>insert-file</code>, then add <code>insert-file</code> to this list.
+If you want two versions of a command like <code>insert-file</code>, only one
+of which uses lightning completion, then make an alias to
+<code>insert-file</code>, and disable lightning completion on that function: 
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(defalias 'insert-file-dark 'insert-file)
+</pre></td></tr></table>
+
+<p>and add <code>insert-file-dark</code> to <code>lc-dark-commands</code>.  I
+personally have functions like <code>dired-create-directory</code>,
+<code>dired-do-symlink</code>, and <code>query-replace-regexp</code> in my list of
+dark commands.
+
+</p>
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC4" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_4.html#SEC7" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>John Palmieri</em> on <em>November, 8 2010</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.70</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

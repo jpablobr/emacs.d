@@ -1,0 +1,1007 @@
+\input texinfo   @c -*-texinfo-*-
+@setfilename light.info
+@settitle Lightning Completion Manual
+@c footnotestyle separate
+@c paragraphindent 2
+@iftex
+@tolerance 10000
+@end iftex
+
+@comment  use 'perl texi2html -menu -split_chapter light.texi' to get an
+@comment  html file
+
+@ifinfo
+This is edition 0.65, October 1999, of the @cite{Lightning completion
+Manual}.  Copyright @copyright{} 1996, 1997, 1998, 1999 John H. Palmieri
+@end ifinfo
+
+@titlepage
+@title{Lightning Completion Manual}
+
+@author (info by John H. Palmieri)
+
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 1996, 1997, 1998, 1999 John H. Palmieri
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+@ignore
+Permission is granted to process this file through TeX and print the
+results, provided the printed document carries copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+@end ignore
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+section entitled ``Copying'' is included exactly as in the original, and
+provided that the entire resulting derived work is distributed under the
+terms of a permission notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation
+approved by the Free Software Foundation.
+@end titlepage
+@page
+
+@ifinfo
+@node top, Overview, (dir), (dir)
+@comment node-name, next,          previous, up
+@top Lightning Completion
+@end ifinfo
+
+The Lightning Completion package was written in emacs lisp by Mark
+Haiman and Nick Reingold, with modifications by John Palmieri.
+
+This is version 0.65, October 1999, of the Lightning completion
+manual.  Bug reports and suggestions for new features should go to
+@samp{palmieri@@math.washington.edu}.
+
+This is a revised version of this manual; it is done.
+
+@menu
+* Overview::                    Overview of lightning completion
+* Completion functions::        Functions incorporating lightning completion
+* Key bindings::                Which keys do what in lightning completion mode
+* Lightning completion::        Adding lightning completion to other functions
+* Installation and customization::  How to install
+* Miscellany::                  Miscellany
+* Function Index::              Function index
+* Concept Index::               Concept index
+
+@detailmenu
+ --- The Detailed Node Listing ---
+
+Lightning completion
+
+* Enabling automatic lightning completion::
+* Settings for lightning completion::  Disabling lightning completion
+                                       in certain circumstances
+
+Installation and customization
+
+* Customizable options::        A list of customizable options
+
+Miscellany
+
+* Ignoring some files::         Don't to complete on certain file names
+* Buffer completion::           An application of lightning completion
+* HTML mode completion::        Another example
+
+@end detailmenu
+@end menu
+
+@comment in any given node: 
+@comment use '@cindex CONCEPT' to add node to concept index
+@comment use '@findex FUNCTION' for function index
+@comment use '@vindex VARIABLE' for variable index
+@comment use '@kindex KEY' for key index
+
+@comment ---------------------------------------------------------
+
+@node Overview, Completion functions, top, top
+@chapter Overview
+
+As you are probably aware, Emacs does various sorts of completion, if
+you ask it to.  For instance, if you hit @kbd{C-x C-f} to find a file,
+then (once you are in the minibuffer) if you hit the @key{TAB} key, Emacs
+completes the file name if there is a unique completion.  Lightning
+completion offers an improvement to this, an improvement in several
+ways:
+
+@itemize @bullet
+@item
+Once lightning completion is initiated, it remains active until a
+completion is found, or until turned off.  If I have three files,
+@file{alphabet}, @file{alpo}, and @file{bozo}, and I initiate completion
+on file names, if I hit @kbd{a}, then @samp{alp} is inserted; hitting
+@kbd{h} would then produce @samp{alphabet}, and hitting @kbd{o} would
+produce @samp{alpo}.  Similarly, hitting @kbd{b} at the start, instead
+of @kbd{a}, would have produced @samp{bozo}.  This sort of completion,
+in which completion is always on---you don't have to keep hitting the
+@key{SPC} or @key{TAB} key to complete---is called ``dynamic''
+completion.
+@refill
+
+@item
+Lightning completion takes effect only if Emacs is idle for a length of
+time specified by the variable @code{lc-complete-idle-time-default}, the
+default value of which is 0.5 seconds.  So in the above example, you can
+type "alph" or "alpha" or "alphab"; then if you wait for half a second,
+Emacs will automatically complete it for you.  This is a new feature of
+lightning completion; if you are used to the old version, you can set
+this delay to be 0.  If you are a slow typist and you don't want Emacs
+completing unless you take a very deliberate pause, you can set it to
+something like 2.
+@refill
+
+@item
+Lightning completion can be initiated anywhere, not just in the
+minibuffer.  If I'm writing email to someone, and I want to include the
+path name for some file, I type the first few letters of the path, then
+run the function @code{completing-insert-file-name}, and I'm in
+lightning completion mode.  There are similar function calls for
+completion on buffer names, lisp objects, lisp functions, lisp
+variables, and the contents of the kill ring.
+@refill
+@end itemize
+
+Some remarks:
+@enumerate
+@item
+Dynamic completion, like any completion, has a nice side-effect: you can
+use long (and hence descriptive) file names, variable names, function
+names, whatever, because you hardly ever have to type the whole thing
+in.  So I don't mind that my directory structure in my account is deep
+and the directories have long names---I can find the file
+@file{~/tex/work/papers/hovey-strickland/axiomatic.tex} with 6
+keystrokes: one each for ``t'', ``w'', ``p'', ``h'', and ``a'', and then
+@key{RET}. (One also gets in the habit of trying to arrange it so that
+each of one's files in any given directory starts with a different
+letter.)
+@refill
+
+@item
+If you mainly use lightning completion with file names and if you edit
+the same files over and over again, you will quickly learn exactly which
+characters you have to type to find each file.  In this case, you might
+want to set @code{lc-complete-idle-time-default} to be close to zero.
+If you don't want to bother learning this, and if you are worried that
+lightning completion will make you watch the screen all the time to see
+what has been completed and what hasn't, then you should set
+@code{lc-complete-idle-time-default} to be a larger number, so that
+completions only occur after a good pause.
+
+@item
+Lightning completion is also one of the main ingredients to
+Ultra-@TeX{} mode, a major mode for typing @TeX{} documents.  Most
+@TeX{} commands start with a backslash, so in that mode, hitting ``\''
+starts lightning completion on @TeX{} commands.  The Ultra-@TeX{}
+package is available from
+@url{http://www.math.washington.edu/~palmieri/Emacs/ultratex.html}.
+@refill
+
+@item
+This package should be compatible with GNU Emacs 19, GNU Emacs 20, and
+XEmacs (''should be compatible'' means that I've at least tried it out a
+bit with each one of these, without running into problems).  I mostly
+use GNU Emacs 20, so I know it works there.  I expect it to work pretty
+well with XEmacs, too, but I don't use GNU Emacs 19 anymore, and I don't
+test this package very vigorously there.
+@refill
+
+@item
+Dynamic completion is an acquired taste.  It can be rather off-putting
+at the start, especially with a short
+@code{lc-complete-idle-time-default}, but once you get used to it, it's
+just wonderful.
+@refill
+@end enumerate
+
+In the following sections, I describe what functions to call to start
+lightning completion, which keys do what once completion is engaged, how
+to automate things a bit (e.g., so that @code{find-file} automatically
+uses lightning completion on file names), and how to install all of
+this.
+
+
+
+@comment ---------------------------------------------------------
+
+@node Completion functions, Key bindings, Overview, top
+@chapter Completion functions
+
+@findex completing-insert-file-name
+@findex completing-insert-buffer-name
+@findex completing-insert-lisp-object
+@findex completing-insert-lisp-function
+@findex completing-insert-kill
+@findex completing-insert-buffer-contents
+@findex completing-insert-according-to-mode
+@cindex Completion functions
+@cindex Lightning completion functions
+@cindex Functions for completion
+@cindex C-x c is completion
+@cindex C-\ completes a la mode
+
+The file @file{light.el} defines several functions that do lightning
+completion:
+
+@itemize @bullet
+@item
+@code{completing-insert-file-name} completes on file names.
+@item
+@code{completing-insert-buffer-name} completes on buffer names.
+@item
+@code{completing-insert-lisp-object} completes on lisp objects. 
+@item
+@code{completing-insert-lisp-function} completes on lisp functions. 
+@item
+@code{completing-insert-lisp-variable} completes on lisp variables. 
+@item
+@code{completing-insert-kill} completes on the contents of the kill
+ring. 
+@item
+@code{completing-insert-buffer-contents} completes on the contents of
+the current buffer, or with a prefix argument on the contents of any
+specified buffer.  @xref{Buffer completion}.
+@item
+@code{completing-insert-according-to-mode} makes a guess as to
+what sort of completion it should do; if it can't figure it out, it
+completes on lisp objects.  (This one is mainly useful in the
+minibuffer.)
+@refill
+@end itemize
+
+(These functions all call the function @code{completing-insert}, which
+I'm too lazy to document.  The casual user won't want to call it
+directly, anyway, and the more serious user can figure it out for
+herself.)
+
+For example, if I'm typing an info page for lightning completion, and I
+want to insert the string @samp{completing-insert-kill}, I run
+@code{completing-insert-lisp-function}, and then use lightning
+completion to produce the function name, avoiding typing the
+whole thing in (and also avoiding typos).  In detail: once I start 
+@code{completing-insert-lisp-function}, the following happens:
+
+@itemize @bullet
+@item
+I type the letters @kbd{c}, @kbd{o}, @kbd{m}, @kbd{p}, and
+Emacs inserts @samp{comp}.
+@item
+I type @kbd{l} and pause, and Emacs inserts @samp{let} (so I have
+@samp{complet} so far). 
+@item
+I type @kbd{i} and @kbd{n} and pause, and Emacs inserts @samp{ing-} (so
+I have @samp{completing-} so far). 
+@item
+I type @kbd{i} and pause, and Emacs inserts @samp{insert} (so I have
+@samp{completing-insert} so far). 
+@item
+I type @kbd{-}, and Emacs inserts @samp{-} (so I have
+@samp{completing-insert-} so far).
+@item
+I type @kbd{k} and pause, and Emacs inserts @samp{kill} (so I have
+@samp{completing-insert-kill}, and completion stops).
+@end itemize
+
+There are user customizable variables (in the customization group
+"lightning-completion") related to these functions.  If the variable
+@code{lc-ctrl-x-c-is-completion} is non-nil, then @kbd{C-x c} is the
+prefix key for these commands.  This is one of the few global key
+bindings available, probably because it is too close to @kbd{C-x C-c}.
+So be warned, if you use these key bindings, you may occasionally hit
+@kbd{C-x C-c} instead of @kbd{C-x c}.  Anyway, enabling this options
+provides the following key bindings:
+
+@table @kbd
+@item C-x c F
+runs @code{completing-insert-file-name}.
+
+@item C-x c b
+runs @code{completing-insert-buffer-name}.
+
+@item C-x c o
+runs @code{completing-insert-lisp-object}.
+
+@item C-x c f
+runs @code{completing-insert-lisp-function}.
+
+@item C-x c v
+runs @code{completing-insert-lisp-variable}.
+
+@item C-x c k
+runs @code{completing-insert-kill}.
+
+@item C-x c y
+runs @code{completing-insert-buffer-contents}.
+
+@item C-x c u
+runs @code{completing-insert-according-to-mode}.
+
+@end table
+
+Note that if one plans on using lightning completion only occasionally,
+and always from the minibuffer, one might be able to get away with only
+using the function @code{completing-insert-according-to-mode}.  There is
+a customizable variable @code{lc-ctrl-backslash-completes-a-la-mode}.
+If it is non-nil, then @kbd{C-\} runs
+@code{completing-insert-according-to-mode}.
+
+
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Key bindings, Lightning completion, Completion functions, top
+@chapter Key bindings
+
+@cindex Keys in completion
+@cindex Key bindings
+@cindex Light mode keys
+
+While in lightning completion, the behavior of each key is modified.
+Here is a description of what each key does; these functions are loosely
+based on the behavior of standard completion in Emacs.  I have also
+included examples; for all of the examples, suppose that you are
+completing on file names, and you have files @file{albatross},
+@file{alpo}, @file{alphabet}, and @file{alphabet-soup}.
+
+There is a customizable variable @code{lc-complete-idle-time-default},
+the default value of which is 0.5.  In lightning completion mode, after
+this number of seconds of idle time, Emacs tries to complete.
+
+@itemize @bullet
+@item
+@kbd{a-z, A-Z, 0-9}, etc.: After the delay, you get an error if there is
+no valid completion based on that character.  If there are valid
+completions, then Emacs inserts the characters in common with all the
+valid completions.  If there is a unique such completion, then Emacs
+inserts that completion, and completion stops.  (Example: if you have
+@samp{alp} and you hit @kbd{x}, you get an error
+(but you're still in lightning completion mode); if you hit @kbd{h},
+then @samp{habet} is inserted, resulting in @samp{alphabet} (and you're
+still in lightning completion mode).  If you then hit @kbd{-}, then
+@samp{-soup} is inserted, and completion stops.)
+
+When there are no valid completions, the value of the customizable
+variable @code{lc-clean-up} is relevant.  If it is nil, then Emacs beeps
+and warns you that there are no valid completions.  If it is non-nil,
+then in addition, Emacs deletes the offending characters.  (Example: if
+you have @samp{alp} and you hit @kbd{x}, then @samp{x} is inserted.  If
+@code{lc-clean-up} is nil, then Emacs beeps.  If @code{lc-clean-up} is
+non-nil, then Emacs beeps and deletes the @samp{x}.  If you have
+@samp{al} and you type @kbd{phx}, if @code{lc-clean-up} is non-nil, then
+the @samp{x} is deleted and @samp{abet} is inserted.)
+
+@item
+@key{SPC}: If you have a valid completion, this key ends lightning
+completion, keeping the current completion; otherwise, if there is a
+valid completion based on the current string together with " ", then a
+space is inserted.  Otherwise, @key{SPC} acts like the @key{TAB} key.
+(Example: if you have @samp{alp} and you hit @kbd{h}, resulting in
+@samp{alphabet}, then hitting @key{SPC} would end completion and do
+nothing else.  If you also have a file @file{al jolson}, then
+typing @samp{al} followed by @key{SPC} produces @samp{al jolson}.
+Typing @samp{alp} followed by @key{SPC} is just like typing @samp{alp}
+and hitting @key{TAB}.)
+
+@item
+@key{RET}: This key exits lightning completion, regardless of whether
+you have a valid completion, and inserts a new line or exits the
+minibuffer, whichever is appropriate.  (Example: if you are using have
+@samp{alp} and you hit @key{RET}, this ends completion and either
+inserts a new line or exits the minibuffer.)  (This is actually an
+example of the behavior of ``Other control characters,'' described
+below.)
+
+@item
+@key{DEL}: This deletes the last thing that was typed along with
+anything inserted automatically as a result.  (Example: if you had
+@samp{alp} and you hit @kbd{h}, resulting in @samp{alphabet}, then
+hitting @key{DEL} would delete @samp{habet}---the characters that were
+just inserted.)
+
+@item
+@kbd{C-f}: Hitting this key repeatedly cycles through the possible
+completions, in some order or other.  (Example: if you have @samp{a},
+then hitting @kbd{C-f} once will give @samp{albatross}; hitting it again
+will give @samp{alpo}, etc.)
+
+@item
+@kbd{C-b}: This works like @kbd{C-f}, but it cycles through the choices
+in the reverse order.
+
+@item
+@key{TAB}: Hitting this key completes as far as possible.  If there are
+several choices, then it opens up a new buffer in another window,
+called @code{*Completions*}, in which all of the valid completions are
+displayed.  That buffer is buried once completion ends.  (Example, if I
+have @samp{alp} and I hit @key{TAB}, then a new buffer opens up,
+containing @samp{alpo}, @samp{alphabet}, and @samp{alphabet-soup}.  If I
+then hit @kbd{h} and then @key{TAB}, the @code{*Completions*} buffer
+then displays @samp{alphabet} and @samp{alphabet-soup}.)  You can select
+a completion by clicking on it with @kbd{mouse-2}.
+
+@item
+@kbd{M-v}: Hitting this key opens up a new buffer in another window,
+called @code{*Completions*}, just as with the @key{TAB} key, but also
+moves the point to that window.  You can then move from one completion
+choice to another with the arrow keys, and you can select a completion
+with @key{RET} or with @kbd{mouse-2}.
+
+@item
+@kbd{C-c}: Hitting this key exits lightning completion mode (useful if
+you've had enough of this completion nonsense, and you just want to type
+in the file name yourself; also useful if you want to type in the name
+of a file that doesn't exist).
+
+@item
+@kbd{C-q}: This key quotes the next character (useful if you have a file
+name containing a control character like @kbd{C-c} or @key{TAB}, for
+instance).
+
+@item
+@kbd{C-h}: Hitting this key displays a very brief help message in the
+minibuffer. 
+
+@item
+Other control characters: Hitting any other control character (or other
+non-printing character) has two effects: completion stops, and that
+character then has its normal effect.  So @kbd{C-g} stops completion and
+beeps, @kbd{C-e} stops completion and moves you to the end of the line,
+etc.
+@end itemize
+
+Many of these keys can be customized (in the customization group
+@code{lightning-completion-keys}).
+
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Lightning completion, Installation and customization, Key bindings, top
+@chapter Lightning completion
+
+Suppose you want to find a file, and you want to use lightning
+completion on file names.  One way to accomplish this is to run
+@code{find-file} (by hitting @kbd{C-x C-f}, say), then once in the
+minibuffer, either running @code{completing-insert-according-to-mode} or
+@code{completing-insert-file-name} (by hitting @kbd{C-x c F}, say, if
+you have turned on the option @code{lc-ctrl-x-c-is-completion}
+(@pxref{Completion functions})).
+
+Another way to accomplish this is to have lightning completion
+potentially active whenever you enter the minibuffer, and to specify
+when "potentially active" should mean "active".
+
+@menu
+* Enabling automatic lightning completion::
+* Settings for lightning completion::  Disabling lightning completion
+                                       in certain circumstances
+@end menu
+
+@comment ---------------------------------------------------------
+
+@comment  node-name,  next,  previous,  up
+@node Enabling automatic lightning completion, Settings for lightning completion, , Lightning completion 
+@section Enabling automatic lightning completion
+
+@cindex Enabling lightning completion
+@cindex Toggling lightning completion
+@cindex Contexts for lightning completion
+@cindex Situations for lightning completion
+@cindex Lightning completion--enabling
+@cindex Lightning completion--contexts
+@findex lightnify
+
+To use lightning completion automatically in the minibuffer (in
+various circumstances), you should turn on the option 
+@code{toggle-lightning-completion}, either by customization or by
+setting the variable @code{toggle-lightning-completion} to t.
+Once you've done this, then the variable
+@code{lightning-completion-list} specifies in which contexts lightning
+completion should be active; the possible contexts 
+are:
+@table @code
+@item file names
+
+@item commands
+
+@item lisp functions
+
+@item lisp variables
+
+@item lisp objects
+
+@item user variables
+
+@item buffer names
+
+@item info menu items
+
+@item query-replace
+Enable lightning completion on buffer contents when using
+@code{query-replace}.  This may not work very well, but I'm working on
+it...
+
+@item miscellaneous
+Enable lightning completion on everything else.
+
+@end table
+
+The easiest way to specify which contexts you want to enable is to
+customize the variable @code{lightning-completion-list} (in the
+customization group @code{lightning-completion}).  For each context, you
+can turn lightning completion on (with the default delay time) or off,
+or you can also specify a number.  If the number is negative, lightning
+completion is off; otherwise, lightning completion is on, with that
+number for the delay time for that context.  (You can instead use the
+@code{lightnify} function to turn completion on or off, if you prefer.
+This function is a bit obsolete; in particular, it does not allow you to
+set a different delay time for each context.)
+
+I suppose I should explain the effect of the "miscellaneous" context.
+Basically, if in some situation you can complete in the minibuffer by
+hitting the @key{TAB} key, then enabling miscellaneous completion
+means that lightning completion will be on in that situation.  For
+example, in the news-reader Gnus, if you hit @kbd{j} (to run
+@code{gnus-group-jump-to-group}), then you will be thrown into lightning
+completion mode, completing on newsgroup names (you will see the message
+``Completing something...'').
+
+
+
+@comment ---------------------------------------------------------
+
+@comment  node-name,  next,  previous,  up
+@node Settings for lightning completion, , Enabling automatic lightning completion, Lightning completion
+@section Settings for lightning completion
+
+@cindex Recursive minibuffers
+@cindex Lightning completion and recursive minibuffers
+@cindex Disabling lightning completion for particular commands
+@cindex lc-dark-commands
+
+Lightning completion doesn't always work the way you want it, so there
+are some ways of partially disabling it.
+
+For example, lightning completion doesn't work terribly well with
+recursive minibuffers, so there is a customizable variable
+@code{lc-dark-recursive-minibufs}.  If this is nil, then lightning
+completion proceeds unhindered.  If this has a numerical value @var{N},
+then lightning completion is disabled when the recursion depth is larger
+than @var{N}.  If this has some other non-nil value, then it is treated
+as if it had value 1 (disabling lightning completion in any recursive
+situation).
+
+You might also want to, say, enable lightning completion on file names,
+but disable it for particular commands.  To do this, customize the
+variable @code{lc-dark-commands}, which is a list of functions.  For
+example, if you want to disable lightning completion when using
+@code{insert-file}, then add @code{insert-file} to this list.
+If you want two versions of a command like @code{insert-file}, only one
+of which uses lightning completion, then make an alias to
+@code{insert-file}, and disable lightning completion on that function: 
+
+@example
+(defalias 'insert-file-dark 'insert-file)
+@end example
+
+@noindent
+and add @code{insert-file-dark} to @code{lc-dark-commands}.  I
+personally have functions like @code{dired-create-directory},
+@code{dired-do-symlink}, and @code{query-replace-regexp} in my list of
+dark commands.
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Installation and customization, Miscellany, Lightning completion, top
+@chapter Installation and customization
+
+@cindex Installation
+@cindex Customization
+
+Once you've unpacked the archive, you need to make sure that the file
+@file{light.el} is in your emacs load-path.  Then put
+
+@example
+(require 'light)
+@end example
+
+@noindent
+in your @file{.emacs} file.  Restart emacs; then you can set all of the
+lightning completion options via customization: run
+
+@example
+M-x customize-group lightning-completion
+@end example
+
+@menu
+* Customizable options::        A list of customizable options
+@end menu
+
+
+
+
+@comment ---------------------------------------------------------
+
+@comment  node-name,  next,  previous,  up
+@node Customizable options, , , Installation and customization
+@section Customizable options
+
+@cindex Customizable options
+@cindex List of customizable options
+@cindex Options
+
+Here is a list of the customizable options for lightning completion,
+with pointers to relevant sections of this documentation.  Use this
+command:
+
+@example
+M-x customize-group lightning-completion
+@end example
+
+@noindent
+to customize any of these options.
+
+@table @code
+@item lc-complete-idle-time-default
+Default value: 0.5.  Effect: when in lightning completion mode, after
+this much idle time (in seconds) has elapsed, try to complete.
+@xref{Overview}, @xref{Key bindings}.
+
+@item toggle-lightning-completion
+Default value: off.  Effect: toggle whether lightning completion is
+potentially active in the minibuffer.  If on, you should customize
+@code{lightning-completion-list} to specify contexts in which to use
+lightning completion.
+@xref{Enabling automatic lightning completion}.
+
+@item lightning-completion-list
+Default value: all off.  Effect: toggle lightning completion in, and
+specify the idle-time for, specific contexts: files, functions,
+commands, variables, user variables, lisp objects, info menu items,
+buffer names, query replace, miscellany.
+@xref{Enabling automatic lightning completion}.
+
+@item lc-clean-up
+Default value: nil.  Effect: If on, when there is no valid completion,
+remove the invalid characters.  If off, just give warning when no valid
+completion.
+@xref{Key bindings}.
+
+@item lc-ignored-file-extensions
+Default value: equal to @code{completion-ignored-extensions}.
+Description: a list of strings like ".dvi" and ".o"; files ending in
+these strings are ignored when doing lightning completion on file names.
+@xref{Ignoring some files}.
+
+@item lc-dark-commands
+Default value: nil.  Description: list of commands for which lightning
+completion is disabled.
+@xref{Settings for lightning completion}.
+
+@item lc-dark-recursive-minibufs
+Default value: nil.  Effect: If a number @var{N}, then don't use
+lightning completion when recursion-depth is bigger than @var{N}.  If
+nil, then no restrictions on when to use lightning completion.
+@xref{Settings for lightning completion}.
+
+@item lc-override-flag
+Default value: nil.  Effect: If non-nil, override other local maps when
+using lightning completion.  You may want to turn this on if using
+outline mode or some other minor mode which uses C-c as prefix.  This
+may not be necessary, though.
+
+@item lc-keep-key
+Default value: @key{SPC}.  Description: Key to keep current completion
+in lightning completion mode.
+@xref{Key bindings}.
+
+@item lc-del-key
+Default value: @key{DEL}.  Description: Key to delete last
+completion unit in lightning completion mode.
+@xref{Key bindings}.
+
+@item lc-stop-key
+Default value: @kbd{C-c}.  Description: Key to exit lightning completion
+mode. 
+@xref{Key bindings}.
+
+@item lc-quote-key
+Default value: @kbd{C-q}.  Description: Key to quote next character in 
+lightning completion mode. 
+@xref{Key bindings}.
+
+@item lc-help-key
+Default value: @kbd{C-h}.  Description: Help key in lightning completion
+mode.
+@xref{Key bindings}.
+
+@item lc-cycle-key
+Default value: @kbd{C-f}.  Description: Key to cycle to next completion
+in lightning completion mode.
+@xref{Key bindings}.
+
+@item lc-back-cycle-key
+Default value: @kbd{C-b}.  Description: Key to cycle to previous
+completion in lightning completion mode.
+@xref{Key bindings}.
+
+@item lc-display-key
+Default value: @key{TAB}.  Description: Key to display all completions
+in lightning completion mode.
+@xref{Key bindings}.
+
+@item lc-ctrl-x-c-is-completion
+Default value: nil.  Effect: if on, @kbd{C-x c} is the prefix key for
+the various lightning completion commands.
+@xref{Completion functions}.
+
+@item lc-ctrl-backslash-completes-a-la-mode
+Default value: nil.  Effect: if on, @kbd{C-\} runs the function
+@code{completing-insert-according-to-mode}.
+@xref{Completion functions}.
+
+@end table
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Miscellany, , Installation and customization, top
+@chapter Miscellany
+
+@menu
+* Ignoring some files::         Don't to complete on certain file names
+* Buffer completion::           An application of lightning completion
+* HTML mode completion::        Another example
+@end menu
+
+
+
+@comment ---------------------------------------------------------
+
+@comment  node-name,  next,  previous,  up
+@node Ignoring some files, Buffer completion, , Miscellany
+@section Ignoring some files
+
+@cindex Ignoring some files
+@cindex Ignored file extensions
+@cindex lc-ignored-file-extensions
+@cindex completion-ignored-extensions
+
+If you are using this package to complete on file names, then you should
+be aware of the lisp variable @code{completion-ignored-extensions}.
+(Lightning completion on file names is based on a completion mode
+already present in Emacs, and this variable comes from that mode.)
+
+Here is its documentation: ``Completion ignores filenames ending in
+any string in this list.  This variable does not affect lists of
+possible completions, but does affect the commands that actually do
+completions.''
+
+Lightning completion mode uses a similar variable, called
+@code{lc-ignored-file-extensions}, whose default value is equal to
+@code{completion-ignored-extensions}.
+
+I use La@TeX{}, and when I start with a file @file{bozo.tex}, then 
+La@TeX{} produces a number of auxiliary files: @file{bozo.aux},
+@file{bozo.dvi}, @file{bozo.log}, and possibly @file{bozo.bbl},
+@file{bozo.blg}, @file{bozo.toc}, @file{bozo.lof}, etc.  When I am
+editing such a file, I edit the file @file{bozo.tex} frequently, and I
+almost never touch the others.  So I make sure that
+@code{lc-ignored-file-extensions} contains the strings ``.toc''
+``.log'' ''.aux'' ``.lof'' ``.blg'' ``.bbl'' ``.dvi''.  The easiest way
+to do this is to customize this variable.
+
+In case you haven't been paying attention: suppose I have added ".aux" to
+@code{lc-ignored-file-extensions}, and I want to find the file
+@file{bozo.aux}, with lightning completion enabled.  One way to do this
+is to type @samp{bozo.aux} quickly enough that emacs is never idle for
+half a second.  Another option is to hit @kbd{C-c} right at the start,
+to turn off lightning completion; then just type in @samp{bozo.aux} at
+one's leisure.  Another way to do this is to use lightning completion to
+get @samp{bozo.tex} and ending completion there (if this is the only
+file that starts @samp{bozo} that doesn't end in an ignored extension,
+completion will end automatically at this point; otherwise, hit
+@key{SPC}).  Then delete @samp{tex} and type in @samp{aux}.  There are
+other ways of doing this, no doubt, but I'll let you figure them out.
+
+
+
+@comment ---------------------------------------------------------
+
+@node  Buffer completion, HTML mode completion, Ignoring some files, Miscellany
+@section Buffer completion
+
+@cindex Buffer completion
+@cindex Completion on buffer contents
+@cindex Lightning completion on buffer contents
+@findex completing-insert-buffer-contents
+
+Buffer completion is an example of a use of lightning completion: it
+lets you complete on reasonably balanced substrings of a buffer.  The
+main function is
+
+@example
+(completing-insert-buffer-contents BUF)
+@end example
+
+@noindent
+where @var{BUF} is interactively the current buffer or, with a prefix
+argument, a buffer specified by the user.
+
+In other words, if I want to repeat something I said somewhere else in
+this buffer, I call the function
+@code{completing-insert-buffer-contents}.  At that point, I enter
+lightning completion mode on the contents of this buffer.  If I want to
+repeat something I said in a different buffer, I hit @kbd{C-u} and then
+call @code{completing-insert-buffer-contents}.  Emacs prompts me for a
+buffer name, and then does lightning completion on the contents of that
+other buffer.  This is useful if you're too lazy to switch buffers, find
+the material you want to copy, mark it, kill it, and yank it.
+
+The @file{dabbrev} package (included as part of the standard GNU Emacs
+distribution) does some similar things, so you might want to look at
+that, too.  I won't advocate the use of one package over the other---I
+think each has its uses.
+
+
+@comment ---------------------------------------------------------
+
+@node  HTML mode completion, , Buffer completion, Miscellany
+@section HTML mode completion
+
+@cindex HTML tags
+@cindex Completion on HTML tags
+@cindex Lightning completion on HTML tags
+
+Here is another example of how to use lightning completion: you can
+automatically complete on HTML tags when in html mode.  I have the
+following lines in my @file{.emacs} file.  The first line binds the @kbd{<}
+key to the function @code{html-lightning-tag} (you could use a different
+key, if you wanted, but since HTML tags all start with this character,
+it seems to make sense).  The next lines define this function---it does
+lightning completion on HTML tags.  And the remaining lines (starting
+with @samp{(defvar html-light-alist}) define the list of HTML tags on
+which to complete.  A typical line is @samp{("<h3></h3>" -5)}; the first
+entry is the tag, and the second entry is the number of characters from
+the end by which the point should be offset (i.e., Emacs inserts the
+string @samp{"<h3></h3>"} and then moves forward -5 characters).  (This
+whole business is intended to be used with the version of
+@code{html-mode} that is contained in the file @file{sgml-mode.el}, part
+of (for example) the standard GNU Emacs distribution.
+
+@example
+(define-key html-mode-map "<" 'html-lightning-tag)
+
+(defun html-lightning-tag nil
+  "Lightning complete control sequence."
+  (interactive)
+  (insert "<")
+  (completing-insert html-light-alist nil 1 'point-adjust-hook
+		     "html tags"))
+
+(defvar html-light-alist
+  '(
+    ("<a href=\"\"></a>" -6)
+    ("<h1></h1>" -5)
+    ("<h2></h2>" -5)
+    ("<h3></h3>" -5)
+    ("<h4></h4>" -5)
+    ("<h-5></h-5>" -5)
+    ("<h6></h6>" -5)
+    ("<hr>
+
+" 0)
+    ("<!--   -->" -5)    
+    ("<img src=\"\" alt=\"\">" -9)
+    ("<ol>
+<li> 
+</ol>" -6)
+    ("<ul>
+<li> 
+</ul>" -6)
+    ("<li> " 0)
+    ("<dl>
+<dt> 
+<dd> 
+</dl>" -12)
+    ("<dt> 
+<dd> " -6)
+    ("<p>
+" 0)
+    ("<table>
+<tr>
+<th> </th>
+</tr>
+</table>" -20)
+    ("<th> </th>" -5)
+    ("<tr>
+<td> </td>
+</tr>" -11)
+    ("<td> </td>" -5)
+    ("<html>
+<head>
+<title> </title>
+</head>
+<body lang=\"EN\">
+
+</body>
+</html>" -32)
+    ("<address>John H. Palmieri, Department of Mathematics, University
+of Washington, palmieri@@math.washington.edu</address>
+" 0)
+    ("<address></address>
+" -11)
+    ("<cite></cite>" -7)
+    ("<kbd></kbd>" -6)
+    ("<dfn></dfn>" -6)
+    ("<em></em>" -5)
+    ("<samp></samp>" -7)
+    ("<small></small>" -8)
+    ("<strong></strong>" -9)
+    ("<sub></sub>" -6)
+    ("<sup></sup>" -6)
+    ("<tt></tt>" -5)
+    ("<var></var>" -6)
+    ("<code></code>" -7)
+    ("<blockquote>
+
+</blockquote>
+" -15)
+    ("<math>
+
+</math>
+" -9)
+    ("<pre>
+
+</pre>
+" -8)
+    ("<br>
+
+" 0))
+  "Alist of html tags for use with lightning completion")
+@end example
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node    Function Index, Concept Index,  , top
+@unnumbered Function Index
+
+@printindex fn
+
+
+@comment ---------------------------------------------------------
+
+@node    Concept Index,    ,  Function Index, top
+@unnumbered Concept Index
+
+@printindex cp
+
+
+@comment ---------------------------------------------------------
+
+@contents
+@bye

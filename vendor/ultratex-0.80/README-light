@@ -1,0 +1,26 @@
+Lightning completion package
+----------------------------------
+(Version 0.60 of 1999/04/28)
+
+The lightning completion package lets Emacs use "dynamic completion"
+on any number of things.  By dynamic completion, I mean that you don't
+need to hit the tab key to initiate completion: once it is on, it
+stays on until there is a unique completion or it is turned off.  This
+can be disconcerting at first, but once you get used to it, it is
+quite useful--especially when used with commands like find-file or
+describe-function.
+
+Please read the documenation (in the texi directory) for more
+information.
+
+The lightning completion package was written by Mark Haiman and Nick
+Reingold, then modified by John Palmieri (including getting everything
+to work with Emacs 19).  Many suggestions were made by various people
+at MIT, Yale, and elsewhere.
+
+-------------------------------------------------------------------
+
+Suggestions or comments?  Contact me:
+  John Palmieri
+  e-mail: palmieri@math.washington.edu
+  URL:    http://www.math.washington.edu/~palmieri/

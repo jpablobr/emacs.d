@@ -1,0 +1,886 @@
+1999-04-28  John H Palmieri  <"John H. Palmieri" <palmieri@member.ams.org>>
+
+	* lisp/ultex-sym.el (ultex-sym-arrows): added a few arrows
+
+1999-04-24  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.55.
+
+	* lisp/ultex.el (ultex-read-key-sequence,
+	ultex-last-meta-command-string): Deleted these functions.
+
+	* lisp/ultex.el (ultra-tex-menu): Modified so as to work with
+	XEmacs.  Added new functions ultex-menu-add, ultex-menu-add-1, and
+	ultex-menu-define-xemacs, also.
+
+	* lisp/ultex.el (ultex-reset-greek-keys, ultex-greek-insert, etc.):
+	Rewrote to have all Emacs key binding syntaxes available.
+
+	* user/greek.el: Added examples with new syntax.  Also, removed
+	Greek key bindings from C-h and C-g, since these should have other
+	behaviors in Emacs (C-h should be a help key, and C-g should be a
+	quit key).  Also, since the C-M-Greek keyboard was unused, I
+	filled it with a bunch of different arrows.
+
+	* lisp/ultex.el (ultex-grab): Added new optional arguments min and
+	max.
+
+	* lisp/ultex-cus.el (ultex-run-text-mode-hook): New variable.
+	
+	* lisp/ultex.el (ultra-tex-mode): Use the new variable.
+	
+	* lisp/ultex-cus.el (ultex-return-checks-for-new-commands): New
+	variable.
+
+	* lisp/ultex.el (ultex-ret-add-command): New function to use new
+	variable.  Also modify ultex-over-and-out to call this function.
+	
+	* lisp/ultex-cus.el (ultex-display-pictures, ultex-picture-type,
+	ultex-picture-directory): New variables.
+	
+	* lisp/ultex.el (ultex-display-picture): New function.
+	
+	* lisp/ultex.el (ultex-show-keys, ultex-show-row): Use these new
+	variables and function.
+	
+	* lisp/ultex-sym.el: New file.  Contains code for drawing tables
+	of symbols in XEmacs.
+
+	* lisp/ultex.el (ultex-sym-display-greek, etc.): Entry points for
+	ultex-sym stuff.
+
+	* lisp/light.el (completing-insert-file-name): Fixed bug.
+
+1999-02-12  John H Palmieri  <"John H. Palmieri" <palmieri@member.ams.org>>
+
+	* all: Released version 0.54.
+
+	* lisp/light.el (lightning-completion): Fixed bug.
+
+1999-01-27  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* lisp/light.el (lc-completion-buffer-name): New variable, default
+	value " *Completions".  Name of buffer in which to display list of
+	completions. 
+
+1999-01-26  John H Palmieri  <"John H. Palmieri" <palmieri@member.ams.org>>
+
+	* all: Released version 0.53.
+
+	* lisp/light.el.  Typo: changed `ctrl-x-map' to `ctl-x-map'.
+
+	* lisp/aucify.el.  Defined variables lookup and command to avoid
+	byte-compiler warnings. 
+
+	* lisp/ultex.el (ultex-permanent-alist, ultex-current-commands):
+	  Changed the roles of these variables--the former is what is read 
+	  from the various textree files, while the latter contains only
+	  commands scanned from the current file.  (ultex-current-commands
+	  used to be ultex-permanent-alist, modified by the scanning of
+	  the current file.)
+
+1999-01-19  John H Palmieri  <"John H. Palmieri" <palmieri@member.ams.org>>
+
+	* all: Released version 0.53.
+
+	* lisp/ultex.el (ultex-reset-greek-keys): bug fix in greek meta
+	keys with XEmacs.
+
+1999-01-18  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* lisp/aucify.el (LaTeX-bibliography-list): define this if not
+	already defined.
+
+1999-01-14  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.51.
+
+	* lisp/light.el: Added more stuff to make the defcustom things
+	work better when a recent version of the custom package is not
+	available.
+
+	* lisp/ultex-cus.el: Ditto.
+
+1998-12-21  John H. Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.50.
+
+	* lisp/ultex.el: Added delay time--Ultra-TeX mode has its own
+	delay time for completion, ultex-complete-idle-time.  Added
+	support for multiple textree files--which ones are loaded depends
+	on the documentclass/style and packages.  In connection with this,
+	changed ultex-new-cs so it can write to any of the textree files
+	associated to the current buffer.  New function:
+	ultex-delete-csname-from-tree-file--delete TeX command from
+	textree file.  Fixed a bug with undefined Greek keys.  Added a
+	menu to run a few Ultra-TeX functions.  Removed support for GNU
+	Emacs version 18.
+	
+	* lisp/aucify.el: Added customization code, much of which was
+	taken from the AUC-TeX package.  Added a menu to run TeX
+	commands, taken from the AUC-TeX package.
+
+	* lisp/ultex-cus.el: New file, containing customization code for
+	Ultra-TeX mode.  Moved user-customizable variables from ultex.el
+	and ultex-setup.el into this file, and rewrote for use with the
+	customization package.  Made a few changes to these variables; for
+	instance, the program should now be able to make a good guess as
+	to the default values for the location of the textree.el and
+	greek.el files.
+
+	* lisp/ultex-setup.el: Moved almost everything from here to
+	ultex-cus.el.
+
+	* lisp/light.el: Tried to clean up query-replace behavior.
+
+	* texi/ultra.texi: Modified to take the customization and other
+	changes into account.
+
+1998-12-16  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* texi/light.texi: Rewrote to take the customization and
+	idle-time changes into account.
+
+	* lisp/light.el: Implemented customization stuff for lightning
+	completion.  Also implemented lightning completion only after a
+	specified idle time: only try to complete if Emacs is idle for
+	lc-complete-idle-time-default.  Also fixed a few bugs; for
+	example, the function lc-help used to use single-key-description,
+	which barfed when you passed it arguments like [(control c)].  Now
+	it uses a modified version of key-description, so (a) it doesn't
+	barf and (b) it may even work right.  Removed support for GNU
+	Emacs version 18.
+
+1998-12-10  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* lisp/ultex.el (ultex-new-cs): changed buffer-string to
+	buffer-substring-no-properties.
+
+1998-09-28  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.41.
+
+	* ultex.el (various): Fixed bug with SPC in Greek keys map.
+
+1998-09-25  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.40.
+
+	* ultex.el: Define the variable TeX-master before referring to it,
+	to avoid compiler warning.
+
+1998-09-24  John H Palmieri  <"John H. Palmieri" <palmieri@member.ams.org>>
+
+	* ultex.el (ultex-grab-inputnames): Include the value of the
+	variable TeX-master, if a string, among the files from which to
+	grab defs.
+
+	* ultex.el (ultra-tex-mode): Read local variables from file before
+	grabbing defs.
+
+1998-09-03  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.39.
+
+	* light.el (light-mode-map): Changed the default keybinding to
+	make backspace (etc.) to the right thing in XEmacs.
+
+1998-09-02  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* light.texi: Fixed a little bit of the documentation.
+
+	* sample-keys.el: Changed some of the suggested key bindings.
+
+1998-04-28  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.38.
+
+	* ultex-el (ultex-make-ref-from-label): Call ultex-grab-defs
+	instead of ultex-grab, in order to get recursive behavior.
+
+	* ultex.el (ultex-grab-loop): Added arguments COMMANDS and LABELS
+	to be passed to ultex-grab.
+
+	* ultex-el (ultex-grab-defs): Added optional arguments NO-COMMANDS
+	and NO-LABELS.
+
+1998-04-17  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.37.
+
+	* ultex.el (ultex-greek-meta-insert): Fixed bug.  Hitting ` Esc y
+	would work, but ` M-y would not, at least in Emacs 20.  Now both
+	should work.
+
+	* light.el (lc-emacs-20-p): New variable.  Non-nil if using Emacs
+	20.
+
+1998-04-07  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.36.
+
+	* ultex.el (ultex-grab-bibs, ultex-scan-bbl, -bib): These didn't
+	used to work right with an optional argument when
+	ultex-alist-local-flag was t.  Now they do.
+
+	* ultex.el (ultex-grab): New function.  Replaces
+	ultex-grab-commands and ultex-grab-labels.
+
+1998-03-27  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.35.
+
+	* ultex.el (ultex-get-next): Didn't work right when trying to find
+	\newcommand right at the start of a buffer (which can happen in
+	input files).  Fixed now.
+
+	* ultex.el (ultex-grab-commands, -labels): These didn't used to
+	work right with an optional argument when ultex-alist-local-flag
+	was t.  Now they do.
+
+	* ultex.el (ultex-command-grabber): New function.  This tries to
+	guess what Emacs should complete on when you hit TAB.
+
+	* ultex.el (ultra-tex-mode-map): If ultex-dont-use-completion is
+	t, then C-\ is now bound to nil (it used to be bound to
+	self-insert-command).
+
+1998-03-27  Mike Mandell  <mandell@math.mit.edu>
+
+	* ultex.el (ultex-grab-defs, etc.): This now recursively scans all
+	input and include files for commands, labels, etc.
+
+	* ultex.el (ultex-grab-commands): Also recognizes
+	\DeclareMathSymbol.
+
+	* ultex.el (ultex-tab-resume): Now takes an optional argument
+	INIT, so that hitting TAB resumes completion better.  This now
+	calls ultex-fast-noslash.
+
+	* ultex.el (ultex-fast-noslash): Now takes an optional argument
+	INIT, so that hitting TAB resumes completion better.
+
+1998-03-23  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.34.
+
+	* ultex.el (ultex-grab-commands, ultex-grab-labels): Fixed bug.
+	ultex-end and ultex-start were being set before the file fn was
+	read; this has been corrected.
+
+1997-10-31  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* all: Released version 0.33.
+
+	* ultex.el (ultex-slash-dollar-is-not-math): New variable.  When
+	non-nil -- the default -- then hitting $ when the point is right
+	after a backslash only inserts one dollar sign (to make inserting
+	\$ easier).  If you are in math mode, hitting a $ behaves as
+	before.  (If you really want to use \$ a lot, then put it into
+	your textree file.)
+
+	* ultex.el (ultex-smart-dollars): Implemented the above change.
+
+1997-09-22  John H Palmieri  <"John H. Palmieri" <John.H.Palmieri.2@nd.edu>>
+
+	* ultex-setup.el (font-lock stuff): Changed to work with GNU Emacs
+	20.1.
+
+Tue Sep  2 10:46:06 1997  John H Palmieri  <jpalmier@pony>
+
+	* all: Released version 0.32.
+
+	* light.el (lc-display-key): Fixed typo: this used to be set to
+	(control t); now it is set to (control i).
+
+Tue Aug  5 11:59:50 1997  John Palmieri  <palmieri@schauder.mit.edu>
+
+	* ultex-setup.el (font-lock stuff): Bug fix: now emacs-19 uses
+	colors if ultex-use-color is non-nil, even if font-lock is
+	ordinarily turned off.
+
+Fri Aug  1 16:03:52 1997  John Palmieri  <palmieri@schauder.mit.edu>
+
+	* all: Released version 0.31.
+
+	* ultex.el (ultex-grab-bibs): Bug fix: you used to get an error
+	when running this function in a buffer that was not associated to
+	a file (e.g., if a TeX buffer was opened by the Emacs web browser,
+	and ultra-tex-mode was started).  This has been fixed.
+
+Wed Jul 30 21:04:58 1997  John H. Palmieri  <palmieri@math.mit.edu>
+
+	* all: Released version 0.30.
+
+	* lisp/aucify.el (ultex-ignore-auctex-tex.el): New variable.  If
+ 	non-nil	(the default), then the AUC-TeX file tex.el will not be
+	loaded when tex-buf asks for it.  (This is so users can use
+	tex-buf.el without having access to the entire AUC-TeX
+	distribution.)
+
+	* README: Changed to reflect new organization.
+
+	* INSTALLATION: New file.
+
+	* organization (everything): Reorganized all the files--put
+ 	everything into different directory a la gnus and w3.
+
+	* texi/light.texi, texi/ultex.texi: Changed installation
+	instructions accordingly, and documented the variable
+	ultex-ignore-auctex.
+
+	* lisp/docomp.el: New file.  Stupid byte-compilation tricks.
+
+	* lisp/font-latex.el: Now included with the distribution.
+
+	* lisp/tex-buf.el: Now included with the distribution.  (Part of
+	the AUC-TeX package.)
+
+Wed Jul 23 17:02:09 1997  John Palmieri  <palmieri@schauder.mit.edu>
+
+	* all: Released version 0.26.
+
+	* ultex.el (ultex-make-ref-from-label): Changed so that this paid
+	attention (correctly) to the variable ultex-alist-local-flag.
+
+	* light.el (light-mode-map): Added a few lines to make sure that
+	return and linefeed would be set to 'lc-exit-and-then.
+
+Fri May  2 17:49:27 1997  John Palmieri  <palmieri@math.mit.edu>
+
+	* ultex.el (ultex-math-mode): Don't test to see if point is in
+	math mode, if line is commented out.
+
+	* ultex.el (ultra-tex-mode): Set comment-multi-line to nil, since
+	for some odd reason it is t in XEmacs.
+
+Mon Mar  3 14:47:48 1997  John Palmieri  <palmieri@math.mit.edu>
+
+	* ultex.el (various): Changed Greek keyboard stuff so that it uses
+ 	the old version of greek.el, so that it is backwards compatible.
+
+	* ultex18.el (various): Changed Greek keyboard stuff so that it
+ 	uses the old version of greek.el, as above.
+
+Fri Feb 28 12:31:07 1997  John Palmieri  <palmieri@math.mit.edu>
+
+	* all: Released version 0.25.
+
+	* light.texi (various): Updated the documentation to reflect lots
+	of changes.
+
+	* ultra.texi (various): Updated the documentation to reflect lots
+	of changes.
+
+	* bufcomp.el (nil): Deleted this file, because:
+
+	* light.el (buffer completion): Incorporated buffer completion
+	stuff into light.el.
+
+Thu Feb 27 16:56:16 1997  John Palmieri  <palmieri@math.mit.edu>
+
+	* ultex18.el (everything): ultex.el is no longer completely
+	compatible with GNU Emacs 18, so when using that program, you need
+	to load ultex18.el in addition.  (Actually, ultex18.el
+	automatically loads ultex.el, so you only need to load
+	ultex18.el.  Actually, ultex-setup.el should figure out which
+	version of Emacs you are using, and load the appropriate thing.
+	Just make sure that both ultex.el and ultex18.el are in your
+	load-path.)
+
+	* light.el (lc-message): Fixed a bug, so this now works when
+	resize-minibuffer-mode isn't defined.
+
+	* light.el (lc-quit): Set lc-prev-windows to nil more often, so
+	there aren't stray window-configurations setting floating around.
+
+	* light.el (light-mode-map): Screwed around a little to make
+	XEmacs work better with the *Completions* buffer.
+
+	* light.el (lc-display-completions): Screwed around to make XEmacs
+ 	work better with the *Completions* buffer.
+
+	* light.el (lc-display-completions-internal): New function.
+	Displays *Completions* buffer as appropriate, depending on the
+	version of Emacs.
+
+	* light.el (lc-completion-default-help-string): New variable.
+	Used to display a message in the *Completions* buffer in XEmacs. 
+
+	* light.el (lc-completion-setup-function): Modified to use
+	lc-completion-message-function. 
+
+	* light.el (lc-completion-default-message-function): New
+	function.  Default value for lc-completion-message-function.
+
+	* light.el (lc-completion-message-function): New variable.  Use
+	this to customize the message printed in the *Completions*
+	buffer.
+
+	* ultex.el (ultex-try-to-complete): New function, for use when
+ 	ultex-dont-use-completion is non-nil.  Try to complete TeX command
+ 	sequence just before point, but don't enter lightning completion
+ 	mode.  If there is a unique completion, insert it.  If there are
+ 	several choices, pop up a new buffer listing them (but one can't
+ 	select an option from that buffer).  Etc.
+
+	* ultex.el (ultra-tex-mode): This now calls
+ 	ultex-define-ultra-tex-mode-map, if ultra-tex-mode-map is nil.  It
+ 	also calls ultex-reset-greek-keys in this case.
+
+	* ultex.el (several defvars): Added documentation strings.
+
+	* ultex.el (ultex-define-ultra-tex-mode-map): New function.  This
+	function defines the Ultra-TeX keymap; this used to happen as a
+	top-level thing, but it seems better to let a function do it.  The
+	procedure for defining the keymap was changed a bit, to
+	incorporate new variables like ultex-dont-use-completion and
+	ultex-match-braces (see below).  Also, the Greek keyboard is
+	handled differently now: the ` key is actually a prefix
+	character.
+
+	* ultex.el (ultex-reset-greek-keys): New function.  This defines
+	the Greek keyboard keymap.
+
+	* ultex.el (ultex-greek-map, ultex-greek-meta-map): New
+	variables.  These are the keymaps for the Greek keyboard.
+
+	* ultex.el (ultex-greek-self-insert): New function.  Main binding
+	for keys in ultex-greek-map.
+
+	* ultex.el (ultex-greek-meta-insert): New function.  Main binding
+	for keys in ultex-greek-meta-map.
+
+	* ultex.el (ultex-redefine-greek-key): Changed because the
+	structure of the Greek keymap changed.
+
+	* ultex.el (ultex-dont-use-completion): New variable, to replace
+	the function of the same name (see below).  If non-nil, then
+	lightning completion is turned off, and the TAB key completes.
+
+	* ultex.el (ultex-match-braces): New variable.  If non-nil (the
+	default), then hitting `{' inserts `{}'.
+
+	* ultex.el (ultex-match-brackets): New variable.  If non-nil (not
+ 	the default), then hitting `[' inserts `[]'.
+
+	* ultex.el (ultex-match-parens): New variable.  If non-nil (not
+ 	the default), then hitting `(' inserts `()'.
+
+	* ultex.el (etc): Make sure frame-width is defined.
+
+	* ultex.el (ultex-define-key): New function.  Like define-key, but
+	a bit more backwards compatible with Emacs 18: if you give it a
+	vector for a key sequence, like [(control d)], it doesn't beep.
+	It doesn't do anything in fact, and just returns nil.
+
+	* ultex.el (ultex-key-sequence-to-string): New function.  Converts
+	a key sequence to a string, but maybe not very well.
+
+	* ultex.el (ultex-last-meta-command-string): New function.
+	Returns char if the last event was [(meta char)].  For use with
+	XEmacs.
+
+	* ultex.el (ultex-read-key-sequence): New function.  This is a
+	front-end for read-key-sequence, to account for differences
+	between GNU Emacs and XEmacs.
+
+Fri Feb 14 15:26:34 1997  John Palmieri  <palmieri@math.mit.edu>
+
+	* all: Released version 0.24.
+
+	* ultex.el (ultex-show-row): The greek keyboard display now varies
+	a little, depending on the width of the current frame.
+
+	* ultex.el (ultex-grab-bibs): This now handles things like
+	\bibliography{file1,file2} properly.
+
+	* ultex.el (ultex-dont-use-completion): New function.  When added
+	to ultra-tex-mode-hook, turns off lightning completion, and makes
+	TAB key try to complete instead.
+
+	* ultex.el (ultex-rescan-after-new-label): New variable.  If
+	non-nil, then rescan the buffer for label information whenever a
+	new label is inserted.  
+
+	* ultex.el (ultex-make-ref-from-label): Rewritten with
+	ultex-rescan-after-new-label in mind.
+
+	* ultex.el (ultex-current-alist): Replaced this variable with
+	ultex-current-commands, ultex-current-labels, ultex-current-bibs.
+
+	* ultex.el (ultex-reset-current-alist): Rewrote to take changes to
+	ultex-current-alist into account.  Similarly with the functions
+	ultex-fast-cs, ultex-fast-noslash, ultex-delete-csname,
+	ultex-tab-resume, and the variable ultex-alist-local-flag.
+
+	* ultex.el (ultex-grab-defs): This has been broken into two
+	pieces: ultex-grab-commands and ultex-grab-labels.
+
+	* light.el (lc-completion-default-message-function): New
+	function.  Used for customizing the message in the *Completions*
+	buffer.
+
+Tue Feb 11 11:34:12 1997  John Palmieri  <palmieri@math.mit.edu>
+
+	* light.el (lc-message): Lightning completion in the minibuffer
+	now works better with resize-minibuffer-mode.
+
+Wed Feb  5 13:41:45 1997  John Palmieri  <palmieri@math.mit.edu>
+
+	* light.el (completing-insert): Fixed a bug or two regarding
+	event-handling (GNU Emacs 19 vs XEmacs stuff).
+
+	* light.el (lc-completion-setup-function): This now uses
+	lc-completion-fixup-function rather than
+	completion-fixup-function.
+
+	* ultex.el (ultex-grab-defs, ultex-get-next): No longer hangs (I
+	hope) when it comes across nested \def's and similar such things.
+	
+Mon Jan 27 14:10:40 1997  John Palmieri  <palmieri@math.mit.edu>
+
+	* light.el (lc-read-file-name-internal): Now typing .. does the
+	right thing when finding a file.  
+
+	* ultex.el (ultex-scan-bbl): Make [] argument to \bibitem
+	optional.
+
+	* ultex.el (ultex-parse-colon-path): When there is a trailing //,
+	make sure that the given directory is included in the list, not
+	just its proper subdirectories.
+
+	* ultex.el (ultex-smart-dollars): When math-mode starts with $,
+	don't search for ending math delimiter beyond the end of the
+	paragraph. 
+
+	* ultex.el (paragraph-start, paragraph-separate): Removed the
+	carats from the default values of these variables (I finally read
+	their documentation). 
+
+	* sample.ultex (): Changed using-xemacs to xemacs-flag.
+
+	* ultex-setup.el (xemacs-flag, emacs18-flag): Moved definitions of
+	these variables to the top of the file, so they can be used
+	throughout this file, and also in the user's .ultex file.  Also
+	changed using-xemacs to xemacs-flag in the examples.
+
+Thu Jan 16 16:24:00 1997  John Palmieri  <palmieri@math.mit.edu>
+
+	* all: Released version 0.23.
+
+	* ultex.el (dollar sign stuff): Now hitting $ cycles through math
+	delimiters even if the math environment is non-empty.  There are
+	new functions ultex-change-dollars, ultex-dollar-entry-start, and
+	ultex-smart-dollars, and new variable ultex-current-label.
+
+	* ultex.el (ultex-math-mode): No longer beeps when you use math
+	mode in arguments to (re)newcommand.  Also no longer treats
+	\\[0.5in] as the start of a math environment (it used to, because
+	of the substring "\[").
+
+	* ultex.el (ultex-make-ref-from-label): This now beeps if you
+	define a label that has been used already.
+
+	* ultex.el (ultex-forward-char): New function.  Tries to go
+	forward N characters.  If unsuccessul (because of (bobp) or (eobp)
+	or whatever), return nil.
+
+	* ultex.el (ultex-over-and-out): Rewrote using ultex-forward-char
+	instead of forward-char.
+
+	* ultex.el (ultex-grab-defs): Rewrote in a vain effort to clean up
+	(and maybe speed up) the code.  Similarly: changed
+	ultex-grab-bibs, and introduced new functions ultex-get-next
+	and ultex-commented-outp.
+
+	* ultex.el (ultra-tex-mode): Changed values of
+	paragraph-ignore-fill-prefix and adaptive-fill-mode so as to make
+	comments interact better with auto-fill-mode.  Changed value of
+	comment-start-skip so that \% is not treated as the start of a
+	comment.
+
+	* ultex.el (ultex-comment-indent): Similar changes.
+
+	* ultex.el (ultex-delete-csname): Added completion on TeX
+	commands.
+
+	* ultex.el (ultex-def-regexp): New variable.  Regexp to match
+	(re)newcommand, or any other command whose 2nd (or 3rd?) argument
+	is used for defining a new command, and hence may or may not be
+	set in math mode.
+
+	* ultex.el (ultex-non-math-cs-regexp): Changed default value a bit
+	so as to interact better with ultex-math-mode.
+
+	* ultex.el (several variables): Added a bit of documentation. 
+
+	* ultex.el (ultex-dollar-array): Changed the default value of this
+	variable.  To use the old value, you should set your
+	ultra-tex-mode-hook, as indicated in ultex.el when this variable
+	is defined.  Also see the file sample.ultex.
+
+	* sample.ultex (ultra-tex-mode-hook): Indicated how to recover the
+	old default value of ultex-dollar-array.
+
+	* light.el (lc-read-file-name-internal): Screwed around with this
+	to fix a bug with . and .. (in the old version, if the minibuffer
+	said ~/ and you hit . and then TAB, any directory whose name
+	started with . would not show up in the list of allowable
+	completions).  Things also go a bit faster when using lightning
+	completion on big directories.
+
+	* light.el (lc-file-display-filter): Made similar fixes here.
+
+	* light.el (lc-expand-file-name): New function, used in
+	lc-read-file-name-internal. 
+
+	* light.el (lc-try-to-complete and lc-self-insert-char-2): New
+	functions.  These are not used at the moment, but one might use
+	them if one likes the features of lightning completion (completion
+	on file names, or whatever, while not in the minibuffer), without
+	that silly completion business.  So one could type a file name and
+	hit TAB to complete, but that would be the only kind of completion
+	going on.
+
+	* light.el (lc-make-command-dark): New function.  This turns off
+	lightning completion for COMMAND.
+
+	* light.el (lc-make-command-light): New function.  This turns on
+	lightning completion for COMMAND, if you had previously disabled
+	it with lc-make-command-dark.
+
+	* light.el (buffer-substring-no-properties): Make sure that this
+	function is defined, regardless of the version of emacs.
+
+	* light.el (several places): changed buffer-substring to
+	buffer-substring-no-properties.
+
+	* bufcomp.el (several places): changed buffer-substring to
+	buffer-substring-no-properties.
+
+Wed Dec 11 11:58:54 1996  John Palmieri  <palmieri@math.mit.edu>
+
+	* light.el (light-mode-map): This is now set up using
+	lc-define-key.
+
+	* light.el (lc-window-system): New function.  I got tired of
+ 	seeing "window-system is an obsolete variable" when compiling in
+ 	XEmacs, so this function uses (console-type) if that is bound,
+	else window-system.  (Which means that I still get the stupid
+	error message, but now I can feel self-righteous about it.)
+
+	* light.el (key definitions): You can now use vectors to modify
+	key definitions.  For example, (setq lc-cycle-key [backspace])
+	should be a fine thing to do in your .emacs file.
+
+	* light.el (lc-define-key): New function.  Like define-key, but
+	accepts both ascii and vector arguments for KEY.
+
+Tue Dec 10 15:25:38 1996  John Palmieri  <palmieri@math.mit.edu>
+
+	* ultex.el (ultex-grab-defs): if file is read-only and
+	ultex-alist-local-flag is non-nil, don't grab tex commands (don't
+	even ask).  Similarly for ultex-grab-bibs.
+
+Tue Dec  3 10:23:32 1996  John Palmieri  <palmieri@math.mit.edu>
+
+	* aucify.el (TeX-esc, etc.): added some variables to make
+	TeX-command-region work.
+
+	* ultex.el (ultex-uncomment-regexp): new variable.  This is a
+	regular expression which should match the start of a line which is
+	not commented out.  It is currently set to nil, because other
+	values slow things down a bit.
+
+	* ultex.el (ultex-grab-defs): search for command sequences is now
+	bound by "\end{document}" if that string is present.
+
+	* ultex.el (key bindings): removed binding for C-c C-g.
+
+Mon Dec  2 21:59:21 1996  John Palmieri  <palmieri@math.mit.edu>
+
+	* light.el: Released version 0.22.1.
+
+	* light.el (lc-dark-commands): new variable.  This is a list of
+	commands for which lightning completion is disabled.  See the
+	variable documentation for an example of its use.
+
+	* light.el (lc-dark-recursive-minibufs): new variable.  If non-nil
+	and a number, then don't use lightning completion if
+	recursion-depth is bigger than this number.  If non-nil and not a
+	number, then don't use lightning completion in recursive
+	minibuffers at all.  If nil, then use lightning completion all the
+	time, as usual.
+
+	* light.el (lc-display-completions): now handles argument 'jump
+	correctly (instead of doing the opposite of what it should have).
+
+Wed Nov 27 16:07:53 1996  John Palmieri  <palmieri@math.mit.edu>
+
+	* light.el: Released version 0.22.
+
+	* bufcomp.el (): added the line (provide 'bufcomp)
+
+	* light.el (lightnify): rewrote this function completely.  See
+ 	documention, or preamble of light.el, for instructions.  Because
+ 	of this (and a few other little changes), GNU Emacs 19 and XEmacs
+ 	have much more in common.
+
+	* sample-keys.el (everything): Accordingly, I changed the sample
+ 	key definitions and lightnifications.
+
+	* light18.el (everything): Because of the changes to light.el,
+ 	that file is no longer completely compatible with GNU Emacs 18.
+  	So if you use GNU Emacs 18, load the file light18.el after you've
+ 	loaded light.el (or just load light18.el, and that file will make
+ 	sure you've already loaded light.el).
+
+	* lightnify-old.el (everything): If you prefer the old version of
+	the lightnify function, load lightnify-old.el instead of
+	light.el.	
+
+Thu Nov 21 15:46:50 1996  John Palmieri  <palmieri@math.mit.edu>
+
+	* ultex-setup.el (defun ultra-tex-add-imenu): New function.  Patch
+	to make imenu and bib-cite stuff work well together.  Same for
+	functions ultra-tex-add-bib-cite-imenu and
+	ultra-tex-add-bib-cite.  These are all only intended for use in
+	ultra-tex-mode-hook. 
+
+Thu Nov 21 15:44:27 1996  Mark Hovey  <hovey@math.mit.edu>
+
+	* aucify.el (ultex-xdvi-argument): New variable, string-valued.
+	Contains arguments to pass to xdvi.
+
+	* aucify.el (ultex-xdvi-landscape-string): New variable.  User
+	should set this to the argument for xdvi that uses landscape
+	mode.  Default value is "-paper usr".
+
+	* aucify.el (ultex-xdvi-landscape): New function.  This detects
+	whether the buffer contains "\special{landscape}" and modifies
+	ultex-xdvi-argument appropriately (either adds or removes
+	ultex-xdvi-landscape string).
+
+	* aucify.el (TeX-command): Modified this to call
+	ultex-xdvi-landscape.
+
+	* aucify.el (misc): Lightnified TeX-command-master and
+	TeX-command-region.
+
+Wed Nov 20 16:59:06 1996  John Palmieri  <palmieri@math.mit.edu>
+
+	* ultex.el (ultex-imenu-create-index): New function.  This is for
+	imenu support.
+
+	* ultex.el (ultra-tex-mode): When you enter ultra-tex-mode,
+	now tex-mode-hook is run (along with text-mode-hook and
+	ultra-tex-mode-hook).
+
+	* ultex-setup.el (ultex-use-imenu): New variable.  If non-nil,
+	then Ultra-TeX uses the imenu package the same way tex-mode does.
+
+	* ultex-setup.el (ultex-use-bib-cite): New variable.  If non-nil,
+	then Ultra-TeX uses the bib-cite package.
+
+Tue Nov 19 16:55:36 1996  John Palmieri  <palmieri@math.mit.edu>
+
+	* light.el (light-mode-map): Changed the keymap so that (in GNU
+	Emacs 19) when you enter lightning completion there is a menu
+	called "Light", rather than a menu called "Minibuf".
+
+Tue Nov 19 11:13:34 1996  Mark Hovey  <hovey@math.mit.edu>
+
+	* aucify.el (TeX-auto-add-type): New function.  This was
+	accidentally left out the first time, resulting in an error when
+	the LaTeX file contained a bibliography environment.  Also added:
+	TeX-auto-add-information, TeX-car-string-lessp, TeX-listify,
+	TeX-auto-list-information.
+
+	* aucify.el (TeX-auto-parser): New variable.  Also added:
+	TeX-auto-parser-temporary, TeX-auto-parser-add,
+	TeX-auto-parser-local, TeX-auto-parser-change.
+
+Thu Nov 14 11:51:41 1996  John Palmieri  <palmieri@math.mit.edu>
+
+	* light.el: Released version 0.21.
+	
+	* light.texi (Key bindings): Changed documentation to reflect the
+	new keybindings.
+
+	* light.el (lc-ignored-file-extensions): Variable.  This is now
+	defined using defvar rather than setq.
+
+	* light.el (lc-completion-setup-function): New function.
+	Lightning completion version of completion-setup-function.  (The
+	only difference is in the text displayed at the top of the
+	*Completions* buffer.)
+
+	* light.el (lc-choose-completion-string): New function.  Lightning
+	completion version of choose-completion-string.  It adds the
+	selected completion to lc-stack, and then quits lightning
+	completion, if appropriate.
+
+	* light.el (lc-choose-completion): New function.  Lightning
+	completion version of choose-completion.  (The only difference is
+	that this calls lc-choose-completion-string instead of
+	choose-completion-string.)
+	
+	* light.el (lc-mouse-choose-completion): New function.  Lightning
+ 	completion version of mouse-choose-completion.  (The only
+ 	difference is that this calls lc-choose-completion-string instead
+ 	of choose-completion-string.)
+
+	* light.el (lc-switch-to-completions): New function.  Creates
+	*Completions* buffer (if necessary) and moves the point to it so
+	that one can choose a completion with the RET key.  (Like the
+	function switch-to-completions from simple.el, but modified for
+	use with lightning completion.)
+
+	* light.el (lc-display-completions): Fixed behavior of TAB key.
+  	In Emacs 18, repeatedly hitting the TAB key (or whatever key was
+ 	bound to lc-display-key) would scroll one screen at a time until
+ 	it reached the bottom of the *Completions* buffer.  Then hitting
+	the key again would take you back to the top.  This was broken in
+	Emacs 19 (due to a bug in Emacs, I think), but it has been fixed
+	now.
+	
+	* light.el (lc-display-completions): Added lines to alter the text
+	inserted in *Completions* buffer (i.e., so that
+	lc-completion-setup-function is called rather than
+	completion-setup-function), and also so that the keybindings
+	call the lightning completion forms of the choose-completion
+	functions.  This new version doesn't really work with XEmacs, so
+	there is a separate defun in case lc-xemacs-flag is non-nil.
+
+	* light.el (lc-quit): Added 'mouse as possible value for ARG.
+  	Clicking with the mouse on another buffer passes this value; it
+ 	makes lightning completion quit as usual, but does not reset the
+ 	window-configuration (because you don't want to delete the
+ 	*Completions* buffer before you have a chance to select from it).
+
+	* light.el (lc-quit): Added 'choose as possible value for ARG.
+  	This value is passed when you choose a completion from the
+ 	*Completions* buffer via lc-choose-completion or
+ 	lc-mouse-choose-completion.  This is a dumb fix to try to put the
+	point in the right place after inserting the completion.
+
+	* light.el (completing-insert): Have light-mode-map be the
+	overriding keymap as rarely as possible.  Also, set
+	mouse-leave-buffer-hook to 'lc-quit.  
+
+	* light.el (lc-quit): Made similar changes: reset overriding
+	keymap and mouse-leave-buffer-hook if necessary.
+
+	* light.el (lc-completion-list-mode-map):  New variable.  This is the
+	keymap used for selecting a completion from the *Completions*
+	buffer.
+
+	* light.el (light-mode-map): changed the default value of this
+ 	variable to be compatible with the bindings used with the default
+ 	Emacs completion (i.e., made light-mode-map look like
+ 	minibuffer-local-completion-map).
+
+	* light.el (lc-used-old-lc-keymap): New variable.  Set this to
+ 	non-nil if you want to use the old lightning completion keymap.
+

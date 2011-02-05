@@ -1,0 +1,262 @@
+\documentclass{none}
+%% RCS $Id: font-latex.tex,v 1.3 1996/11/19 18:49:36 rhogee Exp $
+\begin{document}                %This is just to trick emacs into latex-mode
+%% If you use XEmacs, turn on latex-mode now:
+%%  M-x latex-mode
+
+This file does not compile under TeX or LaTeX.
+It is a font-latex torture test, or rather, a demonstration of what 
+font-latex is supposed to do.
+
+\section{Decoration Level 1}
+
+ \section*{...}   should work as \section{...}
+
+Decoration levels are set by the font-lock variable:
+  font-lock-maximum-decoration
+
+In this lowest level, comments and dollar-sign math are fontified:
+
+% This is a comment at the beginning of a line.
+But this is a percentage: 100\% should not be fontified.   %This is a comment
+
+Dollar-sign math like $ F = ma $ and $$ F = ma $$ But don't trigger
+math-mode if it's quoted, i.e. a price tag \$45.50 and \$45 or
+trigger math-mode off if it's embedded in math: $ T = \$5.56 $
+However, a dollar sign embedded in $$ T = \$5.56 $$ is too complicated 
+to handle for little gain, so is not fontified at all.
+
+Note:  XEmacs 19.14 fails on quoted comments and dollar signs.
+       This appears to be a bug in XEmacs since it uses the same syntax-table
+       as emacs does. 
+
+Strings:
+``this is a normal quote'' and these are multilingual quoted strings: "<
+french "> and "`german"' quotes, also << french >> and 8-bit « french ».
+
+The following are in red (font-latex-warning-face) because they should
+only appear as the last edit stage of the document:
+
+  \pagebreak
+  \nopagebreak
+  \newpage
+  \clearpage
+  \cleardoublepage
+  \enlargethispage
+  \linebreak
+  \nolinebreak
+  \newline
+  \-
+  \\
+  \\*
+ and these selected AmSLaTeX commands:
+  \displaybreak
+  \allowdisplaybreaks
+
+Font Changing commands:
+
+  \bf \sc \upshape \scshape \bfseries
+  \it \em \itshape \slshape 
+  \rm \tt \sf \rmfamily \sffamily \ttfamily \mdseries 
+    
+  \tiny \scriptsize \footnotesize \small \normalsize \large \Large \LARGE
+  \huge \Huge
+
+  If they appear preceded by a bracket, then the argument is fontified:
+  Old LaTeX font commands:
+  
+  {\bf text} {\sc text}                       - text in bold
+  {\em text} {\it text} {\sl text}            - text in italc
+  {\tt text} {\sf text} {\rm text}            - text in type-face
+  
+  LaTeX2e font commands:
+  
+  {\bfseries text} {\upshape text} {\scshape text}
+  {\itshape shape} {\slshape text} 
+  {\mdseries text} {\rmfamily text} {\sffamily text} {\ttfamily text} 
+
+  \textbf{text} \textup{text} \textsc{text}
+  \textit{text} \textsl{text} \emph{text}
+  \textrm{text} \textsf{text} \texttt{text} \textmd{text} 
+  
+  and these AmSLaTeX commands:  \pmb{text} and \boldsymbol{text}
+  
+  {\it multiline patterns are handled ok, 
+     but not while typing them.} 
+  {\bf multiline patterns are handled ok, 
+     but not while typing them.}
+  
+  But the text within brackets here { \bf won't fontify} because of the space.
+  
+  Combinations are *not* always handled correctly:
+                                \textit{foo \textbf{bar}}
+                                   {\em foo \textbf{bar}}
+                                \textbf{foo    {\em bar}}
+                                \textbf{foo \textit{bar}}   
+
+ [Q] Should these be added?
+  
+  \mathrm{letters} \mathnormal{letters} \mathcal{letters} \mathbf{letters}
+  \mathsf{letters} \mathtt{letters} \mathit{letters}
+  
+\section{Decoration Level 2}
+
+Now we add LaTeX commands for...
+
+cross-referencing:
+
+  \pageref{aa} and \ref{aa} and \eqref{aa} and \index{aa} and \glossary{aa}
+  \label{key} and
+  \cite{key} and \cite[e.g.][page 30]{key} for special cite packages or
+  \anycitecommand[e.g.]{key} for user-defined stuff.
+  \footnotetext{test} 
+  \footnotemark{mark} \footnote{foo \textbf{bar} blah} %FIXME !
+
+variables definitions:
+
+  \setlength{\gnat}{1.1in} 
+  \settowidth{\gnat}{small}
+  \settowidth{\gnat}{\em small}  % FIXME: Fails because of the \em.
+
+  \addtolength{\gnat}{-.1\gnat} 
+  \setcounter{footnote}{17} \addtocounter{footnote}{-2}
+
+Functions:
+
+  \include{file} and \input{file} and \bibliography{file}.
+
+  \chapter{Title}
+  \part{1}
+  \section{1 \mbox{text} more text}
+  \subsection{1.1}
+  \subsubsection{1.1.1}
+  \paragraph{1.1.1.1}
+
+  \begin{environment} \end{environment}
+
+  \author{Peter Galbraith} 
+  \address{galbraith@mixing.qc.dfo.ca} 
+  \date{today} 
+  \title[option]{ text spanning lines 
+    but not while typing it } 
+
+  \documentstyle{article} 
+  \documentclass[12pt]{article}
+  \usepackage[french]{babel}
+  
+  \bibliographystyle{agu} \thispagestyle{empty} \pagestyle{empty}
+  \pagenumbering{roman}
+  \includeonly{file list} \nofiles{stuff}
+
+  \newenvironment{stuff} and \newcommand{stuff} and 
+  \newenvironment*{stuff} and \newcommand*{stuff} and 
+  \newlength{stuff} and \newtheorem{stuff} and \newcounter{stuff} and 
+  \renewenvironment{stuff} and \renewcommand{stuff} and 
+  \renewenvironment*{stuff} and \renewcommand*{stuff} and 
+  \renewlength{stuff} and \renewtheorem{stuff} and \renewcounter{stuff}.
+
+  \fbox{foo} \mbox{foobar} \sbox{bar} 
+  \vspace{1 in}  \hspace{2 in} 
+%FIXME These don't work with "\\>" at the end of the regexp in 
+%      font-latex-match-function:
+  \vspace*{1 in} \hspace*{3 in}
+
+  \caption{text}
+
+  \item 
+  \item[name]
+
+ [Q] But is this too much argument to fontify?  I could only fontify
+     up to a certain length.
+
+  \caption{\label{f:eg_overturn}
+ %% Comment inside.  
+  CTD profile in St.\ Lawrence estuary ({\sc sle}), showing measured
+  $\rho(z)$ (thick line, sigma density units), re-ordered profile
+  $\hat\rho(z)$ (thin line) and Thorpe fluctuation
+  $\rho'(z)=\rho(z)-\hat\rho(z)$ (shaded area).  Depths $A$ and $B$ span a
+  ``complete overturn'' (Dillon's~[1984] notation) or ``reordering region''
+  (our notation).  A second reordering region is delineated by the dashed
+  box above.}
+
+
+ [Q] Should these commands be added?  (The first is used a lot)
+ 
+  \maketitle 
+  \appendix \tableofcontents \listoffigures \listoftables 
+  \raggedright \makeindex \makeglossary
+  
+Various equation environments are fontified for math (equation and eqnarray)
+
+\begin{equation}
+ F = ma
+\end{equation}
+
+\begin{eqnarray*}\label{test}
+  F & = & ma 
+\end{eqnarray*}
+
+\begin{eqnarray}\label{test}
+  F & = & ma \\
+  F & = & ma
+\end{eqnarray}
+
+and some AmSLaTeX math environments: 
+ gather, multline, align, alignat, xalighat, xxalighat
+
+\begin{xxalignat}\label{e:ozmidov}
+  F & = & ma 
+\end{xxalignat}
+
+and in-text math like \( F = ma \) and \[ F = ma \]
+
+\[
+F = ma
+\]
+
+but don't trigger an opening math environment with \\[len]
+
+Any other LaTeX command consisting of a slash followed by alphabetic
+characters is fontified sedately: \anycommand But it has to work with
+connected commands \frenchspacing\sloppy This is nice with commands that
+should fade into the background so they aren't attracting attention away
+from the text.
+
+Special cases: \hello'hello and \@oddfoot 
+
+Note that these aren't fontified because they are not commands, but quoted
+characters:   \# \$ \% \& \~ \_ \^ \{ \}
+
+So if some usually otherwise fontfied command isn't, then you probably
+typed it in wrong...
+
+Comments within stuff:
+~~~~~~~~~~~~~~~~~~~~~~
+Comments before commands inhibit their usual fontification, as they
+get fontified as comments.  e.g. if you comment-out this whole file
+it should all be in comment-face.
+
+But comments ``within'' LaTeX commands must also be fontified as comments: 
+
+\[
+F = ma                          % Comment
+\]
+
+\caption{\label{stuff}          %Comment
+caption text.}
+
+\begin{equation}\label{string}
+%% comment
+ F = ma
+\end{equation}
+
+{\bf text                       % Unusual comment placement, but still
+     more text}
+
+\textbf{text                    % Unusual comment placement, but still
+        more text}
+
+--
+Peter Galbraith, research scientist                <galbraith@mixing.qc.dfo.ca>
+Maurice-Lamontagne Institute, Department of Fisheries and Oceans Canada
+P.O. Box 1000, Mont-Joli Qc, G5H 3Z4 Canada  -- 418-775-0852 - FAX 418-775-0546

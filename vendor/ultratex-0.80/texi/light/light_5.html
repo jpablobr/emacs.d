@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on November, 8 2010 by texi2html 1.70 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>Lightning Completion Manual: 6. Miscellany</title>
+
+<meta name="description" content="Lightning Completion Manual: 6. Miscellany">
+<meta name="keywords" content="Lightning Completion Manual: 6. Miscellany">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.70">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="NOD9"></a>
+<a name="SEC9"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="light_4.html#SEC8" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC10" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light_4.html#SEC7" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 6. Miscellany </h1>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC10">6.1 Ignoring some files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         Don't to complete on certain file names
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC11">6.2 Buffer completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           An application of lightning completion
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC12">6.3 HTML mode completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        Another example
+</td></tr>
+</table>
+
+
+
+
+<hr size="6">
+<a name="NOD10"></a>
+<a name="SEC10"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC9" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC11" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC9" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC9" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.1 Ignoring some files </h2>
+
+
+<p>If you are using this package to complete on file names, then you should
+be aware of the lisp variable <code>completion-ignored-extensions</code>.
+(Lightning completion on file names is based on a completion mode
+already present in Emacs, and this variable comes from that mode.)
+
+</p><p>Here is its documentation: &quot;Completion ignores filenames ending in
+any string in this list.  This variable does not affect lists of
+possible completions, but does affect the commands that actually do
+completions.&quot;
+
+</p><p>Lightning completion mode uses a similar variable, called
+<code>lc-ignored-file-extensions</code>, whose default value is equal to
+<code>completion-ignored-extensions</code>.
+
+</p><p>I use LaTeX, and when I start with a file `<tt>bozo.tex</tt>', then 
+LaTeX produces a number of auxiliary files: `<tt>bozo.aux</tt>',
+`<tt>bozo.dvi</tt>', `<tt>bozo.log</tt>', and possibly `<tt>bozo.bbl</tt>',
+`<tt>bozo.blg</tt>', `<tt>bozo.toc</tt>', `<tt>bozo.lof</tt>', etc.  When I am
+editing such a file, I edit the file `<tt>bozo.tex</tt>' frequently, and I
+almost never touch the others.  So I make sure that
+<code>lc-ignored-file-extensions</code> contains the strings &quot;.toc&quot;
+&quot;.log&quot; &quot;.aux&quot; &quot;.lof&quot; &quot;.blg&quot; &quot;.bbl&quot; &quot;.dvi&quot;.  The easiest way
+to do this is to customize this variable.
+
+</p><p>In case you haven't been paying attention: suppose I have added &quot;.aux&quot; to
+<code>lc-ignored-file-extensions</code>, and I want to find the file
+`<tt>bozo.aux</tt>', with lightning completion enabled.  One way to do this
+is to type `<samp>bozo.aux</samp>' quickly enough that emacs is never idle for
+half a second.  Another option is to hit <kbd>C-c</kbd> right at the start,
+to turn off lightning completion; then just type in `<samp>bozo.aux</samp>' at
+one's leisure.  Another way to do this is to use lightning completion to
+get `<samp>bozo.tex</samp>' and ending completion there (if this is the only
+file that starts `<samp>bozo</samp>' that doesn't end in an ignored extension,
+completion will end automatically at this point; otherwise, hit
+<kbd>SPC</kbd>).  Then delete `<samp>tex</samp>' and type in `<samp>aux</samp>'.  There are
+other ways of doing this, no doubt, but I'll let you figure them out.
+
+</p>
+
+
+<hr size="6">
+<a name="NOD11"></a>
+<a name="SEC11"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC10" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC12" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC9" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC9" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.2 Buffer completion </h2>
+
+
+<p>Buffer completion is an example of a use of lightning completion: it
+lets you complete on reasonably balanced substrings of a buffer.  The
+main function is
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(completing-insert-buffer-contents BUF)
+</pre></td></tr></table>
+
+<p>where <var>BUF</var> is interactively the current buffer or, with a prefix
+argument, a buffer specified by the user.
+
+</p><p>In other words, if I want to repeat something I said somewhere else in
+this buffer, I call the function
+<code>completing-insert-buffer-contents</code>.  At that point, I enter
+lightning completion mode on the contents of this buffer.  If I want to
+repeat something I said in a different buffer, I hit <kbd>C-u</kbd> and then
+call <code>completing-insert-buffer-contents</code>.  Emacs prompts me for a
+buffer name, and then does lightning completion on the contents of that
+other buffer.  This is useful if you're too lazy to switch buffers, find
+the material you want to copy, mark it, kill it, and yank it.
+
+</p><p>The `<tt>dabbrev</tt>' package (included as part of the standard GNU Emacs
+distribution) does some similar things, so you might want to look at
+that, too.  I won't advocate the use of one package over the other--I
+think each has its uses.
+
+</p>
+
+<hr size="6">
+<a name="NOD12"></a>
+<a name="SEC12"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC11" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC9" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC9" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 6.3 HTML mode completion </h2>
+
+
+<p>Here is another example of how to use lightning completion: you can
+automatically complete on HTML tags when in html mode.  I have the
+following lines in my `<tt>.emacs</tt>' file.  The first line binds the <kbd>&lt;</kbd>
+key to the function <code>html-lightning-tag</code> (you could use a different
+key, if you wanted, but since HTML tags all start with this character,
+it seems to make sense).  The next lines define this function--it does
+lightning completion on HTML tags.  And the remaining lines (starting
+with `<samp>(defvar html-light-alist</samp>') define the list of HTML tags on
+which to complete.  A typical line is `<samp>(&quot;&lt;h3&gt;&lt;/h3&gt;&quot; -5)</samp>'; the first
+entry is the tag, and the second entry is the number of characters from
+the end by which the point should be offset (i.e., Emacs inserts the
+string `<samp>&quot;&lt;h3&gt;&lt;/h3&gt;&quot;</samp>' and then moves forward -5 characters).  (This
+whole business is intended to be used with the version of
+<code>html-mode</code> that is contained in the file `<tt>sgml-mode.el</tt>', part
+of (for example) the standard GNU Emacs distribution.
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(define-key html-mode-map &quot;&lt;&quot; 'html-lightning-tag)
+
+(defun html-lightning-tag nil
+  &quot;Lightning complete control sequence.&quot;
+  (interactive)
+  (insert &quot;&lt;&quot;)
+  (completing-insert html-light-alist nil 1 'point-adjust-hook
+		     &quot;html tags&quot;))
+
+(defvar html-light-alist
+  '(
+    (&quot;&lt;a href=\&quot;\&quot;&gt;&lt;/a&gt;&quot; -6)
+    (&quot;&lt;h1&gt;&lt;/h1&gt;&quot; -5)
+    (&quot;&lt;h2&gt;&lt;/h2&gt;&quot; -5)
+    (&quot;&lt;h3&gt;&lt;/h3&gt;&quot; -5)
+    (&quot;&lt;h4&gt;&lt;/h4&gt;&quot; -5)
+    (&quot;&lt;h-5&gt;&lt;/h-5&gt;&quot; -5)
+    (&quot;&lt;h6&gt;&lt;/h6&gt;&quot; -5)
+    (&quot;&lt;hr&gt;
+
+&quot; 0)
+    (&quot;&lt;!--   --&gt;&quot; -5)    
+    (&quot;&lt;img src=\&quot;\&quot; alt=\&quot;\&quot;&gt;&quot; -9)
+    (&quot;&lt;ol&gt;
+&lt;li&gt; 
+&lt;/ol&gt;&quot; -6)
+    (&quot;&lt;ul&gt;
+&lt;li&gt; 
+&lt;/ul&gt;&quot; -6)
+    (&quot;&lt;li&gt; &quot; 0)
+    (&quot;&lt;dl&gt;
+&lt;dt&gt; 
+&lt;dd&gt; 
+&lt;/dl&gt;&quot; -12)
+    (&quot;&lt;dt&gt; 
+&lt;dd&gt; &quot; -6)
+    (&quot;&lt;p&gt;
+&quot; 0)
+    (&quot;&lt;table&gt;
+&lt;tr&gt;
+&lt;th&gt; &lt;/th&gt;
+&lt;/tr&gt;
+&lt;/table&gt;&quot; -20)
+    (&quot;&lt;th&gt; &lt;/th&gt;&quot; -5)
+    (&quot;&lt;tr&gt;
+&lt;td&gt; &lt;/td&gt;
+&lt;/tr&gt;&quot; -11)
+    (&quot;&lt;td&gt; &lt;/td&gt;&quot; -5)
+    (&quot;&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt; &lt;/title&gt;
+&lt;/head&gt;
+&lt;body lang=\&quot;EN\&quot;&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;&quot; -32)
+    (&quot;&lt;address&gt;John H. Palmieri, Department of Mathematics, University
+of Washington, palmieri@math.washington.edu&lt;/address&gt;
+&quot; 0)
+    (&quot;&lt;address&gt;&lt;/address&gt;
+&quot; -11)
+    (&quot;&lt;cite&gt;&lt;/cite&gt;&quot; -7)
+    (&quot;&lt;kbd&gt;&lt;/kbd&gt;&quot; -6)
+    (&quot;&lt;dfn&gt;&lt;/dfn&gt;&quot; -6)
+    (&quot;&lt;em&gt;&lt;/em&gt;&quot; -5)
+    (&quot;&lt;samp&gt;&lt;/samp&gt;&quot; -7)
+    (&quot;&lt;small&gt;&lt;/small&gt;&quot; -8)
+    (&quot;&lt;strong&gt;&lt;/strong&gt;&quot; -9)
+    (&quot;&lt;sub&gt;&lt;/sub&gt;&quot; -6)
+    (&quot;&lt;sup&gt;&lt;/sup&gt;&quot; -6)
+    (&quot;&lt;tt&gt;&lt;/tt&gt;&quot; -5)
+    (&quot;&lt;var&gt;&lt;/var&gt;&quot; -6)
+    (&quot;&lt;code&gt;&lt;/code&gt;&quot; -7)
+    (&quot;&lt;blockquote&gt;
+
+&lt;/blockquote&gt;
+&quot; -15)
+    (&quot;&lt;math&gt;
+
+&lt;/math&gt;
+&quot; -9)
+    (&quot;&lt;pre&gt;
+
+&lt;/pre&gt;
+&quot; -8)
+    (&quot;&lt;br&gt;
+
+&quot; 0))
+  &quot;Alist of html tags for use with lightning completion&quot;)
+</pre></td></tr></table>
+
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC9" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>John Palmieri</em> on <em>November, 8 2010</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.70</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

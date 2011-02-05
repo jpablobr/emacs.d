@@ -370,4 +370,10 @@ LIST defaults to all existing live buffers."
       (setq edit-server-new-frame nil)
       (edit-server-start)))
 
+(setq load-path (cons "~/.emacs.d/vendor/ultratex-0.80/lisp"
+                      load-path))
+
+(require 'light)
+(require 'ultex-setup)
+
 (provide 'jp-misc)
