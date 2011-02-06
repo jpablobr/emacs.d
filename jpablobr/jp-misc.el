@@ -376,4 +376,7 @@ LIST defaults to all existing live buffers."
 (require 'light)
 (require 'ultex-setup)
 
+(add-to-list 'load-path "~/.emacs.d/vendor/yac-mode")
+(require 'yac)
+
 (provide 'jp-misc)
