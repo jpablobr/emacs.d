@@ -186,5 +186,6 @@
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key (kbd "M-c") 'find-grep)
+(global-set-key (kbd "C-x t") 'template-expand-template)
 
 (provide 'jp-keyboard)
