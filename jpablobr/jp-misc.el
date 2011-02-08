@@ -379,4 +379,5 @@ LIST defaults to all existing live buffers."
 (add-to-list 'load-path "~/.emacs.d/vendor/yac-mode")
 (require 'yac)
 
+(require 'less)
 (provide 'jp-misc)
