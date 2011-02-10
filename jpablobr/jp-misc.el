@@ -287,8 +287,9 @@ LIST defaults to all existing live buffers."
 ;;; - Global custom variables
 ;;;
 (custom-set-variables
- '(user-full-name "Jose Pablo Barrantes")
- '(user-mail-address "xjpablobrx@gmail.com")
+ '(user-full-name '"Jose Pablo Barrantes")
+ '(user-mail-address '"xjpablobrx@gmail.com")
+ '(user-details '"Jose Pablo Barrantes http://jpablobr.com")
  '(user-login-name "jpablobr")
  '(github-user "jpablobr")
  '(w3m-arrived-file "~/Dropbox/private-dotfiles/w3m/.arrived")
