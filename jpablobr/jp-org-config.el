@@ -195,4 +195,67 @@ do this for the whole buffer."
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
+;;; ----------------------------------------------------------------------------
+;;; - Project Exporting
+;;; -
+;;;
+; experimenting with docbook exports - not finished
+(setq org-export-docbook-xsl-fo-proc-command "fop %s %s")
+(setq org-export-docbook-xslt-proc-command "xsltproc --output %s /usr/share/xml/docbook/stylesheet/nwalsh/fo/docbook.xsl %s")
+;
+; Inline images in HTML instead of producting links to the image
+(setq org-export-html-inline-images t)
+; Do not use sub or superscripts - I currently don't need this functionality in my documents
+(setq org-export-with-sub-superscripts nil)
+; Use org.css from the norang website for export document stylesheets
+(setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"http://doc.norang.ca/org.css\" type=\"text/css\" />")
+(setq org-export-html-style-include-default nil)
+; Do not generate internal css formatting for HTML exports
+(setq org-export-htmlize-output-type (quote css))
+; Export with LaTeX fragments
+(setq org-export-with-LaTeX-fragments t)
+
+; List of projects
+; org          - miscellaneous todo lists for publishing
+(setq org-publish-project-alist
+      ;
+      ; http://org-mode-stuff/  (org-mode-stuff website)
+      ; org-mode-stuff this document
+      ; org-mode-doc-extra are images and css files that need to be included
+      ; org-mode-doc is the top-level project that gets published
+      ; This uses the same target directory as the 'doc' project
+      (quote (("org-mode-stuff"
+               :base-directory "~/Dropbox/org-mode/"
+               :publishing-directory "~/code/org-html"
+               :recursive t
+               :section-numbers nil
+               :table-of-contents nil
+               :base-extension "org"
+               :publishing-function (org-publish-org-to-html org-publish-org-to-org)
+               :plain-source t
+               :htmlized-source t
+               :style-include-default nil
+               :style "<link rel=\"stylesheet\" href=\"/org.css\" type=\"text/css\" />"
+               :author-info nil
+               :creator-info nil)
+              ;; ("org-mode-doc-extra"
+              ;;  :base-directory "~/dir/"
+              ;;  :publishing-directory "/ssh:www-data@www:~/htdocs"
+              ;;  :base-extension "css\\|pdf\\|png\\|jpg\\|gif"
+              ;;  :publishing-function org-publish-attachment
+              ;;  :recursive t
+              ;;  :author nil)
+              ;; ("org-mode-doc"
+              ;;  :components ("org-mode-suff" "org-mode-doc-extra"))
+              )))
+
+;; C-S-F12 so I just edit and hit C-S-F12 when I'm done and move on to the next thing.
+(defun bh/save-then-publish ()
+  (interactive)
+  (save-buffer)
+  (org-save-all-org-buffers)
+  (org-publish-current-project))
+
+(global-set-key (kbd "C-s-<f12>") 'bh/save-then-publish)
+
 (provide 'jp-org-config)
