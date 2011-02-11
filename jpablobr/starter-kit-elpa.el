@@ -4,17 +4,24 @@
 
 (require 'cl)
 
-(defvar starter-kit-packages (list 'idle-highlight
+(defvar starter-kit-packages (list ;;'hightlight-80+
+                                   ;;'hightlight-parentheses
+                                   ;;'hightlight-symbol
+                                   ;;'hightline
+                                   ;;'org
+                                   ;;'rinari
+                                   ;;'test-unit
+                                   ;;'gdb-shell
+                                   ;;'gdb-mi
                                    'ruby-mode
+			           'idle-highlight
                                    'inf-ruby
-                                   'org
                                    'auctex
                                    'diff-git
                                    'js2-mode
                                    'json
                                    'ruby-compilation
                                    'ruby-test-mode
-                                   ;'test-unit
                                    'zenburn
                                    'project-local-variables
                                    'textmate
@@ -22,18 +29,11 @@
                                    'yari
                                    'clojure-mode
                                    'clojure-test-mode
-                                   ;;'rinari
                                    'ruby-electric
                                    'rspec-mode
                                    'rainbow-mode
                                    'less
                                    'jump
-                                   ;;'hightlight-80+
-                                   ;;'hightlight-parentheses
-                                   ;;'hightlight-symbol
-                                   ;;'hightline
-                                   ;;'gdb-mi
-                                   'gdb-shell
                                    'dired-isearch
                                    'c-eldoc
                                    'color-theme

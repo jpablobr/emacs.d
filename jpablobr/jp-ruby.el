@@ -24,6 +24,8 @@
 ;; (add-to-list 'load-path "~/.emacs.d/vendor/icicles")
 ;; (load "~/.emacs.d/vendor/autotest/unit-test.el")
 
+(require 'rdebug)
+
 (eval-after-load 'ruby-mode
   '(progn
      (require 'jp-ruby-helpers)

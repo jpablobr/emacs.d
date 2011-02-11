@@ -1,5 +1,5 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;; ---------------------------------------------------------
+;;jp-eshell.el ---------------------------------------------------------
 ;;; - Making the defaults a bit saner
 ;;;
 
@@ -27,6 +27,7 @@
                          "/home/jpablobr/.rvm/bin:"
                          "/usr/bin:"
                          "/bin:"
+                         "/home/jpablobr/.rvm/gems/ruby-1.9.2-p136/bin:"
                          "/home/jpablobr/.rvm/gems/ruby-1.9.2-p136@global/bin:"
                          gem-bin-path))
       (setenv "PATH" path))))
