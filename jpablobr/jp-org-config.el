@@ -1,47 +1,28 @@
 ;;; -*- coding: utf-8-unix; -*-
 ;;jp-org-config.el ---------------------------------------------------------
-;;; - ORG mode
-;;;
-;; (setq load-path (cons "~/.emacs.d/vendor/org/lisp" load-path))
-;; (setq load-path (cons "~/.emacs.d/vendor/org/contrib/lisp" load-path))
-;; (add-to-list 'load-path (cons "~/.emacs.d/vendor/org/contrib/lisp" load-path))
-
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/org/lisp"))
-;; (add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/org/contrib/lisp"))
-;; (require 'org)(require 'org-exp)(require 'ob)(require 'ob-tangle)
 
 (require 'org-install)
-;; (require 'org-babel-init)
-;; (require 'org-babel-R)
-;; (require 'org-babel-ruby)
-;; (org-babel-load-library-of-babel)
-;; (require 'org-latex)
-;; (require 'ob-tangle)
-
-;; (add-to-list 'load-path (concat vendor-dir "/auctex"))
-;; (load "auctex.el" nil t t)
-;; (load "preview-latex.el" nil t t)
 
 (defun yas/org-very-safe-expand ()
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key "\M-\C-n" 'outline-next-visible-heading)
-            (local-set-key "\M-\C-p" 'outline-previous-visible-heading)
-            (local-set-key "\M-\C-u" 'outline-up-heading)
-            ;; table
-            (local-set-key "\M-\C-w" 'org-table-copy-region)
-            (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
-            (local-set-key "\M-\C-l" 'org-table-sort-lines)
-            ;; display images
-            (local-set-key "\M-I" 'org-toggle-iimage-in-org)
-            ;; yasnippet (using the new org-cycle hooks)
-            ;; (make-variable-buffer-local 'yas/trigger-key)
-            ;; (setq yas/trigger-key [tab])
-            ;; (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-            ;; (define-key yas/keymap [tab] 'yas/next-field)
-            ))
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (local-set-key "\M-\C-n" 'outline-next-visible-heading)
+              (local-set-key "\M-\C-p" 'outline-previous-visible-heading)
+              (local-set-key "\M-\C-u" 'outline-up-heading)
+              ;; table
+              (local-set-key "\M-\C-w" 'org-table-copy-region)
+              (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
+              (local-set-key "\M-\C-l" 'org-table-sort-lines)
+              ;; display images
+              (local-set-key "\M-I" 'org-toggle-iimage-in-org)
+              ;; yasnippet (using the new org-cycle hooks)
+              (make-variable-buffer-local 'yas/trigger-key)
+              (setq yas/trigger-key [tab])
+              (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+              (define-key yas/keymap [tab] 'yas/next-field)
+              ))
 
 (setq org-use-speed-commands t)
 
@@ -197,7 +178,6 @@ do this for the whole buffer."
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Project Exporting
-;;; -
 ;;;
 ; experimenting with docbook exports - not finished
 (setq org-export-docbook-xsl-fo-proc-command "fop %s %s")
@@ -208,7 +188,7 @@ do this for the whole buffer."
 ; Do not use sub or superscripts - I currently don't need this functionality in my documents
 (setq org-export-with-sub-superscripts nil)
 ; Use org.css from the norang website for export document stylesheets
-(setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"http://doc.norang.ca/org.css\" type=\"text/css\" />")
+(setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"/org.css\" type=\"text/css\" />")
 (setq org-export-html-style-include-default nil)
 ; Do not generate internal css formatting for HTML exports
 (setq org-export-htmlize-output-type (quote css))
@@ -216,7 +196,7 @@ do this for the whole buffer."
 (setq org-export-with-LaTeX-fragments t)
 
 ; List of projects
-; org          - miscellaneous todo lists for publishing
+; org - miscellaneous todo lists for publishing
 (setq org-publish-project-alist
       ;
       ; http://org-mode-stuff/  (org-mode-stuff website)
