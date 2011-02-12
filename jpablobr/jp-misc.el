@@ -135,13 +135,18 @@
 (setq column-number-mode t)
 
 ;;; ---------------------------------------------------------
-;;; - insert date into buffer at point
-;;; - optained from http://www.chrislott.org/geek/emacs/dotemacs.html
+;;; - insert helper for the lazy.
 ;;;
 (defun insert-date ()
   "Insert date at point."
   (interactive)
   (insert (format-time-string "%a %Y-%m-%d - %l:%M %p")))
+
+(defun insert-name ()
+  "Insert name at point."
+  (interactive)
+  (insert user-full-name))
+
 
 ;;; ---------------------------------------------------------
 ;;; - Kills live buffers, leaves some emacs work buffers
@@ -287,9 +292,9 @@ LIST defaults to all existing live buffers."
 ;;; - Global custom variables
 ;;;
 (custom-set-variables
- '(user-full-name '"Jose Pablo Barrantes")
+ '(user-full-name '"José Pablo Barrantes R.")
  '(user-mail-address '"xjpablobrx@gmail.com")
- '(user-details '"Jose Pablo Barrantes http://jpablobr.com")
+ '(user-details '"José Pablo Barrantes R. http://jpablobr.com")
  '(user-login-name "jpablobr")
  '(github-user "jpablobr")
  '(w3m-arrived-file "~/Dropbox/private-dotfiles/w3m/.arrived")
