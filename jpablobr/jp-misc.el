@@ -382,16 +382,15 @@ LIST defaults to all existing live buffers."
 ;;; ----------------------------------------------------------------------------
 ;;; - header2
 ;;;
-;; (add-hook 'write-file-hooks 'auto-update-file-header)
-
-;; (add-hook 'emacs-lisp-mode-hook 'auto-make-header)
+(require 'header2)
+(add-hook 'write-file-hooks 'auto-update-file-header)
+(add-hook 'emacs-lisp-mode-hook 'auto-make-header)
 ;; (add-hook 'c-mode-common-hook   'auto-make-header)
-;; (add-hook 'ruby-mode-common-hook   'auto-make-header)
+(add-hook 'ruby-mode-common-hook   'auto-make-header)
 ;; (add-hook 'perl-mode-common-hook   'auto-make-header)
 ;; (add-hook 'sh-mode-common-hook   'auto-make-header)
 
-(require 'cua-mode)
-(CUA-mode 'emacs)
+;; (cua-mode t)
 (setq CUA-mode-normal-cursor-color "red")
 (setq CUA-mode-overwrite-cursor-color "yellow")
 (setq CUA-mode-read-only-cursor-color "green")
