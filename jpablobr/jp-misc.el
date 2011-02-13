@@ -379,13 +379,17 @@ LIST defaults to all existing live buffers."
           "culpa qui officia deserunt mollit anim id est laborum."))
 
 
-;;; Startup code
-(when (file-exists-p "~/org/notes")
-  (find-file "~/org/notes")
-  (setq default-directory "~/")
-  (require 'calendar)
-  (when (require 'org nil t)
-    (call-interactively 'org-agenda-list)))
+;;; ----------------------------------------------------------------------------
+;;; - header2
+;;;
+(add-hook 'write-file-hooks 'auto-update-file-header)
+
+(add-hook 'emacs-lisp-mode-hook 'auto-make-header)
+(add-hook 'c-mode-common-hook   'auto-make-header)
+(add-hook 'ruby-mode-common-hook   'auto-make-header)
+(add-hook 'perl-mode-common-hook   'auto-make-header)
+(add-hook 'sh-mode-common-hook   'auto-make-header)
+
 
 (require 'light)
 (require 'ultex-setup)

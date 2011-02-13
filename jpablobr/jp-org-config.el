@@ -3,6 +3,14 @@
 
 (require 'org-install)
 
+;;; Startup
+(when (file-exists-p "~/org/notes")
+  (find-file "~/org/notes")
+  (setq default-directory "~/")
+  (require 'calendar)
+  (when (require 'org nil t)
+    (call-interactively 'org-agenda-list)))
+
 (defun yas/org-very-safe-expand ()
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
