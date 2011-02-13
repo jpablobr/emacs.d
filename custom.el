@@ -43,16 +43,18 @@
  '(scroll-preserve-screen-position t)
  '(semantic-idle-scheduler-idle-time 3)
  '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
- '(user-details (quote "Jose Pablo Barrantes http://jpablobr.com"))
- '(user-full-name "Jose Pablo Barrantes")
+ '(template-update-buffer-alist (quote ((t "Update header in %s? " (template-update-header t) (file-name-sans-versions (file-name-nondirectory buffer-file-name))) ((html-mode) "Update date inside <address> in %s? " (-2000 "\\([0-9]+[ 	]+[A-Za-z][A-Za-z][A-Za-z][ 	]+[0-9]+\\)[ 	
+]*</address>" 1) (format-time-string "%d %b %Y")))))
+ '(user-details (quote "José Pablo Barrantes R. http://jpablobr.com"))
+ '(user-full-name (quote "José Pablo Barrantes R."))
  '(user-login-name "jpablobr" t)
- '(user-mail-address "xjpablobrx@gmail.com")
- '(w3m-arrived-file "~/Dropbox/.w3m/.arrived")
- '(w3m-bookmark-file "~/Dropbox/.w3m/bookmark.html")
- '(w3m-default-save-directory "~/Dropbox/.w3m")
- '(w3m-form-textarea-directory "~/Dropbox/.w3m/.textarea")
- '(w3m-profile-directory "~/Dropbox/.w3m")
- '(w3m-session-file "~/Dropbox/.w3m/.sessions"))
+ '(user-mail-address (quote "xjpablobrx@gmail.com"))
+ '(w3m-arrived-file "~/Dropbox/private-dotfiles/w3m/.arrived")
+ '(w3m-bookmark-file "~/Dropbox/private-dotfiles/w3m/bookmark.html")
+ '(w3m-default-save-directory "~/Dropbox/private-dotfiles/w3m")
+ '(w3m-form-textarea-directory "~/Dropbox/private-dotfiles/w3m/.textarea")
+ '(w3m-profile-directory "~/Dropbox/private-dotfiles/w3m")
+ '(w3m-session-file "~/Dropbox/private-dotfiles/w3m/.sessions"))
 
 
 ;;; ----------------------------------------------------------------------------

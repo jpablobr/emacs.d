@@ -107,3 +107,4 @@
 ;;;
 (put 'downcase-region 'disabled nil)
 ;; (setq initial-major-mode 'butterfly)
+(put 'narrow-to-region 'disabled nil)

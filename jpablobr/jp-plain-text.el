@@ -23,6 +23,14 @@
     (goto-char (point-min))
     (while (search-forward " " nil t) (replace-match "_")) ) )
 
+(defun space2dash-region (start end)
+  "Replace space by dash in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward " " nil t) (replace-match "-")) ) )
+
 (defun underscore2space-region (start end)
   "Replace underscore by space in region."
   (interactive "r")
@@ -30,6 +38,34 @@
     (narrow-to-region start end)
     (goto-char (point-min))
     (while (search-forward "_" nil t) (replace-match " ")) ))
+
+(defun dash2space-region (start end)
+  "Replace dash by space in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward "-" nil t) (replace-match " ")) ))
+
+(defun underscore2dash-region (start end)
+  "Replace dash by space in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward "_" nil t) (replace-match "-")) ))
+
+(defun dash2underscore-region (start end)
+  "Replace dash by space in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward "-" nil t) (replace-match "_")) ))
+
+(global-set-key (kbd "H-s") (lambda () (interactive) (insert "[]") (backward-char 1)))
+(global-set-key (kbd "H-d") (lambda () (interactive) (insert "()") (backward-char 1)))
+(global-set-key (kbd "H-f") (lambda () (interactive) (insert "{}") (backward-char 1)))
 
 ;; (defvar count-words-buffer
 ;;   nil

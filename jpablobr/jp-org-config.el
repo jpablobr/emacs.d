@@ -8,7 +8,7 @@
 
   (add-hook 'org-mode-hook
             (lambda ()
-              (local-set-key "\M-\C-n" 'outline-next-visible-heading)
+n              (local-set-key "\M-\C-n" 'outline-next-visible-heading)
               (local-set-key "\M-\C-p" 'outline-previous-visible-heading)
               (local-set-key "\M-\C-u" 'outline-up-heading)
               ;; table
@@ -175,6 +175,9 @@ do this for the whole buffer."
                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
                ("\\paragraph{%s}" . "\\paragraph*{%s}")
                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+(add-to-list 'org-export-latex-packages-alist '("" "listings"))
+(add-to-list 'org-export-latex-packages-alist '("" "color"))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Project Exporting

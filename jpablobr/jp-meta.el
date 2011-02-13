@@ -1,5 +1,5 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;; ---------------------------------------------------------
+;;jp-meta.el ---------------------------------------------------------
 ;;; - Meta
 ;;;
 
@@ -36,7 +36,9 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - White spaces
 ;;;
-;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;; Always update time stamps on writing
+(add-hook 'before-save-hook 'time-stamp)
 (setq default-tab-width 4)
 (setq tab-width 4)
 
@@ -64,7 +66,15 @@
   (recenter 3))
 (global-set-key [(control shift l)] 'recenter-to-top)
 
-(prefer-coding-system 'utf-8)
+;; we speak utf-8 here
+(prefer-coding-system 'latin-1)
+(if (not (assoc "UTF-8" language-info-alist))
+    (set-language-environment "latin-1")
+  (set-language-environment "utf-8")
+  (set-keyboard-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8)
+  (prefer-coding-system 'utf-8))
+
 
 (server-start)
 

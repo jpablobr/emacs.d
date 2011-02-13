@@ -1,5 +1,5 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;; ---------------------------------------------------------
+;;jp-defuns.el ---------------------------------------------------------
 ;;; - Define some custom functions
 ;;;
 (require 'thingatpt)
@@ -60,15 +60,15 @@
                              (cond
                               ((and (listp symbol) (imenu--subalist-p symbol))
                                (addsymbols symbol))
-                              
+
                               ((listp symbol)
                                (setq name (car symbol))
                                (setq position (cdr symbol)))
-                              
+
                               ((stringp symbol)
                                (setq name symbol)
                                (setq position (get-text-property 1 'org-imenu-marker symbol))))
-                             
+
                              (unless (or (null position) (null name))
                                (add-to-list 'symbol-names name)
                                (add-to-list 'name-and-pos (cons name position))))))))
@@ -122,9 +122,7 @@
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
 
-;;; ----------------------------------------------------------------------------
-;;; - Other
-;;;
+
 (defun eval-and-replace ()
   "Replace the preceding sexp with its value."
   (interactive)
@@ -185,5 +183,65 @@
       (count-matches "\\sw+"))))
 
 (defalias 'word-count 'count-words)
+
+(transient-mark-mode 1) ; turn text selection highlighting on
+(delete-selection-mode 1) ; turn on behavior that delete or type-over selected text
+
+(defun delete-current-file ()
+  "Delete the file associated with the current buffer.
+Delete the current buffer too."
+  (interactive)
+  (let (currentFile)
+    (setq currentFile (buffer-file-name))
+    (when (yes-or-no-p (concat "Delete file: " currentFile))
+      (kill-buffer (current-buffer))
+      (delete-file currentFile)
+      (message (concat "Deleted file: " currentFile)) ) ) )
+
+(defun open-in-desktop ()
+  "Open the current file in desktop.
+Works in Microsoft Windows and Mac OS X."
+  (interactive)
+  (cond
+   ((string-equal system-type "windows-nt")
+    (w32-shell-execute "explore"
+                       (replace-regexp-in-string "/" "\\" default-directory t t)))
+   ((string-equal system-type "gnu/linux") (shell-command "gnome-open ."))
+   ))
+
+;;; ---------------------------------------------------------
+;;; - Browser
+;;;
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "google-chrome")
+
+(defun google (what)
+  "Use google to search for WHAT."
+  (interactive "sSearch: ")
+  (w3m-browse-url (concat "http://www.google.de/search?q="
+                          (w3m-url-encode-string what))))
+
+(defun google-file (file)
+  "Use google to search for a file named FILE."
+  (interactive "sSearch for file: ")
+  (w3m-browse-url
+   (concat "http://www.google.de/search?q="
+           (w3m-url-encode-string
+            (concat "+intitle:\"index+of\" -inurl:htm -inurl:html -inurl:php "
+                    file)))))
+
+(defun google-search ()
+  "Google search on the current region.\n"
+  (interactive)
+  (let (myword myurl)
+    (setq myword
+          (if (and transient-mark-mode mark-active)
+              (buffer-substring-no-properties (region-beginning) (region-end))
+            (thing-at-point 'symbol)))
+
+    (setq myword (replace-regexp-in-string " " "%20" myword))
+    (setq myurl (concat "http://www.google.com/search?q=" myword))
+    (browse-url myurl)
+    ))
 
 (provide 'jp-defuns)

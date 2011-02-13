@@ -25,18 +25,6 @@
       oddmuse-directory (concat dotfiles-dir "oddmuse")
       save-place-file (concat dotfiles-dir "places"))
 
-;;; ---------------------------------------------------------
-;;; - Browser
-;;;
-(setq browse-url-browser-function 'browse-url-firefox)
-;; (setq browse-url-browser-function 'browse-default-macosx-browser)
-;; (setq browse-url-browser-function 'browse-default-windows-browser)
-;; (setq browse-url-browser-function 'browse-default-kde)
-;; (setq browse-url-browser-function 'browse-default-epiphany)
-;; (setq browse-url-browser-function 'browse-url-generic
-;;       browse-url-generic-program "~/src/conkeror/conkeror")
-;; (setq browse-url-browser-function 'browse-default-w3m)
-
 ;;; ----------------------------------------------------------------------------
 ;;; - Git Blame
 (autoload 'git-blame-mode "git-blame"
@@ -378,6 +366,26 @@ LIST defaults to all existing live buffers."
 
 (setq load-path (cons "~/.emacs.d/vendor/ultratex-0.80/lisp"
                       load-path))
+
+(defun lorem ()
+  "Insert a lorem ipsum."
+  (interactive)
+  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
+          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad "
+          "minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+          "culpa qui officia deserunt mollit anim id est laborum."))
+
+
+;;; Startup code
+(when (file-exists-p "~/org/notes")
+  (find-file "~/org/notes")
+  (setq default-directory "~/")
+  (require 'calendar)
+  (when (require 'org nil t)
+    (call-interactively 'org-agenda-list)))
 
 (require 'light)
 (require 'ultex-setup)
