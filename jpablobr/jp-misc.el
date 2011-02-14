@@ -135,6 +135,10 @@
   (interactive)
   (insert user-full-name))
 
+(defun insert-email ()
+  "Insert user email at point."
+  (interactive)
+  (insert user-mail-address))
 
 ;;; ---------------------------------------------------------
 ;;; - Kills live buffers, leaves some emacs work buffers
@@ -402,6 +406,14 @@ LIST defaults to all existing live buffers."
 
 (add-to-list 'load-path "~/.emacs.d/vendor/yac-mode")
 (require 'yac)
+
+;;; Startup
+(when (file-exists-p "~/org")
+  (find-file "~/org")
+  (setq default-directory "~/")
+  (require 'calendar)
+  (when (require 'org nil t)
+    (call-interactively 'org-agenda-list)))
 
 (require 'less)
 (provide 'jp-misc)

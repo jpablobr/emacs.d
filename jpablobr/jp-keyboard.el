@@ -171,9 +171,6 @@
 (global-set-key [f1] 'man-follow)
 (global-set-key [f4] 'speedbar-get-focus)
 (global-set-key [f6] 'buffer-menu)
-;; (global-set-key [C-tab] 'bs-cycle-next)
-;; (global-set-key [S-tab] 'bs-cycle-previous)
-;;; Bind scrolling functions from pager library.
 (global-set-key [next] 'pager-page-down)
 (global-set-key [prior] 'pager-page-up)
 (global-set-key "\C-cs" 'dictionary-search)
@@ -187,5 +184,9 @@
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key (kbd "M-c") 'find-grep)
 (global-set-key (kbd "C-x t") 'template-expand-template)
+(global-unset-key "\C-l")
+(global-set-key (kbd "C-l e") 'insert-email)
+(global-set-key (kbd "C-l n") 'insert-name)
+(global-set-key (kbd "C-l d") 'insert-date)
 
 (provide 'jp-keyboard)

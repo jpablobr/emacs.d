@@ -35,6 +35,7 @@
  '(jde-sourcepath (quote (".")))
  '(jde-which-method-class-min-length 0)
  '(jde-which-method-max-length 30)
+ '(org-agenda-files (quote ("~/ict-governace/weekly-research/summarising-the-objectives-and-key-elements-of-service-design-as-described-in-itl-v3/summarising-the-objectives-and-key-elements-of-service-design-as-described-in-itl-v3.org" "~/Dropbox/org-mode/work.org" "~/Dropbox/org-mode/school.org" "~/Dropbox/org-mode/jpablobr.org")))
  '(quack-default-program "mit-scheme")
  '(rails-api-root "~/.emacs.d/vendor/api.rubyonrails.org")
  '(rails-ask-when-reload-tags t)
@@ -43,7 +44,7 @@
  '(scroll-preserve-screen-position t)
  '(semantic-idle-scheduler-idle-time 3)
  '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
- '(template-update-buffer-alist (quote ((t "Update header in %s? " (template-update-header t) (file-name-sans-versions (file-name-nondirectory buffer-file-name))) ((html-mode) "Update date inside <address> in %s? " (-2000 "\\([0-9]+[ 	]+[A-Za-z][A-Za-z][A-Za-z][ 	]+[0-9]+\\)[ 	
+ '(template-update-buffer-alist (quote ((t "Update header in %s? " (template-update-header t) (file-name-sans-versions (file-name-nondirectory buffer-file-name))) ((html-mode) "Update date inside <address> in %s? " (-2000 "\\([0-9]+[ 	]+[A-Za-z][A-Za-z][A-Za-z][ 	]+[0-9]+\\)[
 ]*</address>" 1) (format-time-string "%d %b %Y")))))
  '(user-details (quote "José Pablo Barrantes R. http://jpablobr.com"))
  '(user-full-name (quote "José Pablo Barrantes R."))
@@ -80,20 +81,20 @@
 ;;  '(erc-modules (quote (autojoin button completion fill irccontrols match menu netsplit noncommands readonly ring scrolltobottom stamp track)))
 ;;  '(quack-default-program "mit-scheme")
 ;;  '(jde-bug-debugger-host-address "127.0.0.1")
-;;  '(jde-compile-option-debug (quote ("all" (t nil nil)))) 
+;;  '(jde-compile-option-debug (quote ("all" (t nil nil))))
 ;;  '(jde-debugger (quote ("jdb")))
 ;;  '(jde-sourcepath (quote (".")))
 ;;  '(jde-jdk-doc-url "http://download.oracle.com/javase/1.5.0/docs/api/index.html")
 ;;  (if (eq system-type 'windows-nt)
 ;;     (progn
-;;       '(jde-jdk (quote "C:\j2sdk1.6.0_16")) 
+;;       '(jde-jdk (quote "C:\j2sdk1.6.0_16"))
 ;;       '(jde-jdk-registry (quote (("1.6" . "C:\j2sdk1.6.0_16"))))
-;;       '(jde-bug-jre-home "C:\j2sdk1.6.0_16") 
+;;       '(jde-bug-jre-home "C:\j2sdk1.6.0_16")
 ;;       '(jde-global-classpath (quote ("." "C:\j2sdk1.6.0_16"))))
 ;;   (progn
-;;     '(jde-jdk (quote "/usr/lib/jvm/java-6-sun")) 
+;;     '(jde-jdk (quote "/usr/lib/jvm/java-6-sun"))
 ;;     '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun"))))
-;;     '(jde-bug-jre-home  "/usr/lib/jvm/java-6-sun") 
+;;     '(jde-bug-jre-home  "/usr/lib/jvm/java-6-sun")
 ;;     '(jde-global-classpath (quote ("." "/usr/share/java/" "/usr/lib/jvm/java-6-sun")))
 ;;     '(jde-regexp-jar-file "/usr/share/java/regexp.jar"))))
 (custom-set-faces

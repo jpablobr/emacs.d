@@ -3,34 +3,26 @@
 
 (require 'org-install)
 
-;;; Startup
-(when (file-exists-p "~/org/notes")
-  (find-file "~/org/notes")
-  (setq default-directory "~/")
-  (require 'calendar)
-  (when (require 'org nil t)
-    (call-interactively 'org-agenda-list)))
-
 (defun yas/org-very-safe-expand ()
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
-  (add-hook 'org-mode-hook
-            (lambda ()
-n              (local-set-key "\M-\C-n" 'outline-next-visible-heading)
-              (local-set-key "\M-\C-p" 'outline-previous-visible-heading)
-              (local-set-key "\M-\C-u" 'outline-up-heading)
-              ;; table
-              (local-set-key "\M-\C-w" 'org-table-copy-region)
-              (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
-              (local-set-key "\M-\C-l" 'org-table-sort-lines)
-              ;; display images
-              (local-set-key "\M-I" 'org-toggle-iimage-in-org)
-              ;; yasnippet (using the new org-cycle hooks)
-              ;; (make-variable-buffer-local 'yas/trigger-key)
-              ;; (setq yas/trigger-key [tab])
-              ;; (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
-              ;; (define-key yas/keymap [tab] 'yas/next-field)
-              ))
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key "\M-\C-n" 'outline-next-visible-heading)
+            (local-set-key "\M-\C-p" 'outline-previous-visible-heading)
+            (local-set-key "\M-\C-u" 'outline-up-heading)
+            ;; table
+            (local-set-key "\M-\C-w" 'org-table-copy-region)
+            (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
+            (local-set-key "\M-\C-l" 'org-table-sort-lines)
+            ;; display images
+            (local-set-key "\M-I" 'org-toggle-iimage-in-org)
+            ;; yasnippet (using the new org-cycle hooks)
+            ;; (make-variable-buffer-local 'yas/trigger-key)
+            ;; (setq yas/trigger-key [tab])
+            ;; (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+            ;; (define-key yas/keymap [tab] 'yas/next-field)
+            ))
 
 (setq org-use-speed-commands t)
 
@@ -166,7 +158,6 @@ do this for the whole buffer."
   (setq ad-return-value
         (wicked/org-update-checkbox-count (ad-get-arg 1))))
 
-
 ;;; ----------------------------------------------------------------------------
 ;;; - Latex
 ;;; - description
@@ -190,31 +181,31 @@ do this for the whole buffer."
 ;;; ----------------------------------------------------------------------------
 ;;; - Project Exporting
 ;;;
-; experimenting with docbook exports - not finished
+                                        ; experimenting with docbook exports - not finished
 (setq org-export-docbook-xsl-fo-proc-command "fop %s %s")
 (setq org-export-docbook-xslt-proc-command "xsltproc --output %s /usr/share/xml/docbook/stylesheet/nwalsh/fo/docbook.xsl %s")
-;
-; Inline images in HTML instead of producting links to the image
+                                        ;
+                                        ; Inline images in HTML instead of producting links to the image
 (setq org-export-html-inline-images t)
-; Do not use sub or superscripts - I currently don't need this functionality in my documents
+                                        ; Do not use sub or superscripts - I currently don't need this functionality in my documents
 (setq org-export-with-sub-superscripts nil)
-; Use org.css from the norang website for export document stylesheets
+                                        ; Use org.css from the norang website for export document stylesheets
 (setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"/org.css\" type=\"text/css\" />")
 (setq org-export-html-style-include-default nil)
-; Do not generate internal css formatting for HTML exports
+                                        ; Do not generate internal css formatting for HTML exports
 (setq org-export-htmlize-output-type (quote css))
-; Export with LaTeX fragments
+                                        ; Export with LaTeX fragments
 (setq org-export-with-LaTeX-fragments t)
 
-; List of projects
-; org - miscellaneous todo lists for publishing
+                                        ; List of projects
+                                        ; org - miscellaneous todo lists for publishing
 (setq org-publish-project-alist
-      ;
-      ; http://org-mode-stuff/  (org-mode-stuff website)
-      ; org-mode-stuff this document
-      ; org-mode-doc-extra are images and css files that need to be included
-      ; org-mode-doc is the top-level project that gets published
-      ; This uses the same target directory as the 'doc' project
+                                        ;
+                                        ; http://org-mode-stuff/  (org-mode-stuff website)
+                                        ; org-mode-stuff this document
+                                        ; org-mode-doc-extra are images and css files that need to be included
+                                        ; org-mode-doc is the top-level project that gets published
+                                        ; This uses the same target directory as the 'doc' project
       (quote (("org-mode-stuff"
                :base-directory "~/Dropbox/org-mode/"
                :publishing-directory "~/code/org-html"
@@ -248,5 +239,30 @@ do this for the whole buffer."
   (org-publish-current-project))
 
 (global-set-key (kbd "C-s-<f12>") 'bh/save-then-publish)
+
+(setq org-default-notes-file "~/org")
+(setq remember-annotation-functions '(org-remember-annotation))
+(setq remember-handler-functions '(org-remember-handler))
+(add-hook 'remember-mode-hook 'org-remember-apply-template)
+(define-key global-map "\C-cr" 'org-remember)
+
+;; (setq org-remember-templates
+;;       '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "~/org/newgtd.org" "Tasks")
+;;         ("Journal"   ?j "** %^{Head Line} %U %^g\n%i%?"  "~/org/journal.org")
+;;         ("Clipboard" ?c "** %^{Head Line} %U %^g\n%c\n%?"  "~/org/journal.org")
+;;         ("Receipt"   ?r "** %^{BriefDesc} %U %^g\n%?"   "~/org/finances.org")
+;;         ("Book" ?b "** %^{Book Title} %t :BOOK: \n%[~/.book_template.txt]\n"
+;;          "~/org/journal.org")
+;;         ("Film" ?f "** %^{Film Title} %t :FILM: \n%[~/.film_template.txt]\n"
+;;          "~/org/journal.org")
+;;         ("Daily Review" ?a "** %t :COACH: \n%[~/.daily_review.txt]\n"
+;;          "~/org/journal.org")
+;;         ("Someday"   ?s "** %^{Someday Heading} %U\n%?\n"  "~/org/someday.org")
+;;         ("Vocab"   ?v "** %^{Word?}\n%?\n"  "~/org/vocab.org")
+;;         )
+;;       )
+
+;; ("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U"
+;;  "~/org/newgtd.org" "Tasks")
 
 (provide 'jp-org-config)

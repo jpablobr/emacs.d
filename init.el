@@ -63,6 +63,7 @@
 (require 'jp-artist)
 (require 'jp-perl)
 (require 'jp-org-config)
+(require 'jp-latex)
 ;; (require 'jp-java)
 ;; (require 'jp-php)
 ;; (require 'jp-wanderlust)
