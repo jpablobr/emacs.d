@@ -2,11 +2,15 @@
 ;;jp-autocomplete.el ---------------------------------------------------------
 ;;; - Auto-complete
 ;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/auto-complete")
+;; (add-to-list 'load-path "~/.emacs.d/vendor/auto-complete")
 (require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/vendor/ac-dict")
+(ac-config-default)
+
 (global-auto-complete-mode t)
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
+
 ;; start completion when entered 3 characters
 (setq ac-auto-start 2)
 ;; Add following code to your .emacs.
@@ -26,7 +30,15 @@
 ;;   (define-key ac-complete-mode-map "\r" 'ac-complete)
 ;;   (define-key ac-complete-mode-map "\M-n" 'ac-next)
 ;;   (define-key ac-complete-mode-map "\M-p" 'ac-previous)
-   (set-default 'ac-sources '(ac-source-yasnippet ac-source-abbrev ac-source-words-in-buffer))
+   (set-default 'ac-sources '(ac-source-filename
+ ac-source-functions
+ ac-source-yasnippet
+ ac-source-variables
+ ac-source-symbols
+ ac-source-features
+ ac-source-abbrev
+ ac-source-words-in-same-mode-buffers
+ ac-source-dictionary))
 
    (setq ac-modes
          (append ac-modes

@@ -1,0 +1,235 @@
+# -*- mode: sh -*-
+
+##############################################################################->
+# Common aliases
+#
+alias d="cd ~/Dropbox"
+alias o='open . &'
+alias ogc='google-chrome '
+alias more='less'
+alias chx='chmod +x'
+alias reload='. ~/.bash_profile'
+alias start="gnome-open"
+alias open="gnome-open"
+alias cl='clear; l'
+# Color aliases
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+# Super user
+alias _='sudo'
+alias ss='sudo su -'
+# Show history
+alias history='fc -l 1'
+alias h='history'
+# Emacs
+alias et='emacsclient.emacs23 -nw'
+alias em=emacsclient.emacs23
+# apt-get
+alias sagi='sudo apt-get install'
+alias agi='apt-get install'
+alias e='exit'
+alias k9="killall -9"
+# Processes
+alias tu='top -p cpu' # cpu
+alias tm='top -p vsize' # memory
+# List Pids using IPs
+alias pidips='sudo lsof -iTCP -sTCP:LISTEN -P'
+#heroku helpers
+alias hp="git push heroku master"
+alias hl="heroku logs"
+#
+##############################################################################<-
+
+##############################################################################->
+# File - Directory Operations
+#
+alias srm='sudo rm'
+alias la="ls -A -l -G"
+alias lg='la | grep'
+alias md='mkdir -p'
+alias rd=rmdir
+alias l.='ls -d .[^.]*'
+# -G color -l long listing, most recent first
+alias l='ls -lhGt'
+alias lh="ls -lh"
+# -l long listing, human readable, no group info
+alias ll='ls -lhG'
+# sort with recently modified first
+alias lt='ls -lt'
+alias md='mkdir -p'
+alias lsa='ls -lah'
+alias l='ls -la'
+alias ll='ls -alr'
+
+# Install a .tar.gz archive in current directory
+tardir() {
+  if [ $# != 0 ]; then tar zxvf $1; fi
+}
+
+# List the contents of a .zip archive
+cz() {
+  if [ $# != 0 ]; then unzip -l $*; fi
+}
+
+# List the contents of a .tar.gz archive
+ctgz() {
+  for file in $* ; do
+    tar ztf ${file}
+  done
+}
+
+# Create a .tgz archive a la zip.
+tgz() {
+  if [ $# != 0 ]; then
+    name=$1.tar; shift; tar -rvf ${name} $* ; gzip -9 ${name}
+  fi
+}
+
+function rmf(){
+    for file in $*
+    do
+        __rm_single_file $file
+    done
+}
+
+function zipr() {
+  zip -r $1.zip $1
+}
+
+function __rm_single_file(){
+    if ! [ -d ~/.Trash/ ]
+    then
+        command /bin/mkdir ~/.Trash
+    fi
+
+    if ! [ $# -eq 1 ]
+    then
+        echo "__rm_single_file: 1 argument required but $# passed."
+        exit
+    fi
+
+    if [ -e $1 ]
+    then
+        BASENAME=`basename $1`
+        NAME=$BASENAME
+        COUNT=0
+        while [ -e ~/.Trash/$NAME ]
+        do
+            COUNT=$(($COUNT+1))
+            NAME="$BASENAME.$COUNT"
+        done
+
+        command /bin/mv $1 ~/.Trash/$NAME
+    else
+        echo "No such file or directory: $file"
+    fi
+}
+#
+##############################################################################<-
+
+##############################################################################->
+# changing directory to code project
+#
+alias gt-e='cd ~/.emacs.d && la'
+alias gt-m='cd ~/.my-precious && la'
+alias gt-d='cd ~/Dropbox && la'
+alias 1='cd -'
+alias 2='cd +2'
+alias 3='cd +3'
+alias 4='cd +4'
+alias 5='cd +5'
+alias 6='cd +6'
+alias 7='cd +7'
+alias 8='cd +8'
+alias 9='cd +9'
+alias ..='cd ..'
+
+function c { cd ~/code/$1; }
+
+cd () {
+  if   [[ "x$*" == "x..." ]]; then
+    cd ../..
+  elif [[ "x$*" == "x...." ]]; then
+    cd ../../..
+  elif [[ "x$*" == "x....." ]]; then
+    cd ../../..
+  elif [[ "x$*" == "x......" ]]; then
+    cd ../../../..
+  else
+    builtin cd "$@"
+  fi
+}
+#
+##############################################################################<-
+
+##############################################################################->
+# Servers - Misc
+#
+# Nginx
+function nginx_stop() {
+    ps ax | grep nginx | cut -d " " -f 1 | xargs sudo kill -9
+}
+function nginx_start() {
+    sudo /opt/nginx/sbin/nginx
+}
+#
+##############################################################################<-
+
+##############################################################################->
+# Git Aliases
+#
+alias ungit="find . -name '.git' -exec rm -rf {} \;"
+alias g='git'
+alias ga='git add'
+alias gap='git add -p'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gc='git commit -v'
+alias gca='git commit -v -a'
+alias gck='git checkout'
+alias gcp='git cherry-pick'
+alias gco="git checkout"
+alias gcop="git checkout -p"
+alias gcount='git shortlog -sn'
+alias gd='git diff'
+alias gdh='git diff HEAD'
+alias gdm='git diff master'
+alias gds='git diff --cached'
+alias gdv='git diff -w "$@" | vim -R -'
+alias gl='git pull'
+alias glp='gl -p'
+alias gi='git init && printf "log/\nThumbs.db\n" >> .gitignore && git add .gitignore'
+alias gitx='gitx --all'
+alias gnp="git-notpushed"
+alias gp='git push'
+alias gpr='git pull --rebase || (notify "pull failed" "Git" && false)'
+alias gpru='gp && rake && gu'
+alias gri='git rebase -i origin/master^'
+alias grc='git rebase --continue'
+alias gst='git status'
+alias gup='git fetch && git rebase'
+alias gu='git push origin HEAD || (notify "push failed" "Git" && false)'
+
+# http://www.jukie.net/~bart/blog/pimping-out-git-log
+alias gitl="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%an %cr)%Creset' --abbrev-commit --date=relative"
+gg
+gbt
+grf
+new-git
+gch
+ggc
+grb
+current_git_branch
+git_commits_ahead
+git_dirty_state
+git_modifications
+wrap_unless_empty
+new-git
+parse_git_dirty
+current_branch
+git_prompt_info
+ct
+haproxyssh
+jsc
+legrep
