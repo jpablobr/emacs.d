@@ -26,3 +26,4 @@ session*
 custom.el.before_ecb_*
 vendor/yac/
 url/
+ac-comphist.bat
