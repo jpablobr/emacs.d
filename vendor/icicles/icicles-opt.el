@@ -4,12 +4,12 @@
 ;; Description: User options (variables) for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 1996-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:22:14 2006
 ;; Version: 22.0
-;; Last-Updated: Sat Dec 18 22:14:27 2010 (-0800)
+;; Last-Updated: Mon Jan 17 09:10:13 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 3979
+;;     Update #: 4003
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-opt.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -225,6 +225,11 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Code:
+
+;; Emacs 20 does not DTRT wrt `:type' and `:set' sexps at compile time,
+;; so there seems no way around this, short of coding without push and dolist.
+;; For Emacs < 21: dolist, push
+(eval-and-compile (when (< emacs-major-version 21) (require 'cl)))
 
 (require 'hexrgb nil t)     ;; (no error if not found): hexrgb-color-values-to-hex,
                             ;; hexrgb-increment-(red|green|blue), hexrgb-rgb-to-hsv,
@@ -773,9 +778,8 @@ It only happens if *Completions* is alone in its frame.
 This can be useful to make *Completions* more visible."
   :type 'boolean :group 'Icicles-Completions-Display)
 
-;;;###autoload
 (when (fboundp 'text-scale-decrease)    ; Emacs 23+
-  (defcustom icicle-Completions-text-scale-decrease 0.66
+  (defcustom icicle-Completions-text-scale-decrease 0.75
     "*Initial height decrease for text in buffer `*Completions*'.
 A value of 0.0 means the height is not decreased at all.
 This is used as the argument to function `text-scale-decrease'.
@@ -1459,7 +1463,6 @@ Do not add any of the translation keymaps, `function-key-map',
 will not work."
   :type '(repeat symbol) :group 'Icicles-Key-Completion :group 'Icicles-Key-Bindings)
 
-;;;###autoload
 (when (boundp 'kmacro-ring)             ; Emacs 22+
   (defcustom icicle-kmacro-ring-max (if (boundp 'most-positive-fixnum)
                                         most-positive-fixnum
@@ -1740,7 +1743,6 @@ For the meanings of the symbols, see the doc string of
 prefix-argument bindings for the command."
   :type '(list symbol symbol symbol symbol symbol symbol) :group 'Icicles-Key-Bindings)
 
-;;;###autoload
 (when (> emacs-major-version 22)
   (defcustom icicle-populate-interactive-history-flag nil
     "*Non-nil means populate `icicle-interactive-history'.
@@ -1965,14 +1967,17 @@ time using `C-`'."
                             1on1-active-minibuffer-frame-background) ; In `oneonone.el'.
                        (let ((frame-bg  (cdr (assq 'background-color (frame-parameters)))))
                          (when (member frame-bg '(nil unspecified "unspecified-bg"))
-                           (setq frame-bg (if (eq frame-background-mode 'dark) "Black" "White")))
+                           (setq frame-bg  (if (eq (frame-parameter nil 'background-mode) 'dark)
+                                               "Black"
+                                             "White")))
                          (and frame-bg (x-color-defined-p frame-bg) frame-bg))
                        (face-background 'region)))
              (sat  (condition-case nil (hexrgb-saturation bg) (error nil))))
         (if sat
             (if (hexrgb-approx-equal sat 0.0)
-                (icicle-increment-color-value bg ; Grayscale - change bg value slightly.
-                                              (if (eq frame-background-mode 'dark) 20 -10))
+                (icicle-increment-color-value
+                 bg                     ; Grayscale - change bg value slightly.
+                 (if (eq (frame-parameter nil 'background-mode) 'dark) 20 -10))
               (icicle-increment-color-hue bg 24)) ; Color - change bg hue slightly.
           (face-background 'region)))
     (face-background 'region))          ; Use normal region background.
@@ -2160,7 +2165,6 @@ It is an option mainly to persist its value.
 See `icicle-guess-commands-in-path'."
   :type '(repeat sexp) :group 'Icicles-Miscellaneous)
 
-;;;###autoload
 (if (and (fboundp 'defvaralias) (boundp 'completion-show-help))
     (defvaralias 'icicle-show-Completions-help-flag 'completion-show-help)
   (defcustom icicle-show-Completions-help-flag t
@@ -2238,7 +2242,7 @@ The value must be one of the following:
 * a list of the form ((PRED...) FINAL-PRED), where each PRED and
   FINAL-PRED are binary predicates
 
-If the value is a list of predicates, then each PRED is tried in turn
+If the value is a non-empty list, then each PRED is tried in turn
 until one returns a non-nil value.  In that case, the result is the
 car of that value.  If no non-nil value is returned by any PRED, then
 FINAL-PRED is used and its value is the result.
@@ -2343,7 +2347,6 @@ completion and their order."
         (and (string-match "^\\*" b2) (string< b1 b2))
       (or (string-match "^\\*" b2) (string< b1 b2)))))
 
-;;;###autoload
 (when (> emacs-major-version 20)
   (defcustom icicle-sort-orders-alist ()
     "*Alist of available sort functions.
@@ -2370,7 +2373,6 @@ Each alist element has the form (SORT-ORDER . COMPARER):
                            (function :tag "Final Predicate")))))
     :group 'Icicles-Completions-Display :group 'Icicles-Matching))
 
-;;;###autoload
 (unless (> emacs-major-version 20)      ; Emacs 20: custom type `alist' doesn't exist.
   (defcustom icicle-sort-orders-alist ()
     "*Alist of available sort functions.

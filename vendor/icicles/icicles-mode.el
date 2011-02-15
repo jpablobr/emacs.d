@@ -4,12 +4,12 @@
 ;; Description: Icicle Mode definition for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 1996-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 10:21:10 2006
 ;; Version: 22.0
-;; Last-Updated: Sat Dec 18 22:10:35 2010 (-0800)
+;; Last-Updated: Thu Jan 20 16:00:31 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 6820
+;;     Update #: 6875
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-mode.el
 ;; Keywords: internal, extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -17,20 +17,21 @@
 ;;
 ;; Features that might be required by this library:
 ;;
-;;   `apropos', `apropos+', `apropos-fn+var', `avoid', `cl',
-;;   `cus-edit', `cus-face', `cus-load', `cus-start', `custom',
-;;   `dired', `dired+', `dired-aux', `dired-x', `doremi', `easymenu',
-;;   `ediff-diff', `ediff-help', `ediff-init', `ediff-merg',
-;;   `ediff-mult', `ediff-util', `ediff-wind', `el-swank-fuzzy',
-;;   `ffap', `ffap-', `fit-frame', `frame-cmds', `frame-fns',
-;;   `fuzzy', `fuzzy-match', `help+20', `hexrgb', `icicles-cmd1',
-;;   `icicles-cmd2', `icicles-face', `icicles-fn', `icicles-mcmd',
-;;   `icicles-opt', `icicles-var', `info', `info+', `kmacro',
-;;   `levenshtein', `menu-bar', `menu-bar+', `misc-cmds', `misc-fns',
-;;   `mkhtml', `mkhtml-htmlize', `mouse3', `mwheel', `pp', `pp+',
-;;   `regexp-opt', `ring', `ring+', `second-sel', `strings',
-;;   `thingatpt', `thingatpt+', `unaccent', `w32-browser',
-;;   `w32browser-dlgopen', `wid-edit', `wid-edit+', `widget'.
+;;   `advice', `advice-preload', `apropos', `apropos+',
+;;   `apropos-fn+var', `avoid', `cl', `cus-edit', `cus-face',
+;;   `cus-load', `cus-start', `custom', `dired', `dired+',
+;;   `dired-aux', `dired-x', `doremi', `easymenu', `ediff-diff',
+;;   `ediff-help', `ediff-init', `ediff-merg', `ediff-mult',
+;;   `ediff-util', `ediff-wind', `el-swank-fuzzy', `ffap', `ffap-',
+;;   `fit-frame', `frame-cmds', `frame-fns', `fuzzy', `fuzzy-match',
+;;   `help+20', `hexrgb', `icicles-cmd1', `icicles-cmd2',
+;;   `icicles-face', `icicles-fn', `icicles-mcmd', `icicles-opt',
+;;   `icicles-var', `info', `info+', `kmacro', `levenshtein',
+;;   `menu-bar', `menu-bar+', `misc-cmds', `misc-fns', `mkhtml',
+;;   `mkhtml-htmlize', `mouse3', `mwheel', `pp', `pp+', `regexp-opt',
+;;   `ring', `ring+', `second-sel', `strings', `thingatpt',
+;;   `thingatpt+', `unaccent', `w32-browser', `w32browser-dlgopen',
+;;   `wid-edit', `wid-edit+', `widget'.
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -129,6 +130,16 @@
 ;;
 ;;; Code:
 
+;;;###autoload (autoload 'icicle-mode "icicles" "Toggle Icicle mode." t nil)
+;;;###autoload (autoload 'icy-mode    "icicles" "Toggle Icicle mode." t nil)
+
+(eval-when-compile (require 'cl)) ;; pushnew, case
+                                  ;; plus, for Emacs < 21: push, dolist
+
+(require 'advice)
+  ;; ad-activate, ad-copy-advice-info, ad-deactivate, ad-disable-advice, ad-enable-advice,
+  ;; ad-find-some-advice, ad-get-arg, ad-is-active, ad-set-advice-info
+
 (require 'icicles-opt)                  ; (This is required anyway by `icicles-var.el'.)
   ;; icicle-buffer-configs, icicle-buffer-extras, icicle-change-region-background-flag,
   ;; icicle-default-cycling-mode, icicle-incremental-completion-flag,
@@ -164,8 +175,6 @@
 (when (>= emacs-major-version 22) (condition-case nil (require 'mb-depth+ nil t) (error nil)))
   ;; (no error if not found): minibuffer-depth-indicate-mode
 
-(eval-when-compile (require 'cl)) ;; push, dolist, case
-                                  ;; plus, for Emacs < 20: when, unless
 (require 'dired+ nil t) ;; (no error if not found):
                         ;; diredp-menu-bar-operate-menu, diredp-menu-bar-subdir-menu
 (require 'dired) ;; dired-mode-map
@@ -244,7 +253,6 @@ bindings in *Completions*.")
 ;; Main command.  Inspired from `icomplete-mode'.
 ;;;###autoload
 (defalias 'icy-mode 'icicle-mode)
-;;;###autoload
 (when (fboundp 'define-minor-mode)      ; Emacs 21+ ------------
   (when (> emacs-major-version 22)
     (defadvice call-interactively (after icicle-save-to-history disable activate)
@@ -536,7 +544,6 @@ bindings are not available to you."
           (run-hooks 'icicle-mode-hook)
           (message "Turning %s Icicle mode...done" (if icicle-mode "ON" "OFF")))))
 
-;;;###autoload
 (unless (fboundp 'define-minor-mode)    ; Emacs 20 ------------
   (defun icicle-mode (&optional arg)
     "Icicle mode: Toggle minibuffer input completion and cycling.
@@ -1653,11 +1660,11 @@ Used on `pre-command-hook'."
              '(menu-item "+ Find Tag ..." icicle-find-tag :visible icicle-mode
                :enable (not (window-minibuffer-p (frame-selected-window menu-updating-frame))))))
           (t
-           (define-key icicle-search-tags-menu-map [icicle-tags-search]
+           (define-key icicle-menu-map [icicle-tags-search]
              '(menu-item "+ Search Tagged Files ..." icicle-tags-search
                :visible icicle-mode
                :enable (not (window-minibuffer-p (frame-selected-window menu-updating-frame)))))
-           (define-key icicle-search-tags-menu-map [icicle-pop-tag-mark]
+           (define-key icicle-menu-map [icicle-pop-tag-mark]
              '(menu-item "+ Back (Pop Tag Mark)" icicle-pop-tag-mark :visible icicle-mode
                :enable (and (boundp 'find-tag-marker-ring)
                         (not (ring-empty-p find-tag-marker-ring))
@@ -2187,6 +2194,10 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
          (icicle-bind-completion-keys minibuffer-local-must-match-map)
        (define-key minibuffer-local-must-match-map [(control ?g)]
          'icicle-abort-recursive-edit)  ; `C-g' - need it anyway, even if inherit completion map.
+       (dolist (key  icicle-completing-read+insert-keys)
+         (define-key minibuffer-local-must-match-map key 'icicle-completing-read+insert)) ; `C-M-S-c'
+       (dolist (key  icicle-read+insert-file-name-keys)
+         (define-key minibuffer-local-must-match-map key 'icicle-read+insert-file-name)) ; `C-M-S-f'
        ;; Override the binding of `C-j' to `minibuffer-complete-and-exit'.
        (define-key minibuffer-local-must-match-map "\n"
          'icicle-insert-newline-in-minibuffer)) ; `C-j' (newline)
@@ -2387,6 +2398,10 @@ keymap.  If KEYMAP-VAR is not bound to a keymap, it is ignored."
                   delete-selection-mode)
              'minibuffer-keyboard-quit
            'abort-recursive-edit))  ; `C-g' - need it anyway, even if inherit completion map.
+       (dolist (key  icicle-completing-read+insert-keys)
+         (define-key minibuffer-local-must-match-map key nil))
+       (dolist (key  icicle-read+insert-file-name-keys)
+         (define-key minibuffer-local-must-match-map key nil))
        (define-key minibuffer-local-must-match-map "\n" 'minibuffer-complete-and-exit)) ; `C-j'
      (define-key minibuffer-local-must-match-map [S-return] nil)
 
@@ -2613,7 +2628,7 @@ complete)"))
     '(menu-item "Retrieve Saved Candidates" icicle-candidate-set-retrieve
       :enable icicle-saved-completion-candidates
       :help "Retrieve the saved set of completion candidates, making it current"))
-  (define-key map [menu-bar minibuf separator-set2] '("--"))
+  (define-key map [menu-bar minibuf separator-complete] '("--"))
   (define-key map [menu-bar minibuf word-complete]
     '(menu-item "Word-Complete" icicle-prefix-word-complete
       :help "Complete at most one word of prefix"))
@@ -2723,6 +2738,10 @@ complete)"))
       (define-key map "\C-\M-y"              'icicle-yank-secondary)) ; `C-M-y'
     (define-key map [M-S-backspace]          'icicle-erase-minibuffer) ; `M-S-backspace'
     (define-key map [M-S-delete]             'icicle-erase-minibuffer) ; `M-S-delete'
+    (dolist (key  icicle-completing-read+insert-keys)
+      (define-key map key 'icicle-completing-read+insert)) ; `C-M-S-c'
+    (dolist (key  icicle-read+insert-file-name-keys)
+      (define-key map key 'icicle-read+insert-file-name)) ; `C-M-S-f'
     )
 
   ;; Need `C-g', even if `minibuffer-local-completion-map' inherits from `minibuffer-local-map'.
@@ -2952,6 +2971,10 @@ MAP is `minibuffer-local-completion-map',
     (define-key map "\C-\M-y"                nil)
     (define-key map [M-S-backspace]          nil)
     (define-key map [M-S-delete]             nil)
+    (dolist (key  icicle-completing-read+insert-keys)
+      (define-key minibuffer-local-must-match-map key nil))
+    (dolist (key  icicle-read+insert-file-name-keys)
+      (define-key minibuffer-local-must-match-map key nil))
     )
 
   (define-key map [(meta ?q)]                nil)
@@ -3352,7 +3375,6 @@ See `icicle-redefine-standard-commands'."
 ;;; In Emacs versions before 22:
 ;;; Save original `read-file-name'.  We redefine it as `icicle-read-file-name' (which calls it).
 ;;; Then we restore it when you quit Icicle mode.  (In Emacs 22+, no redefinition is needed.)
-;;;###autoload
 (unless (or (boundp 'read-file-name-function) (fboundp 'orig-read-file-name))
   (defalias 'orig-read-file-name (symbol-function 'read-file-name)))
 

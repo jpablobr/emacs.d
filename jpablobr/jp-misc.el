@@ -415,5 +415,9 @@ LIST defaults to all existing live buffers."
   (when (require 'org nil t)
     (call-interactively 'org-agenda-list)))
 
+(add-to-list 'load-path "~/.emacs.d/vendor/icicles")
+(require 'icicles)
+(icy-mode 1)
+
 (require 'less)
 (provide 'jp-misc)

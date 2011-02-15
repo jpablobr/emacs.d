@@ -4,12 +4,12 @@
 ;; Description: Top-level commands for Icicles
 ;; Author: Drew Adams
 ;; Maintainer: Drew Adams
-;; Copyright (C) 1996-2010, Drew Adams, all rights reserved.
+;; Copyright (C) 1996-2011, Drew Adams, all rights reserved.
 ;; Created: Mon Feb 27 09:25:04 2006
 ;; Version: 22.0
-;; Last-Updated: Sat Dec 18 23:05:33 2010 (-0800)
+;; Last-Updated: Sun Jan  9 10:12:11 2011 (-0800)
 ;;           By: dradams
-;;     Update #: 21551
+;;     Update #: 21586
 ;; URL: http://www.emacswiki.org/cgi-bin/wiki/icicles-cmd1.el
 ;; Keywords: extensions, help, abbrev, local, minibuffer,
 ;;           keys, apropos, completion, matching, regexp, command
@@ -1010,7 +1010,6 @@ Perform completion on the GDB command preceding point."
 ;; You can complete from an empty abbrev also.
 ;; Uses Icicles completion when there are multiple candidates.
 ;;
-;;;###autoload
 (when (and (fboundp 'dabbrev-completion) (not (fboundp 'old-dabbrev-completion)))
   (defalias 'old-dabbrev-completion (symbol-function 'dabbrev-completion)))
 
@@ -1398,10 +1397,8 @@ control completion behaviour using `bbdb-completion-type'."
 ;;
 ;; Select *Completions* window even if on another frame.
 ;;
-;;;###autoload
 (unless (fboundp 'old-lisp-complete-symbol)
   (defalias 'old-lisp-complete-symbol (symbol-function 'lisp-complete-symbol)))
-;;;###autoload
 (when (fboundp 'completion-at-point)    ; Emacs 23.2.
   (unless (fboundp 'old-lisp-completion-at-point)
     (defalias 'old-lisp-completion-at-point (symbol-function 'lisp-completion-at-point))))
@@ -1494,7 +1491,6 @@ Each Icicles file has a header `Update #' that you can use to identify it.\
 ;;
 ;; Multi-command version.
 ;;
-;;;###autoload
 (unless (fboundp 'old-customize-face)
   (defalias 'old-customize-face (symbol-function 'customize-face)))
 
@@ -1560,7 +1556,6 @@ This is an Icicles command - see command `icicle-mode'."
 ;;
 ;; Multi-command version.
 ;;
-;;;###autoload
 (unless (fboundp 'old-customize-face-other-window)
   (defalias 'old-customize-face-other-window (symbol-function 'customize-face-other-window)))
 
@@ -1608,7 +1603,6 @@ Same as `icicle-customize-face' except it uses a different window."
 ;;
 ;; Uses `completing-read' to read the regexp.
 ;;
-;;;###autoload
 (unless (fboundp 'old-customize-apropos)
   (defalias 'old-customize-apropos (symbol-function 'customize-apropos)))
 
@@ -1671,7 +1665,6 @@ you see what items will be available in the customize buffer."
 ;;
 ;; Uses `completing-read' to read the regexp.
 ;;
-;;;###autoload
 (unless (fboundp 'old-customize-apropos-faces)
   (defalias 'old-customize-apropos-faces (symbol-function 'customize-apropos-faces)))
 
@@ -1691,7 +1684,6 @@ you see what items will be available in the customize buffer."
 ;;
 ;; Uses `completing-read' to read the regexp.
 ;;
-;;;###autoload
 (unless (fboundp 'old-customize-apropos-groups)
   (defalias 'old-customize-apropos-groups (symbol-function 'customize-apropos-groups)))
 
@@ -1711,7 +1703,6 @@ you see what items will be available in the customize buffer."
 ;;
 ;; Uses `completing-read' to read the regexp.
 ;;
-;;;###autoload
 (unless (fboundp 'old-customize-apropos-options)
   (defalias 'old-customize-apropos-options (symbol-function 'customize-apropos-options)))
 
@@ -1742,7 +1733,6 @@ you see what items will be available in the customize buffer."
 ;;
 ;; Uses `completing-read' to read the regexp.
 ;;
-;;;###autoload
 (when (and (fboundp 'customize-apropos-options-of-type)
            (not (fboundp 'old-customize-apropos-options-of-type)))
   (defalias 'old-customize-apropos-options-of-type
@@ -1799,7 +1789,6 @@ you see which options will be available in the customize buffer."
 ;; Uses `completing-read' to read the command to repeat, letting you use `S-TAB' and
 ;; `TAB' to see the history list and `C-,' to toggle sorting that display.
 ;;
-;;;###autoload
 (unless (fboundp 'old-repeat-complex-command)
   (defalias 'old-repeat-complex-command (symbol-function 'repeat-complex-command)))
 
@@ -2756,7 +2745,6 @@ history entries, so `C-next' and so on act on the current candidate."
       (set minibuffer-history-variable nil)
       (error "History `%s' is now empty" minibuffer-history-variable))))
 
-;;;###autoload
 (when (and icicle-define-alias-commands-flag (not (fboundp 'clear-option)))
   (defalias 'clear-option 'icicle-reset-option-to-nil))
 
@@ -2782,7 +2770,6 @@ With a prefix arg, all variables are candidates." ; Doc string
    (icicle-all-candidates-list-alt-action-fn ; M-|'
     (or icicle-all-candidates-list-alt-action-fn alt-fn (icicle-alt-act-fn-for-type "option")))))
 
-;;;###autoload
 (when (and icicle-define-alias-commands-flag (not (fboundp 'toggle)))
   (defalias 'toggle 'icicle-toggle-option))
 
@@ -4676,7 +4663,12 @@ want this remapping, then customize option
   "Kill a buffer.
 With a positive prefix arg, only buffers visiting files are candidates.
 With a negative prefix arg, only buffers associated with the selected
-frame are candidates.
+ frame are candidates.
+With a zero prefix arg, only buffers that have the same mode as the
+ current buffer are candidates.
+
+You can use `C-x M' during completion to allow only buffers of a
+certain major mode as candidates.  You are prompted for the mode.
 
 These options, when non-nil, control candidate matching and filtering:
 
@@ -4700,7 +4692,14 @@ the behavior."                          ; Doc string
   (mapcar #'(lambda (buf) (list (buffer-name buf))) bufflist) nil ; `bufflist' is free here.
   (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ; Emacs23.
   nil 'buffer-name-history (buffer-name (current-buffer)) nil
-  (icicle-buffer-bindings))             ; Bindings
+  (icicle-buffer-bindings)              ; Bindings
+  (progn                                ; First code
+    (define-key minibuffer-local-completion-map "\C-xM" 'icicle-filter-buffer-cands-for-mode)
+    (define-key minibuffer-local-must-match-map "\C-xM" 'icicle-filter-buffer-cands-for-mode))
+  (progn (define-key minibuffer-local-completion-map "\C-xM" nil) ; Undo code
+         (define-key minibuffer-local-must-match-map "\C-xM" nil))
+  (progn (define-key minibuffer-local-completion-map "\C-xM" nil) ; Last code
+         (define-key minibuffer-local-must-match-map "\C-xM" nil)))
 
 (defun icicle-kill-a-buffer-and-update-completions (buf)
   "Kill buffer BUF and update the set of completions."
@@ -4725,11 +4724,16 @@ the behavior."                          ; Doc string
   "Switch to a different buffer.
 With a positive prefix arg, only buffers visiting files are candidates.
 With a negative prefix arg, only buffers associated with the selected
-frame are candidates.
+ frame are candidates.
+With a zero prefix arg, only buffers that have the same mode as the
+ current buffer are candidates.
 
 You can use `C-x m' during completion to access buffer (non-file)
  bookmarks, if you use library `bookmark+.el'.
 You can use `S-delete' during completion to kill a candidate buffer.
+
+You can use `C-x M' during completion to allow only buffers of a
+certain major mode as candidates.  You are prompted for the mode.
 
 These options, when non-nil, control candidate matching and filtering:
 
@@ -4768,11 +4772,17 @@ the behavior."                          ; Doc string
   (progn                                ; First code
     (when (and (require 'bookmark+ nil t) (fboundp 'icicle-bookmark-non-file-other-window))
       (define-key minibuffer-local-completion-map "\C-xm" 'icicle-bookmark-non-file-other-window)
-      (define-key minibuffer-local-must-match-map "\C-xm" 'icicle-bookmark-non-file-other-window)))
+      (define-key minibuffer-local-must-match-map "\C-xm" 'icicle-bookmark-non-file-other-window))
+    (define-key minibuffer-local-completion-map "\C-xM" 'icicle-filter-buffer-cands-for-mode)
+    (define-key minibuffer-local-must-match-map "\C-xM" 'icicle-filter-buffer-cands-for-mode))
   (progn (define-key minibuffer-local-completion-map "\C-xm" nil) ; Undo code
-         (define-key minibuffer-local-must-match-map "\C-xm" nil))
+         (define-key minibuffer-local-must-match-map "\C-xm" nil)
+         (define-key minibuffer-local-completion-map "\C-xM" nil)
+         (define-key minibuffer-local-must-match-map "\C-xM" nil))
   (progn (define-key minibuffer-local-completion-map "\C-xm" nil) ; Last code
-         (define-key minibuffer-local-must-match-map "\C-xm" nil)))
+         (define-key minibuffer-local-must-match-map "\C-xm" nil)
+         (define-key minibuffer-local-completion-map "\C-xM" nil)
+         (define-key minibuffer-local-must-match-map "\C-xM" nil)))
 
 ;; Free var here: `bufflist' is bound by `icicle-buffer-bindings'.
 (defun icicle-default-buffer-names ()
@@ -4787,12 +4797,60 @@ the behavior."                          ; Doc string
                               (icicle-first-N 4 (if (boundp 'bufflist) bufflist (buffer-list))))))
       bname)))
 
+;; Free var here: `bufflist' is bound by `icicle-buffer-bindings'.
+(defun icicle-filter-buffer-cands-for-mode ()
+  "Prompt for a major mode, then remove buffer candidates not in that mode."
+  (interactive)
+  (save-selected-window (icicle-remove-Completions-window))
+  (let* ((enable-recursive-minibuffers  t)
+         (mode
+          (intern (completing-read
+                   "Major mode: "
+                   (icicle-remove-duplicates
+                    (mapcar (lambda (buf) (with-current-buffer buf (list (symbol-name major-mode))))
+                            bufflist))
+                   nil t))))
+    (setq icicle-must-pass-after-match-predicate
+          `(lambda (buf)
+            (with-current-buffer buf (eq major-mode ',mode)))))
+  (icicle-complete-again-update))
+
+;;;###autoload (autoload 'icicle-buffer-other-window "icicles-cmd1.el")
+(icicle-define-command icicle-buffer-other-window ; Bound to `C-x 4 b' in Icicle mode.
+  "Switch to a different buffer in another window.
+Same as `icicle-buffer' except it uses a different window." ; Doc string
+  switch-to-buffer-other-window         ; Action function
+  "Switch to buffer in other window: "  ; `completing-read' args
+  (mapcar #'(lambda (buf) (list (buffer-name buf))) bufflist) nil ; `bufflist' is free here.
+  (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ; Emacs23.
+  nil 'buffer-name-history (icicle-default-buffer-names) nil
+  (icicle-buffer-bindings)              ; Bindings
+  (progn                                ; First code
+    (when (and (require 'bookmark+ nil t) (fboundp 'icicle-bookmark-non-file-other-window))
+      (define-key minibuffer-local-completion-map "\C-xm" 'icicle-bookmark-non-file-other-window)
+      (define-key minibuffer-local-must-match-map "\C-xm" 'icicle-bookmark-non-file-other-window))
+    (define-key minibuffer-local-completion-map "\C-xM" 'icicle-filter-buffer-cands-for-mode)
+    (define-key minibuffer-local-must-match-map "\C-xM" 'icicle-filter-buffer-cands-for-mode))
+  (progn (define-key minibuffer-local-completion-map "\C-xm" nil) ; Undo code
+         (define-key minibuffer-local-must-match-map "\C-xm" nil)
+         (define-key minibuffer-local-completion-map "\C-xM" nil)
+         (define-key minibuffer-local-must-match-map "\C-xM" nil))
+  (progn (define-key minibuffer-local-completion-map "\C-xm" nil) ; Last code
+         (define-key minibuffer-local-must-match-map "\C-xm" nil)
+         (define-key minibuffer-local-completion-map "\C-xM" nil)
+         (define-key minibuffer-local-must-match-map "\C-xM" nil)))
+
 ;;;###autoload (autoload 'icicle-insert-buffer "icicles-cmd1.el")
 (icicle-define-command icicle-insert-buffer
   "Multi-command version of `insert-buffer'.
 With a positive prefix arg, only buffers visiting files are candidates.
 With a negative prefix arg, only buffers associated with the selected
-frame are candidates.
+ frame are candidates.
+With a zero prefix arg, only buffers that have the same mode as the
+ current buffer are candidates.
+
+You can use `C-x M' during completion to allow only buffers of a
+certain major mode as candidates.  You are prompted for the mode.
 
 You can use `S-delete' during completion to kill a candidate buffer.
 
@@ -4821,26 +4879,14 @@ the behavior."                          ; Doc string
   (mapcar #'(lambda (buf) (list (buffer-name buf))) bufflist) nil ; `bufflist' is free here.
   (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ; Emacs23.
   nil 'buffer-name-history (icicle-default-buffer-names) nil
-  (icicle-buffer-bindings))             ; Bindings
-
-;;;###autoload (autoload 'icicle-buffer-other-window "icicles-cmd1.el")
-(icicle-define-command icicle-buffer-other-window ; Bound to `C-x 4 b' in Icicle mode.
-  "Switch to a different buffer in another window.
-Same as `icicle-buffer' except it uses a different window." ; Doc string
-  switch-to-buffer-other-window         ; Action function
-  "Switch to buffer in other window: "  ; `completing-read' args
-  (mapcar #'(lambda (buf) (list (buffer-name buf))) bufflist) nil ; `bufflist' is free here.
-  (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ; Emacs23.
-  nil 'buffer-name-history (icicle-default-buffer-names) nil
   (icicle-buffer-bindings)              ; Bindings
   (progn                                ; First code
-    (when (and (require 'bookmark+ nil t) (fboundp 'icicle-bookmark-non-file-other-window))
-      (define-key minibuffer-local-completion-map "\C-xm" 'icicle-bookmark-non-file-other-window)
-      (define-key minibuffer-local-must-match-map "\C-xm" 'icicle-bookmark-non-file-other-window)))
-  (progn (define-key minibuffer-local-completion-map "\C-xm" nil) ; Undo code
-         (define-key minibuffer-local-must-match-map "\C-xm" nil))
-  (progn (define-key minibuffer-local-completion-map "\C-xm" nil) ; Last code
-         (define-key minibuffer-local-must-match-map "\C-xm" nil)))
+    (define-key minibuffer-local-completion-map "\C-xM" 'icicle-filter-buffer-cands-for-mode)
+    (define-key minibuffer-local-must-match-map "\C-xM" 'icicle-filter-buffer-cands-for-mode))
+  (progn (define-key minibuffer-local-completion-map "\C-xM" nil) ; Undo code
+         (define-key minibuffer-local-must-match-map "\C-xM" nil))
+  (progn (define-key minibuffer-local-completion-map "\C-xM" nil) ; Last code
+         (define-key minibuffer-local-must-match-map "\C-xM" nil)))
 
 ;;;###autoload (autoload 'icicle-add-buffer-candidate "icicles-cmd1.el")
 (icicle-define-command icicle-add-buffer-candidate ; Command name
@@ -4848,10 +4894,15 @@ Same as `icicle-buffer' except it uses a different window." ; Doc string
 Add the buffer to `icicle-buffer-extras'.  Save the updated option.
 With a positive prefix arg, only buffers visiting files are candidates.
 With a negative prefix arg, only buffers associated with the selected
-frame are candidates.
+ frame are candidates.
+With a zero prefix arg, only buffers that have the same mode as the
+ current buffer are candidates.
 
 You can use `S-delete' on any completion candidate to remove it from
 `icicle-buffer-extras'.
+
+You can use `C-x M' during completion to allow only buffers of a
+certain major mode as candidates.  You are prompted for the mode.
 
 Note: The prefix arg is tested, even when this is called
 noninteractively.  Lisp code can bind `current-prefix-arg' to control
@@ -4864,7 +4915,14 @@ the behavior."                          ; Doc string
   (mapcar #'(lambda (buf) (list (buffer-name buf))) bufflist) nil ; `bufflist' is free here.
   (and (fboundp 'confirm-nonexistent-file-or-buffer) (confirm-nonexistent-file-or-buffer)) ; Emacs23.
   nil 'buffer-name-history (icicle-default-buffer-names) nil
-  (icicle-buffer-bindings ((icicle-use-candidates-only-once-flag  t)))) ; Bindings
+  (icicle-buffer-bindings ((icicle-use-candidates-only-once-flag  t))) ; Bindings
+  (progn                                ; First code
+    (define-key minibuffer-local-completion-map "\C-xM" 'icicle-filter-buffer-cands-for-mode)
+    (define-key minibuffer-local-must-match-map "\C-xM" 'icicle-filter-buffer-cands-for-mode))
+  (progn (define-key minibuffer-local-completion-map "\C-xM" nil) ; Undo code
+         (define-key minibuffer-local-must-match-map "\C-xM" nil))
+  (progn (define-key minibuffer-local-completion-map "\C-xM" nil) ; Last code
+         (define-key minibuffer-local-must-match-map "\C-xM" nil)))
 
 ;;;###autoload (autoload 'icicle-remove-buffer-candidate "icicles-cmd1.el")
 (icicle-define-command icicle-remove-buffer-candidate ; Command name
@@ -5183,15 +5241,24 @@ Otherwise:
 ;;;###autoload (autoload 'icicle-file-list "icicles-cmd1.el")
 (icicle-define-file-command icicle-file-list ; Command name
   "Choose a list of file and directory names.
+The list of file names (strings) is returned.
+
 Use multi-command action keys (e.g. `C-RET', `C-mouse-2') to choose,
 and a final-choice key (e.g. `RET', `mouse-2') to choose the last one.
 You can navigate the directory tree, picking files and directories
 anywhere in the tree.
 
+Remember too that you can use `C-!' to gather all of the file names
+matching your current input.  For example, apropos-completing with
+input `foo.*bar' and hitting `C-!' adds all file names matching that
+regexp.
+
+You can use either `RET' or `C-g' to finish adding file names to the
+list.
+
 You can use `S-delete' during completion to delete a candidate file.
   Careful: This deletes the file, it does not just remove it as a
   candidate.
-The list of file names (strings) is returned.
 
 These options, when non-nil, control candidate matching and filtering:
 
