@@ -13,36 +13,35 @@
                                    ;;'test-unit
                                    ;;'gdb-shell
                                    ;;'gdb-mi
+                                   ;;'idle-highlight
+                                   ;;'json
+                                   ;;'zenburn
+                                   ;;'clojure-mode
+                                   ;;'clojure-test-mode
+                                   ;;'rainbow-mode
+                                   ;;'c-eldoc
+                                   ;;'slime-repl
+                                   ;;'slime
+                                   ;;'less
+                                   ;;'dired-isearch
                                    'ruby-mode
-			           'idle-highlight
                                    'inf-ruby
                                    'auctex
                                    'diff-git
                                    'js2-mode
-                                   'json
                                    'ruby-compilation
                                    'ruby-test-mode
-                                   'zenburn
                                    'project-local-variables
                                    'textmate
                                    'rvm
                                    'yari
-                                   'clojure-mode
-                                   'clojure-test-mode
                                    'ruby-electric
                                    'rspec-mode
-                                   'rainbow-mode
-                                   'less
                                    'jump
-                                   'dired-isearch
-                                   'c-eldoc
                                    'color-theme
-                                   'slime-repl
-                                   'slime
                                    'markdown-mode
                                    'css-mode
                                    'yaml-mode
-                                   'find-file-in-project
                                    'magit
                                    'gist)
   "Libraries that should be installed by default.")

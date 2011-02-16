@@ -35,7 +35,6 @@
  '(jde-sourcepath (quote (".")))
  '(jde-which-method-class-min-length 0)
  '(jde-which-method-max-length 30)
- '(org-agenda-files (quote ("~/ict-governace/weekly-research/summarising-the-objectives-and-key-elements-of-service-design-as-described-in-itl-v3/summarising-the-objectives-and-key-elements-of-service-design-as-described-in-itl-v3.org" "~/Dropbox/org-mode/work.org" "~/Dropbox/org-mode/school.org" "~/Dropbox/org-mode/jpablobr.org")))
  '(quack-default-program "mit-scheme")
  '(rails-api-root "~/.emacs.d/vendor/api.rubyonrails.org")
  '(rails-ask-when-reload-tags t)

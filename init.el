@@ -45,7 +45,6 @@
 (require 'jp-defuns)
 (require 'jp-keyboard)
 (require 'jp-registers)
-(require 'jp-lisp)
 (require 'jp-ruby)
 (require 'jp-sinatra)
 (require 'jp-js)
@@ -56,14 +55,15 @@
 (require 'jp-eshell)
 (require 'jp-haml)
 (require 'jp-yaml)
-(require 'jp-python)
 (require 'jp-webdev)
-(require 'jp-showoff)
 (require 'jp-w3m)
 (require 'jp-artist)
 (require 'jp-perl)
 (require 'jp-org-config)
 (require 'jp-latex)
+;; (require 'jp-python)
+;; (require 'jp-lisp)
+;; (require 'jp-showoff)
 ;; (require 'jp-java)
 ;; (require 'jp-php)
 ;; (require 'jp-wanderlust)
@@ -100,6 +100,14 @@
          (destructuring-bind (hi lo ms) (current-time)
            (- (+ hi lo) (+ (first *emacs-load-start*) (second
                                                        *emacs-load-start*)))))
+
+;;; Startup
+(when (file-exists-p "~/org")
+  (find-file "~/org")
+  (setq default-directory "~/")
+  (require 'calendar)
+  (when (require 'org nil t)
+    (call-interactively 'org-agenda-list)))
 
 (provide 'init)
 

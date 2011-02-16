@@ -99,4 +99,10 @@
 
 (auto-complete-mode 0)
 
+;;; ----------------------------------------------------------------------------
+;;; - zsh
+;;;
+(add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
+(setq initial-scratch-message "")
+
 (provide 'jp-eshell)

@@ -38,6 +38,7 @@
                 :slant normal
                 :weight normal
                 :height 90 normal))))
+ '(whitespace-line ((t (:background "purple" :foreground "green"))))
 
  '(autoface-default ((t (:inherit default
                          :background "black"

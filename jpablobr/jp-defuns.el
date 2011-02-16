@@ -243,5 +243,50 @@ Works in Microsoft Windows and Mac OS X."
     (setq myurl (concat "http://www.google.com/search?q=" myword))
     (browse-url myurl)
     ))
+;;; ---------------------------------------------------------
+;;; - insert helper for the lazy.
+;;;
+(defun insert-date ()
+  "Insert date at point."
+  (interactive)
+  (insert (format-time-string "%a %Y-%m-%d - %l:%M %p")))
+
+(defun insert-name ()
+  "Insert name at point."
+  (interactive)
+  (insert user-full-name))
+
+(defun insert-email ()
+  "Insert user email at point."
+  (interactive)
+  (insert user-mail-address))
+
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+(add-hook 'ri-filter-hook 'colorize-compilation-buffer)
+
+(let ((langs '("american" "castellano8" "castellano")))
+  (setq lang-ring (make-ring (length langs)))
+  (dolist (elem langs) (ring-insert lang-ring elem)))
+
+(defun cycle-ispell-languages ()
+  (interactive)
+  (let ((lang (ring-ref lang-ring -1)))
+    (ring-insert lang-ring lang)
+    (ispell-change-dictionary lang)))
+(global-set-key [f6] 'cycle-ispell-languages)
+
+(defun lorem ()
+  "Insert a lorem ipsum."
+  (interactive)
+  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
+          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad "
+          "minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
+          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
+          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
+          "culpa qui officia deserunt mollit anim id est laborum."))
 
 (provide 'jp-defuns)

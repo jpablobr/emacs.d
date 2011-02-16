@@ -27,8 +27,8 @@
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Git Blame
-(autoload 'git-blame-mode "git-blame"
-  "Minor mode for incremental blame for Git.")
+;; (autoload 'git-blame-mode "git-blame"
+  ;; "Minor mode for incremental blame for Git.")
 
 ;;; - Smoother scrolling
 (setq
@@ -44,7 +44,7 @@
 (global-font-lock-mode t)
 
 ;;; - Menu bar settings
-;;(menu-bar-mode -1)
+(menu-bar-mode -1)
 
 ;;; - X11 Copy & Paste to/from Emacs
 (setq x-select-enable-clipboard t) ; as above
@@ -80,26 +80,20 @@
 ;;; ---------------------------------------------------------
 ;;; - ido-mode is like magic pixie dust!
 ;;;
-(when (> emacs-major-version 21)
-  (ido-mode t)
-  (setq ido-enable-prefix nil
-        ido-enable-flex-matching t
-        ido-create-new-buffer 'always
-        ido-use-filename-at-point t
-        ido-max-prospects 10))
+;; (when (> emacs-major-version 21)
+;;   (ido-mode t)
+;;   (setq ido-enable-prefix nil
+;;         ido-enable-flex-matching t
+;;         ido-create-new-buffer 'always
+;;         ido-use-filename-at-point t
+;;         ido-max-prospects 10))
 
-(set-default 'indent-tabs-mode nil)
-(set-default 'indicate-empty-lines t)
-(set-default 'imenu-auto-rescan t)
+;; (set-default 'indent-tabs-mode nil)
+;; (set-default 'indicate-empty-lines t)
+;; (set-default 'imenu-auto-rescan t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
-
-;; ;;; ---------------------------------------------------------
-;; ;;; - Don't clutter up directories with files~
-;; ;;;
-;; (setq backup-directory-alist `(("." . ,(expand-file-name
-;;                                         (concat dotfiles-dir "backups")))))
 
 ;;; ---------------------------------------------------------
 ;;; - Cosmetics
@@ -121,51 +115,6 @@
 ;; (global-linum-mode)
 (setq line-number-mode t)
 (setq column-number-mode t)
-
-;;; ---------------------------------------------------------
-;;; - insert helper for the lazy.
-;;;
-(defun insert-date ()
-  "Insert date at point."
-  (interactive)
-  (insert (format-time-string "%a %Y-%m-%d - %l:%M %p")))
-
-(defun insert-name ()
-  "Insert name at point."
-  (interactive)
-  (insert user-full-name))
-
-(defun insert-email ()
-  "Insert user email at point."
-  (interactive)
-  (insert user-mail-address))
-
-;;; ---------------------------------------------------------
-;;; - Kills live buffers, leaves some emacs work buffers
-;;; - optained from http://www.chrislott.org/geek/emacs/dotemacs.html
-;;;
-(defun nuke-some-buffers (&optional list)
-  "For each buffer in LIST, kill it silently if unmodified. Otherwise ask.
-LIST defaults to all existing live buffers."
-  (interactive)
-  (if (null list)
-      (setq list (buffer-list)))
-  (while list
-    (let* ((buffer (car list))
-           (name (buffer-name buffer)))
-      (and (not (string-equal name ""))
-           ;(not (string-equal name "*Messages*"))
-          ;; (not (string-equal name "*Buffer List*"))
-           ;(not (string-equal name "*buffer-selection*"))
-           ;(not (string-equal name "*Shell Command Output*"))
-           (not (string-equal name "*scratch*"))
-           (/= (aref name 0) ? )
-           (if (buffer-modified-p buffer)
-               (if (yes-or-no-p
-                    (format "Buffer %s has been edited. Kill? " name))
-                   (kill-buffer buffer))
-             (kill-buffer buffer))))
-    (setq list (cdr list))))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Mathematica
@@ -212,52 +161,46 @@ LIST defaults to all existing live buffers."
 ;;; ---------------------------------------------------------
 ;;; - Windows dotbat batch files mode
 ;;;
-(add-to-list 'load-path (concat vendor-dir "/dosbat"))
-(require 'dosbat)
-(add-to-list 'auto-mode-alist '("\\.bat$" . bat-mode))
+;; (add-to-list 'load-path (concat vendor-dir "/dosbat"))
+;; (require 'dosbat)
+;; (add-to-list 'auto-mode-alist '("\\.bat$" . bat-mode))
 
 ;;; ---------------------------------------------------------
 ;;; - Find-recursive
 ;;;
-(require 'find-recursive)
-
-;;; ----------------------------------------------------------------------------
-;;; - zsh
-;;;
-(add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
-(setq initial-scratch-message "")
+;; (require 'find-recursive)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Coffeescript mode
 ;;;
-(add-to-list 'load-path (concat vendor-dir "/coffee-mode"))
-(require 'coffee-mode)
+;; (add-to-list 'load-path (concat vendor-dir "/coffee-mode"))
+;; (require 'coffee-mode)
 
-(defun coffee-custom ()
-  "coffee-mode-hook"
+;; (defun coffee-custom ()
+;;   "coffee-mode-hook"
 
-  (imenu-add-to-menubar "IMENU")
+;;   (imenu-add-to-menubar "IMENU")
 
-  ;; CoffeeScript uses two spaces.
-  (set (make-local-variable 'tab-width) 2)
+;;   ;; CoffeeScript uses two spaces.
+;;   (set (make-local-variable 'tab-width) 2)
 
-  ;; If you don't want your compiled files to be wrapped
-  (setq coffee-args-compile '("-c" "--bare"))
+;;   ;; If you don't want your compiled files to be wrapped
+;;   (setq coffee-args-compile '("-c" "--bare"))
 
-  ;; *Messages* spam
-  (setq coffee-debug-mode t)
+;;   ;; *Messages* spam
+;;   (setq coffee-debug-mode t)
 
-  ;; Emacs key binding
-  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
-  (define-key coffee-mode-map [(meta R)] 'coffee-compile-region)
+;;   ;; Emacs key binding
+;;   (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
+;;   (define-key coffee-mode-map [(meta R)] 'coffee-compile-region)
 
-  ;; Compile '.coffee' files on every save
-  (add-hook 'after-save-hook
-      '(lambda ()
-         (when (string-match "\.coffee$" (buffer-name))
-          (coffee-compile-file)))))
+;;   ;; Compile '.coffee' files on every save
+;;   (add-hook 'after-save-hook
+;;       '(lambda ()
+;;          (when (string-match "\.coffee$" (buffer-name))
+;;           (coffee-compile-file)))))
 
-(add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
+;; (add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Dictionary
@@ -300,31 +243,6 @@ LIST defaults to all existing live buffers."
  '(global-font-lock-mode t nil (font-lock))
  '(indent-tabs-mode nil)
  '(scroll-preserve-screen-position t))
-
-(custom-set-faces
- '(whitespace-line ((t (:background "purple" :foreground "green")))))
-
-(defun colorize-compilation-buffer ()
-  (toggle-read-only)
-  (ansi-color-apply-on-region (point-min) (point-max))
-  (toggle-read-only))
-(add-hook 'ri-filter-hook 'colorize-compilation-buffer)
-
-(let ((langs '("american" "castellano8" "castellano")))
-  (setq lang-ring (make-ring (length langs)))
-  (dolist (elem langs) (ring-insert lang-ring elem)))
-
-(defun cycle-ispell-languages ()
-  (interactive)
-  (let ((lang (ring-ref lang-ring -1)))
-    (ring-insert lang-ring lang)
-    (ispell-change-dictionary lang)))
-(global-set-key [f6] 'cycle-ispell-languages)
-
-(require 'simplenote)
-(setq simplenote-email "xjpablobrx@gmail.com")
-(setq simplenote-password nil)
-(simplenote-setup)
 
 (require 'gist)
 (setq gist-view-gist t)
@@ -371,18 +289,6 @@ LIST defaults to all existing live buffers."
 (setq load-path (cons "~/.emacs.d/vendor/ultratex-0.80/lisp"
                       load-path))
 
-(defun lorem ()
-  "Insert a lorem ipsum."
-  (interactive)
-  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
-          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad "
-          "minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
-          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
-          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
-          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
-          "culpa qui officia deserunt mollit anim id est laborum."))
-
-
 ;;; ----------------------------------------------------------------------------
 ;;; - header2
 ;;;
@@ -406,14 +312,6 @@ LIST defaults to all existing live buffers."
 
 (add-to-list 'load-path "~/.emacs.d/vendor/yac-mode")
 (require 'yac)
-
-;;; Startup
-(when (file-exists-p "~/org")
-  (find-file "~/org")
-  (setq default-directory "~/")
-  (require 'calendar)
-  (when (require 'org nil t)
-    (call-interactively 'org-agenda-list)))
 
 (add-to-list 'load-path "~/.emacs.d/vendor/icicles")
 (require 'icicles)

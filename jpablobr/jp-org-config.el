@@ -88,12 +88,10 @@
 (setq org-directory "~/Dropbox/org-mode")
 
 ;; Set to the name of the file where new notes will be stored
-(setq org-mobile-inbox-for-pull "~/Dropbox/org-mode/inbox.org")
+(setq org-mobile-inbox-for-pull "~/Dropbox/org-mode/jpablobr.org")
 
 ;; Set the agenda files
-(setq org-agenda-files (list "~/Dropbox/org-mode/work.org"
-                             "~/Dropbox/org-mode/school.org"
-                             "~/Dropbox/org-mode/jpablobr.org"))
+(setq org-agenda-files (list "~/Dropbox/org-mode/jpablobr.org"))
 
 ;; Set to <your Dropbox root directory>/MobileOrg.
 (setq org-mobile-directory "~/Dropbox/MobileOrg")

@@ -185,8 +185,10 @@
 (global-set-key (kbd "M-c") 'find-grep)
 (global-set-key (kbd "C-x t") 'template-expand-template)
 (global-unset-key "\C-l")
-(global-set-key (kbd "C-l e") 'insert-email)
-(global-set-key (kbd "C-l n") 'insert-name)
-(global-set-key (kbd "C-l d") 'insert-date)
+(global-set-key (kbd "C-l ie") 'insert-email)
+(global-set-key (kbd "C-l in") 'insert-name)
+(global-set-key (kbd "C-l id") 'insert-date)
+(global-set-key (kbd "C-l wc") 'whitespace-cleanup)
+(global-set-key (kbd "C-l eb") 'eval-buffer)
 
 (provide 'jp-keyboard)
