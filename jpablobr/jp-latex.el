@@ -55,8 +55,8 @@
         (?p . "[[papers:%l][%l-paper]]")
         (?t . " \(%t %y, p. %p\)")
         (?h . " \(%a %y, p. %p\)")
-        (?w . "** %a %y, %t, %h .")
-        (?r . "** %a %y, %t pp. %p.")))))
+        (?w . "%a %y, %t, %h .")
+        (?r . "%a %y, %t pp. %p.")))))
   (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
   (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
 
