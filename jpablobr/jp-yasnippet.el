@@ -2,13 +2,15 @@
 ;;jp-yasnippet.el ---------------------------------------------------------
 ;;; - Yasnippets
 ;;;
+;; Snippets
+(setq snippets-dir (concat vendor-dir "/snippets"))
+(add-to-list 'load-path snippets-dir)
+(add-to-list 'load-path (concat snippets-dir "/yasnippet-dot-el"))
+
 (require 'css-mode)
 (require 'markdown-mode)
 (require 'espresso)
 (require 'yaml-mode)
-
-(add-to-list 'load-path
-             (concat dotfiles-dir "/vendor/yasnippet-dot-el"))
 
 (require 'yasnippet)
 
@@ -17,7 +19,7 @@
                                yas/completing-prompt
                                yas/ido-prompt))
 
-(setq yas/root-directory (concat dotfiles-dir "vendor/yasnippets-jpablobr"))
+(setq yas/root-directory (concat snippets-dir "/yasnippets-jpablobr"))
 (yas/load-directory yas/root-directory)
 
 (add-hook 'python-mode-hook 'yas/minor-mode-on)

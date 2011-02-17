@@ -1,22 +1,20 @@
-;;; -*- coding: utf-8-unix; -*-
-;;init.el ---------------------------------------------------------
-;;; - Jose Pablo Barrantes <xjpablobrx@gmail.com>
-;;; - emacs.d initializations
-;;;
-(setq dotfiles-dir (file-name-directory
-                    (or (buffer-file-name) load-file-name)))
-(add-to-list 'load-path dotfiles-dir)
-(add-to-list 'load-path (concat dotfiles-dir "/elpa-to-submit"))
-(add-to-list 'load-path (concat dotfiles-dir "/vendor"))
-(add-to-list 'load-path (concat dotfiles-dir "/jpablobr"))
-(setq autoload-file (concat dotfiles-dir "loaddefs.el"))
+;; -*- coding: utf-8-unix; -*-
+;; init.el ---------------------------------------------------------
+;; - Jose Pablo Barrantes <xjpablobrx@gmail.com>
+;; - emacs.d initializations
+;;
+;; ---------------------------------------------------------
+;; - Load up ELPA, the package manager:
+;;
+(setq dotfiles-dir (file-name-directory (or load-file-name (buffer-file-name))))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (setq vendor-dir (concat dotfiles-dir "/vendor"))
+(setq misc-dir (concat dotfiles-dir "/vendor/misc"))
+(add-to-list 'load-path (concat dotfiles-dir "/jpablobr"))
+(add-to-list 'load-path dotfiles-dir)
+(add-to-list 'load-path misc-dir)
 
-;;; ---------------------------------------------------------
-;;; - Load up ELPA, the package manager:
-;;;
 (require 'package)
 (dolist (source '(("technomancy" . "http://repo.technomancy.us/emacs/")
                   ("elpa" . "http://tromey.com/elpa/")))
@@ -39,28 +37,6 @@
 ;;; ---------------------------------------------------------
 ;;; - Load jpablobr customizations:
 ;;;
-(require 'jp-theme)
-(require 'jp-cedet)
-(require 'jp-misc)
-(require 'jp-defuns)
-(require 'jp-keyboard)
-(require 'jp-registers)
-(require 'jp-ruby)
-(require 'jp-sinatra)
-(require 'jp-js)
-(require 'jp-plain-text)
-(require 'jp-meta)
-(require 'jp-markdown)
-(require 'jp-autocomplete)
-(require 'jp-eshell)
-(require 'jp-haml)
-(require 'jp-yaml)
-(require 'jp-webdev)
-(require 'jp-w3m)
-(require 'jp-artist)
-(require 'jp-perl)
-(require 'jp-org-config)
-(require 'jp-latex)
 ;; (require 'jp-python)
 ;; (require 'jp-lisp)
 ;; (require 'jp-showoff)
@@ -71,8 +47,27 @@
 ;; (require 'jp-haskell)
 ;; (require 'jp-clojure)
 ;; (require 'jp-scheme)
-
-(autoload 'jp-org-config "jp-org-config" t)
+;; (require 'jp-ruby)
+(require 'jp-misc)
+(require 'jp-defuns)
+(require 'jp-keyboard)
+(require 'jp-registers)
+(require 'jp-sinatra)
+(require 'jp-js)
+(require 'jp-plain-text)
+(require 'jp-meta)
+(require 'jp-markdown)
+(require 'jp-autocomplete)
+(require 'jp-haml)
+(require 'jp-yaml)
+(require 'jp-webdev)
+(require 'jp-w3m)
+(require 'jp-artist)
+(require 'jp-perl)
+(require 'jp-org-config)
+(require 'jp-latex)
+(require 'jp-theme)
+(require 'jp-eshell)
 
 ;;; ---------------------------------------------------------
 ;;; - requiring yasnippets after everything has been loaded...
@@ -80,26 +75,18 @@
 (require 'jp-yasnippet)
 (require 'jp-hippie)
 
-(regen-autoloads)
+;; (regen-autoloads)
 (load custom-file 'noerror)
 
 ;;; ---------------------------------------------------------
 ;;; - ECB
 ;;;
-(add-to-list 'load-path (concat vendor-dir "/ecb-2.40"))
-(require 'ecb)
-(setq ecb-tip-of-the-day nil)
-(setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
+;; (require 'jp-cedet)
+;; (add-to-list 'load-path (concat misc-dir "/ecb-2.40"))
+;; (require 'ecb)
+;; (setq ecb-tip-of-the-day nil)
+;; (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
 ;; (ecb-activate)
-
-;;; ---------------------------------------------------------
-;;; - Benchmarking
-;;;
-(defvar *emacs-load-start* (current-time))
-(message "My .emacs loaded in %ds"
-         (destructuring-bind (hi lo ms) (current-time)
-           (- (+ hi lo) (+ (first *emacs-load-start*) (second
-                                                       *emacs-load-start*)))))
 
 ;;; Startup
 (when (file-exists-p "~/org")
@@ -115,5 +102,4 @@
 ;;; - Haks
 ;;;
 (put 'downcase-region 'disabled nil)
-;; (setq initial-major-mode 'butterfly)
 (put 'narrow-to-region 'disabled nil)

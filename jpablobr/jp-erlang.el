@@ -1,7 +1,12 @@
-;;; ----------------------------------------------------------------------------
-;;; - Erlang
-;;;
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/erlware-mode"))
+;;jp-erlang.el ----------------------------------------------------------------------------
+;; - Erlang
+;;
+
+(setq erlang-dir (concat vendor-dir "/erlang"))
+(add-to-list 'load-path (concat erlang-dir "/erlware-mode"))
+(add-to-list 'load-path (concat erlang-dir "/distel/elisp"))
+(add-to-list 'load-path (concat erlang-dir "/esense"))
+
 (require 'erlang-start)
 
 (eval-after-load 'erlang-mode
@@ -11,7 +16,6 @@
 (add-to-list 'auto-mode-alist '("\\.erl?$" . erlang-mode))
 (add-to-list 'auto-mode-alist '("\\.hrl?$" . erlang-mode))
 
-(add-to-list 'load-path "~/.emacs.d/vendor/distel/elisp")
 (require 'distel)
 (distel-setup)
 
@@ -53,8 +57,7 @@
             (dolist (spec distel-shell-keys)
               (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
 
-(add-to-list 'load-path "~/.emacs.d/vendor/esense")
 (require 'esense-start)
-(setq esense-indexer-program "~/.emacs.d/vendor/esense/esense.sh")
+(setq esense-indexer-program (concat erlang-dir "/esense/esense.sh"))
 
 (provide 'jp-erlang)

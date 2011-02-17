@@ -2,27 +2,18 @@
 ;; A lot of this is thanks to dima-exe:
 ;; http://github.com/dima-exe/emacs_rc/blob/master/emacs-rc-ruby.el
 
-;;; ---------------------------------------------------------
-;;; - RVM mode... use rvm’s default ruby for the current Emacs session
-;;;
-(if (eq system-type 'gnu/linux)
-    (progn
-      (require 'rvm)
-      (rvm-use-default))
-  (progn))
-
-;;(add-to-list 'load-path (concat vendor-dir "/yari.el"))
-(add-to-list 'load-path (concat vendor-dir "/rdebug"))
-(add-to-list 'load-path (concat vendor-dir "/autotest"))
-(add-to-list 'load-path (concat vendor-dir "/rhtml"))
-;;(add-to-list 'load-path (concat vendor-dir "/rspec-mode"))
-(add-to-list 'load-path (concat vendor-dir "/rcodetools"))
-(add-to-list 'load-path (concat vendor-dir "/emacs-rails"))
-;;(add-to-list 'load-path (concat vendor-dir "/jump.el"))
-(add-to-list 'load-path (concat vendor-dir "/rinari"))
-(add-to-list 'load-path (concat dotfiles-dir "/vendor/ruby-complexity"))
-;; (add-to-list 'load-path "~/.emacs.d/vendor/icicles")
-;; (load "~/.emacs.d/vendor/autotest/unit-test.el")
+(setq ruby-dir (concat vendor-dir "/ruby"))
+(add-to-list 'load-path ruby-dir)
+(add-to-list 'load-path (concat ruby-dir "/ruby-mode-1.1"))
+(add-to-list 'load-path (concat ruby-dir "/rdebug"))
+(add-to-list 'load-path (concat ruby-dir "/inf-ruby-2.1"))
+(add-to-list 'load-path (concat ruby-dir "/rhtml"))
+(add-to-list 'load-path (concat ruby-dir "/rspec-mode"))
+(add-to-list 'load-path (concat ruby-dir "/rcodetools"))
+(add-to-list 'load-path (concat ruby-dir "/autotest"))
+(add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
+(add-to-list 'load-path (concat ruby-dir "/rinari"))
+(add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
 
 (require 'rdebug)
 
@@ -50,7 +41,7 @@
      (require 'rails)
      (require 'rinari)
      (require 'ruby-complexity)
-     ;; (require 'icicles-rcodetools)
+     (require 'icicles-rcodetools)
      (require 'rdebug)
      (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
      (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)

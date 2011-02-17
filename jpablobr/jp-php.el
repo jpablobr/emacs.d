@@ -1,7 +1,9 @@
-;;; ----------------------------------------------------------------------------
-;;; - PHP
-;;; -
-;;;
+;;jp-php.el ----------------------------------------------------------------------------
+;; - PHP
+(setq php-dir (concat vendor-dir "/php"))
+(add-to-list 'load-path php-dir)
+(add-to-list 'load-path (concat php-dir "/php-mode"))
+
 (setq auto-mode-alist  (cons '("\\.php$" . php-mode) auto-mode-alist))
 
 (add-hook 'php-mode-hook
@@ -59,11 +61,6 @@
 (define-key php-mode-map (kbd "RET") 'newline-and-indent)
 (setq show-paren-mode t)
 
-
-;; (add-to-list 'load-path
-;; 	     (expand-file-name "~/.emacs.d/vendor/php_repl/data"))
-;; (require 'php-repl)
-;; (setq php-repl-program (concat (getenv "HOME") ".emacs.d/vendor/php-repl/PHP/Repl.php"))
 
 (require 'php-mode)
 

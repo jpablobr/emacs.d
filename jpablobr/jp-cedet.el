@@ -1,11 +1,12 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;; ---------------------------------------------------------
+;;jp-cedet.el ---------------------------------------------------------
 ;;; - CEDET
 ;;; - apt-get install cedet-common cedet-contrib cogre ede eieio semantic speedbar elib jde
 ;;; - http://nullman.org/tutorial/emacs-files/.emacs.d/kyle-init/modes.el.html
 
-(load-file "~/.emacs.d/vendor/cedet-1.0pre7/common/cedet.el")
-(add-to-list 'load-path "~/.emacs.d/vendor/cedet-1.0pre7/semantic")
+(load-file (concat misc-dir "/cedet-1.0pre7/common/cedet.el"))
+(add-to-list 'load-path (concat misc-dir "/cedet-1.0pre7/semantic"))
+
 (require 'semantic)
 (require 'semantic-ia)
 (require 'semantic-gcc)
@@ -92,7 +93,7 @@
  '(semantic-idle-scheduler-idle-time 3)
  '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
  '(global-semantic-tag-folding-mode t nil (semantic-util-modes)))
-; (global-semantic-folding-mode 1)	
+; (global-semantic-folding-mode 1)
 
 (defun my-semanticdb-hook ()
   "semanticdb hook"

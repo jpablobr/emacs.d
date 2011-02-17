@@ -1,7 +1,8 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;; ---------------------------------------------------------
-;;; - HAML
-;;;
+;;jp-haml.el ---------------------------------------------------------
+;;
+(setq haml-dir (concat vendor-dir "/haml"))
+(add-to-list 'load-path haml-dir)
 (require 'haml-mode)
 (add-to-list 'auto-mode-alist '("\\.haml$" . haml-mode))
 (define-key haml-mode-map [(control meta down)] 'haml-forward-sexp)

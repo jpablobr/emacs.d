@@ -14,7 +14,6 @@
  '(font-lock-mode-maximum-decoration t)
  '(github-user "jpablobr" t)
  '(global-font-lock-mode t nil (font-lock))
- '(global-semantic-tag-folding-mode t nil (semantic-util-modes))
  '(gud-rdebug-command-name "/home/jpablobr/.rvm/gems/ruby-1.9.2-p136/bin/rdebug --emacs 3")
  '(indent-tabs-mode nil)
  '(ispell-alternate-dictionary "~/.emacs.d/vendor/spanish-dictionary")
@@ -41,8 +40,6 @@
  '(rails-browse-api-with-w3m t)
  '(rails-use-alternative-browse-url nil)
  '(scroll-preserve-screen-position t)
- '(semantic-idle-scheduler-idle-time 3)
- '(semantic-self-insert-show-completion-function (lambda nil (semantic-ia-complete-symbol-menu (point))))
  '(template-update-buffer-alist (quote ((t "Update header in %s? " (template-update-header t) (file-name-sans-versions (file-name-nondirectory buffer-file-name))) ((html-mode) "Update date inside <address> in %s? " (-2000 "\\([0-9]+[ 	]+[A-Za-z][A-Za-z][A-Za-z][ 	]+[0-9]+\\)[
 ]*</address>" 1) (format-time-string "%d %b %Y")))))
  '(user-details (quote "José Pablo Barrantes R. http://jpablobr.com"))

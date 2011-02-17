@@ -1,5 +1,8 @@
 ;;; cperl-mode is preferred to perl-mode
-(add-to-list 'load-path (concat vendor-dir "/pde"))
+(setq perl-dir (concat vendor-dir "/perl"))
+(add-to-list 'load-path perl-dir)
+(add-to-list 'load-path (concat perl-dir "/pde"))
+
 (load "pde-load")
 
 (defalias 'perl-mode 'cperl-mode)

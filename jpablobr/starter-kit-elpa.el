@@ -24,26 +24,11 @@
                                    ;;'slime
                                    ;;'less
                                    ;;'dired-isearch
-                                   'ruby-mode
-                                   'inf-ruby
                                    'auctex
-                                   'diff-git
                                    'js2-mode
-                                   'ruby-compilation
-                                   'ruby-test-mode
-                                   'project-local-variables
-                                   'textmate
-                                   'rvm
-                                   'yari
-                                   'ruby-electric
-                                   'rspec-mode
-                                   'jump
-                                   'color-theme
                                    'markdown-mode
                                    'css-mode
-                                   'yaml-mode
-                                   'magit
-                                   'gist)
+                                   'yaml-mode)
   "Libraries that should be installed by default.")
 
 (defun starter-kit-elpa-install ()

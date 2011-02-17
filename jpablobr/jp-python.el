@@ -1,8 +1,9 @@
-;;; ----------------------------------------------------------------------------
-;;; - Python
-;;;
-(setq pylookup-dir "~/.emacs.d/vendor/pylookup")
+;;jp-python.el ----------------------------------------------------------------------------
+;;
+(setq python-dir (concat vendor-dir "/python"))
+(setq pylookup-dir (concat python-dir "/pylookup"))
 (add-to-list 'load-path pylookup-dir)
+
 ;; load pylookup when compile time
 (eval-when-compile (require 'pylookup))
 

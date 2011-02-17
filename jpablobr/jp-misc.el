@@ -2,6 +2,16 @@
 ;;jp-misc.el ---------------------------------------------------------
 ;;; - Things that don't fit anywhere else
 ;;;
+(add-to-list 'load-path (concat misc-dir "/maxframe"))
+(add-to-list 'load-path (concat misc-dir "/ultratex-0.80/lisp"))
+(add-to-list 'load-path (concat misc-dir "/icicles"))
+(add-to-list 'load-path (concat misc-dir "/yac-mode"))
+(add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
+
+;; Git
+(setq git-dir (concat vendor-dir "/git"))
+(add-to-list 'load-path (concat git-dir "/gist-0.5"))
+
 (when window-system
   (mouse-wheel-mode t)
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
@@ -24,11 +34,6 @@
       ediff-window-setup-function 'ediff-setup-windows-plain
       oddmuse-directory (concat dotfiles-dir "oddmuse")
       save-place-file (concat dotfiles-dir "places"))
-
-;;; ----------------------------------------------------------------------------
-;;; - Git Blame
-;; (autoload 'git-blame-mode "git-blame"
-  ;; "Minor mode for incremental blame for Git.")
 
 ;;; - Smoother scrolling
 (setq
@@ -80,17 +85,17 @@
 ;;; ---------------------------------------------------------
 ;;; - ido-mode is like magic pixie dust!
 ;;;
-;; (when (> emacs-major-version 21)
-;;   (ido-mode t)
-;;   (setq ido-enable-prefix nil
-;;         ido-enable-flex-matching t
-;;         ido-create-new-buffer 'always
-;;         ido-use-filename-at-point t
-;;         ido-max-prospects 10))
+(when (> emacs-major-version 21)
+  (ido-mode t)
+  (setq ido-enable-prefix nil
+        ido-enable-flex-matching t
+        ido-create-new-buffer 'always
+        ido-use-filename-at-point t
+        ido-max-prospects 10))
 
-;; (set-default 'indent-tabs-mode nil)
-;; (set-default 'indicate-empty-lines t)
-;; (set-default 'imenu-auto-rescan t)
+(set-default 'indent-tabs-mode nil)
+(set-default 'indicate-empty-lines t)
+(set-default 'imenu-auto-rescan t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
@@ -135,7 +140,6 @@
 ;;; ---------------------------------------------------------
 ;;; - Textmate
 ;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
 (require 'textmate)
 (textmate-mode)
 
@@ -169,38 +173,6 @@
 ;;; - Find-recursive
 ;;;
 ;; (require 'find-recursive)
-
-;;; ----------------------------------------------------------------------------
-;;; - Coffeescript mode
-;;;
-;; (add-to-list 'load-path (concat vendor-dir "/coffee-mode"))
-;; (require 'coffee-mode)
-
-;; (defun coffee-custom ()
-;;   "coffee-mode-hook"
-
-;;   (imenu-add-to-menubar "IMENU")
-
-;;   ;; CoffeeScript uses two spaces.
-;;   (set (make-local-variable 'tab-width) 2)
-
-;;   ;; If you don't want your compiled files to be wrapped
-;;   (setq coffee-args-compile '("-c" "--bare"))
-
-;;   ;; *Messages* spam
-;;   (setq coffee-debug-mode t)
-
-;;   ;; Emacs key binding
-;;   (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
-;;   (define-key coffee-mode-map [(meta R)] 'coffee-compile-region)
-
-;;   ;; Compile '.coffee' files on every save
-;;   (add-hook 'after-save-hook
-;;       '(lambda ()
-;;          (when (string-match "\.coffee$" (buffer-name))
-;;           (coffee-compile-file)))))
-
-;; (add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Dictionary
@@ -286,19 +258,16 @@
       (setq edit-server-new-frame nil)
       (edit-server-start)))
 
-(setq load-path (cons "~/.emacs.d/vendor/ultratex-0.80/lisp"
-                      load-path))
-
 ;;; ----------------------------------------------------------------------------
 ;;; - header2
 ;;;
 (require 'header2)
-(add-hook 'write-file-hooks 'auto-update-file-header)
-(add-hook 'emacs-lisp-mode-hook 'auto-make-header)
-(add-hook 'c-mode-common-hook   'auto-make-header)
-(add-hook 'ruby-mode-common-hook   'auto-make-header)
-(add-hook 'perl-mode-common-hook   'auto-make-header)
-(add-hook 'sh-mode-common-hook   'auto-make-header)
+;; (add-hook 'write-file-hooks 'auto-update-file-header)
+;; (add-hook 'emacs-lisp-mode-hook 'auto-make-header)
+;; (add-hook 'c-mode-common-hook   'auto-make-header)
+;; (add-hook 'ruby-mode-common-hook   'auto-make-header)
+;; (add-hook 'perl-mode-common-hook   'auto-make-header)
+;; (add-hook 'sh-mode-common-hook   'auto-make-header)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - CUA enhanced functionality for the standard emacs bindings
@@ -307,15 +276,11 @@
 (setq CUA-mode-overwrite-cursor-color "yellow")
 (setq CUA-mode-read-only-cursor-color "green")
 
+;; Ultratex settings
 (require 'light)
 (require 'ultex-setup)
-
-(add-to-list 'load-path "~/.emacs.d/vendor/yac-mode")
 (require 'yac)
-
-(add-to-list 'load-path "~/.emacs.d/vendor/icicles")
 (require 'icicles)
 (icy-mode 1)
 
-(require 'less)
 (provide 'jp-misc)

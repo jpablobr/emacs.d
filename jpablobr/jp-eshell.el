@@ -6,6 +6,16 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Manually set PATH for use by eshell
 ;;; - $JAVA_HOME
+
+;;; ---------------------------------------------------------
+;;; - RVM mode... use rvm’s default ruby for the current Emacs session
+;;;
+(if (eq system-type 'gnu/linux)
+    (progn
+      (require 'rvm)
+      (rvm-use-default))
+  (progn))
+
 (setq gem-bin-path (when (string-match "@global" (getenv "GEM_PATH"))
   (replace-match "/bin" nil nil (getenv "GEM_PATH"))))
 
@@ -96,13 +106,5 @@
   (interactive)
   (let ((inhibit-read-only t))
     (erase-buffer)))
-
-(auto-complete-mode 0)
-
-;;; ----------------------------------------------------------------------------
-;;; - zsh
-;;;
-(add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
-(setq initial-scratch-message "")
 
 (provide 'jp-eshell)

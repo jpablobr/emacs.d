@@ -2,10 +2,13 @@
 ;;jp-theme.el ---------------------------------------------------------
 ;;; - Theme Sat 2010-08-28 - 10:06 AM
 ;;;
-(load-file "~/.emacs.d/vendor/color-theme-twilight.el")
-(load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tango.el")
-(load-file "~/.emacs.d/vendor/color-theme-tangotango/color-theme-tangotango.el")
-(load (concat dotfiles-dir "vendor/theme.el"))
+;; Theaming
+(setq theaming-dir (concat dotfiles-dir "/vendor/theaming"))
+(load "~/.emacs.d/vendor/theaming/theme.el")
+(load-file (concat theaming-dir "/blackboard.el"))
+(load-file (concat theaming-dir "/color-theme-twilight.el"))
+(load-file (concat theaming-dir "/color-theme-tangotango/color-theme-tango.el"))
+(load-file (concat theaming-dir "/color-theme-tangotango/color-theme-tangotango.el"))
 (color-theme-tangotango) ;; (color-theme-twilight) (color-theme-topfunky)
 
 ;;; ----------------------------------------------------------------------------
@@ -18,7 +21,6 @@
 ;;; ---------------------------------------------------------
 ;;; - maxframe
 ;;;
-(add-to-list  'load-path "~/.emacs.d/vendor/maxframe")
 (require 'maxframe)
 (add-hook 'window-setup-hook 'maximize-frame t)
 ;;(add-hook 'window-setup-hook 'ecb-redraw-layout t)
@@ -27,6 +29,8 @@
 ;;; - customization
 ;;;
 (custom-set-faces
+ '(whitespace-line ((t (:background "purple" :foreground "green"))))
+ '(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color\. "white") (background-color . "black") (menu-bar-lines . 1))))
  '(default ((t (:stipple nil
                 :background "black"
                 :foreground "white"

@@ -1,7 +1,8 @@
-;;; ----------------------------------------------------------------------------
-;;; - Clojure
-;;; - 
-;;;
+;;jp-clojure.el ----------------------------------------------------------------------------
+;;
+(setq clojure-dir (concat vendor-dir "/clojure"))
+(add-to-list 'load-path clojure-dir)
+
 (require 'clojure-mode)
 
 (autoload 'enable-paredit-mode "paredit"
