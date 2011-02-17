@@ -1,0 +1,1532 @@
+
+
+
+This is edition 0.69, May 2001, of the `Ultra-TeX Mode
+manual'.  Copyright (C) 1996, 1997, 1998, 1999, 2001 John H. Palmieri
+
+
+File: ultra.info,  Node: Top,  Next: Overview,  Prev: (dir),  Up: (dir)
+
+Ultra-TeX Mode
+**************
+
+
+Ultra-TeX Mode was written in Emacs lisp by Mark Haiman and Nick
+Reingold, with modifications by John Palmieri.
+
+This is version 0.69, May 2001, of the `Ultra-TeX Mode
+manual'.  Bug reports and suggestions for new features should go to
+`palmieri@math.washington.edu'.
+
+This is a revised version of this manual; it is done.
+
+* Menu:
+
+* Overview::                    Overview of Ultra-TeX mode
+* Features::                    Detailed description of the mode's main features
+* Installation::                How to install
+
+* Variable Index::
+* Function Index::
+* Concept Index::
+
+
+File: ultra.info,  Node: Overview,  Next: Features,  Prev: Top,  Up: Top
+
+7 Overview
+**********
+
+Ultra-TeX mode is a major mode for editing TeX documents.  It features
+dynamic completion (*note Completion::) of TeX commands, and a number
+of other handy things.
+
+
+File: ultra.info,  Node: Features,  Next: Installation,  Prev: Overview,  Up: Top
+
+8 Features
+**********
+
+* Menu:
+
+* Completion::                  Lightning completion
+* Lightning completion::
+* Making a list::
+* Defining new commands::
+* Dollar signs::                How dollar signs work
+* Smart return key::            What the return key does
+* Fonts::                       How to get different fonts (like `\emph{}',
+`\mathbf{}', etc.)
+* Greek keyboards::             Alternate keyboards for inserting Greek letters and
+              other symbols
+* Everything else::             Lots of other things
+
+
+File: ultra.info,  Node: Completion,  Next: Lightning completion,  Prev: Features,  Up: Features
+
+8.1 Completion
+==============
+
+One of the key features of Ultra-TeX mode is that it uses "lightning
+completion" to complete TeX commands.  When you enter Ultra-TeX mode
+(say, if you have followed the installation instructions (*note
+Installation::) so that you enter Ultra-TeX whenever you open a TeX
+file), Emacs constructs a list of TeX commands.  Then when you hit `\',
+Emacs does lightning completion on the elements of this list.
+
+   I'll describe what lightning completion is, and I'll explain how
+Emacs constructs this list of commands.
+
+* Menu:
+
+* Lightning completion::  An overly brief introduction to lightning completion
+* Making a list::   Checking it twice, etc.
+
+
+File: ultra.info,  Node: Lightning completion,  Next: Making a list,  Prev: Completion,  Up: Features
+
+8.2 Lightning completion
+========================
+
+Here is an example of lightning completion: suppose that the list of
+commands that Emacs knows about only contains the following:
+
+     \xrightarrow{},   \xleftarrow{},   \Rightarrow
+
+   If I hit `\', then `\' is inserted into the buffer, and lightning
+completion starts.  If I then hit `R', then after a delay (of length
+governed by the variable `ultex-complete-idle-time') `Rightarrow' is
+inserted and completion ends (this all happens because there is only
+one valid completion starting `\R').  If I hit `x' instead of `R', then
+`x' gets inserted.  Then I can either hit `r' or `l', resulting, after
+a delay, in either `\xrightarrow{}' or `\xleftarrow{}'.
+
+   (The aforementioned delay was added in version 0.50 of this package.
+By default, it is equal to `lc-complete-idle-time-default', a variable
+documented in the Lightning Completion Manual (*note Lightning
+completion: (light.info)Overview.).  To get the old behavior of
+immediate completion, set the variable `ultex-complete-idle-time' to 0.)
+
+   Using the same example, if I start by hitting `\', if I hit any
+printing character other than `x' or `R', then after a delay, Emacs
+beeps because there is no valid completion starting with that
+character, and (depending on the value of the variable `lc-clean-up')
+either that character is inserted or nothing is inserted.  I can always
+stop lightning completion prematurely by hitting `C-c'; this is one way
+to insert TeX commands that Ultra-TeX doesn't know about.
+
+   If you don't want to use lightning completion, set the variable
+`ultex-dont-use-completion' to t.  Then Ultra-TeX will only try to
+complete when you hit the <TAB> key.
+
+   There is more to lightning completion.  *Note Lightning completion:
+(light.info)Overview, for a full description.
+
+
+File: ultra.info,  Node: Making a list,  Next: Defining new commands,  Prev: Lightning completion,  Up: Features
+
+8.3 Making a list
+=================
+
+As I said earlier, when Emacs enters Ultra-TeX mode, it constructs a
+list of TeX commands, and it uses this list for its completion table.
+The list is built from two pieces: first of all, the user should have a
+"textree" file, containing the TeX commands she typically uses.
+
+   Remarks:
+  1. A sample textree file, `textree.el', is included in the Ultra-TeX
+     package.
+
+  2. The path name of this file is stored in the variable
+     `ultex-tree-file'.  *Note Installation::, for how to set this, if
+     you're not sure.
+
+  3. If you're in Ultra-TeX mode, you can run the command
+     `ultex-new-cs' to specify a new command sequence to be entered into
+     the textree file.  *Note Defining new commands::, for more
+     information on this.  (Alternatively, the textree file is an Emacs
+     lisp file, so you can edit it directly if you're comfortable with
+     Emacs lisp.)
+
+  4. If you're in Ultra-TeX mode, you can run the command
+     `ultex-delete-csname-from-tree-file' to specify a command sequence
+     to be deleted from the textree file.  *Note Defining new
+     commands::, for more information on this, too.
+
+   Now, Emacs scans the current buffer (the one which is using Ultra-TeX
+mode), looking for commands of the forms
+
+     \documentclass{bozo}
+     \documentstyle{bozo}
+     \usepackage{bozo}
+
+   When it finds any such lines, it examines the list
+`ultex-extra-tree-files' to see if there is an associated file of
+commands for that class, style, or package, and if there is, if the main
+file `textree.el' should also be loaded.  It loads each one of these
+files, along with the main one if appropriate.
+
+   Remarks:
+  1. *Note Installation::, to see how to set the variable
+     `ultex-extra-tree-files'.
+
+  2. If the current buffer has more than one command file associated to
+     it, if you run `ultex-new-cs' to add a new command, Emacs will ask
+     which file to add it to.  Similarly, if you run
+     `ultex-delete-csname-from-tree-file' to delete a command, if that
+     command appears in more than one file, Emacs will ask you which
+     one to delete it from.
+
+  3. The variable `ultex-also-load' may contain the name of a command
+     file to load in addition to any others which have been specified.
+     This is intended for use as a local variable; in other words, to
+     use it, you should have lines like this at the end of your TeX
+     document:
+
+          %% Local variables:
+          %% ultex-also-load: "~/emacs/other-ultex-commands.el"
+          %% End:
+
+
+   After this has been done, Emacs scans the current buffer, looking for
+more commands.  It finds commands in the following ways:
+
+   * If the buffer contains a TeX command of the form
+
+          \newcommand{\bozo}[3]{blah blah blah}
+
+     (or `\renewcommand...' or `\providecommand...') then Emacs adds
+     the string `\bozo{}{}{}' to its list of TeX commands (there are
+     three sets of brackets because the `3' in the square brackets
+     tells LaTeX that `\bozo' takes 3 arguments.  If you then use
+     lightning completion to insert `\bozo{}{}{}' in the buffer, the
+     point is placed inside the first set of brackets.  Hitting the
+     <RET> key moves you to the next set of brackets (*note Smart
+     return key::).
+
+   * If the buffer contains a TeX command of the form
+
+          \DeclareMathOperator{\clown}{Clown}
+
+     then Emacs adds `\clown' to its list.
+
+   * If the buffer contains a TeX command of the form
+
+          \newenvironment{circus}
+
+     (or `\renewenvironment{circus}') then Emacs adds
+
+          \begin{circus}
+
+          \end{circus}
+
+     to the list; when Ultra-TeX inserts this in your buffer, it puts
+     the point on the blank line.
+
+   * If the buffer contains a TeX command of the form
+
+          \newtheorem{dumb-lemma}[thm]{Lemma}
+
+     then Emacs adds
+
+          \begin{dumb-lemma}\label{}
+
+          \end{dumb-lemma}
+
+     and it puts the point inside the argument for `\label'.  If you
+     don't want a label, just hit the <RET> key (*note Smart return
+     key::).
+
+   * If the buffer contains a string of the form
+
+          \label{ling-ling}
+
+     then Emacs adds `\ref{ling-ling}', `\pageref{ling-ling}', and
+     `\eqref{ling-ling}' to its list.
+
+   The above scanning is done by the function `ultex-grab-defs'.  The
+following is done by `ultex-grab-bibs'.
+
+   * Emacs scans the bibliography for bibliographical keys: if the
+     buffer contains `\begin{thebibliography}' and
+     `\end{thebibliography}' commands, Emacs looks between them for
+     commands of the form
+
+          \bibitem{bib-key}  Bozo the Clown, \emph{How to write bad emacs
+          lisp code}, ...
+
+     When it finds such a command, it adds `\cite{bib-key}' and
+     `\nocite{bib-key}' to the list.  If your buffer is associated to a
+     file, `file.tex', then Emacs does exactly the same scanning on the
+     file `file.bbl'.  Lastly, if the buffer contains a command
+
+          \bibliography{bib-data-base}
+
+     then Emacs looks for a file `bib-data-base.bib'; if it finds it, it
+     adds `\cite' and `\nocite' for all of the keys in it.
+
+   Emacs does all of this scanning recursively:
+
+   * Whenever Emacs finds commands like
+
+          \input{bozo}
+          \include{bobo}
+
+     at the start of a line, then Emacs scans the files `bozo.tex' and
+     `bobo.tex' for their commands and labels.  If these commands are
+     not at the start of the line (they have spaces or tabs in front of
+     them, say), then the files are not scanned.
+
+   * Whenever Emacs finds a line like this at the start of the file:
+
+          %% -*- TeX-master: "main.tex"; -*-
+
+     or lines like this at the end of the file:
+
+          %% Local variables:
+          %% TeX-master: "main.tex"
+          %% End:
+
+     then Emacs scans the file `main.tex' for its commands and labels
+     (and any files included or input into them, too).
+
+   A few remarks:
+  1. Emacs learns these command only temporarily - Emacs forgets them
+     between editing sessions (which seems appropriate - I don't want
+     commands I've defined specifically in one TeX document to be valid
+     completions every time I edit any TeX document).
+
+  2. The way things are currently set up, each buffer maintains its own
+     list of TeX commands.  This behavior is controlled by the variable
+     `ultex-alist-local-flag'.  If you want to change this - if you want
+     Ultra-TeX to complete on commands defined in document A when you're
+     editing document B - then customize the variable
+     `ultex-alist-local-flag' (in the customization group
+     "ultra-tex-commands".
+
+  3. Hitting `C-c C-r' runs the command `ultex-reset-current-alist',
+     which resets the list to its default (the contents of the
+     appropriate textree files) in the current buffer, or in all TeX
+     buffers if `ultex-alist-local-flag' is off.
+
+  4. The method of scanning for new commands is oriented towards LaTeX,
+     rather than plain TeX.  Sorry about that.
+
+  5. To avoid the recursive grabbing of commands from input or include
+     files, just have a leading space or tab before the command: Emacs
+     only does the recursive grabbing if the line begins with `\input'
+     or `\include'.
+
+  6. Similarly, if the variable `ultex-no-grab-if-space' is non-nil,
+     then Emacs will not grab commands from any `\newcommands' (etc.)
+     that do not start at the beginning of the line.  So if you don't
+     want a particular command (defined by `\newcommand', say) to be
+     automatically added to the completion list, just start the line
+     with a space.
+
+* Menu:
+
+* Defining new commands::  How to put new TeX commands into the
+textree file (and how to remove them, too).
+
+
+File: ultra.info,  Node: Defining new commands,  Next: Dollar signs,  Prev: Making a list,  Up: Features
+
+8.4 Defining new commands
+=========================
+
+If you want to add a command to your textree file (hence permanently
+adding the command to the list of TeX commands on which Ultra-TeX
+completes), you should run the command `ultex-new-cs'.  In Ultra-TeX
+mode, this is bound to the key sequence `C-c C-n'.
+
+   When you do this, a new buffer, `*TeX Completions Edit*', is opened
+in another window, and a backslash is inserted (just to get you
+started).  You type in your new command, including all the brackets and
+braces you want, put the cursor where you want the point to be when this
+string is inserted in your TeX document, and then hit `M-C-c' to exit.
+You will be asked if you want to use this command in math mode
+exclusively; if you say yes, you will get an error message if you try to
+use it outside of a math environment (but the command will still be
+inserted).  If the current buffer is using more than one file of TeX
+commands, you will be asked in which file to store the command.
+
+   For example, if I wanted to add the command `\sqrt[]{}' to my
+textree file, I would hit `C-c C-n' to run `ultex-new-cs', then type
+`sqrt[]{}' in the new buffer (remember, the backslash is already
+there).  Then I would put the cursor inside the brackets, and hit
+`M-C-c'.
+
+   This will add the line
+
+     ("\\sqrt[]{}" -3 . ultex-math-mode)
+
+to the appropriate textree file.  The first entry here is the command,
+the second entry is the number of characters the point is offset from
+the end of the string, and the last entry says that this command should
+only be used in a math environment.
+
+   If your textree file has some commands you don't want, you can run
+the command `ultex-delete-csname-from-tree-file'.  This prompts you for
+a command and then deletes it from the textree file.  If the command is
+in more than one of the textree files associated to this buffer, you are
+asked to specify the file, also.
+
+   You can also edit the command files by hand.  If you have want to get
+rid of the command `\sqrt[]{}', open the textree file, and look for a
+line like
+
+     ("\\sqrt[]{}" -3 . ultex-math-mode)
+
+Once you have found it, delete it and save the file.  (In case you're
+not familiar with emacs lisp and you want to do this: just be careful to
+delete a region starting with a left parenthesis and ending with its
+matching right parenthesis.  Of course, if you're nervous about it, make
+a backup of your textree file, and then play around.)
+
+   If you want to disable a TeX command for this editing session (in
+this buffer only, if you have made `ultex-current-alist' local), call
+the function `ultex-delete-csname', bound to the key sequence `C-c
+C-d'.  You are prompted for a TeX command you don't want, and the one
+you select is removed, temporarily, from the master list.
+
+
+File: ultra.info,  Node: Dollar signs,  Next: Smart return key,  Prev: Defining new commands,  Up: Features
+
+8.5 Dollar signs
+================
+
+When TeX sees text between two dollar signs (like `$x=y$'), it
+processes that text in math mode.  There are a number of other ways of
+typesetting mathematics, such as the `equation' environment and the
+`eqnarray' environment.  In Ultra-TeX mode, you can get at all of these
+things using the `$' key.
+
+   Here is what `$' does:
+
+   * If you hit `$' once, Emacs inserts a pair of dollar signs and
+     places the point between them.
+
+   * If you hit `$' again, Emacs inserts
+
+          \[
+
+          \]
+
+     and puts the point on the blank line.
+
+   * If you hit `$' again, Emacs inserts
+
+          \begin{equation}\label{}
+
+          \end{equation}
+
+     and puts the point in the argument of `\label'.
+
+   * Next comes
+
+          \begin{equation*}
+
+          \end{equation*}
+
+     with the point on the blank line, then
+          \begin{align}\label{}
+
+          \end{align}
+     then
+          \begin{align*}
+
+          \end{align*}
+     then
+          \begin{gather}\label{}
+
+          \end{gather}
+     then
+          \begin{gather*}
+
+          \end{gather*}
+     then
+          \begin{multline}\label{}
+
+          \end{multline}
+     then
+          \begin{multline*}
+
+          \end{multline*}
+
+   * If you hit `$' again, you go back to
+          \[
+
+          \]
+     and (aside from the fact that you've skipped the first option - a
+     pair of dollar signs) the whole thing starts over again.  If you
+     would rather start over again with `$$' instead, then set the
+     variable `ultex-dollar-back' to 0.
+
+   This works even if the math environment is not empty.  For example,
+if you have
+     \begin{equation}\label{wiles}
+     x^{n} + y^{n} = z^{n}
+     \end{equation}
+   and you hit `$', then you get
+     \begin{equation*}
+     x^{n} + y^{n} = z^{n}
+     \end{equation*}
+   Hitting `$' again gives
+     \begin{align}\label{wiles}
+     x^{n} + y^{n} = z^{n}
+     \end{align}
+
+   If you ever just want a single dollar sign, you can either type `C-q
+$', or hit `$' and then delete one of the two dollar signs that were
+just inserted (using `C-d' or <DEL>, for instance).
+
+   You can change the strings that get inserted by customizing the
+variable `ultex-dollar-array' (customization group
+"ultra-tex-environments").
+
+
+File: ultra.info,  Node: Smart return key,  Next: Fonts,  Prev: Dollar signs,  Up: Features
+
+8.6 Smart return key
+====================
+
+The <RET> key in Ultra-TeX mode tries to move the point forward by the
+"appropriate amount."
+
+   * If you are editing ordinary text, hitting <RET> moves the point
+     past the next word.  If the point is at the start of a blank line,
+     then hitting <RET> inserts another blank line.  If the point is at
+     the end of the buffer, then hitting <RET> inserts a blank line.
+
+   * If the point is to the left of a brace `{', hitting <RET> moves
+     the point to the right of the brace.
+
+   * Suppose the point is inside a pair of braces.  If the braces
+     contain several words, hitting <RET> moves forward a word.  If the
+     braces only contain one word, or if the point is in the last word
+     enclosed by the braces, hitting <RET> moves you to just outside
+     the braces.
+
+   * There is similar behavior with brackets `[]' instead of braces,
+     with one exception: since brackets are used for optional arguments
+     to TeX commands, if the point is inside an _empty_ pair of
+     brackets, hitting <RET> will delete the pair.  This way, you can
+     use lightning completion to insert a command with lots of optional
+     arguments, and you only have to hit RET to get rid of the ones you
+     don't want.  (For example, you don't need separate entries in your
+     textree file for `\sqrt[]{}' and for `\sqrt{}'.)
+
+   * Similarly, if the text looks like `\label{}', and the point is
+     inside the braces, hitting <RET> will delete the string `\label{}'.
+
+   * Since Ultra-TeX completes on bibliographical keys, it assumes you
+     ordinarily don't want to add anything to the argument of `\cite'.
+     So if the text looks like `\cite[bozo]{clown}', if the point is
+     anywhere inside the brackets, hitting <RET> moves the point past
+     `{clown}'.  If the brackets had been empty, hitting <RET> would
+     have deleted them, and then moved the point past `{clown}'.  If
+     the braces had been empty, then hitting <RET> would have put the
+     point inside them, ready to type in the argument to `\cite'.
+
+   * New in version 0.55: if you are defining a new TeX command, so the
+     text looks like `\newcommand{\blah}[3]{blah}', hitting <RET> will
+     add `\blah' to its list of TeX command sequences.  (Similarly for
+     new theorems, environments, etc.)  This behavior can be changed by
+     toggling the variable `ultex-return-checks-for-new-command'.
+
+   To insert a newline, use `M-<RET>'.  <LFD> ends a paragraph when
+that makes sense, and checks the paragraph to see if parentheses, etc.,
+are properly matched.
+
+
+File: ultra.info,  Node: Fonts,  Next: Greek keyboards,  Prev: Smart return key,  Up: Features
+
+8.7 Fonts
+=========
+
+In a typical TeX document, one might use a number of different type
+faces - bold-face, italics, small caps, whatever.  Ultra-TeX provides
+an easy way to insert the command to change type faces.
+
+   Here is a typical example: hitting `M-E' inserts the string
+`\emph{}', and puts the point inside the braces.  (Note: that key
+sequence is `<META>-<SFT>-e', not `<META>-e').  The <META> key, in
+combination with various other capital letters, produces similar
+effects:
+
+   * `M-A' inserts `\mathcal{}'; it also beeps if you're not in a math
+     environment.
+
+   * `M-B' inserts `\textbf{}' or `\mathbf{}', depending on the context.
+
+   * `M-C' inserts `\textsc{}' or `\mathsc{}'.
+
+   * `M-E' inserts `\emph{}'.
+
+   * `M-F' inserts `\textsf{}' or `\mathsf{}'.
+
+   * `M-I' inserts `\textit{}' or `\mathit{}'.
+
+   * `M-M' inserts `\mit{}'.
+
+   * `M-R' inserts `\textrm{}' or `\mathrm{}'.
+
+   * `M-S' inserts `\textsl{}' or `\mathsl{}'.
+
+   * `M-T' inserts `\texttt{}' or `\mathtt{}'.
+
+   * `M-U' inserts `\textup{}'.
+
+   * `M-X' inserts `\text{}'; it beeps if you're not in a math
+     environment.
+
+   * `M-Z' inserts `\zz{}' (intended to be a user-defined font).
+
+   These keys all call the function `ultex-font', with an appropriate
+argument.  This wasn't written with customization in mind, but if you
+want to modify things, you can try adding lines like this to your
+`.emacs' file (*note .ultex file::):
+
+     (define-key ultra-tex-mode-map "\C-[D"
+       '(lambda nil (interactive) (ultex-font "bozo")))
+
+   and see what happens when you hit `M-D', both in and out of a math
+environment.  If things don't work the way you want, you may have to
+modify the definition of the function `ultex-font'.
+
+
+File: ultra.info,  Node: Greek keyboards,  Next: Everything else,  Prev: Fonts,  Up: Features
+
+8.8 Greek keyboards
+===================
+
+The user's textree file (*note Making a list::) stores a lot of her
+favorite TeX commands, and hitting the `$' key (*note Dollar signs::)
+produces some other useful commands.  There is a third way to insert
+TeX commands - via a "Greek keyboard".
+
+   If you hit the left quote key ``' followed by `a', then `\alpha' is
+inserted into the buffer (and you get an error if you're not in a math
+environment).  Similarly, ``b' gives you `\beta', etc.
+
+   Furthermore, while hitting ``g' gives `\gamma', hitting ``G' gives
+`\Gamma'.  Once you hit the ``' key, you can access the (ordinary)
+Greek keyboard, the Shift Greek keyboard, the Control Greek keyboard,
+the Meta, the Meta Shift, and the Meta Control Greek keyboards.  This
+gives you a lot of slots for storing TeX commands.
+
+   In order to see what symbols are stored in these slots, you can use
+the `\' key: hitting ``\' opens up a little window which displays a
+chart with the typewriter keys and their effect in the Greek keyboard -
+it might look something like this:
+
+     times amalg oplus otime odot  wedge vee sqcup cap  cup  uplus pm  circ
+       1     2     3     4     5     6    7    8    9    0     -    =   `
+        theta infty varep rho  tau  upsil xi   iota  omega pi  subse supse
+          q     w     e    r    t     y    u     i     o    p    [     ]
+         alpha sigma delta varph gamma eta  exist kappa lambd int   in
+           a     s     d     f     g     h    j     k     l     ;     '
+           zeta  chi   psi   foral beta  nu   mu    sum   prod  not
+             z     x     c     v     b    n    m     ,      .    /
+
+   (Unfortunately, it only has room to display the first five
+characters of the TeX command.)  In this example, hitting ``,' would
+produce `\sum', hitting ``6' would produce `\wedge', hitting ``e' would
+produce `\varepsilon'.
+
+   Similarly, hitting ``|' gives you the Shift Greek keyboard, ``C-\'
+gives the Control Greek keyboard, etc.
+
+   The bindings for the Greek keyboards are stored in a "greek-keys"
+file.
+
+   Remarks:
+  1. A sample greek-keys file, `greek.el', is included in the Ultra-TeX
+     package.
+
+  2. The path name of this file is stored in the variable
+     `ultex-greek-keys-file'.  *Note Installation::, for how to set
+     this, if you're not sure.
+
+  3. To change the definitions of the greek keys, you should edit the
+     greek-keys file.  Note: you will get an error if you use any Greek
+     key if you're not in a math environment, so you probably only want
+     to bind math symbols to Greek keys.  (The appropriate string will
+     be inserted in any case, though.)
+
+  4. New in version 0.55: when using XEmacs with support for pictures
+     in xpm format, the greek keyboard can display pictures of the
+     symbols rather than their names.  To enable this, you need to
+     install the LaTeX symbols package, available from
+     `http://www.math.washington.edu/~palmieri/Emacs/LaTeX-symbols'.
+     The variables `ultex-display-pictures', `ultex-picture-type', and
+     `ultex-picture-directory' are relevant here.  (To find out if your
+     copy of XEmacs has xpm support, evaluate `(featurep 'xpm)' - t
+     means it has xpm support, nil means it doesn't.  If you want to use
+     pictures in some other format, that's fine, but you'll have to
+     convert the xpm files included in the LaTeX symbols package to the
+     desired format on your own.)
+
+
+File: ultra.info,  Node: Everything else,  Prev: Greek keyboards,  Up: Features
+
+8.9 Everything else
+===================
+
+There are a number of other features.  I'll probably forget one or two,
+but here are most of them:
+
+   * Hitting `C-c C-s' inserts a template for a LaTeX document.  This
+     template is stored in a file; its pathname is given by
+     `ultex-latex-skel-file'.  A sample file is included in the package:
+     `skeleton.tex'.  (Also, once the template is inserted, Emacs runs
+     `ultex-skel-hook'.)
+
+   * Hitting `{' makes a brace pair and puts the point inside.  If you
+     want similar behavior for `[' and `(', then customize the
+     variables `ultex-match-brackets' and `ultex-match-parens'.  On the
+     other hand, if you don't want this behavior for `{', then
+     customize `ultex-match-braces'.
+
+   * Hitting the double-quote key `"' makes either two left single
+     quotes or two right single quotes, whichever Emacs thinks is
+     appropriate.
+
+   * Hitting `...' inserts `\dots'.  (It used to insert `\cdots' or
+     `\ldots', depending on what it thought was appropriate, but I
+     believe that the recent versions of LaTeX will position `\dots'
+     according to the context.)
+
+   * Hitting `^' produces `^{}', with the point inside the braces.
+     Hitting `_' produces `_{}', with the point inside the braces.
+
+   * Hitting <TAB> in an array environment moves the point forward a few
+     spaces, and inserts `&'.  (Emacs determines when to do this by
+     using the variable `ultex-array-environs', which is a list
+     consisting of environments that use `&' for "tab stops".  Change
+     this variable to change the behavior of <TAB>.)
+
+   * Hitting `\\' will ordinarily insert `\\' and a newline.  If you
+     are in an appropriate environment (like `itemize' or `enumerate'),
+     then `\\' will not be inserted; instead, a newline and `\item'
+     will be inserted.  (Emacs does this via the variable
+     `itemizing-environments', which a list consisting of environments
+     that use `\item'.)
+
+   * Ultra-TeX can use commands from the AUC-TeX package for
+     typesetting the current document, etc.  To enable this, customize
+     the variable `ultex-use-auctex'.  Then hit `C-c C-c' and see what
+     happens.
+
+   * When using XEmacs with xpm support, the LaTeX symbols package,
+     available from
+     `http://www.math.washington.edu/~palmieri/Emacs/LaTeX-symbols',
+     provides commands to open up windows with tables of symbols.  The
+     easiest way to access these is from the Ultra-TeX menu;
+     alternatively, you can call these functions: `latex-symbol-greek',
+     `latex-symbol-operators', `latex-symbol-relations',
+     `latex-symbol-arrows', `latex-symbol-miscellany', and
+     `latex-symbol-all'.
+
+
+File: ultra.info,  Node: Installation,  Next: Variable Index,  Prev: Features,  Up: Top
+
+9 Installation
+**************
+
+* Menu:
+
+* Basic installation::
+* .ultex file::
+* Customization variables::
+
+
+File: ultra.info,  Node: Basic installation,  Next: .ultex file,  Prev: Installation,  Up: Installation
+
+9.1 Basic installation
+======================
+
+Once you have the package in front of you, you should look at the file
+`INSTALLATION'.  That tells you how to byte-compile the Emacs lisp code
+and how to produce the documentation in various formats.  It also has
+basic instructions for how to modify your `.emacs' file.  Here are more
+details about `.emacs':
+
+   * Make sure the directory `ultratex-0.60/lisp' is in your load path.
+     It might be good to make a symbolic link from `ultratex-0.60' to
+     `ultratex' and then put `ultratex/lisp' in your load-path, so that
+     if this package ever gets upgraded to `ultratex-0.61' and you
+     choose to install it, you only have to change the symbolic link,
+     not your `.emacs' file.  For example, I have the following line in
+     my `.emacs' file.
+
+          (setq load-path (cons "/home/palmieri/emacs/ultratex/lisp"
+                                load-path))
+
+   * Put the files `textree.el', `greek.el', and `skeleton.tex'
+     someplace.  They start in the directory `ultratex/user', but if
+     you change them from their defaults, you might want to move them
+     elsewhere so they don't get overwritten when you install a new
+     version of the Ultra-TeX package.
+
+   * Put the following line in your `.emacs' file:
+
+          (require 'ultex-setup)
+
+
+   Now the next time you start Emacs, whenever you find a TeX file, you
+will automatically be put into Ultra-TeX mode.
+
+
+File: ultra.info,  Node: .ultex file,  Next: Customization variables,  Prev: Basic installation,  Up: Installation
+
+9.2 .ultex file
+===============
+
+When Ultra-TeX starts up, it loads the file `.ultex'.  This was useful
+in versions of Ultra-TeX before 0.50, when one would set many options
+by hand and then wanted to avoid cluttering up the `.emacs' file with
+various Ultra-TeX settings.  This is not so useful in version 0.50 (or
+later) of the Ultra-TeX package, since all of the features can be
+customized, and the customizations get stored in `.emacs' automatically.
+
+   The name of the `.ultex' file is given by the variable
+`ultex-init-file', so if you'd rather give this file a different name,
+like `.ultra-tex-stuff.el', then customize this variable accordingly.
+
+
+File: ultra.info,  Node: Customization variables,  Prev: .ultex file,  Up: Installation
+
+9.3 Customization variables
+===========================
+
+Many of the features of Ultra-TeX mode are customizable.  The best way
+to change this is with the "customization" feature of Emacs: run
+
+     M-x customize-group GRP
+
+where GRP is one of the Ultra-TeX "customization groups", to each of
+which we devote a subsection.
+
+* Menu:
+
+* ultra-tex::                   Basic settings for Ultra-TeX mode
+* ultra-tex-init::              Initialization options for Ultra-TeX mode
+* ultra-tex-files::             Files used by Ultra-TeX mode
+* ultra-tex-commands::          TeX/LaTeX commands in Ultra-TeX mode
+* ultra-tex-parens::            Parentheses, braces, brackets
+* ultra-tex-environments::
+* ultra-tex-misc::              Ultra-TeX mode miscellany
+* ultra-tex-auctex::            Using AUC-TeX commands with Ultra-TeX mode
+                               See the variable `ultex-use-auctex'.
+* ultra-tex-auctex-files::      File names and paths in Ultra-TeX/AUC-TeX.
+* ultra-tex-auctex-commands::   External commands in Ultra-TeX via AUC-TeX.
+* ultra-tex-auctex-latex::      LaTex stuff for Ultra-TeX/AUC-TeX.
+
+
+File: ultra.info,  Node: ultra-tex,  Next: ultra-tex-init,  Up: Customization variables
+
+9.3.1 ultra-tex
+---------------
+
+To change these:
+
+     M-x customize-group ultra-tex
+
+All of the other Ultra-TeX mode groups can be accessed from this one,
+also.
+
+`ultex-complete-idle-time'
+     Default value: 0.5.  Effect: After this much idle time has
+     elapsed, try to complete.  Measured in seconds.  *Note Lightning
+     completion::.
+
+`ultra-tex-mode-hook'
+     Default value: nil.  Description: Hook for Ultra-TeX mode.  This
+     is a list of commands, each of which is executed whenever
+     Ultra-TeX mode starts.
+
+
+
+File: ultra.info,  Node: ultra-tex-init,  Next: ultra-tex-files,  Prev: ultra-tex,  Up: Customization variables
+
+9.3.2 ultra-tex-init
+--------------------
+
+To change these:
+
+     M-x customize-group ultra-tex-init
+
+`ultex-init-file'
+     Default value: `~/.ultex'.  Description: The Ultra-TeX Emacs lisp
+     startup file.  If you are setting Ultra-TeX options with
+     customize, this file may be superfluous.  If a file with the .el
+     or .elc suffix exists, it will be read instead.  *Note .ultex
+     file::.
+
+`ultex-use-color'
+     Default value: nil.  Effect: Toggle use of color in Ultra-TeX mode.
+     This is pretty, but it can add a noticeable delay when starting
+     Ultra-TeX mode.
+
+`ultex-use-font-latex'
+     Default value: nil.  Effect: Toggle use of the `font-latex' package
+     for colorization.  This variable is only relevant if
+     `ultex-use-color' is `on'.  One version of the file
+     `font-latex.el' is distributed with Ultra-TeX.  The most recent
+     version is available from
+     `ftp://ftp.phys.ocean.dal.ca/users/rhogee/elisp/font-latex.el'
+
+`ultex-use-auctex'
+     Default value: nil.  Effect: Toggle use of files from AUC-TeX
+     distribution.  This has one main effect: several commands are
+     added to Ultra-TeX to allow one to typeset the current TeX
+     document, spawn an external viewer, jump to the next error, etc.
+
+     This option requires the use of the file `tex-buf.el' from the
+     AUC-TeX distribution.  This file is included with Ultra-TeX, but
+     if you want the most up-to-date version, the AUC-TeX package is
+     available from `http://sunsite.auc.dk/auctex/'.  *Note
+     ultra-tex-auctex::, for options related to this one.
+
+`ultex-use-imenu'
+     Default value: nil.  Effect: Toggle use of `imenu' package in
+     Ultra-TeX mode.  The `imenu' package lets you pop up a menu giving
+     an outline of the buffer, so that you can move around to various
+     section headings and theorem statements and so forth.  If this
+     option is on, then S-mouse-3 (hold down the shift key, and hit
+     (and release) the right mouse button) runs the command `imenu',
+     which pops up the aforementioned menu.
+
+`ultex-use-bib-cite'
+     Default value: nil.  Effect: Toggle use of `bib-cite' package in
+     Ultra-TeX mode.  The `bib-cite' package does stuff with your
+     labels and citations - highlights them, lets you jump to them, etc.
+     This option is not well-tested, and may yield unpredictable
+     results.  The latest version of `bib-cite' is available from
+     `ftp://ftp.phys.ocean.dal.ca/users/rhogee/elisp/bib-cite.el'.
+
+
+
+File: ultra.info,  Node: ultra-tex-files,  Next: ultra-tex-commands,  Prev: ultra-tex-init,  Up: Customization variables
+
+9.3.3 ultra-tex-files
+---------------------
+
+To change these:
+
+     M-x customize-group ultra-tex-files
+
+`ultex-tree-file'
+     Default value: The file `user/textree.el' in the Ultra-TeX
+     distribution.  Description: This is the pathname for your textree
+     file, the file containing a list of TeX commands on which to
+     complete.  *Note Making a list::.
+
+`ultex-extra-tree-files'
+     Default value: nil.  Description: This is a list of triples.  The
+     first element of each triple should be the name of a class, style,
+     or package, the second the name of an associated file of TeX
+     commands, the third a flag (t or nil).  When that class, style, or
+     package is used in any given document, the associated file of TeX
+     commands is loaded.  If the flags are nil for every class, style,
+     and package used in the document, then the main TeX command file
+     (`ultex-tree-file') is not loaded.  *Note Making a list::.
+
+`ultex-greek-keys-file'
+     Default value: The file `user/greek.el' in the Ultra-TeX
+     distribution.  Description: This is the pathname for your greek
+     keys file, the file containing mappings for the Greek keyboards in
+     Ultra-TeX mode.  *Note Greek keyboards::.
+
+`ultex-latex-skel-file'
+     Default value: The file `user/skeleton.tex' in the Ultra-TeX
+     distribution.  Description: This is the pathname for a file
+     containing a template for a LaTeX document.  This file is inserted
+     when the function `get-latex-skel' is run.  *Note Everything
+     else::.
+
+`ultex-skel-hook'
+     Default value: nil.  Description: This hook is called when the
+     function `get-latex-skel' is run.  *Note Everything else::.
+
+
+
+File: ultra.info,  Node: ultra-tex-commands,  Next: ultra-tex-parens,  Prev: ultra-tex-files,  Up: Customization variables
+
+9.3.4 ultra-tex-commands
+------------------------
+
+To change these:
+
+     M-x customize-group ultra-tex-commands
+
+`ultex-alist-local-flag'
+     Default value: t.  Effect: When non-nil, each Ultra-TeX buffer
+     maintains its own list of TeX commands on which to complete.
+     *Note Making a list::.
+
+`ultex-rescan-after-new-label'
+     Default value: nil.  Effect: When non-nil, Ultra-TeX rescans the
+     buffer for labels whenever you enter a new label.  This is useful
+     if you change labels a lot and you don't want Ultra-TeX completing
+     on old labels that you have removed.
+
+`ultex-return-checks-for-new-commands'
+     Default value: t.  Effect: When non-nil, Ultra-TeX checks the
+     current line to see if the user just entered a new command, new
+     environment, etc.; if so, it adds the new definition to its list
+     of commands on which to complete.
+
+`ultex-no-grab-if-space'
+     Default value: nil.  Effect: When non-nil, Ultra-TeX will ignore
+     all \newcommands (etc.) that do not start at the beginning of the
+     line.
+
+`ultex-append-space-to-defs'
+     Default value: t.  Effect: When non-nil, Ultra-TeX adds a space to
+     any TeX control sequence names it grabs from a file or buffer.
+
+
+
+File: ultra.info,  Node: ultra-tex-parens,  Next: ultra-tex-environments,  Prev: ultra-tex-commands,  Up: Customization variables
+
+9.3.5 ultra-tex-parens
+----------------------
+
+To change these:
+
+     M-x customize-group ultra-tex-parens
+
+`ultex-match-braces'
+     Default value: t.  Effect: If non-nil, hitting `{' inserts `{}'.
+     *Note Everything else::.
+
+`ultex-match-brackets'
+     Default value: nil.  Effect: If non-nil, hitting `[' inserts `[]'.
+     *Note Everything else::.
+
+`ultex-match-parens'
+     Default value: nil.  Effect: If non-nil, hitting `(' inserts `()'.
+     *Note Everything else::.
+
+`ultex-blink-matching-bracket'
+     Default value: t.  Effect: If non-nil, hitting `]' will briefly
+     highlight the matching `['.  More to the point, if this is nil,
+     then the syntax type of brackets is changed from the default, in
+     which case Ultra-TeX might do a better job of determining when the
+     point is in math mode.  If you don't want to mess with the syntax
+     table, but you do want to control the blinking of matching
+     parentheses, look at the variable `blink-matching-paren' instead.
+
+`ultex-blink-matching-paren'
+     Default value: t.  Effect: If non-nil, hitting `)' will briefly
+     highlight the matching `('.  More to the point, if this is nil,
+     then the syntax type of parentheses is changed from the default, in
+     which case Ultra-TeX might do a better job of determining when the
+     point is in math mode.  If you don't want to mess with the syntax
+     table, but you do want to control the blinking of matching
+     parentheses, look at the variable `blink-matching-paren' instead.
+
+
+
+File: ultra.info,  Node: ultra-tex-environments,  Next: ultra-tex-misc,  Prev: ultra-tex-parens,  Up: Customization variables
+
+9.3.6 ultra-tex-environments
+----------------------------
+
+To change these:
+
+     M-x customize-group ultra-tex-environments
+
+`ultex-array-environs'
+     Default value:
+
+          (array tabular eqnarray eqnarray* align gather alignat
+          aligned gathered alignedat split CD matrix smallmatrix
+          pmatrix bmatrix vmatrix Vmatrix xalignat xxalignat cases)
+     Description: List of symbols of array environments.  *Note
+     Everything else::.
+
+`ultex-math-start'
+     Default value: some long regular expression.  Description: Regular
+     expression to match the start of math mode.
+
+`ultex-math-end'
+     Default value: some long regular expression.  Description: Regular
+     expression to match the end of math mode.
+
+`ultex-itemizing-environments'
+     Default value: `(list trivlist itemize description enumerate)'.
+     Description: List of symbols of LaTeX environments which use
+     `\item'.  When the point is in one of these environments, hitting
+     `\\' inserts a new line and the text `\item []' (but see the next
+     variable).  *Note Everything else::.
+
+`ultex-item-insert-brackets'
+     Default value: t.  Effect: When non-nil, hitting `\\' in an
+     itemizing environment inserts `\item []'; when nil, `\item ' is
+     inserted instead.
+
+`ultex-math-cs-regexp'
+     Default value: nil.  Description: Regular expression to match TeX
+     commands whose arguments are set in math mode.
+
+`ultex-non-math-cs-regexp'
+     Default value: "\\\\[a-z]*box{\\|\\\\text[a-z]*{".  Description:
+     Regular expression to match TeX commands whose arguments are not
+     set in math mode.
+
+`ultex-def-regexp'
+     Default value: some long regular expression.  Description: Regular
+     expression to match TeX commands whose arguments may or may not be
+     in math mode (e.g., `newcommand').
+
+`ultex-dollar-array-cursor'
+     Default value: "|".  Description: String to use to mark the cursor
+     position in `ultex-dollar-array'.  *Note Dollar signs::.
+
+`ultex-dollar-array'
+     Default value:
+
+           "$|$"
+           "\[\n|\n\]"
+           "\begin{equation}\label{|}\n\n\end{equation}"
+           "\begin{equation*}\n|\n\end{equation*}"
+           "\begin{align}\label{|}\n\n\end{align}"
+           "\begin{align*}\n|\n\end{align*}"
+           "\begin{gather}\label{|}\n\n\end{gather}"
+           "\begin{gather*}\n|\n\end{gather*}"
+           "\begin{multline}\label{|}\n\n\end{multline}"
+           "\begin{multline*}\n|\n\end{multline*}"
+
+     where I have written `\n' for `newline'.  Description: List of
+     strings inserted by hitting $.  The first time you hit $, the
+     first string is inserted.  Hitting it again replaces the first
+     string with the second, etc.  After inserting each string, the
+     cursor is placed at the spot marked by the string
+     `ultex-dollar-array-cursor'.  If you do not include the string
+     `ultex-dollar-array-cursor' anywhere, Emacs will try to guess where
+     to put the cursor.
+
+     (Warning: customization sets the variable
+     `ultex-dollar-array-external', which has the above default value.
+     If you want to set this directly, not via customize, then you
+     should set `ultex-dollar-array', which has a different syntax.
+     Read the documentation for that variable for help.)  *Note Dollar
+     signs::.
+
+`ultex-dollar-back'
+     Default value: 1.  Description: Which element of
+     `ultex-dollar-array' to start over with once the elements have been
+     cycled through once.  The elements are numbered starting with 0.
+     *Note Dollar signs::.
+
+
+
+File: ultra.info,  Node: ultra-tex-misc,  Next: ultra-tex-auctex,  Prev: ultra-tex-environments,  Up: Customization variables
+
+9.3.7 ultra-tex-misc
+--------------------
+
+To change these:
+
+     M-x customize-group ultra-tex-misc
+
+`ultex-slash-dollar-is-not-math'
+     Default value: t.  Effect: If non-nil, then typing `$' right after
+     `\' does not start math mode.
+
+`ultex-dont-use-completion'
+     Default value: nil.  Effect: If non-nil, Ultra-TeX will not use
+     lightning completion on TeX commands.  Instead, things will work
+     sort of like regular Emacs completion: the <TAB> key will try to
+     complete on command sequences, etc.
+
+`ultex-subscript-delete-leading-space'
+     Default value: t.  Effect: If non-nil, Ultra-TeX will delete
+     leading spaces before inserting a subscript, inserting a
+     superscript, or hitting <RET> to exit math mode.  For example,
+     suppose this variable is non-nil; if you have typed `$\alpha $'
+     and the point is after the space, then hitting `^' deletes the
+     space, producing this: `$\alpha^{}$', with the point inside the
+     braces.
+
+`ultex-display-pictures'
+     Default value: t if Emacs can display pictures in xpm or gif
+     format; nil otherwise.  Effect: if non-nil, Greek keyboards are
+     displayed with pictures of symbols rather than their names.
+
+`ultex-picture-type'
+     Default value: 'xpm, 'gif, or nil, depending on what sort of
+     pictures Emacs can display.  Effect: what format to use for
+     picture files.
+
+`ultex-picture-directory'
+     Default value: The directory `symbols' in the Ultra-TeX
+     distribution.  Description: Emacs looks for picture files in
+     subdirectories `xpm' or `gif' of this directory.
+
+
+
+File: ultra.info,  Node: ultra-tex-auctex,  Next: ultra-tex-auctex-files,  Prev: ultra-tex-misc,  Up: Customization variables
+
+9.3.8 ultra-tex-auctex
+----------------------
+
+Except for `ultex-ignore-auctex-tex.el', the rest of these come from
+AUC-TeX.  To change them:
+
+     M-x customize-group ultra-tex-auctex
+
+`ultex-ignore-auctex-tex.el'
+     Default value: t.  Effect: If non-nil, then the AUC-TeX file
+     `tex.el' will not be loaded by `tex-buf.el'.  In fact, if you want
+     to load it, you have to do it with a `load' command (rather than
+     `require').  If the only piece of AUC-TeX you ever use is the part
+     that comes with Ultra-TeX, then you have nothing to worry about.
+     If you use other parts of the AUC-TeX distribution, then you might
+     want to set this variable to nil.  I can't guarantee that
+     Ultra-TeX and AUC-TeX will interact well in that case, though.
+
+`TeX-display-help'
+     Default value: t.  Effect: If non-nil, then pop-up help when
+     stepping thrugh errors with `TeX-next-error'.
+
+`TeX-debug-bad-boxes'
+     Default value: nil.  Effect: If non-nil, then also find
+     overfull/underfull boxes warnings with `TeX-next-error'.
+
+
+
+File: ultra.info,  Node: ultra-tex-auctex-files,  Next: ultra-tex-auctex-commands,  Prev: ultra-tex-auctex,  Up: Customization variables
+
+9.3.9 ultra-tex-auctex-files
+----------------------------
+
+These options all come from AUC-TeX.  To change them:
+
+     M-x customize-group ultra-tex-auctex-files
+
+`TeX-master'
+     Default value: t.  Description: The master file associated with the
+     current buffer.  If the file being edited is actually included from
+     another file, you can tell Ultra-TeX and AUC-TeX the name of the
+     master file by setting this variable.  If there are multiple
+     levels of nesting, specify the top level file.  If this variable
+     is nil, Emacs will query you for the name.  If the variable is t,
+     Emacs will assume the file is a master file itself.  If the
+     variable is `'shared', Emacs will query for the name, but not
+     change the file.  *Note Making a list::.
+
+`TeX-one-master'
+     Default value: "\\.tex$".  Description: Regular expression matching
+     ordinary TeX files.
+
+`TeX-file-extensions'
+     Default value: `'("tex" "sty" "cls" "ltx" "texi" "texinfo")'.
+     Description: List of file extensions used by manually generated TeX
+     files.
+
+`TeX-macro-global'
+     Default value: `'("/usr/local/lib/texmf/tex/")'.  Description:
+     Directories containing the sites TeX macro files and style files.
+
+`TeX-macro-private'
+     Default value: obtained from environment variables TEXINPUTS and
+     BIBINPUTS.  Description: Directories where you store your personal
+     TeX macros.
+
+`TeX-check-path'
+     Default value: all elements from `TeX-macro-private' and
+     `TeX-macro-global', as well as the current directory.  Description:
+     Directory path to search for dependencies.
+
+`BibTeX-file-extensions'
+     Default value: `("bib")'.  Description: List of valid file
+     extensions for BibTeX files.
+
+`BibTeX-style-extensions'
+     Default value: `("bst")'.  Description: List of valid file
+     extensions for BibTeX style files.
+
+`TeX-default-extension'
+     Default value: "tex".  Description: Default extension for TeX
+     files.
+
+
+
+File: ultra.info,  Node: ultra-tex-auctex-commands,  Next: ultra-tex-auctex-latex,  Prev: ultra-tex-auctex-files,  Up: Customization variables
+
+9.3.10 ultra-tex-auctex-commands
+--------------------------------
+
+These options all come from AUC-TeX.  To change them:
+
+     M-x customize-group ultra-tex-auctex-commands
+
+`TeX-command-BibTeX'
+     Default value: "BibTeX".  Description: The name of the BibTeX
+     entry in `TeX-command-list'.
+
+`TeX-command-Show'
+     Default value: "View".  Description: The default command to show
+     (view or print) a TeX file.
+
+`TeX-command-Print'
+     Default value: "Print".  Description: The name of the Print entry
+     in `TeX-command-Print'.
+
+`TeX-command-Queue'
+     Default value: "Queue".  Description: The name of the Queue entry
+     in `TeX-command-Queue'.
+
+`TeX-print-command'
+     Default value: "dvips %s -P%p".  Description: Command used to
+     print a file.  First `%p' is expanded to the printer name, then
+     ordinary expansion is performed as specified in `TeX-expand-list'.
+
+`TeX-queue-command'
+     Default value: "lpq -P%p".  Description: Command used to show the
+     status of a printer queue.  First `%p' is expanded to the printer
+     name, then ordinary expansion is performed as specified in
+     `TeX-expand-list'.
+
+`TeX-printer-list'
+     Default value:
+           (("Local" "dvips -f %s | lpr" "lpq")
+            ("lw")
+            ("ps"))
+     Description: List of available printers.  The first element of each
+     entry is the printer name.  The second element is the command used
+     to print to this printer.  It defaults to the value of
+     `TeX-print-command'.  The third element is the command used to
+     examine the print queue for this printer.  It defaults to the
+     value of `TeX-queue-command'.  Any occurence of `%p' in the second
+     or third element is expanded to the printer name given in the first
+     element, then ordinary expansion is performed as specified in
+     `TeX-expand-list'.
+
+`TeX-printer-default'
+     Default value: Derived from the environment variable PRINTER, or
+     if that is not set, the car of `TeX-printer-list', or if that is
+     not set, "lw".  Description: Default printer to use with
+     `TeX-command'.
+
+`TeX-view-style'
+     Default value:
+           (("^a5$" "xdvi %d -paper a5")
+            ("^landscape$" "xdvi %d -paper a4r -s 4")
+            ("." "xdvi %d"))
+     Description: List of style options and view options.  If the first
+     element (a regular expresion) matches the name of one of the style
+     files, any occurrence of the string `%v' in a command in
+     `TeX-command-list' will be replaced with the second element.  The
+     first match is used, if no match is found the `%v' is replaced with
+     the empty string.
+
+`TeX-expand-list'
+     Default value: a long list of things of the form
+            ("%s" file nil t)
+     Description: List of expansion strings for TeX command names.  Each
+     entry is a list with two or more elements.  The first element is
+     the string to be expanded.  The second element is the name of a
+     function returning the expanded string when called with the
+     remaining elements as arguments.  The special value `file' will be
+     expanded to the name of the file being processed, with an optional
+     extension.
+
+`TeX-command-list'
+     Default value: a long list of things of the form
+           ("LaTeX" "%l '\\nonstopmode\\input{%t}'" TeX-run-LaTeX nil t)
+     Description: List of commands to execute on the current document.
+     Each element is a list of five elements, whose first element is
+     the name of the command as it will be presented to the user.  The
+     second element is the string handed to the shell after being
+     expanded. The expansion is done using the information found in
+     `TeX-expand-list'.  The third element is the function which
+     actually start the process.  Several such hooks has been defined;
+     see the function documentation for a description.  If the fourth
+     element is non-nil, the user will get a chance to modify the
+     expanded string.  The fifth element is obsolete and ignored.
+
+
+
+File: ultra.info,  Node: ultra-tex-auctex-latex,  Prev: ultra-tex-auctex-commands,  Up: Customization variables
+
+9.3.11 ultra-tex-auctex-latex
+-----------------------------
+
+These options all come from AUC-TeX.  To change them:
+
+     M-x customize-group ultra-tex-auctex-latex
+
+`LaTeX-version'
+     Default value: "2e".  Description: Default LaTeX version.  The only
+     choices are "2" and "2e".
+
+`LaTeX-command-style'
+     Default value: if `LaTeX-version' is "2e", then (("." "latex"))).
+     If `LaTeX-version' is "2", then a longer list.  Description: List
+     of style options and LaTeX commands.
+
+
+
+File: ultra.info,  Node: Variable Index,  Next: Function Index,  Prev: Installation,  Up: Top
+
+Variable Index
+**************
+
+ [index ]
+* Menu:
+
+* lc-clean-up:                           Lightning completion.  (line 6)
+* lc-complete-idle-time:                 Lightning completion.  (line 6)
+* TeX-master:                            Making a list.         (line 6)
+* ultex-alist-local-flag:                Making a list.         (line 6)
+* ultex-also-load:                       Making a list.         (line 6)
+* ultex-array-environs:                  Everything else.       (line 6)
+* ultex-complete-idle-time:              Lightning completion.  (line 6)
+* ultex-display-pictures:                Greek keyboards.       (line 6)
+* ultex-dollar-array:                    Dollar signs.          (line 6)
+* ultex-dollar-back:                     Dollar signs.          (line 6)
+* ultex-dont-use-completion:             Lightning completion.  (line 6)
+* ultex-extra-tree-files:                Making a list.         (line 6)
+* ultex-greek-keys-file:                 Greek keyboards.       (line 6)
+* ultex-init-file:                       .ultex file.           (line 6)
+* ultex-latex-skel-file:                 Everything else.       (line 6)
+* ultex-match-braces:                    Everything else.       (line 6)
+* ultex-match-brackets:                  Everything else.       (line 6)
+* ultex-match-parens:                    Everything else.       (line 6)
+* ultex-no-grab-if-space:                Making a list.         (line 6)
+* ultex-picture-directory:               Greek keyboards.       (line 6)
+* ultex-picture-type:                    Greek keyboards.       (line 6)
+* ultex-return-checks-for-new-command:   Smart return key.      (line 6)
+* ultex-skel-hook:                       Everything else.       (line 6)
+* ultex-tree-file:                       Making a list.         (line 6)
+* ultex-use-auctex:                      Everything else.       (line 6)
+
+
+File: ultra.info,  Node: Function Index,  Next: Concept Index,  Prev: Variable Index,  Up: Top
+
+Function Index
+**************
+
+ [index ]
+* Menu:
+
+* ultex-delete-csname:                   Defining new commands. (line 6)
+* ultex-delete-csname-from-tree-file:    Defining new commands. (line 6)
+* ultex-font:                            Fonts.                 (line 6)
+* ultex-grab-bibs:                       Making a list.         (line 6)
+* ultex-grab-defs:                       Making a list.         (line 6)
+* ultex-new-cs:                          Defining new commands. (line 6)
+* ultex-reset-current-alist:             Making a list.         (line 6)
+* ultex-sym-display-all:                 Greek keyboards.       (line 6)
+* ultex-sym-display-arrows:              Greek keyboards.       (line 6)
+* ultex-sym-display-greek <1>:           Everything else.       (line 6)
+* ultex-sym-display-greek:               Greek keyboards.       (line 6)
+* ultex-sym-display-miscellany:          Greek keyboards.       (line 6)
+* ultex-sym-display-operators:           Greek keyboards.       (line 6)
+* ultex-sym-display-relations:           Greek keyboards.       (line 6)
+
+
+File: ultra.info,  Node: Concept Index,  Prev: Function Index,  Up: Top
+
+Concept Index
+*************
+
+ [index ]
+* Menu:
+
+* .emacs file:                           Basic installation.    (line 6)
+* .ultex file:                           .ultex file.           (line 6)
+* \\:                                    Everything else.       (line 6)
+* alpha, beta, ...:                      Greek keyboards.       (line 6)
+* Braces:                                Everything else.       (line 6)
+* Brackets:                              Everything else.       (line 6)
+* Commands - adding:                     Defining new commands. (line 6)
+* Commands - removing:                   Defining new commands. (line 6)
+* Completion:                            Lightning completion.  (line 6)
+* Customizable options:                  Customization variables.
+                                                                (line 6)
+* Customization:                         Customization variables.
+                                                                (line 6)
+* Defining new commands:                 Defining new commands. (line 6)
+* Deleting commands:                     Defining new commands. (line 6)
+* Dollar signs:                          Dollar signs.          (line 6)
+* Double backslash:                      Everything else.       (line 6)
+* Files of TeX commands:                 Making a list.         (line 6)
+* Fonts:                                 Fonts.                 (line 6)
+* gif:                                   Greek keyboards.       (line 6)
+* Greek keyboards:                       Greek keyboards.       (line 6)
+* Greek keys file:                       Greek keyboards.       (line 6)
+* Groups, customization:                 Customization variables.
+                                                                (line 6)
+* Installation:                          Basic installation.    (line 6)
+* Keyboards:                             Greek keyboards.       (line 6)
+* Lightning completion:                  Lightning completion.  (line 6)
+* List of customizable options:          Customization variables.
+                                                                (line 6)
+* List of TeX commands:                  Making a list.         (line 6)
+* Making a list:                         Making a list.         (line 6)
+* Matching braces:                       Everything else.       (line 6)
+* Matching brackets:                     Everything else.       (line 6)
+* Matching parentheses:                  Everything else.       (line 6)
+* Math environments:                     Dollar signs.          (line 6)
+* Miscellany:                            Everything else.       (line 6)
+* New commands:                          Defining new commands. (line 6)
+* Options:                               Customization variables.
+                                                                (line 6)
+* Parentheses:                           Everything else.       (line 6)
+* Quotation marks:                       Everything else.       (line 6)
+* Removing commands:                     Defining new commands. (line 6)
+* Return key:                            Smart return key.      (line 6)
+* Scanning buffer for commands:          Making a list.         (line 6)
+* Smart return key:                      Smart return key.      (line 6)
+* Subscripts:                            Everything else.       (line 6)
+* Superscripts:                          Everything else.       (line 6)
+* Symbols:                               Everything else.       (line 6)
+* TAB key:                               Everything else.       (line 6)
+* Tables of symbols:                     Everything else.       (line 6)
+* TeX command files:                     Making a list.         (line 6)
+* TeX command list:                      Making a list.         (line 6)
+* TeX Fonts:                             Fonts.                 (line 6)
+* Ultra-TeX init file:                   .ultex file.           (line 6)
+* xpm:                                   Greek keyboards.       (line 6)
+
+
+
+Tag Table:
+Node: Top129
+Node: Overview814
+Node: Features1078
+Node: Completion1689
+Node: Lightning completion2467
+Node: Making a list4387
+Node: Defining new commands12202
+Node: Dollar signs15094
+Node: Smart return key17471
+Node: Fonts20154
+Node: Greek keyboards21970
+Node: Everything else25488
+Node: Installation28256
+Node: Basic installation28455
+Node: .ultex file29998
+Node: Customization variables30771
+Node: ultra-tex31974
+Node: ultra-tex-init32595
+Node: ultra-tex-files35197
+Node: ultra-tex-commands37003
+Node: ultra-tex-parens38352
+Node: ultra-tex-environments40003
+Node: ultra-tex-misc43682
+Node: ultra-tex-auctex45396
+Node: ultra-tex-auctex-files46578
+Node: ultra-tex-auctex-commands48687
+Node: ultra-tex-auctex-latex52829
+Node: Variable Index53438
+Node: Function Index55413
+Node: Concept Index56586
+
+End Tag Table

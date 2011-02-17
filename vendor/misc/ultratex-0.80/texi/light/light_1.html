@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on November, 8 2010 by texi2html 1.70 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>Lightning Completion Manual: 2. Completion functions</title>
+
+<meta name="description" content="Lightning Completion Manual: 2. Completion functions">
+<meta name="keywords" content="Lightning Completion Manual: 2. Completion functions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.70">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="NOD2"></a>
+<a name="SEC2"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="light.html#SEC1" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_2.html#SEC3" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_2.html#SEC3" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 2. Completion functions </h1>
+
+
+<p>The file `<tt>light.el</tt>' defines several functions that do lightning
+completion:
+
+</p><ul>
+<li>
+<p><code>completing-insert-file-name</code> completes on file names.
+</p></li><li>
+<p><code>completing-insert-buffer-name</code> completes on buffer names.
+</p></li><li>
+<p><code>completing-insert-lisp-object</code> completes on lisp objects. 
+</p></li><li>
+<p><code>completing-insert-lisp-function</code> completes on lisp functions. 
+</p></li><li>
+<p><code>completing-insert-lisp-variable</code> completes on lisp variables. 
+</p></li><li>
+<p><code>completing-insert-kill</code> completes on the contents of the kill
+ring. 
+</p></li><li>
+<p><code>completing-insert-buffer-contents</code> completes on the contents of
+the current buffer, or with a prefix argument on the contents of any
+specified buffer.  See section <a href="light_5.html#SEC11">Buffer completion</a>.
+</p></li><li>
+<p><code>completing-insert-according-to-mode</code> makes a guess as to
+what sort of completion it should do; if it can't figure it out, it
+completes on lisp objects.  (This one is mainly useful in the
+minibuffer.)
+
+</p></li></ul>
+
+<p>(These functions all call the function <code>completing-insert</code>, which
+I'm too lazy to document.  The casual user won't want to call it
+directly, anyway, and the more serious user can figure it out for
+herself.)
+
+</p><p>For example, if I'm typing an info page for lightning completion, and I
+want to insert the string `<samp>completing-insert-kill</samp>', I run
+<code>completing-insert-lisp-function</code>, and then use lightning
+completion to produce the function name, avoiding typing the
+whole thing in (and also avoiding typos).  In detail: once I start 
+<code>completing-insert-lisp-function</code>, the following happens:
+
+</p><ul>
+<li>
+<p>I type the letters <kbd>c</kbd>, <kbd>o</kbd>, <kbd>m</kbd>, <kbd>p</kbd>, and
+Emacs inserts `<samp>comp</samp>'.
+</p></li><li>
+<p>I type <kbd>l</kbd> and pause, and Emacs inserts `<samp>let</samp>' (so I have
+`<samp>complet</samp>' so far). 
+</p></li><li>
+<p>I type <kbd>i</kbd> and <kbd>n</kbd> and pause, and Emacs inserts `<samp>ing-</samp>' (so
+I have `<samp>completing-</samp>' so far). 
+</p></li><li>
+<p>I type <kbd>i</kbd> and pause, and Emacs inserts `<samp>insert</samp>' (so I have
+`<samp>completing-insert</samp>' so far). 
+</p></li><li>
+<p>I type <kbd>-</kbd>, and Emacs inserts `<samp>-</samp>' (so I have
+`<samp>completing-insert-</samp>' so far).
+</p></li><li>
+<p>I type <kbd>k</kbd> and pause, and Emacs inserts `<samp>kill</samp>' (so I have
+`<samp>completing-insert-kill</samp>', and completion stops).
+</p></li></ul>
+
+<p>There are user customizable variables (in the customization group
+&quot;lightning-completion&quot;) related to these functions.  If the variable
+<code>lc-ctrl-x-c-is-completion</code> is non-nil, then <kbd>C-x c</kbd> is the
+prefix key for these commands.  This is one of the few global key
+bindings available, probably because it is too close to <kbd>C-x C-c</kbd>.
+So be warned, if you use these key bindings, you may occasionally hit
+<kbd>C-x C-c</kbd> instead of <kbd>C-x c</kbd>.  Anyway, enabling this options
+provides the following key bindings:
+
+</p><dl compact="compact">
+<dt><kbd> C-x c F</kbd></dt>
+<dd><p>runs <code>completing-insert-file-name</code>.
+
+</p></dd>
+<dt><kbd> C-x c b</kbd></dt>
+<dd><p>runs <code>completing-insert-buffer-name</code>.
+
+</p></dd>
+<dt><kbd> C-x c o</kbd></dt>
+<dd><p>runs <code>completing-insert-lisp-object</code>.
+
+</p></dd>
+<dt><kbd> C-x c f</kbd></dt>
+<dd><p>runs <code>completing-insert-lisp-function</code>.
+
+</p></dd>
+<dt><kbd> C-x c v</kbd></dt>
+<dd><p>runs <code>completing-insert-lisp-variable</code>.
+
+</p></dd>
+<dt><kbd> C-x c k</kbd></dt>
+<dd><p>runs <code>completing-insert-kill</code>.
+
+</p></dd>
+<dt><kbd> C-x c y</kbd></dt>
+<dd><p>runs <code>completing-insert-buffer-contents</code>.
+
+</p></dd>
+<dt><kbd> C-x c u</kbd></dt>
+<dd><p>runs <code>completing-insert-according-to-mode</code>.
+
+</p></dd>
+</dl>
+
+<p>Note that if one plans on using lightning completion only occasionally,
+and always from the minibuffer, one might be able to get away with only
+using the function <code>completing-insert-according-to-mode</code>.  There is
+a customizable variable <code>lc-ctrl-backslash-completes-a-la-mode</code>.
+If it is non-nil, then <kbd>C-\</kbd> runs
+<code>completing-insert-according-to-mode</code>.
+
+</p>
+
+
+
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="light.html#SEC1" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_2.html#SEC3" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>John Palmieri</em> on <em>November, 8 2010</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.70</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

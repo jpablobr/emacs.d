@@ -1,0 +1,49 @@
+Here are the files in the Ultra-TeX distribution:
+
+top directory:
+   .manifest:    This file.
+   Changelog:    A log of changes made to various parts of the package.
+   Changelog.old:  Older changes.
+   INSTALLATION: Installation instructions.
+   Makefile:     Helps you install the package.
+   README-light: Overview of the Lightning Completion package.
+   README-ultex: Overview of the Ultra-TeX package.
+
+lisp directory (main lisp code):
+   Makefile:     For installation/byte-compilation.
+   aucify.el:    Code for incorporating a few features of AUC-TeX into
+                 Ultra-TeX (prepared by Mark Hovey).
+   docomp.el:    For installation/byte-compilation.
+   font-latex.el:  Code for colorizing LaTeX documents (written by
+                 Peter Galbraith)
+   light.el:     The main file in the lightning completion package.
+   tex-buf.el, tex-site.el, tex.el:   The pieces of the AUC-TeX package
+                 that aucify.el needs.
+   ultex-cus.el: Customization code for Ultra-TeX mode.
+   ultex-setup.el:  Initialization for Ultra-TeX mode.
+   ultex.el:     The main code for Ultra-TeX.
+
+texi directory (documentation):
+   Makefile:     For installation.
+   font-latex.tex:  Documentation for font-latex.el.
+   light.texi:   Lightning completion documentation, in texinfo format.
+   ultra.texi:   Ultra-TeX documentation, in texinfo format.
+
+user directory (user configuration files):
+   greek.el:     Typical key definitions for the greek keyboards; to be
+                 modified by each user.
+   skeleton.tex: A typical document skeleton for a LaTeX user; to be
+                 modified by each user.
+   textree.el:   A typical completion table for a LaTeX user; each
+                 user will modify this to suit him or herself.
+
+Note: If you don't plan on reading the documentation, you can throw
+out any files ending ``.info'', ``.texi'', and ``.dvi''.  Minimal
+installation requires the following:
+
+   light.el
+   ultex.el
+   ultex-cus.el
+   ultex-setup.el
+   textree.el
+   greek.el

@@ -1,0 +1,1018 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on November, 8 2010 by texi2html 1.70 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>Ultra-TeX Mode: 2. Features</title>
+
+<meta name="description" content="Ultra-TeX Mode: 2. Features">
+<meta name="keywords" content="Ultra-TeX Mode: 2. Features">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.70">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="NOD2"></a>
+<a name="SEC2"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC3" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 2. Features </h1>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC3">2.1 Completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                  Lightning completion
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC4">2.2 Lightning completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC5">2.3 Making a list</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC6">2.4 Defining new commands</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">       
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC7">2.5 Dollar signs</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                How dollar signs work
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC8">2.6 Smart return key</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">            What the return key does
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC9">2.7 Fonts</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                       How to get different fonts (like `<samp>\emph{}</samp>',
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">`<samp>\mathbf{}</samp>', etc.) 
+</pre></th></tr><tr><td align="left" valign="top"><a href="#SEC10">2.8 Greek keyboards</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             Alternate keyboards for inserting Greek letters and
+              other symbols
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC11">2.9 Everything else</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">             Lots of other things
+</td></tr>
+</table>
+
+
+
+
+<hr size="6">
+<a name="NOD3"></a>
+<a name="SEC3"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC2" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC4" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.1 Completion </h2>
+
+<p>One of the key features of Ultra-TeX mode is that it uses
+<em>lightning completion</em> to complete TeX commands.  When you enter
+Ultra-TeX mode (say, if you have followed the installation
+instructions (see section <a href="ultra_2.html#SEC12">Installation</a>) so that you enter Ultra-TeX
+whenever you open a TeX file), Emacs constructs a list of TeX
+commands.  Then when you hit <kbd>\</kbd>, Emacs does lightning completion on
+the elements of this list.
+
+</p><p>I'll describe what lightning completion is, and I'll explain how
+Emacs constructs this list of commands.
+
+</p><table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC4">2.2 Lightning completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  An overly brief introduction to lightning completion 
+</td></tr>
+<tr><td align="left" valign="top"><a href="#SEC5">2.3 Making a list</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">   Checking it twice, etc.
+</td></tr>
+</table>
+
+
+
+
+
+
+<hr size="6">
+<a name="NOD4"></a>
+<a name="SEC4"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC3" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC5" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.2 Lightning completion </h2>
+
+
+<p>Here is an example of lightning completion: suppose that the list of
+commands that Emacs knows about only contains the following:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\xrightarrow{},   \xleftarrow{},   \Rightarrow
+</pre></td></tr></table>
+<p>If I hit <kbd>\</kbd>, then `<samp>\</samp>' is inserted into the buffer, and
+lightning completion starts.  If I then hit <kbd>R</kbd>, then after a delay
+(of length governed by the variable <code>ultex-complete-idle-time</code>)
+`<samp>Rightarrow</samp>' is inserted and completion ends (this all happens
+because there is only one valid completion starting `<samp>\R</samp>').  If I
+hit <kbd>x</kbd> instead of <kbd>R</kbd>, then `<samp>x</samp>' gets inserted.  Then I can
+either hit <kbd>r</kbd> or <kbd>l</kbd>, resulting, after a delay, in either
+`<samp>\xrightarrow{}</samp>' or `<samp>\xleftarrow{}</samp>'.
+
+</p><p>(The aforementioned delay was added in version 0.50 of this package.  By
+default, it is equal to <code>lc-complete-idle-time-default</code>, a variable
+documented in the Lightning Completion Manual (see <a href="../light.info/Overview.html">(light.info)Overview</a> section `Lightning completion' in <cite>Lightning Completion Manual</cite>).  To get
+the old behavior of immediate completion, set the variable
+<code>ultex-complete-idle-time</code> to 0.)
+
+</p><p>Using the same example, if I start by hitting <kbd>\</kbd>, if I hit any
+printing character other than <kbd>x</kbd> or <kbd>R</kbd>, then after a delay,
+Emacs beeps because there is no valid completion starting with that
+character, and (depending on the value of the variable
+<code>lc-clean-up</code>) either that character is inserted or nothing is
+inserted.  I can always stop lightning completion prematurely by hitting
+<kbd>C-c</kbd>; this is one way to insert TeX commands that Ultra-TeX
+doesn't know about.
+
+</p><p>If you don't want to use lightning completion, set the variable 
+<code>ultex-dont-use-completion</code> to t.  Then Ultra-TeX will only try
+to complete when you hit the <kbd>TAB</kbd> key.
+
+</p><p>There is more to lightning completion.
+See <a href="../light.info/Overview.html">(light.info)Overview</a> section `Lightning completion' in <cite>Lightning Completion Manual</cite>, for a full description.
+
+</p>
+
+
+
+
+
+<hr size="6">
+<a name="NOD5"></a>
+<a name="SEC5"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC4" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC6" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.3 Making a list </h2>
+
+
+<p>As I said earlier, when Emacs enters Ultra-TeX mode, it constructs a
+list of TeX commands, and it uses this list for its completion table. 
+The list is built from two pieces: first of all, the user should have a
+<em>textree</em> file, containing the TeX commands she typically uses.
+
+</p><p>Remarks: 
+</p><ol>
+<li>
+<p>A sample textree file, `<tt>textree.el</tt>', is included in the
+Ultra-TeX package.
+</p></li><li>
+<p>The path name of this file is stored in the variable
+<code>ultex-tree-file</code>.  See section <a href="ultra_2.html#SEC12">Installation</a>, for how to set this, if
+you're not sure.
+</p></li><li>
+<p>If you're in Ultra-TeX mode, you can run the command
+<code>ultex-new-cs</code> to specify a new command sequence to be entered into
+the textree file.  See section <a href="#SEC6">Defining new commands</a>, for more
+information on this.  (Alternatively, the textree file is an Emacs lisp
+file, so you can edit it directly if you're comfortable with Emacs
+lisp.)
+</p></li><li>
+<p>If you're in Ultra-TeX mode, you can run the command
+<code>ultex-delete-csname-from-tree-file</code> to specify a command
+sequence to be deleted from the textree file.  See section <a href="#SEC6">Defining new commands</a>, for more information on this, too.
+</p></li></ol>
+
+<p>Now, Emacs scans the current buffer (the one which is using Ultra-TeX
+mode), looking for commands of the forms
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\documentclass{bozo}
+\documentstyle{bozo}
+\usepackage{bozo}
+</pre></td></tr></table>
+<p>When it finds any such lines, it examines the list
+<code>ultex-extra-tree-files</code> to see if there is an associated file of
+commands for that class, style, or package, and if there is, if the main
+file `<tt>textree.el</tt>' should also be loaded.  It loads each one of
+these files, along with the main one if appropriate.
+
+</p><p>Remarks: 
+</p><ol>
+<li>
+<p>See section <a href="ultra_2.html#SEC12">Installation</a>, to see how to set the variable
+<code>ultex-extra-tree-files</code>.
+</p></li><li>
+<p>If the current buffer has more than one command file associated to it,
+if you run <code>ultex-new-cs</code> to add a new command, Emacs will ask
+which file to add it to.  Similarly, if you run
+<code>ultex-delete-csname-from-tree-file</code> to delete a command, if that
+command appears in more than one file, Emacs will ask you which one to
+delete it from.
+</p></li><li>
+<p>The variable <code>ultex-also-load</code> may contain the name of a command
+file to load in addition to any others which have been specified.  This
+is intended for use as a local variable; in other words, to use it, you
+should have lines like this at the end of your TeX document: 
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">%% Local variables:
+%% ultex-also-load: &quot;~/emacs/other-ultex-commands.el&quot;
+%% End:
+</pre></td></tr></table></li></ol>
+
+<p>After this has been done, Emacs scans the current buffer, looking for
+more commands.  It finds commands in the following ways:
+
+</p><ul>
+<li>
+<p>If the buffer contains a TeX command of the form
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\newcommand{\bozo}[3]{blah blah blah}
+</pre></td></tr></table>
+
+<p>(or `<samp>\renewcommand...</samp>' or `<samp>\providecommand...</samp>') then Emacs
+adds the string `<samp>\bozo{}{}{}</samp>' to its list of TeX commands
+(there are three sets of brackets because the `<samp>3</samp>' in the square
+brackets tells LaTeX that `<samp>\bozo</samp>' takes 3 arguments.  If you
+then use lightning completion to insert `<samp>\bozo{}{}{}</samp>' in the
+buffer, the point is placed inside the first set of brackets.  Hitting
+the <kbd>RET</kbd> key moves you to the next set of brackets (see section <a href="#SEC8">Smart return key</a>).
+</p></li><li>
+<p>If the buffer contains a TeX command of the form
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\DeclareMathOperator{\clown}{Clown}
+</pre></td></tr></table>
+
+<p>then Emacs adds `<samp>\clown</samp>' to its list.
+</p></li><li>
+<p>If the buffer contains a TeX command of the form
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\newenvironment{circus}
+</pre></td></tr></table>
+
+<p>(or `<samp>\renewenvironment{circus}</samp>') then Emacs adds
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{circus}
+
+\end{circus}
+</pre></td></tr></table>
+
+<p>to the list; when Ultra-TeX inserts this in your buffer, it puts the
+point on the blank line.
+</p></li><li>
+<p>If the buffer contains a TeX command of the form
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\newtheorem{dumb-lemma}[thm]{Lemma}
+</pre></td></tr></table>
+
+<p>then Emacs adds
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{dumb-lemma}\label{}
+
+\end{dumb-lemma}
+</pre></td></tr></table>
+
+<p>and it puts the point inside the argument for `<samp>\label</samp>'.  If you
+don't want a label, just hit the <kbd>RET</kbd> key (see section <a href="#SEC8">Smart return key</a>). 
+</p></li><li>
+<p>If the buffer contains a string of the form
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\label{ling-ling}
+</pre></td></tr></table>
+
+<p>then Emacs adds `<samp>\ref{ling-ling}</samp>', `<samp>\pageref{ling-ling}</samp>', and
+`<samp>\eqref{ling-ling}</samp>' to its list.
+</p></li></ul>
+
+<p>The above scanning is done by the function <code>ultex-grab-defs</code>.  The
+following is done by <code>ultex-grab-bibs</code>.
+
+</p><ul>
+<li>
+<p>Emacs scans the bibliography for bibliographical keys: if the
+buffer contains `<samp>\begin{thebibliography}</samp>' and
+`<samp>\end{thebibliography}</samp>' commands, Emacs looks between them for
+commands of the form 
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\bibitem{bib-key}  Bozo the Clown, \emph{How to write bad emacs
+lisp code}, ...
+</pre></td></tr></table>
+
+<p>When it finds such a command, it adds `<samp>\cite{bib-key}</samp>' and
+`<samp>\nocite{bib-key}</samp>' to the list.  If your buffer is associated to a
+file, `<tt>file.tex</tt>', then Emacs does exactly the same scanning on the
+file `<tt>file.bbl</tt>'.  Lastly, if the buffer contains a command
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\bibliography{bib-data-base}
+</pre></td></tr></table>
+
+<p>then Emacs looks for a file `<tt>bib-data-base.bib</tt>'; if it finds it, it
+adds `<samp>\cite</samp>' and `<samp>\nocite</samp>' for all of the keys in it.
+</p></li></ul>
+
+<p>Emacs does all of this scanning recursively:
+
+</p><ul>
+<li>
+<p>Whenever Emacs finds commands like
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\input{bozo}
+\include{bobo}
+</pre></td></tr></table>
+<p>at the start of a line, then Emacs scans the files `<tt>bozo.tex</tt>' and
+`<tt>bobo.tex</tt>' for their commands and labels.  If these commands are
+not at the start of the line (they have spaces or tabs in front of them,
+say), then the files are not scanned.
+
+</p></li><li>
+<p>Whenever Emacs finds a line like this at the start of the file:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">%% -*- TeX-master: &quot;main.tex&quot;; -*-
+</pre></td></tr></table>
+<p>or lines like this at the end of the file:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">%% Local variables:
+%% TeX-master: &quot;main.tex&quot;
+%% End:
+</pre></td></tr></table>
+<p>then Emacs scans the file `<tt>main.tex</tt>' for its commands and labels
+(and any files included or input into them, too).
+</p></li></ul>
+
+<p>A few remarks:
+</p><ol>
+<li>
+<p>Emacs learns these command only temporarily - Emacs forgets them between
+editing sessions (which seems appropriate - I don't want commands I've
+defined specifically in one TeX document to be valid completions
+every time I edit any TeX document).
+
+</p></li><li>
+<p>The way things are currently set up, each buffer maintains its own list
+of TeX commands.  This behavior is controlled by the variable
+<code>ultex-alist-local-flag</code>.  If you want to change this - if you want
+Ultra-TeX to complete on commands defined in document A when you're
+editing document B - then customize the variable
+<code>ultex-alist-local-flag</code> (in the customization group
+&quot;ultra-tex-commands&quot;.
+
+</p></li><li>
+<p>Hitting <kbd>C-c C-r</kbd> runs the command <code>ultex-reset-current-alist</code>,
+which resets the list to its default (the contents of the appropriate
+textree files) in the current buffer, or in all TeX buffers if
+<code>ultex-alist-local-flag</code> is off.
+
+</p></li><li>
+<p>The method of scanning for new commands is oriented towards LaTeX,
+rather than plain TeX.  Sorry about that.
+
+</p></li><li>
+<p>To avoid the recursive grabbing of commands from input or include files,
+just have a leading space or tab before the command: Emacs only does the
+recursive grabbing if the line begins with `<samp>\input</samp>' or
+`<samp>\include</samp>'.
+
+</p></li><li>
+<p>Similarly, if the variable <code>ultex-no-grab-if-space</code> is non-nil,
+then Emacs will not grab commands from any `<samp>\newcommands</samp>' (etc.)
+that do not start at the beginning of the line.  So if you don't want a
+particular command (defined by `<samp>\newcommand</samp>', say) to be
+automatically added to the completion list, just start the line with a
+space.
+</p></li></ol>
+
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC6">2.4 Defining new commands</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  How to put new TeX commands into the
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">textree file (and how to remove them, too).
+</pre></th></tr></table>
+
+
+
+<hr size="6">
+<a name="NOD6"></a>
+<a name="SEC6"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC5" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC7" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.4 Defining new commands </h2>
+
+
+<p>If you want to add a command to your textree file (hence permanently
+adding the command to the list of TeX commands on which Ultra-TeX
+completes), you should run the command <code>ultex-new-cs</code>.  In
+Ultra-TeX mode, this is bound to the key sequence <kbd>C-c C-n</kbd>.
+
+</p><p>When you do this, a new buffer, `<samp>*TeX Completions Edit*</samp>', is opened
+in another window, and a backslash is inserted (just to get you
+started).  You type in your new command, including all the brackets and
+braces you want, put the cursor where you want the point to be when this
+string is inserted in your TeX document, and then hit <kbd>M-C-c</kbd> to
+exit.  You will be asked if you want to use this command in math mode
+exclusively; if you say yes, you will get an error message if you try to
+use it outside of a math environment (but the command will still be
+inserted).  If the current buffer is using more than one file of TeX
+commands, you will be asked in which file to store the command.
+
+</p><p>For example, if I wanted to add the command `<samp>\sqrt[]{}</samp>' to my
+textree file, I would hit <kbd>C-c C-n</kbd> to run <code>ultex-new-cs</code>, then
+type <kbd>sqrt[]{}</kbd> in the new buffer (remember, the backslash is
+already there).  Then I would put the cursor inside the brackets, and
+hit <kbd>M-C-c</kbd>.
+
+</p><p>This will add the line
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(&quot;\\sqrt[]{}&quot; -3 . ultex-math-mode)
+</pre></td></tr></table>
+
+<p>to the appropriate textree file.  The first entry here is the command,
+the second entry is the number of characters the point is offset from
+the end of the string, and the last entry says that this command should
+only be used in a math environment.
+
+</p><p>If your textree file has some commands you don't want, you can run the
+command <code>ultex-delete-csname-from-tree-file</code>.  This prompts you for
+a command and then deletes it from the textree file.  If the command is
+in more than one of the textree files associated to this buffer, you are
+asked to specify the file, also.
+
+</p><p>You can also edit the command files by hand.  If you have want to get
+rid of the command `<samp>\sqrt[]{}</samp>', open the textree file, and look
+for a line like
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(&quot;\\sqrt[]{}&quot; -3 . ultex-math-mode)
+</pre></td></tr></table>
+
+<p>Once you have found it, delete it and save the file.  (In case you're
+not familiar with emacs lisp and you want to do this: just be careful to
+delete a region starting with a left parenthesis and ending with its
+matching right parenthesis.  Of course, if you're nervous about it, make
+a backup of your textree file, and then play around.)
+
+</p><p>If you want to disable a TeX command for this editing session (in
+this buffer only, if you have made <code>ultex-current-alist</code> local),
+call the function <code>ultex-delete-csname</code>, bound to the key sequence
+<kbd>C-c C-d</kbd>.  You are prompted for a TeX command you don't want,
+and the one you select is removed, temporarily, from the master list.
+
+</p>
+
+
+
+<hr size="6">
+<a name="NOD7"></a>
+<a name="SEC7"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC6" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC8" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.5 Dollar signs </h2>
+
+
+<p>When TeX sees text between two dollar signs (like `<samp>$x=y$</samp>'), it
+processes that text in math mode.  There are a number of other
+ways of typesetting mathematics, such as the `<samp>equation</samp>' environment
+and the `<samp>eqnarray</samp>' environment.  In Ultra-TeX mode, you can get
+at all of these things using the <kbd>$</kbd> key.
+
+</p><p>Here is what <kbd>$</kbd> does:
+
+</p><ul>
+<li>
+<p>If you hit <kbd>$</kbd> once, Emacs inserts a pair of dollar signs and places
+the point between them.
+</p></li><li>
+<p>If you hit <kbd>$</kbd> again, Emacs inserts 
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\[
+
+\]
+</pre></td></tr></table>
+
+<p>and puts the point on the blank line.
+</p></li><li>
+<p>If you hit <kbd>$</kbd> again, Emacs inserts
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{equation}\label{}
+
+\end{equation}
+</pre></td></tr></table>
+
+<p>and puts the point in the argument of `<samp>\label</samp>'.
+</p></li><li>
+<p>Next comes
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{equation*}
+
+\end{equation*}
+</pre></td></tr></table>
+
+<p>with the point on the blank line, then
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{align}\label{}
+
+\end{align}
+</pre></td></tr></table><p>then
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{align*}
+
+\end{align*}
+</pre></td></tr></table><p>then
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{gather}\label{}
+
+\end{gather}
+</pre></td></tr></table><p>then
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{gather*}
+
+\end{gather*}
+</pre></td></tr></table><p>then
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{multline}\label{}
+
+\end{multline}
+</pre></td></tr></table><p>then
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{multline*}
+
+\end{multline*}
+</pre></td></tr></table>
+</li><li>
+<p>If you hit <kbd>$</kbd> again, you go back to
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\[
+
+\]
+</pre></td></tr></table>
+<p>and (aside from the fact that you've skipped the first option - a pair
+of dollar signs) the whole thing starts over again.  If you would rather
+start over again with `<samp>$$</samp>' instead, then set the variable
+<code>ultex-dollar-back</code> to 0.
+</p></li></ul>
+
+<p>This works even if the math environment is not empty.  For example,
+if you have 
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{equation}\label{wiles}
+x^{n} + y^{n} = z^{n}
+\end{equation}
+</pre></td></tr></table><p>and you hit <kbd>$</kbd>, then you get
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{equation*}
+x^{n} + y^{n} = z^{n}
+\end{equation*}
+</pre></td></tr></table><p>Hitting <kbd>$</kbd> again gives
+</p><table><tr><td>&nbsp;</td><td><pre class="example">\begin{align}\label{wiles}
+x^{n} + y^{n} = z^{n}
+\end{align}
+</pre></td></tr></table>
+<p>If you ever just want a single dollar sign, you can either type <kbd>C-q
+$</kbd>, or hit <kbd>$</kbd> and then delete one of the two dollar signs that were
+just inserted (using <kbd>C-d</kbd> or <kbd>DEL</kbd>, for instance).
+
+</p><p>You can change the strings that get inserted by customizing the variable
+<code>ultex-dollar-array</code> (customization group &quot;ultra-tex-environments&quot;).
+
+</p>
+
+
+
+
+
+<hr size="6">
+<a name="NOD8"></a>
+<a name="SEC8"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC7" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC9" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.6 Smart return key </h2>
+
+
+<p>The <kbd>RET</kbd> key in Ultra-TeX mode tries to move the point forward
+by the &quot;appropriate amount.&quot;
+
+</p><ul>
+<li>
+<p>If you are editing ordinary text, hitting <kbd>RET</kbd> moves the point past
+the next word.  If the point is at the start of a blank line, then
+hitting <kbd>RET</kbd> inserts another blank line.  If the point is at the
+end of the buffer, then hitting <kbd>RET</kbd> inserts a blank line.
+</p></li><li>
+<p>If the point is to the left of a brace `<samp>{</samp>', hitting <kbd>RET</kbd>
+moves the point to the right of the brace.
+</p></li><li>
+<p>Suppose the point is inside a pair of braces.  If the braces contain
+several words, hitting <kbd>RET</kbd> moves forward a word.  If the braces
+only contain one word, or if the point is in the last word enclosed by
+the braces, hitting <kbd>RET</kbd> moves you to just outside the braces.
+</p></li><li>
+<p>There is similar behavior with brackets `<samp>[]</samp>' instead of braces,
+with one exception: since brackets are used for optional arguments to
+TeX commands, if the point is inside an <em>empty</em> pair of
+brackets, hitting <kbd>RET</kbd> will delete the pair.  This way, you can use
+lightning completion to insert a command with lots of optional
+arguments, and you only have to hit RET to get rid of the ones you don't
+want.  (For example, you don't need separate entries in your textree
+file for `<samp>\sqrt[]{}</samp>' and for `<samp>\sqrt{}</samp>'.)
+</p></li><li>
+<p>Similarly, if the text looks like `<samp>\label{}</samp>', and the point is
+inside the braces, hitting <kbd>RET</kbd> will delete the string
+`<samp>\label{}</samp>'.
+</p></li><li>
+<p>Since Ultra-TeX completes on bibliographical keys, it assumes you
+ordinarily don't want to add anything to the argument of `<samp>\cite</samp>'.
+So if the text looks like `<samp>\cite[bozo]{clown}</samp>', if the point is
+anywhere inside the brackets, hitting <kbd>RET</kbd> moves the point
+past `<samp>{clown}</samp>'.  If the brackets had been empty, hitting
+<kbd>RET</kbd> would have deleted them, and then moved the point past
+`<samp>{clown}</samp>'.  If the braces had been empty, then hitting <kbd>RET</kbd>
+would have put the point inside them, ready to type in the argument to
+`<samp>\cite</samp>'.
+</p></li><li>
+<p>New in version 0.55: if you are defining a new TeX command, so the
+text looks like `<samp>\newcommand{\blah}[3]{blah}</samp>', hitting
+<kbd>RET</kbd> will add `<samp>\blah</samp>' to its list of TeX command
+sequences.  (Similarly for new theorems, environments, etc.)  This
+behavior can be changed by toggling the variable
+<code>ultex-return-checks-for-new-command</code>.
+</p></li></ul>
+
+<p>To insert a newline, use <kbd>M-<kbd>RET</kbd></kbd>.  <kbd>LFD</kbd> ends a
+paragraph when that makes sense, and checks the paragraph to see if
+parentheses, etc., are properly matched.
+
+</p>
+
+
+
+
+<hr size="6">
+<a name="NOD9"></a>
+<a name="SEC9"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC8" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC10" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.7 Fonts </h2>
+
+
+<p>In a typical TeX document, one might use a number of different type
+faces - bold-face, italics, small caps, whatever.  Ultra-TeX provides
+an easy way to insert the command to change type faces.
+
+</p><p>Here is a typical example: hitting <kbd>M-E</kbd> inserts the string
+`<samp>\emph{}</samp>', and puts the point inside the braces.  (Note: that key
+sequence is <kbd><kbd>META</kbd>-<kbd>SFT</kbd>-e</kbd>, not <kbd><kbd>META</kbd>-e</kbd>).  The
+<kbd>META</kbd> key, in combination with various other capital letters,
+produces similar effects:
+
+</p><ul>
+<li>
+<p><kbd>M-A</kbd> inserts `<samp>\mathcal{}</samp>'; it also beeps if you're not in a
+math environment. 
+</p></li><li>
+<p><kbd>M-B</kbd> inserts `<samp>\textbf{}</samp>' or `<samp>\mathbf{}</samp>', depending on
+the context.
+</p></li><li>
+<p><kbd>M-C</kbd> inserts `<samp>\textsc{}</samp>' or `<samp>\mathsc{}</samp>'.
+</p></li><li>
+<p><kbd>M-E</kbd> inserts `<samp>\emph{}</samp>'.
+</p></li><li>
+<p><kbd>M-F</kbd> inserts `<samp>\textsf{}</samp>' or `<samp>\mathsf{}</samp>'.
+</p></li><li>
+<p><kbd>M-I</kbd> inserts `<samp>\textit{}</samp>' or `<samp>\mathit{}</samp>'.
+</p></li><li>
+<p><kbd>M-M</kbd> inserts `<samp>\mit{}</samp>'.
+</p></li><li>
+<p><kbd>M-R</kbd> inserts `<samp>\textrm{}</samp>' or `<samp>\mathrm{}</samp>'.
+</p></li><li>
+<p><kbd>M-S</kbd> inserts `<samp>\textsl{}</samp>' or `<samp>\mathsl{}</samp>'.
+</p></li><li>
+<p><kbd>M-T</kbd> inserts `<samp>\texttt{}</samp>' or `<samp>\mathtt{}</samp>'.
+</p></li><li>
+<p><kbd>M-U</kbd> inserts `<samp>\textup{}</samp>'.
+</p></li><li>
+<p><kbd>M-X</kbd> inserts `<samp>\text{}</samp>'; it beeps if you're not in a math
+environment.
+</p></li><li>
+<p><kbd>M-Z</kbd> inserts `<samp>\zz{}</samp>' (intended to be a user-defined font).
+</p></li></ul>
+
+<p>These keys all call the function <code>ultex-font</code>, with an appropriate
+argument.  This wasn't written with customization in mind, but if you
+want to modify things, you can try adding lines like this to your
+`<tt>.emacs</tt>' file (see section <a href="ultra_2.html#SEC14">.ultex file</a>):
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(define-key ultra-tex-mode-map &quot;\C-[D&quot;
+  '(lambda nil (interactive) (ultex-font &quot;bozo&quot;)))
+</pre></td></tr></table>
+<p>and see what happens when you hit <kbd>M-D</kbd>, both in and out of a math
+environment.  If things don't work the way you want, you may have to
+modify the definition of the function <code>ultex-font</code>.
+
+</p>
+
+
+<hr size="6">
+<a name="NOD10"></a>
+<a name="SEC10"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC9" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC11" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.8 Greek keyboards </h2>
+
+
+<p>The user's textree file (see section <a href="#SEC5">Making a list</a>) stores a lot of her
+favorite TeX commands, and hitting the <kbd>$</kbd> key (see section <a href="#SEC7">Dollar signs</a>) produces some other useful commands.  There is a third way to
+insert TeX commands - via a <em>Greek keyboard</em>.
+
+</p><p>If you hit the left quote key <kbd>`</kbd> followed by <kbd>a</kbd>, then
+`<samp>\alpha</samp>' is inserted into the buffer (and you get an error if
+you're not in a math environment).  Similarly, <kbd>`b</kbd> gives you
+`<samp>\beta</samp>', etc.
+
+</p><p>Furthermore, while hitting <kbd>`g</kbd> gives `<samp>\gamma</samp>', hitting
+<kbd>`G</kbd> gives `<samp>\Gamma</samp>'.  Once you hit the <kbd>`</kbd> key, you can
+access the (ordinary) Greek keyboard, the Shift Greek keyboard, the
+Control Greek keyboard, the Meta, the Meta Shift, and the Meta Control
+Greek keyboards.  This gives you a lot of slots for storing TeX
+commands.
+
+</p><p>In order to see what symbols are stored in these slots, you can use the
+<kbd>\</kbd> key: hitting <kbd>`\</kbd> opens up a little window which displays
+a chart with the typewriter keys and their effect in the Greek
+keyboard - it might look something like this:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">times amalg oplus otime odot  wedge vee sqcup cap  cup  uplus pm  circ 
+  1     2     3     4     5     6    7    8    9    0     -    =   `  
+   theta infty varep rho  tau  upsil xi   iota  omega pi  subse supse
+     q     w     e    r    t     y    u     i     o    p    [     ]  
+    alpha sigma delta varph gamma eta  exist kappa lambd int   in   
+      a     s     d     f     g     h    j     k     l     ;     '  
+      zeta  chi   psi   foral beta  nu   mu    sum   prod  not        
+        z     x     c     v     b    n    m     ,      .    /        
+</pre></td></tr></table>
+<p>(Unfortunately, it only has room to display the first five characters of
+the TeX command.)  In this example, hitting <kbd>`,</kbd> would produce
+`<samp>\sum</samp>', hitting <kbd>`6</kbd> would produce `<samp>\wedge</samp>', hitting
+<kbd>`e</kbd> would produce `<samp>\varepsilon</samp>'.
+
+</p><p>Similarly, hitting <kbd>`|</kbd> gives you the Shift Greek keyboard,
+<kbd>`C-\</kbd> gives the Control Greek keyboard, etc.
+
+</p><p>The bindings for the Greek keyboards are stored in a <em>greek-keys</em>
+file.  
+
+</p><p>Remarks: 
+</p><ol>
+<li>
+<p>A sample greek-keys file, `<tt>greek.el</tt>', is included in the
+Ultra-TeX package.
+</p></li><li>
+<p>The path name of this file is stored in the variable
+<code>ultex-greek-keys-file</code>.  See section <a href="ultra_2.html#SEC12">Installation</a>, for how to set this,
+if you're not sure.
+</p></li><li>
+<p>To change the definitions of the greek keys, you should edit the
+greek-keys file.  Note: you will get an error if you use any Greek key
+if you're not in a math environment, so you probably only want to bind
+math symbols to Greek keys.  (The appropriate string will be inserted in
+any case, though.)
+</p></li><li>
+<p>New in version 0.55: when using XEmacs with support for pictures in xpm
+format, the greek keyboard can display pictures of the symbols rather
+than their names.  To enable this, you need to install the LaTeX
+symbols package, available from
+<a href="http://www.math.washington.edu/~palmieri/Emacs/LaTeX-symbols">http://www.math.washington.edu/~palmieri/Emacs/LaTeX-symbols</a>.  The variables
+<code>ultex-display-pictures</code>, <code>ultex-picture-type</code>, and
+<code>ultex-picture-directory</code> are relevant here.  (To find out if your
+copy of XEmacs has xpm support, evaluate <code>(featurep 'xpm)</code> - t
+means it has xpm support, nil means it doesn't.  If you want to use
+pictures in some other format, that's fine, but you'll have to convert
+the xpm files included in the LaTeX symbols package to the desired
+format on your own.)
+</p></li></ol>
+
+
+
+
+
+
+<hr size="6">
+<a name="NOD11"></a>
+<a name="SEC11"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC10" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC2" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 2.9 Everything else </h2>
+
+
+<p>There are a number of other features.  I'll probably forget one or two,
+but here are most of them:
+
+</p><ul>
+<li>
+<p>Hitting <kbd>C-c C-s</kbd> inserts a template for a LaTeX document.  This
+template is stored in a file; its pathname is given by
+<code>ultex-latex-skel-file</code>.  A sample file is included in the package:
+`<tt>skeleton.tex</tt>'.  (Also, once the template is inserted, Emacs runs
+<code>ultex-skel-hook</code>.) 
+</p></li><li>
+<p>Hitting <kbd>{</kbd> makes a brace pair and puts the point inside.  If you
+want similar behavior for <kbd>[</kbd> and <kbd>(</kbd>, then customize the
+variables <code>ultex-match-brackets</code> and <code>ultex-match-parens</code>.
+On the other hand, if you don't want this behavior for <kbd>{</kbd>, then
+customize <code>ultex-match-braces</code>.
+</p></li><li>
+<p>Hitting the double-quote key <kbd>&quot;</kbd> makes either two left single quotes
+or two right single quotes, whichever Emacs thinks is appropriate.
+</p></li><li>
+<p>Hitting <kbd>...</kbd> inserts `<samp>\dots</samp>'.  (It used to insert
+`<samp>\cdots</samp>' or `<samp>\ldots</samp>', depending on what it thought was
+appropriate, but I believe that the recent versions of LaTeX will
+position `<samp>\dots</samp>' according to the context.)
+</p></li><li>
+<p>Hitting <kbd>^</kbd> produces `<samp>^{}</samp>', with the point inside the braces.
+Hitting <kbd>_</kbd> produces `<samp>_{}</samp>', with the point inside the braces.
+</p></li><li>
+<p>Hitting <kbd>TAB</kbd> in an array environment moves the point forward a few
+spaces, and inserts `<samp>&amp;</samp>'.  (Emacs determines when to do this by
+using the variable <code>ultex-array-environs</code>, which is a list
+consisting of environments that use `<samp>&amp;</samp>' for &quot;tab stops&quot;.  Change
+this variable to change the behavior of <kbd>TAB</kbd>.)
+</p></li><li>
+<p>Hitting <kbd>\\</kbd> will ordinarily insert `<samp>\\</samp>' and a newline.  If you
+are in an appropriate environment (like `<samp>itemize</samp>' or
+`<samp>enumerate</samp>'), then `<samp>\\</samp>' will not be inserted; instead, a
+newline and `<samp>\item</samp>' will be inserted.  (Emacs does this via the
+variable <code>itemizing-environments</code>, which a list consisting of
+environments that use `<samp>\item</samp>'.)
+</p></li><li>
+<p>Ultra-TeX can use commands from the AUC-TeX package for
+typesetting the current document, etc.  To enable this, customize the
+variable <code>ultex-use-auctex</code>.  Then hit <kbd>C-c C-c</kbd> and see what
+happens.
+</p></li><li>
+<p>When using XEmacs with xpm support, the LaTeX symbols package,
+available from <a href="http://www.math.washington.edu/~palmieri/Emacs/LaTeX-symbols">http://www.math.washington.edu/~palmieri/Emacs/LaTeX-symbols</a>,
+provides commands to open up windows with tables of symbols.  The
+easiest way to access these is from the Ultra-TeX menu;
+alternatively, you can call these functions: <code>latex-symbol-greek</code>,
+<code>latex-symbol-operators</code>, <code>latex-symbol-relations</code>,
+<code>latex-symbol-arrows</code>, <code>latex-symbol-miscellany</code>, and
+<code>latex-symbol-all</code>.
+</p></li></ul>
+
+
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="ultra_2.html#SEC12" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="ultra.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_3.html#SEC27" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="ultra_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>John Palmieri</em> on <em>November, 8 2010</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.70</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on November, 8 2010 by texi2html 1.70 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>Lightning Completion Manual: 1. Overview</title>
+
+<meta name="description" content="Lightning Completion Manual: 1. Overview">
+<meta name="keywords" content="Lightning Completion Manual: 1. Overview">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.70">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt; ]</td>
+<td valign="middle" align="left">[<a href="light_1.html#SEC2" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[ Up ]</td>
+<td valign="middle" align="left">[<a href="light_1.html#SEC2" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>The Lightning Completion package was written in emacs lisp by Mark
+Haiman and Nick Reingold, with modifications by John Palmieri.
+
+</p><p>This is version 0.65, October 1999, of the Lightning completion
+manual.  Bug reports and suggestions for new features should go to
+`<samp>palmieri@math.washington.edu</samp>'.
+
+</p><p>This is a revised version of this manual; it is done.
+
+</p><table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC1">1. Overview</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                    Overview of lightning completion
+</td></tr>
+<tr><td align="left" valign="top"><a href="light_1.html#SEC2">2. Completion functions</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        Functions incorporating lightning completion
+</td></tr>
+<tr><td align="left" valign="top"><a href="light_2.html#SEC3">3. Key bindings</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">                Which keys do what in lightning completion mode
+</td></tr>
+<tr><td align="left" valign="top"><a href="light_3.html#SEC4">4. Lightning completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        Adding lightning completion to other functions
+</td></tr>
+<tr><td align="left" valign="top"><a href="light_4.html#SEC7">5. Installation and customization</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  How to install
+</td></tr>
+<tr><td align="left" valign="top"><a href="light_5.html#SEC9">6. Miscellany</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top"></td></tr>
+<tr><td align="left" valign="top"><a href="light_6.html#SEC13">Function Index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">              Function index
+</td></tr>
+<tr><td align="left" valign="top"><a href="light_7.html#SEC14">Concept Index</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">               Concept index
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+ --- The Detailed Node Listing ---
+
+Lightning completion
+
+</pre></th></tr><tr><td align="left" valign="top"><a href="light_3.html#SEC5">4.1 Enabling automatic lightning completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top"><a href="light_3.html#SEC6">4.2 Settings for lightning completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">  Disabling lightning completion
+                                       in certain circumstances
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+Installation and customization
+
+</pre></th></tr><tr><td align="left" valign="top"><a href="light_4.html#SEC8">5.1 Customizable options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        A list of customizable options
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+Miscellany
+
+</pre></th></tr><tr><td align="left" valign="top"><a href="light_5.html#SEC10">6.1 Ignoring some files</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">         Don't to complete on certain file names
+</td></tr>
+<tr><td align="left" valign="top"><a href="light_5.html#SEC11">6.2 Buffer completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">           An application of lightning completion
+</td></tr>
+<tr><td align="left" valign="top"><a href="light_5.html#SEC12">6.3 HTML mode completion</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        Another example
+</td></tr>
+<tr><th colspan="3" align="left" valign="top"><pre class="menu-comment">
+</pre></th></tr></table>
+
+
+
+<a name="NOD1"></a>
+<a name="SEC1"></a>
+<h1 class="chapter"> 1. Overview </h1>
+
+<p>As you are probably aware, Emacs does various sorts of completion, if
+you ask it to.  For instance, if you hit <kbd>C-x C-f</kbd> to find a file,
+then (once you are in the minibuffer) if you hit the <kbd>TAB</kbd> key, Emacs
+completes the file name if there is a unique completion.  Lightning
+completion offers an improvement to this, an improvement in several
+ways:
+
+</p><ul>
+<li>
+<p>Once lightning completion is initiated, it remains active until a
+completion is found, or until turned off.  If I have three files,
+`<tt>alphabet</tt>', `<tt>alpo</tt>', and `<tt>bozo</tt>', and I initiate completion
+on file names, if I hit <kbd>a</kbd>, then `<samp>alp</samp>' is inserted; hitting
+<kbd>h</kbd> would then produce `<samp>alphabet</samp>', and hitting <kbd>o</kbd> would
+produce `<samp>alpo</samp>'.  Similarly, hitting <kbd>b</kbd> at the start, instead
+of <kbd>a</kbd>, would have produced `<samp>bozo</samp>'.  This sort of completion,
+in which completion is always on--you don't have to keep hitting the
+<kbd>SPC</kbd> or <kbd>TAB</kbd> key to complete--is called &quot;dynamic&quot;
+completion.
+
+</p></li><li>
+<p>Lightning completion takes effect only if Emacs is idle for a length of
+time specified by the variable <code>lc-complete-idle-time-default</code>, the
+default value of which is 0.5 seconds.  So in the above example, you can
+type &quot;alph&quot; or &quot;alpha&quot; or &quot;alphab&quot;; then if you wait for half a second,
+Emacs will automatically complete it for you.  This is a new feature of
+lightning completion; if you are used to the old version, you can set
+this delay to be 0.  If you are a slow typist and you don't want Emacs
+completing unless you take a very deliberate pause, you can set it to
+something like 2.
+
+</p></li><li>
+<p>Lightning completion can be initiated anywhere, not just in the
+minibuffer.  If I'm writing email to someone, and I want to include the
+path name for some file, I type the first few letters of the path, then
+run the function <code>completing-insert-file-name</code>, and I'm in
+lightning completion mode.  There are similar function calls for
+completion on buffer names, lisp objects, lisp functions, lisp
+variables, and the contents of the kill ring.
+
+</p></li></ul>
+
+<p>Some remarks:
+</p><ol>
+<li>
+<p>Dynamic completion, like any completion, has a nice side-effect: you can
+use long (and hence descriptive) file names, variable names, function
+names, whatever, because you hardly ever have to type the whole thing
+in.  So I don't mind that my directory structure in my account is deep
+and the directories have long names--I can find the file
+`<tt>~/tex/work/papers/hovey-strickland/axiomatic.tex</tt>' with 6
+keystrokes: one each for &quot;t&quot;, &quot;w&quot;, &quot;p&quot;, &quot;h&quot;, and &quot;a&quot;, and then
+<kbd>RET</kbd>. (One also gets in the habit of trying to arrange it so that
+each of one's files in any given directory starts with a different
+letter.)
+
+</p></li><li>
+<p>If you mainly use lightning completion with file names and if you edit
+the same files over and over again, you will quickly learn exactly which
+characters you have to type to find each file.  In this case, you might
+want to set <code>lc-complete-idle-time-default</code> to be close to zero.
+If you don't want to bother learning this, and if you are worried that
+lightning completion will make you watch the screen all the time to see
+what has been completed and what hasn't, then you should set
+<code>lc-complete-idle-time-default</code> to be a larger number, so that
+completions only occur after a good pause.
+
+</p></li><li>
+<p>Lightning completion is also one of the main ingredients to
+Ultra-TeX mode, a major mode for typing TeX documents.  Most
+TeX commands start with a backslash, so in that mode, hitting &quot;\&quot;
+starts lightning completion on TeX commands.  The Ultra-TeX
+package is available from
+<a href="http://www.math.washington.edu/~palmieri/Emacs/ultratex.html">http://www.math.washington.edu/~palmieri/Emacs/ultratex.html</a>.
+
+</p></li><li>
+<p>This package should be compatible with GNU Emacs 19, GNU Emacs 20, and
+XEmacs (&quot;should be compatible&quot; means that I've at least tried it out a
+bit with each one of these, without running into problems).  I mostly
+use GNU Emacs 20, so I know it works there.  I expect it to work pretty
+well with XEmacs, too, but I don't use GNU Emacs 19 anymore, and I don't
+test this package very vigorously there.
+
+</p></li><li>
+<p>Dynamic completion is an acquired taste.  It can be rather off-putting
+at the start, especially with a short
+<code>lc-complete-idle-time-default</code>, but once you get used to it, it's
+just wonderful.
+
+</p></li></ol>
+
+<p>In the following sections, I describe what functions to call to start
+lightning completion, which keys do what once completion is engaged, how
+to automate things a bit (e.g., so that <code>find-file</code> automatically
+uses lightning completion on file names), and how to install all of
+this.
+
+</p>
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[ &lt;&lt; ]</td>
+<td valign="middle" align="left">[<a href="light_1.html#SEC2" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>John Palmieri</em> on <em>November, 8 2010</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.70</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

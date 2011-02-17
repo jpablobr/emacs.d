@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on November, 8 2010 by texi2html 1.70 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>Lightning Completion Manual: 3. Key bindings</title>
+
+<meta name="description" content="Lightning Completion Manual: 3. Key bindings">
+<meta name="keywords" content="Lightning Completion Manual: 3. Key bindings">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.70">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="NOD3"></a>
+<a name="SEC3"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="light_1.html#SEC2" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_3.html#SEC4" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light_1.html#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_3.html#SEC4" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 3. Key bindings </h1>
+
+
+<p>While in lightning completion, the behavior of each key is modified.
+Here is a description of what each key does; these functions are loosely
+based on the behavior of standard completion in Emacs.  I have also
+included examples; for all of the examples, suppose that you are
+completing on file names, and you have files `<tt>albatross</tt>',
+`<tt>alpo</tt>', `<tt>alphabet</tt>', and `<tt>alphabet-soup</tt>'.
+
+</p><p>There is a customizable variable <code>lc-complete-idle-time-default</code>,
+the default value of which is 0.5.  In lightning completion mode, after
+this number of seconds of idle time, Emacs tries to complete.
+
+</p><ul>
+<li>
+<p><kbd>a-z, A-Z, 0-9</kbd>, etc.: After the delay, you get an error if there is
+no valid completion based on that character.  If there are valid
+completions, then Emacs inserts the characters in common with all the
+valid completions.  If there is a unique such completion, then Emacs
+inserts that completion, and completion stops.  (Example: if you have
+`<samp>alp</samp>' and you hit <kbd>x</kbd>, you get an error
+(but you're still in lightning completion mode); if you hit <kbd>h</kbd>,
+then `<samp>habet</samp>' is inserted, resulting in `<samp>alphabet</samp>' (and you're
+still in lightning completion mode).  If you then hit <kbd>-</kbd>, then
+`<samp>-soup</samp>' is inserted, and completion stops.)
+
+</p><p>When there are no valid completions, the value of the customizable
+variable <code>lc-clean-up</code> is relevant.  If it is nil, then Emacs beeps
+and warns you that there are no valid completions.  If it is non-nil,
+then in addition, Emacs deletes the offending characters.  (Example: if
+you have `<samp>alp</samp>' and you hit <kbd>x</kbd>, then `<samp>x</samp>' is inserted.  If
+<code>lc-clean-up</code> is nil, then Emacs beeps.  If <code>lc-clean-up</code> is
+non-nil, then Emacs beeps and deletes the `<samp>x</samp>'.  If you have
+`<samp>al</samp>' and you type <kbd>phx</kbd>, if <code>lc-clean-up</code> is non-nil, then
+the `<samp>x</samp>' is deleted and `<samp>abet</samp>' is inserted.)
+
+</p></li><li>
+<p><kbd>SPC</kbd>: If you have a valid completion, this key ends lightning
+completion, keeping the current completion; otherwise, if there is a
+valid completion based on the current string together with &quot; &quot;, then a
+space is inserted.  Otherwise, <kbd>SPC</kbd> acts like the <kbd>TAB</kbd> key.
+(Example: if you have `<samp>alp</samp>' and you hit <kbd>h</kbd>, resulting in
+`<samp>alphabet</samp>', then hitting <kbd>SPC</kbd> would end completion and do
+nothing else.  If you also have a file `<tt>al jolson</tt>', then
+typing `<samp>al</samp>' followed by <kbd>SPC</kbd> produces `<samp>al jolson</samp>'.
+Typing `<samp>alp</samp>' followed by <kbd>SPC</kbd> is just like typing `<samp>alp</samp>'
+and hitting <kbd>TAB</kbd>.)
+
+</p></li><li>
+<p><kbd>RET</kbd>: This key exits lightning completion, regardless of whether
+you have a valid completion, and inserts a new line or exits the
+minibuffer, whichever is appropriate.  (Example: if you are using have
+`<samp>alp</samp>' and you hit <kbd>RET</kbd>, this ends completion and either
+inserts a new line or exits the minibuffer.)  (This is actually an
+example of the behavior of &quot;Other control characters,&quot; described
+below.)
+
+</p></li><li>
+<p><kbd>DEL</kbd>: This deletes the last thing that was typed along with
+anything inserted automatically as a result.  (Example: if you had
+`<samp>alp</samp>' and you hit <kbd>h</kbd>, resulting in `<samp>alphabet</samp>', then
+hitting <kbd>DEL</kbd> would delete `<samp>habet</samp>'--the characters that were
+just inserted.)
+
+</p></li><li>
+<p><kbd>C-f</kbd>: Hitting this key repeatedly cycles through the possible
+completions, in some order or other.  (Example: if you have `<samp>a</samp>',
+then hitting <kbd>C-f</kbd> once will give `<samp>albatross</samp>'; hitting it again
+will give `<samp>alpo</samp>', etc.)
+
+</p></li><li>
+<p><kbd>C-b</kbd>: This works like <kbd>C-f</kbd>, but it cycles through the choices
+in the reverse order.
+
+</p></li><li>
+<p><kbd>TAB</kbd>: Hitting this key completes as far as possible.  If there are
+several choices, then it opens up a new buffer in another window,
+called <code>*Completions*</code>, in which all of the valid completions are
+displayed.  That buffer is buried once completion ends.  (Example, if I
+have `<samp>alp</samp>' and I hit <kbd>TAB</kbd>, then a new buffer opens up,
+containing `<samp>alpo</samp>', `<samp>alphabet</samp>', and `<samp>alphabet-soup</samp>'.  If I
+then hit <kbd>h</kbd> and then <kbd>TAB</kbd>, the <code>*Completions*</code> buffer
+then displays `<samp>alphabet</samp>' and `<samp>alphabet-soup</samp>'.)  You can select
+a completion by clicking on it with <kbd>mouse-2</kbd>.
+
+</p></li><li>
+<p><kbd>M-v</kbd>: Hitting this key opens up a new buffer in another window,
+called <code>*Completions*</code>, just as with the <kbd>TAB</kbd> key, but also
+moves the point to that window.  You can then move from one completion
+choice to another with the arrow keys, and you can select a completion
+with <kbd>RET</kbd> or with <kbd>mouse-2</kbd>.
+
+</p></li><li>
+<p><kbd>C-c</kbd>: Hitting this key exits lightning completion mode (useful if
+you've had enough of this completion nonsense, and you just want to type
+in the file name yourself; also useful if you want to type in the name
+of a file that doesn't exist).
+
+</p></li><li>
+<p><kbd>C-q</kbd>: This key quotes the next character (useful if you have a file
+name containing a control character like <kbd>C-c</kbd> or <kbd>TAB</kbd>, for
+instance).
+
+</p></li><li>
+<p><kbd>C-h</kbd>: Hitting this key displays a very brief help message in the
+minibuffer. 
+
+</p></li><li>
+<p>Other control characters: Hitting any other control character (or other
+non-printing character) has two effects: completion stops, and that
+character then has its normal effect.  So <kbd>C-g</kbd> stops completion and
+beeps, <kbd>C-e</kbd> stops completion and moves you to the end of the line,
+etc.
+</p></li></ul>
+
+<p>Many of these keys can be customized (in the customization group
+<code>lightning-completion-keys</code>).
+
+</p>
+
+
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="light_1.html#SEC2" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_3.html#SEC4" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>John Palmieri</em> on <em>November, 8 2010</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.70</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

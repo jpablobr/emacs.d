@@ -1,0 +1,46 @@
+Ultra-TeX package
+----------------------------------
+(Version 0.60 of 1999/04/28)
+
+Ultra-TeX is an Emacs mode for editing LaTeX files (well, for editing
+TeX files in general, but it has been written very much with LaTeX in
+mind).  It features dynamic completion on TeX commands (described
+below), as well as a few other things.  For instance, it has an
+intelligent math mode; by looking at the cursor position, it decides
+whether you are in a math environment or not, and reacts accordingly
+(e.g., if you hit the key sequence to start boldface type, it inserts
+either "\mathbf" or "\textbf" depending on whether you're in math
+mode).  It has other features; read the documentation for a full
+description.
+
+One of the main features of Ultra-TeX is dynamic completion on TeX
+commands (although you can run Ultra-TeX without it, and some people
+choose to do so).  This means that when you hit a backslash "\", Emacs
+immediately tries to complete, and it continues to try to complete
+after each character you type.  For example, if Ultra-TeX only knows
+about the commands \sqrt[]{}, \subsection{}, and \paragraph{}, then if
+you hit "\" followed by "p", Ultra-TeX inserts \paragraph{} (because
+that is the only valid completion starting "\p").  If you type "\s",
+then it waits for the next character; then typing "q" results in
+"\sqrt[]{}", typing "u" results in "\subsection{}", and typing
+anything else results in a beep.  Much of this behavior can be
+customized: you can turn off dynamic completion altogether; you can
+have a delay before it tries to complete (so you don't have to worry
+about needing to keep an eye on the screen--you can type as much or as
+little of, say, "\subsection{}", and if you want, stop and wait for it
+to complete the rest, or hit the SPC key and force it to complete the
+rest); with the delay you can turn off the beep for non-recognized
+completions, so you can type "\sigma" without getting beeped at.
+
+The first version of Ultra-TeX was written by Mark Haiman, then
+rewritten by him and Nick Reingold.  John Palmieri then made various
+modifications, including getting everything to work with Emacs 19.
+Many suggestions were made by various people at MIT, Yale, and
+elsewhere.
+
+-------------------------------------------------------------------
+
+Suggestions or comments?  Contact me:
+  John Palmieri
+  e-mail: palmieri@math.washington.edu
+  URL:    http://www.math.washington.edu/~palmieri/

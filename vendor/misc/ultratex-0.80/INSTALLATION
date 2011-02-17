@@ -1,0 +1,78 @@
+To install the ultra-tex/lightning-completion package, here's what you do:
+
+  0. (You've probably already done this.)  Get the archive, which is
+     called something like "ultra.tar.gz" or "ultra.tgz".  Run:
+        gunzip ultra.tar.gz
+        tar xf ultra.tar
+     (or   tar xfz ultra.tar.gz   if your version of tar is good enough).
+     This produces a directory called ultratex-0.60 (the "0.60" is the
+     version number, so that part may vary).  Change to that directory:
+        cd ultratex-0.60
+
+  A few optional steps:
+
+  1. (This step is optional, but it will make things run a bit
+     faster.)  Byte-compile the el-files: if you run emacs by typing
+     "emacs", then run: 
+        make elc
+     If you run emacs by typing something else (e.g., "emacs-20.3" or
+     "xemacs"), run:
+        make EMACS=emacs-20.3 elc
+     or
+        make EMACS=xemacs elc
+     or whatever.
+
+  2. (This step is optional, but if you want to read the
+     documentation, you need to do this.)  Run:
+        make info
+     to create info files, usable by Info mode in Emacs or by
+     stand-alone info readers.  Run
+        make dvi
+     to create dvi files.
+
+  (You can combine steps 1 and 2: run 'make', or
+  'make EMACS=emacs-20.3' or 'make EMACS=xemacs' or ...)
+
+  3. (Everything else.)  In brief: make sure that the directory
+     "ultratex-0.60/lisp" is in your load-path, and `require' light or
+     ultex-setup, or both, depending on which package you want to use.
+
+  In more detail:
+
+  3a. In your .emacs file, you need a line like
+        (setq load-path (cons "PATH" load-path))
+     where PATH is the pathname of the lisp subdirectory of
+     ultratex-0.60.  For instance, this might be
+        (setq load-path (cons "/home/palmieri/emacs/ultratex-0.60/lisp"
+ 	                      load-path))
+
+     Note: I have the following in my .emacs file:
+        (setq load-path (cons "/home/palmieri/emacs/ultratex/lisp"
+ 	                      load-path))
+     While in the "emacs" directory, I run:
+        ln -s ultratex-0.60 ultratex
+     This way, whenever I happen to download and install ultratex-0.61,
+     I run
+        cd ~/emacs
+        rm ultratex
+        ln -s ultratex-0.61 ultratex
+     and I don't have to edit my .emacs file.
+
+  3a'. (Alternatively, if you have the appropriate access, you could
+      put the ultratex-0.60 directory in /usr/local/share/emacs/site-lisp
+      or some such place.)
+
+  3b. In your .emacs file, you also need the following lines:
+	(require 'light)
+	(require 'ultex-setup)
+      These initialize the Lightning Completion and Ultra-TeX
+      packages, respectively.
+
+  4.  Restart Emacs and customize the packages as desired, by
+      using the commands
+        M-x customize-group lightning-completion
+        M-x customize-group ultra-tex
+      You may need to load the ultex package, say by typing
+        M-x load-library ultex
+      or by opening up a TeX file, before you can do the second
+      customization.

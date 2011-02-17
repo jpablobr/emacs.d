@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html401/loose.dtd">
+<html>
+<!-- Created on November, 8 2010 by texi2html 1.70 -->
+<!--
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Many creative people <dev@texi2html.cvshome.org>
+Send bugs and suggestions to <users@texi2html.cvshome.org>
+
+-->
+<head>
+<title>Lightning Completion Manual: 5. Installation and customization</title>
+
+<meta name="description" content="Lightning Completion Manual: 5. Installation and customization">
+<meta name="keywords" content="Lightning Completion Manual: 5. Installation and customization">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="texi2html 1.70">
+<meta http-equiv="Content-Type" content="text/html; charset=us-ascii">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+pre.display {font-family: serif}
+pre.format {font-family: serif}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: serif; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: serif; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+ul.toc {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+
+<a name="NOD7"></a>
+<a name="SEC7"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="light_3.html#SEC6" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC8" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light_3.html#SEC4" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_5.html#SEC9" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h1 class="chapter"> 5. Installation and customization </h1>
+
+
+<p>Once you've unpacked the archive, you need to make sure that the file
+`<tt>light.el</tt>' is in your emacs load-path.  Then put
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">(require 'light)
+</pre></td></tr></table>
+
+<p>in your `<tt>.emacs</tt>' file.  Restart emacs; then you can set all of the
+lightning completion options via customization: run
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group lightning-completion
+</pre></td></tr></table>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top"><a href="#SEC8">5.1 Customizable options</a></td><td>&nbsp;&nbsp;</td><td align="left" valign="top">        A list of customizable options
+</td></tr>
+</table>
+
+
+
+
+
+<hr size="6">
+<a name="NOD8"></a>
+<a name="SEC8"></a>
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC7" title="Previous section in reading order"> &lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_5.html#SEC9" title="Next section in reading order"> &gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="#SEC7" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="#SEC7" title="Up section"> Up </a>]</td>
+<td valign="middle" align="left">[<a href="light_5.html#SEC9" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<h2 class="section"> 5.1 Customizable options </h2>
+
+
+<p>Here is a list of the customizable options for lightning completion,
+with pointers to relevant sections of this documentation.  Use this
+command:
+
+</p><table><tr><td>&nbsp;</td><td><pre class="example">M-x customize-group lightning-completion
+</pre></td></tr></table>
+
+<p>to customize any of these options.
+
+</p><dl compact="compact">
+<dt><code> lc-complete-idle-time-default</code></dt>
+<dd><p>Default value: 0.5.  Effect: when in lightning completion mode, after
+this much idle time (in seconds) has elapsed, try to complete.
+See section <a href="light.html#SEC1">Overview</a>, See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> toggle-lightning-completion</code></dt>
+<dd><p>Default value: off.  Effect: toggle whether lightning completion is
+potentially active in the minibuffer.  If on, you should customize
+<code>lightning-completion-list</code> to specify contexts in which to use
+lightning completion.
+See section <a href="light_3.html#SEC5">Enabling automatic lightning completion</a>.
+
+</p></dd>
+<dt><code> lightning-completion-list</code></dt>
+<dd><p>Default value: all off.  Effect: toggle lightning completion in, and
+specify the idle-time for, specific contexts: files, functions,
+commands, variables, user variables, lisp objects, info menu items,
+buffer names, query replace, miscellany.
+See section <a href="light_3.html#SEC5">Enabling automatic lightning completion</a>.
+
+</p></dd>
+<dt><code> lc-clean-up</code></dt>
+<dd><p>Default value: nil.  Effect: If on, when there is no valid completion,
+remove the invalid characters.  If off, just give warning when no valid
+completion.
+See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> lc-ignored-file-extensions</code></dt>
+<dd><p>Default value: equal to <code>completion-ignored-extensions</code>.
+Description: a list of strings like &quot;.dvi&quot; and &quot;.o&quot;; files ending in
+these strings are ignored when doing lightning completion on file names.
+See section <a href="light_5.html#SEC10">Ignoring some files</a>.
+
+</p></dd>
+<dt><code> lc-dark-commands</code></dt>
+<dd><p>Default value: nil.  Description: list of commands for which lightning
+completion is disabled.
+See section <a href="light_3.html#SEC6">Settings for lightning completion</a>.
+
+</p></dd>
+<dt><code> lc-dark-recursive-minibufs</code></dt>
+<dd><p>Default value: nil.  Effect: If a number <var>N</var>, then don't use
+lightning completion when recursion-depth is bigger than <var>N</var>.  If
+nil, then no restrictions on when to use lightning completion.
+See section <a href="light_3.html#SEC6">Settings for lightning completion</a>.
+
+</p></dd>
+<dt><code> lc-override-flag</code></dt>
+<dd><p>Default value: nil.  Effect: If non-nil, override other local maps when
+using lightning completion.  You may want to turn this on if using
+outline mode or some other minor mode which uses C-c as prefix.  This
+may not be necessary, though.
+
+</p></dd>
+<dt><code> lc-keep-key</code></dt>
+<dd><p>Default value: <kbd>SPC</kbd>.  Description: Key to keep current completion
+in lightning completion mode.
+See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> lc-del-key</code></dt>
+<dd><p>Default value: <kbd>DEL</kbd>.  Description: Key to delete last
+completion unit in lightning completion mode.
+See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> lc-stop-key</code></dt>
+<dd><p>Default value: <kbd>C-c</kbd>.  Description: Key to exit lightning completion
+mode. 
+See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> lc-quote-key</code></dt>
+<dd><p>Default value: <kbd>C-q</kbd>.  Description: Key to quote next character in 
+lightning completion mode. 
+See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> lc-help-key</code></dt>
+<dd><p>Default value: <kbd>C-h</kbd>.  Description: Help key in lightning completion
+mode.
+See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> lc-cycle-key</code></dt>
+<dd><p>Default value: <kbd>C-f</kbd>.  Description: Key to cycle to next completion
+in lightning completion mode.
+See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> lc-back-cycle-key</code></dt>
+<dd><p>Default value: <kbd>C-b</kbd>.  Description: Key to cycle to previous
+completion in lightning completion mode.
+See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> lc-display-key</code></dt>
+<dd><p>Default value: <kbd>TAB</kbd>.  Description: Key to display all completions
+in lightning completion mode.
+See section <a href="light_2.html#SEC3">Key bindings</a>.
+
+</p></dd>
+<dt><code> lc-ctrl-x-c-is-completion</code></dt>
+<dd><p>Default value: nil.  Effect: if on, <kbd>C-x c</kbd> is the prefix key for
+the various lightning completion commands.
+See section <a href="light_1.html#SEC2">Completion functions</a>.
+
+</p></dd>
+<dt><code> lc-ctrl-backslash-completes-a-la-mode</code></dt>
+<dd><p>Default value: nil.  Effect: if on, <kbd>C-\</kbd> runs the function
+<code>completing-insert-according-to-mode</code>.
+See section <a href="light_1.html#SEC2">Completion functions</a>.
+
+</p></dd>
+</dl>
+
+
+
+
+
+
+<hr size="6">
+<table cellpadding="1" cellspacing="1" border="0">
+<tr><td valign="middle" align="left">[<a href="#SEC7" title="Beginning of this chapter or previous chapter"> &lt;&lt; </a>]</td>
+<td valign="middle" align="left">[<a href="light_5.html#SEC9" title="Next chapter"> &gt;&gt; </a>]</td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left"> &nbsp; </td>
+<td valign="middle" align="left">[<a href="light.html#SEC1" title="Cover (top) of document">Top</a>]</td>
+<td valign="middle" align="left">[<a href="light_toc.html#SEC_Contents" title="Table of contents">Contents</a>]</td>
+<td valign="middle" align="left">[<a href="light_6.html#SEC13" title="Index">Index</a>]</td>
+<td valign="middle" align="left">[<a href="light_abt.html#SEC_About" title="About (help)"> ? </a>]</td>
+</tr></table>
+<p>
+ <font size="-1">
+  This document was generated by <em>John Palmieri</em> on <em>November, 8 2010</em> using <a href="http://texi2html.cvshome.org/"><em>texi2html 1.70</em></a>.
+ </font>
+ <br>
+
+</p>
+</body>
+</html>

@@ -1,0 +1,1843 @@
+\input texinfo   @c -*-texinfo-*-
+@setfilename ultra.info
+@settitle Ultra-TeX Mode
+@c footnotestyle separate
+@c paragraphindent 2
+@iftex
+@tolerance 10000
+@end iftex
+
+@comment  use 'perl texi2html -menu -split_chapter ultra.texi' to get an
+@comment  html file
+
+@ifinfo
+This is edition 0.69, May 2001, of the @cite{Ultra-@TeX{} Mode
+manual}.  Copyright @copyright{} 1996, 1997, 1998, 1999, 2001 John H. Palmieri
+@end ifinfo
+
+@titlepage
+@title{Ultra-@TeX{} Mode}
+@comment @subtitle{A different @TeX{} mode for GNU Emacs}
+
+@author (info by John H. Palmieri)
+
+@page
+@vskip 0pt plus 1filll
+Copyright @copyright{} 1996, 1997, 1998, 1999, 2001 John H. Palmieri
+
+Permission is granted to make and distribute verbatim copies of
+this manual provided the copyright notice and this permission notice
+are preserved on all copies.
+
+@ignore
+Permission is granted to process this file through TeX and print the
+results, provided the printed document carries copying permission
+notice identical to this one except for the removal of this paragraph
+(this paragraph not being relevant to the printed manual).
+@end ignore
+
+Permission is granted to copy and distribute modified versions of this
+manual under the conditions for verbatim copying, provided also that the
+section entitled ``Copying'' is included exactly as in the original, and
+provided that the entire resulting derived work is distributed under the
+terms of a permission notice identical to this one.
+
+Permission is granted to copy and distribute translations of this manual
+into another language, under the above conditions for modified versions,
+except that this permission notice may be stated in a translation
+approved by the Free Software Foundation.
+@end titlepage
+@page
+
+@ifinfo
+@node top, Overview, (dir), (dir)
+@top Ultra-@TeX{} Mode
+@end ifinfo
+
+Ultra-@TeX{} Mode was written in Emacs lisp by Mark Haiman and Nick
+Reingold, with modifications by John Palmieri.
+
+This is version 0.69, May 2001, of the @cite{Ultra-@TeX{} Mode
+manual}.  Bug reports and suggestions for new features should go to
+@samp{palmieri@@math.washington.edu}.
+
+This is a revised version of this manual; it is done.
+
+@menu
+* Overview::                    Overview of Ultra-@TeX{} mode
+* Features::                    Detailed description of the mode's main features
+* Installation::                How to install
+
+* Variable Index::              
+* Function Index::              
+* Concept Index::               
+@end menu
+
+@comment in any given node: 
+@comment use '@cindex CONCEPT' to add node to concept index
+@comment use '@findex FUNCTION' for function index
+@comment use '@vindex VARIABLE' for variable index
+@comment use '@kindex KEY' for key index
+
+@comment ---------------------------------------------------------
+
+@node Overview, Features, top, top
+@chapter Overview
+
+Ultra-@TeX{} mode is a major mode for editing @TeX{} documents.  It
+features dynamic completion (@pxref{Completion}) of @TeX{} commands, and
+a number of other handy things.
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Features, Installation, Overview, top
+@chapter Features 
+
+@menu
+* Completion::                  Lightning completion
+* Lightning completion::        
+* Making a list::               
+* Defining new commands::       
+* Dollar signs::                How dollar signs work
+* Smart return key::            What the return key does
+* Fonts::                       How to get different fonts (like @samp{\emph@{@}},
+@samp{\mathbf@{@}}, etc.) 
+* Greek keyboards::             Alternate keyboards for inserting Greek letters and
+              other symbols
+* Everything else::             Lots of other things
+@end menu
+
+
+
+@comment ---------------------------------------------------------
+
+@node Completion, Lightning completion, Features, Features
+@comment  node-name,  next,  previous,  up
+@section Completion
+
+One of the key features of Ultra-@TeX{} mode is that it uses
+@dfn{lightning completion} to complete @TeX{} commands.  When you enter
+Ultra-@TeX{} mode (say, if you have followed the installation
+instructions (@pxref{Installation}) so that you enter Ultra-@TeX{}
+whenever you open a @TeX{} file), Emacs constructs a list of @TeX{}
+commands.  Then when you hit @kbd{\}, Emacs does lightning completion on
+the elements of this list.
+
+I'll describe what lightning completion is, and I'll explain how
+Emacs constructs this list of commands.
+
+@menu
+* Lightning completion::  An overly brief introduction to lightning completion 
+* Making a list::   Checking it twice, etc.
+@end menu
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Lightning completion, Making a list, Completion, Features
+@comment  node-name,  next,  previous,  up
+@section Lightning completion
+
+@cindex Lightning completion
+@cindex Completion
+@vindex ultex-complete-idle-time
+@vindex lc-complete-idle-time
+@vindex lc-clean-up
+@vindex ultex-dont-use-completion
+
+Here is an example of lightning completion: suppose that the list of
+commands that Emacs knows about only contains the following:
+
+@example
+\xrightarrow@{@},   \xleftarrow@{@},   \Rightarrow
+@end example
+
+If I hit @kbd{\}, then @samp{\} is inserted into the buffer, and
+lightning completion starts.  If I then hit @kbd{R}, then after a delay
+(of length governed by the variable @code{ultex-complete-idle-time})
+@samp{Rightarrow} is inserted and completion ends (this all happens
+because there is only one valid completion starting @samp{\R}).  If I
+hit @kbd{x} instead of @kbd{R}, then @samp{x} gets inserted.  Then I can
+either hit @kbd{r} or @kbd{l}, resulting, after a delay, in either
+@samp{\xrightarrow@{@}} or @samp{\xleftarrow@{@}}.
+
+(The aforementioned delay was added in version 0.50 of this package.  By
+default, it is equal to @code{lc-complete-idle-time-default}, a variable
+documented in the Lightning Completion Manual (@pxref{Overview, ,
+Lightning completion, light.info, Lightning Completion Manual}).  To get
+the old behavior of immediate completion, set the variable
+@code{ultex-complete-idle-time} to 0.)
+
+Using the same example, if I start by hitting @kbd{\}, if I hit any
+printing character other than @kbd{x} or @kbd{R}, then after a delay,
+Emacs beeps because there is no valid completion starting with that
+character, and (depending on the value of the variable
+@code{lc-clean-up}) either that character is inserted or nothing is
+inserted.  I can always stop lightning completion prematurely by hitting
+@kbd{C-c}; this is one way to insert @TeX{} commands that Ultra-@TeX{}
+doesn't know about.
+
+If you don't want to use lightning completion, set the variable 
+@code{ultex-dont-use-completion} to t.  Then Ultra-@TeX{} will only try
+to complete when you hit the @key{TAB} key.
+
+There is more to lightning completion.
+@xref{Overview,  , Lightning completion, light.info, Lightning
+Completion Manual}, for a full description.
+
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Making a list, Defining new commands, Lightning completion, Features
+@comment  node-name,  next,  previous,  up
+@section Making a list
+
+@findex ultex-reset-current-alist
+@findex ultex-grab-defs
+@findex ultex-grab-bibs
+@vindex ultex-tree-file
+@vindex ultex-extra-tree-files
+@vindex ultex-also-load
+@vindex TeX-master
+@vindex ultex-alist-local-flag
+@vindex ultex-no-grab-if-space
+@cindex Making a list
+@cindex List of @TeX{} commands
+@cindex @TeX{} command list
+@cindex @TeX{} command files
+@cindex Files of @TeX{} commands
+@cindex Scanning buffer for commands
+
+As I said earlier, when Emacs enters Ultra-@TeX{} mode, it constructs a
+list of @TeX{} commands, and it uses this list for its completion table. 
+The list is built from two pieces: first of all, the user should have a
+@dfn{textree} file, containing the @TeX{} commands she typically uses.
+
+Remarks: 
+@enumerate
+@item
+A sample textree file, @file{textree.el}, is included in the
+Ultra-@TeX{} package.
+@item
+The path name of this file is stored in the variable
+@code{ultex-tree-file}.  @xref{Installation}, for how to set this, if
+you're not sure.
+@item
+If you're in Ultra-@TeX{} mode, you can run the command
+@code{ultex-new-cs} to specify a new command sequence to be entered into
+the textree file.  @xref{Defining new commands}, for more
+information on this.  (Alternatively, the textree file is an Emacs lisp
+file, so you can edit it directly if you're comfortable with Emacs
+lisp.)
+@item
+If you're in Ultra-@TeX{} mode, you can run the command
+@code{ultex-delete-csname-from-tree-file} to specify a command
+sequence to be deleted from the textree file.  @xref{Defining new
+commands}, for more information on this, too.
+@end enumerate
+
+Now, Emacs scans the current buffer (the one which is using Ultra-@TeX{}
+mode), looking for commands of the forms
+
+@example
+\documentclass@{bozo@}
+\documentstyle@{bozo@}
+\usepackage@{bozo@}
+@end example
+
+When it finds any such lines, it examines the list
+@code{ultex-extra-tree-files} to see if there is an associated file of
+commands for that class, style, or package, and if there is, if the main
+file @file{textree.el} should also be loaded.  It loads each one of
+these files, along with the main one if appropriate.
+
+Remarks: 
+@enumerate
+@item
+@xref{Installation}, to see how to set the variable
+@code{ultex-extra-tree-files}.
+@item
+If the current buffer has more than one command file associated to it,
+if you run @code{ultex-new-cs} to add a new command, Emacs will ask
+which file to add it to.  Similarly, if you run
+@code{ultex-delete-csname-from-tree-file} to delete a command, if that
+command appears in more than one file, Emacs will ask you which one to
+delete it from.
+@item
+The variable @code{ultex-also-load} may contain the name of a command
+file to load in addition to any others which have been specified.  This
+is intended for use as a local variable; in other words, to use it, you
+should have lines like this at the end of your @TeX{} document: 
+
+@example
+%% Local variables:
+%% ultex-also-load: "~/emacs/other-ultex-commands.el"
+%% End:
+@end example
+
+@end enumerate
+
+After this has been done, Emacs scans the current buffer, looking for
+more commands.  It finds commands in the following ways:
+
+@itemize @bullet
+@item
+If the buffer contains a @TeX{} command of the form
+
+@example
+\newcommand@{\bozo@}[3]@{blah blah blah@}
+@end example
+
+@noindent
+(or @samp{\renewcommand...} or @samp{\providecommand...}) then Emacs
+adds the string @samp{\bozo@{@}@{@}@{@}} to its list of @TeX{} commands
+(there are three sets of brackets because the @samp{3} in the square
+brackets tells La@TeX{} that @samp{\bozo} takes 3 arguments.  If you
+then use lightning completion to insert @samp{\bozo@{@}@{@}@{@}} in the
+buffer, the point is placed inside the first set of brackets.  Hitting
+the @key{RET} key moves you to the next set of brackets (@pxref{Smart
+return key}).
+@item
+If the buffer contains a @TeX{} command of the form
+
+@example
+\DeclareMathOperator@{\clown@}@{Clown@}
+@end example
+
+@noindent
+then Emacs adds @samp{\clown} to its list.
+@item
+If the buffer contains a @TeX{} command of the form
+
+@example
+\newenvironment@{circus@}
+@end example
+
+@noindent
+(or @samp{\renewenvironment@{circus@}}) then Emacs adds
+
+@example
+\begin@{circus@}
+
+\end@{circus@}
+@end example
+
+@noindent
+to the list; when Ultra-@TeX{} inserts this in your buffer, it puts the
+point on the blank line.
+@item
+If the buffer contains a @TeX{} command of the form
+
+@example
+\newtheorem@{dumb-lemma@}[thm]@{Lemma@}
+@end example
+
+@noindent
+then Emacs adds
+
+@example
+\begin@{dumb-lemma@}\label@{@}
+
+\end@{dumb-lemma@}
+@end example
+
+@noindent
+and it puts the point inside the argument for @samp{\label}.  If you
+don't want a label, just hit the @key{RET} key (@pxref{Smart return
+key}). 
+@item
+If the buffer contains a string of the form
+
+@example
+\label@{ling-ling@}
+@end example
+
+@noindent
+then Emacs adds @samp{\ref@{ling-ling@}}, @samp{\pageref@{ling-ling@}}, and
+@samp{\eqref@{ling-ling@}} to its list.
+@end itemize
+
+The above scanning is done by the function @code{ultex-grab-defs}.  The
+following is done by @code{ultex-grab-bibs}.
+
+@itemize @bullet
+@item
+Emacs scans the bibliography for bibliographical keys: if the
+buffer contains @samp{\begin@{thebibliography@}} and
+@samp{\end@{thebibliography@}} commands, Emacs looks between them for
+commands of the form 
+
+@example
+\bibitem@{bib-key@}  Bozo the Clown, \emph@{How to write bad emacs
+lisp code@}, ...
+@end example
+
+@noindent
+When it finds such a command, it adds @samp{\cite@{bib-key@}} and
+@samp{\nocite@{bib-key@}} to the list.  If your buffer is associated to a
+file, @file{file.tex}, then Emacs does exactly the same scanning on the
+file @file{file.bbl}.  Lastly, if the buffer contains a command
+
+@example
+\bibliography@{bib-data-base@}
+@end example
+
+@noindent
+then Emacs looks for a file @file{bib-data-base.bib}; if it finds it, it
+adds @samp{\cite} and @samp{\nocite} for all of the keys in it.
+@end itemize
+
+Emacs does all of this scanning recursively:
+
+@itemize @bullet
+@item
+Whenever Emacs finds commands like
+
+@example
+\input@{bozo@}
+\include@{bobo@}
+@end example
+
+at the start of a line, then Emacs scans the files @file{bozo.tex} and
+@file{bobo.tex} for their commands and labels.  If these commands are
+not at the start of the line (they have spaces or tabs in front of them,
+say), then the files are not scanned.
+
+@item
+Whenever Emacs finds a line like this at the start of the file:
+
+@example
+%% -*- TeX-master: "main.tex"; -*-
+@end example
+
+or lines like this at the end of the file:
+
+@example
+%% Local variables:
+%% TeX-master: "main.tex"
+%% End:
+@end example
+
+then Emacs scans the file @file{main.tex} for its commands and labels
+(and any files included or input into them, too).
+@end itemize
+
+A few remarks:
+@enumerate
+@item
+Emacs learns these command only temporarily -- Emacs forgets them between
+editing sessions (which seems appropriate -- I don't want commands I've
+defined specifically in one @TeX{} document to be valid completions
+every time I edit any @TeX{} document).
+
+@item
+The way things are currently set up, each buffer maintains its own list
+of @TeX{} commands.  This behavior is controlled by the variable
+@code{ultex-alist-local-flag}.  If you want to change this -- if you want
+Ultra-@TeX{} to complete on commands defined in document A when you're
+editing document B -- then customize the variable
+@code{ultex-alist-local-flag} (in the customization group
+"ultra-tex-commands".
+
+@item
+Hitting @kbd{C-c C-r} runs the command @code{ultex-reset-current-alist},
+which resets the list to its default (the contents of the appropriate
+textree files) in the current buffer, or in all @TeX{} buffers if
+@code{ultex-alist-local-flag} is off.
+
+@item
+The method of scanning for new commands is oriented towards La@TeX{},
+rather than plain @TeX{}.  Sorry about that.
+
+@item
+To avoid the recursive grabbing of commands from input or include files,
+just have a leading space or tab before the command: Emacs only does the
+recursive grabbing if the line begins with @samp{\input} or
+@samp{\include}.
+
+@item
+Similarly, if the variable @code{ultex-no-grab-if-space} is non-nil,
+then Emacs will not grab commands from any @samp{\newcommands} (etc.)
+that do not start at the beginning of the line.  So if you don't want a
+particular command (defined by @samp{\newcommand}, say) to be
+automatically added to the completion list, just start the line with a
+space.
+@end enumerate
+
+@menu
+* Defining new commands::  How to put new @TeX{} commands into the
+textree file (and how to remove them, too).
+@end menu
+
+
+@comment ---------------------------------------------------------
+
+@node Defining new commands, Dollar signs, Making a list, Features
+@comment  node-name,  next,  previous,  up
+@section Defining new commands
+
+@findex ultex-new-cs
+@findex ultex-delete-csname-from-tree-file 
+@findex ultex-delete-csname
+@cindex Defining new commands
+@cindex New commands
+@cindex Deleting commands
+@cindex Removing commands
+@cindex Commands -- adding
+@cindex Commands -- removing
+
+If you want to add a command to your textree file (hence permanently
+adding the command to the list of @TeX{} commands on which Ultra-@TeX{}
+completes), you should run the command @code{ultex-new-cs}.  In
+Ultra-@TeX{} mode, this is bound to the key sequence @kbd{C-c C-n}.
+
+When you do this, a new buffer, @samp{*TeX Completions Edit*}, is opened
+in another window, and a backslash is inserted (just to get you
+started).  You type in your new command, including all the brackets and
+braces you want, put the cursor where you want the point to be when this
+string is inserted in your @TeX{} document, and then hit @kbd{M-C-c} to
+exit.  You will be asked if you want to use this command in math mode
+exclusively; if you say yes, you will get an error message if you try to
+use it outside of a math environment (but the command will still be
+inserted).  If the current buffer is using more than one file of @TeX{}
+commands, you will be asked in which file to store the command.
+
+For example, if I wanted to add the command @samp{\sqrt[]@{@}} to my
+textree file, I would hit @kbd{C-c C-n} to run @code{ultex-new-cs}, then
+type @kbd{sqrt[]@{@}} in the new buffer (remember, the backslash is
+already there).  Then I would put the cursor inside the brackets, and
+hit @kbd{M-C-c}.
+
+This will add the line
+
+@example
+("\\sqrt[]@{@}" -3 . ultex-math-mode)
+@end example
+
+@noindent
+to the appropriate textree file.  The first entry here is the command,
+the second entry is the number of characters the point is offset from
+the end of the string, and the last entry says that this command should
+only be used in a math environment.
+
+If your textree file has some commands you don't want, you can run the
+command @code{ultex-delete-csname-from-tree-file}.  This prompts you for
+a command and then deletes it from the textree file.  If the command is
+in more than one of the textree files associated to this buffer, you are
+asked to specify the file, also.
+
+You can also edit the command files by hand.  If you have want to get
+rid of the command @samp{\sqrt[]@{@}}, open the textree file, and look
+for a line like
+
+@example
+("\\sqrt[]@{@}" -3 . ultex-math-mode)
+@end example
+
+@noindent
+Once you have found it, delete it and save the file.  (In case you're
+not familiar with emacs lisp and you want to do this: just be careful to
+delete a region starting with a left parenthesis and ending with its
+matching right parenthesis.  Of course, if you're nervous about it, make
+a backup of your textree file, and then play around.)
+
+If you want to disable a @TeX{} command for this editing session (in
+this buffer only, if you have made @code{ultex-current-alist} local),
+call the function @code{ultex-delete-csname}, bound to the key sequence
+@kbd{C-c C-d}.  You are prompted for a @TeX{} command you don't want,
+and the one you select is removed, temporarily, from the master list.
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Dollar signs, Smart return key, Defining new commands, Features
+@comment  node-name,  next,  previous,  up
+@section Dollar signs
+
+@vindex ultex-dollar-back
+@vindex ultex-dollar-array
+@cindex Dollar signs
+@cindex Math environments
+
+When @TeX{} sees text between two dollar signs (like @samp{$x=y$}), it
+processes that text in math mode.  There are a number of other
+ways of typesetting mathematics, such as the @samp{equation} environment
+and the @samp{eqnarray} environment.  In Ultra-@TeX{} mode, you can get
+at all of these things using the @kbd{$} key.
+
+Here is what @kbd{$} does:
+
+@itemize @bullet
+@item
+If you hit @kbd{$} once, Emacs inserts a pair of dollar signs and places
+the point between them.
+@item
+If you hit @kbd{$} again, Emacs inserts 
+
+@example
+\[
+
+\]
+@end example
+
+@noindent
+and puts the point on the blank line.
+@item
+If you hit @kbd{$} again, Emacs inserts
+
+@example
+\begin@{equation@}\label@{@}
+
+\end@{equation@}
+@end example
+
+@noindent
+and puts the point in the argument of @samp{\label}.
+@item
+Next comes
+
+@example
+\begin@{equation*@}
+
+\end@{equation*@}
+@end example
+
+@noindent
+with the point on the blank line, then
+@example
+\begin@{align@}\label@{@}
+
+\end@{align@}
+@end example
+@noindent then
+@example
+\begin@{align*@}
+
+\end@{align*@}
+@end example
+@noindent then
+@example
+\begin@{gather@}\label@{@}
+
+\end@{gather@}
+@end example
+@noindent then
+@example
+\begin@{gather*@}
+
+\end@{gather*@}
+@end example
+@noindent then
+@example
+\begin@{multline@}\label@{@}
+
+\end@{multline@}
+@end example
+@noindent then
+@example
+\begin@{multline*@}
+
+\end@{multline*@}
+@end example
+@noindent
+
+@item
+If you hit @kbd{$} again, you go back to
+@example
+\[
+
+\]
+@end example
+@noindent
+and (aside from the fact that you've skipped the first option -- a pair
+of dollar signs) the whole thing starts over again.  If you would rather
+start over again with @samp{$$} instead, then set the variable
+@code{ultex-dollar-back} to 0.
+@end itemize
+
+This works even if the math environment is not empty.  For example,
+if you have 
+@example
+\begin@{equation@}\label@{wiles@}
+x^@{n@} + y^@{n@} = z^@{n@}
+\end@{equation@}
+@end example
+and you hit @kbd{$}, then you get
+@example
+\begin@{equation*@}
+x^@{n@} + y^@{n@} = z^@{n@}
+\end@{equation*@}
+@end example
+Hitting @kbd{$} again gives
+@example
+\begin@{align@}\label@{wiles@}
+x^@{n@} + y^@{n@} = z^@{n@}
+\end@{align@}
+@end example
+
+If you ever just want a single dollar sign, you can either type @kbd{C-q
+$}, or hit @kbd{$} and then delete one of the two dollar signs that were
+just inserted (using @kbd{C-d} or @key{DEL}, for instance).
+
+You can change the strings that get inserted by customizing the variable
+@code{ultex-dollar-array} (customization group "ultra-tex-environments").
+
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Smart return key, Fonts, Dollar signs, Features
+@comment  node-name,  next,  previous,  up
+@section Smart return key
+
+@vindex ultex-return-checks-for-new-command
+@cindex Smart return key
+@cindex Return key
+
+The @key{RET} key in Ultra-@TeX{} mode tries to move the point forward
+by the ``appropriate amount.''
+
+@itemize @bullet
+@item
+If you are editing ordinary text, hitting @key{RET} moves the point past
+the next word.  If the point is at the start of a blank line, then
+hitting @key{RET} inserts another blank line.  If the point is at the
+end of the buffer, then hitting @key{RET} inserts a blank line.
+@item
+If the point is to the left of a brace @samp{@{}, hitting @key{RET}
+moves the point to the right of the brace.
+@item
+Suppose the point is inside a pair of braces.  If the braces contain
+several words, hitting @key{RET} moves forward a word.  If the braces
+only contain one word, or if the point is in the last word enclosed by
+the braces, hitting @key{RET} moves you to just outside the braces.
+@item
+There is similar behavior with brackets @samp{[]} instead of braces,
+with one exception: since brackets are used for optional arguments to
+@TeX{} commands, if the point is inside an @emph{empty} pair of
+brackets, hitting @key{RET} will delete the pair.  This way, you can use
+lightning completion to insert a command with lots of optional
+arguments, and you only have to hit RET to get rid of the ones you don't
+want.  (For example, you don't need separate entries in your textree
+file for @samp{\sqrt[]@{@}} and for @samp{\sqrt@{@}}.)
+@item
+Similarly, if the text looks like @samp{\label@{@}}, and the point is
+inside the braces, hitting @key{RET} will delete the string
+@samp{\label@{@}}.
+@item
+Since Ultra-@TeX{} completes on bibliographical keys, it assumes you
+ordinarily don't want to add anything to the argument of @samp{\cite}.
+So if the text looks like @samp{\cite[bozo]@{clown@}}, if the point is
+anywhere inside the brackets, hitting @key{RET} moves the point
+past @samp{@{clown@}}.  If the brackets had been empty, hitting
+@key{RET} would have deleted them, and then moved the point past
+@samp{@{clown@}}.  If the braces had been empty, then hitting @key{RET}
+would have put the point inside them, ready to type in the argument to
+@samp{\cite}.
+@item
+New in version 0.55: if you are defining a new @TeX{} command, so the
+text looks like @samp{\newcommand@{\blah@}[3]@{blah@}}, hitting
+@key{RET} will add @samp{\blah} to its list of @TeX{} command
+sequences.  (Similarly for new theorems, environments, etc.)  This
+behavior can be changed by toggling the variable
+@code{ultex-return-checks-for-new-command}.
+@end itemize
+
+To insert a newline, use @kbd{M-@key{RET}}.  @key{LFD} ends a
+paragraph when that makes sense, and checks the paragraph to see if
+parentheses, etc., are properly matched.
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Fonts, Greek keyboards, Smart return key, Features
+@comment  node-name,  next,  previous,  up
+@section Fonts
+
+@findex ultex-font
+@cindex Fonts
+@cindex @TeX{} Fonts
+
+In a typical @TeX{} document, one might use a number of different type
+faces -- bold-face, italics, small caps, whatever.  Ultra-@TeX{} provides
+an easy way to insert the command to change type faces.
+
+Here is a typical example: hitting @kbd{M-E} inserts the string
+@samp{\emph@{@}}, and puts the point inside the braces.  (Note: that key
+sequence is @kbd{@key{META}-@key{SFT}-e}, not @kbd{@key{META}-e}).  The
+@key{META} key, in combination with various other capital letters,
+produces similar effects:
+
+@itemize @bullet
+@item
+@kbd{M-A} inserts @samp{\mathcal@{@}}; it also beeps if you're not in a
+math environment. 
+@item
+@kbd{M-B} inserts @samp{\textbf@{@}} or @samp{\mathbf@{@}}, depending on
+the context.
+@item
+@kbd{M-C} inserts @samp{\textsc@{@}} or @samp{\mathsc@{@}}.
+@item
+@kbd{M-E} inserts @samp{\emph@{@}}.
+@item
+@kbd{M-F} inserts @samp{\textsf@{@}} or @samp{\mathsf@{@}}.
+@item
+@kbd{M-I} inserts @samp{\textit@{@}} or @samp{\mathit@{@}}.
+@item
+@kbd{M-M} inserts @samp{\mit@{@}}.
+@item
+@kbd{M-R} inserts @samp{\textrm@{@}} or @samp{\mathrm@{@}}.
+@item
+@kbd{M-S} inserts @samp{\textsl@{@}} or @samp{\mathsl@{@}}.
+@item
+@kbd{M-T} inserts @samp{\texttt@{@}} or @samp{\mathtt@{@}}.
+@item
+@kbd{M-U} inserts @samp{\textup@{@}}.
+@item
+@kbd{M-X} inserts @samp{\text@{@}}; it beeps if you're not in a math
+environment.
+@item
+@kbd{M-Z} inserts @samp{\zz@{@}} (intended to be a user-defined font).
+@end itemize
+
+These keys all call the function @code{ultex-font}, with an appropriate
+argument.  This wasn't written with customization in mind, but if you
+want to modify things, you can try adding lines like this to your
+@file{.emacs} file (@pxref{.ultex file}):
+
+@example
+(define-key ultra-tex-mode-map "\C-[D"
+  '(lambda nil (interactive) (ultex-font "bozo")))
+@end example
+
+and see what happens when you hit @kbd{M-D}, both in and out of a math
+environment.  If things don't work the way you want, you may have to
+modify the definition of the function @code{ultex-font}.
+
+
+
+@comment ---------------------------------------------------------
+
+@node Greek keyboards, Everything else, Fonts, Features
+@comment  node-name,  next,  previous,  up
+@section Greek keyboards
+
+@vindex ultex-greek-keys-file
+@vindex ultex-display-pictures
+@vindex ultex-picture-type
+@vindex ultex-picture-directory
+@findex ultex-sym-display-greek
+@findex ultex-sym-display-operators
+@findex	ultex-sym-display-relations
+@findex	ultex-sym-display-arrows
+@findex	ultex-sym-display-miscellany
+@findex ultex-sym-display-all
+@cindex Greek keyboards
+@cindex Keyboards
+@cindex alpha, beta, ...
+@cindex Greek keys file
+@cindex xpm
+@cindex gif
+
+The user's textree file (@pxref{Making a list}) stores a lot of her
+favorite @TeX{} commands, and hitting the @kbd{$} key (@pxref{Dollar
+signs}) produces some other useful commands.  There is a third way to
+insert @TeX{} commands -- via a @dfn{Greek keyboard}.
+
+If you hit the left quote key @kbd{`} followed by @kbd{a}, then
+@samp{\alpha} is inserted into the buffer (and you get an error if
+you're not in a math environment).  Similarly, @kbd{`b} gives you
+@samp{\beta}, etc.
+
+Furthermore, while hitting @kbd{`g} gives @samp{\gamma}, hitting
+@kbd{`G} gives @samp{\Gamma}.  Once you hit the @kbd{`} key, you can
+access the (ordinary) Greek keyboard, the Shift Greek keyboard, the
+Control Greek keyboard, the Meta, the Meta Shift, and the Meta Control
+Greek keyboards.  This gives you a lot of slots for storing @TeX{}
+commands.
+
+In order to see what symbols are stored in these slots, you can use the
+@kbd{\} key: hitting @kbd{`\} opens up a little window which displays
+a chart with the typewriter keys and their effect in the Greek
+keyboard -- it might look something like this:
+
+@example
+times amalg oplus otime odot  wedge vee sqcup cap  cup  uplus pm  circ 
+  1     2     3     4     5     6    7    8    9    0     -    =   `  
+   theta infty varep rho  tau  upsil xi   iota  omega pi  subse supse
+     q     w     e    r    t     y    u     i     o    p    [     ]  
+    alpha sigma delta varph gamma eta  exist kappa lambd int   in   
+      a     s     d     f     g     h    j     k     l     ;     '  
+      zeta  chi   psi   foral beta  nu   mu    sum   prod  not        
+        z     x     c     v     b    n    m     ,      .    /        
+@end example
+
+(Unfortunately, it only has room to display the first five characters of
+the @TeX{} command.)  In this example, hitting @kbd{`,} would produce
+@samp{\sum}, hitting @kbd{`6} would produce @samp{\wedge}, hitting
+@kbd{`e} would produce @samp{\varepsilon}.
+
+Similarly, hitting @kbd{`|} gives you the Shift Greek keyboard,
+@kbd{`C-\} gives the Control Greek keyboard, etc.
+
+The bindings for the Greek keyboards are stored in a @dfn{greek-keys}
+file.  
+
+Remarks: 
+@enumerate
+@item
+A sample greek-keys file, @file{greek.el}, is included in the
+Ultra-@TeX{} package.
+@item
+The path name of this file is stored in the variable
+@code{ultex-greek-keys-file}.  @xref{Installation}, for how to set this,
+if you're not sure.
+@item
+To change the definitions of the greek keys, you should edit the
+greek-keys file.  Note: you will get an error if you use any Greek key
+if you're not in a math environment, so you probably only want to bind
+math symbols to Greek keys.  (The appropriate string will be inserted in
+any case, though.)
+@item
+New in version 0.55: when using XEmacs with support for pictures in xpm
+format, the greek keyboard can display pictures of the symbols rather
+than their names.  To enable this, you need to install the La@TeX{}
+symbols package, available from
+@url{http://www.math.washington.edu/~palmieri/Emacs/LaTeX-symbols}.  The variables
+@code{ultex-display-pictures}, @code{ultex-picture-type}, and
+@code{ultex-picture-directory} are relevant here.  (To find out if your
+copy of XEmacs has xpm support, evaluate @code{(featurep 'xpm)} -- t
+means it has xpm support, nil means it doesn't.  If you want to use
+pictures in some other format, that's fine, but you'll have to convert
+the xpm files included in the La@TeX{} symbols package to the desired
+format on your own.)
+@end enumerate
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Everything else,  , Greek keyboards, Features
+@comment  node-name,  next,  previous,  up
+@section Everything else
+
+@vindex ultex-latex-skel-file
+@vindex ultex-skel-hook
+@vindex ultex-match-braces
+@vindex ultex-match-brackets
+@vindex ultex-match-parens
+@vindex ultex-array-environs
+@vindex ultex-use-auctex
+@findex ultex-sym-display-greek
+@cindex Miscellany
+@cindex Braces
+@cindex Matching braces
+@cindex Brackets
+@cindex Matching brackets
+@cindex Parentheses
+@cindex Matching parentheses
+@cindex Quotation marks
+@cindex Superscripts
+@cindex Subscripts
+@cindex TAB key
+@cindex Double backslash
+@cindex \\
+@cindex Symbols
+@cindex Tables of symbols
+
+There are a number of other features.  I'll probably forget one or two,
+but here are most of them:
+
+@itemize @bullet
+@item
+Hitting @kbd{C-c C-s} inserts a template for a La@TeX{} document.  This
+template is stored in a file; its pathname is given by
+@code{ultex-latex-skel-file}.  A sample file is included in the package:
+@file{skeleton.tex}.  (Also, once the template is inserted, Emacs runs
+@code{ultex-skel-hook}.) 
+@item
+Hitting @kbd{@{} makes a brace pair and puts the point inside.  If you
+want similar behavior for @kbd{[} and @kbd{(}, then customize the
+variables @code{ultex-match-brackets} and @code{ultex-match-parens}.
+On the other hand, if you don't want this behavior for @kbd{@{}, then
+customize @code{ultex-match-braces}.
+@item
+Hitting the double-quote key @kbd{"} makes either two left single quotes
+or two right single quotes, whichever Emacs thinks is appropriate.
+@item
+Hitting @kbd{...} inserts @samp{\dots}.  (It used to insert
+@samp{\cdots} or @samp{\ldots}, depending on what it thought was
+appropriate, but I believe that the recent versions of La@TeX{} will
+position @samp{\dots} according to the context.)
+@item
+Hitting @kbd{^} produces @samp{^@{@}}, with the point inside the braces.
+Hitting @kbd{_} produces @samp{_@{@}}, with the point inside the braces.
+@item
+Hitting @key{TAB} in an array environment moves the point forward a few
+spaces, and inserts @samp{&}.  (Emacs determines when to do this by
+using the variable @code{ultex-array-environs}, which is a list
+consisting of environments that use @samp{&} for ``tab stops''.  Change
+this variable to change the behavior of @key{TAB}.)
+@item
+Hitting @kbd{\\} will ordinarily insert @samp{\\} and a newline.  If you
+are in an appropriate environment (like @samp{itemize} or
+@samp{enumerate}), then @samp{\\} will not be inserted; instead, a
+newline and @samp{\item} will be inserted.  (Emacs does this via the
+variable @code{itemizing-environments}, which a list consisting of
+environments that use @samp{\item}.)
+@item
+Ultra-@TeX{} can use commands from the AUC-@TeX{} package for
+typesetting the current document, etc.  To enable this, customize the
+variable @code{ultex-use-auctex}.  Then hit @kbd{C-c C-c} and see what
+happens.
+@item
+When using XEmacs with xpm support, the La@TeX{} symbols package,
+available from @url{http://www.math.washington.edu/~palmieri/Emacs/LaTeX-symbols},
+provides commands to open up windows with tables of symbols.  The
+easiest way to access these is from the Ultra-@TeX{} menu;
+alternatively, you can call these functions: @code{latex-symbol-greek},
+@code{latex-symbol-operators}, @code{latex-symbol-relations},
+@code{latex-symbol-arrows}, @code{latex-symbol-miscellany}, and
+@code{latex-symbol-all}.
+@end itemize
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Installation, Variable Index, Features, top
+@comment  node-name,  next,  previous,  up
+@chapter Installation
+
+@menu
+* Basic installation::          
+* .ultex file::                 
+* Customization variables::     
+@end menu
+
+@comment ---------------------------------------------------------
+
+@node Basic installation, .ultex file, Installation, Installation
+@comment  node-name,  next,  previous,  up
+@section Basic installation
+
+@cindex .emacs file
+@cindex Installation
+
+Once you have the package in front of you, you should look at the file
+@file{INSTALLATION}.  That tells you how to byte-compile the Emacs lisp
+code and how to produce the documentation in various formats.  It also
+has basic instructions for how to modify your @file{.emacs} file.  Here
+are more details about @file{.emacs}:
+
+@itemize @bullet
+@item
+Make sure the directory @file{ultratex-0.60/lisp} is in your load path.
+It might be good to make a symbolic link from @file{ultratex-0.60} to
+@file{ultratex} and then put @file{ultratex/lisp} in your load-path, so
+that if this package ever gets upgraded to @file{ultratex-0.61} and you
+choose to install it, you only have to change the symbolic link, not
+your @file{.emacs} file.  For example, I have the following line in my
+@file{.emacs} file.
+
+@example
+(setq load-path (cons "/home/palmieri/emacs/ultratex/lisp"
+                      load-path))
+@end example
+
+@item
+Put the files @file{textree.el}, @file{greek.el}, and
+@file{skeleton.tex} someplace.  They start in the directory
+@file{ultratex/user}, but if you change them from their defaults, you
+might want to move them elsewhere so they don't get overwritten when you
+install a new version of the Ultra-@TeX{} package.
+@item
+Put the following line in your @file{.emacs} file:
+
+@example
+(require 'ultex-setup)
+@end example
+
+@end itemize
+
+Now the next time you start Emacs, whenever you find a @TeX{} file, you
+will automatically be put into Ultra-@TeX{} mode.
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node .ultex file, Customization variables, Basic installation, Installation
+@comment  node-name,  next,  previous,  up
+@section .ultex file
+
+@vindex ultex-init-file
+@cindex .ultex file
+@cindex Ultra-@TeX{} init file
+
+When Ultra-@TeX{} starts up, it loads the file @file{.ultex}.  This was
+useful in versions of Ultra-@TeX{} before 0.50, when one would set many
+options by hand and then wanted to avoid cluttering up the @file{.emacs}
+file with various Ultra-@TeX{} settings.  This is not so useful in
+version 0.50 (or later) of the Ultra-@TeX{} package, since all of the
+features can be customized, and the customizations get stored in
+@file{.emacs} automatically.
+
+The name of the @file{.ultex} file is given by the variable
+@code{ultex-init-file}, so if you'd rather give this file a different
+name, like @file{.ultra-tex-stuff.el}, then customize this variable
+accordingly.
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node Customization variables,  , .ultex file, Installation
+@comment  node-name,  next,  previous,  up
+@section Customization variables
+
+@cindex Customization
+@cindex Groups, customization
+@cindex Customizable options
+@cindex List of customizable options
+@cindex Options
+
+Many of the features of Ultra-@TeX{} mode are customizable.  The best way
+to change this is with the @dfn{customization} feature of Emacs: run
+
+@example
+M-x customize-group GRP
+@end example
+
+@noindent
+where @var{GRP} is one of the Ultra-@TeX{} @dfn{customization groups},
+to each of which we devote a subsection.
+
+@menu
+* ultra-tex::                   Basic settings for Ultra-@TeX{} mode
+* ultra-tex-init::              Initialization options for Ultra-@TeX{} mode
+* ultra-tex-files::             Files used by Ultra-@TeX{} mode
+* ultra-tex-commands::          @TeX{}/La@TeX{} commands in Ultra-@TeX{} mode
+* ultra-tex-parens::            Parentheses, braces, brackets
+* ultra-tex-environments::      
+* ultra-tex-misc::              Ultra-@TeX{} mode miscellany
+* ultra-tex-auctex::            Using AUC-@TeX{} commands with Ultra-@TeX{} mode
+                               See the variable @code{ultex-use-auctex}.
+* ultra-tex-auctex-files::      File names and paths in Ultra-@TeX{}/AUC-@TeX{}.
+* ultra-tex-auctex-commands::   External commands in Ultra-@TeX{} via AUC-@TeX{}.
+* ultra-tex-auctex-latex::      LaTex stuff for Ultra-@TeX{}/AUC-@TeX{}.
+@end menu
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex, ultra-tex-init, , Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex
+
+To change these:
+
+@example
+M-x customize-group ultra-tex
+@end example
+
+@noindent
+All of the other Ultra-@TeX{} mode groups can be accessed from this one,
+also.
+
+@table @code
+@item ultex-complete-idle-time
+Default value: 0.5.  Effect: After this much idle time has elapsed, try
+to complete.  Measured in seconds.
+@xref{Lightning completion}.
+
+@item ultra-tex-mode-hook
+Default value: nil.  Description: Hook for Ultra-@TeX{} mode.  This is a
+list of commands, each of which is executed whenever Ultra-@TeX{} mode
+starts.
+
+@end table
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-init, ultra-tex-files, ultra-tex, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-init
+
+To change these:
+
+@example
+M-x customize-group ultra-tex-init
+@end example
+
+@table @code
+@item ultex-init-file
+Default value: @file{~/.ultex}.  Description: The Ultra-@TeX{} Emacs lisp
+startup file.  If you are setting Ultra-TeX options with customize, this
+file may be superfluous.  If a file with the .el or .elc suffix exists,
+it will be read instead.
+@xref{.ultex file}.
+
+@item ultex-use-color
+Default value: nil.  Effect: Toggle use of color in Ultra-@TeX{} mode.
+This is pretty, but it can add a noticeable delay when starting
+Ultra-@TeX{} mode.
+
+@item ultex-use-font-latex
+Default value: nil.  Effect: Toggle use of the @code{font-latex} package
+for colorization.  This variable is only relevant if
+@code{ultex-use-color} is @samp{on}.  One version of the file
+@file{font-latex.el} is distributed with Ultra-@TeX{}.  The most recent
+version is available from
+@url{ftp://ftp.phys.ocean.dal.ca/users/rhogee/elisp/font-latex.el}
+
+@item ultex-use-auctex
+Default value: nil.  Effect: Toggle use of files from AUC-@TeX{}
+distribution.  This has one main effect: several commands are added to
+Ultra-@TeX{} to allow one to typeset the current @TeX{} document, spawn an
+external viewer, jump to the next error, etc.
+
+This option requires the use of the file @file{tex-buf.el} from the
+AUC-@TeX{} distribution.  This file is included with Ultra-@TeX{}, but if you
+want the most up-to-date version, the AUC-@TeX{} package is available from
+@url{http://sunsite.auc.dk/auctex/}.
+@xref{ultra-tex-auctex}, for options related to this one.
+
+@item ultex-use-imenu
+Default value: nil.  Effect: Toggle use of @code{imenu} package in
+Ultra-@TeX{} mode.  The @samp{imenu} package lets you pop up a menu giving
+an outline of the buffer, so that you can move around to various section
+headings and theorem statements and so forth.  If this option is on,
+then S-mouse-3 (hold down the shift key, and hit (and release) the right
+mouse button) runs the command @code{imenu}, which pops up the
+aforementioned menu.
+
+@item ultex-use-bib-cite
+Default value: nil.  Effect: Toggle use of @code{bib-cite} package in
+Ultra-@TeX{} mode.  The @code{bib-cite} package does stuff with your
+labels and citations -- highlights them, lets you jump to them, etc.
+This option is not well-tested, and may yield unpredictable results.
+The latest version of @code{bib-cite} is available from
+@url{ftp://ftp.phys.ocean.dal.ca/users/rhogee/elisp/bib-cite.el}.
+
+@end table
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-files, ultra-tex-commands, ultra-tex-init, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-files
+
+To change these:
+
+@example
+M-x customize-group ultra-tex-files
+@end example
+
+@table @code
+@item ultex-tree-file
+Default value: The file @file{user/textree.el} in the Ultra-@TeX{}
+distribution.  Description: This is the pathname for your textree file,
+the file containing a list of @TeX{} commands on which to complete.
+@xref{Making a list}.
+
+@item ultex-extra-tree-files
+Default value: nil.  Description: This is a list of triples.  The first
+element of each triple should be the name of a class, style, or package,
+the second the name of an associated file of @TeX{} commands, the third
+a flag (t or nil).  When that class, style, or package is used in any
+given document, the associated file of @TeX{} commands is loaded.  If
+the flags are nil for every class, style, and package used in the
+document, then the main @TeX{} command file (@code{ultex-tree-file}) is
+not loaded.  @xref{Making a list}.
+
+@item ultex-greek-keys-file
+Default value: The file @file{user/greek.el} in the Ultra-@TeX{}
+distribution.  Description: This is the pathname for your greek keys
+file, the file containing mappings for the Greek keyboards in Ultra-@TeX{}
+mode.
+@xref{Greek keyboards}.
+
+@item ultex-latex-skel-file
+Default value: The file @file{user/skeleton.tex} in the Ultra-@TeX{}
+distribution.  Description: This is the pathname for a file containing a
+template for a La@TeX{} document.  This file is inserted when the function
+@code{get-latex-skel} is run.  
+@xref{Everything else}.
+
+@item ultex-skel-hook
+Default value: nil.  Description: This hook is called when the function
+@code{get-latex-skel} is run.
+@xref{Everything else}.
+
+@end table
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-commands, ultra-tex-parens, ultra-tex-files, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-commands
+
+To change these:
+
+@example
+M-x customize-group ultra-tex-commands
+@end example
+
+@table @code
+@item ultex-alist-local-flag
+Default value: t.  Effect: When non-nil, each Ultra-@TeX{} buffer
+maintains its own list of @TeX{} commands on which to complete.
+@xref{Making a list}.
+
+@item ultex-rescan-after-new-label
+Default value: nil.  Effect: When non-nil, Ultra-@TeX{} rescans the
+buffer for labels whenever you enter a new label.  This is useful if you
+change labels a lot and you don't want Ultra-@TeX{} completing on old
+labels that you have removed.
+
+@item ultex-return-checks-for-new-commands
+Default value: t.  Effect: When non-nil, Ultra-@TeX{} checks the current
+line to see if the user just entered a new command, new environment,
+etc.; if so, it adds the new definition to its list of commands on which
+to complete.
+
+@item ultex-no-grab-if-space
+Default value: nil.  Effect: When non-nil, Ultra-@TeX{} will ignore all
+\newcommands (etc.) that do not start at the beginning of the line.
+
+@item ultex-append-space-to-defs
+Default value: t.  Effect: When non-nil, Ultra-@TeX{} adds a space to
+any @TeX{} control sequence names it grabs from a file or buffer.
+
+@end table
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-parens, ultra-tex-environments, ultra-tex-commands, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-parens
+
+To change these:
+
+@example
+M-x customize-group ultra-tex-parens
+@end example
+
+@table @code
+@item ultex-match-braces
+Default value: t.  Effect: If non-nil, hitting @kbd{@{} inserts
+@samp{@{@}}.
+@xref{Everything else}.
+
+@item ultex-match-brackets
+Default value: nil.  Effect: If non-nil, hitting @kbd{[} inserts
+@samp{[]}.
+@xref{Everything else}.
+
+@item ultex-match-parens
+Default value: nil.  Effect: If non-nil, hitting @kbd{(} inserts
+@samp{()}.
+@xref{Everything else}.
+
+@item ultex-blink-matching-bracket
+Default value: t.  Effect: If non-nil, hitting @kbd{]} will briefly
+highlight the matching @samp{[}.  More to the point, if this is nil,
+then the syntax type of brackets is changed from the default, in which
+case Ultra-TeX might do a better job of determining when the point is in
+math mode.  If you don't want to mess with the syntax table, but you do
+want to control the blinking of matching parentheses, look at the
+variable `blink-matching-paren' instead.
+
+@item ultex-blink-matching-paren
+Default value: t.  Effect: If non-nil, hitting @kbd{)} will briefly
+highlight the matching @samp{(}.  More to the point, if this is nil,
+then the syntax type of parentheses is changed from the default, in
+which case Ultra-TeX might do a better job of determining when the point
+is in math mode.  If you don't want to mess with the syntax table, but
+you do want to control the blinking of matching parentheses, look at the
+variable `blink-matching-paren' instead.
+
+@end table
+
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-environments, ultra-tex-misc, ultra-tex-parens, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-environments
+
+To change these:
+
+@example
+M-x customize-group ultra-tex-environments
+@end example
+
+@table @code
+@item ultex-array-environs
+Default value:
+
+@example
+(array tabular eqnarray eqnarray* align gather alignat
+aligned gathered alignedat split CD matrix smallmatrix
+pmatrix bmatrix vmatrix Vmatrix xalignat xxalignat cases)
+@end example
+@noindent
+Description: List of symbols of array environments.
+@xref{Everything else}.
+
+@item ultex-math-start
+Default value: some long regular expression.  Description: Regular
+expression to match the start of math mode.
+
+@item ultex-math-end
+Default value: some long regular expression.  Description: Regular
+expression to match the end of math mode.
+
+@item ultex-itemizing-environments
+Default value: @code{(list trivlist itemize description enumerate)}.
+Description: List of symbols of La@TeX{} environments which use
+@samp{\item}.  When the point is in one of these environments, hitting
+@kbd{\\} inserts a new line and the text @samp{\item []} (but see the
+next variable).
+@xref{Everything else}.
+
+@item ultex-item-insert-brackets
+Default value: t.  Effect: When non-nil, hitting @kbd{\\} in an
+itemizing environment inserts @samp{\item []}; when nil, @samp{\item }
+is inserted instead.
+
+@item ultex-math-cs-regexp
+Default value: nil.  Description: Regular expression to match @TeX{}
+commands whose arguments are set in math mode.
+
+@item ultex-non-math-cs-regexp
+Default value: "\\\\[a-z]*box@{\\|\\\\text[a-z]*@{".  Description: Regular
+expression to match @TeX{} commands whose arguments are not set in math
+mode.
+
+@item ultex-def-regexp
+Default value: some long regular expression.  Description: Regular
+expression to match @TeX{} commands whose arguments may or may not be in
+math mode (e.g., @samp{newcommand}).
+
+@item ultex-dollar-array-cursor
+Default value: "|".  Description: String to use to mark the cursor
+position in @code{ultex-dollar-array}.
+@xref{Dollar signs}.
+
+@item ultex-dollar-array
+Default value:
+
+@example
+ "$|$"
+ "\[\n|\n\]"
+ "\begin@{equation@}\label@{|@}\n\n\end@{equation@}"
+ "\begin@{equation*@}\n|\n\end@{equation*@}"
+ "\begin@{align@}\label@{|@}\n\n\end@{align@}"
+ "\begin@{align*@}\n|\n\end@{align*@}"
+ "\begin@{gather@}\label@{|@}\n\n\end@{gather@}"
+ "\begin@{gather*@}\n|\n\end@{gather*@}"
+ "\begin@{multline@}\label@{|@}\n\n\end@{multline@}"
+ "\begin@{multline*@}\n|\n\end@{multline*@}"
+@end example
+
+@noindent
+where I have written @samp{\n} for @samp{newline}.
+Description: List of strings inserted by hitting $.  The first time you
+hit $, the first string is inserted.  Hitting it again replaces the
+first string with the second, etc.  After inserting each string, the
+cursor is placed at the spot marked by the string
+@code{ultex-dollar-array-cursor}.  If you do not include the string
+@code{ultex-dollar-array-cursor} anywhere, Emacs will try to guess where
+to put the cursor.  
+
+(Warning: customization sets the variable
+@code{ultex-dollar-array-external}, which has the above default value.
+If you want to set this directly, not via customize, then you should set
+@code{ultex-dollar-array}, which has a different syntax.  Read the
+documentation for that variable for help.)
+@xref{Dollar signs}.
+
+@item ultex-dollar-back
+Default value: 1.  Description: Which element of
+@code{ultex-dollar-array} to start over with once the elements have been
+cycled through once.  The elements are numbered starting with 0.
+@xref{Dollar signs}.
+
+@end table
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-misc, ultra-tex-auctex, ultra-tex-environments, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-misc
+
+
+To change these:
+
+@example
+M-x customize-group ultra-tex-misc
+@end example
+
+@table @code
+@item ultex-slash-dollar-is-not-math
+Default value: t.  Effect: If non-nil, then typing @kbd{$} right after
+@samp{\} does not start math mode.
+
+@item ultex-dont-use-completion
+Default value: nil.  Effect: If non-nil, Ultra-@TeX{} will not use
+lightning completion on @TeX{} commands.  Instead, things will work sort
+of like regular Emacs completion: the @key{TAB} key will try to complete
+on command sequences, etc.
+
+@item ultex-subscript-delete-leading-space
+Default value: t.  Effect: If non-nil, Ultra-@TeX{} will delete leading
+spaces before inserting a subscript, inserting a superscript, or hitting
+@key{RET} to exit math mode.  For example, suppose this variable is
+non-nil; if you have typed @samp{$\alpha $} and the point is after the
+space, then hitting @kbd{^} deletes the space, producing this:
+@samp{$\alpha^@{@}$}, with the point inside the braces.
+
+@item ultex-display-pictures
+Default value: t if Emacs can display pictures in xpm or gif format; nil
+otherwise.  Effect: if non-nil, Greek keyboards are displayed with
+pictures of symbols rather than their names.
+
+@item ultex-picture-type
+Default value: 'xpm, 'gif, or nil, depending on what sort of pictures
+Emacs can display.  Effect: what format to use for picture files.
+
+@item ultex-picture-directory
+Default value: The directory @file{symbols} in the Ultra-@TeX{}
+distribution.  Description: Emacs looks for picture files in
+subdirectories @file{xpm} or @file{gif} of this directory.
+
+@end table
+
+
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-auctex, ultra-tex-auctex-files, ultra-tex-misc, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-auctex
+
+Except for @code{ultex-ignore-auctex-tex.el}, the rest of these come
+from AUC-@TeX{}.  To change them:
+
+@example
+M-x customize-group ultra-tex-auctex
+@end example
+
+@table @code
+@item ultex-ignore-auctex-tex.el
+Default value: t.  Effect: If non-nil, then the AUC-@TeX{} file
+@file{tex.el} will not be loaded by @file{tex-buf.el}.  In fact, if you
+want to load it, you have to do it with a @code{load} command (rather
+than @code{require}).  If the only piece of AUC-@TeX{} you ever use is
+the part that comes with Ultra-@TeX{}, then you have nothing to worry
+about.  If you use other parts of the AUC-@TeX{} distribution, then you
+might want to set this variable to nil.  I can't guarantee that
+Ultra-@TeX{} and AUC-@TeX{} will interact well in that case, though.
+
+@item TeX-display-help
+Default value: t.  Effect: If non-nil, then pop-up help when stepping
+thrugh errors with @code{TeX-next-error}.
+
+@item TeX-debug-bad-boxes
+Default value: nil.  Effect: If non-nil, then also find
+overfull/underfull boxes warnings with @code{TeX-next-error}.
+
+@end table
+
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-auctex-files, ultra-tex-auctex-commands, ultra-tex-auctex, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-auctex-files
+
+These options all come from AUC-@TeX{}.  To change them:
+
+@example
+M-x customize-group ultra-tex-auctex-files
+@end example
+
+@table @code
+@item TeX-master
+Default value: t.  Description: The master file associated with the
+current buffer.  If the file being edited is actually included from
+another file, you can tell Ultra-@TeX{} and AUC-@TeX{} the name of the
+master file by setting this variable.  If there are multiple levels of
+nesting, specify the top level file.  If this variable is nil, Emacs
+will query you for the name.  If the variable is t, Emacs will assume
+the file is a master file itself.  If the variable is @samp{'shared},
+Emacs will query for the name, but not change the file.
+@xref{Making a list}.
+
+@item TeX-one-master
+Default value: "\\.tex$".  Description: Regular expression matching
+ordinary @TeX{} files.
+
+@item TeX-file-extensions
+Default value: @samp{'("tex" "sty" "cls" "ltx" "texi" "texinfo")}.
+Description: List of file extensions used by manually generated @TeX{}
+files.
+
+@item TeX-macro-global
+Default value: @samp{'("/usr/local/lib/texmf/tex/")}.  Description:
+Directories containing the sites @TeX{} macro files and style files. 
+
+@item TeX-macro-private
+Default value: obtained from environment variables @var{TEXINPUTS} and
+@var{BIBINPUTS}.  Description: Directories where you store your personal
+@TeX{} macros.
+
+@item TeX-check-path
+Default value: all elements from @code{TeX-macro-private} and
+@code{TeX-macro-global}, as well as the current directory.  Description:
+Directory path to search for dependencies.
+
+@item BibTeX-file-extensions
+Default value: @samp{("bib")}.  Description: List of valid file
+extensions for Bib@TeX{} files.
+
+@item BibTeX-style-extensions
+Default value: @samp{("bst")}.  Description: List of valid file
+extensions for Bib@TeX{} style files.
+
+@item TeX-default-extension
+Default value: "tex".  Description: Default extension for @TeX{}
+files.
+
+@end table
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-auctex-commands, ultra-tex-auctex-latex, ultra-tex-auctex-files, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-auctex-commands
+
+These options all come from AUC-@TeX{}.  To change them:
+
+@example
+M-x customize-group ultra-tex-auctex-commands
+@end example
+
+@table @code
+@item TeX-command-BibTeX
+Default value: "BibTeX".  Description: The name of the BibTeX entry in
+@code{TeX-command-list}.
+
+@item TeX-command-Show
+Default value: "View".  Description: The default command to show (view
+or print) a @TeX{} file.
+
+@item TeX-command-Print
+Default value: "Print".  Description: The name of the Print entry in
+@code{TeX-command-Print}.
+
+@item TeX-command-Queue
+Default value: "Queue".  Description: The name of the Queue entry in
+@code{TeX-command-Queue}.
+
+@item TeX-print-command
+Default value: "dvips %s -P%p".  Description: Command used to print a
+file.  First @samp{%p} is expanded to the printer name, then ordinary
+expansion is performed as specified in @code{TeX-expand-list}.
+
+@item TeX-queue-command
+Default value: "lpq -P%p".  Description: Command used to show the status
+of a printer queue.  First @samp{%p} is expanded to the printer name,
+then ordinary expansion is performed as specified in
+@code{TeX-expand-list}.
+
+@item TeX-printer-list
+Default value:
+@example
+ (("Local" "dvips -f %s | lpr" "lpq")
+  ("lw")
+  ("ps"))
+@end example
+@noindent
+Description: List of available printers.  The first element of each
+entry is the printer name.  The second element is the command used to
+print to this printer.  It defaults to the value of
+@code{TeX-print-command}.  The third element is the command used to
+examine the print queue for this printer.  It defaults to the value of
+@code{TeX-queue-command}.  Any occurence of @samp{%p} in the second or
+third element is expanded to the printer name given in the first
+element, then ordinary expansion is performed as specified in
+@code{TeX-expand-list}.
+
+@item TeX-printer-default
+Default value: Derived from the environment variable @var{PRINTER}, or
+if that is not set, the car of @code{TeX-printer-list}, or if that is
+not set, "lw".  Description: Default printer to use with
+@code{TeX-command}.
+
+@item TeX-view-style
+Default value:
+@example
+ (("^a5$" "xdvi %d -paper a5")
+  ("^landscape$" "xdvi %d -paper a4r -s 4")
+  ("." "xdvi %d"))
+@end example
+@noindent
+
+Description: List of style options and view options.  If the first
+element (a regular expresion) matches the name of one of the style
+files, any occurrence of the string @samp{%v} in a command in
+@code{TeX-command-list} will be replaced with the second element.  The
+first match is used, if no match is found the @samp{%v} is replaced with
+the empty string.
+
+@item TeX-expand-list 
+Default value: a long list of things of the form
+@example
+  ("%s" file nil t)
+@end example
+@noindent
+Description: List of expansion strings for @TeX{} command names.  Each
+entry is a list with two or more elements.  The first element is the
+string to be expanded.  The second element is the name of a function
+returning the expanded string when called with the remaining elements as
+arguments.  The special value @samp{file} will be expanded to the name
+of the file being processed, with an optional extension.
+
+@item TeX-command-list
+Default value: a long list of things of the form
+@example
+ ("LaTeX" "%l '\\nonstopmode\\input@{%t@}'" TeX-run-LaTeX nil t)
+@end example
+@noindent
+Description: List of commands to execute on the current document.  Each
+element is a list of five elements, whose first element is the name of
+the command as it will be presented to the user.  The second element is
+the string handed to the shell after being expanded. The expansion is
+done using the information found in @code{TeX-expand-list}.  The third
+element is the function which actually start the process.  Several such
+hooks has been defined; see the function documentation for a
+description.  If the fourth element is non-nil, the user will get a
+chance to modify the expanded string.  The fifth element is obsolete and
+ignored.
+
+@end table
+
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node ultra-tex-auctex-latex,  , ultra-tex-auctex-commands, Customization variables
+@comment  node-name,  next,  previous,  up
+@subsection ultra-tex-auctex-latex
+
+These options all come from AUC-@TeX{}.  To change them:
+
+@example
+M-x customize-group ultra-tex-auctex-latex
+@end example
+
+@table @code
+@item LaTeX-version
+Default value: "2e".  Description: Default La@TeX{} version.  The only
+choices are "2" and "2e".
+
+@item LaTeX-command-style
+Default value: if @code{LaTeX-version} is "2e", then (("." "latex"))).
+If @code{LaTeX-version} is "2", then a longer list.  Description: List
+of style options and LaTeX commands.
+
+@end table
+
+
+
+
+@comment ---------------------------------------------------------
+
+@node    Variable Index, Function Index, Installation, top
+@unnumbered Variable Index
+
+@printindex vr
+
+
+@comment ---------------------------------------------------------
+
+@node    Function Index, Concept Index, Variable Index, top
+@unnumbered Function Index
+
+@printindex fn
+
+
+@comment ---------------------------------------------------------
+
+@node    Concept Index,  , Function Index, top
+@unnumbered Concept Index
+
+@printindex cp
+
+
+@comment ---------------------------------------------------------
+
+@contents
+@bye
