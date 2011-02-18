@@ -3,9 +3,6 @@
 ;; - Jose Pablo Barrantes <xjpablobrx@gmail.com>
 ;; - emacs.d initializations
 ;;
-;; ---------------------------------------------------------
-;; - Load up ELPA, the package manager:
-;;
 (setq dotfiles-dir (file-name-directory (or load-file-name (buffer-file-name))))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
 (setq custom-file (concat dotfiles-dir "custom.el"))
@@ -122,10 +119,5 @@
   (when (require 'org nil t)
     (call-interactively 'org-agenda-list)))
   (call-interactively 'shell)
-(provide 'init)
 
-;;; ----------------------------------------------------------------------------
-;;; - Haks
-;;;
-;; (put 'downcase-region 'disabled nil)
-;; (put 'narrow-to-region 'disabled nil)
+(provide 'init)
