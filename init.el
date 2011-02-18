@@ -116,12 +116,12 @@
 
 ;;; Startup
 (when (file-exists-p "~/org")
-  (find-file "~/org")
+  (find-file "~/org/jpablobr.org")
   (setq default-directory "~/")
   (require 'calendar)
   (when (require 'org nil t)
     (call-interactively 'org-agenda-list)))
-
+  (call-interactively 'shell)
 (provide 'init)
 
 ;;; ----------------------------------------------------------------------------
