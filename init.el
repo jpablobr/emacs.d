@@ -15,16 +15,6 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path misc-dir)
 
-(load-file (concat jpablobr-dir "/jp-yaml.el"))
-(require 'jp-yaml)
-;; (load-file (concat jpablobr-dir "/starter-kit-elpa.el"))
-;; (require 'package)
-;; (dolist (source '(("technomancy" . "http://repo.technomancy.us/emacs/")
-;;                   ("elpa" . "http://tromey.com/elpa/")))
-;;   (add-to-list 'package-archives source t))
-;; (package-initialize)
-;; (require 'starter-kit-elpa)
-
 ;;; ---------------------------------------------------------
 ;;; - These should be loaded on startup rather than
 ;;; - autoloaded on demand
@@ -62,6 +52,8 @@
 ;; (require 'jp-scheme)
 ;; (load-file (concat jpablobr-dir "/jp-ruby.el"))
 ;; (require 'jp-ruby)
+(load-file (concat jpablobr-dir "/jp-yaml.el"))
+(require 'jp-yaml)
 (load-file (concat jpablobr-dir "/jp-misc.el"))
 (require 'jp-misc)
 (load-file (concat jpablobr-dir "/jp-defuns.el"))
