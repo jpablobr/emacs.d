@@ -14,7 +14,7 @@ history
 custom.el.before_ecb_*
 vendor/yac/
 url/
-ac-comphist.bat
+ac-comphist.dat
 custom.el
 ## ignore packages held in the src directory
 # src
