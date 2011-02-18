@@ -10,3 +10,6 @@
 [submodule "src/zenburn-emacs"]
 	path = src/zenburn-emacs
 	url = http://github.com/bbatsov/zenburn-emacs.git
+[submodule "vendor/snippets/yasnippets-jpablobr"]
+	path = vendor/snippets/yasnippets-jpablobr
+	url = http://github.com/jpablobr/yasnippets-jpablobr.git

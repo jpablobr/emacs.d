@@ -2,23 +2,20 @@
 
 ## INSTALL
 
-   % git clone git@github.com:jpablobr/emacs.d ~/.emacs.d
+Move the resulting directory to ~/.emacs.d
+Install the Org-mode submodules with the following
 
-   % cd ~/.emacs.d
+        git clone https://jpablobr@github.com/jpablobr/emacs.d.git
+        cd ~/.emacs.d/
+        git submodule init
+        git submodule update
+        build Org-mode
+        cd src/org/
+        make
 
-   % ruby install.rb
-
-## EXTRAS
-
-   % sudo apt-get install org-mode
-
-   % sudo apt-get install emacs-goodies
-
-   % sudo apt-get install wl
-
-   % sudo apt-get install curl
-
-   % bash < <( curl http://rvm.beginrescueend.com/releases/rvm-install-head )
+Build auctex – for instilllation help see the auctex instillation instructions, auctex requires a working TeX installation
+      cd src/auctex
+      ./configure && make
 
 ## IMPORTANT MODES TO COMPILE
 
