@@ -1,4 +1,10 @@
-((("dropbox-sysctl" .
+((("html-mode" .
+   [1 0 0 0 0 0 0 0 0])
+  ("require" .
+   [1 0 0 0 0 0 0])
+  ("espresso" .
+   [1 0 0 0 0 0 0 0])
+  ("dropbox-sysctl" .
    [0 0 0 0 1 0 0 0 0 0 0 0 0 0])
   ("Drop" .
    [0 0 1 1])

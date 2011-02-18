@@ -7,13 +7,12 @@
 (add-to-list 'load-path snippets-dir)
 (add-to-list 'load-path (concat snippets-dir "/yasnippet-dot-el"))
 
-(require 'css-mode)
-(require 'markdown-mode)
-(require 'espresso)
-(require 'yaml-mode)
+(when (require 'espresso nil t)
+  (add-hook 'js2-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'espresso-mode))))
 
 (require 'yasnippet)
-
 (require 'dropdown-list)
 (setq yas/prompt-functions '(  yas/dropdown-prompt
                                yas/completing-prompt
@@ -47,14 +46,6 @@
 ;;;
 (yas/define-snippets  'nxhtml-mode nil  'html-mode)
 (yas/define-snippets  'js2-mode nil  'javascript-mode)
-
-;; (add-hook 'emacs-lisp-mode-hook
-;;           '(lambda ()
-;;              (setq yas/mode-symbol 'text-mode)))
-
-(add-hook 'js2-mode-hook
-          '(lambda ()
-             (setq yas/mode-symbol 'espresso-mode)))
 
 (add-hook 'cperl-mode-hook
           '(lambda ()
