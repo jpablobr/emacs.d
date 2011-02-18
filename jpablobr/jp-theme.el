@@ -3,8 +3,7 @@
 ;;; - Theme Sat 2010-08-28 - 10:06 AM
 ;;;
 ;; Theaming
-(setq theaming-dir (concat dotfiles-dir "/vendor/theaming"))
-(load "~/.emacs.d/vendor/theaming/theme.el")
+(setq theaming-dir (concat vendor-dir "/theaming"))
 (load-file (concat theaming-dir "/blackboard.el"))
 (load-file (concat theaming-dir "/color-theme-twilight.el"))
 (load-file (concat theaming-dir "/color-theme-tangotango/color-theme-tango.el"))
