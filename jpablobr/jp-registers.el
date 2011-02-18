@@ -7,9 +7,9 @@
 ;;; - You should add registers here for the files you edit most often.
 
 (dolist (r `((?i (file . ,(concat dotfiles-dir "init.el")))
-             (?p (file . ,(concat jpablobr-dir "/jp-keyboard.el")))
+             (?k (file . ,(concat jpablobr-dir "/jp-keyboard.el")))
              (?m (file . ,(concat jpablobr-dir "/jp-misc.el")))
-             (?r (file . ,(concat dotfiles-dir "/jp-registers.el")))))
+             (?r (file . ,(concat jpablobr-dir "/jp-registers.el")))))
   (set-register (car r) (cadr r)))
 
 (provide 'jp-registers)
