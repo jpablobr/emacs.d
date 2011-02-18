@@ -118,7 +118,6 @@
 ;;; Startup
 (when (file-exists-p "~/org")
   (find-file "~/org/jpablobr.org")
-  (setq default-directory "~/")
   (require 'calendar)
   (when (require 'org nil t)
     (call-interactively 'org-agenda-list)))
@@ -128,5 +127,5 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Haks
 ;;;
-(put 'downcase-region 'disabled nil)
-(put 'narrow-to-region 'disabled nil)
+;; (put 'downcase-region 'disabled nil)
+;; (put 'narrow-to-region 'disabled nil)

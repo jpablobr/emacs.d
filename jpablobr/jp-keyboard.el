@@ -40,12 +40,6 @@
 (global-set-key "\C-xO" (lambda () (interactive) (other-window -1))) ;; back one
 (global-set-key "\C-x\C-o" (lambda () (interactive) (other-window 2))) ;; forward two
 
-;;; - Start eshell or switch to it if it's active.
-(global-set-key (kbd "C-x m") 'eshell)
-
-;;; - Start a new eshell even if one is active.
-(global-set-key (kbd "C-x M") (lambda () (interactive) (eshell t)))
-
 ;;; - Start a regular shell if you prefer that.
 (global-set-key (kbd "C-x C-m") 'shell)
 
@@ -123,5 +117,6 @@
 (global-set-key (kbd "C-l id") 'insert-date)
 (global-set-key (kbd "C-l wc") 'whitespace-cleanup)
 (global-set-key (kbd "C-l eb") 'eval-buffer)
+(global-set-key (kbd "C-x C-o") 'other-window)
 
 (provide 'jp-keyboard)

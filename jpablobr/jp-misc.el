@@ -16,6 +16,8 @@
 (setq gist-view-gist t)
 (setq gist-use-curl t)
 
+(require 'diff-mode-)
+
 (when window-system
   (mouse-wheel-mode t)
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
