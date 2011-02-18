@@ -32,20 +32,12 @@
       shift-select-mode nil
       truncate-partial-width-windows nil
       uniquify-buffer-name-style 'forward
-      whitespace-style '(trailing lines space-before-tab
-                                  indentation space-after-tab)
-      whitespace-line-column 100
       ediff-window-setup-function 'ediff-setup-windows-plain
-      oddmuse-directory (concat dotfiles-dir "oddmuse")
       save-place-file (concat dotfiles-dir "places"))
 
 ;;; Ultratex settings
 (require 'light)
 (require 'ultex-setup)
-
-;;; Icicles
-(require 'icicles)
-(icy-mode 1)
 
 ;;; - Smoother scrolling
 (setq
@@ -79,35 +71,12 @@
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Whitespace mode
-;;; -  make whitespace-mode use “¶” for newline and “▷” for tab.
-;;;
+;;; - http://xahlee.org/emacs/whitespace-mode.html
 (global-whitespace-mode 1)
-(setq whitespace-display-mappings '(
-   (space-mark 32 [183] [46]) ; normal space
-   (space-mark 160 [164] [95])
-   (space-mark 2208 [2212] [95])
-   (space-mark 2336 [2340] [95])
-   (space-mark 3616 [3620] [95])
-   (space-mark 3872 [3876] [95])
-   (newline-mark 10 [182 10]) ; newlne
-   (tab-mark 9 [9655 9] [92 9])))
-
-   (setq whitespace-line 'underline)
-
-;;; ---------------------------------------------------------
-;;; - ido-mode is like magic pixie dust!
-;;;
-(when (> emacs-major-version 21)
-  (ido-mode t)
-  (setq ido-enable-prefix nil
-        ido-enable-flex-matching t
-        ido-create-new-buffer 'always
-        ido-use-filename-at-point t
-        ido-max-prospects 10))
+(setq whitespace-style '(trailing))
 
 (set-default 'indent-tabs-mode nil)
 (set-default 'indicate-empty-lines t)
-(set-default 'imenu-auto-rescan t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (random t) ;; Seed the random-number generator
@@ -160,7 +129,7 @@
 ;;; ---------------------------------------------------------
 ;;; - Find-recursive
 ;;;
-;; (require 'find-recursive)
+ (require 'find-recursive)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Dictionary
@@ -234,24 +203,24 @@
 (global-set-key "\C-ck" 'mode-compile-kill)
 
 ;; Chrome emacs edit
-(require 'edit-server)
-(edit-server-start)
-(if (locate-library "edit-server")
-    (progn
-      (require 'edit-server)
-      (setq edit-server-new-frame nil)
-      (edit-server-start)))
+;; (require 'edit-server)
+;; (edit-server-start)
+;; (if (locate-library "edit-server")
+;;     (progn
+;;       (require 'edit-server)
+;;       (setq edit-server-new-frame nil)
+;;       (edit-server-start)))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - header2
 ;;;
 (require 'header2)
-;; (add-hook 'write-file-hooks 'auto-update-file-header)
-;; (add-hook 'emacs-lisp-mode-hook 'auto-make-header)
-;; (add-hook 'c-mode-common-hook   'auto-make-header)
-;; (add-hook 'ruby-mode-common-hook   'auto-make-header)
-;; (add-hook 'perl-mode-common-hook   'auto-make-header)
-;; (add-hook 'sh-mode-common-hook   'auto-make-header)
+(add-hook 'write-file-hooks 'auto-update-file-header)
+(add-hook 'emacs-lisp-mode-hook 'auto-make-header)
+(add-hook 'c-mode-common-hook   'auto-make-header)
+(add-hook 'ruby-mode-common-hook   'auto-make-header)
+(add-hook 'perl-mode-common-hook   'auto-make-header)
+(add-hook 'sh-mode-common-hook   'auto-make-header)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - CUA enhanced functionality for the standard emacs bindings
@@ -259,5 +228,9 @@
 (setq CUA-mode-normal-cursor-color "red")
 (setq CUA-mode-overwrite-cursor-color "yellow")
 (setq CUA-mode-read-only-cursor-color "green")
+
+;;; Icicles
+(require 'icicles)
+(icy-mode t)
 
 (provide 'jp-misc)

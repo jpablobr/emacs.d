@@ -16,11 +16,6 @@
 (define-key ac-complete-mode-map "\t" 'ac-complete)
 (define-key ac-complete-mode-map "\r" nil)
 
-;; (when (require 'auto-complete nil t)
-  ;; (require 'auto-complete-yasnippet)
-  ;; (require 'auto-complete-ruby)
-  ;; (require 'auto-complete-css))
-
 (global-auto-complete-mode t)           ;enable global-mode
    (setq ac-auto-start t)                  ;automatically start
    (setq ac-dwim 3)                        ;Do what i mean
@@ -29,15 +24,15 @@
 ;;   (define-key ac-complete-mode-map "\r" 'ac-complete)
 ;;   (define-key ac-complete-mode-map "\M-n" 'ac-next)
 ;;   (define-key ac-complete-mode-map "\M-p" 'ac-previous)
-   (set-default 'ac-sources '(ac-source-filename
- ac-source-functions
- ac-source-yasnippet
- ac-source-variables
- ac-source-symbols
- ac-source-features
- ac-source-abbrev
- ac-source-words-in-same-mode-buffers
- ac-source-dictionary))
+   (set-default 'ac-sources '( ac-source-yasnippet
+                               ;; ac-source-filename
+                               ;; ac-source-functions
+                               ;; ac-source-variables
+                               ;; ac-source-symbols
+                               ;; ac-source-features
+                               ;; ac-source-abbrev
+                               ac-source-words-in-same-mode-buffers
+                               ac-source-dictionary))
 
    (setq ac-modes
          (append ac-modes

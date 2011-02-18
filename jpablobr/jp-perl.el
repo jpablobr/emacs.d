@@ -1,43 +1,10 @@
 ;;; cperl-mode is preferred to perl-mode
 (setq perl-dir (concat vendor-dir "/perl"))
-(add-to-list 'load-path perl-dir)
+;; (add-to-list 'load-path perl-dir)
 (add-to-list 'load-path (concat perl-dir "/pde"))
-
 (load "pde-load")
 
-(defalias 'perl-mode 'cperl-mode)
-
-(global-set-key (kbd "C-c s") 'compile-dwim-compile)
-(global-set-key (kbd "C-c r") 'compile-dwim-run)
-(global-set-key (kbd "C-c i") 'imenu)
-(global-set-key (kbd "C-c v") 'imenu-tree)
-(global-set-key (kbd "C-c j") 'ffap)
-(setq tags-table-list '("./TAGS" "../TAGS" "../../TAGS"))
-(autoload 'imenu-tree "imenu-tree" "Show imenu tree" t)
-(setq imenu-tree-auto-update t)
-(setq compilation-buffer-name-function 'pde-compilation-buffer-name)
-(autoload 'run-perl "inf-perl" "Start perl interactive shell" t)
-(autoload 'perldb-ui "perldb-ui" "perl debugger" t)
-(autoload 'compile-dwim-run "compile-dwim" "Build and run" t)
-(autoload 'compile-dwim-compile "compile-dwim" "Compile or check syntax" t)
-(autoload 'executable-chmod "executable"
-          "Make sure the file is executable.")
-
-(global-set-key (kbd "C-c h") 'help-dwim)
-(setq cperl-lazy-help-time 2)
-
-(require 'template)
-(template-initialize)
-(require 'perlnow)
-
-(setq perlnow-script-location
-      (substitute-in-file-name "$HOME/bin"))
-(setq perlnow-pm-location
-      (substitute-in-file-name "$HOME/lib"))
-(setq perlnow-dev-location
-      (substitute-in-file-name "$HOME/dev"))
-
-(perlnow-define-standard-keymappings)
+(setq auto-mode-alist  (cons '("\\.t$" . cperl-mode) auto-mode-alist))
 
  ;; Rebinding keys for hideshow
 (require 'hideshow)
