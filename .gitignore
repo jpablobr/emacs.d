@@ -15,3 +15,8 @@ custom.el.before_ecb_*
 vendor/yac/
 url/
 ac-comphist.bat
+custom.el
+## ignore packages held in the src directory
+# src
+## org stuff
+.org-id-locations
