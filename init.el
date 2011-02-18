@@ -27,6 +27,7 @@
 (require 'ansi-color)
 (require 'recentf)
 
+;;; TODO: REFACTOR THIS SHIT!!!!! BUT IS WORKING MUCH BETTER! ;)
 ;;; ---------------------------------------------------------
 ;;; - Load jpablobr customizations:
 ;;;
