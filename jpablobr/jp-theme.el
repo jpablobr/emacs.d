@@ -4,8 +4,6 @@
 ;;;
 ;; Theaming
 (setq theaming-dir (concat vendor-dir "/theaming"))
-(load-file (concat theaming-dir "/blackboard.el"))
-(load-file (concat theaming-dir "/color-theme-twilight.el"))
 (load-file (concat theaming-dir "/color-theme-tangotango/color-theme-tango.el"))
 (load-file (concat theaming-dir "/color-theme-tangotango/color-theme-tangotango.el"))
 (color-theme-tangotango) ;; (color-theme-twilight) (color-theme-topfunky)

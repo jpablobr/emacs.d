@@ -12,6 +12,10 @@
 (setq git-dir (concat vendor-dir "/git"))
 (add-to-list 'load-path (concat git-dir "/gist-0.5"))
 
+(require 'gist)
+(setq gist-view-gist t)
+(setq gist-use-curl t)
+
 (when window-system
   (mouse-wheel-mode t)
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
@@ -34,6 +38,14 @@
       ediff-window-setup-function 'ediff-setup-windows-plain
       oddmuse-directory (concat dotfiles-dir "oddmuse")
       save-place-file (concat dotfiles-dir "places"))
+
+;;; Ultratex settings
+(require 'light)
+(require 'ultex-setup)
+
+;;; Icicles
+(require 'icicles)
+(icy-mode 1)
 
 ;;; - Smoother scrolling
 (setq
@@ -121,17 +133,6 @@
 (setq line-number-mode t)
 (setq column-number-mode t)
 
-;;; ----------------------------------------------------------------------------
-;;; - Mathematica
-;;;
-;; (autoload 'mma-mode "mma.el" "Mathematica package file mode" t)
-;; (setq auto-mode-alist
-;;       (cons '("\\.m\\'" . mma-mode) auto-mode-alist))
-;; (load-library "mathematica")
-;; (setq mathematica-never-start-kernel-with-mode t)
-;; (setq auto-mode-alist
-;;       (cons '("\\.m\\'" . mathematica-mode) auto-mode-alist))
-
 ;;; ----------------------------------------------------------
 ;;; - Grep edit
 ;;;
@@ -142,19 +143,6 @@
 ;;;
 (require 'textmate)
 (textmate-mode)
-
-;;; ---------------------------------------------------------
-;;; - IRC
-;;;
-(require 'erc)
-(erc-autojoin-mode t)
-(setq erc-autojoin-channels-alist
-      '((".*\\.freenode.net" "#github" "#greasemonkey" "#emacs" "#heroku" "#sinatra")))
-
-;;; ---------------------------------------------------------
-;;; - Cheat
-;;;
-(add-to-list 'auto-mode-alist '("\\.cheat$" . cheat))
 
 ;;; ---------------------------------------------------------
 ;;; -Redo
@@ -216,10 +204,6 @@
  '(indent-tabs-mode nil)
  '(scroll-preserve-screen-position t))
 
-(require 'gist)
-(setq gist-view-gist t)
-(setq gist-use-curl t)
-
 (require 'template)
 (template-initialize)
 
@@ -275,12 +259,5 @@
 (setq CUA-mode-normal-cursor-color "red")
 (setq CUA-mode-overwrite-cursor-color "yellow")
 (setq CUA-mode-read-only-cursor-color "green")
-
-;; Ultratex settings
-(require 'light)
-(require 'ultex-setup)
-(require 'yac)
-(require 'icicles)
-(icy-mode 1)
 
 (provide 'jp-misc)
