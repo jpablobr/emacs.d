@@ -15,7 +15,6 @@ custom.el.before_ecb_*
 vendor/yac/
 url/
 ac-comphist.dat
-custom.el
 ## ignore packages held in the src directory
 # src
 ## org stuff
