@@ -1,7 +1,9 @@
-;; -*- coding: utf-8-unix; -*-
 ;; init.el ---------------------------------------------------------
 ;; - Jose Pablo Barrantes <xjpablobrx@gmail.com>
 ;; - emacs.d initializations
+;;
+;; ---------------------------------------------------------
+;; - Load up ELPA, the package manager:
 ;;
 (setq dotfiles-dir (file-name-directory (or load-file-name (buffer-file-name))))
 (setq package-user-dir (concat dotfiles-dir "elpa"))
@@ -60,6 +62,8 @@
 ;; (require 'jp-js)
 ;; (load-file (concat jpablobr-dir "/jp-markdown.el"))
 ;; (require 'jp-markdown)
+;; (load-file (concat jpablobr-dir "/jp-latex.el"))
+;; (require 'jp-latex)
 (load-file (concat jpablobr-dir "/jp-perl.el"))
 (require 'jp-perl)
 (load-file (concat jpablobr-dir "/jp-misc.el"))
@@ -84,8 +88,6 @@
 (require 'jp-artist)
 (load-file (concat jpablobr-dir "/jp-org-config.el"))
 (require 'jp-org-config)
-(load-file (concat jpablobr-dir "/jp-latex.el"))
-(require 'jp-latex)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
 (require 'jp-theme)
 (load-file (concat jpablobr-dir "/jp-eshell.el"))
@@ -119,5 +121,4 @@
   (when (require 'org nil t)
     (call-interactively 'org-agenda-list)))
   (call-interactively 'shell)
-
 (provide 'init)
