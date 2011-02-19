@@ -31,6 +31,7 @@
 (define-key global-map "\C-ca" 'org-agenda)
 (setq org-log-done t)
 
+(when (> emacs-major-version 22)
 (org-babel-do-load-languages
  'org-babel-load-languages
  '((emacs-lisp . t)
@@ -83,6 +84,29 @@
                  :publishing-directory ,this-dir
                  :index-filename "starter-kit.org"
                  :auto-postamble nil)))
+
+;;; ----------------------------------------------------------------------------
+;;; - Latex
+;;; - description
+;;; - % apt-get install texlive-full
+(require 'org-latex)
+(setq org-export-latex-listings t)
+(add-to-list 'org-export-latex-classes
+                          '("org-article"
+                                           "\\documentclass{org-article}
+                 [NO-DEFAULT-PACKAGES]
+                 [EXTRA]"
+                                                          ("\\section{%s}" . "\\section*{%s}")
+                                                                         ("\\subsection{%s}" . "\\subsection*{%s}")
+                                                                                        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                                                                                       ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                                                                                                      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+
+(add-to-list 'org-export-latex-packages-alist '("" "listings"))
+(add-to-list 'org-export-latex-packages-alist '("" "color"))
+
+
+); closing while > 22
 
 ;; Set to the location of your Org files on your local system
 (setq org-directory "~/Dropbox/org-mode")
@@ -160,21 +184,21 @@ do this for the whole buffer."
 ;;; - Latex
 ;;; - description
 ;;; - % apt-get install texlive-full
-(require 'org-latex)
-(setq org-export-latex-listings t)
-(add-to-list 'org-export-latex-classes
-             '("org-article"
-               "\\documentclass{org-article}
-                 [NO-DEFAULT-PACKAGES]
-                 [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+;; (require 'org-latex)
+;; (setq org-export-latex-listings t)
+;; (add-to-list 'org-export-latex-classes
+;;              '("org-article"
+;;                "\\documentclass{org-article}
+;;                  [NO-DEFAULT-PACKAGES]
+;;                  [EXTRA]"
+;;                ("\\section{%s}" . "\\section*{%s}")
+;;                ("\\subsection{%s}" . "\\subsection*{%s}")
+;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
+;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
-(add-to-list 'org-export-latex-packages-alist '("" "listings"))
-(add-to-list 'org-export-latex-packages-alist '("" "color"))
+;; (add-to-list 'org-export-latex-packages-alist '("" "listings"))
+;; (add-to-list 'org-export-latex-packages-alist '("" "color"))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Project Exporting
