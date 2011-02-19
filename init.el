@@ -101,8 +101,8 @@
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
 
-;; (regen-autoloads)
 (load custom-file 'noerror)
+(menu-bar-mode -1)
 
 ;;; ---------------------------------------------------------
 ;;; - ECB
@@ -121,4 +121,5 @@
   (when (require 'org nil t)
     (call-interactively 'org-agenda-list)))
   (call-interactively 'shell)
+
 (provide 'init)

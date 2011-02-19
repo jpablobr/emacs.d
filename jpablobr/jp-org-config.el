@@ -85,28 +85,25 @@
                  :index-filename "starter-kit.org"
                  :auto-postamble nil)))
 
-;;; ----------------------------------------------------------------------------
+
 ;;; - Latex
 ;;; - description
 ;;; - % apt-get install texlive-full
 (require 'org-latex)
 (setq org-export-latex-listings t)
 (add-to-list 'org-export-latex-classes
-                          '("org-article"
-                                           "\\documentclass{org-article}
+             '("org-article"
+               "\\documentclass{org-article}
                  [NO-DEFAULT-PACKAGES]
                  [EXTRA]"
-                                                          ("\\section{%s}" . "\\section*{%s}")
-                                                                         ("\\subsection{%s}" . "\\subsection*{%s}")
-                                                                                        ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                                                                                                       ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                                                                                                                      ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+               ("\\section{%s}" . "\\section*{%s}")
+               ("\\subsection{%s}" . "\\subsection*{%s}")
+               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
 
 (add-to-list 'org-export-latex-packages-alist '("" "listings"))
-(add-to-list 'org-export-latex-packages-alist '("" "color"))
-
-
-); closing while > 22
+(add-to-list 'org-export-latex-packages-alist '("" "color"))); closing while > 22
 
 ;; Set to the location of your Org files on your local system
 (setq org-directory "~/Dropbox/org-mode")
@@ -181,29 +178,9 @@ do this for the whole buffer."
         (wicked/org-update-checkbox-count (ad-get-arg 1))))
 
 ;;; ----------------------------------------------------------------------------
-;;; - Latex
-;;; - description
-;;; - % apt-get install texlive-full
-;; (require 'org-latex)
-;; (setq org-export-latex-listings t)
-;; (add-to-list 'org-export-latex-classes
-;;              '("org-article"
-;;                "\\documentclass{org-article}
-;;                  [NO-DEFAULT-PACKAGES]
-;;                  [EXTRA]"
-;;                ("\\section{%s}" . "\\section*{%s}")
-;;                ("\\subsection{%s}" . "\\subsection*{%s}")
-;;                ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-;;                ("\\paragraph{%s}" . "\\paragraph*{%s}")
-;;                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-;; (add-to-list 'org-export-latex-packages-alist '("" "listings"))
-;; (add-to-list 'org-export-latex-packages-alist '("" "color"))
-
-;;; ----------------------------------------------------------------------------
 ;;; - Project Exporting
 ;;;
-                                        ; experimenting with docbook exports - not finished
+; experimenting with docbook exports - not finished
 (setq org-export-docbook-xsl-fo-proc-command "fop %s %s")
 (setq org-export-docbook-xslt-proc-command "xsltproc --output %s /usr/share/xml/docbook/stylesheet/nwalsh/fo/docbook.xsl %s")
                                         ;

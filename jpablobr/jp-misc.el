@@ -54,9 +54,6 @@
 ;;; - Enable syntax highlighting for older Emacsen that have it off
 (global-font-lock-mode t)
 
-;;; - Menu bar settings
-(menu-bar-mode -1)
-
 ;;; - X11 Copy & Paste to/from Emacs
 (setq x-select-enable-clipboard t) ; as above
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
