@@ -3,6 +3,10 @@
 
 (require 'org-install)
 
+(add-to-list 'load-path (concat misc-dir "/google-weather-el"))
+(require 'google-weather)
+(require 'org-google-weather)
+
 (defun yas/org-very-safe-expand ()
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
