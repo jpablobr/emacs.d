@@ -10,6 +10,14 @@
 ;;; ---------------------------------------------------------
 ;;; - RVM mode... use rvm’s default ruby for the current Emacs session
 ;;;
+
+;; (defvar emacs-root (if (or (eq system-type 'gnu/linux)
+;;                (eq system-type 'linux))
+;;                        "/home/david/Dropbox/"
+;;                      "C:/Users/David/My Documents/My Dropbox/")
+;;   "My home directory")
+
+(when (string-match "jpablobr" (getenv "USER"))
 (if (eq system-type 'gnu/linux)
     (progn
       (require 'rvm)
@@ -29,8 +37,7 @@
       (setq path (concat "/usr/lib/jvm/java-6-sun"))
       (setenv "JAVA_HOME" path))
     (let ((path))
-      (setq path (concat ".:"
-                         "/usr/local/mysql/bin:"
+      (setq path (concat "/usr/local/mysql/bin:"
                          "/home/jpablobr/bin:"
                          "/usr/local/bin:"
                          "/usr/local/sbin:"
@@ -40,7 +47,7 @@
                          "/home/jpablobr/.rvm/gems/ruby-1.9.2-p136/bin:"
                          "/home/jpablobr/.rvm/gems/ruby-1.9.2-p136@global/bin:"
                          gem-bin-path))
-      (setenv "PATH" path))))
+      (setenv "PATH" path)))))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Completions

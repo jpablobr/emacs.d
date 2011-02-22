@@ -78,8 +78,6 @@
 (require 'jp-org-config)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
 (require 'jp-autocomplete)
-(load-file (concat jpablobr-dir "/jp-theme.el"))
-(require 'jp-theme)
 (load-file (concat jpablobr-dir "/jp-misc.el"))
 (require 'jp-misc)
 (load-file (concat jpablobr-dir "/jp-defuns.el"))
@@ -92,14 +90,16 @@
 (require 'jp-meta)
 (load-file (concat jpablobr-dir "/jp-eshell.el"))
 (require 'jp-eshell)
+(load-file (concat jpablobr-dir "/jp-theme.el"))
+(require 'jp-theme)
 
 ;;; ---------------------------------------------------------
 ;;; - requiring yasnippets after everything has been loaded...
 ;;;
-(load-file (concat jpablobr-dir "/jp-yasnippet.el"))
-(require 'jp-yasnippet)
-(load-file (concat jpablobr-dir "/jp-hippie.el"))
-(require 'jp-hippie)
+;; (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
+;; (require 'jp-yasnippet)
+;; (load-file (concat jpablobr-dir "/jp-hippie.el"))
+;; (require 'jp-hippie)
 
 (load custom-file 'noerror)
 (menu-bar-mode -1)
