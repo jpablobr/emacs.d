@@ -96,10 +96,10 @@
 ;;; ---------------------------------------------------------
 ;;; - requiring yasnippets after everything has been loaded...
 ;;;
-;; (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
-;; (require 'jp-yasnippet)
-;; (load-file (concat jpablobr-dir "/jp-hippie.el"))
-;; (require 'jp-hippie)
+(load-file (concat jpablobr-dir "/jp-yasnippet.el"))
+(require 'jp-yasnippet)
+(load-file (concat jpablobr-dir "/jp-hippie.el"))
+(require 'jp-hippie)
 
 (load custom-file 'noerror)
 (menu-bar-mode -1)
