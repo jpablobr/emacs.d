@@ -1,8 +1,8 @@
 [submodule "src/org"]
 	path = src/org
 	url = http://orgmode.org/org-mode.git
-[submodule "vendor/git/magit"]
-	path = vendor/git/magit
+[submodule "src/magit"]
+	path = src/magit
 	url = http://github.com/philjackson/magit.git
 [submodule "src/auctex"]
 	path = src/auctex

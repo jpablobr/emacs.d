@@ -10,8 +10,10 @@
 
 ;; Git
 (setq git-dir (concat vendor-dir "/git"))
-(add-to-list 'load-path (concat git-dir "/gist-0.5"))
+(add-to-list 'load-path git-dir)
+(add-to-list 'load-path (concat git-dir "/magit"))
 
+(require 'magit)
 (require 'gist)
 (setq gist-view-gist t)
 (setq gist-use-curl t)
