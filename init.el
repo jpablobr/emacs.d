@@ -117,6 +117,7 @@
 ;;; Startup
 (when (file-exists-p "~/org")
   (find-file "~/org/jpablobr.org")
+  (find-file "~/org/yacs/linux.org")
   (require 'calendar)
   (when (require 'org nil t)
     (call-interactively 'org-agenda-list)))
