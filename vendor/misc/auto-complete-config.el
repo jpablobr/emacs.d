@@ -4,7 +4,7 @@
 
 ;; Author: Tomohiro Matsuyama <m2ym.pub@gmail.com>
 ;; Keywords: convenience
-;; Version: 1.3.1
+;; Version: 1.4
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -90,7 +90,7 @@
 
 (defun ac-gtags-candidate ()
   (ignore-errors
-    (split-string (shell-command-to-string (format "global -ci %s" ac-prefix)) "\n")))
+    (split-string (shell-command-to-string (format "global -ciq %s" ac-prefix)) "\n")))
 
 (ac-define-source gtags
   '((candidates . ac-gtags-candidate)
@@ -392,6 +392,20 @@
     (prefix . ac-css-prefix)
     (requires . 0)))
 
+;; slime
+(ac-define-source slime
+  '((depends slime)
+    (candidates . (car (slime-simple-completions ac-prefix)))
+    (symbol . "s")
+    (cache)))
+
+;; ghc-mod
+(ac-define-source ghc-mod
+  '((depends ghc)
+    (candidates . (ghc-select-completion-symbol))
+    (symbol . "s")
+    (cache)))
+
 
 
 ;;;; Not maintained sources
@@ -463,9 +477,7 @@
 (defun ac-cc-mode-setup ()
   (setq ac-sources (append '(ac-source-yasnippet ac-source-gtags) ac-sources)))
 
-(defun ac-ruby-mode-setup ()
-  (make-local-variable 'ac-ignores)
-  (add-to-list 'ac-ignores "end"))
+(defun ac-ruby-mode-setup ())
 
 (defun ac-css-mode-setup ()
   (setq ac-sources (append '(ac-source-css-property) ac-sources)))

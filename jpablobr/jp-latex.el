@@ -21,9 +21,9 @@
 (setq reftex-default-bibliography
       (quote
        ("bibtex.bib" "local.bib")))
-;; (org-babel-add-interpreter "latex")
-;; (add-to-list 'org-babel-tangle-langs '("latex" "tex"))
-;; (require 'org-babel-latex)
+(org-babel-add-interpreter "latex")
+(add-to-list 'org-babel-tangle-langs '("latex" "tex"))
+(require 'org-babel-latex)
 
 (add-to-list 'org-babel-noweb-error-langs "latex")
 
