@@ -87,27 +87,7 @@
                  :style "<link rel=\"stylesheet\" href=\"emacs.css\" type=\"text/css\"/>"
                  :publishing-directory ,this-dir
                  :index-filename "starter-kit.org"
-                 :auto-postamble nil)))
-
-
-;;; - Latex
-;;; - description
-;;; - % apt-get install texlive-full
-(require 'org-latex)
-(setq org-export-latex-listings t)
-(add-to-list 'org-export-latex-classes
-             '("org-article"
-               "\\documentclass{org-article}
-                 [NO-DEFAULT-PACKAGES]
-                 [EXTRA]"
-               ("\\section{%s}" . "\\section*{%s}")
-               ("\\subsection{%s}" . "\\subsection*{%s}")
-               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-               ("\\paragraph{%s}" . "\\paragraph*{%s}")
-               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
-
-(add-to-list 'org-export-latex-packages-alist '("" "listings"))
-(add-to-list 'org-export-latex-packages-alist '("" "color"))); closing while > 22
+                 :auto-postamble nil)))); closing while > 22
 
 ;; Set to the location of your Org files on your local system
 (setq org-directory "~/Dropbox/org-mode")
@@ -248,6 +228,51 @@ do this for the whole buffer."
 (setq remember-handler-functions '(org-remember-handler))
 (add-hook 'remember-mode-hook 'org-remember-apply-template)
 (define-key global-map "\C-cr" 'org-remember)
+
+(org-add-link-type "ebib" 'ebib)
+
+(org-add-link-type
+ "citep" 'ebib
+ (lambda (path desc format)
+   (cond
+    ((eq format 'latex)
+     (if (or (not desc) (equal 0 (search "citep:" desc)))
+         (format "\\citep{%s}" path)
+       (format "\\citep[%s]{%s}" desc path)
+       )))))
+
+(autoload 'ebib "ebib" "Ebib, a BibTeX database manager." t)
+
+(defun org-mode-reftex-setup ()
+  (load-library "reftex")
+  (and (buffer-file-name) (file-exists-p (buffer-file-name))
+       (progn
+     ;enable auto-revert-mode to update reftex when bibtex file changes on disk
+     (global-auto-revert-mode t)
+     (reftex-parse-all)
+     ;add a custom reftex cite format to insert links
+     (reftex-set-cite-format
+      '((?b . "[[bib:%l][%l-bib]]")
+        (?n . "[[notes:%l][%l-notes]]")
+        (?p . "[[papers:%l][%l-paper]]")
+        (?t . " \(%t %y, p. %p\)")
+        (?h . " \(%a %y, p. %p\)")
+        (?w . "%a %y, %t, %h .")
+        (?r . "%a %y, %t pp. %p.")))))
+  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+  (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
+
+(add-hook 'org-mode-hook 'org-mode-reftex-setup)
+
+(defun org-mode-reftex-search ()
+  ;;jump to the notes for the paper pointed to at from reftex search
+  (interactive)
+  (org-open-link-from-string (format "[[notes:%s]]" (reftex-citation t))))
+
+(setq org-link-abbrev-alist
+      '(("bib" . "~/org/papers/refs/refs.bib::%s")
+    ("notes" . "~/org/notes/notes.org::#%s")
+    ("papers" . "~/org/papers/%s.pdf")))
 
 ;; (setq org-remember-templates
 ;;       '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "~/org/newgtd.org" "Tasks")

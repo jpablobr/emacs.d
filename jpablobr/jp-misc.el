@@ -234,4 +234,9 @@
 (require 'icicles)
 (icy-mode t)
 
+;;; Word Count
+(autoload 'word-count-mode "word-count"
+          "Minor mode to count words." t nil)
+(global-set-key "\M-+" 'word-count-mode)
+
 (provide 'jp-misc)

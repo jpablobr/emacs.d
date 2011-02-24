@@ -72,8 +72,8 @@
 ;; (require 'jp-perl)
 (load-file (concat jpablobr-dir "/jp-org-config.el"))
 (require 'jp-org-config)
-;; (load-file (concat jpablobr-dir "/jp-latex.el"))
-;; (require 'jp-latex)
+(load-file (concat jpablobr-dir "/jp-latex.el"))
+(require 'jp-latex)
 (load-file (concat jpablobr-dir "/jp-plain-text.el"))
 (require 'jp-plain-text)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
@@ -116,6 +116,7 @@
 
 ;;; Startup
 (when (file-exists-p "~/org")
+  (find-file "~/TODO")
   (find-file "~/org/jpablobr.org")
   (find-file "~/org/yacs/linux.org")
   (require 'calendar)
