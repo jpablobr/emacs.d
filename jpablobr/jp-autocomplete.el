@@ -1,6 +1,4 @@
-;;; -*- coding: utf-8-unix; -*-
 ;;jp-autocomplete.el ---------------------------------------------------------
-;;;
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories (concat misc-dir "/ac-dict"))
 (ac-config-default)
@@ -9,7 +7,11 @@
 (setq ac-auto-show-menu nil)
 (setq ac-show-menu-immediately-on-auto-complete t)
 (setq ac-trigger-key nil)
+(define-key ac-complete-mode-map "\t" 'ac-complete)
 (define-key ac-complete-mode-map "\r" nil)
+(define-key ac-complete-mode-map "\C-n" 'ac-next)
+(define-key ac-complete-mode-map "\C-p" 'ac-previous)
+
 (set-default 'ac-sources '( ac-source-yasnippet
                             ac-source-filename
                             ac-source-functions
