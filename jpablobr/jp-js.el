@@ -10,15 +10,14 @@
 ;;;    this.post = function () {} // Instance method in a function
 ;;;    var MyObj = { ...          // Capitalized variable object
 ;;;
-
 (setq js-dir (concat vendor-dir "/js"))
 (add-to-list 'load-path js-dir)
+
 ;;; ----------------------------------------------------------------------------
 ;;; - JS2
 ;;;
-(autoload 'js2-mode "js2" nil t)
+(autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
 ;;; ----------------------------------------------------------------------------
 ;;; - espresso
 ;;;
@@ -155,37 +154,34 @@
                        (continued-expr-p js2-basic-offset)
                        (t 0)))))))
 
-
 ;;; ----------------------------------------------------------------------------
 ;;; - Coffeescript mode
 ;;;
-;; (add-to-list 'load-path (concat vendor-dir "/coffee-mode"))
-;; (require 'coffee-mode)
+(require 'coffee-mode)
+(defun coffee-custom ()
+  "coffee-mode-hook"
 
-;; (defun coffee-custom ()
-;;   "coffee-mode-hook"
+  (imenu-add-to-menubar "IMENU")
 
-;;   (imenu-add-to-menubar "IMENU")
+  ;; CoffeeScript uses two spaces.
+  (set (make-local-variable 'tab-width) 4)
 
-;;   ;; CoffeeScript uses two spaces.
-;;   (set (make-local-variable 'tab-width) 2)
+  ;; If you don't want your compiled files to be wrapped
+  (setq coffee-args-compile '("-c" "--bare"))
 
-;;   ;; If you don't want your compiled files to be wrapped
-;;   (setq coffee-args-compile '("-c" "--bare"))
+  ;; *Messages* spam
+  (setq coffee-debug-mode t)
 
-;;   ;; *Messages* spam
-;;   (setq coffee-debug-mode t)
+  ;; Emacs key binding
+  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
+  (define-key coffee-mode-map [(meta R)] 'coffee-compile-region)
 
-;;   ;; Emacs key binding
-;;   (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
-;;   (define-key coffee-mode-map [(meta R)] 'coffee-compile-region)
+  ;; Compile '.coffee' files on every save
+  (add-hook 'after-save-hook
+      '(lambda ()
+         (when (string-match "\.coffee$" (buffer-name))
+          (coffee-compile-file)))))
 
-;;   ;; Compile '.coffee' files on every save
-;;   (add-hook 'after-save-hook
-;;       '(lambda ()
-;;          (when (string-match "\.coffee$" (buffer-name))
-;;           (coffee-compile-file)))))
-
-;; (add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
+(add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
 
 (provide 'jp-js)

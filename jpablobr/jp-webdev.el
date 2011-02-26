@@ -7,18 +7,15 @@
 ;;; - nXML
 ;;;
 
-(add-hook 'nxml-mode-hook
-          '(lambda ()
-     (load "~/.emacs.d/vendor/nxhtml/autostart.el")))
+(load "~/.emacs.d/vendor/nxhtml/autostart.el")
 
 (dolist (i '("xml" "xsd" "rng" "xsl" "xslt" "svg" "rss" "html" "php"))
-  (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'nxml-mode)))
+  (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'nxhtml-mode)))
 
 ;;; ---------------------------------------------------------
 ;;; - HTML, JavaScript, CSS Setup, YAML
 ;;;
 
-(autoload 'php-find-function-prototype "php-functions" "PHP functions" t)
 (autoload 'css-mode          "css-mode" "Mode for editing CSS files" t)
 
 (setq auto-mode-alist  (cons '("\\.css$" . css-mode) auto-mode-alist))
