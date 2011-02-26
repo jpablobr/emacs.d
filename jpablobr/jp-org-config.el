@@ -15,6 +15,7 @@
             (local-set-key "\M-\C-n" 'outline-next-visible-heading)
             (local-set-key "\M-\C-p" 'outline-previous-visible-heading)
             (local-set-key "\M-\C-u" 'outline-up-heading)
+            (local-set-key [(meta I)] 'ispell-region)
             ;; table
             (local-set-key "\M-\C-w" 'org-table-copy-region)
             (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
