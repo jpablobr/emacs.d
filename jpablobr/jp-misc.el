@@ -1,7 +1,5 @@
- ;;; -*- coding: utf-8-unix; -*-
 ;;jp-misc.el ---------------------------------------------------------
-;;; - Things that don't fit anywhere else
-;;;
+;; - Things that don't fit anywhere else
 (add-to-list 'load-path (concat misc-dir "/maxframe"))
 (add-to-list 'load-path (concat misc-dir "/ultratex-0.80/lisp"))
 (add-to-list 'load-path (concat misc-dir "/icicles"))
@@ -238,5 +236,8 @@
 (autoload 'word-count-mode "word-count"
           "Minor mode to count words." t nil)
 (global-set-key "\M-+" 'word-count-mode)
+
+(transient-mark-mode 1) ; turn text selection highlighting on
+(delete-selection-mode 1) ; turn on behavior that delete or type-over selected text
 
 (provide 'jp-misc)

@@ -1,7 +1,5 @@
-;; -*- coding: utf-8-unix; -*-
 ;;jp-defuns.el ---------------------------------------------------------
-;; - Define some custom functions
-;;
+;; - Custom functions
 (require 'thingatpt)
 (require 'imenu)
 
@@ -168,25 +166,6 @@
         (switch-to-buffer buffer)
       (funcall function))))
 
-(defun pairing-bot ()
-  "If you can't pair program with a human, use this instead."
-  (interactive)
-  (message (if (y-or-n-p "Do you have a test for that? ") "Good." "Bad!")))
-
-(defun count-words (start end)
-  "Print number of words in the region."
-  (interactive "r")
-  (save-excursion
-    (save-restriction
-      (narrow-to-region start end)
-      (goto-char (point-min))
-      (count-matches "\\sw+"))))
-
-(defalias 'word-count 'count-words)
-
-(transient-mark-mode 1) ; turn text selection highlighting on
-(delete-selection-mode 1) ; turn on behavior that delete or type-over selected text
-
 (defun delete-current-file ()
   "Delete the file associated with the current buffer.
 Delete the current buffer too."
@@ -199,15 +178,13 @@ Delete the current buffer too."
       (message (concat "Deleted file: " currentFile)) ) ) )
 
 (defun open-in-desktop ()
-  "Open the current file in desktop.
-Works in Microsoft Windows and Mac OS X."
+  "Open the current file in visual env"
   (interactive)
   (cond
    ((string-equal system-type "windows-nt")
     (w32-shell-execute "explore"
                        (replace-regexp-in-string "/" "\\" default-directory t t)))
-   ((string-equal system-type "gnu/linux") (shell-command "gnome-open ."))
-   ))
+   ((string-equal system-type "gnu/linux") (shell-command "gnome-open ."))))
 
 ;;; ---------------------------------------------------------
 ;;; - Browser
@@ -215,22 +192,34 @@ Works in Microsoft Windows and Mac OS X."
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
-(defun google (what)
+(defun w3m-google-s (what)
   "Use google to search for WHAT."
   (interactive "sSearch: ")
-  (w3m-browse-url (concat "http://www.google.de/search?q="
+  (w3m-browse-url (concat "http://www.google.com/search?q="
+                          (w3m-url-encode-string what))))
+
+(defun w3m-synonym-s (what)
+  "Use synonym.com to search for WHAT."
+  (interactive "sSearch: ")
+  (w3m-browse-url (concat "http://www.synonym.com/synonyms/"
+                          (w3m-url-encode-string what))))
+
+(defun w3m-definition-s (what)
+  "Use dictionary.reference.com  to search for WHAT."
+  (interactive "sSearch: ")
+  (w3m-browse-url (concat "http://dictionary.reference.com/browse/"
                           (w3m-url-encode-string what))))
 
 (defun google-file (file)
   "Use google to search for a file named FILE."
   (interactive "sSearch for file: ")
   (w3m-browse-url
-   (concat "http://www.google.de/search?q="
+   (concat "http://www.google.com/search?q="
            (w3m-url-encode-string
             (concat "+intitle:\"index+of\" -inurl:htm -inurl:html -inurl:php "
                     file)))))
 
-(defun google-search ()
+(defun google-it ()
   "Google search on the current region.\n"
   (interactive)
   (let (myword myurl)
@@ -241,10 +230,36 @@ Works in Microsoft Windows and Mac OS X."
 
     (setq myword (replace-regexp-in-string " " "%20" myword))
     (setq myurl (concat "http://www.google.com/search?q=" myword))
-    (browse-url myurl)
-    ))
+    (browse-url myurl)))
+
+(defun synonym-it ()
+  "Synomym search on the current region.\n"
+  (interactive)
+  (let (myword myurl)
+    (setq myword
+          (if (and transient-mark-mode mark-active)
+              (buffer-substring-no-properties (region-beginning) (region-end))
+            (thing-at-point 'symbol)))
+
+    (setq myword (replace-regexp-in-string " " "%20" myword))
+    (setq myurl (concat "http://www.synonym.com/synonyms/" myword))
+    (browse-url myurl)))
+
+(defun define-it ()
+  "Dictionary search on the current region.\n"
+  (interactive)
+  (let (myword myurl)
+    (setq myword
+          (if (and transient-mark-mode mark-active)
+              (buffer-substring-no-properties (region-beginning) (region-end))
+            (thing-at-point 'symbol)))
+
+    (setq myword (replace-regexp-in-string " " "%20" myword))
+    (setq myurl (concat "http://dictionary.reference.com/browse/" myword))
+    (browse-url myurl)))
+
 ;;; ---------------------------------------------------------
-;;; - insert helper for the lazy.
+;;; - Insert helper for the lazy.
 ;;;
 (defun insert-date ()
   "Insert date at point."

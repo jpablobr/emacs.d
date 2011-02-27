@@ -1,11 +1,13 @@
+(setq w3m-dir (concat misc-dir "/emacs-w3m"))
+(add-to-list 'load-path w3m-dir)
+;;(add-to-list 'load-path (concat w3m-dir "/mode"))
+
 (require 'w3m-load)
 (require 'mime-w3m)
 
-;; Thanks to marienz (#emacs) on .emacs for the idea
 (defun fc-w3m-rename-buffer (url)
   (rename-buffer url t))
 (add-hook 'w3m-display-hook 'fc-w3m-rename-buffer)
-
 
 (defun fc-w3m-setup ()
   "Setup a w3m buffer."
