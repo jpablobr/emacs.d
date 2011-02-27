@@ -219,7 +219,7 @@ Delete the current buffer too."
             (concat "+intitle:\"index+of\" -inurl:htm -inurl:html -inurl:php "
                     file)))))
 
-(defun google-it ()
+(defun google-s ()
   "Google search on the current region.\n"
   (interactive)
   (let (myword myurl)
@@ -232,7 +232,7 @@ Delete the current buffer too."
     (setq myurl (concat "http://www.google.com/search?q=" myword))
     (browse-url myurl)))
 
-(defun synonym-it ()
+(defun synonym-s ()
   "Synomym search on the current region.\n"
   (interactive)
   (let (myword myurl)
@@ -245,7 +245,7 @@ Delete the current buffer too."
     (setq myurl (concat "http://www.synonym.com/synonyms/" myword))
     (browse-url myurl)))
 
-(defun define-it ()
+(defun definition-s ()
   "Dictionary search on the current region.\n"
   (interactive)
   (let (myword myurl)
@@ -256,6 +256,32 @@ Delete the current buffer too."
 
     (setq myword (replace-regexp-in-string " " "%20" myword))
     (setq myurl (concat "http://dictionary.reference.com/browse/" myword))
+    (browse-url myurl)))
+
+(defun github-s ()
+  "Dictionary search on the current region.\n"
+  (interactive)
+  (let (myword myurl)
+    (setq myword
+          (if (and transient-mark-mode mark-active)
+              (buffer-substring-no-properties (region-beginning) (region-end))
+            (thing-at-point 'symbol)))
+
+    (setq myword (replace-regexp-in-string " " "%20" myword))
+    (setq myurl (concat "https://github.com/search?q=" myword))
+    (browse-url myurl)))
+
+(defun github-user ()
+  "Dictionary search on the current region.\n"
+  (interactive)
+  (let (myword myurl)
+    (setq myword
+          (if (and transient-mark-mode mark-active)
+              (buffer-substring-no-properties (region-beginning) (region-end))
+            (thing-at-point 'symbol)))
+
+    (setq myword (replace-regexp-in-string " " "%20" myword))
+    (setq myurl (concat "https://github.com/" myword))
     (browse-url myurl)))
 
 ;;; ---------------------------------------------------------
