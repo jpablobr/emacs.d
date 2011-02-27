@@ -210,6 +210,20 @@ Delete the current buffer too."
   (w3m-browse-url (concat "http://dictionary.reference.com/browse/"
                           (w3m-url-encode-string what))))
 
+(defun github-s (what)
+  "Use github to search for WHAT."
+  (interactive "sSearch: ")
+  (setq myword (replace-regexp-in-string " " "%20" what))
+  (setq myurl (concat "https://github.com/search?q=" myword))
+  (browse-url myurl))
+
+(defun github-user (what)
+  "Use github to search for WHAT user."
+  (interactive "sSearch: ")
+  (setq myword (replace-regexp-in-string " " "%20" what))
+  (setq myurl (concat "https://github.com/" myword))
+  (browse-url myurl))
+
 (defun google-file (file)
   "Use google to search for a file named FILE."
   (interactive "sSearch for file: ")
@@ -256,32 +270,6 @@ Delete the current buffer too."
 
     (setq myword (replace-regexp-in-string " " "%20" myword))
     (setq myurl (concat "http://dictionary.reference.com/browse/" myword))
-    (browse-url myurl)))
-
-(defun github-s ()
-  "Dictionary search on the current region.\n"
-  (interactive)
-  (let (myword myurl)
-    (setq myword
-          (if (and transient-mark-mode mark-active)
-              (buffer-substring-no-properties (region-beginning) (region-end))
-            (thing-at-point 'symbol)))
-
-    (setq myword (replace-regexp-in-string " " "%20" myword))
-    (setq myurl (concat "https://github.com/search?q=" myword))
-    (browse-url myurl)))
-
-(defun github-user ()
-  "Dictionary search on the current region.\n"
-  (interactive)
-  (let (myword myurl)
-    (setq myword
-          (if (and transient-mark-mode mark-active)
-              (buffer-substring-no-properties (region-beginning) (region-end))
-            (thing-at-point 'symbol)))
-
-    (setq myword (replace-regexp-in-string " " "%20" myword))
-    (setq myurl (concat "https://github.com/" myword))
     (browse-url myurl)))
 
 ;;; ---------------------------------------------------------
