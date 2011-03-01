@@ -14,7 +14,7 @@
              (?a (file . ,"~/.my-precious/bash/aliases"))
              (?c (file . ,"~/.my-precious/bash/config"))
              (?l (file . ,"~/org/yacs/linux.org"))
-             (?z (file . ,"~/ict-governace/research_assignment_IT_service_management/research_assignment_IT_service_management_draft.org"))
+             (?z (file . ,"~/ict-governace/research_assignment_it_service_management/research_assignment_it_service_management_draft.org"))
              (?r (file . ,(concat jpablobr-dir "/jp-registers.el")))))
   (set-register (car r) (cadr r)))
 

@@ -56,8 +56,6 @@
 ;; (require 'jp-haml)
 ;; (load-file (concat jpablobr-dir "/jp-markdown.el"))
 ;; (require 'jp-markdown)
-(load-file (concat jpablobr-dir "/jp-w3m.el"))
-(require 'jp-w3m)
 ;; (load-file (concat jpablobr-dir "/jp-artist.el"))
 ;; (require 'jp-artist)
 ;; (load-file (concat jpablobr-dir "/jp-sinatra.el"))
@@ -92,6 +90,8 @@
 (require 'jp-eshell)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
 (require 'jp-theme)
+(load-file (concat jpablobr-dir "/jp-w3m.el"))
+(require 'jp-w3m)
 
 ;;; ---------------------------------------------------------
 ;;; - requiring yasnippets after everything has been loaded...

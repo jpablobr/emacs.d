@@ -272,6 +272,10 @@ Delete the current buffer too."
     (setq myurl (concat "http://dictionary.reference.com/browse/" myword))
     (browse-url myurl)))
 
+;; TODO:
+(defun g-translate ()
+  );; (setq myurl (concat "https://www.googleapis.com/language/translate/v2?$1" mytext))
+
 ;;; ---------------------------------------------------------
 ;;; - Insert helper for the lazy.
 ;;;
