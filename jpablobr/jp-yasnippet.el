@@ -41,6 +41,8 @@
 (add-hook 'perl-mode-hook 'yas/minor-mode-on)
 (add-hook 'text-mode-hook 'yas/minor-mode-on)
 (add-hook 'fundamental-mode-hook 'yas/minor-mode-on)
+(add-hook 'latex-mode-hook 'yas/minor-mode-on)
+(add-hook 'tex-mode-hook 'yas/minor-mode-on)
 ;;; ---------------------------------------------------------
 ;;; - hooks for different modes on specific modes
 ;;;

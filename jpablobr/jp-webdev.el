@@ -20,7 +20,6 @@
 
 (setq auto-mode-alist  (cons '("\\.css$" . css-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.js$" .  js2-mode) auto-mode-alist))
-(setq auto-mode-alist  (cons '("\\.php$" . nxml-mode) auto-mode-alist))
 
 (add-hook 'html-mode-hook
           '(lambda()
@@ -50,7 +49,6 @@
 ;;;
 (require 'css-mode)
 (autoload 'css-mode "css-mode" "Mode for editing CSS files" t)
-(setq auto-mode-alist (append '(("\\.css$" . css-mode)) auto-mode-alist))
 (add-hook 'css-mode-hook
           (lambda()
             (local-set-key (kbd "<return>") 'newline-and-indent)))

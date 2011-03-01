@@ -1,7 +1,6 @@
 ;;jp-misc.el ---------------------------------------------------------
 ;; - Things that don't fit anywhere else
 (add-to-list 'load-path (concat misc-dir "/maxframe"))
-(add-to-list 'load-path (concat misc-dir "/ultratex-0.80/lisp"))
 (add-to-list 'load-path (concat misc-dir "/icicles"))
 (add-to-list 'load-path (concat misc-dir "/yac-mode"))
 (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
@@ -36,10 +35,6 @@
       uniquify-buffer-name-style 'forward
       ediff-window-setup-function 'ediff-setup-windows-plain
       save-place-file (concat dotfiles-dir "places"))
-
-;;; Ultratex settings
-(require 'light)
-(require 'ultex-setup)
 
 ;;; - Smoother scrolling
 (setq

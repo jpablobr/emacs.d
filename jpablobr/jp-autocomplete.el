@@ -45,6 +45,8 @@
                 css-mode
                 shell-mode
                 text-mode
+                tex-mode
+                latex-mode
                 makefile-mode
                 sh-mode
                 fortran-mode

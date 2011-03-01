@@ -1,20 +1,16 @@
 ;;jp-latex.el ----------------------------------------------------------------------------
-;;; -
+;; (add-to-list 'load-path (concat misc-dir "/ultratex-0.80/lisp"))
+;;; Ultratex settings
+;; (require 'light)
+;; (require 'ultex-setup)
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
 (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
-(autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
-(autoload 'reftex-citation "reftex-cite" "Make citation" nil)
+(autoload 'reftex-citation "reftex-cite" "Make citation" t)
 (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
-(add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
-(add-to-list 'auto-mode-alist '("\\.tex$" . tex-mode))
-(add-hook `latex-mode-hook `flyspell-mode)
-(add-hook `tex-mode-hook `flyspell-mode)
-(add-hook `bibtex-mode-hook `flyspell-mode)
-;; Math mode for LaTex
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+
+(dolist (i '("tex" "toc" "sty" "cls" "clo"))
+  (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'tex-mode)))
 
 ;; Make RefTeX faster
 (setq reftex-enable-partial-scans t)
