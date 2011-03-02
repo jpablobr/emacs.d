@@ -116,7 +116,7 @@
 
 ;;; Startup
 (when (file-exists-p "~/org")
-  (find-file "~/TODO")
+  (find-file "~/todo")
   (find-file "~/org/jpablobr.org")
   (find-file "~/org/yacs/linux.org")
   (require 'calendar)
