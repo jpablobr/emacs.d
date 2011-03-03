@@ -14,14 +14,14 @@
 (add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
 (add-to-list 'load-path (concat ruby-dir "/rinari"))
 (add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
-
+(load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
 (require 'rdebug)
 
 (eval-after-load 'ruby-mode
   '(progn
      (require 'jp-ruby-helpers)
      (require 'yari)
-     (require 'flymake-haml)
+     ;; (require 'flymake-haml)
      (require 'scss-mode)
      (require 'inf-ruby)
      ;; (require 'hideshow)
@@ -109,7 +109,7 @@
                       (ruby-complexity-mode)
                       )))
 
-(add-hook 'haml-mode-hook 'flymake-haml-load)
+;; (add-hook 'haml-mode-hook 'flymake-haml-load)
 (add-hook 'sass-mode-hook 'flymake-sass-load)
 (add-hook 'rhtml-mode-hook 'ri-bind-key)
 (add-hook 'haml-mode-hook 'ri-bind-key)

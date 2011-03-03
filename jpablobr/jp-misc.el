@@ -161,7 +161,7 @@
  '(w3m-form-textarea-directory "~/Dropbox/private-dotfiles/w3m/.textarea")
  '(w3m-profile-directory "~/Dropbox/private-dotfiles/w3m")
  '(w3m-session-file "~/Dropbox/private-dotfiles/w3m/.sessions")
- '(fill-column 80)
+ '(fill-column 70)
  '(font-lock-mode-maximum-decoration t)
  '(global-font-lock-mode t nil (font-lock))
  '(indent-tabs-mode nil)
