@@ -64,14 +64,6 @@
 ;; (require 'jp-ruby)
 (load-file (concat jpablobr-dir "/jp-perl.el"))
 (require 'jp-perl)
-(load-file (concat jpablobr-dir "/jp-webdev.el"))
-(require 'jp-webdev)
-(load-file (concat jpablobr-dir "/jp-js.el"))
-(require 'jp-js)
-(load-file (concat jpablobr-dir "/jp-org-config.el"))
-(require 'jp-org-config)
-(load-file (concat jpablobr-dir "/jp-latex.el"))
-(require 'jp-latex)
 (load-file (concat jpablobr-dir "/jp-plain-text.el"))
 (require 'jp-plain-text)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
@@ -88,8 +80,6 @@
 (require 'jp-meta)
 (load-file (concat jpablobr-dir "/jp-eshell.el"))
 (require 'jp-eshell)
-(load-file (concat jpablobr-dir "/jp-theme.el"))
-(require 'jp-theme)
 (load-file (concat jpablobr-dir "/jp-w3m.el"))
 (require 'jp-w3m)
 
@@ -101,7 +91,20 @@
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
 
-(load custom-file 'noerror)
+;;; Stuff to run only on window systems.
+(when window-system
+  (load-file (concat jpablobr-dir "/jp-webdev.el"))
+  (require 'jp-webdev)
+  (load-file (concat jpablobr-dir "/jp-js.el"))
+  (require 'jp-js)
+  (load-file (concat jpablobr-dir "/jp-org-config.el"))
+  (require 'jp-org-config)
+  (load-file (concat jpablobr-dir "/jp-latex.el"))
+  (require 'jp-latex)
+  (load-file (concat jpablobr-dir "/jp-theme.el"))
+  (require 'jp-theme)
+  (load custom-file 'noerror))
+
 (menu-bar-mode -1)
 
 ;;; ---------------------------------------------------------
@@ -116,12 +119,15 @@
 
 ;;; Startup
 (when (file-exists-p "~/org")
-  (find-file "~/todo")
   (find-file "~/org/jpablobr.org")
   (find-file "~/org/yacs/linux.org")
-  (require 'calendar)
   (when (require 'org nil t)
+    (require 'calendar)
     (call-interactively 'org-agenda-list)))
-  (call-interactively 'shell)
+
+(when (file-exists-p "~/todo")
+      (find-file "~/todo"))
+
+(call-interactively 'shell)
 
 (provide 'init)
