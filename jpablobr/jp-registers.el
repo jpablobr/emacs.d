@@ -10,11 +10,12 @@
              (?k (file . ,(concat jpablobr-dir "/jp-keyboard.el")))
              (?m (file . ,(concat jpablobr-dir "/jp-misc.el")))
              (?d (file . ,(concat jpablobr-dir "/jp-defuns.el")))
+             (?d (file . ,(concat jpablobr-dir "/nw-init.el")))
              (?j (file . ,"~/org/jpablobr.org"))
              (?a (file . ,"~/.my-precious/bash/aliases"))
              (?c (file . ,"~/.my-precious/bash/config"))
              (?l (file . ,"~/org/yacs/linux.org"))
-             (?z (file . ,"~/ict-governace/research_assignment_it_service_management/research_assignment_it_service_management_draft.org"))
+             (?z (file . ,"current-stuff"))
              (?r (file . ,(concat jpablobr-dir "/jp-registers.el")))))
   (set-register (car r) (cadr r)))
 

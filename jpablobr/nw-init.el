@@ -26,9 +26,6 @@ Delete the current buffer too."
     (setq myurl (concat "http://www.google.com/search?q=" myword))
     (browse-url myurl)))
 
-;; ---------------------------------------------------------------------
-;; Insert helper for the lazy.
-;; ---------------------------------------------------------------------
 ;; Keyboard
 (global-set-key [(meta D)] 'backward-kill-word)
 ;; Align your code in a pretty way.
@@ -68,7 +65,7 @@ Delete the current buffer too."
 (global-set-key (kbd "C-x h") 'mark-whole-buffer)
 
 (dolist (r `((?i (file . ,"~/.emacs.d/init.el"))
-             (?t (file . ,"~/.emacs.d/nw-init.el"))
+             (?t (file . ,"~/.emacs.d/jpablobr/nw-init.el"))
              (?k (file . ,"~/.emacs.d/jpablobr/jp-keyboard.el"))
              (?m (file . ,"~/.emacs.d/jpablobr/jp-misc.el"))
              (?d (file . ,"~/.emacs.d/jpablobr/jp-defuns.el"))

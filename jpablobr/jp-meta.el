@@ -56,15 +56,14 @@
 (textmate-mode)
 
 ;; Helpers
-(setq default-tab-width 2)
 (setq tab-width 2)
+(show-paren-mode 1)
+(transient-mark-mode 1)
 (setq line-number-mode t)
+(delete-selection-mode 1)
+(setq default-tab-width 2)
 (setq column-number-mode t)
 (defalias 'yes-or-no-p 'y-or-n-p)
-(show-paren-mode 1)
-;; turn text selection highlighting on
-(transient-mark-mode 1)
-;; turn on behavior that delete or type-over selected text
-(delete-selection-mode 1)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 (provide 'jp-meta)
