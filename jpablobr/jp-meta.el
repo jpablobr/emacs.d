@@ -1,14 +1,8 @@
-;;; -*- coding: utf-8-unix; -*-
-;;jp-meta.el ---------------------------------------------------------
-;;; - Meta
-;;;
-
-;;; ----------------------------------------------------------------------------
-;;; - Autosave dir
-;;; - Save backups in one place
-;;; - Put autosave files (ie #foo#) in one place, *not*
-;;; - scattered all over the file system!
-;;;
+;; jp-meta.el ---------------------------------------------------------
+;; ------------------------------------------------------------------
+;; - Autosave dir
+;; - Save backups in one place
+;; - Put autosave files (ie #foo#) in one place, *not*
 (defvar autosave-dir
   (concat "/tmp/emacs_autosaves/" (user-login-name) "/"))
 (make-directory autosave-dir t)
@@ -29,35 +23,16 @@
 ;;; - list contains regexp=>directory mappings; filenames matching a regexp are
 ;;; - backed up in the corresponding directory. Emacs will mkdir it if
 ;;; - necessary.)
-;;;
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
-;;; ----------------------------------------------------------------------------
-;;; - White spaces
-;;;
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-;; Always update time stamps on writing
-(add-hook 'before-save-hook 'time-stamp)
-(setq default-tab-width 4)
-(setq tab-width 4)
-
-;;; ----------------------------------------------------------------------------
-;;; - Makes load time faster.
-;;;
-(defun byte-recompile-home ()
-  (interactive)
-  (byte-recompile-directory "~/.emacs.d" 0))
-
-;;; ----------------------------------------------------------------------------
-;;; - Full screen toggle
-;;;
-(defun toggle-fullscreen ()
-  (interactive)
-  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
-                                           nil
-                                         'fullboth)))
-(global-set-key (kbd "M-`") 'toggle-fullscreen)
+;;; --------------------------------------------------------------------
+;;; - Whitespace mode
+;;; - http://xahlee.org/emacs/whitespace-mode.html
+(global-whitespace-mode 1)
+(setq whitespace-style '(trailing))
+(set-default 'indent-tabs-mode nil)
+(set-default 'indicate-empty-lines t)
 
 (defun recenter-to-top ()
   "Take the current point and scroll it to within a
@@ -75,7 +50,21 @@
   (set-terminal-coding-system 'utf-8)
   (prefer-coding-system 'utf-8))
 
+;;; --------------------------------------------------------------------
+;;; - Textmate
+(require 'textmate)
+(textmate-mode)
 
-(server-start)
+;; Helpers
+(setq default-tab-width 2)
+(setq tab-width 2)
+(setq line-number-mode t)
+(setq column-number-mode t)
+(defalias 'yes-or-no-p 'y-or-n-p)
+(show-paren-mode 1)
+;; turn text selection highlighting on
+(transient-mark-mode 1)
+;; turn on behavior that delete or type-over selected text
+(delete-selection-mode 1)
 
 (provide 'jp-meta)

@@ -125,9 +125,6 @@
     (require 'calendar)
     (call-interactively 'org-agenda-list)))
 
-(when (file-exists-p "~/todo")
-      (find-file "~/todo"))
-
-(call-interactively 'shell)
+(server-start)
 
 (provide 'init)

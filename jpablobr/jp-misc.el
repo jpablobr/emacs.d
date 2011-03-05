@@ -1,9 +1,32 @@
 ;;jp-misc.el ---------------------------------------------------------
 ;; - Things that don't fit anywhere else
+(require 'thingatpt)
+(require 'imenu)
+
 (add-to-list 'load-path (concat misc-dir "/maxframe"))
 (add-to-list 'load-path (concat misc-dir "/icicles"))
 (add-to-list 'load-path (concat misc-dir "/yac-mode"))
 (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
+
+;;; ----------------------------------------------------------------------------
+;;; - Global custom variables
+(custom-set-variables
+ '(user-full-name '"José Pablo Barrantes R.")
+ '(user-mail-address '"xjpablobrx@gmail.com")
+ '(user-details '"José Pablo Barrantes R. http://jpablobr.com")
+ '(user-login-name "jpablobr")
+ '(github-user "jpablobr")
+ '(w3m-arrived-file "~/Dropbox/private-dotfiles/w3m/.arrived")
+ '(w3m-bookmark-file "~/Dropbox/private-dotfiles/w3m/bookmark.html")
+ '(w3m-default-save-directory "~/Dropbox/private-dotfiles/w3m")
+ '(w3m-form-textarea-directory "~/Dropbox/private-dotfiles/w3m/.textarea")
+ '(w3m-profile-directory "~/Dropbox/private-dotfiles/w3m")
+ '(w3m-session-file "~/Dropbox/private-dotfiles/w3m/.sessions")
+ '(fill-column 72)
+ '(font-lock-mode-maximum-decoration t)
+ '(global-font-lock-mode t nil (font-lock))
+ '(indent-tabs-mode nil)
+ '(scroll-preserve-screen-position t))
 
 ;; Git
 (setq git-dir (concat vendor-dir "/git"))
@@ -56,28 +79,12 @@
 ;;; - Save a list of recent files visited.
 (recentf-mode 1)
 
-;;; - Highlight matching parentheses when the point is on them.
-(show-paren-mode 1)
-
 ;;; - Hippie expand: at times perhaps too hip
 (delete 'try-expand-line hippie-expand-try-functions-list)
 (delete 'try-expand-list hippie-expand-try-functions-list)
 
-;;; ----------------------------------------------------------------------------
-;;; - Whitespace mode
-;;; - http://xahlee.org/emacs/whitespace-mode.html
-(global-whitespace-mode 1)
-(setq whitespace-style '(trailing))
-
-(set-default 'indent-tabs-mode nil)
-(set-default 'indicate-empty-lines t)
-
-(defalias 'yes-or-no-p 'y-or-n-p)
-(random t) ;; Seed the random-number generator
-
-;;; ---------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Cosmetics
-;;;
 (eval-after-load 'diff-mode
   '(progn
      (set-face-foreground 'diff-added "green4")
@@ -88,47 +95,22 @@
      (set-face-foreground 'magit-diff-add "green3")
      (set-face-foreground 'magit-diff-del "red3")))
 
-;;; ---------------------------------------------------------
-;;; - linu and column default counters
-;;;
-(require 'linum)
-;; (global-linum-mode)
-(setq line-number-mode t)
-(setq column-number-mode t)
-
-;;; ----------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Grep edit
-;;;
 (require 'grep-edit)
 
-;;; ---------------------------------------------------------
-;;; - Textmate
-;;;
-(require 'textmate)
-(textmate-mode)
-
-;;; ---------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; -Redo
-;;;
 (require 'redo)
 (global-set-key [(control -)] 'redo)
 
-;;; ---------------------------------------------------------
-;;; - Windows dotbat batch files mode
-;;;
-;; (add-to-list 'load-path (concat vendor-dir "/dosbat"))
-;; (require 'dosbat)
-;; (add-to-list 'auto-mode-alist '("\\.bat$" . bat-mode))
-
-;;; ---------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Find-recursive
-;;;
  (require 'find-recursive)
 
-;;; ----------------------------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Dictionary
 ;;; - % sudo apt-get install dictionary-el
-;;;
 (autoload 'dictionary-search "dictionary"
   "Ask for a word and search it in all dictionaries" t)
 (autoload 'dictionary-match-words "dictionary"
@@ -145,27 +127,6 @@
   "Display tooltips for the current word" t)
 (autoload 'global-dictionary-tooltip-mode "dictionary"
   "Enable/disable dictionary-tooltip-mode for all buffers" t)
-
-;;; ----------------------------------------------------------------------------
-;;; - Global custom variables
-;;;
-(custom-set-variables
- '(user-full-name '"José Pablo Barrantes R.")
- '(user-mail-address '"xjpablobrx@gmail.com")
- '(user-details '"José Pablo Barrantes R. http://jpablobr.com")
- '(user-login-name "jpablobr")
- '(github-user "jpablobr")
- '(w3m-arrived-file "~/Dropbox/private-dotfiles/w3m/.arrived")
- '(w3m-bookmark-file "~/Dropbox/private-dotfiles/w3m/bookmark.html")
- '(w3m-default-save-directory "~/Dropbox/private-dotfiles/w3m")
- '(w3m-form-textarea-directory "~/Dropbox/private-dotfiles/w3m/.textarea")
- '(w3m-profile-directory "~/Dropbox/private-dotfiles/w3m")
- '(w3m-session-file "~/Dropbox/private-dotfiles/w3m/.sessions")
- '(fill-column 70)
- '(font-lock-mode-maximum-decoration t)
- '(global-font-lock-mode t nil (font-lock))
- '(indent-tabs-mode nil)
- '(scroll-preserve-screen-position t))
 
 (require 'template)
 (template-initialize)
@@ -186,8 +147,6 @@
 
 (display-time-mode t)
 
-(require 'sudo-save)
-
 ;;mode-compile
 (autoload 'mode-compile "mode-compile"
   "Command to compile current buffer file based on the major mode" t)
@@ -196,18 +155,17 @@
   "Command to kill a compilation launched by `mode-compile'" t)
 (global-set-key "\C-ck" 'mode-compile-kill)
 
-;; Chrome emacs edit
-;; (require 'edit-server)
-;; (edit-server-start)
-;; (if (locate-library "edit-server")
-;;     (progn
-;;       (require 'edit-server)
-;;       (setq edit-server-new-frame nil)
-;;       (edit-server-start)))
+;;Chrome emacs edit
+(require 'edit-server)
+(edit-server-start)
+(if (locate-library "edit-server")
+    (progn
+      (require 'edit-server)
+      (setq edit-server-new-frame nil)
+      (edit-server-start)))
 
-;;; ----------------------------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - header2
-;;;
 (require 'header2)
 (add-hook 'write-file-hooks 'auto-update-file-header)
 (add-hook 'emacs-lisp-mode-hook 'auto-make-header)
@@ -215,24 +173,35 @@
 (add-hook 'ruby-mode-common-hook   'auto-make-header)
 (add-hook 'perl-mode-common-hook   'auto-make-header)
 (add-hook 'sh-mode-common-hook   'auto-make-header)
+(add-hook 'before-save-hook 'time-stamp)
 
-;;; ----------------------------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - CUA enhanced functionality for the standard emacs bindings
 (cua-mode 'emacs)
 (setq CUA-mode-normal-cursor-color "red")
 (setq CUA-mode-overwrite-cursor-color "yellow")
 (setq CUA-mode-read-only-cursor-color "green")
 
-;;; Icicles
+;; Icicles
 (require 'icicles)
 (icy-mode t)
 
-;;; Word Count
+;; Word Count
 (autoload 'word-count-mode "word-count"
           "Minor mode to count words." t nil)
 (global-set-key "\M-+" 'word-count-mode)
 
-(transient-mark-mode 1) ; turn text selection highlighting on
-(delete-selection-mode 1) ; turn on behavior that delete or type-over selected text
+;;; ----------------------------------------------------------------------------
+;;; - Full screen toggle
+;;;
+(defun toggle-fullscreen ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+                                           nil
+                                         'fullboth)))
+(global-set-key (kbd "M-`") 'toggle-fullscreen)
+
+;; (require 'linum)
+;; (global-linum-mode)
 
 (provide 'jp-misc)
