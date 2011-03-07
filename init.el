@@ -6,7 +6,6 @@
 ;; - Load up ELPA, the package manager:
 ;;
 (setq dotfiles-dir (file-name-directory (or load-file-name (buffer-file-name))))
-(setq package-user-dir (concat dotfiles-dir "elpa"))
 (setq custom-file (concat dotfiles-dir "custom.el"))
 (setq vendor-dir (concat dotfiles-dir "vendor"))
 (setq jpablobr-dir (concat dotfiles-dir "/jpablobr"))
@@ -32,8 +31,6 @@
 ;;;
 ;; (load-file (concat jpablobr-dir "/jp-python.el"))
 ;; (require 'jp-python)
-;; (load-file (concat jpablobr-dir "/jp-lisp.el"))
-;; (require 'jp-lisp)
 ;; (load-file (concat jpablobr-dir "/jp-showoff.el"))
 ;; (require 'jp-showoff)
 ;; (load-file (concat jpablobr-dir "/jp-java.el"))
@@ -58,6 +55,8 @@
 ;; (require 'jp-markdown)
 ;; (load-file (concat jpablobr-dir "/jp-artist.el"))
 ;; (require 'jp-artist)
+(load-file (concat jpablobr-dir "/jp-lisp.el"))
+(require 'jp-lisp)
 (load-file (concat jpablobr-dir "/jp-sinatra.el"))
 (require 'jp-sinatra)
 (load-file (concat jpablobr-dir "/jp-ruby.el"))

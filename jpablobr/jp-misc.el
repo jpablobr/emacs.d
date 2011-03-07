@@ -1,3 +1,4 @@
+
 ;;jp-misc.el ---------------------------------------------------------
 ;; - Things that don't fit anywhere else
 (require 'thingatpt)
@@ -203,5 +204,11 @@
 
 ;; (require 'linum)
 ;; (global-linum-mode)
+
+(add-hook 'astma-mode-hook '(lambda ()
+                             (local-set-key (kbd "RET") 'newline)))
+
+(autoload 'astma-mode "astma-mode.el" "AsTMa mode" t)
+(setq auto-mode-alist (append '(("\\.atm$" . astma-mode)) auto-mode-alist))
 
 (provide 'jp-misc)
