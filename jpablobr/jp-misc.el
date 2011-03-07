@@ -1,5 +1,4 @@
-
-;;jp-misc.el ---------------------------------------------------------
+;; jp-misc.el ---------------------------------------------------------2
 ;; - Things that don't fit anywhere else
 (require 'thingatpt)
 (require 'imenu)
@@ -9,8 +8,8 @@
 (add-to-list 'load-path (concat misc-dir "/yac-mode"))
 (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
 
-;;; ----------------------------------------------------------------------------
-;;; - Global custom variables
+;; ---------------------------------------------------------------------
+;; - Global custom variables
 (custom-set-variables
  '(user-full-name '"José Pablo Barrantes R.")
  '(user-mail-address '"xjpablobrx@gmail.com")
@@ -29,7 +28,8 @@
  '(indent-tabs-mode nil)
  '(scroll-preserve-screen-position t))
 
-;; Git
+;; ---------------------------------------------------------------------
+;; - Git
 (setq git-dir (concat vendor-dir "/git"))
 (add-to-list 'load-path git-dir)
 (add-to-list 'load-path (concat git-dir "/magit"))
@@ -60,32 +60,32 @@
       ediff-window-setup-function 'ediff-setup-windows-plain
       save-place-file (concat dotfiles-dir "places"))
 
-;;; - Smoother scrolling
+;; - Smoother scrolling
 (setq
  scroll-margin 0
   scroll-conservatively 100000
   scroll-preserve-screen-position 1)
   (put 'scroll-left 'disabled nil)
 
-;;; - Transparently open compressed files
+;; - Transparently open compressed files
 (auto-compression-mode t)
 
-;;; - Enable syntax highlighting for older Emacsen that have it off
+;; - Enable syntax highlighting for older Emacsen that have it off
 (global-font-lock-mode t)
 
-;;; - X11 Copy & Paste to/from Emacs
+;; - X11 Copy & Paste to/from Emacs
 (setq x-select-enable-clipboard t) ; as above
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
-;;; - Save a list of recent files visited.
+;; - Save a list of recent files visited.
 (recentf-mode 1)
 
-;;; - Hippie expand: at times perhaps too hip
+;; - Hippie expand: at times perhaps too hip
 (delete 'try-expand-line hippie-expand-try-functions-list)
 (delete 'try-expand-list hippie-expand-try-functions-list)
 
-;;; --------------------------------------------------------------------
-;;; - Cosmetics
+;; --------------------------------------------------------------------
+;; - Cosmetics
 (eval-after-load 'diff-mode
   '(progn
      (set-face-foreground 'diff-added "green4")
@@ -96,22 +96,22 @@
      (set-face-foreground 'magit-diff-add "green3")
      (set-face-foreground 'magit-diff-del "red3")))
 
-;;; --------------------------------------------------------------------
-;;; - Grep edit
+;; --------------------------------------------------------------------
+;; - Grep edit
 (require 'grep-edit)
 
-;;; --------------------------------------------------------------------
-;;; -Redo
+;; --------------------------------------------------------------------
+;; -Redo
 (require 'redo)
 (global-set-key [(control -)] 'redo)
 
-;;; --------------------------------------------------------------------
-;;; - Find-recursive
+;; --------------------------------------------------------------------
+;; - Find-recursive
  (require 'find-recursive)
 
-;;; --------------------------------------------------------------------
-;;; - Dictionary
-;;; - % sudo apt-get install dictionary-el
+;; --------------------------------------------------------------------
+;; - Dictionary
+;; - % sudo apt-get install dictionary-el
 (autoload 'dictionary-search "dictionary"
   "Ask for a word and search it in all dictionaries" t)
 (autoload 'dictionary-match-words "dictionary"
@@ -129,9 +129,13 @@
 (autoload 'global-dictionary-tooltip-mode "dictionary"
   "Enable/disable dictionary-tooltip-mode for all buffers" t)
 
+;; ---------------------------------------------------------------------
+;; - Template mode
 (require 'template)
 (template-initialize)
 
+;; ---------------------------------------------------------------------
+;; - Display time
 (defface egoge-display-time
   '((((type x w32 mac))
      ;; #060525 is the background colour of my default face.
@@ -145,10 +149,10 @@
 (setq display-time-string-forms
       '((propertize (concat " " 12-hours ":" minutes " ")
                     'face 'egoge-display-time)))
-
 (display-time-mode t)
 
-;;mode-compile
+;; ---------------------------------------------------------------------
+;; - mode-compile
 (autoload 'mode-compile "mode-compile"
   "Command to compile current buffer file based on the major mode" t)
 (global-set-key "\C-cc" 'mode-compile)
@@ -156,7 +160,8 @@
   "Command to kill a compilation launched by `mode-compile'" t)
 (global-set-key "\C-ck" 'mode-compile-kill)
 
-;;Chrome emacs edit
+;; ---------------------------------------------------------------------
+;; - Chrome emacs edit
 (require 'edit-server)
 (edit-server-start)
 (if (locate-library "edit-server")
@@ -165,8 +170,8 @@
       (setq edit-server-new-frame nil)
       (edit-server-start)))
 
-;;; --------------------------------------------------------------------
-;;; - header2
+;; ---------------------------------------------------------------------
+;; - header2
 (require 'header2)
 (add-hook 'write-file-hooks 'auto-update-file-header)
 (add-hook 'emacs-lisp-mode-hook 'auto-make-header)
@@ -176,25 +181,31 @@
 (add-hook 'sh-mode-common-hook   'auto-make-header)
 (add-hook 'before-save-hook 'time-stamp)
 
-;;; --------------------------------------------------------------------
-;;; - CUA enhanced functionality for the standard emacs bindings
+;; ---------------------------------------------------------------------
+;; - CUA enhanced functionality for the standard emacs bindings
 (cua-mode 'emacs)
 (setq CUA-mode-normal-cursor-color "red")
 (setq CUA-mode-overwrite-cursor-color "yellow")
 (setq CUA-mode-read-only-cursor-color "green")
 
-;; Icicles
+;; ---------------------------------------------------------------------
+;; - Linue numbers
+;; (require 'linum)
+;; (global-linum-mode)
+
+;; ---------------------------------------------------------------------
+;; - Icicles
 (require 'icicles)
 (icy-mode t)
 
-;; Word Count
+;; ---------------------------------------------------------------------
+;; - Word Count
 (autoload 'word-count-mode "word-count"
           "Minor mode to count words." t nil)
 (global-set-key "\M-+" 'word-count-mode)
 
-;;; ----------------------------------------------------------------------------
-;;; - Full screen toggle
-;;;
+;; ---------------------------------------------------------------------
+;; - Full screen toggle
 (defun toggle-fullscreen ()
   (interactive)
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
@@ -202,9 +213,8 @@
                                          'fullboth)))
 (global-set-key (kbd "M-`") 'toggle-fullscreen)
 
-;; (require 'linum)
-;; (global-linum-mode)
-
+;; ---------------------------------------------------------------------
+;; - ASTMA mode
 (add-hook 'astma-mode-hook '(lambda ()
                              (local-set-key (kbd "RET") 'newline)))
 

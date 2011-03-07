@@ -1,8 +1,8 @@
-;; init.el ---------------------------------------------------------
+;; init.el -------------------------------------------------------------
 ;; - Jose Pablo Barrantes <xjpablobrx@gmail.com>
 ;; - emacs.d initializations
 ;;
-;; ---------------------------------------------------------
+;; ---------------------------------------------------------------------
 ;; - Load up ELPA, the package manager:
 ;;
 (setq dotfiles-dir (file-name-directory (or load-file-name (buffer-file-name))))
@@ -13,7 +13,7 @@
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path misc-dir)
 
-;;; ---------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - These should be loaded on startup rather than
 ;;; - autoloaded on demand
 ;;; - since they are likely to be used in every session:
@@ -26,7 +26,7 @@
 (require 'recentf)
 
 ;;; TODO: REFACTOR THIS SHIT!!!!! BUT IS WORKING MUCH BETTER! ;)
-;;; ---------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Load jpablobr customizations:
 ;;;
 ;; (load-file (concat jpablobr-dir "/jp-python.el"))
@@ -55,14 +55,14 @@
 ;; (require 'jp-markdown)
 ;; (load-file (concat jpablobr-dir "/jp-artist.el"))
 ;; (require 'jp-artist)
-(load-file (concat jpablobr-dir "/jp-lisp.el"))
-(require 'jp-lisp)
-(load-file (concat jpablobr-dir "/jp-sinatra.el"))
-(require 'jp-sinatra)
-(load-file (concat jpablobr-dir "/jp-ruby.el"))
-(require 'jp-ruby)
+;; (load-file (concat jpablobr-dir "/jp-sinatra.el"))
+;; (require 'jp-sinatra)
+;; (load-file (concat jpablobr-dir "/jp-ruby.el"))
+;; (require 'jp-ruby)
 (load-file (concat jpablobr-dir "/jp-perl.el"))
 (require 'jp-perl)
+(load-file (concat jpablobr-dir "/jp-lisp.el"))
+(require 'jp-lisp)
 (load-file (concat jpablobr-dir "/jp-plain-text.el"))
 (require 'jp-plain-text)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
@@ -82,9 +82,8 @@
 (load-file (concat jpablobr-dir "/jp-w3m.el"))
 (require 'jp-w3m)
 
-;;; ---------------------------------------------------------
-;;; - requiring yasnippets after everything has been loaded...
-;;;
+;; ---------------------------------------------------------------------
+;; - requiring yasnippets after everything has been loaded...
 (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
 (require 'jp-yasnippet)
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
@@ -106,9 +105,8 @@
 
 (menu-bar-mode -1)
 
-;;; ---------------------------------------------------------
-;;; - ECB
-;;;
+;; ---------------------------------------------------------------------
+;; - ECB
 ;; (require 'jp-cedet)
 ;; (add-to-list 'load-path (concat misc-dir "/ecb-2.40"))
 ;; (require 'ecb)
