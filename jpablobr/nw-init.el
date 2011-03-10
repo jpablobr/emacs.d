@@ -1,4 +1,3 @@
-(load-file "~/.emacs.d/vendor/misc/textmate.el")
 (load-file "~/.emacs.d/jpablobr/jp-meta.el")
 (require 'jp-meta)
 
@@ -36,16 +35,9 @@ Delete the current buffer too."
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
 ;; Jump to a definition in the current file. (This is awesome.)
-(global-set-key "\C-x\C-i" 'ido-imenu)
+;; (global-set-key "\C-x\C-i" 'ido-imenu)
 ;; Help should search more than just commands
 (global-set-key (kbd "C-h a") 'apropos)
-;; Git
-(global-set-key (kbd "C-x g") 'magit-status)
-;; Texmate mode
-(global-set-key [(control \})] 'textmate-shift-right)
-(global-set-key [(control \{)] 'textmate-shift-left)
-(global-set-key [(meta /)] 'comment-or-uncomment-region-or-line)
-(global-set-key [(meta L)] 'textmate-select-line)
 ;; General
 (global-set-key "%" 'match-paren)
 (global-set-key (kbd "M-c") 'find-grep)

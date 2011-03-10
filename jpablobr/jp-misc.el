@@ -221,4 +221,9 @@
 (autoload 'astma-mode "astma-mode.el" "AsTMa mode" t)
 (setq auto-mode-alist (append '(("\\.atm$" . astma-mode)) auto-mode-alist))
 
+;;; --------------------------------------------------------------------
+;;; - Textmate
+(require 'textmate)
+(textmate-mode)
+
 (provide 'jp-misc)

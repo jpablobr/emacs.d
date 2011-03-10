@@ -50,11 +50,6 @@
   (set-terminal-coding-system 'utf-8)
   (prefer-coding-system 'utf-8))
 
-;;; --------------------------------------------------------------------
-;;; - Textmate
-(require 'textmate)
-(textmate-mode)
-
 ;; Helpers
 (setq tab-width 2)
 (show-paren-mode 1)
