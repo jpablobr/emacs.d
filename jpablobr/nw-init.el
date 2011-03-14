@@ -51,7 +51,6 @@ Delete the current buffer too."
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta G)] 'google-s)
-(global-set-key [(meta l)] 'goto-line)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "C-x u") 'view-url)
 (global-set-key (kbd "C-x h") 'mark-whole-buffer)

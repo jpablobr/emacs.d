@@ -123,7 +123,6 @@
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta G)] 'google-s)
-(global-set-key [(meta l)] 'goto-line)
 (global-set-key "\C-x+" 'find-file-as-root)
 (global-set-key "\C-x!" 'toggle-alternate-file-as-root)
 
