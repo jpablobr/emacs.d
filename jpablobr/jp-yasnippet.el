@@ -7,10 +7,10 @@
 (add-to-list 'load-path snippets-dir)
 (add-to-list 'load-path (concat snippets-dir "/yasnippet-dot-el"))
 
-(when (require 'espresso nil t)
-  (add-hook 'js2-mode-hook
-          '(lambda ()
-             (setq yas/mode-symbol 'espresso-mode))))
+;; (when (require 'espresso nil t)
+;;   (add-hook 'js2-mode-hook
+;;           '(lambda ()
+;;              (setq yas/mode-symbol 'espresso-mode))))
 
 (require 'yasnippet)
 (require 'dropdown-list)
@@ -48,6 +48,7 @@
 ;;;
 (yas/define-snippets  'nxhtml-mode nil  'html-mode)
 (yas/define-snippets  'js2-mode nil  'javascript-mode)
+(yas/define-snippets  'espresso-mode nil  'javascript-mode)
 
 (add-hook 'cperl-mode-hook
           '(lambda ()
@@ -68,5 +69,9 @@
 (add-hook 'fundamental-mode-hook
           '(lambda ()
              (setq yas/mode-symbol 'text-mode)))
+
+(add-hook 'js2-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'espresso-mode)))
 
 (provide 'jp-yasnippet)

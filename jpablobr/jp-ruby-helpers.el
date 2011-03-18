@@ -1,4 +1,4 @@
-;;; ----------------------------------------------------------------------------
+;;jp-ruby-helpers.el ----------------------------------------------------------------------------
 ;;; - Ruby helper functions
 ;;;
 (defun ri-bind-key ()
@@ -50,15 +50,6 @@ exec-to-string command, but it works and seems fast"
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
 
-(defun flymake-ruby-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-                     'flymake-create-temp-inplace))
-         (local-file (file-relative-name
-                      temp-file
-                      (file-name-directory buffer-file-name))))
-    ;; Invoke ruby with '-c' to get syntax checking
-    (list "ruby" (list "-c" local-file))))
-
 (defun flymake-ruby-enable ()
   (when (and buffer-file-name
              (file-writable-p
@@ -72,5 +63,82 @@ exec-to-string command, but it works and seems fast"
     (local-set-key (kbd "C-c d")
                    'flymake-display-err-menu-for-current-line)
     (flymake-mode t)))
+
+(defun senny-ruby-compilation-this-buffer ()
+  (interactive)
+  (save-buffer)
+  (let ((origin (current-buffer)))
+    (ruby-compilation-this-buffer)
+    (pop-to-buffer origin)))
+
+(defun senny-open-spec-other-buffer ()
+  (interactive)
+  (when (featurep 'rspec-mode)
+    (let ((source-buffer (current-buffer))
+          (other-buffer (progn
+                          (rspec-toggle-spec-and-target)
+                          (current-buffer))))
+      (switch-to-buffer source-buffer)
+      (pop-to-buffer other-buffer))))
+
+(defun senny-ruby-eval-buffer ()
+  (interactive)
+  (ruby-send-region-and-go (point-min) (point-max)))
+
+(defun ruby-interpolate ()
+  "In a double quoted string, interpolate."
+  (interactive)
+  (insert "#")
+  (when (and
+         (looking-back "\".*")
+         (looking-at ".*\""))
+    (insert "{}")
+    (backward-char 1)))
+
+;;;; Flymake
+(eval-after-load 'ruby-mode
+  '(progn
+     ;; Libraries
+     (require 'flymake)
+
+     ;; Invoke ruby with '-c' to get syntax checking
+     (defun flymake-ruby-init ()
+       (let* ((temp-file (flymake-init-create-temp-buffer-copy
+                          'flymake-create-temp-inplace))
+              (local-file (file-relative-name
+                           temp-file
+                           (file-name-directory buffer-file-name))))
+         (list "ruby" (list "-c" local-file))))
+
+     (push '(".+\\.rb$" flymake-ruby-init) flymake-allowed-file-name-masks)
+     (push '("Rakefile$" flymake-ruby-init) flymake-allowed-file-name-masks)
+
+     (push '("^\\(.*\\):\\([0-9]+\\): \\(.*\\)$" 1 2 nil 3)
+           flymake-err-line-patterns)
+
+     (add-hook 'ruby-mode-hook
+               (lambda ()
+                 (when (and buffer-file-name
+                            (file-writable-p
+                             (file-name-directory buffer-file-name))
+                            (file-writable-p buffer-file-name)
+                            (if (fboundp 'tramp-list-remote-buffers)
+                                (not (subsetp
+                                      (list (current-buffer))
+                                      (tramp-list-remote-buffers)))
+                              t))
+                   (local-set-key (kbd "C-c d")
+                                  'flymake-display-err-menu-for-current-line)
+                   (flymake-mode t))))))
+
+;; TODO Temporary addition
+(defun ruby-reindent-then-newline-and-indent ()
+  (interactive "*")
+  (newline)
+  (save-excursion
+    (end-of-line 0)
+    (indent-according-to-mode)
+    (delete-region (point) (progn (skip-chars-backward " \t") (point))))
+  (indent-according-to-mode))
 
 (provide 'jp-ruby-helpers)

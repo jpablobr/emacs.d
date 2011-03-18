@@ -10,7 +10,7 @@
  '(ecb-options-version "2.40")
  '(ecb-source-path (quote ("~/code/")))
  '(erc-modules (quote (autojoin button completion fill irccontrols match menu netsplit noncommands readonly ring scrolltobottom stamp track)))
- '(fill-column 80)
+ '(fill-column 72)
  '(font-lock-mode-maximum-decoration t)
  '(github-user "jpablobr" t)
  '(global-font-lock-mode t nil (font-lock))

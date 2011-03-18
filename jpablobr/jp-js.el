@@ -22,6 +22,13 @@
 ;;; - espresso
 ;;;
 (autoload 'espresso-mode "espresso" nil t)
+(eval-after-load 'espresso
+  '(progn (define-key espresso-mode-map (kbd ",") 'self-insert-command)
+          (font-lock-add-keywords
+           'espresso-mode `(("\\(function *\\)("
+                             (0 (progn (compose-region (match-beginning 1)
+                                                       (match-end 1) "ƒ")
+                                       nil)))))))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Configs

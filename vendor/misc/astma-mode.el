@@ -1,4 +1,4 @@
-;; astma-mode.el --- a mode for AsTMa= topic map files 
+;; astma-mode.el --- a mode for AsTMa= topic map files
 ;; $Id: astma-mode.el,v 1.3 2008/02/26 03:52:00 az Exp $
 
 ;; this mode provides only syntax highlighting so far
@@ -19,7 +19,7 @@
 
 ;;   You should have received a copy of the GNU General Public License with
 ;;   the Debian GNU/Linux distribution in file /usr/share/common-licenses/GPL;
-;;   if not, write to the Free Software Foundation, Inc., 
+;;   if not, write to the Free Software Foundation, Inc.,
 ;;         51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
 
 
@@ -31,7 +31,7 @@
   ;; keywords
   (list "reifies" "is-reified-by"  )
   ;; additional font-locking, see font-lock-keywords documentation
-  (list 
+  (list
    ;; simple keywords
    "^\\(sin\\|oc\\|in\\|bn\\)\\s-*:"
    ;; typed topics
@@ -45,7 +45,7 @@
    ;; and the types
    '( "^\\s-*\\(in\\|oc\\|bn\\)\\s-*\\(@\\s-*[a-zA-Z0-9_-]+\\s-*\\)?\\s-*\\((.*)\\)\\s-*:" 3 font-lock-function-name-face t)
    ;; finally, one for assoc roles
-   '( "^\\s-*\\([a-zA-Z0-9_-]+\\s-*:\\)" 1 font-lock-variable-name-face ) 
+   '( "^\\s-*\\([a-zA-Z0-9_-]+\\s-*:\\)" 1 font-lock-variable-name-face )
 
    )
   ;; auto-mode
@@ -55,3 +55,6 @@
   ;; description
   "Mode for AsTMa= documents."
   )
+
+(provide 'astma-mode)
+;;; astma-mode.el ends here
