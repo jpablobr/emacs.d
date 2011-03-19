@@ -103,8 +103,6 @@
   (require 'jp-theme)
   (load custom-file 'noerror))
 
-(menu-bar-mode -1)
-
 ;; ---------------------------------------------------------------------
 ;; - ECB
 ;; (require 'jp-cedet)

@@ -16,7 +16,6 @@
  '(global-font-lock-mode t nil (font-lock))
  '(gud-rdebug-command-name "/home/jpablobr/.rvm/gems/ruby-1.9.2-p136/bin/rdebug --emacs 3")
  '(indent-tabs-mode nil)
- '(ispell-alternate-dictionary "~/.emacs.d/vendor/spanish-dictionary")
  '(jde-ant-enable-find t)
  '(jde-ant-home "$ANT_HOME")
  '(jde-auto-parse-max-buffer-size 0)
@@ -59,9 +58,9 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 normal))))
- '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 90 :width normal))))
- '(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color\. "white") (background-color . "black") (menu-bar-lines . 1))))
+ '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
+ '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal))))
+ '(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color\. "white") (background-color . "black"))))
  '(diff-added ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkGreen"))))
  '(diff-changed ((((background dark)) (:foreground "Yellow")) (t (:foreground "MediumBlue"))))
  '(diff-context ((((background dark)) (:foreground "White")) (t (:foreground "Black"))))
