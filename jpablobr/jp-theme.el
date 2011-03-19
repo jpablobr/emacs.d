@@ -14,7 +14,6 @@
 
 ;;; ---------------------------------------------------------
 ;;; - maxframe
-;;;
 (require 'maxframe)
 (add-hook 'window-setup-hook 'maximize-frame t)
 ;;(add-hook 'window-setup-hook 'ecb-redraw-layout t)
