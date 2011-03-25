@@ -33,6 +33,31 @@
 (require 'jp-meta)
 (load-file (concat jpablobr-dir "/jp-misc.el"))
 (require 'jp-misc)
+(load-file (concat jpablobr-dir "/jp-defuns.el"))
+(require 'jp-defuns)
+(load-file (concat jpablobr-dir "/jp-keyboard.el"))
+(require 'jp-keyboard)
+(load-file (concat jpablobr-dir "/jp-registers.el"))
+(require 'jp-registers)
+(load-file (concat jpablobr-dir "/jp-eshell.el"))
+(require 'jp-eshell)
+(load-file (concat jpablobr-dir "/jp-w3m.el"))
+(require 'jp-w3m)
+
+;;; Stuff to run only on window systems.
+(when window-system
+  (load-file (concat jpablobr-dir "/jp-webdev.el"))
+  (require 'jp-webdev)
+  (load-file (concat jpablobr-dir "/jp-js.el"))
+  (require 'jp-js)
+  (load-file (concat jpablobr-dir "/jp-org-config.el"))
+  (require 'jp-org-config)
+  (load-file (concat jpablobr-dir "/jp-latex.el"))
+  (require 'jp-latex)
+  (load-file (concat jpablobr-dir "/jp-theme.el"))
+  (require 'jp-theme)
+  (load custom-file 'noerror))
+
 ;; (load-file (concat jpablobr-dir "/jp-python.el"))
 ;; (require 'jp-python)
 ;; (load-file (concat jpablobr-dir "/jp-showoff.el"))
@@ -55,12 +80,12 @@
 ;; (require 'jp-artist)
 (load-file (concat jpablobr-dir "/jp-yaml.el"))
 (require 'jp-yaml)
-(load-file (concat jpablobr-dir "/jp-haml.el"))
-(require 'jp-haml)
 (load-file (concat jpablobr-dir "/jp-sinatra.el"))
 (require 'jp-sinatra)
 (load-file (concat jpablobr-dir "/jp-ruby.el"))
 (require 'jp-ruby)
+(load-file (concat jpablobr-dir "/jp-haml.el"))
+(require 'jp-haml)
 (load-file (concat jpablobr-dir "/jp-markdown.el"))
 (require 'jp-markdown)
 (load-file (concat jpablobr-dir "/jp-perl.el"))
@@ -71,16 +96,6 @@
 (require 'jp-plain-text)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
 (require 'jp-autocomplete)
-(load-file (concat jpablobr-dir "/jp-defuns.el"))
-(require 'jp-defuns)
-(load-file (concat jpablobr-dir "/jp-keyboard.el"))
-(require 'jp-keyboard)
-(load-file (concat jpablobr-dir "/jp-registers.el"))
-(require 'jp-registers)
-(load-file (concat jpablobr-dir "/jp-eshell.el"))
-(require 'jp-eshell)
-(load-file (concat jpablobr-dir "/jp-w3m.el"))
-(require 'jp-w3m)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded...
@@ -88,20 +103,6 @@
 (require 'jp-yasnippet)
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
-
-;;; Stuff to run only on window systems.
-(when window-system
-  (load-file (concat jpablobr-dir "/jp-webdev.el"))
-  (require 'jp-webdev)
-  (load-file (concat jpablobr-dir "/jp-js.el"))
-  (require 'jp-js)
-  (load-file (concat jpablobr-dir "/jp-org-config.el"))
-  (require 'jp-org-config)
-  (load-file (concat jpablobr-dir "/jp-latex.el"))
-  (require 'jp-latex)
-  (load-file (concat jpablobr-dir "/jp-theme.el"))
-  (require 'jp-theme)
-  (load custom-file 'noerror))
 
 ;; ---------------------------------------------------------------------
 ;; - ECB

@@ -62,19 +62,6 @@
            (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
                  'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
 
-     (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.Rakefile$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.Gemfile$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.Capfile$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.Vagrantfile$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.builder$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-     (add-to-list 'auto-mode-alist '("\\.spec.rb$" . rspec-mode))
-     (add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
-     (add-to-list 'auto-mode-alist '("\\.html.erb$" . rhtml-mode))
-
      (add-hook 'ruby-mode-hook
                '(lambda ()
                   (set (make-local-variable 'tab-width) 2)
@@ -122,6 +109,20 @@
 (add-hook 'sass-mode-hook 'ri-bind-key)
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 ;; (add-hook 'comint-mode-hook 'turn-on-rdebug-track-mode)
+
+(add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.Rakefile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.Vagrantfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.builder$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.spec.rb$" . rspec-mode))
+(add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
+(add-to-list 'auto-mode-alist '("\\.html.erb$" . rhtml-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
 
 (setq scss-compile-at-save nil)
 (setq rdebug-short-key-mode t)
