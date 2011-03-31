@@ -35,12 +35,12 @@
 (defvar rails-script:destroy-list rails-script:generators-list)
 
 (defvar rails-script:generate-params-list
-  '("-f")
+  '("-v")
   "Add parameters to rails generate.
 For example -s to keep existing files and -c to add new files into svn.")
 
 (defvar rails-script:destroy-params-list
-  '("-f")
+  '("-v")
   "Add parameters to rails destroy.
 For example -c to remove files from svn.")
 
@@ -189,7 +189,7 @@ BUFFER-MAJOR-MODE and process-sentinel SENTINEL."
 (defun rails-script:run-destroy (what &rest parameters)
   "Run the destroy script using WHAT and PARAMETERS."
   (rails-script:run rails-ruby-command
-                    (append (list (format "rails destroy %s"  what))
+                    (append (list (format "script/rails destroy %s"  what))
                             parameters
                             rails-script:destroy-params-list)))
 
@@ -233,7 +233,7 @@ BUFFER-MAJOR-MODE and process-sentinel SENTINEL."
 (defun rails-script:run-generate (what &rest parameters)
   "Run the generate script using WHAT and PARAMETERS."
   (rails-script:run rails-ruby-command
-                    (append (list (format "rails generate %s" what))
+                    (append (list (format "script/rails generate %s" what))
                             parameters
                             rails-script:generate-params-list)))
 
@@ -317,8 +317,8 @@ BUFFER-MAJOR-MODE and process-sentinel SENTINEL."
   "Run rails console."
   (interactive)
   (rails-script:run-interactive (format "console at (%s)" rails-default-environment)
-                                "rails console"
-                                 rails-default-environment))
+                                "script/rails"
+                                "console"))
 
 (defun rails-script:breakpointer ()
   "Run rails breakpointer."

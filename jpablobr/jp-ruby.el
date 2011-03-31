@@ -1,7 +1,5 @@
 (setq ruby-dir (concat vendor-dir "/ruby"))
 (add-to-list 'load-path ruby-dir)
-(add-to-list 'load-path (concat ruby-dir "/ruby-mode-1.1"))
-(add-to-list 'load-path (concat ruby-dir "/inf-ruby-2.1"))
 (add-to-list 'load-path (concat ruby-dir "/rcodetools"))
 (add-to-list 'load-path (concat ruby-dir "/rdebug"))
 (add-to-list 'load-path (concat ruby-dir "/rhtml"))

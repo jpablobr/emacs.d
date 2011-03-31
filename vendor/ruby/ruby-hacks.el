@@ -26,6 +26,10 @@
 
 ;;; Code:
 
+(eval-when-compile
+  (require 'inf-ruby)
+  (require 'ruby-mode))
+
 ;; setup align for ruby-mode
 (require 'align)
 

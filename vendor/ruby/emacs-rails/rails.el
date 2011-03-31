@@ -66,14 +66,8 @@
 (require 'rails-ui)
 (require 'rails-model-layout)
 (require 'rails-controller-layout)
-(require 'rails-features)
 (require 'rails-spec)
 (require 'rails-config)
-
-;;;;;;;;;; require cucumber-mode ;;;;;;;;
-
-(add-to-list 'load-path (concat (file-name-directory load-file-name) "cucumber"))
-(require 'feature-mode)
 
 ;;;;;;;;;; Variable definition ;;;;;;;;;;
 
@@ -401,8 +395,7 @@ necessary."
   (abbrev-mode -1)
   (make-local-variable 'tags-file-name)
   (make-local-variable 'rails-primary-switch-func)
-  (make-local-variable 'rails-secondary-switch-func)
-  (rails-features:install))
+  (make-local-variable 'rails-secondary-switch-func))
 
 ;; hooks
 
@@ -465,7 +458,6 @@ necessary."
 (setq auto-mode-alist  (cons '("\\.rjs$"     . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.rhtml$"   . html-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.erb$"     . html-mode) auto-mode-alist))
-(setq auto-mode-alist  (cons '("\.feature$"  . feature-mode) auto-mode-alist))
 
 (modify-coding-system-alist 'file "\\.rb$"     'utf-8)
 (modify-coding-system-alist 'file "\\.rake$"   'utf-8)
