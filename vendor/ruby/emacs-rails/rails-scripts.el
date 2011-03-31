@@ -1,4 +1,4 @@
-;;; rails-scripts.el --- emacs-rails integraions with rails script/* scripts
+;;; rails-scripts.el --- emacs-rails integraions with rails * scripts
 
 ;; Copyright (C) 2006 Dmitry Galinsky <dima dot exe at gmail dot com>
 
@@ -36,12 +36,12 @@
 
 (defvar rails-script:generate-params-list
   '("-f")
-  "Add parameters to script/generate.
+  "Add parameters to rails generate.
 For example -s to keep existing files and -c to add new files into svn.")
 
 (defvar rails-script:destroy-params-list
   '("-f")
-  "Add parameters to script/destroy.
+  "Add parameters to rails destroy.
 For example -c to remove files from svn.")
 
 (defvar rails-script:buffer-name "*ROutput*")
@@ -189,7 +189,7 @@ BUFFER-MAJOR-MODE and process-sentinel SENTINEL."
 (defun rails-script:run-destroy (what &rest parameters)
   "Run the destroy script using WHAT and PARAMETERS."
   (rails-script:run rails-ruby-command
-                    (append (list (format "script/destroy %s"  what))
+                    (append (list (format "rails destroy %s"  what))
                             parameters
                             rails-script:destroy-params-list)))
 
@@ -233,7 +233,7 @@ BUFFER-MAJOR-MODE and process-sentinel SENTINEL."
 (defun rails-script:run-generate (what &rest parameters)
   "Run the generate script using WHAT and PARAMETERS."
   (rails-script:run rails-ruby-command
-                    (append (list (format "script/generate %s" what))
+                    (append (list (format "rails generate %s" what))
                             parameters
                             rails-script:generate-params-list)))
 
@@ -314,15 +314,15 @@ BUFFER-MAJOR-MODE and process-sentinel SENTINEL."
    (rails-minor-mode t)))
 
 (defun rails-script:console ()
-  "Run script/console."
+  "Run rails console."
   (interactive)
   (rails-script:run-interactive (format "console at (%s)" rails-default-environment)
-                                "script/console"
+                                "rails console"
                                  rails-default-environment))
 
 (defun rails-script:breakpointer ()
-  "Run script/breakpointer."
+  "Run rails breakpointer."
   (interactive)
-  (rails-script:run-interactive "breakpointer" "script/breakpointer"))
+  (rails-script:run-interactive "breakpointer" "rails breakpointer"))
 
 (provide 'rails-scripts)

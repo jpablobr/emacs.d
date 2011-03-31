@@ -110,7 +110,7 @@ using `rails-default-environment'."
                    env)))
    (t
     (list rails-ruby-command
-          (format "script/server %s -p %s -e %s"
+          (format "rails server %s -p %s -e %s"
                   server-type
                   port
                   env)))))

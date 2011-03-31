@@ -33,7 +33,7 @@
   (interactive)
   (rails-core:find-file "config/routes.rb"))
 
-(defun rails-config:open-environments ()
+(defun rails-config:open-environment ()
   (interactive)
   (rails-core:find-file "config/environment.rb"))
 
@@ -43,7 +43,7 @@
 
 (defun rails-config:open-boot ()
   (interactive)
-  (rails-core:find-file "config/database.yml"))
+  (rails-core:find-file "config/boot.rb"))
 
 (defun rails-config:open-development-environment ()
   (interactive)
@@ -56,5 +56,13 @@
 (defun rails-config:open-production-environment ()
   (interactive)
   (rails-core:find-file "config/environments/production.rb"))
+
+(defun rails-config:open-Gemfile ()
+  (interactive)
+  (rails-core:find-file "Gemfile"))
+
+(defun rails-config:open-settings ()
+  (interactive)
+  (rails-core:find-file "confing/settings.rb"))
 
 (provide 'rails-config)

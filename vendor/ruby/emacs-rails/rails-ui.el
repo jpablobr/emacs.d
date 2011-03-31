@@ -41,11 +41,13 @@
 (defconst rails-minor-mode-config-menu-bar-map
   (let ((map (make-sparse-keymap)))
     (define-keys map
-      ([routes]      '("routes.rb" . rails-config:open-routes))
-      ([environment] '("environment.rb" . rails-config:open-environments))
-      ([database]    '("database.yml" . rails-config:open-database))
-      ([boot]        '("boot.rb" . rails-config:open-boot))
-      ([env] (cons "environments" (make-sparse-keymap "environments")))
+      ([routes]          '("routes.rb" . rails-config:open-routes))
+      ([environment]     '("environment.rb" . rails-config:open-environment))
+      ([database]        '("database.yml" . rails-config:open-database))
+      ([boot]            '("boot.rb" . rails-config:open-boot))
+      ([settings]        '("settings.rb" . rails-config:open-settings))
+      ([gemfile]         '("Gemfile" . rails-config:open-Gemfile))
+      ([env]             (cons "environments" (make-sparse-keymap "environments")))
       ([env test]        '("test.rb" . rails-config:open-test-environment))
       ([env production]  '("production.rb" . rails-config:open-production-environment))
       ([env development] '("development.rb" . rails-config:open-development-environment)))
