@@ -97,6 +97,7 @@ See the variable `align-rules-list' for more details.")
   '(("\\.rb\\'"      flymake-ruby-init)
     ("\\.rxml\\'"    flymake-ruby-init)
     ("\\.builder\\'" flymake-ruby-init)
+    ("\\.feature\\'" flymake-ruby-init)
     ("\\.rjs\\'"     flymake-ruby-init))
   "Filename extensions that switch on flymake-ruby mode syntax checks.")
 
@@ -137,7 +138,7 @@ See the variable `align-rules-list' for more details.")
 (defun ruby-newline-and-indent ()
   (interactive)
   (newline)
-  (ruby-indent-command))
+  (ruby-indent-line))
 
 (defun ruby-toggle-string<>simbol ()
   "Easy to switch between strings and symbols."

@@ -15,7 +15,8 @@
              (?a (file . ,"~/.my-precious/bash/aliases"))
              (?c (file . ,"~/.my-precious/bash/config"))
              (?l (file . ,"~/org/yacs/linux.org"))
-             (?z (file . ,"current-stuff"))
+             (?1 (file . ,"~/code/ruby/rails/rails3-base/Gemfile"))
+             (?2 (file . ,"~/code/ruby/rails/mp3box/Gemfile"))
              (?r (file . ,(concat jpablobr-dir "/jp-registers.el")))))
   (set-register (car r) (cadr r)))
 

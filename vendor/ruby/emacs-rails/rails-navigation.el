@@ -6,8 +6,8 @@
 ;;          Rezikov Peter <crazypit13 (at) gmail.com>
 
 ;; Keywords: ruby rails languages oop
-;; $URL$
-;; $Id$
+;; $URL: svn://rubyforge.org/var/svn/emacs-rails/trunk/rails-navigation.el $
+;; $Id: rails-navigation.el 203 2007-08-04 20:31:07Z dimaexe $
 
 ;;; License
 
@@ -78,6 +78,15 @@
    (rails-core:models)
    "Go to model.."
    'rails-core:model-file))
+
+(defun rails-nav:goto-views ()
+  "Go to views."
+  (interactive)
+  (rails-nav:goto-file-with-menu-from-list
+   (rails-core:views)
+   "Go to view..."
+   (lambda (view)
+     (concat "app/views/" view))))
 
 (defun rails-nav:goto-functional-tests ()
   "Go to functional tests."
@@ -169,12 +178,12 @@
 (defun rails-nav:goto-stylesheets ()
   "Go to stylesheets."
   (interactive)
-  (rails-nav:goto-file-with-menu "public/stylesheets/" "Go to stylesheet.." "css" t))
+  (rails-nav:goto-file-with-menu "public/stylesheets/" "Go to stylesheet.." "\\(css\\|sass\\)" t))
 
 (defun rails-nav:goto-javascripts ()
   "Go to JavaScripts."
   (interactive)
-  (rails-nav:goto-file-with-menu "public/javascripts/" "Go to stylesheet.." "js" t))
+  (rails-nav:goto-file-with-menu "public/javascripts/" "Go to javascript.." "js" t))
 
 ;;;;;;;;;; Goto file on current line ;;;;;;;;;;
 

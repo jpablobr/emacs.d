@@ -86,7 +86,7 @@
                  (search-forward-regexp "module +[a-zA-Z0-9:]+")
                  (end-of-line)
                  (newline)
-                 (ruby-indent-command)
+                 (ruby-indent-line)
                  (save-excursion
                    (insert (concat helper-func-def "\n" content "\nend\n")))
                  (ruby-indent-exp)

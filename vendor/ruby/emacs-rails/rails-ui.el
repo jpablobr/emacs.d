@@ -41,28 +41,14 @@
 (defconst rails-minor-mode-config-menu-bar-map
   (let ((map (make-sparse-keymap)))
     (define-keys map
-      ([routes]      '("routes.rb" .
-                       (lambda () (interactive)
-                         (rails-core:find-file "config/routes.rb"))))
-      ([environment] '("environment.rb" .
-                       (lambda() (interactive)
-                         (rails-core:find-file "config/environment.rb"))))
-      ([database]    '("database.yml" .
-                       (lambda() (interactive)
-                         (rails-core:find-file "config/database.yml"))))
-      ([boot]        '("boot.rb" .
-                       (lambda() (interactive)
-                         (rails-core:find-file "config/boot.rb"))))
+      ([routes]      '("routes.rb" . rails-config:open-routes))
+      ([environment] '("environment.rb" . rails-config:open-environments))
+      ([database]    '("database.yml" . rails-config:open-database))
+      ([boot]        '("boot.rb" . rails-config:open-boot))
       ([env] (cons "environments" (make-sparse-keymap "environments")))
-      ([env test]        '("test.rb" .
-                           (lambda() (interactive)
-                             (rails-core:find-file "config/environments/test.rb"))))
-      ([env production]  '("production.rb" .
-                           (lambda() (interactive)
-                             (rails-core:find-file "config/environments/production.rb"))))
-      ([env development] '("development.rb" .
-                           (lambda()(interactive)
-                             (rails-core:find-file "config/environments/development.rb")))))
+      ([env test]        '("test.rb" . rails-config:open-test-environment))
+      ([env production]  '("production.rb" . rails-config:open-production-environment))
+      ([env development] '("development.rb" . rails-config:open-development-environment)))
     map))
 
 (defconst rails-minor-mode-nav-menu-bar-map
@@ -79,6 +65,7 @@
       ([goto-observers]   '("Go to Observers"        . rails-nav:goto-observers))
       ([goto-unit-tests]  '("Go to Unit Tests"       . rails-nav:goto-unit-tests))
       ([goto-func-tests]  '("Go to Functional Tests" . rails-nav:goto-functional-tests))
+      ([goto-views]       '("Go to Views"            . rails-nav:goto-views))
       ([goto-models]      '("Go to Models"           . rails-nav:goto-models))
       ([goto-controllers] '("Go to Controllers"      . rails-nav:goto-controllers)))
     map))
@@ -218,6 +205,7 @@
   ;; Goto
   ((rails-key "\C-c g m") 'rails-nav:goto-models)
   ((rails-key "\C-c g c") 'rails-nav:goto-controllers)
+  ((rails-key "\C-c g v") 'rails-nav:goto-views)
   ((rails-key "\C-c g o") 'rails-nav:goto-observers)
   ((rails-key "\C-c g n") 'rails-nav:goto-mailers)
   ((rails-key "\C-c g h") 'rails-nav:goto-helpers)
@@ -277,7 +265,8 @@
   ((rails-key "\C-c d v") 'rails-rake:migrate-to-version)
   ((rails-key "\C-c d p") 'rails-rake:migrate-to-prev-version)
   ((rails-key "\C-c d t") 'rails-rake:clone-development-db-to-test-db)
-
+  ((rails-key "\C-c d u") 'rails-rake:migration-version-up)
+  ((rails-key "\C-c d d") 'rails-rake:migration-version-down)
 
 
   ;; Tests
@@ -295,6 +284,15 @@
   ((rails-key "\C-c o t")    'rails-log:open-test)
   ((rails-key "\C-c o p")    'rails-log:open-production)
   ((rails-key "\C-c o d")    'rails-log:open-development)
+
+  ;; Config file
+  ((rails-key "\C-c c r")  'rails-config:open-routes)
+  ((rails-key "\C-c c d")  'rails-config:open-database)
+  ((rails-key "\C-c c e s")  'rails-config:open-environments)
+  ((rails-key "\C-c c b")  'rails-config:open-boot)
+  ((rails-key "\C-c c e d") 'rails-config:open-development-environment)
+  ((rails-key "\C-c c e t") 'rails-config:open-test-environment)
+  ((rails-key "\C-c c e p") 'rails-config:open-production-environment)
 
   ;; Tags
   ((rails-key "\C-c \C-t") 'rails-create-tags)

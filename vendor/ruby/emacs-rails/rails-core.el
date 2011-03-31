@@ -133,7 +133,8 @@ it does not exist, ask to create it using QUESTION as a prompt."
     (concat "app/controllers/"
             (rails-core:file-by-class
              (rails-core:short-controller-name controller-name) t)
-            (unless (string-equal controller-name "Application") "_controller")
+            (unless (and (string-equal controller-name "Application")
+                     (file-exists-p (rails-core:file "app/controllers/application.rb"))) "_controller")
             ".rb")))
 
 (defun rails-core:controller-exist-p (controller-name)
@@ -142,6 +143,19 @@ it does not exist, ask to create it using QUESTION as a prompt."
     (file-exists-p
      (rails-core:file
       (rails-core:controller-file controller-name)))))
+
+(defun rails-core:view-exist-p (view-name)
+  "Return t if view VIEW-NAME directory exist."
+  (when view-name
+    (file-exists-p
+     (rails-core:file
+      (rails-core:views-dir view-name)))))
+
+(defun rails-core:action-view-exist-p (action-name)
+  "Return t if action view exist."
+  (when action-name
+    (file-exists-p
+     (rails-core:view-name action-name))))
 
 (defun rails-core:controller-file-by-model (model)
   (when model
@@ -242,12 +256,14 @@ it does not exist, ask to create it using QUESTION as a prompt."
 
 (defun rails-core:view-name (name)
   "Return the file name of view NAME."
-  (concat (rails-core:views-dir (rails-core:current-controller))
-          name ".rhtml")) ;; BUG: will fix it
+  (let ((views (rails-core:view-files rails-core:current-controller name)))
+    (if (>= (length views) 1)
+        (find-file (first views))
+      (message "view name %s not exists." name)
+      )))
 
 (defun rails-core:helper-file (controller)
-  "Return the helper file name for the controller named
-CONTROLLER."
+  "Return the helper file name for the controller named CONTROLLER."
   (if (string= "Test/TestHelper" controller)
       (rails-core:file (rails-core:file-by-class "Test/TestHelper"))
     (when controller
@@ -356,6 +372,12 @@ suffix if CUT-CONTOLLER-SUFFIX is non nil."
     #'(lambda (file) (or (rails-core:observer-p file)
                          (rails-core:mailer-p file)))
     (find-recursive-files "\\.rb$" (rails-core:file "app/models/")))))
+
+(defun rails-core:views ()
+  "Return a list of Rails views."
+  (mapcar
+   #'file-name-nondirectory
+   (directory-files (rails-core:file "app/views") t "^[^\\.]")))
 
 (defun rails-core:unit-tests ()
   "Return a list of Rails functional tests."
@@ -540,6 +562,12 @@ If the action is nil, return all views for the controller."
   (save-excursion
     (when (search-backward-regexp "^[ ]*def \\([a-z0-9_]+\\)" nil t)
       (match-string-no-properties 1))))
+
+(defun rails-core:current-migration-version ()
+  "Return the current migration version"
+  (let ((name (buffer-file-name)))
+    (when (string-match "db\\/migrate\\/\\([0-9]+\\)[a-z0-9_]+\.[a-z]+$" name)
+      (match-string 1 name))))
 
 ;;;;;;;;;; Determination of buffer type ;;;;;;;;;;
 

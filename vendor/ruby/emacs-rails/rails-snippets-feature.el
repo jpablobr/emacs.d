@@ -158,6 +158,8 @@
        ("h" "<h1 id=\"$${alpha}\">$${paste}</h1>" "heading")
        ("ft" "<%= form_tag :action => \"$${update}\" %>\n$.\n<%= end_form_tag %>" "form_tag")
        ("ff" "<%= form_for :$${item}, :action => \"$${update}\" %>\n$.\n<% end %>" "form_for")
+       ("jit" "<%= javascript_include_tag \"$${1}\" %>" "javascript_include_tag")
+       ("slt" "<%= stylesheet_link_tag \"$${1}\" %>" "stylesheet_link_tag")
        ("form" "<form action=\"$${action}\" method=\"$${post}\" accept-charset=\"utf-8\">\n$>$.\n\n$><p><input type=\"submit\" value=\"Continue &rarr;\"/></p>\n</form>" "form")
        ("dtht" "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\"\n$>\"http://www.w3.org/TR/html4/strict.dtd\">\n" "HTML -- 4.01 Strict")
        ("dchttr" "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n$>\"http://www.w3.org/TR/html4/loose.dtd\">\n" "HTML -- 4.01 Transitional")
@@ -223,7 +225,7 @@
        ("reai" "redirect_to :action => '$${show}', :id => $${item}" "redirect_to (action, id)")
        ("rec" "redirect_to :controller => '$${items}'" "redirect_to (controller)")
        ("reca" "redirect_to :controller => '$${items}', :action => '$${list}'" "redirect_to (controller, action)")
-       ("recai" "redirect_to :controller => '$${items}', :action => '$${show}', :id => $${item}" "redirect_to (controller, action, id)")) ; redirecto_to
+       ("recai" "redirect_to :controller => '$${items}', :action => '$${show}', :id => $${item}" "redirect_to (controller, action, id)")) ; redirect_to
     (0 "rails" ruby-mode-abbrev-table
        ("rdl" "RAILS_DEFAULT_LOGGER.debug '$${message}'$." "RAILS_DEFAULT_LOGGER.debug")
        ("nr" "@$${item}.new_record?" "item.new_record?")) ; rails
@@ -235,6 +237,7 @@
        ("vpif" "validates_presence_of :$${attribute}, :if => proc { |obj| $${condition} }" "validates_presence_of if")
        ("vp" "validates_presence_of :$${attribute}" "validates_presence_of")
        ("vl" "validates_length_of :$${attribute}, :within => $${20}" "validates_length_of")
+       ("vf" "validates_format_of :$${attribute}, :with => $${reg}" "validates_format_of")
        ("bt" "belongs_to :$${model}" "belongs_to")
        ("hm" "has_many :$${objects}" "has_many")
        ("hmt" "has_many :$${objects}, :through => :$${,rails-snippets-feature:prev-has-many-table-name}" "has_many :through")
@@ -245,10 +248,12 @@
        ("tcl" "t.column :$${title}, :$${string}$." "create column")
        ("tcln" "t.column :$${title}, :$${string}, :null => false$." "create column :null => false")
        ("acl" "add_column :$${,rails-snippets-feature:migration-table-name}, :$${column}, :$${string}" "add column")
-       ("ai" "add_index :$${,rails-snippets-feature:migration-table-name}, $${column}" "add index")
-       ("aiu" "add_index :$${,rails-snippets-feature:migration-table-name}, $${column}, :unique => true" "add unique index")
+       ("ai" "add_index :$${,rails-snippets-feature:migration-table-name}, :$${column}" "add index")
+       ("aiu" "add_index :$${,rails-snippets-feature:migration-table-name}, :$${column}, :unique => true" "add unique index")
+       ("rmi" "remove_index :$${,rails-snippets-feature:migration-table-name}, :$${column}" "remove index")
        ("rmcl" "remove_column :$${,rails-snippets-feature:migration-table-name}, :$${column}" "remove column")
-       ("recl" "rename_column :$${column}, :$${new_column}" "rename column")
+       ("recl" "rename_column :$${,rails-snippets-feature:migration-table-name}, :$${column}, :$${new_column}" "rename column")
+       ("chcl" "change_column :$${,rails-snippets-feature:migration-table-name}, :$${column}, :$${string}" "change column")
        ("dt" "drop_table :$${,rails-snippets-feature:migration-table-name}$." "drop table")
        ("ct" "create_table :$${,rails-snippets-feature:migration-table-name} do |t|\n$>tcls$.\nend$>" "create_table")
        ("ret" "rename_table :$${,rails-snippets-feature:migration-table-name}, :$${new_name}$." "rename table")) ; migrations
