@@ -3,7 +3,6 @@
 (add-to-list 'load-path (concat ruby-dir "/rcodetools"))
 (add-to-list 'load-path (concat ruby-dir "/rdebug"))
 (add-to-list 'load-path (concat ruby-dir "/rhtml"))
-(add-to-list 'load-path (concat ruby-dir "/rspec-mode"))
 (add-to-list 'load-path (concat ruby-dir "/rinari"))
 (add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
