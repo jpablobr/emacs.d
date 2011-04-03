@@ -28,6 +28,7 @@
 (require 'icicles-rcodetools)
 (require 'rdebug)
 (require 'hideshow)
+(require 'flymake-ruby)
 (require 'flymake-haml)
 (require 'unit-test)
 (require 'autotest)
@@ -91,7 +92,7 @@ argument allows editing of the server command arguments."
 ;; work around possible elpa bug
 (ignore-errors (require 'ruby-compilation))
 (setq ruby-use-encoding-map nil)
-(add-hook 'ruby-mode-hook 'inf-ruby-keys)
+;; (add-hook 'ruby-mode-hook 'inf-ruby-keys)
 
 ;; active the default ruby configured with rvm
 (when (fboundp 'rvm-use-default)
@@ -114,8 +115,9 @@ argument allows editing of the server command arguments."
              (modify-syntax-entry ?_ "w" (syntax-table))
              (local-set-key (kbd "C-.") 'complete-tag)
              (ri-bind-key)
+             (flymake-ruby-load)
+             (inf-ruby-keys)
              (menu-bar-mode t)
-             ;; (set-pairs '("(" "{" "[" "\"" "\'" "|"))
              (inf-ruby-keys)
              (GAU-bind-insert-ruby-debug-key)
              (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
