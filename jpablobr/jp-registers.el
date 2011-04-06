@@ -17,6 +17,8 @@
              (?l (file . ,"~/org/yacs/linux.org"))
              (?1 (file . ,"~/code/ruby/rails/rails3-base/Gemfile"))
              (?2 (file . ,"~/code/ruby/rails/mp3box/Gemfile"))
+             (?3 (file . ,"~/code/ruby/rails/aquadayspa/Gemfile"))
+             (?4 (file . ,"~/code/ruby/rails/birbecks/Gemfile"))
              (?z (file . ,"~/.emacs.d/vendor/ruby/emacs-rails/rails.el"))
              (?r (file . ,(concat jpablobr-dir "/jp-registers.el")))))
   (set-register (car r) (cadr r)))
