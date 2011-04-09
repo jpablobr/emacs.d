@@ -1,5 +1,0 @@
-# This was cloned from a TextMate bundle for yasnippet.
-#name : render :nothing => ${1:true}
-#group : controller
-# --
-render :nothing => ${1:true}

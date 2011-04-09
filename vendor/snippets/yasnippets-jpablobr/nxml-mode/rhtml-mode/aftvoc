@@ -1,5 +1,0 @@
-# This was cloned from a TextMate bundle for yasnippet.
-#name : after_validation_on_create 
-#group : model
-# --
-after_validation_on_create 

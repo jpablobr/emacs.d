@@ -1,5 +1,0 @@
-# This was cloned from a TextMate bundle for yasnippet.
-#name : page.replace ${1:"${2:id}"}, :${3:partial => "${4:template}"}
-#group : somewhere
-# --
-page.replace ${1:"${2:id}"}, :${3:partial => "${4:template}"}

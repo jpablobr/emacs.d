@@ -1,5 +1,0 @@
-# This was cloned from a TextMate bundle for yasnippet.
-#name : render :text => "${1:text to render...}", :status => ${2:401}
-#group : controller
-# --
-render :text => "${1:text to render...}", :status => ${2:401}

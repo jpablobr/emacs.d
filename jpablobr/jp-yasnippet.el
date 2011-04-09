@@ -50,13 +50,13 @@
 (yas/define-snippets  'js2-mode nil  'javascript-mode)
 (yas/define-snippets  'espresso-mode nil  'javascript-mode)
 
-(add-hook 'nxhtml-mode-hook
-          '(lambda ()
-             (setq yas/mode-symbol 'html-mode)))
+;; (add-hook 'nxhtml-mode-hook
+;;           '(lambda ()
+;;              (setq yas/mode-symbol 'html-mode)))
 
-(add-hook 'nxml-mode-hook
-          '(lambda ()
-             (setq yas/mode-symbol 'html-mode)))
+;; (add-hook 'nxml-mode-hook
+;;           '(lambda ()
+;;              (setq yas/mode-symbol 'html-mode)))
 
 (add-hook 'cperl-mode-hook
           '(lambda ()
