@@ -108,6 +108,8 @@ argument allows editing of the server command arguments."
              (set (make-local-variable 'tab-width) 2)
              (ruby-electric-mode t)
              (ruby-hs-minor-mode t)
+             (highlight-parentheses-mode t)
+             (highlight-symbol-mode t)
              (ruby-block-mode t)
              (imenu-add-to-menubar "IMENU")
              (modify-syntax-entry ?! "w" (syntax-table))
