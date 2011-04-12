@@ -3,6 +3,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(ack-prompt-for-directory t)
  '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color\. "white") (background-color . "black"))))
