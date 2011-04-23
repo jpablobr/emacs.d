@@ -7368,9 +7368,10 @@ Scanner should be initialized."
         (js2-node-add-children root comment)))
     (setf (js2-node-len root) (- end pos))
     ;; Give extensions a chance to muck with things before highlighting starts.
-    (dolist (callback js2-post-parse-callbacks)
-      (funcall callback))
-    (js2-highlight-undeclared-vars)
+    (let ((js2-additional-externs js2-additional-externs))
+      (dolist (callback js2-post-parse-callbacks)
+        (funcall callback))
+      (js2-highlight-undeclared-vars))
     root))
 
 (defun js2-function-parser ()
@@ -9736,17 +9737,12 @@ not `js2-NAME', then we use the token info saved in instance vars."
 ;; Karl for coming up with the initial approach, which packs a lot of
 ;; punch for so little code.
 
-(defconst js-possibly-braceless-keyword-re
-  (regexp-opt
-   '("catch" "do" "else" "finally" "for" "if" "each" "try" "while" "with" "let")
-   'words)
+(defconst js-possibly-braceless-keywords-re
+  (concat "else[ \t]+if\\|for[ \t]+each\\|"
+          (regexp-opt '("catch" "do" "else" "finally" "for" "if"
+                        "try" "while" "with" "let")))
   "Regular expression matching keywords that are optionally
 followed by an opening brace.")
-
-(defconst js-possibly-braceless-keywords-re
-  "\\([ \t}]*else[ \t]+if\\|[ \t}]*for[ \t]+each\\)"
-  "Regular expression which matches the keywords which are consist of more than 2 words
-like 'if else' and 'for each', and optionally followed by an opening brace.")
 
 (defconst js-indent-operator-re
   (concat "[-+*/%<>=&^|?:.]\\([^-+*/]\\|$\\)\\|"
@@ -9934,28 +9930,22 @@ returns nil."
   (let (forward-sexp-function)  ; temporarily unbind it
     (save-excursion
       (back-to-indentation)
-      (when (save-excursion
-              (and (not (js2-same-line (point-min)))
-                   (not (looking-at "{"))
-                   (js-re-search-backward "[[:graph:]]" nil t)
-                   (not (looking-at "[{([]"))
-                   (progn
-                     (forward-char)
+      (when (and (not (js2-same-line (point-min)))
+                 (not (looking-at "{"))
+                 (js-re-search-backward "[[:graph:]]" nil t)
+                 (not (looking-at "[{([]"))
+                 (progn
+                   (forward-char)
+                   (when (looking-back ")")
                      ;; scan-sexps sometimes throws an error
                      (ignore-errors (backward-sexp))
-                     (when (looking-at "(") (backward-word 1))
-                     (and (save-excursion
-                            (skip-chars-backward " \t}" (point-at-bol))
-                            (or (bolp)
-                                (and (backward-word 1)
-                                     (skip-chars-backward " \t}" (point-at-bol))
-                                     (bolp)
-                                     (looking-at js-possibly-braceless-keywords-re))))
-                          (looking-at js-possibly-braceless-keyword-re)
+                     (skip-chars-backward " \t" (point-at-bol)))
+                   (let ((pt (point)))
+                     (back-to-indentation)
+                     (and (looking-at js-possibly-braceless-keywords-re)
+                          (= (match-end 0) pt)
                           (not (js-end-of-do-while-loop-p))))))
-        (save-excursion
-          (goto-char (match-beginning 0))
-          (+ (current-indentation) js2-basic-offset))))))
+        (+ (current-indentation) js2-basic-offset)))))
 
 (defun js2-indent-in-array-comp (parse-status)
   "Return non-nil if we think we're in an array comprehension.
@@ -10552,8 +10542,7 @@ buffer will only rebuild its `js2-mode-ast' if the buffer is dirty."
             (js2-with-unmodifying-text-property-changes
               (setq js2-mode-buffer-dirty-p nil
                     js2-mode-fontifications nil
-                    js2-mode-deferred-properties nil
-                    js2-additional-externs nil)
+                    js2-mode-deferred-properties nil)
               (if js2-mode-verbose-parse-p
                   (message "parsing..."))
               (setq time

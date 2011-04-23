@@ -30,6 +30,7 @@
                 java-mode
                 fundamental-mode
                 ecmascript-mode
+                astma-mode
                 lisp-interaction-mode
                 emacs-lisp-mode
                 perl-mode

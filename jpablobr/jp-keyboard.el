@@ -118,6 +118,8 @@
 (global-set-key (kbd "C-l df") 'delete-current-file)
 (global-set-key (kbd "C-l ak") 'ack)
 (global-set-key (kbd "C-l ir") 'ispell-region)
+(global-set-key (kbd "C-l rr") 'replace-regexp)
+(global-set-key (kbd "C-l rf") 'rename-file)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta P)] 'mouse-buffer-menu)
 (global-set-key [(meta up)] 'beginning-of-buffer)
