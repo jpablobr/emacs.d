@@ -250,8 +250,4 @@
 (autoload 'ack-find-same-file "full-ack" nil t)
 (autoload 'ack-find-file "full-ack" nil t)
 
-;; ---------------------------------------------------------------------
-;; - Hack due to cheat_fu mode
-(add-hook 'find-file-hook 'icy-mode)
-
 (provide 'jp-misc)
