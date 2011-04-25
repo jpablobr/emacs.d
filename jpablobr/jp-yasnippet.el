@@ -43,6 +43,7 @@
 (add-hook 'fundamental-mode-hook 'yas/minor-mode-on)
 (add-hook 'latex-mode-hook 'yas/minor-mode-on)
 (add-hook 'tex-mode-hook 'yas/minor-mode-on)
+
 ;;; ---------------------------------------------------------
 ;;; - hooks for different modes on specific modes
 ;;;

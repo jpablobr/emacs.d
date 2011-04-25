@@ -63,8 +63,7 @@
                 haml-mode
                 html-mode
                 RoR-mode
-                rinari-
-                mode
+                rinari-mode
                 rhtml-mode)))
 
 (provide 'jp-autocomplete)

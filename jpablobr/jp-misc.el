@@ -5,7 +5,7 @@
 
 (add-to-list 'load-path (concat misc-dir "/maxframe"))
 (add-to-list 'load-path (concat misc-dir "/icicles"))
-(add-to-list 'load-path (concat misc-dir "/yac-mode"))
+(add-to-list 'load-path (concat misc-dir "/cheat_fu-mode"))
 (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
 
 ;; ---------------------------------------------------------------------
@@ -109,6 +109,13 @@
 ;; --------------------------------------------------------------------
 ;; - Grep edit
 (require 'grep-edit)
+
+;; ---------------------------------------------------------------------
+;; - Cheat_fu
+(require 'cheat_fu)
+(cheat_fu-mode)
+(setq cheat_fu-root "/home/jpablobr/.cheat_fu_sheets/")
+(add-to-list 'auto-mode-alist '("^\\*Cheat_fu\\*$" . cheat_fu-mode))
 
 ;; --------------------------------------------------------------------
 ;; - Textmate
@@ -244,7 +251,7 @@
 (autoload 'ack-find-file "full-ack" nil t)
 
 ;; ---------------------------------------------------------------------
-;; - Cheat_fu
-(require 'cheat_fu)
+;; - Hack due to cheat_fu mode
+(add-hook 'find-file-hook 'icy-mode)
 
 (provide 'jp-misc)
