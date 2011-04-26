@@ -111,11 +111,11 @@
 (require 'grep-edit)
 
 ;; ---------------------------------------------------------------------
-;; - Cheat_fu
-(require 'cheat_fu)
-(cheat_fu-mode)
-(setq cheat_fu-root "/home/jpablobr/.cheat_fu_sheets/")
-(add-to-list 'auto-mode-alist '("^\\*Cheat_fu\\*$" . cheat_fu-mode))
+;; - Cheat-fu
+(require 'cheat-fu)
+(cheat-fu-mode)
+(setq cheat-fu-root "/home/jpablobr/.cheat_fu_sheets/")
+;;(add-to-list 'auto-mode-alist '("^\\*Cheat_fu\\*$" . cheat_fu-mode))
 
 ;; --------------------------------------------------------------------
 ;; - Textmate
