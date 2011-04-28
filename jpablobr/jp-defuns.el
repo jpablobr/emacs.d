@@ -333,4 +333,15 @@ Delete the current buffer too."
                   (append '("sudo" "root") (cddr parsed)))
          (tramp-make-tramp-file-name "sudo" nil nil filename))))))
 
+(defun gem-open ()
+  "Gem open on current region.\n"
+  (interactive)
+  (let (mygem (buffer (get-buffer-create "*gem-open*")))
+    (setq mygem
+          (if (and transient-mark-mode mark-active)
+              (buffer-substring-no-properties (region-beginning) (region-end))
+            (thing-at-point 'symbol)))
+    (setq mygem (replace-regexp-in-string " " "%20" mygem))
+    (shell-command (concat "bundle exec gem open " mygem) buffer)))
+
 (provide 'jp-defuns)

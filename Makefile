@@ -6,15 +6,15 @@
 user_home  = ~
 emacs_dir  = $(user_home)/.emacs.d
 vendor_dir = $(emacs_dir)/vendor
-js-dir     = $(vendor_dir)/js
+js_dir     = $(vendor_dir)/js
 
-update: u-js
+update: u_js
 
-u-js:
-		cd $(js-dir) && \
+u_js:
+		cd $(js_dir) && \
 		curl -O https://github.com/mooz/js2-mode/raw/master/js2-mode.el && \
 		curl -O https://github.com/defunkt/coffee-mode/raw/master/coffee-mode.el
-		touch u-js
+		touch u_js
 
 clean:
-		rm u-js
+		rm u_js

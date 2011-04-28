@@ -6,17 +6,6 @@
 ;;; ----------------------------------------------------------------------------
 ;;; - Manually set PATH for use by eshell
 ;;; - $JAVA_HOME
-
-;;; ---------------------------------------------------------
-;;; - RVM mode... use rvm’s default ruby for the current Emacs session
-;;;
-
-;; (defvar emacs-root (if (or (eq system-type 'gnu/linux)
-;;                (eq system-type 'linux))
-;;                        "/home/david/Dropbox/"
-;;                      "C:/Users/David/My Documents/My Dropbox/")
-;;   "My home directory")
-
 (when (string-match "jpablobr" (getenv "USER"))
 (if (eq system-type 'gnu/linux)
     (progn
@@ -64,7 +53,8 @@
      (require 'em-term)
      (require 'em-cmpl)
      (require 'eshell-vc)
-     (setenv "PAGER" "cat")
+     (setenv "PAGER" "less")
+     (setenv "GEM_EDITOR" "emacsclient")
      (set-face-attribute 'eshell-prompt nil :foreground "turquoise1")
      (add-hook 'eshell-mode-hook ;; for some reason this needs to be a hook
 	       '(lambda ()

@@ -19,7 +19,7 @@
              (?2 (file . ,"~/code/ruby/rails/mp3box/Gemfile"))
              (?3 (file . ,"~/code/ruby/rails/aquadayspa/Gemfile"))
              (?4 (file . ,"~/code/ruby/rails/birbecks/Gemfile"))
-             (?z (file . ,"~/.emacs.d/vendor/misc/cheat_fu-mode/cheat_fu.el"))
+             (?z (file . ,"~/.emacs.d/vendor/misc/cheat_fu-mode/cheat-fu.el"))
              (?r (file . ,(concat jpablobr-dir "/jp-registers.el")))))
   (set-register (car r) (cadr r)))
 
