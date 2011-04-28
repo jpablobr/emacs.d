@@ -122,6 +122,7 @@
 (global-set-key (kbd "C-l rf") 'rename-file)
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
+(global-set-key (kbd "C-l cg") 'cheat-fu-commit)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta P)] 'mouse-buffer-menu)
 (global-set-key [(meta up)] 'beginning-of-buffer)
