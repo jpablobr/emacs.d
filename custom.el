@@ -16,6 +16,7 @@
  '(github-user "jpablobr" t)
  '(global-font-lock-mode t nil (font-lock))
  '(gud-rdebug-command-name "/home/jpablobr/.rvm/gems/ruby-1.9.2-p136/bin/rdebug --emacs 3")
+ '(hs-hide-comments-when-hiding-all t)
  '(indent-tabs-mode nil)
  '(jde-ant-enable-find t)
  '(jde-ant-home "$ANT_HOME")

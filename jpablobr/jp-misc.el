@@ -111,13 +111,8 @@
 ;; - Grep edit
 (require 'grep-edit)
 
-;; https://github.com/purcell/emacs.d/blob/master/init-regex-tool.el
-;; (autoload 'regex-tool "regex-tool" "Mode for exploring regular expressions" t)
-;; (setq regex-tool-backend 'perl)
-
-;;----------------------------------------------------------------------------
-;; Multiple major modes
-;;----------------------------------------------------------------------------
+;;----------------------------------------------------------------------
+;; - Multiple major modes
 (require 'mmm-auto)
 (setq mmm-global-mode 'buffers-with-submode-classes)
 (setq mmm-submode-decoration-level 2)
@@ -125,7 +120,6 @@
 ;; ---------------------------------------------------------------------
 ;; - Cheat-fu
 (require 'cheat-fu)
-;; (cheat-fu-mode)
 (setq cheat-fu-root "/home/jpablobr/.cheat_fu_sheets/")
 
 ;; --------------------------------------------------------------------

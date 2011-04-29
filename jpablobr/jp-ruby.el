@@ -27,7 +27,6 @@
 (require 'ruby-complexity)
 (require 'icicles-rcodetools)
 (require 'rdebug)
-(require 'hideshow)
 (require 'flymake-ruby)
 (require 'flymake-haml)
 (require 'unit-test)
@@ -151,6 +150,7 @@ argument allows editing of the server command arguments."
 (add-hook 'rhtml-mode-hook 'ri-bind-key)
 (add-hook 'haml-mode-hook 'ri-bind-key)
 (add-hook 'sass-mode-hook 'ri-bind-key)
+
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 (add-hook 'comint-mode-hook 'turn-on-rdebug-track-mode)
 
@@ -172,6 +172,12 @@ argument allows editing of the server command arguments."
     map)
   "The keymap used in `ruby-test-mode' buffers.")
 
+;;----------------------------------------------------------------------
+;; - Hide/Show modes
+(add-to-list 'hs-special-modes-alist
+	     '(ruby-mode
+	       "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
+	       (lambda (arg) (ruby-end-of-block)) nil))
 
 (require 'autoinsert)
 (add-to-list 'auto-insert-alist

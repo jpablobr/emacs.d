@@ -1,8 +1,11 @@
 ;;jp-autocomplete.el ---------------------------------------------------------
+(require 'auto-complete)
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories (concat misc-dir "/ac-dict"))
 (ac-config-default)
+(global-auto-complete-mode t)
 (setq ac-auto-start 2)
+(setq ac-dwim t)
 (setq ac-delay 0.1)
 (setq ac-auto-show-menu nil)
 (setq ac-show-menu-immediately-on-auto-complete t)
@@ -19,6 +22,7 @@
                             ac-source-symbols
                             ac-source-features
                             ac-source-abbrev
+                            ac-source-words-in-all-buffer
                             ac-source-words-in-same-mode-buffers
                             ac-source-dictionary))
 
@@ -41,7 +45,6 @@
                 inf-perl-mode
                 javascript-mode
                 js2-mode
-                espresso-mode
                 php-mode
                 css-mode
                 shell-mode
@@ -50,14 +53,13 @@
                 latex-mode
                 makefile-mode
                 sh-mode
-                fortran-mode
                 f90-mode
                 ada-mode
                 inf-ruby-mode
                 clojure-mode
                 scheme-mode
                 org-mode
-                xml-mode
+                nxml-mode
                 sgml-mode
                 sass-mode
                 haml-mode
@@ -65,5 +67,11 @@
                 RoR-mode
                 rinari-mode
                 rhtml-mode)))
+
+;; Exclude very large buffers from dabbrev
+(defun smp-dabbrev-friend-buffer (other-buffer)
+  (< (buffer-size other-buffer) (* 1 1024 1024)))
+
+(setq dabbrev-friend-buffer-function 'smp-dabbrev-friend-buffer)
 
 (provide 'jp-autocomplete)
