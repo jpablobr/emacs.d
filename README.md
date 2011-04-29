@@ -2,10 +2,8 @@
 
 ## INSTALL
 
-Move the resulting directory to ~/.emacs.d
-
         git clone https://jpablobr@github.com/jpablobr/emacs.d.git
-        cd ~/.emacs.d/
+        cat Makefile
 
 ### LOOKS
 
