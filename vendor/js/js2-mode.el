@@ -234,8 +234,16 @@ regardless of the beginning bracket position."
   :group 'js2-mode
   :type 'boolean)
 
-(defcustom js2-use-ast-for-indentation-p nil
-  "Non-nil to use AST for indentation and make it more robust."
+(defcustom js2-pretty-multiline-decl-indentation-p t
+  "Non-nil to line up multiline declarations vertically. See the
+function `js-multiline-decl-indentation' for details."
+  :group 'js2-mode
+  :type 'boolean)
+
+(defcustom js2-always-indent-assigned-expr-in-decls-p nil
+  "If both `js2-pretty-multiline-decl-indentation-p' and this are non-nil,
+always additionally indent function expression or array/object literal
+assigned in a declaration, even when only one var is declared."
   :group 'js2-mode
   :type 'boolean)
 
@@ -9750,6 +9758,10 @@ followed by an opening brace.")
   "Regular expression matching operators that affect indentation
 of continued expressions.")
 
+(defconst js-declaration-keyword-re
+  (regexp-opt '("var" "let" "const") 'words)
+  "Regular expression matching variable declaration keywords.")
+
 ;; This function has horrible results if you're typing an array
 ;; such as [[1, 2], [3, 4], [5, 6]].  Bounce indenting -really- sucks
 ;; in conjunction with electric-indent, so just disabling it.
@@ -9766,7 +9778,7 @@ bound to KEY in the global keymap and indents the current line."
         (call-interactively cmd)))
   ;; don't do the electric keys inside comments or strings,
   ;; and don't do bounce-indent with them.
-  (let ((parse-state (parse-partial-sexp (point-min) (point)))
+  (let ((parse-state (syntax-ppss (point)))
         (js2-bounce-indent-p (js2-code-at-bol-p)))
     (unless (or (nth 3 parse-state)
                 (nth 4 parse-state))
@@ -9774,11 +9786,12 @@ bound to KEY in the global keymap and indents the current line."
 
 (defun js-re-search-forward-inner (regexp &optional bound count)
   "Auxiliary function for `js-re-search-forward'."
-  (let ((parse)
-        (saved-point (point-min)))
+  (let (parse saved-point)
     (while (> count 0)
       (re-search-forward regexp bound)
-      (setq parse (parse-partial-sexp saved-point (point)))
+      (setq parse (if saved-point
+                      (parse-partial-sexp saved-point (point))
+                    (syntax-ppss (point))))
       (cond ((nth 3 parse)
              (re-search-forward
               (concat "\\([^\\]\\|^\\)" (string (nth 3 parse)))
@@ -9814,11 +9827,12 @@ comments have been removed."
 
 (defun js-re-search-backward-inner (regexp &optional bound count)
   "Auxiliary function for `js-re-search-backward'."
-  (let ((parse)
-        (saved-point (point-min)))
+  (let (parse saved-point)
     (while (> count 0)
       (re-search-backward regexp bound)
-      (setq parse (parse-partial-sexp saved-point (point)))
+      (setq parse (if saved-point
+                      (parse-partial-sexp saved-point (point))
+                    (syntax-ppss (point))))
       (cond ((nth 3 parse)
              (re-search-backward
               (concat "\\([^\\]\\|^\\)" (string (nth 3 parse)))
@@ -9899,29 +9913,48 @@ indented to the same column as the current line."
 			   "\\<while\\>" (point-at-eol) t))
 		     (= (current-indentation) saved-indent)))))))))
 
-(defun js-get-multiline-declaration-offset ()
-  "Returns offset (> 0) if the current line is part of
- multi-line variable declaration like below example, and
- returns 0 otherwise.
+(defun js-multiline-decl-indentation ()
+  "Returns the declaration indentation column if the current line belongs
+to a multiline declaration statement.  All declarations are lined up vertically:
 
- var a = 10,
-     b = 20,
-     c = 30;
+var a = 10,
+    b = 20,
+    c = 30;
 
+Note that if `js2-always-indent-assigned-expr-in-decls-p' is nil, and the first
+assigned expression is a function or array/object literal, it will be indented
+differently:
+
+var o = {                               var bar = 2,
+  foo: 3                                    o = {
+},                                            foo: 3
+    bar = 2;                                };
 "
-  (let* ((node (js2-node-at-point))
-         (pnode (and node (js2-node-parent node)))
-         (pnode-type (and pnode (js2-node-type pnode))))
-    (if (and node
-             (= js2-NAME (js2-node-type node))
-             (or
-              (= js2-VAR pnode-type)
-              (= js2-LET pnode-type)
-              (= js2-CONST pnode-type)))
-        (if (= js2-CONST pnode-type)
-            6
-          4)
-      0)))
+  (let (forward-sexp-function ; use lisp version
+        at-opening-bracket)
+    (save-excursion
+      (back-to-indentation)
+      (when (not (looking-at js-declaration-keyword-re))
+        (when (looking-at js-indent-operator-re)
+          (goto-char (match-end 0))) ; continued expressions are ok
+        (while (and (not at-opening-bracket)
+                    (not (bobp))
+                    (let ((pos (point)))
+                      (save-excursion
+                        (js2-backward-sws)
+                        (or (eq (char-before) ?,)
+                            (and (not (eq (char-before) ?\;))
+                                 (and
+                                  (prog2 (skip-chars-backward "[[:punct:]]")
+                                      (looking-at js-indent-operator-re)
+                                    (js2-backward-sws))
+                                  (not (eq (char-before) ?\;))))
+                            (js2-same-line pos)))))
+          (condition-case err
+              (backward-sexp)
+            (scan-error (setq at-opening-bracket t))))
+        (when (looking-at js-declaration-keyword-re)
+          (- (1+ (match-end 0)) (point-at-bol)))))))
 
 (defun js-ctrl-statement-indentation ()
   "Returns the proper indentation of the current line if it
@@ -9936,7 +9969,7 @@ returns nil."
                  (not (looking-at "[{([]"))
                  (progn
                    (forward-char)
-                   (when (looking-back ")")
+                   (when (= (char-before) ?\))
                      ;; scan-sexps sometimes throws an error
                      (ignore-errors (backward-sexp))
                      (skip-chars-backward " \t" (point-at-bol)))
@@ -9966,7 +9999,8 @@ In particular, return the buffer position of the first `for' kwd."
                     (match-beginning 0)))
             ;; to skip arbitrary expressions we need the parser,
             ;; so we'll just guess at it.
-            (if (re-search-forward "[^,]* \\(for\\) " end t)
+            (if (and (> end (point)) ; not empty literal
+                     (re-search-forward "[^,]]* \\(for\\) " end t))
                 (match-beginning 1))))))))
 
 (defun js2-array-comp-indentation (parse-status for-kwd)
@@ -9988,9 +10022,8 @@ In particular, return the buffer position of the first `for' kwd."
     (let ((ctrl-stmt-indent (js-ctrl-statement-indentation))
           (same-indent-p (looking-at "[]})]\\|\\<case\\>\\|\\<default\\>"))
           (continued-expr-p (js-continued-expression-p))
-          (multiline-declaration-offset (or (and js2-use-ast-for-indentation-p
-                                                 (js-get-multiline-declaration-offset))
-                                            0))
+          (declaration-indent (and js2-pretty-multiline-decl-indentation-p
+                                   (js-multiline-decl-indentation)))
           (bracket (nth 1 parse-status))
           beg)
       (cond
@@ -10005,6 +10038,11 @@ In particular, return the buffer position of the first `for' kwd."
 
        (ctrl-stmt-indent)
 
+       ((and declaration-indent continued-expr-p)
+        (+ declaration-indent js2-basic-offset))
+       
+       (declaration-indent)
+
        (bracket
         (goto-char bracket)
         (cond
@@ -10017,13 +10055,15 @@ In particular, return the buffer position of the first `for' kwd."
                      (not js2-consistent-level-indent-inner-bracket-p))
                 (progn (goto-char (1+ (nth 1 p)))
                        (skip-chars-forward " \t"))
-              (back-to-indentation))
+              (back-to-indentation)
+              (when (and js2-pretty-multiline-decl-indentation-p
+                         js2-always-indent-assigned-expr-in-decls-p
+                         (looking-at js-declaration-keyword-re))
+                (goto-char (1+ (match-end 0)))))
             (cond (same-indent-p
                    (current-column))
                   (continued-expr-p
                    (+ (current-column) (* 2 js2-basic-offset)))
-                  ((> multiline-declaration-offset 0)
-                   (+ (current-column) js2-basic-offset multiline-declaration-offset))
                   (t
                    (+ (current-column) js2-basic-offset)))))
          (t
@@ -10033,9 +10073,6 @@ In particular, return the buffer position of the first `for' kwd."
           (current-column))))
 
        (continued-expr-p js2-basic-offset)
-
-       ((> multiline-declaration-offset 0)
-        (+ multiline-declaration-offset))
 
        (t 0)))))
 
@@ -10318,10 +10355,7 @@ If so, we don't ever want to use bounce-indent."
 (defun js2-indent-line (&optional bounce-backwards)
   "Indent the current line as JavaScript source text."
   (interactive)
-  (when js2-use-ast-for-indentation-p
-    (js2-reparse))
   (let (parse-status
-        current-indent
         offset
         indent-col
         moved
@@ -10329,38 +10363,35 @@ If so, we don't ever want to use bounce-indent."
         ;; This has to be set before calling parse-partial-sexp below.
         (inhibit-point-motion-hooks t))
     (setq parse-status (save-excursion
-                          (parse-partial-sexp (point-min)
-                                              (point-at-bol)))
+                          (syntax-ppss (point-at-bol)))
           offset (- (point) (save-excursion
                                (back-to-indentation)
-                               (setq current-indent (current-column))
                                (point))))
     (js2-with-underscore-as-word-syntax
      (if (nth 4 parse-status)
          (js2-lineup-comment parse-status)
        (setq indent-col (js-proper-indentation parse-status))
        ;; see comments below about js2-mode-last-indented-line
-       (when
-           (cond
-            ;; bounce-indenting is disabled during electric-key indent.
-            ;; It doesn't work well on first line of buffer.
-            ((and js2-bounce-indent-p
-                  (not (js2-same-line (point-min)))
-                  (not (js2-1-line-comment-continuation-p)))
-             (js2-bounce-indent indent-col parse-status bounce-backwards)
-             (setq moved t))
-            ;; just indent to the guesser's likely spot
-            ((/= current-indent indent-col)
-             (indent-line-to indent-col)
-             (setq moved t)))
-         (when (and moved (plusp offset))
-           (forward-char offset)))))))
+       (cond
+        ;; bounce-indenting is disabled during electric-key indent.
+        ;; It doesn't work well on first line of buffer.
+        ((and js2-bounce-indent-p
+              (not (js2-same-line (point-min)))
+              (not (js2-1-line-comment-continuation-p)))
+         (js2-bounce-indent indent-col parse-status bounce-backwards))
+        ;; just indent to the guesser's likely spot
+        (t (indent-line-to indent-col)))
+       (when (plusp offset)
+         (forward-char offset))))))
 
 (defun js2-indent-region (start end)
   "Indent the region, but don't use bounce indenting."
   (let ((js2-bounce-indent-p nil)
-        (indent-region-function nil))
-    (indent-region start end nil)))  ; nil for byte-compiler
+        (indent-region-function nil)
+        (after-change-functions (remq 'js2-mode-edit
+                                      after-change-functions)))
+    (indent-region start end nil) ; nil for byte-compiler
+    (js2-mode-edit start end (- end start))))
 
 ;;;###autoload (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
@@ -10716,7 +10747,7 @@ This ensures that the counts and `next-error' are correct."
   "Handle user pressing the Enter key."
   (interactive)
   (let ((parse-status (save-excursion
-                        (parse-partial-sexp (point-min) (point)))))
+                        (syntax-ppss (point)))))
     (cond
      ;; check if we're inside a string
      ((nth 3 parse-status)
@@ -10859,7 +10890,7 @@ Also moves past comment delimiters when inside comments."
   "Return non-nil if inside a string.
 Actually returns the quote character that begins the string."
    (let ((parse-state (save-excursion
-                        (parse-partial-sexp (point-min) (point)))))
+                        (syntax-ppss (point)))))
       (nth 3 parse-state)))
 
 (defsubst js2-mode-inside-comment-or-string ()
@@ -10873,7 +10904,7 @@ Actually returns the quote character that begins the string."
      (and comment-start
           (<= comment-start (point))))
    (let ((parse-state (save-excursion
-                        (parse-partial-sexp (point-min) (point)))))
+                        (syntax-ppss (point)))))
      (or (nth 3 parse-state)
          (nth 4 parse-state)))))
 
@@ -11023,7 +11054,7 @@ already have been inserted."
 (defun js2-mode-match-single-quote ()
   "Insert matching single-quote."
   (interactive)
-  (let ((parse-status (parse-partial-sexp (point-min) (point))))
+  (let ((parse-status (syntax-ppss (point))))
     ;; don't match inside comments, since apostrophe is more common
     (if (nth 4 parse-status)
         (insert "'")
@@ -11043,7 +11074,7 @@ already have been inserted."
   "Skip over close-paren rather than inserting, where appropriate."
   (interactive)
   (let* ((here (point))
-         (parse-status (parse-partial-sexp (point-min) here))
+         (parse-status (syntax-ppss here))
          (open-pos (nth 1 parse-status))
          (close last-input-event)
          (open (cond

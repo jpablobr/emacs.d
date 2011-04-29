@@ -1,4 +1,4 @@
-;;; flymake-js.el --- Flymake setup for javascript files
+;;; flymake-for-js.el --- Flymake setup for javascript files
 ;;
 ;; Author: Lennart Borgman
 ;; Created: Sun Dec 02 07:52:52 2007
@@ -32,7 +32,8 @@
 ;;
 ;; Put this file in your Emacs `load-path' and then in .emacs
 ;;
-;;    (require 'flymake-js)
+;;    (require 'flymake-for-js)
+;;    (flymake-for-js-loader)
 ;;
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -61,32 +62,31 @@
 ;;
 ;;; Code:
 
-;; Flymake JS mode
-
+(eval-when-compile (require 'cl))
 (require 'flymake)
 
-(defconst flymake-js-dir
+(defconst flymake-for-js-dir
   (file-name-directory (or load-file-name
                            (when (boundp 'bytecomp-filename) bytecomp-filename)
                            buffer-file-name))
-  "Installation directory for flymake-js.")
+  "Installation directory for flymake-for-js.")
 
 ;;;###autoload
-(defgroup flymake-js nil
+(defgroup flymake-for-js nil
   "Customization group for flymake for javascript."
   :group 'flymake)
 
-(defcustom flymake-allowed-js-file-name-masks '(("\\.json\\'" flymake-js-init)
-                                                ("\\.js\\'" flymake-js-init))
+(defcustom flymake-allowed-js-file-name-masks '(("\\.json\\'" flymake-for-js-init)
+                                                ("\\.js\\'" flymake-for-js-init))
   "Filename extensions that switch on js syntax checks."
   :type '(repeat (list (regexp :tag "File name regexp")
                        (function :tag "Init function")
                        (choice (const :tag "No cleanup function" nil)
                                (function :tag "Cleanup function"))))
-  :group 'flymake-js)
+  :group 'flymake-for-js)
 
 
-(defvar flymake-js-err-line-pattern-re
+(defvar flymake-for-js-err-line-pattern-re
   '(;; These pattern are probably for Rhino:
     ("^js: \"\\(.+\\)\", line \\([0-9]+\\): \\(.+\\)$" 1 2 nil 3)
     ("^js: uncaught JavaScript \\(.+\\)$" nil nil nil 1)
@@ -97,7 +97,7 @@
     ("^\\(.+\\)\:\\([0-9]+\\)\: \\(strict warning: trailing comma.+\\)\:$" 1 2 nil 3))
   "Regexp matching JavaScript error messages")
 
-(defcustom flymake-js-rhino-jar "/path/to/js.jar"
+(defcustom flymake-for-js-rhino-jar "/path/to/js.jar"
   "Path to Rihno jar file.
 Download and install Rhino JavaScript engine from
 
@@ -107,42 +107,42 @@ This variable should point to the file js.jar that is in the top
 directory of the Rhino dir tree. \(It was differently named
 earlier and might perhaps be renamed again.)"
   :type '(file :must-match t)
-  :group 'flymake-js)
+  :group 'flymake-for-js)
 
 ;;(setq flymake-log-level 3)
-;;(setq flymake-js-rhino-use-jslint nil)
-(defcustom flymake-js-rhino-use-jslint nil
+;;(setq flymake-for-js-rhino-use-jslint nil)
+(defcustom flymake-for-js-rhino-use-jslint nil
   "Use jslint.js if this is non-nil.
 jslint.js will give you warnings about style things like indentation too."
   :type 'boolean
-  :group 'flymake-js)
+  :group 'flymake-for-js)
 
-(defcustom flymake-js-rhino-js (expand-file-name "rhino.js" flymake-js-dir)
+(defcustom flymake-for-js-rhino-js (expand-file-name "rhino.js" flymake-for-js-dir)
   "Path to rhino.js.
-Only used if `flymake-js-rhino-use-jslint' is nil.
+Only used if `flymake-for-js-rhino-use-jslint' is nil.
 
 This file and env.js must be placed in the same directory. Default
 is this directory.
 
-Those files comes with Rhino, see `flymake-js-rhino-jar'."
+Those files comes with Rhino, see `flymake-for-js-rhino-jar'."
   :type '(file :must-match t)
-  :group 'flymake-js)
+  :group 'flymake-for-js)
 
-(defcustom flymake-js-rhino-jslint (expand-file-name "jslint.js" flymake-js-dir)
+(defcustom flymake-for-js-rhino-jslint (expand-file-name "jslint.js" flymake-for-js-dir)
   "Path to jslint.js.
-Only used if `flymake-js-rhino-use-jslint' is t.
+Only used if `flymake-for-js-rhino-use-jslint' is t.
 
 If you do not have this file you can download it from URL
 `http://www.jslint.com/rhino/jslint.js'. I had to change quit(2)
 to quit(0) in it \(which seems like a bug in `flymake-mode' to
 me)."
   :type '(file :must-match t)
-  :group 'flymake-js)
+  :group 'flymake-for-js)
 
-;;(flymake-js-check-rhino-js)
-(defun flymake-js-check-rhino-js ()
+;;(flymake-for-js-check-rhino-js)
+(defun flymake-for-js-check-rhino-js ()
   "Checks that the path to env.js is ok."
-  (with-current-buffer (find-file-noselect flymake-js-rhino-js)
+  (with-current-buffer (find-file-noselect flymake-for-js-rhino-js)
     (let* ((proj-folder (file-name-as-directory (file-name-directory (buffer-file-name))))
            (proj-line (concat "var project_folder = 'file:///" proj-folder "';"))
            (proj-line-re "^\\W*var\\W+project_folder\\W*=\\W*"))
@@ -161,7 +161,7 @@ me)."
           (insert proj-line "\n")
           (basic-save-buffer))))))
 
-(defcustom flymake-js-engine 'rhino
+(defcustom flymake-for-js-engine 'rhino
   "Javascript engine to use.
 You may have to restart Emacs after changing this - if you can
 not figure out what buffers and processes to kill.
@@ -170,65 +170,60 @@ I have only been able to test Rhino since I do not have
 SpiderMonkey."
   :type '(choice (const :tag "Rhino" rhino)
                  (const :tag "SpiderMonkey" spidermonkey))
-  :group 'flymake-js)
+  :group 'flymake-for-js)
 
-(defun flymake-js-init ()
-  (message "running flymake-js-init")
+(defun flymake-for-js-init ()
+  (set (make-local-variable 'flymake-err-line-patterns) flymake-for-js-err-line-pattern-re)
   (let* ((temp-file (flymake-init-create-temp-buffer-copy
                      'flymake-create-temp-inplace))
          (local-file (file-relative-name
                       temp-file
                       (file-name-directory buffer-file-name))))
-    (flymake-js-check-has-engine)
+    (flymake-for-js-check-has-engine)
     (cond
-     ((eq flymake-js-engine 'rhino)
-      (list "java" (list "-jar" flymake-js-rhino-jar
-                         (if flymake-js-rhino-use-jslint
-                             flymake-js-rhino-jslint
-                           flymake-js-rhino-js)
+     ((eq flymake-for-js-engine 'rhino)
+      (list "java" (list "-jar" flymake-for-js-rhino-jar
+                         (if flymake-for-js-rhino-use-jslint
+                             flymake-for-js-rhino-jslint
+                           flymake-for-js-rhino-js)
                          local-file)))
-     ((eq flymake-js-engine 'spidermonkey)
+     ((eq flymake-for-js-engine 'spidermonkey)
       (list "js" (list "-s" local-file)))
      (t
-      (error "Bad value: %s" flymake-js-engine)))))
+      (error "Bad value: %s" flymake-for-js-engine)))))
 
-(defvar flymake-js-has-engine nil)
+(defvar flymake-for-js-has-engine nil)
 
-(defun flymake-js-check-has-engine ()
+(defun flymake-for-js-check-has-engine ()
   "Check for the needed files."
-  (if flymake-js-has-engine
+  (if flymake-for-js-has-engine
       t
     (cond
      ;; Rhino
-     ((eq flymake-js-engine 'rhino)
+     ((eq flymake-for-js-engine 'rhino)
       (unless (executable-find "java")
         (error "Could not find java executable"))
-      (unless (file-exists-p flymake-js-rhino-jar)
-        (error "Could not find file %s\n\nPlease customize flymake-js-rhino-jar\n"
-               flymake-js-rhino-jar))
-      (if flymake-js-rhino-use-jslint
-          (unless (file-exists-p flymake-js-rhino-jslint)
-            (error "Could not find file %s" flymake-js-rhino-jslint))
-        (unless (file-exists-p flymake-js-rhino-js)
-          (error "Could not find file %s" flymake-js-rhino-js))
-        (flymake-js-check-rhino-js)))
+      (unless (file-exists-p flymake-for-js-rhino-jar)
+        (error "Could not find file %s\n\nPlease customize flymake-for-js-rhino-jar\n"
+               flymake-for-js-rhino-jar))
+      (if flymake-for-js-rhino-use-jslint
+          (unless (file-exists-p flymake-for-js-rhino-jslint)
+            (error "Could not find file %s" flymake-for-js-rhino-jslint))
+        (unless (file-exists-p flymake-for-js-rhino-js)
+          (error "Could not find file %s" flymake-for-js-rhino-js))
+        (flymake-for-js-check-rhino-js)))
      ;; SpiderMonkey
-     ((eq flymake-js-engine 'spidermonkey)
+     ((eq flymake-for-js-engine 'spidermonkey)
       (unless (executable-find "js")
         (error "Could not find js program")))
      (t
-      (error "Bad value: %s" flymake-js-engine)))
-    (setq flymake-js-has-engine t)))
+      (error "Bad value: %s" flymake-for-js-engine)))
+    (setq flymake-for-js-has-engine t)))
 
-;;;###autoload
-(defun flymake-js-load ()
+(defun flymake-for-js-loader ()
   (dolist (rec flymake-allowed-js-file-name-masks)
-    (add-to-list 'flymake-allowed-file-name-masks rec))
-  (dolist (rec flymake-js-err-line-pattern-re)
-    (add-to-list 'flymake-err-line-patterns rec)))
+    (push 'flymake-allowed-file-name-masks rec)))
 
-;;(eval-after-load 'javascript (flymake-js-load))
-
-(provide 'flymake-js)
+(provide 'flymake-for-js)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; flymake-js.el<2> ends here
+;;; flymake-for-js.el ends here

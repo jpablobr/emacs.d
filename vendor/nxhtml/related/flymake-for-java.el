@@ -1,4 +1,4 @@
-;;; flymake-java-1.el --- Flymake for single java files
+;;; flymake-for-java.el --- Flymake for single java files
 ;;
 ;; Author: Lennart Borgman (lennart O borgman A gmail O com)
 ;; Created: 2009-12-02 Wed
@@ -94,7 +94,6 @@ Use CREATE-TEMP-F for creating temp copy."
 ;;       (when flymake-mode (flymake-mode -1))
 ;;       (flymake-mode 1))))
 
-;;;###autoload
 (defun flymake-java-1-load ()
   (let ((jrec (assoc "\\.java\\'" flymake-allowed-file-name-masks)))
     (setq flymake-allowed-file-name-masks
@@ -104,6 +103,8 @@ Use CREATE-TEMP-F for creating temp copy."
            '("\\.java\\'" flymake-complex-java-init flymake-simple-java-cleanup)
            flymake-allowed-file-name-masks))))
 
-(provide 'flymake-java-1)
+(flymake-java-1-load)
+
+(provide 'flymake-for-java)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; flymake-java-1.el ends here
+;;; flymake-for-java.el ends here

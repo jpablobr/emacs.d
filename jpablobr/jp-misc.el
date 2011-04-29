@@ -5,7 +5,7 @@
 
 (add-to-list 'load-path (concat misc-dir "/maxframe"))
 (add-to-list 'load-path (concat misc-dir "/icicles"))
-(add-to-list 'load-path (concat misc-dir "/cheat_fu-mode"))
+(add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
 (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
 
 ;; ---------------------------------------------------------------------
@@ -115,7 +115,6 @@
 (require 'cheat-fu)
 (cheat-fu-mode)
 (setq cheat-fu-root "/home/jpablobr/.cheat_fu_sheets/")
-;;(add-to-list 'auto-mode-alist '("^\\*Cheat_fu\\*$" . cheat_fu-mode))
 
 ;; --------------------------------------------------------------------
 ;; - Textmate

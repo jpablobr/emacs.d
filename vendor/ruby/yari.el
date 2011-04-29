@@ -5,7 +5,7 @@
 ;; Author: Aleksei Gusev <aleksei.gusev@gmail.com>
 ;; Maintainer: Aleksei Gusev <aleksei.gusev@gmail.com>
 ;; Created: 24 Apr 2010
-;; Version: 0.4
+;; Version: 0.5
 ;; Keywords: tools
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -51,6 +51,8 @@
 
 ;;; Code:
 
+(eval-when-compile (require 'cl))
+
 (require 'thingatpt)
 (require 'ansi-color)
 
@@ -62,6 +64,9 @@
   "Hooks to run when invoking yari-mode."
   :group 'yari
   :type 'hook)
+
+(defcustom yari-ri-program-name "ri"
+  "This constant defines how yari.el will find ri, e.g. `ri1.9'.")
 
 (defvar yari-anything-source-ri-pages
   '((name . "RI documentation")
@@ -145,10 +150,11 @@
 
 (defun yari-ri-lookup (name)
   "Return content from ri for NAME."
-  (if (member name (yari-ruby-obarray))
-      (shell-command-to-string
-       (format "ri -T -f ansi %s" (shell-quote-argument name)))
-    (format "%s is unknown symbol to RI." name)))
+  (assert (member name (yari-ruby-obarray)) nil
+          (format "%s is unknown symbol to RI." name))
+  (shell-command-to-string
+   (format (concat yari-ri-program-name " -T -f ansi %s")
+           (shell-quote-argument name))))
 
 (when-ert-loaded
  (ert-deftest yari-test-ri-lookup-should-generate-error ()
@@ -271,8 +277,9 @@
 
 (defun yari-get-ri-version (&optional version)
   "Return list of version parts or RI."
-  (let* ((raw-version-output (or version
-                                 (shell-command-to-string "ri --version")))
+  (let* ((raw-version-output
+          (or version (shell-command-to-string
+                       (concat yari-ri-program-name " --version"))))
          (raw-version (cadr (split-string raw-version-output))))
     (string-match "v?\\(.*\\)" raw-version)
     (match-string 1 raw-version)))

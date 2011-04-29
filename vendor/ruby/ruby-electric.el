@@ -1,26 +1,64 @@
-;;; ruby-electric.el --- electric editing commands for ruby files
+;; -*-Emacs-Lisp-*-
 ;;
-;; Copyright (C) 2005 by Dee Zsombor
+;; ruby-electric.el --- electric editing commands for ruby files
 ;;
-;; Authors: Dee Zsombor <dee dot zsombor at gmail dot com>
-;; Maintainer: Jakub Kuźma <qoobaa@gmail.com>
-;; URL: http://github.com/qoobaa/ruby-electric/raw/master/ruby-electric.el
-;; Keywords: languages ruby
-;; Version: 1.1
+;; Copyright (C) 2005 by Dee Zsombor <dee dot zsombor at gmail dot com>.
+;; Released under same license terms as Ruby.
+;;
+;; Due credit: this work was inspired by a code snippet posted by
+;; Frederick Ros at http://rubygarden.org/ruby?EmacsExtensions.
+;;
+;; Following improvements where added:
+;;
+;;       - handling of strings of type 'here document'
+;;       - more keywords, with special handling for 'do'
+;;       - packaged into a minor mode
+;;
+;; Usage:
+;;
+;;    0) copy ruby-electric.el into directory where emacs can find it.
+;;
+;;    1) modify your startup file (.emacs or whatever) by adding
+;;       following line:
+;;
+;;            (require 'ruby-electric)
+;;
+;;       note that you need to have font lock enabled beforehand.
+;;
+;;    2) toggle Ruby Electric Mode on/off with ruby-electric-mode.
+;;
+;; Changelog:
+;;
+;;  2005/Jan/14: inserts matching pair delimiters like {, [, (, ', ",
+;;  ' and | .
+;;
+;;  2005/Jan/14: added basic Custom support for configuring keywords
+;;  with electric closing.
+;;
+;;  2005/Jan/18: more Custom support for configuring characters for
+;;  which matching expansion should occur.
+;;
+;;  2005/Jan/18: no longer uses 'looking-back' or regexp character
+;;  classes like [:space:] since they are not implemented on XEmacs.
+;;
+;;  2005/Feb/01: explicitly provide default argument of 1 to
+;;  'backward-word' as it requires it on Emacs 21.3
+;;
+;;  2005/Mar/06: now stored inside ruby CVS; customize pages now have
+;;  ruby as parent; cosmetic fixes.
 
-;;; Code:
 
 (require 'ruby-mode)
 
 (defgroup ruby-electric nil
   "Minor mode providing electric editing commands for ruby files"
-  :group 'ruby)
+  :group 'ruby) 
 
 (defconst ruby-electric-expandable-do-re
   "do\\s-$")
 
 (defconst ruby-electric-expandable-bar
-  "\\s-\\(do\\s-+\\|{\\s-*\\)|")
+  "\\s-\\(do\\|{\\)\\s-+|")
 
 (defvar ruby-electric-matching-delimeter-alist
   '((?\[ . ?\])
@@ -54,7 +92,6 @@ inserted. The word 'all' will do all insertions."
 closing bracket or not."
   :type 'boolean :group 'ruby-electric)
 
-;;;###autoload
 (define-minor-mode ruby-electric-mode
   "Toggle Ruby Electric minor mode.
 With no argument, this command toggles the mode.  Non-null prefix
@@ -82,13 +119,7 @@ strings. Note that you must have Font Lock enabled."
   (define-key ruby-mode-map "[" 'ruby-electric-matching-char)
   (define-key ruby-mode-map "\"" 'ruby-electric-matching-char)
   (define-key ruby-mode-map "\'" 'ruby-electric-matching-char)
-  (define-key ruby-mode-map "|" 'ruby-electric-bar)
-  (define-key ruby-mode-map (kbd "RET") 'ruby-electric-return)
-  (define-key ruby-mode-map (kbd "C-j") 'ruby-electric-return)
-  (define-key ruby-mode-map (kbd "C-m") 'ruby-electric-return)
-  (define-key ruby-mode-map "}" 'ruby-electric-close-matching-char)
-  (define-key ruby-mode-map ")" 'ruby-electric-close-matching-char)
-  (define-key ruby-mode-map "]" 'ruby-electric-close-matching-char))
+  (define-key ruby-mode-map "|" 'ruby-electric-bar))
 
 (defun ruby-electric-space (arg)
   (interactive "P")
@@ -120,7 +151,7 @@ strings. Note that you must have Font Lock enabled."
              (ruby-electric-single-keyword-in-line-re
               (concat "\\s-*" ruby-electric-keywords-re)))
         (save-excursion
-          (ruby-backward-sexp 1)
+          (backward-word 1)
           (or (looking-at ruby-electric-expandable-do-re)
               (and (looking-at ruby-electric-keywords-re)
                    (not (string= "do" (match-string 1)))
@@ -134,22 +165,22 @@ strings. Note that you must have Font Lock enabled."
   (self-insert-command (prefix-numeric-value arg))
   (if (ruby-electric-is-last-command-char-expandable-punct-p)
       (cond ((ruby-electric-code-at-point-p)
+             (insert " ")
              (save-excursion
                (if ruby-electric-newline-before-closing-bracket
                    (newline))
                (insert "}")))
             ((ruby-electric-string-at-point-p)
+             (if (eq last-command-event ?{)
+                 (save-excursion
+                   (when (not (char-equal ?\# (preceding-char)))
+                       (delete-backward-char)
+                       (insert "#"))))
              (save-excursion
                (backward-char 1)
                (when (char-equal ?\# (preceding-char))
                  (forward-char 1)
                  (insert "}")))))))
-
-(defun ruby-electric-close-curlies(arg)
-  (interactive "P")
-  (if (looking-at "}")
-      (forward-char 1)
-    (self-insert-command (prefix-numeric-value arg))))
 
 (defun ruby-electric-matching-char(arg)
   (interactive "P")
@@ -159,12 +190,6 @@ strings. Note that you must have Font Lock enabled."
        (save-excursion
          (insert (cdr (assoc last-command-char
                              ruby-electric-matching-delimeter-alist))))))
-
-(defun ruby-electric-close-matching-char(arg)
-  (interactive "P")
-  (if (looking-at (string last-command-char))
-      (forward-char 1)
-    (self-insert-command (prefix-numeric-value arg))))
 
 (defun ruby-electric-bar(arg)
   (interactive "P")
@@ -176,29 +201,5 @@ strings. Note that you must have Font Lock enabled."
        (save-excursion
          (insert "|"))))
 
-(defun ruby-electric-return-can-be-expanded-p()
-  (if (ruby-electric-code-at-point-p)
-      (let* ((ruby-electric-keywords-re
-              (concat ruby-electric-simple-keywords-re "$")))
-        (save-excursion
-          (ruby-backward-sexp 1)
-          (looking-at ruby-electric-keywords-re)))))
-
-(defun ruby-electric-return ()
-  (interactive "*")
-  (if (ruby-electric-return-can-be-expanded-p)
-      (save-excursion
-        (newline)
-        (ruby-insert-end)))
-  (reindent-then-newline-and-indent))
-
-;; FIXME: it should be available in next versions of ruby-mode.el
-(defun ruby-insert-end ()
-  (interactive)
-  (insert "end")
-  (ruby-indent-line t)
-  (end-of-line))
 
 (provide 'ruby-electric)
-
-;;; ruby-electric.el ends here

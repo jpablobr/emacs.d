@@ -20,4 +20,6 @@ ac-comphist.dat
 ## org stuff
 .org-id-locations
 *~
-u-js
+u_js
+u_ruby
+u_git
