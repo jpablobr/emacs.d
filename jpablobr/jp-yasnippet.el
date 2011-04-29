@@ -7,11 +7,6 @@
 (add-to-list 'load-path snippets-dir)
 (add-to-list 'load-path (concat snippets-dir "/yasnippet-dot-el"))
 
-;; (when (require 'espresso nil t)
-;;   (add-hook 'js2-mode-hook
-;;           '(lambda ()
-;;              (setq yas/mode-symbol 'espresso-mode))))
-
 (require 'yasnippet)
 (require 'dropdown-list)
 (setq yas/prompt-functions '(  yas/dropdown-prompt
@@ -29,7 +24,7 @@
 (add-hook 'org-mode-hook 'yas/minor-mode-on)
 (add-hook 'haskell-mode-hook 'yas/minor-mode-on)
 (add-hook 'css-mode-hook 'yas/minor-mode-on)
-(add-hook 'nxhtml-mode-hook 'yas/minor-mode-on)
+(add-hook 'nxml-mode-hook 'yas/minor-mode-on)
 (add-hook 'haml-mode-hook 'yas/minor-mode-on)
 (add-hook 'sass-mode-hook 'yas/minor-mode-on)
 (add-hook 'jse-mode-hook 'yas/minor-mode-on)
@@ -47,17 +42,13 @@
 ;;; ---------------------------------------------------------
 ;;; - hooks for different modes on specific modes
 ;;;
-(yas/define-snippets  'nxhtml-mode nil  'html-mode)
+(yas/define-snippets  'nxml-mode nil  'html-mode)
 (yas/define-snippets  'js2-mode nil  'javascript-mode)
 (yas/define-snippets  'espresso-mode nil  'javascript-mode)
 
-;; (add-hook 'nxhtml-mode-hook
-;;           '(lambda ()
-;;              (setq yas/mode-symbol 'html-mode)))
-
-;; (add-hook 'nxml-mode-hook
-;;           '(lambda ()
-;;              (setq yas/mode-symbol 'html-mode)))
+(add-hook 'nxml-mode-hook
+          '(lambda ()
+             (setq yas/mode-symbol 'html-mode)))
 
 (add-hook 'cperl-mode-hook
           '(lambda ()

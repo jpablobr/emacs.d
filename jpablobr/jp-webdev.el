@@ -7,10 +7,8 @@
 ;;; - nXML
 ;;;
 
-(load "~/.emacs.d/vendor/nxhtml/autostart.el")
-
 (dolist (i '("xml" "xsd" "rng" "xsl" "xslt" "svg" "rss" "html" "php"))
-  (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'nxhtml-mode)))
+  (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'nxml-mode)))
 
 ;;; ---------------------------------------------------------
 ;;; - HTML, JavaScript, CSS Setup, YAML
@@ -34,7 +32,6 @@
 ;;; ---------------------------------------------------------
 ;;; - HTML/mumamo setup
 ;;;
-(add-to-list 'load-path "~/.emacs.d/vendor/nxhtml/util")
 (autoload 'rng-clear-overlays "rng-valid" nil t)
 (custom-set-faces
  '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) nil)))

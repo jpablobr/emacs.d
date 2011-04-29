@@ -113,7 +113,7 @@
 ;; ---------------------------------------------------------------------
 ;; - Cheat-fu
 (require 'cheat-fu)
-(cheat-fu-mode)
+;; (cheat-fu-mode)
 (setq cheat-fu-root "/home/jpablobr/.cheat_fu_sheets/")
 
 ;; --------------------------------------------------------------------
@@ -180,16 +180,6 @@
 (autoload 'mode-compile-kill "mode-compile"
   "Command to kill a compilation launched by `mode-compile'" t)
 (global-set-key "\C-ck" 'mode-compile-kill)
-
-;; ---------------------------------------------------------------------
-;; - Chrome emacs edit
-(require 'edit-server)
-(edit-server-start)
-(if (locate-library "edit-server")
-    (progn
-      (require 'edit-server)
-      (setq edit-server-new-frame nil)
-      (edit-server-start)))
 
 ;; ---------------------------------------------------------------------
 ;; - header2

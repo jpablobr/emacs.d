@@ -38,7 +38,8 @@
                          gem-bin-path))
       (setenv "PATH" path)))))
 
-(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+(setq shell-prompt-pattern ":")
+;; (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Completions

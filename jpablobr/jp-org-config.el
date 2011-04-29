@@ -3,10 +3,6 @@
 
 (require 'org-install)
 
-;; (add-to-list 'load-path (concat misc-dir "/google-weather-el"))
-;; (require 'google-weather)
-;; (require 'org-google-weather)
-
 (defun yas/org-very-safe-expand ()
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
 
@@ -64,7 +60,7 @@
     "contrib"
     (expand-file-name
      "org"
-     (expand-file-name "src" dotfiles-dir))))))
+     (expand-file-name "misc" vendor-dir))))))
 
 (if (boundp 'Info-directory-list)
     (setq Info-directory-list (append Info-directory-list
@@ -75,7 +71,7 @@
              "doc"
              (expand-file-name
               "org"
-              (expand-file-name "src" dotfiles-dir)))
+              (expand-file-name "misc" vendor-dir)))
             Info-directory-list))
 
 (unless (boundp 'org-publish-project-alist)
@@ -244,36 +240,36 @@ do this for the whole buffer."
 
 (autoload 'ebib "ebib" "Ebib, a BibTeX database manager." t)
 
-(defun org-mode-reftex-setup ()
-  (load-library "reftex")
-  (and (buffer-file-name) (file-exists-p (buffer-file-name))
-       (progn
-     ;enable auto-revert-mode to update reftex when bibtex file changes on disk
-     (global-auto-revert-mode t)
-     (reftex-parse-all)
-     ;add a custom reftex cite format to insert links
-     (reftex-set-cite-format
-      '((?b . "[[bib:%l][%l-bib]]")
-        (?n . "[[notes:%l][%l-notes]]")
-        (?p . "[[papers:%l][%l-paper]]")
-        (?t . " \(%t %y, p. %p\)")
-        (?h . " \(%a %y, p. %p\)")
-        (?w . "%a %y, %t, %h .")
-        (?r . "%a %y, %t pp. %p.")))))
-  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
-  (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
+;; (defun org-mode-reftex-setup ()
+;;   (load-library "reftex")
+;;   (and (buffer-file-name) (file-exists-p (buffer-file-name))
+;;        (progn
+;;      ;enable auto-revert-mode to update reftex when bibtex file changes on disk
+;;      (global-auto-revert-mode t)
+;;      (reftex-parse-all)
+;;      ;add a custom reftex cite format to insert links
+;;      (reftex-set-cite-format
+;;       '((?b . "[[bib:%l][%l-bib]]")
+;;         (?n . "[[notes:%l][%l-notes]]")
+;;         (?p . "[[papers:%l][%l-paper]]")
+;;         (?t . " \(%t %y, p. %p\)")
+;;         (?h . " \(%a %y, p. %p\)")
+;;         (?w . "%a %y, %t, %h .")
+;;         (?r . "%a %y, %t pp. %p.")))))
+;;   (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
+;;   (define-key org-mode-map (kbd "C-c (") 'org-mode-reftex-search))
 
-(add-hook 'org-mode-hook 'org-mode-reftex-setup)
+;; (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 
-(defun org-mode-reftex-search ()
-  ;;jump to the notes for the paper pointed to at from reftex search
-  (interactive)
-  (org-open-link-from-string (format "[[notes:%s]]" (reftex-citation t))))
+;; (defun org-mode-reftex-search ()
+;;   ;;jump to the notes for the paper pointed to at from reftex search
+;;   (interactive)
+;;   (org-open-link-from-string (format "[[notes:%s]]" (reftex-citation t))))
 
-(setq org-link-abbrev-alist
-      '(("bib" . "~/org/papers/refs/refs.bib::%s")
-    ("notes" . "~/org/notes/notes.org::#%s")
-    ("papers" . "~/org/papers/%s.pdf")))
+;; (setq org-link-abbrev-alist
+;;       '(("bib" . "~/org/papers/refs/refs.bib::%s")
+;;     ("notes" . "~/org/notes/notes.org::#%s")
+;;     ("papers" . "~/org/papers/%s.pdf")))
 
 ;; (setq org-remember-templates
 ;;       '(("Todo" ?t "* TODO %^{Brief Description} %^g\n%?\nAdded: %U" "~/org/newgtd.org" "Tasks")

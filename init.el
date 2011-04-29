@@ -46,8 +46,8 @@
 
 ;;; Stuff to run only on window systems.
 (when window-system
-  (load-file (concat jpablobr-dir "/jp-webdev.el"))
-  (require 'jp-webdev)
+ (load-file (concat jpablobr-dir "/jp-webdev.el"))
+ (require 'jp-webdev)
   (load-file (concat jpablobr-dir "/jp-js.el"))
   (require 'jp-js)
   (load-file (concat jpablobr-dir "/jp-org-config.el"))
@@ -78,6 +78,8 @@
 ;; (require 'jp-scheme)
 ;; (load-file (concat jpablobr-dir "/jp-artist.el"))
 ;; (require 'jp-artist)
+;; (load-file (concat jpablobr-dir "/jp-perl.el"))
+;; (require 'jp-perl)
 (load-file (concat jpablobr-dir "/jp-yaml.el"))
 (require 'jp-yaml)
 (load-file (concat jpablobr-dir "/jp-haml.el"))
@@ -88,8 +90,6 @@
 (require 'jp-ruby)
 (load-file (concat jpablobr-dir "/jp-markdown.el"))
 (require 'jp-markdown)
-(load-file (concat jpablobr-dir "/jp-perl.el"))
-(require 'jp-perl)
 (load-file (concat jpablobr-dir "/jp-lisp.el"))
 (require 'jp-lisp)
 (load-file (concat jpablobr-dir "/jp-plain-text.el"))
