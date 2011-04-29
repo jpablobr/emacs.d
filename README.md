@@ -2,8 +2,8 @@
 
 ## INSTALL
 
-        git clone https://jpablobr@github.com/jpablobr/emacs.d.git
-        cat Makefile
+        $ git clone git://github.com/jpablobr/emacs.d.git ~/.emacs.d
+        $ cat ~/.emacs.d/Makefile
 
 ### LOOKS
 
