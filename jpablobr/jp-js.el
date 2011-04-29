@@ -12,23 +12,21 @@
 ;;;
 (setq js-dir (concat vendor-dir "/js"))
 (add-to-list 'load-path js-dir)
-(defvar preferred-javascript-mode 'js-mode)
-(defvar preferred-mmm-javascript-mode 'js-mode)
+(defvar preferred-javascript-mode 'js2-mode)
+(defvar preferred-mmm-javascript-mode 'js2-mode)
 (defvar preferred-javascript-indent-level 2)
 
-(setq auto-mode-alist (cons `("\\.js$" . ,preferred-javascript-mode)
-                            (loop for entry in auto-mode-alist
-                                  unless (eq preferred-javascript-mode (cdr entry))
-                                  collect entry)))
+;;; ----------------------------------------------------------------------------
+;;; - JS2
+;;;
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 ;; On-the-fly syntax checking
 (autoload 'flymake-js-load "flymake-js" "On-the-fly syntax checking of javascript" t)
 (eval-after-load "js"
   '(progn
      (add-hook 'js-mode-hook 'flymake-js-load)))
-
-;; js2-mode
-(autoload 'js2-mode "js2-mode" "js2-mode")
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Configs
