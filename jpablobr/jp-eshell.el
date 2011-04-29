@@ -38,8 +38,10 @@
                          gem-bin-path))
       (setenv "PATH" path)))))
 
-(setq shell-prompt-pattern ":")
-;; (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+
+(autoload 'flymake-shell-load "flymake-shell" "On-the-fly syntax checking of shell scripts" t)
+(add-hook 'sh-mode-hook 'flymake-shell-load)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Completions

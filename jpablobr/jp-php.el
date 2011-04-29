@@ -3,17 +3,14 @@
 (setq php-dir (concat vendor-dir "/php"))
 (add-to-list 'load-path php-dir)
 (add-to-list 'load-path (concat php-dir "/php-mode"))
-
-(setq auto-mode-alist  (cons '("\\.php$" . php-mode) auto-mode-alist))
-
-(add-hook 'php-mode-hook
-          '(lambda()
-            (yas/minor-mode 1)))
-
-(load "php-mode")
 (require 'php-mode)
-(add-to-list 'auto-mode-alist
-             '("\\.php[34]?\\'\\|\\.phtml\\'" . php-mode))
+
+(autoload 'php-mode "php-mode" "mode for editing php files" t)
+(add-auto-mode 'php-mode "\\.php[345]?\\'\\|\\.phtml\\." "\\.(inc|tpl)$" "\\.module$")
+(add-hook 'php-mode-hook
+          (lambda ()
+            (require 'flymake-php)
+            (flymake-mode t)))
 
 (defun wicked/php-mode-init ()
   "Set some buffer-local variables."

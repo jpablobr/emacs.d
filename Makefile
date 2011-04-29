@@ -9,7 +9,7 @@ vendor_dir = $(emacs_dir)/vendor
 js_dir     = $(vendor_dir)/js
 ruby_dir   = $(vendor_dir)/ruby
 git_dir    = $(vendor_dir)/git
-misc_dir    = $(vendor_dir)/misc
+misc_dir   = $(vendor_dir)/misc
 
 update: u_js u_ruby u_git u_misc
 
@@ -18,7 +18,8 @@ sudo_update: u_sudo
 u_js:
 	@cd $(js_dir) && \
 	curl -O https://github.com/mooz/js2-mode/raw/master/js2-mode.el && rm js2-mode.elc && \
-	curl -O https://github.com/defunkt/coffee-mode/raw/master/coffee-mode.el && rm coffee-mode.elc
+	curl -O https://github.com/defunkt/coffee-mode/raw/master/coffee-mode.el && rm coffee-mode.elc && \
+  curl -O https://github.com/purcell/emacs.d/raw/master/site-lisp/flymake-js/flymake-js.el && rm flymake-js.elc
 	@touch u_js
 
 u_ruby:
@@ -47,20 +48,22 @@ u_git:
 	@touch u_git
 
 u_misc:
-	@cd $(ruby_dir) && \
-	curl -O https://github.com/senny/rvm.el/raw/master/rvm.el && rm rvm.elc
+	@cd $(misc_dir) && \
+	curl -O https://github.com/senny/rvm.el/raw/master/rvm.el && rm rvm.elc && \
+  curl -O https://github.com/purcell/emacs.d/raw/master/site-lisp/flymake-shell/flymake-shell.el && rm flymake-shell.elc
 	@touch u_misc
 
 u_sudo:
-	@rm -fr auctex magit $(misc_dir)/org
+	@rm -fr auctex magit $(misc_dir)/org $(misc_dir)/mmm-mode
 	@cd $(misc_dir) && \
-	git clone https://github.com/emacsmirror/org-mode.git org && \
-	cd org && make
+	git clone https://github.com/purcell/mmm-mode.git
+	@cd $(misc_dir) && \
+	git clone https://github.com/emacsmirror/org-mode.git org
 	@git clone https://github.com/philjackson/magit.git
 	@cd magit && make && sudo make install
 	@git clone http://github.com/eschulte/auctex.git
 	@cd auctex && ./configure && make && sudo make install
-	@rm -fr auctex magit
+	@rm -fr auctex magit $(misc_dir)/mmm-mode/.git $(misc_dir)/org/.git
 	@touch u_sudo
 
 clean:

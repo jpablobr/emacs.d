@@ -344,4 +344,11 @@ Delete the current buffer too."
     (setq mygem (replace-regexp-in-string " " "%20" mygem))
     (shell-command (concat "bundle exec gem open " mygem) buffer)))
 
+;;----------------------------------------------------------------------------
+;; Handier way to add modes to auto-mode-alist
+;;----------------------------------------------------------------------------
+(defun add-auto-mode (mode &rest patterns)
+  (dolist (pattern patterns)
+    (add-to-list 'auto-mode-alist (cons pattern mode))))
+
 (provide 'jp-defuns)

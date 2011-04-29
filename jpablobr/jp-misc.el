@@ -7,6 +7,7 @@
 (add-to-list 'load-path (concat misc-dir "/icicles"))
 (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
 (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
+(add-to-list 'load-path (concat misc-dir "/mmm-mode"))
 
 ;; ---------------------------------------------------------------------
 ;; - Global custom variables
@@ -109,6 +110,17 @@
 ;; --------------------------------------------------------------------
 ;; - Grep edit
 (require 'grep-edit)
+
+;; https://github.com/purcell/emacs.d/blob/master/init-regex-tool.el
+;; (autoload 'regex-tool "regex-tool" "Mode for exploring regular expressions" t)
+;; (setq regex-tool-backend 'perl)
+
+;;----------------------------------------------------------------------------
+;; Multiple major modes
+;;----------------------------------------------------------------------------
+(require 'mmm-auto)
+(setq mmm-global-mode 'buffers-with-submode-classes)
+(setq mmm-submode-decoration-level 2)
 
 ;; ---------------------------------------------------------------------
 ;; - Cheat-fu
