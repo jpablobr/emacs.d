@@ -98,7 +98,7 @@
 (require 'jp-autocomplete)
 
 ;; ---------------------------------------------------------------------
-;; - requiring yasnippets after everything has been loaded...
+;; - requiring yasnippets after everything has been loaded.
 (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
 (require 'jp-yasnippet)
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
