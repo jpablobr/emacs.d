@@ -122,7 +122,7 @@
 (global-set-key (kbd "C-l rf") 'rename-file)
 (global-set-key (kbd "C-l ha") 'hs-hide-all)
 (global-set-key (kbd "C-l hs") 'hs-show-all)
-(global-set-key (kbd "C-l ht") 'hs-toggle-hiding)
+(global-set-key (kbd "C-l hl") 'hs-toggle-hiding)
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
 (global-set-key (kbd "C-l cg") 'cheat-fu-commit)
