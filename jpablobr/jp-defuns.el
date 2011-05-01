@@ -78,18 +78,18 @@
            (position (cdr (assoc selected-symbol name-and-pos))))
       (goto-char position))))
 
-(defun coding-hook ()
-  "Enable things that are convenient across all coding buffers."
-  (set (make-local-variable 'comment-auto-fill-only-comments) t)
-  (make-local-variable 'column-number-mode)
-  (column-number-mode t)
-  (setq save-place t)
-  (auto-fill-mode) ;; in comments only
-  (if window-system (hl-line-mode t))
-  (pretty-lambdas)
-  ;; TODO: this breaks in js2-mode!
-  ;;(if (functionp 'idle-highlight) (idle-highlight))
-  )
+;; (defun coding-hook ()
+;;   "Enable things that are convenient across all coding buffers."
+;;   (set (make-local-variable 'comment-auto-fill-only-comments) t)
+;;   (make-local-variable 'column-number-mode)
+;;   (column-number-mode t)
+;;   (setq save-place t)
+;;   (auto-fill-mode) ;; in comments only
+;;   (if window-system (hl-line-mode t))
+;;   (pretty-lambdas)
+;;   ;; TODO: this breaks in js2-mode!
+;;   ;;(if (functionp 'idle-highlight) (idle-highlight))
+;;   )
 
 (defun untabify-buffer ()
   (interactive)
@@ -294,20 +294,6 @@ Delete the current buffer too."
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
 
-(defun find-file-as-root ()
-  "Find a file as root."
-  (interactive)
-  (let* ((parsed (when (tramp-tramp-file-p default-directory)
-                   (coerce (tramp-dissect-file-name default-directory)
-                           'list)))
-         (default-directory
-           (if parsed
-               (apply 'tramp-make-tramp-file-name
-                      (append '("sudo" "root") (cddr parsed)))
-             (tramp-make-tramp-file-name "sudo" "root" "localhost"
-                                         default-directory))))
-    (call-interactively 'find-file)))
-
 (defun toggle-alternate-file-as-root (&optional filename)
   "Toggle between the current file as the default user and as root."
   (interactive)
@@ -344,37 +330,30 @@ Delete the current buffer too."
     (setq mygem (replace-regexp-in-string " " "%20" mygem))
     (shell-command (concat "bundle exec gem open " mygem) buffer)))
 
-;;----------------------------------------------------------------------------
 ;; Handier way to add modes to auto-mode-alist
-;;----------------------------------------------------------------------------
 (defun add-auto-mode (mode &rest patterns)
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
-(defun hs-hide-all-comments ()
-  "Hide all top level blocks, if they are comments, displaying only first line.
-Move point to the beginning of the line, and run the normal hook
-`hs-hide-hook'.  See documentation for `run-hooks'."
-  (interactive)
-  (hs-life-goes-on
-   (save-excursion
-     (unless hs-allow-nesting
-       (hs-discard-overlays (point-min) (point-max)))
-     (goto-char (point-min))
-     (let ((spew (make-progress-reporter "Hiding all comment blocks..."
-                                         (point-min) (point-max)))
-           (re (concat "\\(" hs-c-start-regexp "\\)")))
-       (while (re-search-forward re (point-max) t)
-         (if (match-beginning 1)
-           ;; found a comment, probably
-           (let ((c-reg (hs-inside-comment-p)))
-             (when (and c-reg (car c-reg))
-               (if (> (count-lines (car c-reg) (nth 1 c-reg)) 1)
-                   (hs-hide-block-at-point t c-reg)
-                 (goto-char (nth 1 c-reg))))))
-         (progress-reporter-update spew (point)))
-       (progress-reporter-done spew)))
-   (beginning-of-line)
-   (run-hooks 'hs-hide-hook)))
+;; escape quotes
+(defun escape-quotes-region (start end)
+  (interactive "r")
+  "Replace \" by \\\"."
+  (replace-pairs-region start end '(["\"" "\\\""])))
+
+(defun unescape-quotes-region (start end)
+  (interactive "r")
+  "Replace \\\" by \"."
+  (replace-pairs-region start end '(["\\\"" "\""])))
+
+(defun add-string-to-end-of-lines-in-region (str b e)
+  "prompt for string, add it to end of lines in the region"
+  (interactive "sWhat shall we append? \nr")
+  (goto-char e)
+  (forward-line -1)
+  (while (> (point) b)
+    (end-of-line)
+    (insert str)
+    (forward-line -1)))
 
 (provide 'jp-defuns)
