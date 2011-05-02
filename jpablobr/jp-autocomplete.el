@@ -40,7 +40,6 @@
                 perl-mode
                 cperl-mode
                 python-mode
-                ruby-mode
                 jde-mode
                 inf-perl-mode
                 javascript-mode
@@ -55,7 +54,11 @@
                 sh-mode
                 f90-mode
                 ada-mode
+                ruby-mode
                 inf-ruby-mode
+                RoR-mode
+                rinari-mode
+                rhtml-mode
                 clojure-mode
                 scheme-mode
                 org-mode
@@ -63,10 +66,7 @@
                 sgml-mode
                 sass-mode
                 haml-mode
-                html-mode
-                RoR-mode
-                rinari-mode
-                rhtml-mode)))
+                html-mode)))
 
 ;; Exclude very large buffers from dabbrev
 (defun smp-dabbrev-friend-buffer (other-buffer)
