@@ -194,17 +194,6 @@
 (global-set-key "\C-ck" 'mode-compile-kill)
 
 ;; ---------------------------------------------------------------------
-;; - header2
-(require 'header2)
-(add-hook 'write-file-hooks 'auto-update-file-header)
-(add-hook 'emacs-lisp-mode-hook 'auto-make-header)
-(add-hook 'c-mode-common-hook   'auto-make-header)
-(add-hook 'ruby-mode-common-hook   'auto-make-header)
-(add-hook 'perl-mode-common-hook   'auto-make-header)
-(add-hook 'sh-mode-common-hook   'auto-make-header)
-(add-hook 'before-save-hook 'time-stamp)
-
-;; ---------------------------------------------------------------------
 ;; - CUA enhanced functionality for the standard emacs bindings
 (cua-mode 'emacs)
 (setq CUA-mode-normal-cursor-color "red")

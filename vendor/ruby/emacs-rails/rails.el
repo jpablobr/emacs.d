@@ -410,9 +410,6 @@ necessary."
             (modify-syntax-entry ?: "w" (syntax-table))
             (modify-syntax-entry ?_ "w" (syntax-table))
             (local-set-key (kbd "C-.") 'complete-tag)
-            (local-set-key (if rails-use-another-define-key
-                               (kbd "TAB") (kbd "<tab>"))
-                           'indent-and-complete)
             (local-set-key (rails-key "f") '(lambda()
                                               (interactive)
                                               (mouse-major-mode-menu (rails-core:menu-position))))
@@ -425,17 +422,6 @@ necessary."
           (lambda()
             (speedbar-add-supported-extension "\\.rb")))
 
-(add-hook 'find-file-hooks
-          (lambda()
-            (rails-project:with-root
-             (root)
-             (progn
-               (local-set-key (if rails-use-another-define-key
-                                  (kbd "TAB") (kbd "<tab>"))
-                              'indent-and-complete)
-               (rails-minor-mode t)
-               (rails-apply-for-buffer-type)))))
-
 ;; Run rails-minor-mode in dired
 
 (add-hook 'dired-mode-hook
@@ -445,8 +431,6 @@ necessary."
 
 
 (autoload 'haml-mode "haml-mode" "" t)
-(autoload 'cucumber-mode "cucumber-mode" "Mode for editing cucumber files" t)
-
 (setq auto-mode-alist  (cons '("\\.rb$"      . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.rake$"    . ruby-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.mab$"     . ruby-mode) auto-mode-alist))

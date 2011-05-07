@@ -4,14 +4,16 @@
 ;;;
 ;; Snippets
 (setq snippets-dir (concat vendor-dir "/snippets"))
-(add-to-list 'load-path snippets-dir)
 (add-to-list 'load-path (concat snippets-dir "/yasnippet-dot-el"))
 
 (require 'yasnippet)
 (require 'dropdown-list)
+;; (setq yas/prompt-functions '(yas/x-prompt yas/dropdown-prompt))
+
 (setq yas/prompt-functions '(  yas/dropdown-prompt
                                yas/completing-prompt
                                yas/ido-prompt))
+
 
 (setq yas/root-directory (concat snippets-dir "/yasnippets-jpablobr"))
 (yas/load-directory yas/root-directory)
@@ -44,7 +46,7 @@
 ;;;
 (yas/define-snippets  'nxml-mode nil  'html-mode)
 (yas/define-snippets  'js2-mode nil  'javascript-mode)
-(yas/define-snippets  'espresso-mode nil  'javascript-mode)
+;; (yas/define-snippets  'espresso-mode nil  'javascript-mode)
 
 (add-hook 'nxml-mode-hook
           '(lambda ()

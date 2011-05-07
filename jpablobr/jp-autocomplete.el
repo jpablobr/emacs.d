@@ -2,14 +2,14 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories (concat misc-dir "/ac-dict"))
-(ac-config-default)
+;; (ac-config-default)
 (global-auto-complete-mode t)
-(setq ac-auto-start 2)
-(setq ac-dwim t)
-(setq ac-delay 0.1)
-(setq ac-auto-show-menu nil)
-(setq ac-show-menu-immediately-on-auto-complete t)
-(setq ac-trigger-key nil)
+;; (setq ac-auto-start t)
+;; (setq ac-dwim t)
+;; (setq ac-delay 0.1)
+;; (setq ac-auto-show-menu nil)
+;; (setq ac-show-menu-immediately-on-auto-complete t)
+;; (setq ac-trigger-key nil)
 (define-key ac-complete-mode-map "\t" 'ac-complete)
 (define-key ac-complete-mode-map "\r" nil)
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
@@ -22,7 +22,6 @@
                             ac-source-symbols
                             ac-source-features
                             ac-source-abbrev
-                            ac-source-words-in-all-buffer
                             ac-source-words-in-same-mode-buffers
                             ac-source-dictionary))
 

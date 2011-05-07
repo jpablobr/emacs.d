@@ -8,10 +8,7 @@
 ;; Created: 2006-11-17
 ;; Compatibility: Emacs 22, 21?
 ;; URL(en): http://seattlerb.rubyforge.org/
-;; by Ryan Davis - ryand-ruby@zenspider.com
-
-;;; Posted using:
-;; (emacswiki-post "autotest.el")
+;; by Ryan Davis - ryan-ruby@zenspider.com
 
 ;;; The MIT License:
 
@@ -59,7 +56,6 @@
   :group 'autotest
   :type '(string))
 
-;;;###autoload
 (defun autotest ()
   "Fire up an instance of autotest in its own buffer with shell bindings and compile-mode highlighting and linking."
   (interactive)
@@ -68,20 +64,24 @@
     (define-key shell-mode-map "\C-c\C-a" 'autotest-switch)
 
     (set (make-local-variable 'comint-output-filter-functions)
-         '(comint-truncate-buffer comint-postoutput-scroll-to-bottom))
+	 '(comint-truncate-buffer
+	   comint-postoutput-scroll-to-bottom
+	   ansi-color-process-output
+	   ))
     (set (make-local-variable 'comint-buffer-maximum-size) 5000)
     (set (make-local-variable 'comint-scroll-show-maximum-output) t)
-    (set (make-local-variable 'comint-scroll-to-bottom-on-output) t)
+    (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
 
     (set (make-local-variable 'compilation-error-regexp-alist)
          '(
            ("^ +\\(#{RAILS_ROOT}/\\)?\\([^(:]+\\):\\([0-9]+\\)" 2 3)
            ("\\[\\(.*\\):\\([0-9]+\\)\\]:$" 1 2)
            ("^ *\\([[+]\\)?\\([^:
-]+\\):\\([0-9]+\\):in" 2 3)
+]+\\):\\([0-9]+\\):" 2 3)
            ("^.* at \\([^:]*\\):\\([0-9]+\\)$" 1 2)
            ))
-    (compilation-shell-minor-mode)
+    (ansi-color-for-comint-mode-on)
+    (compilation-shell-minor-mode 1)
     (comint-send-string buffer (concat autotest-command "\n"))))
 
 (defun autotest-switch ()
