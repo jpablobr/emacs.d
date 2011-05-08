@@ -19,7 +19,6 @@
 (require 'rhtml-mode)
 (require 'rspec-mode)
 (require 'align)
-(require 'ruby-electric)
 (require 'anything)
 (require 'anything-rcodetools)
 (require 'rcodetools)
@@ -105,7 +104,7 @@ argument allows editing of the server command arguments."
 (add-hook 'ruby-mode-hook
           '(lambda ()
              (set (make-local-variable 'tab-width) 2)
-             (ruby-electric-mode t)
+             ;; (ruby-electric-mode t)
              (ruby-hs-minor-mode t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)

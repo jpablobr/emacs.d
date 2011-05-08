@@ -26,7 +26,6 @@ r_links = https://github.com/hron/yari.el/raw/master/yari.el																				
 					http://www.emacswiki.org/emacs/download/autotest.el																													\
 					https://github.com/ruby/ruby/raw/trunk/misc/inf-ruby.el																											\
 					https://github.com/ruby/ruby/raw/trunk/misc/rdoc-mode.el																										\
-					https://github.com/ruby/ruby/raw/trunk/misc/ruby-electric.el																								\
 					https://github.com/ruby/ruby/raw/d9e6b7d6a5e81afb588d79ef923b70890cdec4ba/misc/ruby-mode.el									\
 					https://github.com/ruby/ruby/raw/trunk/misc/ruby-style.el																										\
 					https://github.com/ruby/ruby/raw/trunk/misc/rubydb2x.el																											\

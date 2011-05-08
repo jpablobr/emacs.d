@@ -402,8 +402,6 @@ necessary."
 (add-hook 'ruby-mode-hook
           (lambda()
             (require 'rails-ruby)
-            (require 'ruby-electric)
-            (ruby-electric-mode (or rails-enable-ruby-electric -1))
             (ruby-hs-minor-mode t)
             (imenu-add-to-menubar "IMENU")
             (modify-syntax-entry ?! "w" (syntax-table))
