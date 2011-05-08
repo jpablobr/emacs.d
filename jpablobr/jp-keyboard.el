@@ -101,7 +101,6 @@
 (global-set-key "\C-cs" 'dictionary-search)
 (global-set-key "\C-cm" 'dictionary-match-words)
 (global-set-key (kbd "M-c") 'find-grep)
-(global-set-key (kbd "C-x t") 'template-expand-template)
 (global-unset-key "\C-l")
 (global-set-key (kbd "C-l wd") 'w3m-definition-s)
 (global-set-key (kbd "C-l ws") 'w3m-synonym-s)

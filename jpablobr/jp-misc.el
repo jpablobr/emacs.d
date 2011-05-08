@@ -164,8 +164,8 @@
 
 ;; ---------------------------------------------------------------------
 ;; - Template mode
-(require 'template)
-(template-initialize)
+;; (require 'template)
+;; (template-initialize)
 
 ;; ---------------------------------------------------------------------
 ;; - Display time
