@@ -18,6 +18,8 @@ touch          = $(shell which touch)
 emacs          = $(shell which emacs)
 git_c          = $(shell which git) clone
 rm             = $(shell which rm) -fr
+mv             = $(shell which mv)
+test           = $(shell which test)
 complile_files = $(emacs) -batch -f batch-byte-compile *.el
 
 r_links = https://github.com/hron/yari.el/raw/master/yari.el																													\
@@ -74,16 +76,16 @@ u_misc:
 	@$(touch) u_misc
 
 u_sudo:
-	@$(rm) auctex magit $(m_dir)/org $(m_dir)/mmm-mode
+	@$(test) -d $(m_dir)/org && $(mv) $(m_dir)/org $(m_dir)/org.bak
+	@$(test) -d $(m_dir)/mmm-mode && $(mv) $(m_dir)/mmm-mode $(m_dir)/mmm-mode.bak
 	@cd $(m_dir) && \
 	$(git_c) https://github.com/purcell/mmm-mode.git
 	@cd $(m_dir) && \
 	$(git_c) https://github.com/emacsmirror/org-mode.git org
 	@$(git_c) https://github.com/philjackson/magit.git
 	@cd magit && make && sudo make install
-	@$(git_c) http://github.com/eschulte/auctex.git
-	@cd auctex && ./configure && make && sudo make install
-	@$(rm) auctex magit $(m_dir)/mmm-mode/.git $(m_dir)/org/.git
+	@$(rm) $(m_dir)/org.bak $(m_dir)/mmm-mode.bak
+	@$(rm) magit $(m_dir)/mmm-mode/.git $(m_dir)/org/.git
 	@$(touch) u_sudo
 
 clean:
