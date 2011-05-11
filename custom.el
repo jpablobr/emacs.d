@@ -36,6 +36,7 @@
  '(jde-which-method-class-min-length 0)
  '(jde-which-method-max-length 30)
  '(js2-basic-offset 4 t)
+ '(magit-commit-all-when-nothing-staged t)
  '(quack-default-program "mit-scheme")
  '(rails-api-root "~/.emacs.d/vendor/api.rubyonrails.org")
  '(rails-ask-when-reload-tags t)
