@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: ruby-db
+# --
+defaults: &defaults
+  adapter: postgresql
+  encoding: unicode
+  database: ${1:base_name}_development
+  pool: 5
+  host: 127.0.0.1
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  database: {$1}_test
+
+production:
+  <<: *defaults
+  database: {$1}_production
