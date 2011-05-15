@@ -13,8 +13,8 @@ development:
 
 test:
   <<: *defaults
-  database: {$1}_test
+  database: $1_test
 
 production:
   <<: *defaults
-  database: {$1}_production
+  database: $1_production
