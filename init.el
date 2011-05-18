@@ -57,13 +57,12 @@
   (load-file (concat jpablobr-dir "/jp-theme.el"))
   (require 'jp-theme)
   (load custom-file 'noerror))
-
 ;; (load-file (concat jpablobr-dir "/jp-python.el"))
 ;; (require 'jp-python)
 ;; (load-file (concat jpablobr-dir "/jp-showoff.el"))
 ;; (require 'jp-showoff)
-;; (load-file (concat jpablobr-dir "/jp-java.el"))
-;; (require 'jp-java)
+(load-file (concat jpablobr-dir "/jp-java.el"))
+(require 'jp-java)
 ;; (load-file (concat jpablobr-dir "/jp-php.el"))
 ;; (require 'jp-php)
 ;; (load-file (concat jpablobr-dir "/jp-wanderlust.el"))
@@ -106,6 +105,7 @@
 
 ;; ---------------------------------------------------------------------
 ;; - ECB
+;; (load-file (concat jpablobr-dir "/jp-cedet.el"))
 ;; (require 'jp-cedet)
 ;; (add-to-list 'load-path (concat misc-dir "/ecb-2.40"))
 ;; (require 'ecb)

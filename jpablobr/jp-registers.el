@@ -16,7 +16,7 @@
              (?c (file . ,"~/.my-precious/bash/config"))
              (?l (file . ,"~/org/yacs/linux.org"))
              (?1 (file . ,"~/code/ruby/rails/rails3-base/Gemfile"))
-             (?2 (file . ,"~/code/ruby/rails/imagine/Gemfile"))
+             (?2 (file . ,"~/code/ruby/rails/imagine-apps/imagine/Gemfile"))
              (?3 (file . ,"~/code/ruby/rails/aquadayspa/Gemfile"))
              (?4 (file . ,"~/code/ruby/rails/birbecks/Gemfile"))
              (?5 (file . ,"~/code/ruby/gems/niftier-generators/Gemfile"))

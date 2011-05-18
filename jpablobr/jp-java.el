@@ -8,17 +8,12 @@
 ;;;
 
 
-(setq java-dir (concat vendor-dir "/java"))
-(add-to-list 'load-path java-dir)
-(add-to-list 'load-path (concat java-dir "/jdee-2.4.0.1/lisp"))
-(add-to-list 'load-path (concat java-dir "/jdibug-0.2"))
-
 (require 'jde)
 (require 'pager)
 (require 'mic-paren)
 (require 'cparen)
-(require 'jde-jalopy)
-(require 'jdibug)
+;; (require 'jde-jalopy)
+;; (require 'jdibug)
 ;; (require 'jde-testng)
 ;; (require 'jde-maven2)
 
@@ -66,23 +61,23 @@
 
 ;; Sets the basic indentation for Java source files
 ;; to two spaces.
-;; (defun indentation-jde-mode-hook ()
-;;   "Hook for running java file..."
-;;   (message " Loading my-jde-mode-hook...")
-;;   (c-set-offset 'substatement-open 0)
-;;   (c-set-offset 'statement-case-open 0)
-;;   (c-set-offset 'case-label '+)
-;;  (wisent-java-default-setup)
-;;   (setq
-;;    indent-tabs-mode nil
-;;    tab-width 2
-;;    c-basic-offset 2
-;;    tempo-interactive t
-;;    ))
-;; (add-hook 'jde-mode-hook 'indentation-jde-mode-hook)
-;; (add-hook 'jde-mode-hook
-;;           '(lambda ()
-;;      (load "jde-autoload")))
+(defun indentation-jde-mode-hook ()
+  "Hook for running java file..."
+  (message " Loading my-jde-mode-hook...")
+  (c-set-offset 'substatement-open 0)
+  (c-set-offset 'statement-case-open 0)
+  (c-set-offset 'case-label '+)
+ (wisent-java-default-setup)
+  (setq
+   indent-tabs-mode nil
+   tab-width 2
+   c-basic-offset 2
+   tempo-interactive t
+   ))
+(add-hook 'jde-mode-hook 'indentation-jde-mode-hook)
+(add-hook 'jde-mode-hook
+          '(lambda ()
+     (load "jde-autoload")))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - JAVA custome variables
