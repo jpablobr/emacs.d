@@ -86,6 +86,7 @@ u_sudo:
 	@cd magit && make && sudo make install
 	@$(rm) $(m_dir)/org.bak $(m_dir)/mmm-mode.bak
 	@$(rm) magit $(m_dir)/mmm-mode/.git $(m_dir)/org/.git
+	@sudo apt-get install cedet-common cedet-contrib cogre ede eieio semantic speedbar elib jde
 	@$(touch) u_sudo
 
 clean:
