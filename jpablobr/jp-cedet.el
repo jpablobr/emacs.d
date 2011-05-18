@@ -4,28 +4,10 @@
 ;;; - apt-get install cedet-common cedet-contrib cogre ede eieio semantic speedbar elib jde
 ;;; - http://nullman.org/tutorial/emacs-files/.emacs.d/kyle-init/modes.el.html
 
-(load-file (concat misc-dir "/cedet-1.0pre7/common/cedet.el"))
-(add-to-list 'load-path (concat misc-dir "/cedet-1.0pre7/semantic"))
-
 (require 'semantic)
 (require 'semantic-ia)
-(require 'semantic-gcc)
 (require 'semantic-wisent)
-(require 'semantic-decorate-include)
-(require 'eassist)
 (require 'semantic-lex-spp)
-(require 'semanticdb)
-(global-semanticdb-minor-mode 1)
-
-;; enable ctags for some languages:
-;; Unix Shell, Perl, Pascal, Tcl, Fortran, Asm
-;; sudo apt-get install exuberant-ctags
-;; http://blog.carduner.net/2007/07/02/exuberant-ctags-emacs/
-(require 'semanticdb-ectag)
-(semantic-load-enable-primary-exuberent-ctags-support)
-
-(require 'semanticdb-global)
-(semanticdb-enable-gnu-global-databases 'ruby-mode)
 
 (custom-set-variables
  '(ecb-layout-window-sizes (quote (("left8"
@@ -39,7 +21,6 @@
 (setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
                                   global-semantic-idle-summary-mode
                                   global-semantic-decoration-mode
-                                  global-semantic-highlight-func-mode
                                   global-semantic-stickyfunc-mode
                                   global-semantic-mru-bookmark-mode))
 
@@ -47,9 +28,6 @@
 (setq senator-minor-mode-name "SN")
 (setq semantic-imenu-auto-rebuild-directory-indexes nil) ;
 (global-semantic-mru-bookmark-mode 1)
-
-;; (setq-mode-local ruby-mode semanticdb-find-default-throttle
-;;                  '(project unloaded system recursive))
 
 ;; customisation of modes
 (defun jpablobr/cedet-hook ()
@@ -81,9 +59,7 @@
   (global-ede-mode t)
   (semantic-load-enable-excessive-code-helpers)
   (semantic-load-enable-semantic-debugging-helpers)
-; (global-srecode-minor-mode 1)
   (semantic-load-enable-code-helpers)
-  (global-semantic-highlight-func-mode 1)
   (global-semantic-show-unmatched-syntax-mode -1)
   (global-semantic-idle-scheduler-mode -1)
   )
@@ -95,24 +71,10 @@
  '(global-semantic-tag-folding-mode t nil (semantic-util-modes)))
 ; (global-semantic-folding-mode 1)
 
-(defun my-semanticdb-hook ()
-  "semanticdb hook"
-  (setq semanticdb-default-save-directory "~/semanticdb")
-  (setq semanticdb-search-system-databases t)
-
-  (setq-mode-local c-mode semanticdb-find-default-throttle
-    '(project unloaded system recursive))
-  (setq-mode-local c++-mode semanticdb-find-default-throttle
-    '(project unloaded system recursive))
-
-  (semantic-load-enable-primary-exuberent-ctags-support)
-  )
-
 (defun my-semantic-init()
   "all in one semantic init function"
   (progn
     (add-hook 'semantic-init-hooks 'my-semantic-hook)
-    (add-hook 'semantic-init-hooks 'my-semanticdb-hook)
     (add-hook 'semantic-init-hooks 'jpablobr/cedet-hook)
     )
   )

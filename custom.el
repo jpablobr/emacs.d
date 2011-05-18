@@ -47,6 +47,7 @@
  '(user-full-name (quote "José Pablo Barrantes R."))
  '(user-login-name "jpablobr" t)
  '(user-mail-address (quote "xjpablobrx@gmail.com"))
+ '(vc-follow-symlinks nil)
  '(w3m-arrived-file "~/Dropbox/private-dotfiles/w3m/.arrived")
  '(w3m-bookmark-file "~/Dropbox/private-dotfiles/w3m/bookmark.html")
  '(w3m-default-save-directory "~/Dropbox/private-dotfiles/w3m")

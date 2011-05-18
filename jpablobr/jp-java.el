@@ -6,16 +6,10 @@
 ;;; - http://www.hut.fi/u/rsaikkon/software/elisp/cparen.el
 ;;; - from: http://user.it.uu.se/~mic/pager.el
 ;;;
-
-
 (require 'jde)
 (require 'pager)
 (require 'mic-paren)
 (require 'cparen)
-;; (require 'jde-jalopy)
-;; (require 'jdibug)
-;; (require 'jde-testng)
-;; (require 'jde-maven2)
 
 (paren-activate)
 (cparen-activate)
@@ -39,25 +33,6 @@
              '(("\\.java\\'" . jde-mode))
              auto-mode-alist)))
   (require 'jde))
-
-;;; It works only if you manualy set CYGWIN_ROOT environment
-;;; variable for your Windows system
-;;; (MyComputer->Properties->Advanced->Environment Varibles)
-;;; Configures some parameters for CygWin specific environment
-(if (not (null (getenv "CYGWIN_ROOT")))
-    (progn
-      (setq-default
-       cygwin-root (getenv "CYGWIN_ROOT")
-       exec-path (cons (concat cygwin-root "/bin") exec-path)
-       process-coding-system-alist '(("bash" . undecided-unix))
-       shell-file-name "bash"
-       explicit-shell-file-name shell-file-name)
-      (setenv "PATH" (concat cygwin-root "/bin;"
-                             cygwin-root "/usr/local/bin;"
-                             (getenv "PATH")))
-      (setenv "SHELL" shell-file-name)
-      (add-hook 'comint-output-filter-functions
-                'comint-strip-ctrl-m)))
 
 ;; Sets the basic indentation for Java source files
 ;; to two spaces.
@@ -113,12 +88,12 @@
     '(jde-global-classpath (quote ("." "/usr/share/java/" "/usr/lib/jvm/java-6-sun")))
     '(jde-regexp-jar-file "/usr/share/java/regexp.jar"))))
 
-;;; ----------------------------------------------------------------------------
-;;; - Hacks
-;;; - function does not exist in emacs 23.2
-;;;
-(defun semantic-parse())
-(defun skip-cleanup())
-(defun  semantic-format-prototype-tag-java-mode())
+;; ;;; ----------------------------------------------------------------------------
+;; ;;; - Hacks
+;; ;;; - function does not exist in emacs 23.2
+;; ;;;
+;; (defun semantic-parse())
+;; (defun skip-cleanup())
+;; (defun  semantic-format-prototype-tag-java-mode())
 
 (provide 'jp-java)
