@@ -21,6 +21,7 @@
              (?4 (file . ,"~/code/ruby/rails/birbecks/Gemfile"))
              (?5 (file . ,"~/code/ruby/gems/niftier-generators/Gemfile"))
              (?6 (file . ,"~/code/ruby/rails/rickrockstar-apps/rickrock/Gemfile"))
+             (?7 (file . ,"~/code/ruby/gems/refinerycms/Gemfile"))
              (?z (file . ,"~/.emacs.d/vendor/misc/cheat-fu-mode/cheat-fu.el"))
              (?r (file . ,(concat jpablobr-dir "/jp-registers.el")))))
   (set-register (car r) (cadr r)))
