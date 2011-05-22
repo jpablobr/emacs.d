@@ -48,6 +48,12 @@
  '(user-login-name "jpablobr" t)
  '(user-mail-address (quote "xjpablobrx@gmail.com"))
  '(vc-follow-symlinks nil)
+ '(LaTeX-XeTeX-command "xelatex -synctex=1")
+ '(TeX-engine (quote xetex))
+ '(TeX-view-program-selection (quote (((output-dvi style-pstricks) "dvips and gv") (output-dvi "xdvi") (output-pdf "Skim") (output-html "xdg-open"))))
+ '(show-paren-mode t)
+ '(blink-cursor-mode nil)
+ '(text-mode-hook (quote (text-mode-hook-identify)))
  '(w3m-arrived-file "~/Dropbox/private-dotfiles/w3m/.arrived")
  '(w3m-bookmark-file "~/Dropbox/private-dotfiles/w3m/bookmark.html")
  '(w3m-default-save-directory "~/Dropbox/private-dotfiles/w3m")
@@ -60,10 +66,7 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal))))
- '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :width normal))))
- '(default-frame-alist (quote ((tool-bar-lines . 0) (foreground-color\. "white") (background-color . "black"))))
- '(diff-added ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkGreen"))))
+  '(diff-added ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkGreen"))))
  '(diff-changed ((((background dark)) (:foreground "Yellow")) (t (:foreground "MediumBlue"))))
  '(diff-context ((((background dark)) (:foreground "White")) (t (:foreground "Black"))))
  '(diff-file-header ((((background dark)) (:foreground "Cyan" :background "Black")) (t (:foreground "Red" :background "White"))))

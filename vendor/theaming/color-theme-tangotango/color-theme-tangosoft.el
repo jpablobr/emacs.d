@@ -1,67 +1,21 @@
-;;; Emacs Color theme based on the Tango Palette colors.
-;;; First derived from color-theme-tango.el,  created by danranx@gmail.com :
-;;; http://www.emacswiki.org/emacs/color-theme-tango.el
-
-;; Copyright (C) 2010 Julien Barnier <julien@nozav.org>
-
-;; Project homepage : http://blog.nozav.org/post/2010/07/12/Updated-tangotango-emacs-color-theme
-
-;; This file is NOT part of GNU Emacs.
-
-;; This is free software; you can redistribute it and/or modify it under
-;; the terms of the GNU General Public License as published by the Free
-;; Software Foundation; either version 2, or (at your option) any later
-;; version.
-
-;; This file is distributed in the hope that it will be useful, but
-;; WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-;; General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with Emacs; see the file COPYING, or type `C-h C-c'. If not,
-;; write to the Free Software Foundation at this address:
-
-;;   Free Software Foundation
-;;   51 Franklin Street, Fifth Floor
-;;   Boston, MA 02110-1301
-;;   USA
-
-;;; Code:
-
-(eval-when-compile
-  (require 'color-theme))
-
-(defun color-theme-tangotango ()
-  "A color theme based on Tango Palette colors."
-  ;; Color codes :
-  ;; - blue :       "dodger blue"
-  ;; - yellow :     "#edd400"
-  ;; - green :      "#6ac214"
-  ;; - orange/red : "tomato"
+(defun color-theme-tangosoft ()
+  "A color theme based on Tango Palette."
   (interactive)
   (color-theme-install
-   '(color-theme-tangotango
-     ((background-color . "black")
+   '(color-theme-tangosoft
+     ((background-color . "#1e1e1e")
       (background-mode . dark)
       (border-color . "#888a85")
       (cursor-color . "#fce94f")
-      (foreground-color . "#eeeeec")
+      (foreground-color . "#F8F8F8")
       (mouse-color . "#8ae234"))
-     ((help-highlight-face . underline)
-      (ibuffer-dired-buffer-face . font-lock-function-name-face)
-      (ibuffer-help-buffer-face . font-lock-comment-face)
-      (ibuffer-hidden-buffer-face . font-lock-warning-face)
-      (ibuffer-occur-match-face . font-lock-warning-face)
-      (ibuffer-read-only-buffer-face . font-lock-type-face)
-      (ibuffer-special-buffer-face . font-lock-keyword-face)
-      (ibuffer-title-face . font-lock-type-face))
-     (highlight ((t (:background "gray8" :foreground nil))))
+     (default ((t (:background "#1E1E1E" :foreground "#CACACA"))))
      (border ((t (:background "#888a85"))))
      (fringe ((t (:background "grey10"))))
+     (buffers-tab ((t (:background "#1E1E1E" :foreground "#CACACA"))))
      (mode-line ((t (:foreground "#bbbbbc" :background "#222222" :box (:line-width 1 :color nil :style released-button)))))
      (mode-line-inactive ((t (:foreground "#bbbbbc" :background "#555753"))))
-     (mode-line-buffer-id ((t (:bold t :foreground "green" :background nil))))
+     (mode-line-buffer-id ((t (:bold t :foreground "orange" :background nil))))
      (region ((t (:background "dark slate blue"))))
      (link ((t (:underline t :foreground "dodger blue"))))
      (custom-link ((t (:inherit 'link))))
@@ -71,12 +25,12 @@
      (bold ((t (:bold t :underline nil :background nil))))
      (italic ((t (:italic t :underline nil :background nil))))
      (font-lock-builtin-face ((t (:foreground "#729fcf"))))
-     (font-lock-comment-face ((t (:foreground "#888a85"))))
-     (font-lock-constant-face ((t (:foreground "#8ae234"))))
+     (font-lock-comment-face ((t (:foreground "#888a85" :italic t))))
+     (font-lock-constant-face ((t (:foreground "#5E8C6A"))))
      (font-lock-doc-face ((t (:foreground "#888a85"))))
      (font-lock-keyword-face ((t (:foreground "#729fcf" :bold t))))
-     (font-lock-string-face ((t (:foreground "#ad7fa8" :italic t))))
-     (font-lock-type-face ((t (:foreground "#8ae234" :bold t))))
+     (font-lock-string-face ((t (:foreground "#ad7fa8"))))
+     (font-lock-type-face ((t (:foreground "#2DA6F5" :bold t))))
      (font-lock-variable-name-face ((t (:foreground "tomato"))))
      (font-lock-warning-face ((t (:bold t :foreground "#f57900"))))
      (font-lock-function-name-face ((t (:foreground "#edd400" :bold t))))
@@ -111,7 +65,7 @@
      (custom-button-pressed  ((t (:inherit 'custom-button :box (:style pressed-button)))))
      (custom-button-mouse-pressed-unraised  ((t (:inherit 'custom-button-unraised :background "grey60"))))
      (custom-documentation ((t (:italic t))))
-     (message-cited-text ((t (:foreground "#edd400"))))
+     (message-cited-text ((t (:foreground "#edd400")))) 
      (gnus-cite-face-1 ((t (:foreground "#ad7fa8"))))
      (gnus-cite-face-2 ((t (:foreground "sienna4"))))
      (gnus-cite-face-3 ((t (:foreground "khaki4"))))
@@ -159,11 +113,19 @@
      (message-header-subject ((t (:foreground "white"))))
      (message-header-to ((t (:foreground "white"))))
      (message-header-cc ((t (:foreground "white"))))
+     (highlight ((t (:background "#222222"))))
+     (highline-face ((t (:background "SeaGreen"))))
+     (font-latex-sectioning-0-face ((t (:bold t :foreground "dodger blue" :height 3))))
+     (font-latex-sectioning-1-face ((t (:bold t :foreground "dodger blue" :height 2))))
+     (font-latex-sectioning-2-face ((t (:bold t :foreground "dodger blue" :height 1.5))))
+     (font-latex-sectioning-3-face ((t (:foreground "#edd400" :height 1.2))))
+     (font-latex-sectioning-4-face ((t (:foreground "tomato" :height 1.0))))
+     (font-latex-string-face ((t (:foreground "#BFB35A"))))
      (org-hide ((t (:foreground "#2e3436"))))
      (org-level-1 ((t (:bold t :foreground "dodger blue" :height 1.5))))
-     (org-level-2 ((t (:bold nil :foreground "#edd400" :height 1.2))))
-     (org-level-3 ((t (:bold t :foreground "#6ac214" :height 1.0))))
-     (org-level-4 ((t (:bold nil :foreground "tomato" :height 1.0))))
+     (org-level-2 ((t (:bold t :foreground "#6ac214" :height 1.2))))
+     (org-level-3 ((t (:bold t :foreground "#edd400" :height 1.1))))
+     (org-level-4 ((t (:bold t :foreground "tomato" :height 1.0))))
      (org-date ((t (:underline t :foreground "magenta3"))))
      (org-footnote  ((t (:underline t :foreground "magenta3"))))
      (org-link ((t (:foreground "skyblue2" :background "#2e3436"))))
@@ -174,18 +136,6 @@
      (org-verse ((t (:inherit org-block :slant italic))))
      (org-todo ((t (:bold t :foreground "Red"))))
      (org-done ((t (:bold t :foreground "ForestGreen"))))
-     (org-agenda-structure ((t (:weight bold :foreground "tomato"))))
-     (org-agenda-date ((t (:foreground "#6ac214"))))
-     (org-agenda-date-weekend ((t (:weight normal :foreground "dodger blue"))))
-     (org-agenda-date-today ((t (:weight bold :foreground "#edd400"))))
+     (gui-element ((t (:background "#D4D0C8" :foreground "#1E1E1E"))))
      (anything-header ((t (:bold t :background "grey15" :foreground "#edd400"))))
-     (ess-jb-comment-face ((t (:background "#2e3436" :foreground "firebrick" :slant italic))))
-     (ess-jb-hide-face ((t (:background "#2e3436" :foreground "#243436"))))
-     (ess-jb-h1-face ((t (:height 1.6 :foreground "dodger blue" :slant normal))))
-     (ess-jb-h2-face ((t (:height 1.4 :foreground "#6ac214" :slant normal))))
-     (ess-jb-h3-face ((t (:height 1.2 :foreground "#edd400" :slant normal))))
-     (ecb-default-highlight-face ((t (:background "#729fcf"))))
-     (ecb-tag-header-face ((t (:background "#f57900"))))
 )))
-
-(provide 'color-theme-tangotango)

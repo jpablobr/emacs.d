@@ -49,6 +49,7 @@ j_links = https://github.com/mooz/js2-mode/raw/master/js2-mode.el														 
 
 update: u_js u_ruby u_git u_misc
 
+## @sudo apt-get install cedet-common cedet-contrib cogre ede eieio semantic speedbar elib jde
 sudo_update: u_sudo
 
 u_js:
@@ -86,7 +87,6 @@ u_sudo:
 	@cd magit && make && sudo make install
 	@$(rm) $(m_dir)/org.bak $(m_dir)/mmm-mode.bak
 	@$(rm) magit $(m_dir)/mmm-mode/.git $(m_dir)/org/.git
-	@sudo apt-get install cedet-common cedet-contrib cogre ede eieio semantic speedbar elib jde
 	@$(touch) u_sudo
 
 clean:

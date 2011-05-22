@@ -1,0 +1,546 @@
+#+TITLE: Org-mode
+#+OPTIONS: toc:nil num:nil ^:nil
+
+This is part of the [[file:../init.el][jpablobr init.el]].
+
+* Org-mode
+Configuration for the eminently useful [[http://orgmode.org/][Org Mode]].
+
+Org-mode is for keeping notes, maintaining ToDo lists, doing project
+planning, and authoring with a fast and effective plain-text system.
+Org Mode can be used as a very simple folding outliner or as a complex
+GTD system or tool for reproducible research and literate programming.
+
+For more information on org-mode check out [[http://orgmode.org/worg/][worg]], a large Org-mode wiki
+which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
+
+** Helpful Packages
+#+begin_src emacs-lisp
+(require 'org-install)
+(setq org-completion-use-ido t)
+(require 'org-special-blocks)
+;; (if window-system (require 'org-mouse))
+
+;; Compatibility with WindMove
+;; Make windmove work in org-mode:
+(add-hook 'org-shiftup-final-hook 'windmove-up)
+(add-hook 'org-shiftleft-final-hook 'windmove-left)
+(add-hook 'org-shiftdown-final-hook 'windmove-down)
+(add-hook 'org-shiftright-final-hook 'windmove-right)
+;; (if window-system (require 'org-mouse))
+#+end_src
+
+** Org-Mode Hook
+The latest version of yasnippets doesn't play well with Org-mode, the
+following function allows these two to play nicely together
+#+begin_src emacs-lisp
+  (defun yas/org-very-safe-expand ()
+    (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
+#+end_src
+
+#+begin_src emacs-lisp
+  (add-hook 'org-mode-hook
+            (lambda ()
+              (local-set-key "\M-\C-n" 'outline-next-visible-heading)
+              (local-set-key "\M-\C-p" 'outline-previous-visible-heading)
+              (local-set-key "\M-\C-u" 'outline-up-heading)
+              ;; table
+              (local-set-key "\M-\C-w" 'org-table-copy-region)
+              (local-set-key "\M-\C-y" 'org-table-paste-rectangle)
+              (local-set-key "\M-\C-l" 'org-table-sort-lines)
+              ;; display images
+              (local-set-key "\M-I" 'org-toggle-iimage-in-org)
+              ;; yasnippet (using the new org-cycle hooks)
+              (make-variable-buffer-local 'yas/trigger-key)
+              (setq yas/trigger-key [tab])
+              (add-to-list 'org-tab-first-hook 'yas/org-very-safe-expand)
+              (define-key yas/keymap [tab] 'yas/next-field)
+              ))
+#+end_src
+
+** Load up the Library of Babel
+The library of babel contains makes many useful functions available
+for use by code blocks in *any* emacs file.  See the actual
+[[file:src/org/contrib/babel/library-of-babel.org][library-of-babel.org]] file for information on the functions, and see
+[[http://orgmode.org/worg/org-contrib/babel/intro.php#library-of-babel][worg:library-of-babel]] for more usage information.
+#+begin_src emacs-lisp
+  (org-babel-lob-ingest
+   (expand-file-name
+    "library-of-babel.org"
+    (expand-file-name
+     "babel"
+     (expand-file-name
+      "contrib"
+       (expand-file-name "org" misc-dir)))))
+#+end_src
+** Speed keys
+Speed commands enable single-letter commands in Org-mode files when
+the point is at the beginning of a headline, or at the beginning of a
+code block.
+
+See the `=org-speed-commands-default=' variable for a list of the keys
+and commands enabled at the beginning of headlines.  All code blocks
+are available at the beginning of a code block, the following key
+sequence =C-c C-v h= (bound to `=org-babel-describe-bindings=') will
+display a list of the code blocks commands and their related keys.
+
+#+begin_src emacs-lisp
+  (setq org-use-speed-commands t)
+#+end_src
+
+** Code blocks
+This activates a number of widely used languages, you are encouraged
+to activate more languages using the customize interface for the
+`=org-babel-load-languages=' variable, or with an elisp form like the
+one below.  The customize interface of `=org-babel-load-languages='
+contains an up to date list of the currently supported languages.
+#+begin_src emacs-lisp
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((emacs-lisp . t)
+     (sh . t)
+     (R . t)
+     (perl . t)
+     (ruby . t)
+     (python . t)
+     (js . t)
+     (haskell . t)
+     (clojure . t)
+     (ditaa . t)))
+#+end_src
+
+The next block makes org-babel aware that a lower-case 'r' in a =src= block header should be processed as R.
+
+#+source: add-r
+#+begin_src emacs-lisp
+    (add-to-list 'org-src-lang-modes
+                 '("r" . ess-mode))
+#+end_src
+
+
+
+You are encouraged to add the following to your personal configuration
+although it is not added by default as a security precaution.
+#+begin_src emacs-lisp :tangle no
+  (setq org-confirm-babel-evaluate nil)
+#+end_src
+
+The following displays the contents of code blocks in Org-mode files
+using the major-mode of the code.  It also changes the behavior of
+=TAB= to as if it were used in the appropriate major mode.  This means
+that reading and editing code form inside of your Org-mode files is
+much more like reading and editing of code using its major mode.
+#+begin_src emacs-lisp
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+#+end_src
+
+Don't ask for confirmation on every =C-c C-c= code-block compile.
+
+#+source: turn-off-code-block-confirm
+#+begin_src emacs-lisp
+  (setq org-confirm-babel-evaluate nil)
+#+end_src
+
+** Ensure the Latest Org-mode manual is in the info directory
+By placing the =doc/= directory in Org-mode at the front of the
+=Info-directory-list= we can be sure that the latest version of the
+Org-mode manual is available to the =info= command (bound to =C-h i=).
+#+begin_src emacs-lisp
+  (unless (boundp 'Info-directory-list)
+    (setq Info-directory-list Info-default-directory-list))
+  (setq Info-directory-list
+        (cons (expand-file-name
+               "doc"
+                (expand-file-name "org" misc-dir))
+              Info-directory-list))
+#+end_src
+
+** Local LaTeX settings
+*** In-text Smart Quotes (XeLaTeX only)
+    Redefine TeX-open-quote and TeX-close-quote to be smart quotes by
+    default. Below, in the local org-mode settings, we'll also map the
+    relevant function to a key we can use in org-mode, too. If you don't
+    use XeLaTeX for processing all your =.tex= files, you should disable
+    this option.
+
+#+source: smart-quotes
+#+begin_src emacs-lisp
+  (setq TeX-open-quote "“")
+  (setq TeX-close-quote "”")
+#+end_src
+
+*** SyncTeX, PDF mode, Skim
+Set up AUCTeX to work with the Skim PDF viewer.
+
+#+srcname: local-loadpath
+#+begin_src emacs-lisp
+   ;; Synctex with Skim
+   ;;(add-hook 'TeX-mode-hook
+   ;;(lambda ()
+   ;;(add-to-list 'TeX-output-view-style
+   ;;'("^pdf$" "."
+   ;; "/Applications/Skim.app/Contents/SharedSupport/displayline %n %o %b")))
+   ;; )
+
+   ;; Make emacs aware of multi-file projects
+   ;; (setq-default TeX-master nil)
+
+   ;; Auto-raise Emacs on activation (from Skim, usually)
+   (defun raise-emacs-on-aqua()
+   (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
+   (add-hook 'server-switch-hook 'raise-emacs-on-aqua)
+#+end_src
+
+*** Local RefTeX Settings
+Tell RefTeX where the bibliography files are.
+
+#+srcname: local-reftex
+#+begin_src emacs-lisp
+    ;; Make RefTex able to find my local bib files
+    (setq reftex-bibpath-environment-variables
+    '("/home/jpablobr/Dropbox/private-dotfiles/texmf/bibtex/bib"))
+
+    ;; Default bibliography
+    (setq reftex-default-bibliography
+    '("/home/jpablobr/Dropbox/documents/bibs/socbib.bib"))
+
+
+    ;; CDLaTex minor mode: tab-trigger environments, paired paren
+    ;; insertion, etc
+    ;; (autoload 'cdlatex-mode "cdlatex" "CDLaTeX Mode" t)
+    ;; (autoload 'turn-on-cdlatex "cdlatex" "CDLaTeX Mode" nil)
+    ;; (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX
+    ;;                                         ; mode
+
+    ;; set which characters are autopaired // Doesn't work. Set in custom, below.
+    ;; (add-hook 'cdlatex-mode-hook
+    ;;   (function (lambda ()
+    ;;               (setq cdlatex-paired-parens
+    ;;                     '("$[{("))
+    ;;             )))
+#+end_src
+
+*** Local vc commands
+    Run the vc shellscript before running xelatex with C-c c (instead of
+    C-c C-c for regular compile).
+
+#+srcname: vc-command
+#+begin_src emacs-lisp
+    (fset 'run-vc-then-xelatex
+    [?\M-! ?v ?c return ?\C-c ?\C-c return])
+    (global-set-key (kbd "C-c c") 'run-vc-then-xelatex);; Run the VC command before running xelatex
+    (fset 'run-vc-then-xelatex
+    [?\M-! ?v ?c return ?\C-c ?\C-c return])
+    (global-set-key (kbd "C-c c") 'run-vc-then-xelatex)
+#+end_src
+
+    Or just run vc alone --- this is useful when writing LaTeX files
+    using org-mode. (See the org-mode customizations below).
+
+#+source: vc-alone
+#+begin_src emacs-lisp
+  (global-set-key (kbd "C-c v")
+                      (lambda ()
+                        (interactive)
+                        (shell-command "vc")))
+
+#+end_src
+
+** Local Pandoc Support
+ Make Emacs see where pandoc is installed. (Emacs can't access the bash
+ $PATH directly.)
+ (setenv "PATH" (concat "/home/jpablobr/.cabal/bin:" (getenv "PATH")))
+#+src-name: pandoc_mode
+#+begin_src emacs-lisp
+ (load "pandoc-mode")
+ (add-hook 'markdown-mode-hook 'turn-on-pandoc)
+ (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
+#+end_src
+
+** Local iBuffer Settings
+   Manage a lot of buffers easily with C-x C-b. Already set up
+   elsewhere in the starter kit. Add local configuration here, e.g.,
+   display categories.
+#+srcname: iBuffer-custom
+#+begin_src emacs-lisp
+  (setq ibuffer-saved-filter-groups
+      '(("home"
+	 ("emacs-config" (or (filename . ".emacs.d")
+			     (filename . "emacs-config")))
+	 ("Org" (or (mode . org-mode)
+		    (filename . "OrgMode")))
+	 ("Web Dev" (or (mode . html-mode)
+			(mode . css-mode)))
+	 ("Magit" (name . "\*magit"))
+	 ("ESS" (mode . ess-mode))
+         ("LaTeX" (mode . latex-mode))
+	 ("Help" (or (name . "\*Help\*")
+		     (name . "\*Apropos\*")
+		     (name . "\*info\*"))))))
+
+        (add-hook 'ibuffer-mode-hook
+	             '(lambda ()
+	             (ibuffer-switch-to-saved-filter-groups "home")))
+       (setq ibuffer-show-empty-filter-groups nil)
+       (setq ibuffer-expert t)
+       (add-hook 'ibuffer-mode-hook
+       '(lambda ()
+       (ibuffer-auto-mode 1)
+       (ibuffer-switch-to-saved-filter-groups "home")))
+#+end_src
+
+** Local Org-mode Settings
+*** Smart-quote binding
+When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by default.
+
+#+source: org-mode-smartquote-key
+#+begin_src emacs-lisp :tangle no
+  (add-hook 'org-mode-hook 'smart-quote-keys)
+
+  (defun smart-quote-keys ()
+    (require 'typopunct)
+    (typopunct-change-language 'english)
+    (local-set-key (kbd "C-c \'") 'typopunct-insert-single-quotation-mark)
+    (local-set-key (kbd "C-c \"") 'typopunct-insert-quotation-mark))
+#+end_src
+
+*** Archive Settings
+    Where archived projects and tasks go.
+#+source: orgmode-archive
+#+begin_src emacs-lisp
+  (setq org-archive-location "~/Dropbox/org/archive.org::From %s")
+#+end_src
+
+*** Mobile Settings
+   Sync orgmode files with Dropbox and iPhone.
+#+src-name: orgmode-mobile
+#+begin_src emacs-lisp
+   ;; Set to the location of your Org files on your local system
+   (setq org-directory "~/Dropbox/org")
+   ;; Set to <your Dropbox root directory>/MobileOrg.
+   (setq org-mobile-directory "~/Dropbox/MobileOrg")
+   ;; Set to the files (or directory of files) you want sync'd
+   (setq org-agenda-files (quote ("~/Dropbox/org")))
+   ;; Set to the name of the file where new notes will be stored
+   (setq org-mobile-inbox-for-pull "~/Dropbox/Org/from-mobile.org")
+#+end_src
+
+*** Babel Settings
+   Configure org-mode so that when you edit source code in an indirect
+   buffer (with C-c '), the buffer is opened in the current window. That
+   way, your window organization isn't broken when switching.
+
+#+source: orgmode-indirect-buffer-settings
+#+begin_src emacs-lisp
+  (setq org-src-window-setup 'current-window)
+#+end_src
+
+*** XeLaTeX and pdfLaTeX Export Settings
+   Configure org-mode to export directly to PDF using pdflatex or
+   xelatex, compiling the bibliography as it goes, with my preferred
+   setup in each case. There is a good deal of local stuff in this
+   section.
+
+#+source: orgmode-xelatex-export
+#+begin_src emacs-lisp
+  (require 'org-latex)
+  ;; Choose either listings or minted for exporting source code blocks.
+  ;; Using minted (as here) requires pygments be installed. To use the
+  ;; default listings package instead, use
+  ;; (setq org-export-latex-listings t)
+  ;; and change references to "minted" below to "listings"
+  (setq org-export-latex-listings 'minted)
+
+  ;; default settings for minted code blocks
+  (setq org-export-latex-minted-options
+        '(;("frame" "single")
+          ("bgcolor" "bg") ; bg will need to be defined in the preamble of your document. It's defined in org-preamble-pdflatex.sty and org-preamble-xelatex.sty below.
+          ("fontsize" "\\small")))
+
+
+  ;; Originally taken from Bruno Tavernier: http://thread.gmane.org/gmane.emacs.orgmode/31150/focus=31432
+  ;; but adapted to use latexmk 4.22 or higher.
+  (defun my-auto-tex-cmd ()
+    "When exporting from .org with latex, automatically run latex,
+                 pdflatex, or xelatex as appropriate, using latexmk."
+    (let ((texcmd)))
+    ;; default command: pdflatex
+    (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f")
+    ;; pdflatex -> .pdf
+    (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+        (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f"))
+    ;; xelatex -> .pdf
+              (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+                  (setq texcmd "latexmk -pdflatex='xelatex --shell-escape' -pdf %f"))
+              ;; LaTeX compilation command
+              (setq org-latex-to-pdf-process (list texcmd)))
+
+  (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-cmd)
+
+  ;; Default packages included in /every/ tex file, latex, pdflatex or xelatex
+  (setq org-export-latex-packages-alist
+                  '(("" "graphicx" t)
+                        ("" "longtable" nil)
+                        ("" "float" )))
+
+  ;; Custom packages
+  (defun my-auto-tex-parameters ()
+    "Automatically select the tex packages to include."
+    ;; default packages for ordinary latex or pdflatex export
+    (setq org-export-latex-default-packages-alist
+          '(("AUTO" "inputenc" t)
+            ("minted,minion" "org-preamble-pdflatex" t)))
+    ;; Packages to include when xelatex is used
+                  (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+                      (setq org-export-latex-default-packages-alist
+                            '(("minted" "org-preamble-xelatex" t) )))
+
+
+                  (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+                      (setq org-export-latex-classes
+                            (cons '("article"
+                                    "\\documentclass[11pt,article,oneside]{memoir}
+    \\input{vc} % vc package"
+                                    ("\\section{%s}" . "\\section*{%s}")
+                                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                                  org-export-latex-classes)))
+
+                  (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+                      (setq org-export-latex-classes
+                            (cons '("article"
+                                    "\\documentclass[11pt,article,oneside]{memoir}
+  \\input{vc} % vc package"
+                                    ("\\section{%s}" . "\\section*{%s}")
+                                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                                  org-export-latex-classes))))
+
+            (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-parameters)
+#+end_src
+
+*** ebib and citation settings
+    ebib is a bibtex database manager that works inside emacs. It can
+    talk to org-mode. See [[http://orgmode.org/worg/org-tutorials/org-latex-export.html#sec-17_2][this Worg tutorial]] for details.
+#+source: ebib-setup
+#+begin_src emacs-lisp
+    (org-add-link-type "ebib" 'ebib)
+
+   (org-add-link-type
+     "cite" 'ebib
+     (lambda (path desc format)
+       (cond
+        ((eq format 'latex)
+         (if (or (not desc) (equal 0 (search "cite:" desc)))
+               (format "\\cite{%s}" path)
+               (format "\\cite[%s]{%s}" desc path)
+               )))))
+
+   (org-add-link-type
+     "parencite" 'ebib
+     (lambda (path desc format)
+       (cond
+        ((eq format 'latex)
+         (if (or (not desc) (equal 0 (search "parencite:" desc)))
+               (format "\\parencite{%s}" path)
+               (format "\\parencite[%s]{%s}" desc path)
+  )))))
+
+  (org-add-link-type
+     "textcite" 'ebib
+     (lambda (path desc format)
+       (cond
+        ((eq format 'latex)
+         (if (or (not desc) (equal 0 (search "textcite:" desc)))
+               (format "\\textcite{%s}" path)
+               (format "\\textcite[%s]{%s}" desc path)
+  )))))
+
+  (org-add-link-type
+     "autocite" 'ebib
+     (lambda (path desc format)
+       (cond
+        ((eq format 'latex)
+         (if (or (not desc) (equal 0 (search "autocite:" desc)))
+               (format "\\autocite{%s}" path)
+           (format "\\autocite[%s]{%s}" desc path)
+  )))))
+
+  (org-add-link-type
+   "footcite" 'ebib
+   (lambda (path desc format)
+     (cond
+      ((eq format 'latex)
+       (if (or (not desc) (equal 0 (search "footcite:" desc)))
+           (format "\\footcite{%s}" path)
+         (format "\\footcite[%s]{%s}" desc path)
+         )))))
+
+  (org-add-link-type
+   "fullcite" 'ebib
+   (lambda (path desc format)
+     (cond
+      ((eq format 'latex)
+       (if (or (not desc) (equal 0 (search "fullcite:" desc)))
+           (format "\\fullcite{%s}" path)
+         (format "\\fullcite[%s]{%s}" desc path)
+         )))))
+
+  (org-add-link-type
+   "citetitle" 'ebib
+   (lambda (path desc format)
+     (cond
+      ((eq format 'latex)
+       (if (or (not desc) (equal 0 (search "citetitle:" desc)))
+           (format "\\citetitle{%s}" path)
+         (format "\\citetitle[%s]{%s}" desc path)
+         )))))
+
+  (org-add-link-type
+   "citetitles" 'ebib
+   (lambda (path desc format)
+     (cond
+      ((eq format 'latex)
+       (if (or (not desc) (equal 0 (search "citetitles:" desc)))
+           (format "\\citetitles{%s}" path)
+         (format "\\citetitles[%s]{%s}" desc path)
+         )))))
+
+  (org-add-link-type
+     "headlessfullcite" 'ebib
+     (lambda (path desc format)
+       (cond
+        ((eq format 'latex)
+         (if (or (not desc) (equal 0 (search "headlessfullcite:" desc)))
+               (format "\\headlessfullcite{%s}" path)
+               (format "\\headlessfullcite[%s]{%s}" desc path)
+  )))))
+#+end_src
+
+*** HTML export Settings
+Create =html= files form the =org= sources, to help with
+documentation.
+
+#+source: html-export-settings
+#+begin_src emacs-lisp
+  (setq org-publish-project-alist
+         '(("org"
+            :base-directory "~/.emacs.d/"
+            :publishing-directory "~/org/websites/emacs/"
+            :auto-sitemap t
+            :sitemap-filename "index.org"
+            :sitemap-title "Emacs"
+            :section-numbers t
+            :table-of-contents nil
+            :style "<link rel=\"stylesheet\"
+                   href=\"/css/blueprint/org-screen.css\"
+                   type=\"text/css\"/>")))
+
+    (setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"/css/kjh-org-custom.css\" type=\"text/css\"><link rel=\"stylesheet\" href=\"/css/blueprint/print.css\" type=\"text/css\" media=\"print\"> <!--[if IE]><link rel=\"stylesheet\" href=\"http://kieranhealy.org/css/blueprint/ie.css\" type=\"text/css\" media=\"screen,projection\"><![endif]-->")
+#+end_src
+

@@ -1,0 +1,183 @@
+#+TITLE: Latex Configs
+#+OPTIONS: toc:nil H:2 num:nil ^:nil
+
+This is part of the [[file:../init.el][jpablobr init.el]].
+
+* Latex configs
+  Support for editing LaTeX.
+
+** Load Packages
+*** Load AucTeX
+#+begin_src emacs-lisp
+  (load "auctex.el" nil t t)
+#+end_src
+
+*** Load Preview LaTeX
+#+begin_src emacs-lisp
+  (load "preview-latex.el" nil t t)
+#+end_src
+
+*** Load RefTeX
+#+srcname: reftex-support
+#+begin_src emacs-lisp
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+  (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
+  (autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
+  (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
+  (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+  (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+
+(dolist (i '("tex" "toc" "sty" "cls" "clo"))
+  (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'tex-mode)))
+
+  ;; Make RefTeX faster
+  (setq reftex-enable-partial-scans t)
+  (setq reftex-save-parse-info t)
+  (setq reftex-use-multiple-selection-buffers t)
+  (setq reftex-plug-into-AUCTeX t)
+
+  ;; Make RefTeX work with Org-Mode
+  ;; use 'C-c (' instead of 'C-c [' because the latter is already
+  ;; defined in orgmode to the add-to-agenda command.
+  (defun org-mode-reftex-setup ()
+    (load-library "reftex")
+    (and (buffer-file-name)
+    (file-exists-p (buffer-file-name))
+    (reftex-parse-all))
+    (define-key org-mode-map (kbd "C-c (") 'reftex-citation))
+
+  (add-hook 'org-mode-hook 'org-mode-reftex-setup)
+
+  ;; RefTeX formats for biblatex (not natbib)
+  (setq reftex-cite-format
+        '(
+          (?\C-m . "\\cite[]{%l}")
+          (?t . "\\textcite{%l}")
+          (?a . "\\autocite[]{%l}")
+          (?p . "\\parencite{%l}")
+          (?f . "\\footcite[][]{%l}")
+          (?F . "\\fullcite[]{%l}")
+          (?x . "[]{%l}")
+          (?X . "{%l}")
+          ))
+
+  (setq font-latex-match-reference-keywords
+        '(("cite" "[{")
+          ("cites" "[{}]")
+          ("footcite" "[{")
+          ("footcites" "[{")
+          ("parencite" "[{")
+          ("textcite" "[{")
+          ("fullcite" "[{")
+          ("citetitle" "[{")
+          ("citetitles" "[{")
+          ("headlessfullcite" "[{")))
+
+  (setq reftex-cite-prompt-optional-args nil)
+  (setq reftex-cite-cleanup-optional-args t)
+
+#+end_src
+
+*** Load ebib
+    ebib is a bibtex database manager that works inside emacs. It can
+    talk to org-mode. See [[http://ebib.sourceforge.net/][the ebib project page]] for more. When Ebib is
+    loaded, you can run it with =M-x ebib=.
+
+#+source: ebib-load
+#+begin_src emacs-lisp
+  (autoload 'ebib "ebib" "Ebib, a BibTeX database manager." t)
+  (setq ebib-preload-bib-files
+        '("/Users/jpablobr/org/bibs/socbib.bib"))
+  (add-hook 'LaTeX-mode-hook #'(lambda ()
+          (local-set-key "\C-cb" 'ebib-insert-bibtex-key)))
+#+end_src
+
+** Configure AucTeX
+*** Use pdfLaTeX
+    - Take this out to compile to DVI, instead.
+#+srcname: pdf-mode
+#+begin_src emacs-lisp
+      (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
+#+end_src
+
+*** Configure Biber
+Allow AucTeX to use biber as well as/instead of bibtex.
+#+source: setup-biber
+#+begin_src emacs-lisp
+    ;; Biber under AUCTeX
+    (defun TeX-run-Biber (name command file)
+      "Create a process for NAME using COMMAND to format FILE with Biber."
+     (let ((process (TeX-run-command name command file)))
+        (setq TeX-sentinel-function 'TeX-Biber-sentinel)
+        (if TeX-process-asynchronous
+            process
+          (TeX-synchronous-sentinel name file process))))
+
+    (defun TeX-Biber-sentinel (process name)
+      "Cleanup TeX output buffer after running Biber."
+      (goto-char (point-max))
+      (cond
+       ;; Check whether Biber reports any warnings or errors.
+       ((re-search-backward (concat
+                             "^(There \\(?:was\\|were\\) \\([0-9]+\\) "
+                             "\\(warnings?\\|error messages?\\))") nil t)
+        ;; Tell the user their number so that she sees whether the
+        ;; situation is getting better or worse.
+        (message (concat "Biber finished with %s %s. "
+                         "Type `%s' to display output.")
+                 (match-string 1) (match-string 2)
+                 (substitute-command-keys
+                  "\\\\[TeX-recenter-output-buffer]")))
+       (t
+        (message (concat "Biber finished successfully. "
+                         "Run LaTeX again to get citations right."))))
+      (setq TeX-command-next TeX-command-default))
+
+  (eval-after-load "tex"
+    '(add-to-list 'TeX-command-list '("Biber" "biber %s" TeX-run-Biber nil t :help "Run Biber"))
+    )
+
+
+#+end_src
+
+*** Set a Path to Executables (optional)
+    - The location of the LaTeX excecutables is system
+      dependent. AUCTeX calls everything through a shell, so you may
+      or may not need this.  This source-code block is turned off by
+      default as it should be added to the user's personal
+      configuration as needed.
+#+srcname: set-exec-path
+#+begin_src emacs-lisp :tangle no
+      (setenv "PATH" (concat "/usr/texbin:" (getenv "PATH")))
+#+end_src
+
+** Configure RefTeX
+*** Default Bibliography
+    - This is important when editing source code in Org-babel, since
+      the LaTeX source code block being edited probably doesn't
+      include the \bibliography{} command that RefTeX uses to find
+      bibliographic database(s).  Make certain also that RefTeX has a
+      path to the bibliographic databases.  This source-code block is
+      turned off be default as it should be configured by the user in
+      a personal file/directory.
+#+srcname: default-bibliography
+#+begin_src emacs-lisp :tangle no
+  (setq reftex-default-bibliography
+        (quote
+         ("user.bib" "local.bib")))
+#+end_src
+
+** Configure Org-babel
+   - Add LaTeX to the list of languages Org-babel will recognize.
+#+srcname: add-latex
+#+begin_src emacs-lisp
+     (require 'ob-latex)
+  ;; (org-babel-add-interpreter "latex")
+  ;; (add-to-list 'org-babel-tangle-langs '("latex" "tex"))
+#+end_src
+   - Add LaTeX to a list of languages that raise noweb-type errors.
+#+srcname: noweb-error
+#+begin_src emacs-lisp
+  (add-to-list 'org-babel-noweb-error-langs "latex")
+#+end_src

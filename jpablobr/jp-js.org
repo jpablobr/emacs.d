@@ -1,10 +1,32 @@
+#+TITLE: js configs
+#+OPTIONS: toc:nil H:2 num:nil ^:nil
 
+This is part of the [[file:../init.el][jpablobr init.el]].
+
+* js configs
+Support for editing LaTeX.
+- Javascript
+- Useful patterns for using the ido menu with Javascript files.
+
+- Matches things like:
+
+  function bacon() {}        // Standard function
+  getJSON: function () {}    // Function as a key in a hash
+  this.post = function () {} // Instance method in a function
+  var MyObj = { ...          // Capitalized variable object
+
+** Load Packages
+*** Load AucTeX
+#+begin_src emacs-lisp
 (setq js-dir (concat vendor-dir "/js"))
 (add-to-list 'load-path js-dir)
 (defvar preferred-javascript-mode 'js2-mode)
 (defvar preferred-mmm-javascript-mode 'js2-mode)
 (defvar preferred-javascript-indent-level 2)
+#+end_src
 
+*** JS2
+#+begin_src emacs-lisp
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
@@ -13,7 +35,10 @@
 (eval-after-load "js"
   '(progn
      (add-hook 'js-mode-hook 'flymake-js-load)))
+#+end_src
 
+*** Configs
+#+begin_src emacs-lisp
 (setq js2-use-font-lock-faces t)
 (setq js2-mode-must-byte-compile nil)
 (setq js2-basic-offset preferred-javascript-indent-level)
@@ -28,11 +53,20 @@
         ("Variable as Class" "var \\([A-Z]+\\w+\\) = {" 1)
         ("Assigned Function" "^\\s-*\\([A-z.]+\\w\\) = function\\s-*(.*) {" 1)
         ))
+#+end_src
 
-(setq js-indent-level preferred-javascript-indent-level)
+*** js-mode
+#+begin_src emacs-lisp
+  (setq js-indent-level preferred-javascript-indent-level)
+#+end_src
 
-(setq javascript-indent-level preferred-javascript-indent-level)
+*** standard javascript-mode
+#+begin_src emacs-lisp
+  (setq javascript-indent-level preferred-javascript-indent-level)
+#+end_src
 
+*** MMM submode regions in html
+#+begin_src emacs-lisp
 (eval-after-load "mmm-vars"
   `(progn
      (mmm-add-group
@@ -62,7 +96,10 @@
 (eval-after-load "coffee-mode"
   `(setq coffee-js-mode preferred-javascript-mode
          coffee-tab-width preferred-javascript-indent-level))
+#+end_src
 
+*** js-comint
+#+begin_src emacs-lisp
 (require 'js-comint)
 (setq inferior-js-program-command "js")
 (defun add-inferior-js-keys ()
@@ -79,7 +116,10 @@
 (defun javascript-moz-setup () (moz-minor-mode 1))
 (add-hook 'js2-mode-hook 'javascript-moz-setup)
 (add-hook 'js-mode-hook 'javascript-moz-setup)
+#+end_src
 
+*** Cosmetics
+#+begin_src emacs-lisp
 (eval-after-load 'js2-mode
   '(progn
      (font-lock-add-keywords
@@ -109,13 +149,19 @@
 (add-hook 'javascript-mode-hook
           (lambda ()
             (setq imenu-generic-expression jpablobr-js-imenu-generic-expression)))
+#+end_src
 
+*** Run jslint on a file to check syntax and coding conventions.
+#+begin_src emacs-lisp
 (add-hook 'javascript-mode-hook
           (lambda ()
             (set (make-local-variable 'compile-command)
                  (let ((file (file-name-nondirectory buffer-file-name)))
                    (concat "java -classpath ~/src/rhino1_7R2/build/classes org.mozilla.javascript.tools.shell.Main ~/bin/src/jslint.js " file)))))
+#+end_src
 
+*** JS shell
+#+begin_src emacs-lisp
 (autoload 'javascript-shell "javascript-mode" nil t)
 
 (defun js2-insert-console ()
@@ -186,7 +232,10 @@
                           (current-column)))
                        (continued-expr-p js2-basic-offset)
                        (t 0)))))))
+#+end_src
 
+*** Coffeescript mode
+#+begin_src emacs-lisp
 (require 'coffee-mode)
 (defun coffee-custom ()
   "coffee-mode-hook"
@@ -213,3 +262,4 @@
           (coffee-compile-file)))))
 
 (add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
+#+end_src

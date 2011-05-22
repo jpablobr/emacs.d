@@ -1,5 +1,14 @@
+#+TITLE: auto-complete
+#+OPTIONS: toc:nil H:2 num:nil ^:nil
 
-;;jp-autocomplete.el ---------------------------------------------------------
+This is part of the [[file:../init.el][jpablobr init.el]].
+
+* auto-complete config file
+
+** Load Packages
+
+*** Load packeges and set autoloads
+#+begin_src emacs-lisp
 (require 'auto-complete)
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories (concat misc-dir "/ac-dict"))
@@ -15,7 +24,10 @@
 (define-key ac-complete-mode-map "\r" nil)
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
+#+end_src
 
+*** Auto-complete souces
+#+begin_src emacs-lisp
 (set-default 'ac-sources '( ac-source-yasnippet
                             ac-source-filename
                             ac-source-functions
@@ -25,7 +37,10 @@
                             ac-source-abbrev
                             ac-source-words-in-same-mode-buffers
                             ac-source-dictionary))
+#+end_src
 
+*** What to auto-complete
+#+begin_src emacs-lisp
 (setq ac-modes
       (append ac-modes
               '(c-mode
@@ -67,11 +82,12 @@
                 sass-mode
                 haml-mode
                 html-mode)))
+#+end_src
 
-;; Exclude very large buffers from dabbrev
+*** Exclude very large buffers from dabbrev
+#+begin_src emacs-lisp
 (defun smp-dabbrev-friend-buffer (other-buffer)
   (< (buffer-size other-buffer) (* 1 1024 1024)))
 
 (setq dabbrev-friend-buffer-function 'smp-dabbrev-friend-buffer)
-
-(provide 'jp-autocomplete)
+#+end_src

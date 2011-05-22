@@ -24,6 +24,7 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
+(require 'org-install)
 
 ;;; TODO: REFACTOR THIS SHIT!!!!! BUT IS WORKING MUCH BETTER! ;)
 ;;; --------------------------------------------------------------------
@@ -46,23 +47,17 @@
 
 ;;; Stuff to run only on window systems.
 (when window-system
- (load-file (concat jpablobr-dir "/jp-webdev.el"))
- (require 'jp-webdev)
-  (load-file (concat jpablobr-dir "/jp-js.el"))
-  (require 'jp-js)
-  (load-file (concat jpablobr-dir "/jp-org-config.el"))
-  (require 'jp-org-config)
-  (load-file (concat jpablobr-dir "/jp-latex.el"))
-  (require 'jp-latex)
-  (load-file (concat jpablobr-dir "/jp-theme.el"))
-  (require 'jp-theme)
-  (load custom-file 'noerror))
+  (org-emacs-file-load (concat jpablobr-dir "/jp-org-config.org"))
+  (org-emacs-file-load (concat jpablobr-dir "/jp-latex.org"))
+  (org-emacs-file-load (concat jpablobr-dir "/jp-webdev.org"))
+  (org-emacs-file-load (concat jpablobr-dir "/jp-js.org")))
+
+;; ---------------------------------------------------------------------
+;; - Rest of config files...
 ;; (load-file (concat jpablobr-dir "/jp-python.el"))
 ;; (require 'jp-python)
 ;; (load-file (concat jpablobr-dir "/jp-showoff.el"))
 ;; (require 'jp-showoff)
-(load-file (concat jpablobr-dir "/jp-java.el"))
-(require 'jp-java)
 ;; (load-file (concat jpablobr-dir "/jp-php.el"))
 ;; (require 'jp-php)
 ;; (load-file (concat jpablobr-dir "/jp-wanderlust.el"))
@@ -79,6 +74,8 @@
 ;; (require 'jp-artist)
 ;; (load-file (concat jpablobr-dir "/jp-perl.el"))
 ;; (require 'jp-perl)
+(load-file (concat jpablobr-dir "/jp-java.el"))
+(require 'jp-java)
 (load-file (concat jpablobr-dir "/jp-yaml.el"))
 (require 'jp-yaml)
 (load-file (concat jpablobr-dir "/jp-haml.el"))
@@ -102,6 +99,8 @@
 (require 'jp-yasnippet)
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
+(load custom-file 'noerror)
+(org-emacs-file-load (concat jpablobr-dir "/jp-theme.org"))
 
 ;; ---------------------------------------------------------------------
 ;; - ECB
@@ -113,10 +112,11 @@
 ;; (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
 ;; (ecb-activate)
 
-;;; Startup
+;; ---------------------------------------------------------------------
+;; - Startup
 (when (file-exists-p "~/org")
-  (find-file "~/org/jpablobr.org")
-  (find-file "~/org/yacs/linux.org"))
+  (find-file "~/org/yacs/linux.org")
+  (find-file "~/org/jpablobr.org"))
 
 (server-start)
 
