@@ -66,8 +66,6 @@
 (add-hook 'LaTeX-mode-hook #'(lambda ()
         (local-set-key "\C-cb" 'ebib-insert-bibtex-key)))
 
-(add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
-
 ;; Biber under AUCTeX
   (defun TeX-run-Biber (name command file)
     "Create a process for NAME using COMMAND to format FILE with Biber."

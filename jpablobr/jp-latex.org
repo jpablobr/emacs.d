@@ -94,13 +94,6 @@ This is part of the [[file:../init.el][jpablobr init.el]].
 #+end_src
 
 ** Configure AucTeX
-*** Use pdfLaTeX
-    - Take this out to compile to DVI, instead.
-#+srcname: pdf-mode
-#+begin_src emacs-lisp
-      (add-hook 'LaTeX-mode-hook 'TeX-PDF-mode)
-#+end_src
-
 *** Configure Biber
 Allow AucTeX to use biber as well as/instead of bibtex.
 #+source: setup-biber
@@ -149,7 +142,7 @@ Allow AucTeX to use biber as well as/instead of bibtex.
       configuration as needed.
 #+srcname: set-exec-path
 #+begin_src emacs-lisp :tangle no
-      (setenv "PATH" (concat "/usr/texbin:" (getenv "PATH")))
+  (setenv "PATH" (concat "/usr/texbin:" (getenv "PATH")))
 #+end_src
 
 ** Configure RefTeX

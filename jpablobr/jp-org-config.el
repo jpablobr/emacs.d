@@ -127,6 +127,7 @@
                       (interactive)
                       (shell-command "vc")))
 
+(setenv "PATH" (concat "/home/jpablobr/.cabal/bin:" (getenv "PATH")))
 (load "pandoc-mode")
 (add-hook 'markdown-mode-hook 'turn-on-pandoc)
 (add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
