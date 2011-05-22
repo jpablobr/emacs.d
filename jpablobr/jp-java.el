@@ -5,6 +5,13 @@
 ;;; - http://www.emacswiki.org/cgi-bin/wiki/download/mic-paren.el
 ;;; - http://www.hut.fi/u/rsaikkon/software/elisp/cparen.el
 ;;; - from: http://user.it.uu.se/~mic/pager.el
+;;; - $ apt get install:
+;;; - openjdk-6-doc
+;;; - openjdk-6-jdk
+;;; - openjdk-6-jre
+;;; - openjdk-6-jre-headless
+;;; - openjdk-6-jre-lib
+;;; - openjdk-6-source
 ;;;
 (require 'jde)
 (require 'pager)
@@ -45,8 +52,8 @@
  (wisent-java-default-setup)
   (setq
    indent-tabs-mode nil
-   tab-width 2
-   c-basic-offset 2
+   tab-width 4
+   c-basic-offset 4
    tempo-interactive t
    ))
 (add-hook 'jde-mode-hook 'indentation-jde-mode-hook)
@@ -61,8 +68,7 @@
  '(jde-bug-debugger-host-address "127.0.0.1")
  '(jde-compile-option-debug (quote ("all" (t nil nil))))
  '(jde-debugger (quote ("jdb")))
- '(jde-jdk-doc-url "http://download.oracle.com/javase/1.5.0/docs/api/index.html")
- '(jde-regexp-jar-file "/usr/share/java/regexp.jar")
+ '(jde-jdk-doc-url "/usr/share/doc/openjdk-6-doc/api/index.html")
  '(jde-sourcepath (quote (".")))
  '(jde-ant-enable-find t)
  '(jde-ant-home "$ANT_HOME")
@@ -75,18 +81,11 @@
  '(jde-lib-directory-names (quote ("^lib" "^jar" "^classes")))
  '(jde-which-method-class-min-length 0)
  '(jde-which-method-max-length 30)
-  (if (eq system-type 'windows-nt)
-    (progn
-      '(jde-jdk (quote "C:\j2sdk1.6.0_16"))
-      '(jde-jdk-registry (quote (("1.6" . "C:\j2sdk1.6.0_16"))))
-      '(jde-bug-jre-home "C:\j2sdk1.6.0_16")
-      '(jde-global-classpath (quote ("." "C:\j2sdk1.6.0_16"))))
-  (progn
-    '(jde-jdk (quote "/usr/lib/jvm/java-6-sun"))
-    '(jde-jdk-registry (quote (("1.5" . "/usr/lib/jvm/java-6-sun"))))
-    '(jde-bug-jre-home  "/usr/lib/jvm/java-6-sun")
-    '(jde-global-classpath (quote ("." "/usr/share/java/" "/usr/lib/jvm/java-6-sun")))
-    '(jde-regexp-jar-file "/usr/share/java/regexp.jar"))))
+ ;; '(jde-jdk (quote "/usr/lib/jvm/java-6-sun"))
+ '(jde-jdk-registry (quote (("1.6" . "/usr/lib/jvm/java-6-sun"))))
+ '(jde-bug-jre-home  "/usr/lib/jvm/java-6-sun")
+ '(jde-global-classpath (quote ("." "/usr/share/java/" "/usr/lib/jvm/java-6-sun")))
+ '(jde-regexp-jar-file "/usr/share/java/regexp.jar"))
 
 ;; ;;; ----------------------------------------------------------------------------
 ;; ;;; - Hacks
@@ -95,5 +94,9 @@
 ;; (defun semantic-parse())
 ;; (defun skip-cleanup())
 ;; (defun  semantic-format-prototype-tag-java-mode())
+
+;; http://permalink.gmane.org/gmane.emacs.jdee/5131
+(defvar compilation-nomessage-regexp-alist '())
+(add-hook 'compilation-mode-hook (lambda () (setq buffer-read-only nil)))
 
 (provide 'jp-java)

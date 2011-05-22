@@ -12,9 +12,9 @@
 ;; ---------------------------------------------------------------------
 ;; - Global custom variables
 (custom-set-variables
- '(user-full-name '"José Pablo Barrantes R.")
+ '(user-full-name '"Jose Pablo Barrantes R.")
  '(user-mail-address '"xjpablobrx@gmail.com")
- '(user-details '"José Pablo Barrantes R. http://jpablobr.com")
+ '(user-details '"Jose Pablo Barrantes R. http://jpablobr.com")
  '(user-login-name "jpablobr")
  '(github-user "jpablobr")
  '(w3m-arrived-file "~/Dropbox/private-dotfiles/w3m/.arrived")
