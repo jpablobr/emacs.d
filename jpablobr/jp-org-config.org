@@ -16,7 +16,6 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 
 ** Helpful Packages
 #+begin_src emacs-lisp
-(require 'org-install)
 (setq org-completion-use-ido t)
 (require 'org-special-blocks)
 ;; (if window-system (require 'org-mouse))
@@ -27,7 +26,6 @@ which is also *implemented using* Org-mode and [[http://git-scm.com/][git]].
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
-;; (if window-system (require 'org-mouse))
 #+end_src
 
 ** Org-Mode Hook
@@ -187,9 +185,9 @@ Set up AUCTeX to work with the Skim PDF viewer.
    ;; (setq-default TeX-master nil)
 
    ;; Auto-raise Emacs on activation (from Skim, usually)
-   (defun raise-emacs-on-aqua()
-   (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
-   (add-hook 'server-switch-hook 'raise-emacs-on-aqua)
+   ;; (defun raise-emacs-on-aqua()
+   ;; (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
+   ;; (add-hook 'server-switch-hook 'raise-emacs-on-aqua)
 #+end_src
 
 *** Local RefTeX Settings
@@ -376,7 +374,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
               ;; LaTeX compilation command
               (setq org-latex-to-pdf-process (list texcmd)))
 
-;;  (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-cmd)
+  (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-cmd)
 
   ;; Default packages included in /every/ tex file, latex, pdflatex or xelatex
   (setq org-export-latex-packages-alist
@@ -421,7 +419,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
                                     ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
                                   org-export-latex-classes))))
 
-;;            (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-parameters)
+            (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-parameters)
 #+end_src
 
 *** ebib and citation settings
@@ -438,8 +436,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
         ((eq format 'latex)
          (if (or (not desc) (equal 0 (search "cite:" desc)))
                (format "\\cite{%s}" path)
-               (format "\\cite[%s]{%s}" desc path)
-               )))))
+               (format "\\cite[%s]{%s}" desc path))))))
 
    (org-add-link-type
      "parencite" 'ebib
@@ -448,8 +445,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
         ((eq format 'latex)
          (if (or (not desc) (equal 0 (search "parencite:" desc)))
                (format "\\parencite{%s}" path)
-               (format "\\parencite[%s]{%s}" desc path)
-  )))))
+               (format "\\parencite[%s]{%s}" desc path))))))
 
   (org-add-link-type
      "textcite" 'ebib
@@ -458,8 +454,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
         ((eq format 'latex)
          (if (or (not desc) (equal 0 (search "textcite:" desc)))
                (format "\\textcite{%s}" path)
-               (format "\\textcite[%s]{%s}" desc path)
-  )))))
+               (format "\\textcite[%s]{%s}" desc path))))))
 
   (org-add-link-type
      "autocite" 'ebib
@@ -468,8 +463,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
         ((eq format 'latex)
          (if (or (not desc) (equal 0 (search "autocite:" desc)))
                (format "\\autocite{%s}" path)
-           (format "\\autocite[%s]{%s}" desc path)
-  )))))
+           (format "\\autocite[%s]{%s}" desc path))))))
 
   (org-add-link-type
    "footcite" 'ebib
@@ -478,8 +472,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
       ((eq format 'latex)
        (if (or (not desc) (equal 0 (search "footcite:" desc)))
            (format "\\footcite{%s}" path)
-         (format "\\footcite[%s]{%s}" desc path)
-         )))))
+         (format "\\footcite[%s]{%s}" desc path))))))
 
   (org-add-link-type
    "fullcite" 'ebib
@@ -488,8 +481,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
       ((eq format 'latex)
        (if (or (not desc) (equal 0 (search "fullcite:" desc)))
            (format "\\fullcite{%s}" path)
-         (format "\\fullcite[%s]{%s}" desc path)
-         )))))
+         (format "\\fullcite[%s]{%s}" desc path))))))
 
   (org-add-link-type
    "citetitle" 'ebib
@@ -498,8 +490,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
       ((eq format 'latex)
        (if (or (not desc) (equal 0 (search "citetitle:" desc)))
            (format "\\citetitle{%s}" path)
-         (format "\\citetitle[%s]{%s}" desc path)
-         )))))
+         (format "\\citetitle[%s]{%s}" desc path))))))
 
   (org-add-link-type
    "citetitles" 'ebib
@@ -508,8 +499,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
       ((eq format 'latex)
        (if (or (not desc) (equal 0 (search "citetitles:" desc)))
            (format "\\citetitles{%s}" path)
-         (format "\\citetitles[%s]{%s}" desc path)
-         )))))
+         (format "\\citetitles[%s]{%s}" desc path))))))
 
   (org-add-link-type
      "headlessfullcite" 'ebib
@@ -518,16 +508,13 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
         ((eq format 'latex)
          (if (or (not desc) (equal 0 (search "headlessfullcite:" desc)))
                (format "\\headlessfullcite{%s}" path)
-               (format "\\headlessfullcite[%s]{%s}" desc path)
-  )))))
+               (format "\\headlessfullcite[%s]{%s}" desc path))))))
 #+end_src
 
 *** HTML export Settings
 Create =html= files form the =org= sources, to help with
 documentation.
 
-#+source: html-export-settings
-#+begin_src emacs-lisp
   (setq org-publish-project-alist
          '(("org"
             :base-directory "~/.emacs.d/"
@@ -542,4 +529,4 @@ documentation.
                    type=\"text/css\"/>")))
 
     (setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"/css/kjh-org-custom.css\" type=\"text/css\"><link rel=\"stylesheet\" href=\"/css/blueprint/print.css\" type=\"text/css\" media=\"print\"> <!--[if IE]><link rel=\"stylesheet\" href=\"http://kieranhealy.org/css/blueprint/ie.css\" type=\"text/css\" media=\"screen,projection\"><![endif]-->")
-#+end_src
+

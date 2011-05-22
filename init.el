@@ -12,7 +12,7 @@
 (setq misc-dir (concat dotfiles-dir "/vendor/misc"))
 (add-to-list 'load-path dotfiles-dir)
 (add-to-list 'load-path misc-dir)
-
+(load custom-file 'noerror)
 ;;; --------------------------------------------------------------------
 ;;; - These should be loaded on startup rather than
 ;;; - autoloaded on demand
@@ -24,7 +24,6 @@
 (require 'uniquify)
 (require 'ansi-color)
 (require 'recentf)
-(require 'org-install)
 
 ;;; TODO: REFACTOR THIS SHIT!!!!! BUT IS WORKING MUCH BETTER! ;)
 ;;; --------------------------------------------------------------------
@@ -44,6 +43,8 @@
 (require 'jp-eshell)
 (load-file (concat jpablobr-dir "/jp-w3m.el"))
 (require 'jp-w3m)
+
+(require 'org-install)
 
 ;;; Stuff to run only on window systems.
 (when window-system
@@ -99,7 +100,6 @@
 (require 'jp-yasnippet)
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
-(load custom-file 'noerror)
 (org-emacs-file-load (concat jpablobr-dir "/jp-theme.org"))
 
 ;; ---------------------------------------------------------------------

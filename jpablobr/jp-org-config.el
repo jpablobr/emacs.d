@@ -1,5 +1,4 @@
 
-(require 'org-install)
 (setq org-completion-use-ido t)
 (require 'org-special-blocks)
 ;; (if window-system (require 'org-mouse))
@@ -10,7 +9,6 @@
 (add-hook 'org-shiftleft-final-hook 'windmove-left)
 (add-hook 'org-shiftdown-final-hook 'windmove-down)
 (add-hook 'org-shiftright-final-hook 'windmove-right)
-;; (if window-system (require 'org-mouse))
 
 (defun yas/org-very-safe-expand ()
   (let ((yas/fallback-behavior 'return-nil)) (yas/expand)))
@@ -88,9 +86,9 @@
 ;; (setq-default TeX-master nil)
 
 ;; Auto-raise Emacs on activation (from Skim, usually)
-(defun raise-emacs-on-aqua()
-(shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
-(add-hook 'server-switch-hook 'raise-emacs-on-aqua)
+;; (defun raise-emacs-on-aqua()
+;; (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
+;; (add-hook 'server-switch-hook 'raise-emacs-on-aqua)
 
 ;; Make RefTex able to find my local bib files
 (setq reftex-bibpath-environment-variables
@@ -171,83 +169,83 @@
 (setq org-src-window-setup 'current-window)
 
 (require 'org-latex)
-  ;; Choose either listings or minted for exporting source code blocks.
-  ;; Using minted (as here) requires pygments be installed. To use the
-  ;; default listings package instead, use
-  ;; (setq org-export-latex-listings t)
-  ;; and change references to "minted" below to "listings"
-  (setq org-export-latex-listings 'minted)
+;; Choose either listings or minted for exporting source code blocks.
+;; Using minted (as here) requires pygments be installed. To use the
+;; default listings package instead, use
+;; (setq org-export-latex-listings t)
+;; and change references to "minted" below to "listings"
+(setq org-export-latex-listings 'minted)
 
-  ;; default settings for minted code blocks
-  (setq org-export-latex-minted-options
-        '(;("frame" "single")
-          ("bgcolor" "bg") ; bg will need to be defined in the preamble of your document. It's defined in org-preamble-pdflatex.sty and org-preamble-xelatex.sty below.
-          ("fontsize" "\\small")))
-
-
-  ;; Originally taken from Bruno Tavernier: http://thread.gmane.org/gmane.emacs.orgmode/31150/focus=31432
-  ;; but adapted to use latexmk 4.22 or higher.
-  (defun my-auto-tex-cmd ()
-    "When exporting from .org with latex, automatically run latex,
-                 pdflatex, or xelatex as appropriate, using latexmk."
-    (let ((texcmd)))
-    ;; default command: pdflatex
-    (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f")
-    ;; pdflatex -> .pdf
-    (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-        (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f"))
-    ;; xelatex -> .pdf
-              (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-                  (setq texcmd "latexmk -pdflatex='xelatex --shell-escape' -pdf %f"))
-              ;; LaTeX compilation command
-              (setq org-latex-to-pdf-process (list texcmd)))
-
-;;  (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-cmd)
-
-  ;; Default packages included in /every/ tex file, latex, pdflatex or xelatex
-  (setq org-export-latex-packages-alist
-                  '(("" "graphicx" t)
-                        ("" "longtable" nil)
-                        ("" "float" )))
-
-  ;; Custom packages
-  (defun my-auto-tex-parameters ()
-    "Automatically select the tex packages to include."
-    ;; default packages for ordinary latex or pdflatex export
-    (setq org-export-latex-default-packages-alist
-          '(("AUTO" "inputenc" t)
-            ("minted,minion" "org-preamble-pdflatex" t)))
-    ;; Packages to include when xelatex is used
-                  (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-                      (setq org-export-latex-default-packages-alist
-                            '(("minted" "org-preamble-xelatex" t) )))
+;; default settings for minted code blocks
+(setq org-export-latex-minted-options
+      '(;("frame" "single")
+        ("bgcolor" "bg") ; bg will need to be defined in the preamble of your document. It's defined in org-preamble-pdflatex.sty and org-preamble-xelatex.sty below.
+        ("fontsize" "\\small")))
 
 
-                  (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-                      (setq org-export-latex-classes
-                            (cons '("article"
-                                    "\\documentclass[11pt,article,oneside]{memoir}
-    \\input{vc} % vc package"
-                                    ("\\section{%s}" . "\\section*{%s}")
-                                    ("\\subsection{%s}" . "\\subsection*{%s}")
-                                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-                                  org-export-latex-classes)))
+;; Originally taken from Bruno Tavernier: http://thread.gmane.org/gmane.emacs.orgmode/31150/focus=31432
+;; but adapted to use latexmk 4.22 or higher.
+(defun my-auto-tex-cmd ()
+  "When exporting from .org with latex, automatically run latex,
+               pdflatex, or xelatex as appropriate, using latexmk."
+  (let ((texcmd)))
+  ;; default command: pdflatex
+  (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f")
+  ;; pdflatex -> .pdf
+  (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+      (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f"))
+  ;; xelatex -> .pdf
+            (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+                (setq texcmd "latexmk -pdflatex='xelatex --shell-escape' -pdf %f"))
+            ;; LaTeX compilation command
+            (setq org-latex-to-pdf-process (list texcmd)))
 
-                  (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-                      (setq org-export-latex-classes
-                            (cons '("article"
-                                    "\\documentclass[11pt,article,oneside]{memoir}
+(add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-cmd)
+
+;; Default packages included in /every/ tex file, latex, pdflatex or xelatex
+(setq org-export-latex-packages-alist
+                '(("" "graphicx" t)
+                      ("" "longtable" nil)
+                      ("" "float" )))
+
+;; Custom packages
+(defun my-auto-tex-parameters ()
+  "Automatically select the tex packages to include."
+  ;; default packages for ordinary latex or pdflatex export
+  (setq org-export-latex-default-packages-alist
+        '(("AUTO" "inputenc" t)
+          ("minted,minion" "org-preamble-pdflatex" t)))
+  ;; Packages to include when xelatex is used
+                (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+                    (setq org-export-latex-default-packages-alist
+                          '(("minted" "org-preamble-xelatex" t) )))
+
+
+                (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+                    (setq org-export-latex-classes
+                          (cons '("article"
+                                  "\\documentclass[11pt,article,oneside]{memoir}
   \\input{vc} % vc package"
-                                    ("\\section{%s}" . "\\section*{%s}")
-                                    ("\\subsection{%s}" . "\\subsection*{%s}")
-                                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-                                  org-export-latex-classes))))
+                                  ("\\section{%s}" . "\\section*{%s}")
+                                  ("\\subsection{%s}" . "\\subsection*{%s}")
+                                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                                org-export-latex-classes)))
 
-;;            (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-parameters)
+                (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+                    (setq org-export-latex-classes
+                          (cons '("article"
+                                  "\\documentclass[11pt,article,oneside]{memoir}
+\\input{vc} % vc package"
+                                  ("\\section{%s}" . "\\section*{%s}")
+                                  ("\\subsection{%s}" . "\\subsection*{%s}")
+                                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                                org-export-latex-classes))))
+
+          (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-parameters)
 
 (org-add-link-type "ebib" 'ebib)
 
@@ -258,8 +256,7 @@
       ((eq format 'latex)
        (if (or (not desc) (equal 0 (search "cite:" desc)))
              (format "\\cite{%s}" path)
-             (format "\\cite[%s]{%s}" desc path)
-             )))))
+             (format "\\cite[%s]{%s}" desc path))))))
 
  (org-add-link-type
    "parencite" 'ebib
@@ -268,8 +265,7 @@
       ((eq format 'latex)
        (if (or (not desc) (equal 0 (search "parencite:" desc)))
              (format "\\parencite{%s}" path)
-             (format "\\parencite[%s]{%s}" desc path)
-)))))
+             (format "\\parencite[%s]{%s}" desc path))))))
 
 (org-add-link-type
    "textcite" 'ebib
@@ -278,8 +274,7 @@
       ((eq format 'latex)
        (if (or (not desc) (equal 0 (search "textcite:" desc)))
              (format "\\textcite{%s}" path)
-             (format "\\textcite[%s]{%s}" desc path)
-)))))
+             (format "\\textcite[%s]{%s}" desc path))))))
 
 (org-add-link-type
    "autocite" 'ebib
@@ -288,8 +283,7 @@
       ((eq format 'latex)
        (if (or (not desc) (equal 0 (search "autocite:" desc)))
              (format "\\autocite{%s}" path)
-         (format "\\autocite[%s]{%s}" desc path)
-)))))
+         (format "\\autocite[%s]{%s}" desc path))))))
 
 (org-add-link-type
  "footcite" 'ebib
@@ -298,8 +292,7 @@
     ((eq format 'latex)
      (if (or (not desc) (equal 0 (search "footcite:" desc)))
          (format "\\footcite{%s}" path)
-       (format "\\footcite[%s]{%s}" desc path)
-       )))))
+       (format "\\footcite[%s]{%s}" desc path))))))
 
 (org-add-link-type
  "fullcite" 'ebib
@@ -308,8 +301,7 @@
     ((eq format 'latex)
      (if (or (not desc) (equal 0 (search "fullcite:" desc)))
          (format "\\fullcite{%s}" path)
-       (format "\\fullcite[%s]{%s}" desc path)
-       )))))
+       (format "\\fullcite[%s]{%s}" desc path))))))
 
 (org-add-link-type
  "citetitle" 'ebib
@@ -318,8 +310,7 @@
     ((eq format 'latex)
      (if (or (not desc) (equal 0 (search "citetitle:" desc)))
          (format "\\citetitle{%s}" path)
-       (format "\\citetitle[%s]{%s}" desc path)
-       )))))
+       (format "\\citetitle[%s]{%s}" desc path))))))
 
 (org-add-link-type
  "citetitles" 'ebib
@@ -328,8 +319,7 @@
     ((eq format 'latex)
      (if (or (not desc) (equal 0 (search "citetitles:" desc)))
          (format "\\citetitles{%s}" path)
-       (format "\\citetitles[%s]{%s}" desc path)
-       )))))
+       (format "\\citetitles[%s]{%s}" desc path))))))
 
 (org-add-link-type
    "headlessfullcite" 'ebib
@@ -338,20 +328,4 @@
       ((eq format 'latex)
        (if (or (not desc) (equal 0 (search "headlessfullcite:" desc)))
              (format "\\headlessfullcite{%s}" path)
-             (format "\\headlessfullcite[%s]{%s}" desc path)
-)))))
-
-(setq org-publish-project-alist
-       '(("org"
-          :base-directory "~/.emacs.d/"
-          :publishing-directory "~/org/websites/emacs/"
-          :auto-sitemap t
-          :sitemap-filename "index.org"
-          :sitemap-title "Emacs"
-          :section-numbers t
-          :table-of-contents nil
-          :style "<link rel=\"stylesheet\"
-                 href=\"/css/blueprint/org-screen.css\"
-                 type=\"text/css\"/>")))
-
-  (setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"/css/kjh-org-custom.css\" type=\"text/css\"><link rel=\"stylesheet\" href=\"/css/blueprint/print.css\" type=\"text/css\" media=\"print\"> <!--[if IE]><link rel=\"stylesheet\" href=\"http://kieranhealy.org/css/blueprint/ie.css\" type=\"text/css\" media=\"screen,projection\"><![endif]-->")
+             (format "\\headlessfullcite[%s]{%s}" desc path))))))
