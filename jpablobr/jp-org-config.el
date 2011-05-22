@@ -166,88 +166,88 @@
 ;; Set to the files (or directory of files) you want sync'd
 (setq org-agenda-files (quote ("~/Dropbox/org")))
 ;; Set to the name of the file where new notes will be stored
-(setq org-mobile-inbox-for-pull "~/Dropbox/Org/from-mobile.org")
+(setq org-mobile-inbox-for-pull "~/Dropbox/org/from-mobile.org")
 
 (setq org-src-window-setup 'current-window)
 
 (require 'org-latex)
-;; Choose either listings or minted for exporting source code blocks.
-;; Using minted (as here) requires pygments be installed. To use the
-;; default listings package instead, use
-;; (setq org-export-latex-listings t)
-;; and change references to "minted" below to "listings"
-(setq org-export-latex-listings 'minted)
+  ;; Choose either listings or minted for exporting source code blocks.
+  ;; Using minted (as here) requires pygments be installed. To use the
+  ;; default listings package instead, use
+  ;; (setq org-export-latex-listings t)
+  ;; and change references to "minted" below to "listings"
+  (setq org-export-latex-listings 'minted)
 
-;; default settings for minted code blocks
-(setq org-export-latex-minted-options
-      '(;("frame" "single")
-        ("bgcolor" "bg") ; bg will need to be defined in the preamble of your document. It's defined in org-preamble-pdflatex.sty and org-preamble-xelatex.sty below.
-        ("fontsize" "\\small")))
-
-
-;; Originally taken from Bruno Tavernier: http://thread.gmane.org/gmane.emacs.orgmode/31150/focus=31432
-;; but adapted to use latexmk 4.22 or higher.
-(defun my-auto-tex-cmd ()
-  "When exporting from .org with latex, automatically run latex,
-               pdflatex, or xelatex as appropriate, using latexmk."
-  (let ((texcmd)))
-  ;; default command: pdflatex
-  (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f")
-  ;; pdflatex -> .pdf
-  (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-      (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f"))
-  ;; xelatex -> .pdf
-            (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-                (setq texcmd "latexmk -pdflatex='xelatex --shell-escape' -pdf %f"))
-            ;; LaTeX compilation command
-            (setq org-latex-to-pdf-process (list texcmd)))
-
-(add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-cmd)
-
-;; Default packages included in /every/ tex file, latex, pdflatex or xelatex
-(setq org-export-latex-packages-alist
-                '(("" "graphicx" t)
-                      ("" "longtable" nil)
-                      ("" "float" )))
-
-;; Custom packages
-(defun my-auto-tex-parameters ()
-  "Automatically select the tex packages to include."
-  ;; default packages for ordinary latex or pdflatex export
-  (setq org-export-latex-default-packages-alist
-        '(("AUTO" "inputenc" t)
-          ("minted,minion" "org-preamble-pdflatex" t)))
-  ;; Packages to include when xelatex is used
-                (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-                    (setq org-export-latex-default-packages-alist
-                          '(("minted" "org-preamble-xelatex" t) )))
+  ;; default settings for minted code blocks
+  (setq org-export-latex-minted-options
+        '(;("frame" "single")
+          ("bgcolor" "bg") ; bg will need to be defined in the preamble of your document. It's defined in org-preamble-pdflatex.sty and org-preamble-xelatex.sty below.
+          ("fontsize" "\\small")))
 
 
-                (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
-                    (setq org-export-latex-classes
-                          (cons '("article"
-                                  "\\documentclass[11pt,article,oneside]{memoir}
+  ;; Originally taken from Bruno Tavernier: http://thread.gmane.org/gmane.emacs.orgmode/31150/focus=31432
+  ;; but adapted to use latexmk 4.22 or higher.
+  (defun my-auto-tex-cmd ()
+    "When exporting from .org with latex, automatically run latex,
+                 pdflatex, or xelatex as appropriate, using latexmk."
+    (let ((texcmd)))
+    ;; default command: pdflatex
+    (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f")
+    ;; pdflatex -> .pdf
+    (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+        (setq texcmd "latexmk -pdflatex='pdflatex --shell-escape' -pdf %f"))
+    ;; xelatex -> .pdf
+              (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+                  (setq texcmd "latexmk -pdflatex='xelatex --shell-escape' -pdf %f"))
+              ;; LaTeX compilation command
+              (setq org-latex-to-pdf-process (list texcmd)))
+
+;;  (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-cmd)
+
+  ;; Default packages included in /every/ tex file, latex, pdflatex or xelatex
+  (setq org-export-latex-packages-alist
+                  '(("" "graphicx" t)
+                        ("" "longtable" nil)
+                        ("" "float" )))
+
+  ;; Custom packages
+  (defun my-auto-tex-parameters ()
+    "Automatically select the tex packages to include."
+    ;; default packages for ordinary latex or pdflatex export
+    (setq org-export-latex-default-packages-alist
+          '(("AUTO" "inputenc" t)
+            ("minted,minion" "org-preamble-pdflatex" t)))
+    ;; Packages to include when xelatex is used
+                  (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+                      (setq org-export-latex-default-packages-alist
+                            '(("minted" "org-preamble-xelatex" t) )))
+
+
+                  (if (string-match "LATEX_CMD: pdflatex" (buffer-string))
+                      (setq org-export-latex-classes
+                            (cons '("article"
+                                    "\\documentclass[11pt,article,oneside]{memoir}
+    \\input{vc} % vc package"
+                                    ("\\section{%s}" . "\\section*{%s}")
+                                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                                  org-export-latex-classes)))
+
+                  (if (string-match "LATEX_CMD: xelatex" (buffer-string))
+                      (setq org-export-latex-classes
+                            (cons '("article"
+                                    "\\documentclass[11pt,article,oneside]{memoir}
   \\input{vc} % vc package"
-                                  ("\\section{%s}" . "\\section*{%s}")
-                                  ("\\subsection{%s}" . "\\subsection*{%s}")
-                                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-                                org-export-latex-classes)))
+                                    ("\\section{%s}" . "\\section*{%s}")
+                                    ("\\subsection{%s}" . "\\subsection*{%s}")
+                                    ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                                  org-export-latex-classes))))
 
-                (if (string-match "LATEX_CMD: xelatex" (buffer-string))
-                    (setq org-export-latex-classes
-                          (cons '("article"
-                                  "\\documentclass[11pt,article,oneside]{memoir}
-\\input{vc} % vc package"
-                                  ("\\section{%s}" . "\\section*{%s}")
-                                  ("\\subsection{%s}" . "\\subsection*{%s}")
-                                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                                  ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
-                                org-export-latex-classes))))
-
-          (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-parameters)
+;;            (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-parameters)
 
 (org-add-link-type "ebib" 'ebib)
 

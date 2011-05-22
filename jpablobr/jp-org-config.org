@@ -323,7 +323,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
    ;; Set to the files (or directory of files) you want sync'd
    (setq org-agenda-files (quote ("~/Dropbox/org")))
    ;; Set to the name of the file where new notes will be stored
-   (setq org-mobile-inbox-for-pull "~/Dropbox/Org/from-mobile.org")
+   (setq org-mobile-inbox-for-pull "~/Dropbox/org/from-mobile.org")
 #+end_src
 
 *** Babel Settings
@@ -376,7 +376,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
               ;; LaTeX compilation command
               (setq org-latex-to-pdf-process (list texcmd)))
 
-  (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-cmd)
+;;  (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-cmd)
 
   ;; Default packages included in /every/ tex file, latex, pdflatex or xelatex
   (setq org-export-latex-packages-alist
@@ -421,7 +421,7 @@ When in an org-mode buffer, bind TeX-insert-quote to =C-c "=. Turned off by defa
                                     ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
                                   org-export-latex-classes))))
 
-            (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-parameters)
+;;            (add-hook 'org-export-latex-after-initial-vars-hook 'my-auto-tex-parameters)
 #+end_src
 
 *** ebib and citation settings
@@ -543,4 +543,3 @@ documentation.
 
     (setq org-export-html-style-extra "<link rel=\"stylesheet\" href=\"/css/kjh-org-custom.css\" type=\"text/css\"><link rel=\"stylesheet\" href=\"/css/blueprint/print.css\" type=\"text/css\" media=\"print\"> <!--[if IE]><link rel=\"stylesheet\" href=\"http://kieranhealy.org/css/blueprint/ie.css\" type=\"text/css\" media=\"screen,projection\"><![endif]-->")
 #+end_src
-
