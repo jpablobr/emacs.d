@@ -12,19 +12,6 @@ Delete the current buffer too."
       (delete-file currentFile)
       (message (concat "Deleted file: " currentFile)) ) ) )
 
-(defun google-s ()
-  "Google search on the current region.\n"
-  (interactive)
-  (let (myword myurl)
-    (setq myword
-          (if (and transient-mark-mode mark-active)
-              (buffer-substring-no-properties (region-beginning) (region-end))
-            (thing-at-point 'symbol)))
-
-    (setq myword (replace-regexp-in-string " " "%20" myword))
-    (setq myurl (concat "http://www.google.com/search?q=" myword))
-    (browse-url myurl)))
-
 ;; Keyboard
 (global-set-key [(meta D)] 'backward-kill-word)
 ;; Align your code in a pretty way.
