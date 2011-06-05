@@ -51,6 +51,7 @@
                 tex-mode
                 latex-mode
                 makefile-mode
+                markdown-mode
                 sh-mode
                 f90-mode
                 ada-mode

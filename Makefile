@@ -91,3 +91,9 @@ u_sudo:
 
 clean:
 	@rm u_js u_ruby u_git u_misc
+
+help:
+	@ echo "Usage   :  make <target>"
+	@ echo "Targets :"
+	@ echo "   all ........... Builds the project."
+	@ echo "   help .......... Prints this help message."

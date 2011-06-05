@@ -70,6 +70,12 @@ This is part of the [[file:../init.el][jpablobr init.el]].
 (add-hook 'css-mode-hook
           (lambda()
             (local-set-key (kbd "<return>") 'newline-and-indent)))
+
+(setq cssm-indent-level 2)
+(setq cssm-newline-before-closing-bracket t)
+(setq cssm-indent-function #'cssm-c-style-indenter)
+(setq cssm-mirror-mode nil)
+
 #+end_src
 
 *** Apache

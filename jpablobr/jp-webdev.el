@@ -49,6 +49,11 @@
           (lambda()
             (local-set-key (kbd "<return>") 'newline-and-indent)))
 
+(setq cssm-indent-level 2)
+(setq cssm-newline-before-closing-bracket t)
+(setq cssm-indent-function #'cssm-c-style-indenter)
+(setq cssm-mirror-mode nil)
+
 (autoload 'apache-mode "apache-mode" nil t)
 (dolist (i '("\\.htaccess\\'" "httpd\\.conf\\'" "srm\\.conf\\'"
              "access\\.conf\\'" "sites-\\(available\\|enabled\\)/"))
