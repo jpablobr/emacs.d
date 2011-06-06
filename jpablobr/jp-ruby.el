@@ -13,7 +13,7 @@
 (require 'rdebug)
 (require 'scss-mode)
 (require 'inf-ruby)
-(require 'ruby-block)
+;; (require 'ruby-block)
 (require 'toggle)
 (require 'ruby-hacks)
 (require 'rhtml-mode)
