@@ -28,8 +28,8 @@
 (require 'rdebug)
 (require 'flymake-ruby)
 (require 'flymake-haml)
-(require 'unit-test)
-(require 'autotest)
+;; (require 'unit-test)
+;; (require 'autotest)
 (require 'rails)
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
@@ -155,13 +155,13 @@ argument allows editing of the server command arguments."
 
 (setq scss-compile-at-save nil)
 (setq rdebug-short-key-mode t)
-(setq ruby-block-highlight-toggle 'overlay)
+(setq ruby-block-highlight-toggle 't)
 
 ;; Ruby test mode
-(require 'ruby-test-mode)
+;; (require 'ruby-test-mode)
 ;; I don't use 'run test' feature of ruby-test-mode. However I need these keys
 ;; for my own bindings. ;)
-(add-hook 'ruby-mode-hook 'ruby-test-mode)
+;; (add-hook 'ruby-mode-hook 'ruby-test-mode)
 
 (defvar ruby-test-mode-map
   (let ((map (make-sparse-keymap)))
