@@ -13,17 +13,11 @@
 ;;; - Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
-;;; - Turn on the menu bar for exploring new modes
-(global-set-key [f1] 'menu-bar-mode)
-
 ;;; - Use regex searches by default.
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
-
-;;; - Jump to a definition in the current file. (This is awesome.)
-(global-set-key "\C-x\C-i" 'ido-imenu)
 
 ;;; - File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
@@ -94,7 +88,6 @@
 ;;; Jump to matching parent
 (global-set-key "%" 'match-paren)
 (global-set-key [f1] 'man-follow)
-(global-set-key [f4] 'speedbar-get-focus)
 (global-set-key [f6] 'buffer-menu)
 (global-set-key [next] 'pager-page-down)
 (global-set-key [prior] 'pager-page-up)
@@ -126,6 +119,8 @@
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
 (global-set-key (kbd "C-l cg") 'cheat-fu-commit)
 (global-set-key (kbd "C-l cn") 'cheat-fu-new)
+(global-set-key (kbd "C-l sb")  'speedbar-get-focus)
+(global-set-key (kbd "C-l dm") 'ido-imenu); (This is awesome.)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta P)] 'mouse-buffer-menu)
 (global-set-key [(meta up)] 'beginning-of-buffer)
@@ -133,7 +128,5 @@
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta G)] 'google-s)
-(global-set-key "\C-x+" 'find-file-as-root)
-(global-set-key "\C-x!" 'toggle-alternate-file-as-root)
 
 (provide 'jp-keyboard)
