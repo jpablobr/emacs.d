@@ -3,11 +3,27 @@
 (require 'thingatpt)
 (require 'imenu)
 
-(add-to-list 'load-path (concat misc-dir "/maxframe"))
+
 (add-to-list 'load-path (concat misc-dir "/icicles"))
 (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
-(add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
-(add-to-list 'load-path (concat misc-dir "/mmm-mode"))
+
+;;; Stuff to run only on window systems.
+(when window-system
+  (add-to-list 'load-path (concat misc-dir "/maxframe"))
+  (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
+  (add-to-list 'load-path (concat misc-dir "/mmm-mode"))
+
+  ;;----------------------------------------------------------------------
+  ;; - Multiple major modes
+  (require 'mmm-auto)
+  (setq mmm-global-mode 'buffers-with-submode-classes)
+  (setq mmm-submode-decoration-level 2)
+
+  (mouse-wheel-mode t)
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (tooltip-mode -1)
+  (tool-bar-mode -1)
+  (blink-cursor-mode -1));;; - when window-system
 
 ;; ---------------------------------------------------------------------
 ;; - Global custom variables
@@ -51,13 +67,6 @@
 (global-set-key [(shift f3)] 'highlight-symbol-prev)
 (global-set-key [(meta f3)] 'highlight-symbol-prev)
 (global-set-key [(control meta f3)] 'highlight-symbol-query-replace)
-
-(when window-system
-  (mouse-wheel-mode t)
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-  (tooltip-mode -1)
-  (tool-bar-mode -1)
-  (blink-cursor-mode -1))
 
 (setq visible-bell t
       font-lock-maximum-decoration t
@@ -117,12 +126,6 @@
 (autopair-global-mode) ;; to enable in all buffers
 (setq autopair-autowrap t)
 
-;;----------------------------------------------------------------------
-;; - Multiple major modes
-(require 'mmm-auto)
-(setq mmm-global-mode 'buffers-with-submode-classes)
-(setq mmm-submode-decoration-level 2)
-
 ;; ---------------------------------------------------------------------
 ;; - Cheat-fu
 (require 'cheat-fu)
@@ -161,11 +164,6 @@
   "Display tooltips for the current word" t)
 (autoload 'global-dictionary-tooltip-mode "dictionary"
   "Enable/disable dictionary-tooltip-mode for all buffers" t)
-
-;; ---------------------------------------------------------------------
-;; - Template mode
-;; (require 'template)
-;; (template-initialize)
 
 ;; ---------------------------------------------------------------------
 ;; - Display time

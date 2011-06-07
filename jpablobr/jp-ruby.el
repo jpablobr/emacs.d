@@ -101,7 +101,6 @@ argument allows editing of the server command arguments."
              (ruby-hs-minor-mode t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
-             (ruby-block-mode t)
              (imenu-add-to-menubar "IMENU")
              (modify-syntax-entry ?! "w" (syntax-table))
              (modify-syntax-entry ?: "w" (syntax-table))
@@ -149,7 +148,6 @@ argument allows editing of the server command arguments."
 
 (setq scss-compile-at-save nil)
 (setq rdebug-short-key-mode t)
-(setq ruby-block-highlight-toggle 't)
 
 ;; Ruby test mode
 ;; (require 'ruby-test-mode)
