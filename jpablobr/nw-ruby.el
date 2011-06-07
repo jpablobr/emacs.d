@@ -21,4 +21,6 @@
 (load-file (concat jpablobr-dir "/jp-ruby.el"))
 (require 'jp-ruby)
 
+(menu-bar-mode nil)
+
 (kill-buffer "*scratch*")
