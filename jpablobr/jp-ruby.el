@@ -144,7 +144,7 @@ argument allows editing of the server command arguments."
 (add-hook 'sass-mode-hook 'ri-bind-key)
 
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
-(add-hook 'comint-mode-hook 'turn-on-rdebug-track-mode)
+;; (add-hook 'comint-mode-hook 'turn-on-rdebug-track-mode)
 
 (setq scss-compile-at-save nil)
 (setq rdebug-short-key-mode t)

@@ -136,4 +136,10 @@
            (setq buffer-read-only nil)
            (message (concat "Set file name to " sudo-name)))))))
 
+(setq eshell-prompt-function
+      (lambda ()
+        (concat (getenv "USER") "@"
+                (car (split-string (getenv "HOSTNAME") "[.]"))
+                (if (= (user-uid) 0) " # " " $ "))))
+
 (provide 'jp-eshell)

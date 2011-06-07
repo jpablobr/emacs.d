@@ -20,6 +20,8 @@
 (require 'jp-haml)
 (load-file (concat jpablobr-dir "/jp-ruby.el"))
 (require 'jp-ruby)
+(load-file (concat jpablobr-dir "/jp-eshell.el"))
+(require 'jp-eshell)
 
 (menu-bar-mode nil)
 
