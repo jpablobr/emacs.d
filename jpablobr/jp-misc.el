@@ -231,6 +231,12 @@
 (autoload 'ack-find-same-file "full-ack" nil t)
 (autoload 'ack-find-file "full-ack" nil t)
 
+;; ---------------------------------------------------------------------
+;; - xclip - for kill/yank from terminal, awesomeness! ;)
+(require 'xclip)
+(turn-on-xclip)
+
+;; ---------------------------------------------------------------------
 ;; Base dir
 (cd "~/")
 
