@@ -1,6 +1,5 @@
 (setq ruby-dir (concat vendor-dir "/ruby"))
 (add-to-list 'load-path ruby-dir)
-(add-to-list 'load-path (concat ruby-dir "/rcodetools"))
 ;; (add-to-list 'load-path (concat ruby-dir "/rdebug"))
 ;; (add-to-list 'load-path (concat ruby-dir "/rhtml"))
 ;; (add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
@@ -16,10 +15,6 @@
 (require 'ruby-hacks)
 (require 'rspec-mode)
 (require 'align)
-(require 'anything)
-(require 'anything-rcodetools)
-(require 'rcodetools)
-(require 'icicles-rcodetools)
 (require 'flymake-ruby)
 (require 'flymake-haml)
 ;; (require 'rinari)
@@ -29,9 +24,6 @@
 ;; (require 'rdebug)
 ;; (require 'ruby-complexity)
 (require 'rails)
-
-(setq rct-get-all-methods-command "PAGER=cat fri -l")
-(define-key anything-map "\C-z" 'anything-execute-persistent-action)
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode." t)
