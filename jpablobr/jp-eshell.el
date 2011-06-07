@@ -13,6 +13,8 @@
       (rvm-use-default))
   (progn))
 
+(setenv "EMACS_SHELL" "emacs")
+
 (setq gem-bin-path (when (string-match "@global" (getenv "GEM_PATH"))
   (replace-match "/bin" nil nil (getenv "GEM_PATH"))))
 
@@ -50,26 +52,6 @@
       eshell-save-history-on-exit t
       eshell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
 
-(eval-after-load 'esh-opt
-  '(progn
-     (require 'em-prompt)
-     (require 'em-term)
-     (require 'em-cmpl)
-     (require 'eshell-vc)
-     (setenv "PAGER" "less")
-     (setenv "GEM_EDITOR" "emacsclient")
-     (set-face-attribute 'eshell-prompt nil :foreground "turquoise1")
-     (add-hook 'eshell-mode-hook ;; for some reason this needs to be a hook
-	       '(lambda ()
-              (define-key eshell-mode-map "\C-a" 'eshell-bol)))
-     (add-to-list 'eshell-visual-commands "ssh")
-     (add-to-list 'eshell-visual-commands "tail")
-     (add-to-list 'eshell-command-completions-alist
-                  '("gunzip" "gz\\'"))
-     (add-to-list 'eshell-command-completions-alist
-                  '("tar" "\\(\\.tar|\\.tgz\\|\\.tar\\.gz\\)\\'"))
-     (add-to-list 'eshell-output-filter-functions 'eshell-handle-ansi-color)))
-
 ;;; ----------------------------------------------------------------------------
 ;;; - history
 ;;;
@@ -100,41 +82,6 @@
      (local-set-key "\C-u" 'eshell-kill-input)
      (local-set-key [(meta P)] 'mouse-buffer-menu)
      (local-set-key [(meta up)] 'beginning-of-buffer)))
-
-;;; ----------------------------------------------------------------------------
-;;; - provides 'clear' command
-;;;
-(defun eshell/clear ()
-  (interactive)
-  (let ((inhibit-read-only t))
-    (erase-buffer)))
-
-(eval-after-load "tramp"
-  '(progn
-     (defvar sudo-tramp-prefix
-       "/sudo::"
-       (concat "Prefix to be used by sudo commands when building tramp path "))
-
-     (defun sudo-file-name (filename) (concat sudo-tramp-prefix filename))
-
-     (defun sudo-find-file (filename &optional wildcards)
-       "Calls find-file with filename with sudo-tramp-prefix prepended"
-       (interactive "fFind file with sudo ")
-       (let ((sudo-name (sudo-file-name filename)))
-         (apply 'find-file
-                (cons sudo-name (if (boundp 'wildcards) '(wildcards))))))
-
-     (defun sudo-reopen-file ()
-       "Reopen file as root by prefixing its name with sudo-tramp-prefix and by clearing buffer-read-only"
-       (interactive)
-       (let*
-           ((file-name (expand-file-name buffer-file-name))
-            (sudo-name (sudo-file-name file-name)))
-         (progn
-           (setq buffer-file-name sudo-name)
-           (rename-buffer sudo-name)
-           (setq buffer-read-only nil)
-           (message (concat "Set file name to " sudo-name)))))))
 
 (setq eshell-prompt-function
       (lambda ()
