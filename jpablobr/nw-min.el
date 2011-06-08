@@ -1,16 +1,5 @@
-(load-file "~/.emacs.d/jpablobr/jp-meta.el")
-(require 'jp-meta)
-
-(defun delete-current-file ()
-  "Delete the file associated with the current buffer.
-Delete the current buffer too."
-  (interactive)
-  (let (currentFile)
-    (setq currentFile (buffer-file-name))
-    (when (yes-or-no-p (concat "Delete file: " currentFile))
-      (kill-buffer (current-buffer))
-      (delete-file currentFile)
-      (message (concat "Deleted file: " currentFile)) ) ) )
+;; (load-file "~/.emacs.d/jpablobr/jp-meta.el")
+;; (require 'jp-meta)
 
 ;; Keyboard
 (global-set-key [(meta D)] 'backward-kill-word)

@@ -41,6 +41,7 @@
 (add-hook 'latex-mode-hook 'yas/minor-mode-on)
 (add-hook 'tex-mode-hook 'yas/minor-mode-on)
 (add-hook 'markdown-mode-hook 'yas/minor-mode-on)
+(add-hook 'jde-mode-hook 'yas/minor-mode-on)
 
 ;;; ---------------------------------------------------------
 ;;; - hooks for different modes on specific modes
