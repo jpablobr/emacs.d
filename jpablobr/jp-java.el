@@ -98,10 +98,4 @@
 (defvar compilation-nomessage-regexp-alist '())
 (add-hook 'compilation-mode-hook (lambda () (setq buffer-read-only nil)))
 
-;; ;; flymake using eclipse
-(require 'jde-eclipse-compiler-server)
-
-;; ;; /Users/joseph/dev/eclipse/plugins/org.eclipse.jdt.core.manipulation_1.3.0.v20100520-0800.jar
-(add-to-list 'flymake-allowed-file-name-masks '("\\.java$" jde-ecj-flymake-init jde-ecj-flymake-cleanup))
-
 (provide 'jp-java)
