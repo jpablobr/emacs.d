@@ -16,13 +16,28 @@
 (require 'jp-registers)
 (load-file (concat jpablobr-dir "/jp-yaml.el"))
 (require 'jp-yaml)
+(load-file (concat jpablobr-dir "/jp-markdown.el"))
+(require 'jp-markdown)
 (load-file (concat jpablobr-dir "/jp-haml.el"))
 (require 'jp-haml)
 (load-file (concat jpablobr-dir "/jp-ruby.el"))
 (require 'jp-ruby)
 (load-file (concat jpablobr-dir "/jp-eshell.el"))
 (require 'jp-eshell)
+(load-file (concat jpablobr-dir "/jp-java.el"))
+(require 'jp-java)
+(load-file (concat jpablobr-dir "/jp-autocomplete.el"))
+(require 'jp-autocomplete)
+
+;; ---------------------------------------------------------------------
+;; - requiring yasnippets after everything has been loaded.
+(load-file (concat jpablobr-dir "/jp-yasnippet.el"))
+(require 'jp-yasnippet)
+(load-file (concat jpablobr-dir "/jp-hippie.el"))
+(require 'jp-hippie)
 
 (menu-bar-mode nil)
+
+(server-start)
 
 (kill-buffer "*scratch*")

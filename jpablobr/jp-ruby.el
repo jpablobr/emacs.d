@@ -90,9 +90,9 @@ argument allows editing of the server command arguments."
   (rvm-use-default))
 
 ;; rinari (Minor Mode for Ruby On Rails)
-(setq rinari-minor-modes
-      (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
-            'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
+;; (setq rinari-minor-modes
+;;       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
+;;             'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
 
 (add-hook 'ruby-mode-hook
           '(lambda ()
@@ -126,10 +126,10 @@ argument allows editing of the server command arguments."
              (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
              (define-key ruby-mode-map (kbd "C-c l") "lambda")
              (define-key ruby-mode-map (kbd "#") 'ruby-interpolate)
-             (define-key rinari-minor-mode-map [(control meta shift down)] 'rinari-find-rspec)
-             (define-key rinari-minor-mode-map [(control meta shift left)] 'rinari-find-controller)
-             (define-key rinari-minor-mode-map [(control meta shift up)] 'rinari-find-model)
-             (define-key rinari-minor-mode-map [(control meta shift right)] 'rinari-find-view)
+             ;; (define-key rinari-minor-mode-map [(control meta shift down)] 'rinari-find-rspec)
+             ;; (define-key rinari-minor-mode-map [(control meta shift left)] 'rinari-find-controller)
+             ;; (define-key rinari-minor-mode-map [(control meta shift up)] 'rinari-find-model)
+             ;; (define-key rinari-minor-mode-map [(control meta shift right)] 'rinari-find-view)
              (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)
              ;; (define-key ruby-mode-map (kbd "C-c C-r g") 'rvm-open-gem)
              (function (lambda () ;; Ruby Complexity
