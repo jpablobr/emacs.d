@@ -40,6 +40,12 @@
 
 (menu-bar-mode nil)
 
+;; ---------------------------------------------------------------------
+;; - Startup
+(when (file-exists-p "~/org")
+  (find-file "~/org/yacs/linux.org")
+  (find-file "~/org/jpablobr.org"))
+
 (server-start)
 
 (kill-buffer "*scratch*")
