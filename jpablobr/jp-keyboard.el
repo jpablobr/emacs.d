@@ -122,6 +122,7 @@
 (global-set-key (kbd "C-l cn") 'cheat-fu-new)
 (global-set-key (kbd "C-l sb") 'sr-speedbar-toggle)
 (global-set-key (kbd "C-l dm") 'ido-imenu); (This is awesome.)
+(global-set-key (kbd "C-l rb") 'revert-buffer)
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta P)] 'mouse-buffer-menu)

@@ -91,9 +91,9 @@
 ;; ;;; - Hacks
 ;; ;;; - function does not exist in emacs 23.2
 ;; ;;;
-;; (defun skip-cleanup())
-;; (defun  semantic-format-prototype-tag-java-mode())
-
+(defun skip-cleanup())
+(defun  semantic-format-prototype-tag-java-mode())
+(defun  turn-on-font-lock-if-enabled())
 ;; http://permalink.gmane.org/gmane.emacs.jdee/5131
 (defvar compilation-nomessage-regexp-alist '())
 (add-hook 'compilation-mode-hook (lambda () (setq buffer-read-only nil)))
