@@ -31,6 +31,9 @@
             (define-key yas/keymap [tab] 'yas/next-field)
             ))
 
+(setq org-plantuml-jar-path
+      (expand-file-name "~/bin/java/plantuml.jar"))
+
 (org-babel-lob-ingest
  (expand-file-name
   "library-of-babel.org"
@@ -53,6 +56,7 @@
    (js . t)
    (haskell . t)
    (clojure . t)
+   (plantuml . t)
    (ditaa . t)))
 
 (add-to-list 'org-src-lang-modes

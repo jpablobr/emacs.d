@@ -31,6 +31,9 @@
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
 (require 'jp-autocomplete)
 
+(require 'org-install)
+(org-emacs-file-load (concat jpablobr-dir "/jp-org-config.org"))
+
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
 (load-file (concat jpablobr-dir "/jp-yasnippet.el"))

@@ -56,6 +56,13 @@ following function allows these two to play nicely together
               ))
 #+end_src
 
+** Plantuml configs
+
+#+begin_src emacs-lisp
+(setq org-plantuml-jar-path
+      (expand-file-name "~/bin/java/plantuml.jar"))
+#+end_src
+
 ** Load up the Library of Babel
 The library of babel contains makes many useful functions available
 for use by code blocks in *any* emacs file.  See the actual
@@ -104,6 +111,7 @@ contains an up to date list of the currently supported languages.
      (js . t)
      (haskell . t)
      (clojure . t)
+     (plantuml . t)
      (ditaa . t)))
 #+end_src
 
