@@ -30,6 +30,8 @@
 (require 'jp-java)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
 (require 'jp-autocomplete)
+(load-file (concat jpablobr-dir "/jp-w3m.el"))
+(require 'jp-w3m)
 
 (require 'org-install)
 (org-emacs-file-load (concat jpablobr-dir "/jp-org-config.org"))

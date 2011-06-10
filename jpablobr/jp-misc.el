@@ -6,11 +6,11 @@
 
 (add-to-list 'load-path (concat misc-dir "/icicles"))
 (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
+(add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
 
 ;;; Stuff to run only on window systems.
 (when window-system
   (add-to-list 'load-path (concat misc-dir "/maxframe"))
-  (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
   (add-to-list 'load-path (concat misc-dir "/mmm-mode"))
 
   ;;----------------------------------------------------------------------
