@@ -72,7 +72,7 @@
 (global-set-key [(meta shift right)] 'ido-switch-buffer)
 (global-set-key [(meta shift up)] 'recentf-ido-find-file)
 (global-set-key [(meta shift down)] 'ido-find-file)
-(global-set-key [(control shift left)] 'previous-buffer)
+                      (global-set-key [(control shift left)] 'previous-buffer)
 (global-set-key [(control shift right)] 'next-buffer)
 (global-set-key [(meta H)] 'delefte-other-windows)
 (global-set-key [(meta N)] 'cleanup-buffer)
@@ -80,8 +80,8 @@
 (global-set-key [(meta D)] 'backward-kill-word) ;; (meta d) is opposite
 
 ;; Texmate mode
-(global-set-key [(control \})] 'textmate-shift-right)
-(global-set-key [(control \{)] 'textmate-shift-left)
+(global-set-key [(meta \])] 'textmate-shift-right)
+(global-set-key [(meta \[)] 'textmate-shift-left)
 (global-set-key [(meta /)] 'comment-or-uncomment-region-or-line)
 (global-set-key [(meta L)] 'textmate-select-line)
 
