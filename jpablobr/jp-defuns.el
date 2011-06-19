@@ -46,38 +46,6 @@
     (cond ((search-forward "<?xml" nil t) (xml-mode))
           ((search-forward "<html" nil t) (html-mode)))))
 
-;;; ----------------------------------------------------------------------------
-;;; - Buffer-related
-(defun ido-imenu ()
-  "Update the imenu index and then use ido to select a symbol to navigate to."
-  (interactive)
-  (imenu--make-index-alist)
-  (let ((name-and-pos '())
-        (symbol-names '()))
-    (flet ((addsymbols (symbol-list)
-                       (when (listp symbol-list)
-                         (dolist (symbol symbol-list)
-                           (let ((name nil) (position nil))
-                             (cond
-                              ((and (listp symbol) (imenu--subalist-p symbol))
-                               (addsymbols symbol))
-
-                              ((listp symbol)
-                               (setq name (car symbol))
-                               (setq position (cdr symbol)))
-
-                              ((stringp symbol)
-                               (setq name symbol)
-                               (setq position (get-text-property 1 'org-imenu-marker symbol))))
-
-                             (unless (or (null position) (null name))
-                               (add-to-list 'symbol-names name)
-                               (add-to-list 'name-and-pos (cons name position))))))))
-      (addsymbols imenu--index-alist))
-    (let* ((selected-symbol (ido-completing-read "Symbol? " symbol-names))
-           (position (cdr (assoc selected-symbol name-and-pos))))
-      (goto-char position))))
-
 (defun coding-hook ()
   "Enable things that are convenient across all coding buffers."
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
@@ -398,5 +366,31 @@ Delete the current buffer too."
                (when (and (file-exists-p d) (file-directory-p d))
                  (mapcar (lambda (f) (expand-file-name f d)) (directory-files d))))
              (list (concat dotfiles-dir user-login-name) dotfiles-dir))))))
+
+(defun jp-rails-console ()
+  "Fire up an instance of autotest in its own buffer with shell bindings and compile-mode highlighting and linking."
+  (interactive)
+  (let ((buffer (shell "*console*")))
+
+    (set (make-local-variable 'comint-output-filter-functions)
+	 '(comint-truncate-buffer
+	   comint-postoutput-scroll-to-bottom
+	   ansi-color-process-output
+	   ))
+    (set (make-local-variable 'comint-buffer-maximum-size) 5000)
+    (set (make-local-variable 'comint-scroll-show-maximum-output) t)
+    (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
+
+    (set (make-local-variable 'compilation-error-regexp-alist)
+         '(
+           ("^ +\\(#{RAILS_ROOT}/\\)?\\([^(:]+\\):\\([0-9]+\\)" 2 3)
+           ("\\[\\(.*\\):\\([0-9]+\\)\\]:$" 1 2)
+           ("^ *\\([[+]\\)?\\([^:
+]+\\):\\([0-9]+\\):" 2 3)
+           ("^.* at \\([^:]*\\):\\([0-9]+\\)$" 1 2)
+           ))
+    (ansi-color-for-comint-mode-on)
+    (compilation-shell-minor-mode 1)
+    (comint-send-string buffer (concat "rails console" "\n"))))
 
 (provide 'jp-defuns)

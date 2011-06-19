@@ -38,4 +38,8 @@
 
 (menu-bar-mode nil)
 
+(rails-script:console)
+(rails-config:open-Gemfile)
+(rails-ws:start)
+
 (kill-buffer "*scratch*")

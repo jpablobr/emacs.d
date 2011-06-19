@@ -62,6 +62,7 @@
 (require 'rails-rake)
 (require 'rails-test)
 (require 'rails-ws)
+(require 'rails-passenger)
 (require 'rails-log)
 (require 'rails-ui)
 (require 'rails-model-layout)
