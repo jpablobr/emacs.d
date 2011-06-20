@@ -45,11 +45,6 @@
 
 (menu-bar-mode nil)
 
-;; ---------------------------------------------------------------------
-;; - To pretend to be doing something.
-(require 'typing)
-(autoload 'typing-of-emacs "Typing" t)
-(typing-of-emacs)
 
 ;; ---------------------------------------------------------------------
 ;; - Startup
@@ -60,3 +55,6 @@
 (server-start)
 
 (kill-buffer "*scratch*")
+
+(require 'typing)
+(autoload 'typing-of-emacs "Typing" t)
