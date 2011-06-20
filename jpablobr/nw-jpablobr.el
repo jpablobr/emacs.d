@@ -51,6 +51,9 @@
   (find-file "~/org/yacs/linux.org")
   (find-file "~/org/jpablobr.org"))
 
+(require 'typing)
+(autoload 'typing-of-emacs "The Typing Of Emacs, a game." t)
+
 (server-start)
 
 (kill-buffer "*scratch*")

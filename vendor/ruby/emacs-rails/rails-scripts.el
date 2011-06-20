@@ -302,10 +302,10 @@ BUFFER-MAJOR-MODE and process-sentinel SENTINEL."
 
 (defun rails-script:run-interactive (name script &optional params)
   "Run an interactive shell with SCRIPT in a buffer named
-*rails-<project-name>-<name>*."
+*<name>-<project-name>-rails*."
   (rails-project:with-root
    (root)
-   (let ((buffer-name (format "rails-%s-%s" (rails-project:name) name))
+   (let ((buffer-name (format "%s-%s-rails" name (rails-project:name)))
          (script (rails-core:file script)))
      (run-ruby-in-buffer buffer-name
                          script
