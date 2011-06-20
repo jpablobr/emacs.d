@@ -38,8 +38,15 @@
 
 (menu-bar-mode nil)
 
+;; ---------------------------------------------------------------------
+;; Base dir
+(cd "./")
+
+;; ---------------------------------------------------------------------
+;; Base rails pre-loading env stuff
+(rails-passenger:start)
 (rails-script:console)
 (rails-config:open-Gemfile)
-(rails-ws:start)
+(magit-status)
 
 (kill-buffer "*scratch*")

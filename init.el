@@ -116,6 +116,10 @@
   (find-file "~/org/yacs/linux.org")
   (find-file "~/org/jpablobr.org"))
 
+;; ---------------------------------------------------------------------
+;; Base dir
+(cd "~/")
+
 (server-start)
 
 (provide 'init)

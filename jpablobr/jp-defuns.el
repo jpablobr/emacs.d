@@ -367,10 +367,10 @@ Delete the current buffer too."
                  (mapcar (lambda (f) (expand-file-name f d)) (directory-files d))))
              (list (concat dotfiles-dir user-login-name) dotfiles-dir))))))
 
-(defun jp-rails-console ()
+(defun rails-passenger:start ()
   "Fire up an instance of autotest in its own buffer with shell bindings and compile-mode highlighting and linking."
   (interactive)
-  (let ((buffer (shell "*console*")))
+  (let ((buffer (shell "*Passenger Rails Server at port 8080*")))
 
     (set (make-local-variable 'comint-output-filter-functions)
 	 '(comint-truncate-buffer
@@ -391,6 +391,6 @@ Delete the current buffer too."
            ))
     (ansi-color-for-comint-mode-on)
     (compilation-shell-minor-mode 1)
-    (comint-send-string buffer (concat "rails console" "\n"))))
+    (comint-send-string buffer (concat "passenger start -p 8080 -e development" "\n"))))
 
 (provide 'jp-defuns)
