@@ -47,5 +47,6 @@
 (rails-passenger:start)
 (rails-script:console)
 (rails-config:open-Gemfile)
+(rails-guard:start)
 
 (kill-buffer "*scratch*")

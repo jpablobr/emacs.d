@@ -46,13 +46,16 @@
 (menu-bar-mode nil)
 
 ;; ---------------------------------------------------------------------
+;; - To pretend to be doing something.
+(require 'typing)
+(autoload 'typing-of-emacs "Typing" t)
+(typing-of-emacs)
+
+;; ---------------------------------------------------------------------
 ;; - Startup
 (when (file-exists-p "~/org")
   (find-file "~/org/yacs/linux.org")
   (find-file "~/org/jpablobr.org"))
-
-(require 'typing)
-(autoload 'typing-of-emacs "The Typing Of Emacs, a game." t)
 
 (server-start)
 
