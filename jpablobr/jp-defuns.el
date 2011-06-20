@@ -368,27 +368,19 @@ Delete the current buffer too."
              (list (concat dotfiles-dir user-login-name) dotfiles-dir))))))
 
 (defun rails-passenger:start ()
-  "Fire up an instance of autotest in its own buffer with shell bindings and compile-mode highlighting and linking."
+  "Fire up an instance of a Passenger server"
   (interactive)
   (let ((buffer (shell "*Passenger Rails Server at port 8080*")))
 
     (set (make-local-variable 'comint-output-filter-functions)
-	 '(comint-truncate-buffer
-	   comint-postoutput-scroll-to-bottom
-	   ansi-color-process-output
-	   ))
+         '(comint-truncate-buffer
+           comint-postoutput-scroll-to-bottom
+           ansi-color-process-output
+           ))
     (set (make-local-variable 'comint-buffer-maximum-size) 5000)
     (set (make-local-variable 'comint-scroll-show-maximum-output) t)
     (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
 
-    (set (make-local-variable 'compilation-error-regexp-alist)
-         '(
-           ("^ +\\(#{RAILS_ROOT}/\\)?\\([^(:]+\\):\\([0-9]+\\)" 2 3)
-           ("\\[\\(.*\\):\\([0-9]+\\)\\]:$" 1 2)
-           ("^ *\\([[+]\\)?\\([^:
-]+\\):\\([0-9]+\\):" 2 3)
-           ("^.* at \\([^:]*\\):\\([0-9]+\\)$" 1 2)
-           ))
     (ansi-color-for-comint-mode-on)
     (compilation-shell-minor-mode 1)
     (comint-send-string buffer (concat "passenger start -p 8080 -e development" "\n"))))
