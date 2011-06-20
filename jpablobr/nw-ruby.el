@@ -49,5 +49,6 @@
 (rails-config:open-Gemfile)
 (rails-guard:start)
 (magit-status "./")
+(shell)
 
 (kill-buffer "*scratch*")
