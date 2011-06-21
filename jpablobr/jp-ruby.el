@@ -53,41 +53,9 @@
 (setq inf-ruby-first-prompt-pattern "^>> "
       inf-ruby-prompt-pattern "^>> ")
 
-(defun rinari-web-server (&optional edit-cmd-args)
-  "Starts a Rails webserver.  Dumps output to a compilation buffer
-allowing jumping between errors and source code.  With optional prefix
-argument allows editing of the server command arguments."
-  (interactive "P")
-  (let* ((default-directory (rinari-root))
-         (script (rinari-script-path))
-         (command
-          (expand-file-name
-           (if (file-exists-p (expand-file-name "server" script))
-               "server"
-             "rails server")
-           script)))
-
-    ;; Start web server in correct environment.
-    ;; NOTE: Rails 3 has a bug and does not start in any environment but development for now.
-    (if rinari-rails-env
-        (setq command (concat command " -e " rinari-rails-env)))
-
-    ;; For customization of the web server command with prefix arg.
-    (setq command (if edit-cmd-args
-                      (read-string "Run Ruby: " (concat command " "))
-                    command))
-
-    (gusev-shell-run default-directory command "*server*"))
-  (rinari-launch))
-
 ;; work around possible elpa bug
 (ignore-errors (require 'ruby-compilation))
 (setq ruby-use-encoding-map nil)
-;; (add-hook 'ruby-mode-hook 'inf-ruby-keys)
-
-;; active the default ruby configured with rvm
-(when (fboundp 'rvm-use-default)
-  (rvm-use-default))
 
 ;; rinari (Minor Mode for Ruby On Rails)
 ;; (setq rinari-minor-modes
@@ -113,13 +81,7 @@ argument allows editing of the server command arguments."
                (menu-bar-mode t))
              (inf-ruby-keys)
              (GAU-bind-insert-ruby-debug-key)
-             ;; (setq ac-sources '(ac-source-words-in-same-mode-buffers ac-source-yasnippet))
-             ;; (make-local-variable 'ac-ignores)
-             ;; (make-local-variable 'ac-auto-start)
-             ;; (add-to-list 'ac-ignores "end")
-             ;; (setq ac-auto-start nil)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
-             ;; (local-set-key (kbd "TAB") 'yas/expand)
              (define-key ruby-mode-map (kbd "C-c v") 'senny-ruby-eval-buffer)
              (define-key ruby-mode-map (kbd "C-M-r") 'senny-ruby-compilation-this-buffer)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
@@ -138,22 +100,12 @@ argument allows editing of the server command arguments."
              (local-set-key (kbd "<return>") 'newline-and-indent)));;))
 
 (add-hook 'haml-mode-hook 'flymake-haml-load)
-(add-hook 'sass-mode-hook 'flymake-sass-load)
 (add-hook 'rhtml-mode-hook 'ri-bind-key)
 (add-hook 'haml-mode-hook 'ri-bind-key)
-(add-hook 'sass-mode-hook 'ri-bind-key)
-
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
-;; (add-hook 'comint-mode-hook 'turn-on-rdebug-track-mode)
 
 (setq scss-compile-at-save nil)
 (setq rdebug-short-key-mode t)
-
-;; Ruby test mode
-;; (require 'ruby-test-mode)
-;; I don't use 'run test' feature of ruby-test-mode. However I need these keys
-;; for my own bindings. ;)
-;; (add-hook 'ruby-mode-hook 'ruby-test-mode)
 
 (defvar ruby-test-mode-map
   (let ((map (make-sparse-keymap)))
@@ -177,5 +129,19 @@ argument allows editing of the server command arguments."
                "require 'spec_helper' describe " (let* ((file-name (file-name-nondirectory buffer-file-name))
                                                         (class-name-parts (butlast (split-string file-name "_"))))
                                                    (mapconcat 'capitalize class-name-parts "")) " do end"))
+
+;;----------------------------------------------------------------------
+;; - jp-haml.el
+(setq haml-dir (concat vendor-dir "/haml"))
+(add-to-list 'load-path haml-dir)
+(require 'haml-mode)
+(add-to-list 'auto-mode-alist '("\\.haml?$" . haml-mode))
+(add-to-list 'auto-mode-alist '("\\.html.haml?$" . haml-mode))
+(add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
+(add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
+(define-key haml-mode-map [(control meta down)] 'haml-forward-sexp)
+(define-key haml-mode-map [(control meta up)] 'haml-backward-sexp)
+(define-key haml-mode-map [(control meta left)] 'haml-up-list)
+(define-key haml-mode-map [(control meta right)] 'haml-down-list)
 
 (provide 'jp-ruby)

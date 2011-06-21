@@ -172,6 +172,12 @@ Set `js2-include-gears-externs' to t to include them.")
 
 ;;; Variables
 
+(defun js2-mark-safe-local (name pred)
+  "Make the variable NAME buffer-local and mark it as safe file-local
+variable with predicate PRED."
+  (make-variable-buffer-local name)
+  (put name 'safe-local-variable pred))
+
 (defvar js2-emacs22 (>= emacs-major-version 22))
 
 (defcustom js2-highlight-level 2
@@ -201,7 +207,7 @@ Set `js2-include-gears-externs' to t to include them.")
 Similar to `c-basic-offset'."
   :group 'js2-mode
   :type 'integer)
-(make-variable-buffer-local 'js2-basic-offset)
+(js2-mark-safe-local 'js2-basic-offset 'integerp)
 
 ;; TODO(stevey):  move this code into a separate minor mode.
 (defcustom js2-mirror-mode nil
@@ -233,12 +239,14 @@ js2-mode also binds `js2-bounce-indent-backwards' to Shift-Tab."
 regardless of the beginning bracket position."
   :group 'js2-mode
   :type 'boolean)
+(js2-mark-safe-local 'js2-consistent-level-indent-inner-bracket-p 'booleanp)
 
 (defcustom js2-pretty-multiline-decl-indentation-p t
   "Non-nil to line up multiline declarations vertically. See the
 function `js-multiline-decl-indentation' for details."
   :group 'js2-mode
   :type 'boolean)
+(js2-mark-safe-local 'js2-pretty-multiline-decl-indentation-p 'booleanp)
 
 (defcustom js2-always-indent-assigned-expr-in-decls-p nil
   "If both `js2-pretty-multiline-decl-indentation-p' and this are non-nil,
@@ -246,6 +254,7 @@ always additionally indent function expression or array/object literal
 assigned in a declaration, even when only one var is declared."
   :group 'js2-mode
   :type 'boolean)
+(js2-mark-safe-local 'js2-always-indent-assigned-expr-in-decls-p 'booleanp)
 
 (defcustom js2-indent-on-enter-key nil
   "Non-nil to have Enter/Return key indent the line.
@@ -6846,7 +6855,7 @@ POS is the absolute position of the node.
 We do a depth-first traversal of NODE.  Any functions we find are prefixed
 with QNAME plus the property name of the function and appended to the
 variable `js2-imenu-recorder'."
-  (let (left right)
+  (let (left right prop-qname)
     (dolist (e (js2-object-node-elems node))  ; e is a `js2-object-prop-node'
       (let ((left (js2-infix-node-left e))
             ;; Element positions are relative to the parent position.
@@ -6858,9 +6867,9 @@ variable `js2-imenu-recorder'."
             ;; As a policy decision, we record the position of the property,
             ;; not the position of the `function' keyword, since the property
             ;; is effectively the name of the function.
-            (push (append qname (list left pos))
+            (push (setq prop-qname (append qname (list left pos)))
                   js2-imenu-recorder)
-            (js2-record-function-qname right qname)))
+            (js2-record-function-qname right prop-qname)))
          ;; foo: {object-literal} -- add foo to qname, offset position, and recurse
          ((js2-object-node-p right)
           (js2-record-object-literal right
@@ -10522,7 +10531,25 @@ You can disable this by customizing `js2-cleanup-whitespace'."
       (cancel-timer js2-mode-parse-timer))
   (setq js2-mode-parsing nil)
   (setq js2-mode-parse-timer
-        (run-with-idle-timer js2-idle-timer-delay nil #'js2-reparse)))
+        (run-with-idle-timer js2-idle-timer-delay nil
+                             #'js2-mode-idle-reparse (current-buffer))))
+
+(defun js2-mode-idle-reparse (buffer)
+  "Run `js2-reparse' if BUFFER is the current buffer, or schedule
+it to be reparsed when the buffer is selected."
+  (if (eq buffer (current-buffer))
+      (js2-reparse)
+    ;; reparse when the buffer is selected again
+    (with-current-buffer buffer
+      (add-hook 'window-configuration-change-hook
+                #'js2-mode-idle-reparse-inner
+                t))))
+
+(defun js2-mode-idle-reparse-inner ()
+  (remove-hook 'window-configuration-change-hook
+               #'js2-mode-idle-reparse-inner
+               t)
+  (js2-reparse))
 
 (defun js2-mode-edit (beg end len)
   "Schedule a new parse after buffer is edited.

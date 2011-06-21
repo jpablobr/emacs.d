@@ -10,7 +10,8 @@
 (if (eq system-type 'gnu/linux)
     (progn
       (require 'rvm)
-      (rvm-use-default))
+      ;; (rvm-use-default)
+      )
   (progn))
 
 (setenv "EMACS_SHELL" "emacs")

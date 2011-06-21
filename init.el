@@ -79,8 +79,6 @@
 (require 'jp-java)
 (load-file (concat jpablobr-dir "/jp-yaml.el"))
 (require 'jp-yaml)
-(load-file (concat jpablobr-dir "/jp-haml.el"))
-(require 'jp-haml)
 (load-file (concat jpablobr-dir "/jp-ruby.el"))
 (require 'jp-ruby)
 (load-file (concat jpablobr-dir "/jp-markdown.el"))

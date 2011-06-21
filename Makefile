@@ -22,30 +22,27 @@ mv             = $(shell which mv)
 test           = $(shell which test)
 complile_files = $(emacs) -batch -f batch-byte-compile *.el
 
-r_links = https://github.com/hron/yari.el/raw/master/yari.el																													\
-					http://www.emacswiki.org/emacs/download/unit-test.el																												\
+r_links = https://raw.github.com/hron/yari.el/master/yari.el																													\
 					http://www.emacswiki.org/emacs/download/toggle.el																														\
-					http://www.emacswiki.org/emacs/download/autotest.el																													\
-					https://github.com/ruby/ruby/raw/trunk/misc/inf-ruby.el																											\
-					https://github.com/ruby/ruby/raw/trunk/misc/rdoc-mode.el																										\
-					https://github.com/ruby/ruby/raw/d9e6b7d6a5e81afb588d79ef923b70890cdec4ba/misc/ruby-mode.el									\
-					https://github.com/ruby/ruby/raw/trunk/misc/ruby-style.el																										\
-					https://github.com/ruby/ruby/raw/trunk/misc/rubydb2x.el																											\
-					https://github.com/ruby/ruby/raw/trunk/misc/rubydb3x.el																											\
-					https://github.com/purcell/emacs.d/raw/master/site-lisp/flymake-ruby/flymake-ruby.el												\
-					https://github.com/pezra/rspec-mode/raw/7be69ffe32ade89061ccbca8a59c940a88a66f2b/rspec-mode-expectations.el	\
-					https://github.com/pezra/rspec-mode/raw/master/rspec-mode.el																								\
-					http://www.emacswiki.org/emacs/download/ruby-block.el																												\
+					https://raw.github.com/ruby/ruby/trunk/misc/inf-ruby.el																											\
+					https://raw.github.com/ruby/ruby/trunk/misc/rdoc-mode.el																										\
+					https://raw.github.com/ruby/ruby/trunk/misc/ruby-mode.el									                                  \
+					https://raw.github.com/ruby/ruby/trunk/misc/ruby-style.el																										\
+					https://raw.github.com/ruby/ruby/trunk/misc/rubydb2x.el																											\
+					https://raw.github.com/ruby/ruby/trunk/misc/rubydb3x.el																											\
+					https://raw.github.com/purcell/emacs.d/master/site-lisp/flymake-ruby/flymake-ruby.el												\
+					https://raw.github.com/pezra/rspec-mode/master/rspec-mode-expectations.el	                                  \
+					https://raw.github.com/pezra/rspec-mode/master/rspec-mode.el																								\
 					http://www.emacswiki.org/emacs/download/ruby-compilation.el
 
-m_links = https://github.com/senny/rvm.el/raw/master/rvm.el																				                    \
-          https://github.com/purcell/emacs.d/raw/master/site-lisp/flymake-shell/flymake-shell.el
+m_links = https://raw.github.com/senny/rvm.el/master/rvm.el																				                    \
+          https://raw.github.com/purcell/emacs.d/master/site-lisp/flymake-shell/flymake-shell.el
 
-g_links = curl -O https://github.com/defunkt/gist.el/raw/master/gist.el
+g_links = curl -O https://raw.github.com/defunkt/gist.el/master/gist.el
 
-j_links = https://github.com/mooz/js2-mode/raw/master/js2-mode.el														                          \
-					https://github.com/defunkt/coffee-mode/raw/master/coffee-mode.el									                          \
-				  https://github.com/purcell/emacs.d/raw/master/site-lisp/flymake-js/flymake-js.el
+j_links = https://raw.github.com/mooz/js2-mode/master/js2-mode.el														                          \
+					https://raw.github.com/defunkt/coffee-mode/master/coffee-mode.el									                          \
+				  https://raw.github.com/purcell/emacs.d/master/site-lisp/flymake-js/flymake-js.el
 
 update: u_js u_ruby u_git u_misc
 
