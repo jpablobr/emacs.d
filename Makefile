@@ -74,16 +74,14 @@ u_misc:
 	@$(touch) u_misc
 
 u_sudo:
-	@$(test) -d $(m_dir)/org && $(mv) $(m_dir)/org $(m_dir)/org.bak
 	@$(test) -d $(m_dir)/mmm-mode && $(mv) $(m_dir)/mmm-mode $(m_dir)/mmm-mode.bak
 	@cd $(m_dir) && \
 	$(git_c) https://github.com/purcell/mmm-mode.git
 	@cd $(m_dir) && \
-	$(git_c) https://github.com/emacsmirror/org-mode.git org
 	@$(git_c) https://github.com/philjackson/magit.git
-	@cd magit && make && sudo make install
-	@$(rm) $(m_dir)/org.bak $(m_dir)/mmm-mode.bak
-	@$(rm) magit $(m_dir)/mmm-mode/.git $(m_dir)/org/.git
+	@cd magit && make && make install
+	@$(rm) $(m_dir)/mmm-mode.bak
+	@$(rm) magit $(m_dir)/mmm-mode
 	@$(touch) u_sudo
 
 clean:

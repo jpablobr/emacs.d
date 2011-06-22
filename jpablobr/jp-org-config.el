@@ -94,46 +94,6 @@
 ;; (shell-command "osascript -e 'tell application \"Emacs\" to activate' &"))
 ;; (add-hook 'server-switch-hook 'raise-emacs-on-aqua)
 
-;; Make RefTex able to find my local bib files
-(setq reftex-bibpath-environment-variables
-'("/home/jpablobr/Dropbox/private-dotfiles/texmf/bibtex/bib"))
-
-;; Default bibliography
-(setq reftex-default-bibliography
-'("/home/jpablobr/Dropbox/documents/bibs/socbib.bib"))
-
-
-;; CDLaTex minor mode: tab-trigger environments, paired paren
-;; insertion, etc
-;; (autoload 'cdlatex-mode "cdlatex" "CDLaTeX Mode" t)
-;; (autoload 'turn-on-cdlatex "cdlatex" "CDLaTeX Mode" nil)
-;; (add-hook 'LaTeX-mode-hook 'turn-on-cdlatex)   ; with AUCTeX LaTeX
-;;                                         ; mode
-
-;; set which characters are autopaired // Doesn't work. Set in custom, below.
-;; (add-hook 'cdlatex-mode-hook
-;;   (function (lambda ()
-;;               (setq cdlatex-paired-parens
-;;                     '("$[{("))
-;;             )))
-
-(fset 'run-vc-then-xelatex
-[?\M-! ?v ?c return ?\C-c ?\C-c return])
-(global-set-key (kbd "C-c c") 'run-vc-then-xelatex);; Run the VC command before running xelatex
-(fset 'run-vc-then-xelatex
-[?\M-! ?v ?c return ?\C-c ?\C-c return])
-(global-set-key (kbd "C-c c") 'run-vc-then-xelatex)
-
-(global-set-key (kbd "C-c v")
-                    (lambda ()
-                      (interactive)
-                      (shell-command "vc")))
-
-(setenv "PATH" (concat "/home/jpablobr/.cabal/bin:" (getenv "PATH")))
-(load "pandoc-mode")
-(add-hook 'markdown-mode-hook 'turn-on-pandoc)
-(add-hook 'pandoc-mode-hook 'pandoc-load-default-settings)
-
 (setq ibuffer-saved-filter-groups
     '(("home"
  ("emacs-config" (or (filename . ".emacs.d")
