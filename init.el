@@ -75,8 +75,6 @@
 ;; (require 'jp-artist)
 ;; (load-file (concat jpablobr-dir "/jp-perl.el"))
 ;; (require 'jp-perl)
-(load-file (concat jpablobr-dir "/jp-java.el"))
-(require 'jp-java)
 (load-file (concat jpablobr-dir "/jp-yaml.el"))
 (require 'jp-yaml)
 (load-file (concat jpablobr-dir "/jp-ruby.el"))

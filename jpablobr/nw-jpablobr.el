@@ -24,8 +24,6 @@
 (require 'jp-ruby)
 (load-file (concat jpablobr-dir "/jp-eshell.el"))
 (require 'jp-eshell)
-;; (load-file (concat jpablobr-dir "/jp-java.el"))
-;; (require 'jp-java)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
 (require 'jp-autocomplete)
 (load-file (concat jpablobr-dir "/jp-w3m.el"))
