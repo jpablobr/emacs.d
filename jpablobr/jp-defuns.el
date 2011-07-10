@@ -224,6 +224,11 @@ Delete the current buffer too."
   (interactive)
   (insert (format-time-string "%a %Y-%m-%d - %l:%M %p")))
 
+(defun insert-date-bak ()
+  "Insert date at point."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d.bak")))
+
 (defun insert-name ()
   "Insert name at point."
   (interactive)
