@@ -1,5 +1,0 @@
-# -*- mode: scheme; require-final-newline: nil; backup-inhibited: t -*-
-#name: define
-# --
-(define ${1:name}
-  ${2:forms})

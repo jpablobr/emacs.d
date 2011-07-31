@@ -1,6 +1,0 @@
-#name: Text
-# --
-Given ${1:the following text}
-  """
-  $0
-  """

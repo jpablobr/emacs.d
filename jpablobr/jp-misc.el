@@ -216,11 +216,11 @@
 
 ;; ---------------------------------------------------------------------
 ;; - ASTMA mode
-;; (add-hook 'astma-mode-hook '(lambda ()
-;;                              (local-set-key (kbd "RET") 'newline)))
+(add-hook 'astma-mode-hook '(lambda ()
+                             (local-set-key (kbd "RET") 'newline)))
 
-;; (autoload 'astma-mode "astma-mode.el" "AsTMa mode" t)
-;; (setq auto-mode-alist (append '(("\\.atm$" . astma-mode)) auto-mode-alist))
+(autoload 'astma-mode "astma-mode.el" "AsTMa mode" t)
+(setq auto-mode-alist (append '(("\\.atm$" . astma-mode)) auto-mode-alist))
 
 ;; ---------------------------------------------------------------------
 ;; - ack > grep

@@ -29,6 +29,7 @@
 (setq ac-modes
       (append ac-modes
               '(c-mode
+                erc-mode
                 cc-mode
                 c++-mode
                 java-mode

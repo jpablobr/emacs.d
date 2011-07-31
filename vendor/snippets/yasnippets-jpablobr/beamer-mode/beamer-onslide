@@ -1,8 +1,0 @@
-#contributor : Tom Dye <tsd@tsdye.com>
-#name : \onslide
-#key : b-onslide
-# --
-
-\onslide${1:*}<${2:2}>{
-$0
-}

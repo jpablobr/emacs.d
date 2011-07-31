@@ -1,4 +1,0 @@
-# -*- mode: clojure; require-final-newline: nil; backup-inhibited: t -*-
-#name: (is (= expected actual))
-# --
-(is (= ${1:expected} ${2:actual})) 
