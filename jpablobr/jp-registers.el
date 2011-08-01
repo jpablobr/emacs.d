@@ -11,7 +11,7 @@
              (?m (file . ,(concat jpablobr-dir "/jp-misc.el")))
              (?d (file . ,(concat jpablobr-dir "/jp-defuns.el")))
              (?t (file . ,(concat jpablobr-dir "/nw-init.el")))
-             (?j (file . ,"~/org/jpablobr.org"))
+             (?j (file . ,(concat jpablobr-dir "/nw-jpablobr.el")))
              (?a (file . ,"~/.my-precious/bash/plugins/aliases"))
              (?c (file . ,"~/.my-precious/bash/config"))
              (?l (file . ,"~/org/yacs/linux.org"))
