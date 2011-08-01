@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: function
+# --
+${1:function_name}() {
+
+    if [[ "\$1" = "h" ]]; then
+	      cat <<- -EOF-
+        $2
+-EOF-
+    else
+        $0 "\$1"
+    fi
+}

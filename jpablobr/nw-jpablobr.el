@@ -29,8 +29,8 @@
 (load-file (concat jpablobr-dir "/jp-w3m.el"))
 (require 'jp-w3m)
 
-(require 'org-install)
-(org-emacs-file-load (concat jpablobr-dir "/jp-org-config.org"))
+;; (require 'org-install)
+;; (org-emacs-file-load (concat jpablobr-dir "/jp-org-config.org"))
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -44,12 +44,8 @@
 ;; ---------------------------------------------------------------------
 ;; - Startup
 (when (file-exists-p "~/org")
-  (find-file "~/org/yacs/linux.org")
   (find-file "~/org/jpablobr.org"))
 
 (server-start)
 
 (kill-buffer "*scratch*")
-
-(require 'typing)
-(autoload 'typing-of-emacs "Typing" t)

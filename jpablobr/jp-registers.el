@@ -1,5 +1,5 @@
 ;;; -*- coding: utf-8-unix; -*-
-;;jp-registers.el ---------------------------------------------------------
+;;;  jp-registers.el ---------------------------------------------------------
 ;;; - Set up registers
 ;;; - Registers allow you to jump to a file or other location
 ;;; - quickly. Use C-x r j followed by the letter of the register (i for
@@ -12,16 +12,9 @@
              (?d (file . ,(concat jpablobr-dir "/jp-defuns.el")))
              (?t (file . ,(concat jpablobr-dir "/nw-init.el")))
              (?j (file . ,"~/org/jpablobr.org"))
-             (?a (file . ,"~/.my-precious/bash/aliases"))
+             (?a (file . ,"~/.my-precious/bash/plugins/aliases"))
              (?c (file . ,"~/.my-precious/bash/config"))
              (?l (file . ,"~/org/yacs/linux.org"))
-             (?1 (file . ,"~/code/ruby/rails/rails3-base/Gemfile"))
-             (?2 (file . ,"~/code/ruby/rails/imagine-apps/imagine/Gemfile"))
-             (?3 (file . ,"~/code/ruby/rails/aquadayspa/Gemfile"))
-             (?4 (file . ,"~/code/ruby/rails/birbecks/Gemfile"))
-             (?5 (file . ,"~/code/ruby/gems/niftier-generators/Gemfile"))
-             (?6 (file . ,"~/code/ruby/rails/rickrockstar-apps/rickrock/Gemfile"))
-             (?7 (file . ,"~/code/ruby/sinatra/algorithms/Gemfile"))
              (?z (file . ,"~/.emacs.d/vendor/misc/cheat-fu-mode/cheat-fu.el"))
              (?r (file . ,(concat jpablobr-dir "/jp-registers.el")))))
   (set-register (car r) (cadr r)))
