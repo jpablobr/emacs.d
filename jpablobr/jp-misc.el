@@ -117,10 +117,6 @@
      (set-face-foreground 'magit-diff-del "red3")))
 
 ;; --------------------------------------------------------------------
-;; - Grep edit
-(require 'grep-edit)
-
-;; --------------------------------------------------------------------
 ;; - Autopair edit
 (require 'autopair)
 (autopair-global-mode) ;; to enable in all buffers
@@ -135,11 +131,6 @@
 ;; - Textmate
 (require 'textmate)
 (textmate-mode)
-
-;; --------------------------------------------------------------------
-;; -Redo
-(require 'redo)
-(global-set-key [(control -)] 'redo)
 
 ;; --------------------------------------------------------------------
 ;; - Find-recursive
