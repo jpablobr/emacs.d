@@ -1,21 +1,6 @@
 ;;jp-defuns.el ---------------------------------------------------------
 ;; - Custom functions
 ;;; ----------------------------------------------------------------------------
-;;; - Transparency helper functions
-;;;
-(defun transparency ()
-  "Sets transparency"
-  (interactive)
-  (set-frame-parameter (selected-frame) 'alpha '(85 85))
-  (add-to-list 'default-frame-alist '(alpha 85 85)))
-
-(defun reset-transparency ()
-  "Resets transparency"
-  (interactive)
-  (set-frame-parameter (selected-frame) 'alpha '(100 100))
-  (add-to-list 'default-frame-alist '(alpha 100 100)))
-
-;;; ----------------------------------------------------------------------------
 ;;; - Makes load time faster.
 ;;;
 (defun byte-recompile-home ()
@@ -91,25 +76,6 @@
                                     ,(make-char 'greek-iso8859-7 107))
                     nil))))))
 
-
-(defun eval-and-replace ()
-  "Replace the preceding sexp with its value."
-  (interactive)
-  (backward-kill-sexp)
-  (condition-case nil
-      (prin1 (eval (read (current-kill 0)))
-             (current-buffer))
-    (error (message "Invalid expression")
-           (insert (current-kill 0)))))
-
-(defun switch-or-start (function buffer)
-  "If the buffer is current, bury it, otherwise invoke the function."
-  (if (equal (buffer-name (current-buffer)) buffer)
-      (bury-buffer)
-    (if (get-buffer buffer)
-        (switch-to-buffer buffer)
-      (funcall function))))
-
 (defun delete-current-file ()
   "Delete the file associated with the current buffer.
 Delete the current buffer too."
@@ -120,15 +86,6 @@ Delete the current buffer too."
       (kill-buffer (current-buffer))
       (delete-file currentFile)
       (message (concat "Deleted file: " currentFile)) ) ) )
-
-(defun open-in-desktop ()
-  "Open the current file in visual env"
-  (interactive)
-  (cond
-   ((string-equal system-type "windows-nt")
-    (w32-shell-execute "explore"
-                       (replace-regexp-in-string "/" "\\" default-directory t t)))
-   ((string-equal system-type "gnu/linux") (shell-command "gnome-open ."))))
 
 ;;; ---------------------------------------------------------
 ;;; - Browser
@@ -191,10 +148,6 @@ Delete the current buffer too."
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
 (add-hook 'ri-filter-hook 'colorize-compilation-buffer)
-
-(let ((langs '("american" "castellano8" "castellano")))
-  (setq lang-ring (make-ring (length langs)))
-  (dolist (elem langs) (ring-insert lang-ring elem)))
 
 (defun lorem ()
   "Insert a lorem ipsum."

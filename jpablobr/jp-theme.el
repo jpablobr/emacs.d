@@ -6,6 +6,21 @@
 (require 'maxframe)
 (add-hook 'window-setup-hook 'maximize-frame t)
 
+;;; ----------------------------------------------------------------------------
+;;; - Transparency helper functions
+;;;
+(defun transparency ()
+  "Sets transparency"
+  (interactive)
+  (set-frame-parameter (selected-frame) 'alpha '(85 85))
+  (add-to-list 'default-frame-alist '(alpha 85 85)))
+
+(defun reset-transparency ()
+  "Resets transparency"
+  (interactive)
+  (set-frame-parameter (selected-frame) 'alpha '(100 100))
+  (add-to-list 'default-frame-alist '(alpha 100 100)))
+
 (cond
  ((eq window-system nil) nil)
  ((font-existsp "PragmataPro")
