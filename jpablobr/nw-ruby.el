@@ -32,14 +32,10 @@
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
 
-(menu-bar-mode nil)
-
-;; ---------------------------------------------------------------------
-;; Base dir
-(cd "./")
-
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
+(menu-bar-mode 0)
+(cd "./")
 (magit-status "./")
 (shell)
 (ibuffer)

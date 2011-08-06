@@ -38,9 +38,9 @@
 
 ;; ---------------------------------------------------------------------
 ;; - Startup
-(menu-bar-mode nil)
+(menu-bar-mode 0)
 (when (file-exists-p "~/org")
   (find-file "~/org/jpablobr.org"))
+(kill-buffer "*scratch*")
 
 (server-start)
-(kill-buffer "*scratch*")
