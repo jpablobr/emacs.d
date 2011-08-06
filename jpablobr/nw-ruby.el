@@ -4,8 +4,6 @@
 (setq misc-dir (concat dotfiles-dir "/vendor/misc"))
 (add-to-list 'load-path misc-dir)
 
-(custom-set-variables '(vc-follow-symlinks t))
-
 (load-file (concat jpablobr-dir "/jp-meta.el"))
 (require 'jp-meta)
 (load-file (concat jpablobr-dir "/jp-misc.el"))
@@ -44,5 +42,6 @@
 ;; Base rails pre-loading env stuff
 (magit-status "./")
 (shell)
+(ibuffer)
 
 (kill-buffer "*scratch*")
