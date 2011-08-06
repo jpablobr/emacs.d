@@ -56,13 +56,6 @@
   (untabify-buffer)
   (delete-trailing-whitespace))
 
-(defun recentf-ido-find-file ()
-  "Find a recent file using ido."
-  (interactive)
-  (let ((file (ido-completing-read "Choose recent file: " recentf-list nil t)))
-    (when file
-      (find-file file))))
-
 ;;; ----------------------------------------------------------------------------
 ;;; - Cosmetic
 (defun pretty-lambdas ()
@@ -115,7 +108,6 @@ Delete the current buffer too."
           (if (and transient-mark-mode mark-active)
               (buffer-substring-no-properties (region-beginning) (region-end))
             (thing-at-point 'symbol)))
-
     (setq myword (replace-regexp-in-string " " "%20" myword))
     (setq myurl (concat "http://www.google.com/search?q=" myword))
     (browse-url myurl)))
@@ -154,13 +146,13 @@ Delete the current buffer too."
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
 
-;; Handier way to add modes to auto-mode-alist
 (defun add-auto-mode (mode &rest patterns)
+  "Handier way to add modes to auto-mode-alist"
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
-;; escape quotes
 (defun escape-quotes-region (start end)
+  "escape quotes"
   (interactive "r")
   "Replace \" by \\\"."
   (replace-pairs-region start end '(["\"" "\\\""])))
@@ -180,25 +172,22 @@ Delete the current buffer too."
     (insert str)
     (forward-line -1)))
 
-;; Font-face setup. Check the availability of a some default fonts, in
-;; order of preference. The first of these alternatives to be found is
-;; set as the default font, together with base size and fg/bg
-;; colors. If none of the preferred fonts is found, nothing happens
-;; and Emacs carries on with the default setup. We do this here to
-;; prevent some of the irritating flickering and resizing that
-;; otherwise goes on during startup. You can reorder or replace the
-;; options here with the names of your preferred choices.
-(defun font-existsp (font)
-  "Check to see if the named FONT is available."
-  (if (null (x-list-fonts font))
-      nil t))
-
 (defun jp-init-stuff ()
   "jpablobr init default stuff."
   (interactive)
   (shell)
   (when (file-exists-p "~/org")
     (find-file "~/org/yacs/linux.org")
-    (find-file "~/org/jpablobr.org")))
+    (find-file "~/jpablobr.org")))
+
+(defun decamelize (string)
+  "Convert from CamelCaseString to camel_case_string."
+  (let ((case-fold-search nil))
+    (downcase
+     (replace-regexp-in-string
+      "\\([A-Z]+\\)\\([A-Z][a-z]\\)" "\\1_\\2"
+      (replace-regexp-in-string
+       "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2"
+       string)))))
 
 (provide 'jp-defuns)

@@ -48,10 +48,10 @@
 
 ;;; Stuff to run only on window systems.
 (when window-system
-  (org-emacs-file-load (concat jpablobr-dir "/jp-org-config.org"))
-  (org-emacs-file-load (concat jpablobr-dir "/jp-latex.org"))
-  (org-emacs-file-load (concat jpablobr-dir "/jp-webdev.org"))
-  (org-emacs-file-load (concat jpablobr-dir "/jp-js.org")))
+  (org-emacs-file-load (concat jpablobr-dir "/jp-org-config.el"))
+  (org-emacs-file-load (concat jpablobr-dir "/jp-latex.el"))
+  (org-emacs-file-load (concat jpablobr-dir "/jp-webdev.el"))
+  (org-emacs-file-load (concat jpablobr-dir "/jp-js.el")))
 
 ;; ---------------------------------------------------------------------
 ;; - Rest of config files...
@@ -94,7 +94,7 @@
 (require 'jp-yasnippet)
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
-(org-emacs-file-load (concat jpablobr-dir "/jp-theme.org"))
+(org-emacs-file-load (concat jpablobr-dir "/jp-theme.el"))
 
 ;; ---------------------------------------------------------------------
 ;; - ECB

@@ -34,13 +34,6 @@
 (set-default 'indent-tabs-mode nil)
 (set-default 'indicate-empty-lines t)
 
-(defun recenter-to-top ()
-  "Take the current point and scroll it to within a
-   few lines of the top of the screen."
-  (interactive)
-  (recenter 3))
-(global-set-key [(control shift l)] 'recenter-to-top)
-
 ;; we speak utf-8 here
 (prefer-coding-system 'latin-1)
 (if (not (assoc "UTF-8" language-info-alist))

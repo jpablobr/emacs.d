@@ -1,4 +1,4 @@
-### Makefile --- jpablobr emacs.d Makefile
+	### Makefile --- jpablobr emacs.d Makefile
 
 ## Author: xjpablobrx@gmail.com
 ## Version: $Id: Makefile,v 0.0 2011/04/26 15:26:45 jpablobr Exp $
@@ -30,7 +30,6 @@ r_links = https://raw.github.com/hron/yari.el/master/yari.el																				
 					https://raw.github.com/ruby/ruby/trunk/misc/ruby-style.el																										\
 					https://raw.github.com/ruby/ruby/trunk/misc/rubydb2x.el																											\
 					https://raw.github.com/ruby/ruby/trunk/misc/rubydb3x.el																											\
-					https://raw.github.com/purcell/emacs.d/master/site-lisp/flymake-ruby/flymake-ruby.el												\
 					https://raw.github.com/pezra/rspec-mode/master/rspec-mode-expectations.el	                                  \
 					https://raw.github.com/pezra/rspec-mode/master/rspec-mode.el																								\
 					http://www.emacswiki.org/emacs/download/ruby-compilation.el
