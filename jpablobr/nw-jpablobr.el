@@ -4,8 +4,6 @@
 (setq misc-dir (concat dotfiles-dir "/vendor/misc"))
 (add-to-list 'load-path misc-dir)
 
-(custom-set-variables '(vc-follow-symlinks t))
-
 (load-file (concat jpablobr-dir "/jp-meta.el"))
 (require 'jp-meta)
 (load-file (concat jpablobr-dir "/jp-misc.el"))
@@ -31,9 +29,6 @@
 (load-file (concat jpablobr-dir "/jp-perl.el"))
 (require 'jp-perl)
 
-;; (require 'org-install)
-;; (org-emacs-file-load (concat jpablobr-dir "/jp-org-config.org"))
-
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
 (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
@@ -41,13 +36,9 @@
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
 
-(menu-bar-mode nil)
-
 ;; ---------------------------------------------------------------------
 ;; - Startup
-(when (file-exists-p "~/org")
-  (find-file "~/org/jpablobr.org"))
-
+(menu-bar-mode nil)
 (server-start)
 
 (kill-buffer "*scratch*")
