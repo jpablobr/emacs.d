@@ -62,6 +62,8 @@
 (global-set-key (kbd "C-l fl") 'beginning-of-buffer)
 (global-set-key (kbd "C-l cr") 'cua-set-rectangle-mark)
 (global-set-key (kbd "C-l fg") 'find-grep)
+(global-set-key (kbd "C-l mp") 'match-paren)
+(global-set-key (kbd "C-l jp") 'jp-init-stuff)
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)

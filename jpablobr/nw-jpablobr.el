@@ -39,8 +39,6 @@
 ;; ---------------------------------------------------------------------
 ;; - Startup
 (menu-bar-mode 0)
-(when (file-exists-p "~/org")
-  (find-file "~/org/jpablobr.org"))
-(kill-buffer "*scratch*")
+(setq initial-scratch-message (format-time-string "%a %Y-%m-%d - %l:%M %p"))
 
 (server-start)

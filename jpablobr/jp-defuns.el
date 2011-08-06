@@ -193,4 +193,12 @@ Delete the current buffer too."
   (if (null (x-list-fonts font))
       nil t))
 
+(defun jp-init-stuff ()
+  "jpablobr init default stuff."
+  (interactive)
+  (shell)
+  (when (file-exists-p "~/org")
+    (find-file "~/org/yacs/linux.org")
+    (find-file "~/org/jpablobr.org")))
+
 (provide 'jp-defuns)
