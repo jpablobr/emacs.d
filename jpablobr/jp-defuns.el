@@ -2,14 +2,12 @@
 ;; - Custom functions
 ;;; ----------------------------------------------------------------------------
 ;;; - Makes load time faster.
-;;;
 (defun byte-recompile-home ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d" 0))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Jump to matching parent
-;;;
 (defun match-paren (arg)
   "Go to the matching parenthesis if on parenthesis otherwise insert %."
   (interactive "p")
@@ -19,7 +17,6 @@
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Network
-;;;
 (defun view-url ()
   "Open a new buffer containing the contents of URL."
   (interactive)
@@ -68,7 +65,6 @@
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Cosmetic
-;;;
 (defun pretty-lambdas ()
   (font-lock-add-keywords
    nil `(("(?\\(lambda\\>\\)"
@@ -89,7 +85,6 @@ Delete the current buffer too."
 
 ;;; ---------------------------------------------------------
 ;;; - Browser
-;;;
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
@@ -127,7 +122,6 @@ Delete the current buffer too."
 
 ;;; ---------------------------------------------------------
 ;;; - Insert helper for the lazy.
-;;;
 (defun insert-date ()
   "Insert date at point."
   (interactive)
@@ -198,29 +192,5 @@ Delete the current buffer too."
   "Check to see if the named FONT is available."
   (if (null (x-list-fonts font))
       nil t))
-
-(defun jpablobr-emacs-org-compile (&optional arg)
-  "Tangle and Byte compile all *.org files."
-  (interactive "P")
-  (flet ((age (file)
-              (float-time
-               (time-subtract (current-time)
-                              (nth 5 (or (file-attributes (file-truename file))
-                                         (file-attributes file)))))))
-    (mapc
-     (lambda (file)
-       (when (string= "org" (file-name-extension file))
-         (let ((el-file (concat (file-name-sans-extension file) ".el")))
-           (when (or arg
-                     (not (and (file-exists-p el-file)
-                               (> (age file) (age el-file)))))
-             (org-babel-tangle-file file el-file "emacs-lisp")
-             (byte-compile-file el-file)))))
-     (apply #'append
-            (mapcar
-             (lambda (d)
-               (when (and (file-exists-p d) (file-directory-p d))
-                 (mapcar (lambda (f) (expand-file-name f d)) (directory-files d))))
-             (list (concat dotfiles-dir user-login-name) dotfiles-dir))))))
 
 (provide 'jp-defuns)
