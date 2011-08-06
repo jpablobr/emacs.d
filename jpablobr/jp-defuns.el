@@ -136,22 +136,16 @@ Delete the current buffer too."
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
-(defun w3m-google-s (what)
-  "Use google to search for WHAT."
-  (interactive "sSearch: ")
-  (w3m-browse-url (concat "http://www.google.com/search?q="
-                          (w3m-url-encode-string what))))
-
-(defun w3m-synonym-s (what)
+(defun synonym-s (what)
   "Use synonym.com to search for WHAT."
   (interactive "sSearch: ")
   (w3m-browse-url (concat "http://www.synonym.com/synonyms/"
                           (w3m-url-encode-string what))))
 
-(defun w3m-definition-s (what)
+(defun definition-s (what)
   "Use dictionary.reference.com  to search for WHAT."
   (interactive "sSearch: ")
-  (w3m-browse-url (concat "http://dictionary.reference.com/browse/"
+  (w3m-browse-url (concat "http://www.thefreedictionary.com/"
                           (w3m-url-encode-string what))))
 
 (defun github-s (what)
@@ -160,22 +154,6 @@ Delete the current buffer too."
   (setq myword (replace-regexp-in-string " " "%20" what))
   (setq myurl (concat "https://github.com/search?q=" myword))
   (browse-url myurl))
-
-(defun github-user (what)
-  "Use github to search for WHAT user."
-  (interactive "sSearch: ")
-  (setq myword (replace-regexp-in-string " " "%20" what))
-  (setq myurl (concat "https://github.com/" myword))
-  (browse-url myurl))
-
-(defun google-file (file)
-  "Use google to search for a file named FILE."
-  (interactive "sSearch for file: ")
-  (w3m-browse-url
-   (concat "http://www.google.com/search?q="
-           (w3m-url-encode-string
-            (concat "+intitle:\"index+of\" -inurl:htm -inurl:html -inurl:php "
-                    file)))))
 
 (defun google-s ()
   "Google search on the current region.\n"
@@ -190,32 +168,6 @@ Delete the current buffer too."
     (setq myurl (concat "http://www.google.com/search?q=" myword))
     (browse-url myurl)))
 
-(defun synonym-s ()
-  "Synomym search on the current region.\n"
-  (interactive)
-  (let (myword myurl)
-    (setq myword
-          (if (and transient-mark-mode mark-active)
-              (buffer-substring-no-properties (region-beginning) (region-end))
-            (thing-at-point 'symbol)))
-
-    (setq myword (replace-regexp-in-string " " "%20" myword))
-    (setq myurl (concat "http://www.synonym.com/synonyms/" myword))
-    (browse-url myurl)))
-
-(defun definition-s ()
-  "Dictionary search on the current region.\n"
-  (interactive)
-  (let (myword myurl)
-    (setq myword
-          (if (and transient-mark-mode mark-active)
-              (buffer-substring-no-properties (region-beginning) (region-end))
-            (thing-at-point 'symbol)))
-
-    (setq myword (replace-regexp-in-string " " "%20" myword))
-    (setq myurl (concat "http://dictionary.reference.com/browse/" myword))
-    (browse-url myurl)))
-
 ;;; ---------------------------------------------------------
 ;;; - Insert helper for the lazy.
 ;;;
@@ -223,11 +175,6 @@ Delete the current buffer too."
   "Insert date at point."
   (interactive)
   (insert (format-time-string "%a %Y-%m-%d - %l:%M %p")))
-
-(defun insert-date-bak ()
-  "Insert date at point."
-  (interactive)
-  (insert (format-time-string "%Y-%m-%d.bak")))
 
 (defun insert-name ()
   "Insert name at point."
@@ -249,13 +196,6 @@ Delete the current buffer too."
   (setq lang-ring (make-ring (length langs)))
   (dolist (elem langs) (ring-insert lang-ring elem)))
 
-(defun cycle-ispell-languages ()
-  (interactive)
-  (let ((lang (ring-ref lang-ring -1)))
-    (ring-insert lang-ring lang)
-    (ispell-change-dictionary lang)))
-(global-set-key [f6] 'cycle-ispell-languages)
-
 (defun lorem ()
   "Insert a lorem ipsum."
   (interactive)
@@ -266,42 +206,6 @@ Delete the current buffer too."
           "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
-
-(defun toggle-alternate-file-as-root (&optional filename)
-  "Toggle between the current file as the default user and as root."
-  (interactive)
-  (let* ((filename (or filename (buffer-file-name)))
-         (parsed (when (tramp-tramp-file-p filename)
-                   (coerce (tramp-dissect-file-name filename)
-                           'list))))
-    (unless filename
-      (error "No file in this buffer."))
-
-    (find-alternate-file
-     (if (equal '("sudo" "root") (butlast parsed 2))
-         ;; As non-root
-         (if (or
-              (string= "localhost" (nth 2 parsed))
-              (string= (system-name) (nth 2 parsed)))
-             (car (last parsed))
-           (apply 'tramp-make-tramp-file-name
-                  (append (list tramp-default-method nil) (cddr parsed))))
-       ;; As root
-       (if parsed
-           (apply 'tramp-make-tramp-file-name
-                  (append '("sudo" "root") (cddr parsed)))
-         (tramp-make-tramp-file-name "sudo" nil nil filename))))))
-
-(defun gem-open ()
-  "Gem open on current region.\n"
-  (interactive)
-  (let (mygem (buffer (get-buffer-create "*gem-open*")))
-    (setq mygem
-          (if (and transient-mark-mode mark-active)
-              (buffer-substring-no-properties (region-beginning) (region-end))
-            (thing-at-point 'symbol)))
-    (setq mygem (replace-regexp-in-string " " "%20" mygem))
-    (shell-command (concat "bundle exec gem open " mygem) buffer)))
 
 ;; Handier way to add modes to auto-mode-alist
 (defun add-auto-mode (mode &rest patterns)
@@ -342,12 +246,6 @@ Delete the current buffer too."
   (if (null (x-list-fonts font))
       nil t))
 
-;;; Org-mode Babel stuff
-(defun org-emacs-file-load (file)
-  "This function is to be used to load *.org files."
-  (org-babel-load-file (expand-file-name file
-                                         dotfiles-dir)))
-
 (defun jpablobr-emacs-org-compile (&optional arg)
   "Tangle and Byte compile all *.org files."
   (interactive "P")
@@ -371,41 +269,5 @@ Delete the current buffer too."
                (when (and (file-exists-p d) (file-directory-p d))
                  (mapcar (lambda (f) (expand-file-name f d)) (directory-files d))))
              (list (concat dotfiles-dir user-login-name) dotfiles-dir))))))
-
-(defun rails-passenger:start ()
-  "Fire up an instance of a Passenger server"
-  (interactive)
-  (let ((buffer (shell "*Passenger Rails Server at port 8080*")))
-
-    (set (make-local-variable 'comint-output-filter-functions)
-         '(comint-truncate-buffer
-           comint-postoutput-scroll-to-bottom
-           ansi-color-process-output
-           ))
-    (set (make-local-variable 'comint-buffer-maximum-size) 5000)
-    (set (make-local-variable 'comint-scroll-show-maximum-output) t)
-    (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
-
-    (ansi-color-for-comint-mode-on)
-    (compilation-shell-minor-mode 1)
-    (comint-send-string buffer (concat "passenger start -p 8080 -e development" "\n"))))
-
-(defun rails-guard:start ()
-  "Fire up an Guard"
-  (interactive)
-  (let ((buffer (shell "*Guard*")))
-
-    (set (make-local-variable 'comint-output-filter-functions)
-         '(comint-truncate-buffer
-           comint-postoutput-scroll-to-bottom
-           ansi-color-process-output
-           ))
-    (set (make-local-variable 'comint-buffer-maximum-size) 5000)
-    (set (make-local-variable 'comint-scroll-show-maximum-output) t)
-    (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
-
-    (ansi-color-for-comint-mode-on)
-    (compilation-shell-minor-mode 1)
-    (comint-send-string buffer (concat "guard" "\n"))))
 
 (provide 'jp-defuns)

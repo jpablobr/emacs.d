@@ -42,9 +42,6 @@
 
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
-(rails-passenger:start)
-(rails-config:open-Gemfile)
-(rails-guard:start)
 (magit-status "./")
 (shell)
 

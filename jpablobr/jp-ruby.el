@@ -5,6 +5,7 @@
 ;; (add-to-list 'load-path (concat ruby-dir "/rinari"))
 (add-to-list 'load-path (concat ruby-dir "/rhtml"))
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
+(load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
 
 (require 'jp-ruby-helpers)
@@ -18,12 +19,12 @@
 (require 'flymake-ruby)
 (require 'flymake-haml)
 (require 'rhtml-mode)
+(require 'rails)
 ;; (require 'rinari)
 ;; (require 'unit-test)
 ;; (require 'autotest)
 ;; (require 'rdebug)
 ;; (require 'ruby-complexity)
-(require 'rails)
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'ruby-electric-mode "ruby-electric" "Ruby electric mode." t)
