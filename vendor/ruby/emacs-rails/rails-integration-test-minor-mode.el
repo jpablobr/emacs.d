@@ -1,12 +1,12 @@
-;;; rails-features.el ---
+;;; rails-integration-test-minor-mode.el --- minor mode for RubyOnRails integration tests
 
 ;; Copyright (C) 2006 Dmitry Galinsky <dima dot exe at gmail dot com>
 
 ;; Authors: Dmitry Galinsky <dima dot exe at gmail dot com>
 
 ;; Keywords: ruby rails languages oop
-;; $URL: svn+ssh://rubyforge/var/svn/emacs-rails/trunk/rails-ruby.el $
-;; $Id: rails-ruby.el 166 2007-04-05 17:44:57Z dimaexe $
+;; $URL$
+;; $Id$
 
 ;;; License
 
@@ -26,23 +26,12 @@
 
 ;;; Code:
 
-(defcustom rails-features-enabled
-  '(rails-snippets-feature
-    rails-speedbar-feature)
-  "List of enabled features.  NOTE: restart emacs to make changes take effect."
-  :group 'rails
-  :type '(repeat symbol))
+(define-minor-mode rails-integration-test-minor-mode
+  "Minor mode for RubyOnRails integration tests."
+  :lighter " ITest"
+  :keymap (let ((map (rails-controller-layout:keymap :integration-test)))
+            (define-key map rails-minor-mode-test-current-method-key 'rails-test:run-current-method)
+            (define-key map [menu-bar rails-controller-layout run] '("Test current method" . rails-test:run-current-method))
+            map))
 
-(defvar rails-features:installed-p nil)
-
-(defun rails-features:install ()
-  (unless rails-features:installed-p
-    (dolist (feature rails-features-enabled)
-      (if (require feature nil t)
-        (apply
-         (intern (concat (symbol-name feature) ":install"))
-         (list))
-        (message "unable to load feature `%s'" feature)))
-    (setq rails-features:installed-p t)))
-
-(provide 'rails-features)
+(provide 'rails-integration-test-minor-mode)

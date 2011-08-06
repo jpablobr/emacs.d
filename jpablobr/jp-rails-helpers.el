@@ -37,4 +37,4 @@
     (compilation-shell-minor-mode 1)
     (comint-send-string buffer (concat "guard" "\n"))))
 
-(provide 'jp-rails)
+(provide 'jp-rails-helpers)

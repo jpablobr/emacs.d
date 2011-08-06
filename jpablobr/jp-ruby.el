@@ -2,25 +2,23 @@
 (add-to-list 'load-path ruby-dir)
 ;; (add-to-list 'load-path (concat ruby-dir "/rdebug"))
 ;; (add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
-;; (add-to-list 'load-path (concat ruby-dir "/rinari"))
-;; (add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
+(add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
 (add-to-list 'load-path (concat ruby-dir "/rhtml"))
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
 (load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 
 (require 'jp-ruby-helpers)
+(require 'jp-rails-helpers)
 (require 'yari)
 (require 'scss-mode)
 (require 'inf-ruby)
 (require 'toggle)
 (require 'ruby-hacks)
-(require 'rspec-mode)
 (require 'align)
 (require 'flymake-ruby)
 (require 'flymake-haml)
 (require 'rhtml-mode)
-;; (require 'rails)
-;; (require 'rinari)
+(require 'rails)
 ;; (require 'unit-test)
 ;; (require 'autotest)
 ;; (require 'rdebug)
@@ -45,7 +43,6 @@
 (add-to-list 'auto-mode-alist '("\\.Vagrantfile$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.builder$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
-(add-to-list 'auto-mode-alist '("\\spec.rb$" . rspec-mode))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.html.erb$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
@@ -117,14 +114,6 @@
 	     '(ruby-mode
 	       "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
 	       (lambda (arg) (ruby-end-of-block)) nil))
-
-(require 'autoinsert)
-(add-to-list 'auto-insert-alist
-             '(("_spec\\.rb$" . "RSpec header")
-               nil
-               "require 'spec_helper' describe " (let* ((file-name (file-name-nondirectory buffer-file-name))
-                                                        (class-name-parts (butlast (split-string file-name "_"))))
-                                                   (mapconcat 'capitalize class-name-parts "")) " do end"))
 
 ;;----------------------------------------------------------------------
 ;; - jp-haml.el

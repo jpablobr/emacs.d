@@ -60,12 +60,12 @@
                   :if 'null)
          'string<)))
 
-(defun rails-rake:task (task &optional major-mode)
-  "Run a Rake task in RAILS_ROOT with MAJOR-MODE."
+(defun rails-rake:task (task &optional major-mode mode-line-string)
+  "Run a Rake task in RAILS_ROOT with MAJOR-MODE, using mode-line-string as the script name."
   (interactive (rails-completing-read "What task run" (rails-rake:list-of-tasks-without-tests)
                                       'rails-rake:history nil))
   (when task
-    (rails-script:run "rake" (list task) major-mode)))
+    (rails-script:run "rake" (list task) major-mode (or mode-line-string (concat "rake " task)))))
 
 (defun rails-rake:migrate (&optional version)
   "Run the db:migrate task"
@@ -116,7 +116,7 @@
                                       t))
   (when version
     (rails-rake:migrate-version version "up")))
-  
+
 (defun rails-rake:migration-version-down (&optional version)
   "Run up migration with VERSION."
   (interactive (rails-completing-read "Version of migration"

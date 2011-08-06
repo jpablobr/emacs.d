@@ -1,8 +1,7 @@
-;; jp-misc.el ---------------------------------------------------------2
+;; jp-misc.el ---------------------------------------------------------
 ;; - Things that don't fit anywhere else
 (require 'thingatpt)
 (require 'imenu)
-
 
 (add-to-list 'load-path (concat misc-dir "/icicles"))
 (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
@@ -212,13 +211,6 @@
 
 (autoload 'astma-mode "astma-mode.el" "AsTMa mode" t)
 (setq auto-mode-alist (append '(("\\.atm$" . astma-mode)) auto-mode-alist))
-
-;; ---------------------------------------------------------------------
-;; - ack > grep
-(autoload 'ack-same "full-ack" nil t)
-(autoload 'ack "full-ack" nil t)
-(autoload 'ack-find-same-file "full-ack" nil t)
-(autoload 'ack-find-file "full-ack" nil t)
 
 ;; ---------------------------------------------------------------------
 ;; - xclip - for kill/yank from terminal, awesomeness! ;)

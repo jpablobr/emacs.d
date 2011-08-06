@@ -41,6 +41,11 @@
                                        :enable (and (not (eq (rails-core:buffer-type) :unit-test))
                                                     (rails-core:unit-test-exist-p (or (rails-core:current-model)
                                                                                       (rails-core:current-mailer))))))
+        ([goto-rspec]      '(menu-item "Go to RSpec"
+                                       rails-model-layout:switch-to-rspec-model
+                                       :enable (and (not (eq (rails-core:buffer-type) :rspec-model))
+                                                    (rails-core:rspec-model-exist-p (or (rails-core:current-model)
+                                                                                      (rails-core:current-mailer))))))
         ([goto-migration]  '(menu-item "Go to Migration"
                                        rails-model-layout:switch-to-migration
                                        :enable (and (not (eq (rails-core:buffer-type) :migration))
@@ -52,53 +57,53 @@
                                        rails-model-layout:switch-to-fixture
                                        :enable (and (not (eq (rails-core:buffer-type) :fixture))
                                                     (rails-core:fixture-exist-p (rails-core:current-model)))))
+        ([goto-rspec-fixture]    '(menu-item "Go to RSpec Fixture"
+                                       rails-model-layout:switch-to-rspec-fixture
+                                       :enable (and (not (eq (rails-core:buffer-type) :rspec-fixture))
+                                                    (rails-core:rspec-fixture-exist-p (rails-core:current-model)))))
         ([goto-mailer]     '(menu-item "Go to Mailer"
                                        rails-model-layout:switch-to-mailer
-                                       :enable (rails-core:mailer-exist-p (rails-core:current-mailer))))
-        ([goto-view]       '(menu-item "Go to View"
-                                       rails-model-layout:switch-to-view
-                                       :enable (rails-core:view-exist-p (pluralize-string rails-core:current-model)))))
+                                       :enable (rails-core:mailer-exist-p (rails-core:current-mailer)))))
       (define-keys map
         ((rails-key "m")         'rails-model-layout:switch-to-model)
         ((rails-key "u")         'rails-model-layout:switch-to-unit-test)
+        ((rails-key "r")         'rails-model-layout:switch-to-rspec-model)
         ((rails-key "g")         'rails-model-layout:switch-to-migration)
         ((rails-key "c")         'rails-model-layout:switch-to-controller)
         ((rails-key "x")         'rails-model-layout:switch-to-fixture)
+        ((rails-key "z")         'rails-model-layout:switch-to-rspec-fixture)
         ((rails-key "n")         'rails-model-layout:switch-to-mailer)
-        ((rails-key "v")         'rails-model-layout:switch-to-view)
         ([menu-bar rails-model-layout] (cons name menu))))
     map))
 
 (defun rails-model-layout:switch-to (type)
   (let* ((name (capitalize (substring (symbol-name type) 1)))
          (model (rails-core:current-model))
-         (controller (pluralize-string model))
+         (controller (rails-core:current-controller))
          (mailer (rails-core:current-mailer))
          (item (if controller controller model))
          (item (case type
                  (:mailer (rails-core:mailer-file mailer))
                  (:controller (rails-core:controller-file-by-model model))
                  (:fixture (rails-core:fixture-file model))
+                 (:rspec-fixture (rails-core:rspec-fixture-file model))
                  (:unit-test (rails-core:unit-test-file item))
+                 (:rspec-model (rails-core:rspec-model-file item))
                  (:model (rails-core:model-file model))
-                 (:migration (rails-core:migration-file-by-model model))
-                 (:view (rails-core:views-dir (controller))))))
+                 (:migration (rails-core:migration-file-by-model model)))))
     (if item
-        (let ((file (rails-core:file item)))
-          (if (file-exists-p file)
-              (progn
-                (find-file file)
-                (message (format "%s: %s" (substring (symbol-name type) 1) item)))
-            (message "File %s not exists" file)))
+      (find-or-ask-to-create (format "%s does not exists do you want to create it? " item)
+                             (rails-core:file item))
       (message "%s not found" name))))
 
 (defun rails-model-layout:switch-to-mailer () (interactive) (rails-model-layout:switch-to :mailer))
 (defun rails-model-layout:switch-to-controller () (interactive) (rails-model-layout:switch-to :controller))
 (defun rails-model-layout:switch-to-fixture () (interactive) (rails-model-layout:switch-to :fixture))
+(defun rails-model-layout:switch-to-rspec-fixture () (interactive) (rails-model-layout:switch-to :rspec-fixture))
 (defun rails-model-layout:switch-to-unit-test () (interactive) (rails-model-layout:switch-to :unit-test))
+(defun rails-model-layout:switch-to-rspec-model () (interactive) (rails-model-layout:switch-to :rspec-model))
 (defun rails-model-layout:switch-to-model () (interactive) (rails-model-layout:switch-to :model))
 (defun rails-model-layout:switch-to-migration () (interactive) (rails-model-layout:switch-to :migration))
-(defun rails-model-layout:switch-to-view () (interactive) (rails-model-layout:switch-to :view))
 
 (defun rails-model-layout:menu ()
   (interactive)
@@ -114,12 +119,14 @@
         (add-to-list 'item (cons "Migration" :migration)))
       (unless (eq type :fixture)
         (add-to-list 'item (cons "Fixture" :fixture)))
+      (unless (eq type :rspec-fixture)
+        (add-to-list 'item (cons "RSpec Fixture" :rspec-fixture)))
       (when (rails-core:controller-exist-p controller)
         (add-to-list 'item (cons "Controller" :controller)))
-      (when (rails-core:view-exist-p controller)
-        (add-to-list 'item (cons "View" :view)))
       (unless (eq type :unit-test)
         (add-to-list 'item (cons "Unit Test" :unit-test)))
+      (unless (eq type :rspec-model)
+        (add-to-list 'item (cons "RSpec" :rspec-model)))
       (unless (eq type :model)
         (add-to-list 'item (cons "Model" :model))))
     (when mailer

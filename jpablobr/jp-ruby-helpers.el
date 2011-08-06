@@ -71,16 +71,6 @@ exec-to-string command, but it works and seems fast"
     (ruby-compilation-this-buffer)
     (pop-to-buffer origin)))
 
-(defun senny-open-spec-other-buffer ()
-  (interactive)
-  (when (featurep 'rspec-mode)
-    (let ((source-buffer (current-buffer))
-          (other-buffer (progn
-                          (rspec-toggle-spec-and-target)
-                          (current-buffer))))
-      (switch-to-buffer source-buffer)
-      (pop-to-buffer other-buffer))))
-
 (defun senny-ruby-eval-buffer ()
   (interactive)
   (ruby-send-region-and-go (point-min) (point-max)))
