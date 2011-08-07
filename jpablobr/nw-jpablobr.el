@@ -26,8 +26,6 @@
 (require 'jp-autocomplete)
 (load-file (concat jpablobr-dir "/jp-w3m.el"))
 (require 'jp-w3m)
-(load-file (concat jpablobr-dir "/jp-perl.el"))
-(require 'jp-perl)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
