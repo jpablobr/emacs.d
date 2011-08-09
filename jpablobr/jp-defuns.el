@@ -176,6 +176,7 @@ Delete the current buffer too."
   "jpablobr init default stuff."
   (interactive)
   (shell)
+  (my-erc-connect)
   (when (file-exists-p "~/org")
     (find-file "~/org/yacs/linux.org")
     (find-file "~/jpablobr.org")))

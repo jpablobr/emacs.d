@@ -218,6 +218,14 @@
 (turn-on-xclip)
 
 ;; ---------------------------------------------------------------------
+;; - ERC
+(defun my-erc-connect ()
+  (interactive)
+  (progn (erc :server "irc.freenode.net" :port 6667 :nick "jpablobr")))
+
+(setq erc-autojoin-channels-alist
+      '(("freenode.net" "#beginrescueend" "#linux" "#rubinius")))
+;; ---------------------------------------------------------------------
 ;; Base dir
 (require 'sr-speedbar)
 
