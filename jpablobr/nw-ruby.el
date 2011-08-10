@@ -34,9 +34,12 @@
 
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
+(global-whitespace-mode 1)
+(setq whitespace-style '(trailing))
+(set-default 'indent-tabs-mode nil)
+(set-default 'indicate-empty-lines t)
 (menu-bar-mode 0)
 (cd "./")
-(magit-status "./")
 (shell)
 (ibuffer)
 

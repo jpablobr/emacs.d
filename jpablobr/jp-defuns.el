@@ -184,6 +184,23 @@ Delete the current buffer too."
     (insert str)
     (forward-line -1)))
 
+(defconst animate-n-steps 3)
+"Print a a tip of the day."
+(random t)
+(defun totd ()
+  (interactive)
+  (let* ((commands (loop for s being the symbols
+                         when (commandp s) collect s))
+         (command (nth (random (length commands)) commands)))
+    (animate-string (concat "Your tip for the day is:"
+                            "========================\n\n"
+                            (describe-function command)
+                            (delete-other-windows)
+                            "\n\nInvoke with:\n\n"
+                            (where-is command t)
+                            (delete-other-windows)
+                            )0 0)))
+
 (defun jp-init-stuff ()
   "jpablobr init default stuff."
   (interactive)
@@ -197,19 +214,4 @@ Delete the current buffer too."
     (find-file "~/org/yacs/linux.org")
     (find-file "~/jpablobr.org")))
 
-(defconst animate-n-steps 3)
-"Print a a tip of the day."
-(random t)
-(defun totd ()
-  (interactive)
-  (let* ((commands (loop for s being the symbols
-                         when (commandp s) collect s))
-         (command (nth (random (length commands)) commands)))
-    (animate-string (concat "Your tip for the day is:\n========================\n\n"
-                            (describe-function command)
-                            (delete-other-windows)
-                            "\n\nInvoke with:\n\n"
-                            (where-is command t)
-                            (delete-other-windows)
-                            )0 0)))
 (provide 'jp-defuns)
