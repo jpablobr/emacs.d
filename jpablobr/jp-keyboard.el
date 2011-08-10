@@ -20,7 +20,7 @@
 ;;; - File finding
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 (global-set-key (kbd "C-x C-p") 'find-file-at-point)
-(global-set-key (kbd "C-x C-n") 'ibuffer)
+(global-set-key (kbd "C-x b") 'ibuffer)
 ;;; - Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x u") 'view-url)
 ;;; - mark-whole-buffer
