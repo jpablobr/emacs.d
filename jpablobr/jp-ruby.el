@@ -100,14 +100,6 @@
 (setq scss-compile-at-save nil)
 (setq rdebug-short-key-mode t)
 
-(defvar ruby-test-mode-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map "\C-cr" 'ruby-test-run)
-    (define-key map "\C-cp" 'ruby-test-run-at-point)
-    (define-key map "\C-ct" 'ruby-test-toggle-implementation-and-specification)
-    map)
-  "The keymap used in `ruby-test-mode' buffers.")
-
 ;;----------------------------------------------------------------------
 ;; - Hide/Show modes
 (add-to-list 'hs-special-modes-alist

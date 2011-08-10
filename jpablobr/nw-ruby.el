@@ -10,8 +10,6 @@
 (require 'jp-misc)
 (load-file (concat jpablobr-dir "/jp-defuns.el"))
 (require 'jp-defuns)
-(load-file (concat jpablobr-dir "/jp-keyboard.el"))
-(require 'jp-keyboard)
 (load-file (concat jpablobr-dir "/jp-registers.el"))
 (require 'jp-registers)
 (load-file (concat jpablobr-dir "/jp-yaml.el"))
@@ -24,6 +22,10 @@
 (require 'jp-eshell)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
 (require 'jp-autocomplete)
+(load-file (concat jpablobr-dir "/jp-keyboard.el"))
+(require 'jp-keyboard)
+(load-file (concat jpablobr-dir "/jp-theme.el"))
+(require 'jp-theme)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -33,6 +35,11 @@
 (require 'jp-hippie)
 
 ;; ---------------------------------------------------------------------
+;; - ECB
+(custom-set-variables
+ '(ecb-source-path (quote ("./"))))
+
+;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
 (global-whitespace-mode 1)
 (setq whitespace-style '(trailing))
@@ -40,6 +47,7 @@
 (set-default 'indicate-empty-lines t)
 (menu-bar-mode 0)
 (cd "./")
+(find-file "readme.md")
 (shell)
 (ibuffer)
 

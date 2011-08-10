@@ -1,4 +1,3 @@
-;;; -*- coding: utf-8-unix; -*-
 ;;jp-keyboard.el ---------------------------------------------------------
 
 ;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
@@ -13,13 +12,10 @@
 ;;; - Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 ;;; - Use regex searches by default.
-(global-set-key "\C-s" 'isearch-forward-regexp)
+(global-set-key "\M-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
-;;; - File finding
-(global-set-key (kbd "C-x f") 'find-file)
-(global-set-key (kbd "C-x b") 'ibuffer)
 ;;; - Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x u") 'view-url)
 ;;; - mark-whole-buffer
@@ -36,6 +32,7 @@
 ;;; Jump to matching parent
 (global-unset-key "\C-l")
 (global-set-key (kbd "C-l bu") 'browse-url)
+(global-set-key (kbd "C-l bb") 'ibuffer)
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
 (global-set-key (kbd "C-l cg") 'cheat-fu-commit)
@@ -44,6 +41,17 @@
 (global-set-key (kbd "C-l df") 'delete-current-file)
 (global-set-key (kbd "C-l dm") 'ido-imenu); (This is awesome.)
 (global-set-key (kbd "C-l ee") 'eval-buffer)
+(global-set-key (kbd "C-l ei") 'ecb-init-stuff)
+;;; ecb
+(global-set-key (kbd "C-l em") 'ecb-goto-window-methods)
+(global-set-key (kbd "C-l eb") 'ecb-goto-window-edit-by-smart-selection)
+(global-set-key (kbd "C-l ed") 'ecb-goto-window-directories)
+(global-set-key (kbd "C-l es") 'ecb-goto-window-symboldef)
+(global-set-key (kbd "C-l eh") 'ecb-goto-window-history)
+(global-set-key (kbd "C-l el") 'ecb-goto-window-edit-last)
+(global-set-key (kbd "C-l ea") 'ecb-goto-window-analyse)
+;;; ecb
+(global-set-key (kbd "C-l ff") 'find-file)
 (global-set-key (kbd "C-l fl") 'beginning-of-buffer)
 (global-set-key (kbd "C-l fg") 'find-grep)
 (global-set-key (kbd "C-l gt") 'register-to-point)
@@ -67,14 +75,25 @@
 (global-set-key (kbd "C-l ss") 'synonym-s)
 (global-set-key (kbd "C-l sg") 'github-s)
 (global-set-key (kbd "C-l sb") 'sr-speedbar-toggle)
+(global-set-key (kbd "C-l tf") 'textmate-goto-symbol)
+(global-set-key (kbd "C-l ts") 'textmate-goto-file)
 (global-set-key (kbd "C-l ri") 'rails-init-stuff)
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key (kbd "M-\d") 'backward-kill-word)
+(global-set-key (kbd "C-s") 'save-buffer)
+(global-set-key (kbd "C-x C-s") 'save-buffer)
+(global-set-key (kbd "C-x b") 'ibuffer)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
+
+;; Window moving
+(global-set-key [M-left] 'windmove-left)
+(global-set-key [M-right] 'windmove-right)
+(global-set-key [M-up] 'windmove-up)
+(global-set-key [M-down] 'windmove-down)
 
 (provide 'jp-keyboard)

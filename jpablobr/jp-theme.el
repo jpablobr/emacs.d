@@ -2,10 +2,38 @@
   (setq theaming-dir (concat vendor-dir "/theaming"))
   (add-to-list 'load-path theaming-dir)
   (require 'color-theme)
+  (load-file (concat theaming-dir "/color-theme-tango.el"))
+  (load-file (concat theaming-dir "/color-theme-tangotango.el"))
   (color-theme-tangotango)
 
   (require 'maxframe)
   (add-hook 'window-setup-hook 'maximize-frame t)
+
+  (custom-set-variables
+   '(default-frame-alist
+      (quote ((tool-bar-lines . 0)
+              (foreground-color\. "white")
+              (background-color . "black")))))
+
+  (custom-set-faces
+   '(diff-added ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkGreen"))))
+   '(diff-changed ((((background dark)) (:foreground "Yellow")) (t (:foreground "MediumBlue"))))
+   '(diff-context ((((background dark)) (:foreground "White")) (t (:foreground "Black"))))
+   '(diff-file-header ((((background dark)) (:foreground "Cyan" :background "Black")) (t (:foreground "Red" :background "White"))))
+   '(diff-function ((t (:foreground "#00bbdd"))))
+   '(diff-header ((((background dark)) (:foreground "Cyan")) (t (:foreground "Red"))))
+   '(diff-hunk-header ((((background dark)) (:foreground "Black" :background "#05057F7F8D8D")) (t (:foreground "White" :background "Salmon"))))
+   '(diff-index ((((background dark)) (:foreground "Magenta")) (t (:foreground "Green"))))
+   '(diff-nonexistent ((((background dark)) (:foreground "#FFFFFFFF7474")) (t (:foreground "DarkBlue"))))
+   '(diff-refine-change ((((class color) (min-colors 88) (background dark)) (:background "#182042"))))
+   '(diff-removed ((((background dark)) (:foreground "#7474FFFF7474")) (t (:foreground "DarkMagenta"))))
+   '(mumamo-background-chunk-major ((((class color) (min-colors 88) (background dark)) nil)))
+   '(mumamo-background-chunk-submode ((((class color) (min-colors 88) (background dark)) nil)))
+   '(mumamo-background-chunk-submode1 ((((class color) (min-colors 88) (background dark)) nil)))
+   '(mumamo-background-chunk-submode2 ((((class color) (min-colors 88) (background dark)) nil)))
+   '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) nil)))
+   '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil)))
+   '(whitespace-line ((t (:background "purple" :foreground "green")))))
 
   (defun transparency ()
     "Sets transparency"
@@ -17,17 +45,6 @@
     "Resets transparency"
     (interactive)
     (set-frame-parameter (selected-frame) 'alpha '(100 100))
-    (add-to-list 'default-frame-alist '(alpha 100 100)))
-
-  (cond
-   ((eq window-system nil) nil)
-   ((font-existsp "PragmataPro")
-    (set-face-attribute 'default nil :font "PragmataPro"))
-   ((font-existsp "Menlo")
-    (set-face-attribute 'default nil :font "Menlo"))
-   ((font-existsp "Consolas")
-    (set-face-attribute 'default nil :font "Consolas"))
-   ((font-existsp "Inconsolata")
-    (set-face-attribute 'default nil :font "Inconsolata"))));;; - when window-system
+    (add-to-list 'default-frame-alist '(alpha 100 100))));;; - when window-system
 
 (provide 'jp-theme)
