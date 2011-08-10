@@ -1,12 +1,12 @@
 ;;jp-defuns.el ---------------------------------------------------------
 ;; - Custom functions
-;;; ----------------------------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Makes load time faster.
 (defun byte-recompile-home ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d" 0))
 
-;;; ----------------------------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Jump to matching parent
 (defun match-paren (arg)
   "Go to the matching parenthesis if on parenthesis otherwise insert %."
@@ -15,7 +15,7 @@
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 
-;;; ----------------------------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Network
 (defun view-url ()
   "Open a new buffer containing the contents of URL."
@@ -56,7 +56,7 @@
   (untabify-buffer)
   (delete-trailing-whitespace))
 
-;;; ----------------------------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Cosmetic
 (defun pretty-lambdas ()
   (font-lock-add-keywords
@@ -76,7 +76,7 @@ Delete the current buffer too."
       (delete-file currentFile)
       (message (concat "Deleted file: " currentFile)) ) ) )
 
-;;; ---------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Browser
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
@@ -112,7 +112,7 @@ Delete the current buffer too."
     (setq myurl (concat "http://www.google.com/search?q=" myword))
     (browse-url myurl)))
 
-;;; ---------------------------------------------------------
+;;; --------------------------------------------------------------------
 ;;; - Insert helper for the lazy.
 (defun insert-date ()
   "Insert date at point."
@@ -146,6 +146,18 @@ Delete the current buffer too."
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
 
+;;; --------------------------------------------------------------------
+;;; - ERC
+(setq erc-autojoin-channels-alist
+      '(("freenode.net" "#beginrescueend" "#emacs" "#bash")))
+
+(defun erc-connect ()
+  "Default ERC stuff."
+  (interactive)
+  (progn (erc :server "irc.freenode.net" :port 6667 :nick "jpablobr")))
+
+;;; --------------------------------------------------------------------
+;;; - General
 (defun add-auto-mode (mode &rest patterns)
   "Handier way to add modes to auto-mode-alist"
   (dolist (pattern patterns)
@@ -175,20 +187,29 @@ Delete the current buffer too."
 (defun jp-init-stuff ()
   "jpablobr init default stuff."
   (interactive)
+  (global-whitespace-mode 1)
+  (setq whitespace-style '(trailing))
+  (set-default 'indent-tabs-mode nil)
+  (set-default 'indicate-empty-lines t)
   (shell)
-  (my-erc-connect)
+  (erc-connect)
   (when (file-exists-p "~/org")
     (find-file "~/org/yacs/linux.org")
     (find-file "~/jpablobr.org")))
 
-(defun decamelize (string)
-  "Convert from CamelCaseString to camel_case_string."
-  (let ((case-fold-search nil))
-    (downcase
-     (replace-regexp-in-string
-      "\\([A-Z]+\\)\\([A-Z][a-z]\\)" "\\1_\\2"
-      (replace-regexp-in-string
-       "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2"
-       string)))))
-
+(defconst animate-n-steps 3)
+"Print a a tip of the day."
+(random t)
+(defun totd ()
+  (interactive)
+  (let* ((commands (loop for s being the symbols
+                         when (commandp s) collect s))
+         (command (nth (random (length commands)) commands)))
+    (animate-string (concat "Your tip for the day is:\n========================\n\n"
+                            (describe-function command)
+                            (delete-other-windows)
+                            "\n\nInvoke with:\n\n"
+                            (where-is command t)
+                            (delete-other-windows)
+                            )0 0)))
 (provide 'jp-defuns)

@@ -202,4 +202,14 @@ exec-to-string command, but it works and seems fast"
                       (setq imenu-create-index-function 'ruby-sinatra-imenu-create-index)
                       )))
 
+(defun decamelize (string)
+  "Convert from CamelCaseString to camel_case_string."
+  (let ((case-fold-search nil))
+    (downcase
+     (replace-regexp-in-string
+      "\\([A-Z]+\\)\\([A-Z][a-z]\\)" "\\1_\\2"
+      (replace-regexp-in-string
+       "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2"
+       string)))))
+
 (provide 'jp-ruby-helpers)

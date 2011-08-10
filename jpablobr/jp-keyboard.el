@@ -1,6 +1,11 @@
 ;;; -*- coding: utf-8-unix; -*-
 ;;jp-keyboard.el ---------------------------------------------------------
 
+;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
+(lookup-key global-map "\C-x"); --> Control-X-prefix
+(define-key global-map "\C-[" 'Control-X-prefix)
+(define-key global-map "\M-x" 'execute-extended-command)
+
 ;;; - Align your code in a pretty way.
 (global-set-key (kbd "C-x \\") 'align-regexp)
 ;;; - Completion that uses many different methods to find options.
@@ -15,7 +20,7 @@
 ;;; - File finding
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 (global-set-key (kbd "C-x C-p") 'find-file-at-point)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-n") 'ibuffer)
 ;;; - Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x u") 'view-url)
 ;;; - mark-whole-buffer
@@ -63,7 +68,9 @@
 (global-set-key (kbd "C-l ss") 'synonym-s)
 (global-set-key (kbd "C-l sg") 'github-s)
 (global-set-key (kbd "C-l sb") 'sr-speedbar-toggle)
+(global-set-key (kbd "C-x s") 'save-buffer)
 (global-set-key (kbd "M-q") 'org-cycle)
+(global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)

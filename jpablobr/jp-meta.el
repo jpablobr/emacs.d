@@ -26,14 +26,6 @@
 (defvar backup-dir (concat "/tmp/emacs_backups/" (user-login-name) "/"))
 (setq backup-directory-alist (list (cons "." backup-dir)))
 
-;;; --------------------------------------------------------------------
-;;; - Whitespace mode
-;;; - http://xahlee.org/emacs/whitespace-mode.html
-(global-whitespace-mode 1)
-(setq whitespace-style '(trailing))
-(set-default 'indent-tabs-mode nil)
-(set-default 'indicate-empty-lines t)
-
 ;; we speak utf-8 here
 (prefer-coding-system 'latin-1)
 (if (not (assoc "UTF-8" language-info-alist))
@@ -53,5 +45,7 @@
 (setq column-number-mode t)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
+(custom-set-variables
+'(vc-follow-symlinks t))
 
 (provide 'jp-meta)

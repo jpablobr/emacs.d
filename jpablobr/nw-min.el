@@ -1,32 +1,71 @@
-;; (load-file "~/.emacs.d/jpablobr/jp-meta.el")
-;; (require 'jp-meta)
+(load-file "~/.emacs.d/jpablobr/jp-meta.el")
+(require 'jp-meta)
+
+;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
+(lookup-key global-map "\C-x"); --> Control-X-prefi
+(define-key global-map "\C-[" 'Control-X-prefix)
+(define-key global-map "\M-x" 'execute-extended-command)
 
 ;; Keyboard
-(global-set-key [(meta D)] 'backward-kill-word)
-;; Align your code in a pretty way.
-(global-set-key (kbd "C-x \\") 'align-regexp)
-;; Use regex searches by default.
+;;; - Use regex searches by default.
+(global-set-key "\C-x \C-s" 'save-buffer)
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
-(global-set-key "\C-\M-s" 'isearch-forward)
-(global-set-key "\C-\M-r" 'isearch-backward)
-;; Jump to a definition in the current file. (This is awesome.)
-;; (global-set-key "\C-x\C-i" 'ido-imenu)
-;; Help should search more than just commands
-(global-set-key (kbd "C-h a") 'apropos)
-;; General
-(global-set-key "%" 'match-paren)
-(global-set-key (kbd "M-c") 'find-grep)
+;;; - File finding
+(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+;;; - mark-whole-buffer
+(global-set-key (kbd "C-x h") 'mark-whole-buffer)
+(global-set-key [(meta D)] 'backward-kill-word) ;; (meta d) is opposite
+;; Texmate mode
+(global-set-key [(meta \])] 'textmate-shift-right)
+(global-set-key [(meta \[)] 'textmate-shift-left)
+(global-set-key [(meta /)] 'comment-or-uncomment-region-or-line)
+(global-set-key [(meta L)] 'textmate-select-line)
+;;; Jump to matching parent
 (global-unset-key "\C-l")
-(global-set-key (kbd "C-l bu") 'browse-url)
-(global-set-key (kbd "C-l eb") 'eval-buffer)
-(global-set-key [(meta I)] 'ispell-region)
+(global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
+(global-set-key (kbd "C-l cc") 'cheat-fu-convert)
+(global-set-key (kbd "C-l cg") 'cheat-fu-commit)
+(global-set-key (kbd "C-l cr") 'cua-set-rectangle-mark)
+(global-set-key (kbd "C-l df") 'delete-current-file)
+(global-set-key (kbd "C-l dm") 'ido-imenu); (This is awesome.)
+(global-set-key (kbd "C-l ee") 'eval-buffer)
+(global-set-key (kbd "C-l fl") 'beginning-of-buffer)
+(global-set-key (kbd "C-l fg") 'find-grep)
+(global-set-key (kbd "C-l gt") 'register-to-point)
+(global-set-key (kbd "C-l gp") 'gist-buffer-private)
+(global-set-key (kbd "C-l gr") 'gist-buffer)
+(global-set-key (kbd "C-l ie") 'insert-email)
+(global-set-key (kbd "C-l in") 'insert-name)
+(global-set-key (kbd "C-l id") 'insert-date)
+(global-set-key (kbd "C-l is") 'ispell-region)
+(global-set-key (kbd "C-l hl") 'hs-toggle-hiding)
+(global-set-key (kbd "C-l ll") 'end-of-buffer)
+(global-set-key (kbd "C-l rr") 'replace-regexp)
+(global-set-key (kbd "C-l rf") 'rename-file)
+(global-set-key (kbd "C-l sb") 'sr-speedbar-toggle)
+(global-set-key (kbd "M-q") 'org-cycle)
+(global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
-(global-set-key [(meta G)] 'google-s)
-(global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "C-x u") 'view-url)
-(global-set-key (kbd "C-x h") 'mark-whole-buffer)
+
+(dolist (r `((?i (file . ,"~/.emacs.d/init.el"))
+             (?k (file . ,"~/.emacs.d/jpablobr/jp-keyboard.el"))
+             (?m (file . ,"~/.emacs.d/jpablobr/jp-misc.el"))
+             (?d (file . ,"~/.emacs.d/jpablobr/jp-defuns.el"))
+             (?t (file . ,"~/.emacs.d/jpablobr/nw-init.el"))
+             (?j (file . ,"~/.emacs.d/jpablobr/nw-jpablobr.el"))
+             (?a (file . ,"~/.mp/bash/plugins/aliases"))
+             (?s (file . ,"~/.mp/setup/install.sh"))
+             (?c (file . ,"~/.mp/bash/config"))
+             (?l (file . ,"~/org/yacs/linux.org"))
+             (?z (file . ,"~/.emacs.d/vendor/misc/cheat-fu-mode/cheat-fu.el"))
+             (?r (file . ,"~/.emacs.d/jpablobr/jp-registers.el"))))
+  (set-register (car r) (cadr r)))
+
+(menu-bar-mode 0)
+(setq initial-scratch-message "")

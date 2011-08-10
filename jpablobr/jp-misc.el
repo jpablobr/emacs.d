@@ -218,13 +218,17 @@
 (turn-on-xclip)
 
 ;; ---------------------------------------------------------------------
-;; - ERC
-(defun my-erc-connect ()
-  (interactive)
-  (progn (erc :server "irc.freenode.net" :port 6667 :nick "jpablobr")))
+;; - Auto fill
+(add-hook 'org-mode-hook
+          '(lambda ()
+             (turn-on-auto-fill)
+             (auto-fill-mode 1)))
 
+;; ---------------------------------------------------------------------
+;; - ERC
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#beginrescueend" "#linux" "#rubinius")))
+      '(("freenode.net" "#beginrescueend" "#emacs" "#bash")))
+
 ;; ---------------------------------------------------------------------
 ;; Base dir
 (require 'sr-speedbar)

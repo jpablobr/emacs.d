@@ -37,6 +37,5 @@
 ;; ---------------------------------------------------------------------
 ;; - Startup
 (menu-bar-mode 0)
-(setq initial-scratch-message (format-time-string "%a %Y-%m-%d - %l:%M %p"))
-
+(setq initial-scratch-message (totd))
 (server-start)
