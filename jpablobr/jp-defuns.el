@@ -214,7 +214,6 @@ Delete the current buffer too."
   (provide 'semanticdb-mode)
   (provide 'semantic-load)
   (require 'ecb)
-
   (custom-set-variables
   '(ecb-options-version "2.40")
    '(ecb-layout-window-sizes
@@ -224,7 +223,6 @@ Delete the current buffer too."
         (0.19801980198019803 . 0.2413793103448276)
         (0.19801980198019803 . 0.27586206896551724)
         (0.19801980198019803 . 0.1724137931034483))))))
-
   (global-ede-mode 1)
   (setq ecb-tip-of-the-day nil)
   (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))

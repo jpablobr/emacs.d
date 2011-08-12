@@ -16,6 +16,7 @@
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
+
 ;;; - Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x u") 'view-url)
 ;;; - mark-whole-buffer
@@ -23,16 +24,19 @@
 ;;; - Help should search more than just commands
 (global-set-key (kbd "C-h a") 'apropos)
 (global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x C-n") 'ibuffer)
 
 ;; Texmate mode
 (global-set-key [(meta \])] 'textmate-shift-right)
 (global-set-key [(meta \[)] 'textmate-shift-left)
 (global-set-key [(meta /)] 'comment-or-uncomment-region-or-line)
 (global-set-key [(meta L)] 'textmate-select-line)
-;;; Jump to matching parent
+
+;;; --------------------------------------------------------------------
+;;; \C-l redefined -----------------------------------------------------
 (global-unset-key "\C-l")
 (global-set-key (kbd "C-l bu") 'browse-url)
-(global-set-key (kbd "C-l bb") 'ibuffer)
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
 (global-set-key (kbd "C-l cg") 'cheat-fu-commit)
@@ -84,16 +88,12 @@
 (global-set-key (kbd "C-s") 'save-buffer)
 (global-set-key (kbd "C-x C-s") 'save-buffer)
 (global-set-key (kbd "C-x b") 'ibuffer)
+(global-set-key (kbd "M-'") 'beginning-of-line)
+(global-set-key (kbd "M-l") 'other-window)
 (global-set-key [(meta F)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
-
-;; Window moving
-(global-set-key [M-left] 'windmove-left)
-(global-set-key [M-right] 'windmove-right)
-(global-set-key [M-up] 'windmove-up)
-(global-set-key [M-down] 'windmove-down)
 
 (provide 'jp-keyboard)

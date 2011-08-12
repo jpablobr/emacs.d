@@ -22,8 +22,6 @@
 (require 'jp-eshell)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
 (require 'jp-autocomplete)
-(load-file (concat jpablobr-dir "/jp-keyboard.el"))
-(require 'jp-keyboard)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
 (require 'jp-theme)
 
@@ -39,6 +37,10 @@
 (custom-set-variables
  '(ecb-source-path (quote ("./"))))
 
+;; To reset every other keybinding.
+(load-file (concat jpablobr-dir "/jp-keyboard.el"))
+(require 'jp-keyboard)
+
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
 (global-whitespace-mode 1)
@@ -47,8 +49,9 @@
 (set-default 'indicate-empty-lines t)
 (menu-bar-mode 0)
 (cd "./")
+(autotest)
 (find-file "readme.md")
 (shell)
 (ibuffer)
-
+(ruby-theme)
 (kill-buffer "*scratch*")

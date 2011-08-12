@@ -160,5 +160,4 @@ See the variable `align-rules-list' for more details.")
                (cmd (if maxnum (concat cmd (format "[0...%s]" maxnum)) cmd)))
           (el4r-ruby-eval (format cmd (word-at-point) prefix prefix)))))))
 
-
 (provide 'ruby-hacks)

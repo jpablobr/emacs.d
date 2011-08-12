@@ -12,15 +12,15 @@
 (require 'yari)
 (require 'scss-mode)
 (require 'inf-ruby)
-(require 'toggle)
 (require 'ruby-hacks)
 (require 'align)
 (require 'flymake-ruby)
 (require 'flymake-haml)
 (require 'rhtml-mode)
 (require 'rails)
-;; (require 'unit-test)
-;; (require 'autotest)
+(require 'unit-test)
+(require 'toggle)
+(require 'autotest)
 ;; (require 'rdebug)
 ;; (require 'ruby-complexity)
 
@@ -55,11 +55,6 @@
 (ignore-errors (require 'ruby-compilation))
 (setq ruby-use-encoding-map nil)
 
-;; rinari (Minor Mode for Ruby On Rails)
-;; (setq rinari-minor-modes
-;;       (list 'mumamo-after-change-major-mode-hook 'dired-mode-hook 'ruby-mode-hook
-;;             'css-mode-hook 'yaml-mode-hook 'javascript-mode-hook))
-
 (add-hook 'ruby-mode-hook
           '(lambda ()
              (set (make-local-variable 'tab-width) 2)
@@ -67,7 +62,6 @@
              (ruby-hs-minor-mode t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
-             (imenu-add-to-menubar "IMENU")
              (modify-syntax-entry ?! "w" (syntax-table))
              (modify-syntax-entry ?: "w" (syntax-table))
              (modify-syntax-entry ?_ "w" (syntax-table))
@@ -80,12 +74,8 @@
              (inf-ruby-keys)
              (GAU-bind-insert-ruby-debug-key)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
-             (define-key ruby-mode-map (kbd "C-c v") 'senny-ruby-eval-buffer)
-             (define-key ruby-mode-map (kbd "C-M-r") 'senny-ruby-compilation-this-buffer)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-             (define-key ruby-mode-map (kbd "C-M-h") 'backward-kill-word)
              (define-key ruby-mode-map (kbd "C-c l") "lambda")
-             (define-key ruby-mode-map (kbd "#") 'ruby-interpolate)
              (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)
              (function (lambda () ;; Ruby Complexity
                          (linum-mode)
@@ -93,10 +83,7 @@
              (local-set-key (kbd "<return>") 'newline-and-indent)))
 
 (add-hook 'haml-mode-hook 'flymake-haml-load)
-(add-hook 'rhtml-mode-hook 'ri-bind-key)
-(add-hook 'haml-mode-hook 'ri-bind-key)
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
-
 (setq scss-compile-at-save nil)
 (setq rdebug-short-key-mode t)
 

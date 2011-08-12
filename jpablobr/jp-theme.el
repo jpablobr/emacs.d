@@ -1,10 +1,13 @@
-(when window-system
+(defun ruby-theme()
+  "ruby theme."
+  (interactive)
+
   (setq theaming-dir (concat vendor-dir "/theaming"))
   (add-to-list 'load-path theaming-dir)
   (require 'color-theme)
-  (load-file (concat theaming-dir "/color-theme-tango.el"))
-  (load-file (concat theaming-dir "/color-theme-tangotango.el"))
-  (color-theme-tangotango)
+
+  (require 'color-theme-solarized)
+  (color-theme-solarized-light)
 
   (require 'maxframe)
   (add-hook 'window-setup-hook 'maximize-frame t)
@@ -33,7 +36,12 @@
    '(mumamo-background-chunk-submode2 ((((class color) (min-colors 88) (background dark)) nil)))
    '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) nil)))
    '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil)))
-   '(whitespace-line ((t (:background "purple" :foreground "green")))))
+   '(whitespace-line ((t (:background "purple" :foreground "green"))))))
+
+(when window-system
+  (load-file (concat theaming-dir "/color-theme-tango.el"))
+  (load-file (concat theaming-dir "/color-theme-tangotango.el"))
+  (color-theme-tangotango)
 
   (defun transparency ()
     "Sets transparency"
@@ -45,6 +53,6 @@
     "Resets transparency"
     (interactive)
     (set-frame-parameter (selected-frame) 'alpha '(100 100))
-    (add-to-list 'default-frame-alist '(alpha 100 100))));;; - when window-system
+    (add-to-list 'default-frame-alist '(alpha 100 100)))) ;;; - when window-system
 
 (provide 'jp-theme)
