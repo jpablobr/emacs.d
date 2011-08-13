@@ -89,11 +89,11 @@
 (global-set-key (kbd "C-x b") 'ibuffer)
 (global-set-key (kbd "C-x C-s") 'save-buffer)
 (global-set-key (kbd "M-'") 'beginning-of-line)
-(global-set-key (kbd "M-l") 'other-window)
-(global-set-key [(meta F)] 'fill-region)
+(global-set-key [(meta j)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
+(global-set-key [(meta y)] 'yank-pop)
 
 (provide 'jp-keyboard)
