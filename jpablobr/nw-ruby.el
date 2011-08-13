@@ -53,5 +53,4 @@
 (find-file "readme.md")
 (shell)
 (ibuffer)
-(ruby-theme)
 (kill-buffer "*scratch*")

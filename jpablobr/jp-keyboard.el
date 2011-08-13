@@ -12,7 +12,7 @@
 ;;; - Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 ;;; - Use regex searches by default.
-(global-set-key "\M-s" 'isearch-forward-regexp)
+(global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
@@ -67,6 +67,7 @@
 (global-set-key (kbd "C-l id") 'insert-date)
 (global-set-key (kbd "C-l is") 'ispell-region)
 (global-set-key (kbd "C-l jp") 'jp-init-stuff)
+(global-set-key (kbd "C-l jt") 'jp-theme)
 (global-set-key (kbd "C-l ha") 'hs-hide-all)
 (global-set-key (kbd "C-l hs") 'hs-show-all)
 (global-set-key (kbd "C-l hl") 'hs-toggle-hiding)
@@ -85,9 +86,8 @@
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key (kbd "M-\d") 'backward-kill-word)
-(global-set-key (kbd "C-s") 'save-buffer)
-(global-set-key (kbd "C-x C-s") 'save-buffer)
 (global-set-key (kbd "C-x b") 'ibuffer)
+(global-set-key (kbd "C-x C-s") 'save-buffer)
 (global-set-key (kbd "M-'") 'beginning-of-line)
 (global-set-key (kbd "M-l") 'other-window)
 (global-set-key [(meta F)] 'fill-region)
