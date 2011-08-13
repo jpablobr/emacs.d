@@ -1,3 +1,7 @@
+;; require 'cl and *emacs-load-start* for testing startup speed
+(require 'cl)
+(defvar *emacs-load-start* (current-time))
+
 (load-file "~/.emacs.d/jpablobr/jp-meta.el")
 (require 'jp-meta)
 
@@ -54,4 +58,7 @@
 (global-set-key [(meta n)] 'end-of-buffer)
 
 (menu-bar-mode 0)
-(setq initial-scratch-message "")
+(setq initial-scratch-message (message "%ds"
+         (destructuring-bind (hi lo ms) (current-time)
+           (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*))))))
+

@@ -230,11 +230,11 @@ Delete the current buffer too."
 
 (defun jp-init-stuff ()
   "jpablobr init default stuff."
-  (interactive)
-  (global-whitespace-mode 1)
-  (setq whitespace-style '(trailing))
-  (set-default 'indent-tabs-mode nil)
-  (set-default 'indicate-empty-lines t)
+  (interactive
+)(global-whitespace-mode 1)
+(setq whitespace-style '(trailing))
+(set-default 'indent-tabs-mode nil)
+(set-default 'indicate-empty-lines t)
   (shell)
   (when (file-exists-p "~/org")
     (find-file "~/org/yacs/linux.org")

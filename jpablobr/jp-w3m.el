@@ -1,7 +1,5 @@
 (setq w3m-dir (concat misc-dir "/emacs-w3m"))
-(add-to-list 'load-path w3m-dir)
-;;(add-to-list 'load-path (concat w3m-dir "/mode"))
-
+(autoload 'w3m-load w3m-dir "Mode for Updating w3m" t)
 (require 'w3m-load)
 (require 'mime-w3m)
 
