@@ -1,4 +1,4 @@
-;;jp-defuns.el ---------------------------------------------------------
+;; jp-defuns.el ---------------------------------------------------------
 ;; - Custom functions
 ;;; --------------------------------------------------------------------
 ;;; - Makes load time faster.
@@ -236,9 +236,9 @@ Delete the current buffer too."
   (set-default 'indent-tabs-mode nil)
   (set-default 'indicate-empty-lines t)
   (shell)
-  (erc-connect)
   (when (file-exists-p "~/org")
     (find-file "~/org/yacs/linux.org")
-    (find-file "~/jpablobr.org")))
+    (find-file "~/jpablobr.org"))
+  (jp-theme))
 
 (provide 'jp-defuns)

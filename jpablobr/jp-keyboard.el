@@ -86,6 +86,7 @@
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key (kbd "M-\d") 'backward-kill-word)
+(global-set-key (kbd "M-d") 'kill-word)
 (global-set-key (kbd "C-x b") 'ibuffer)
 (global-set-key (kbd "C-x C-s") 'save-buffer)
 (global-set-key (kbd "M-'") 'beginning-of-line)
