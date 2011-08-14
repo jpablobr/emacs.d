@@ -228,13 +228,26 @@ Delete the current buffer too."
   (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
   (ecb-activate))
 
+(defun jp-test-sh-script ()
+  "Loads a testing script."
+  (interactive)
+  (let ((buffer (shell "*Testing Script*")))
+    (set (make-local-variable 'comint-output-filter-functions)
+         '(comint-truncate-buffer
+           comint-postoutput-scroll-to-bottom
+           ansi-color-process-output))
+    (ansi-color-for-comint-mode-on)
+    (compilation-shell-minor-mode 1)
+    (find-file "~/.private/bin/test.sh")
+    (comint-send-string buffer (concat "cd ~/.private/bin/; ls -la" "\n"))))
+
 (defun jp-init-stuff ()
   "jpablobr init default stuff."
-  (interactive
-)(global-whitespace-mode 1)
-(setq whitespace-style '(trailing))
-(set-default 'indent-tabs-mode nil)
-(set-default 'indicate-empty-lines t)
+  (interactive)
+  (global-whitespace-mode 1)
+  (setq whitespace-style '(trailing))
+  (set-default 'indent-tabs-mode nil)
+  (set-default 'indicate-empty-lines t)
   (shell)
   (when (file-exists-p "~/org")
     (find-file "~/org/yacs/linux.org")

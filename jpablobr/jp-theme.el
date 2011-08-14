@@ -7,19 +7,19 @@
   (require 'color-theme)
 
   (load-file (concat theaming-dir "/rainbow-mode.el"))
-  (require 'rainbow-mode)
-  (rainbow-turn-on)
+  (autoload 'rainbow-mode "rainbow-mode" t)
+  ;; (rainbow-turn-on)
 
   (require 'color-theme-solarized)
   (color-theme-solarized-light)
-
-  (require 'maxframe)
-  (add-hook 'window-setup-hook 'maximize-frame t)
 
 (when window-system
   ;; (load-file (concat theaming-dir "/color-theme-tango.el"))
   ;; (load-file (concat theaming-dir "/color-theme-tangotango.el"))
   ;; (color-theme-tangotango)
+
+  (require 'maxframe)
+  (add-hook 'window-setup-hook 'maximize-frame t)
 
   (defun transparency ()
     "Sets transparency"
