@@ -22,8 +22,8 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
         (base01  "#586e75")
         (base00  "#657b83")
         (base0   "#839496")
-        (base1   "#93a1a1")
-        (base2   "#eee8d5")
+        (base1   "#666666")
+        (base2   "#333333")
         (base3   "#000000")
         (yellow  "#b58900")
         (orange  "#cb4b16")
@@ -93,10 +93,10 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        ;; font-lock
        (font-lock-builtin-face ((t (:foreground ,green))))
        (font-lock-comment-face ((t (:foreground ,base01 :italic t))))
-       (font-lock-constant-face ((t (:foreground ,cyan))))
+       (font-lock-constant-face ((t (:foreground ,#333333))))
        (font-lock-function-name-face ((t (:foreground ,blue))))
        (font-lock-keyword-face ((t (:foreground ,green))))
-       (font-lock-string-face ((t (:foreground ,cyan))))
+       (font-lock-string-face ((t (:foreground ,#333333))))
        (font-lock-type-face ((t (:foreground ,yellow))))
        (font-lock-variable-name-face ((t (:foreground ,blue))))
        (font-lock-warning-face ((t (:foreground ,red :bold t))))
@@ -108,7 +108,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        (org-todo ((t (:foreground ,red :bold t))))
        (org-done ((t (:foreground ,green :bold t))))
        ;; show-paren
-       (show-paren-match-face ((t (:background ,cyan :foreground ,base3))))
+       (show-paren-match-face ((t (:background ,#333333 :foreground ,base3))))
        (show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))))))
 
 (defun color-theme-solarized-dark ()

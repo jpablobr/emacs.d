@@ -225,6 +225,18 @@
              (auto-fill-mode 1)))
 
 ;; ---------------------------------------------------------------------
+;; - White-space builder
+(global-whitespace-mode 1)
+(setq whitespace-style '(trailing))
+(set-default 'indent-tabs-mode nil)
+(set-default 'indicate-empty-lines t)
+
+;; ---------------------------------------------------------------------
+;; - Regex builder
+(require 're-builder)
+(setq reb-re-syntax 'string)
+
+;; ---------------------------------------------------------------------
 ;; - ERC
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash")))

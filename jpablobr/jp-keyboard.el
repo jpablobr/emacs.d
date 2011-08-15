@@ -62,6 +62,7 @@
 (global-set-key (kbd "C-l gs") 'google-s)
 (global-set-key (kbd "C-l gp") 'gist-buffer-private)
 (global-set-key (kbd "C-l gr") 'gist-buffer)
+(global-set-key (kbd "C-l gl") 'goto-line)
 (global-set-key (kbd "C-l ie") 'insert-email)
 (global-set-key (kbd "C-l in") 'insert-name)
 (global-set-key (kbd "C-l id") 'insert-date)

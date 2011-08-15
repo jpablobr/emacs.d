@@ -241,17 +241,4 @@ Delete the current buffer too."
     (find-file "~/.private/bin/test.sh")
     (comint-send-string buffer (concat "cd ~/.private/bin/; ls -la" "\n"))))
 
-(defun jp-init-stuff ()
-  "jpablobr init default stuff."
-  (interactive)
-  (global-whitespace-mode 1)
-  (setq whitespace-style '(trailing))
-  (set-default 'indent-tabs-mode nil)
-  (set-default 'indicate-empty-lines t)
-  (shell)
-  (when (file-exists-p "~/org")
-    (find-file "~/org/yacs/linux.org")
-    (find-file "~/jpablobr.org"))
-  (jp-theme))
-
 (provide 'jp-defuns)

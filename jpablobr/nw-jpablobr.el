@@ -40,7 +40,18 @@
 ;; ---------------------------------------------------------------------
 ;; - Startup
 (menu-bar-mode 0)
-(setq initial-scratch-message (totd))
+(shell)
+(jp-theme)
+(when (file-exists-p "~/org")
+  (find-file "~/org/yacs/linux.org")
+  (find-file "~/jpablobr.org"))
+(setq initial-scratch-message nil)
 (server-start)
-(message "nw-jpablobr.el loaded in %ds" (destructuring-bind (hi lo ms) (current-time)
-                           (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
+(message "nw-jpablobr.el loaded in %ds"
+         (destructuring-bind
+             (hi lo ms) (current-time) (-
+                                        (+ hi lo)
+                                        (+ (first
+                                            *emacs-load-start*)
+                                           (second
+                                            *emacs-load-start*)))))
