@@ -12,6 +12,7 @@
 (autoload 'yari "yari" nil t)
 (autoload 'scss-mode "scss-mode" nil t)
 (autoload 'inf-ruby "inf-ruby" nil t)
+(autoload 'inf-ruby-keys "inf-ruby""Set local key defs for inf-ruby in ruby-mode")
 (autoload 'ruby-hacks "ruby-hacks" nil t)
 (autoload 'align "align" nil t)
 (autoload 'flymake-ruby "flymake-ruby" nil t)
@@ -24,6 +25,7 @@
 (autoload 'autotest-switch "autotest" "doco" t)
 (autoload 'autotest "autotest" "doco" t)
 (autoload 'rhtml-mode "rhtml-mode" "RHTML" t)
+(autoload 'rdebug  "rdebug" "Load the Ruby Debugger" t)
 
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
@@ -53,7 +55,6 @@
 (add-hook 'ruby-mode-hook
           '(lambda ()
              (set (make-local-variable 'tab-width) 2)
-             ;; (ruby-electric-mode t)
              (ruby-hs-minor-mode t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)

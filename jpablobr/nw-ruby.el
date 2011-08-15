@@ -25,6 +25,8 @@
 (require 'jp-autocomplete)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
 (require 'jp-theme)
+(load-file (concat jpablobr-dir "/jp-tags.el"))
+(require 'jp-tags)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -44,16 +46,14 @@
 
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
-(global-whitespace-mode 1)
-(setq whitespace-style '(trailing))
-(set-default 'indent-tabs-mode nil)
-(set-default 'indicate-empty-lines t)
+(setq initial-scratch-message nil)
 (menu-bar-mode 0)
 (cd "./")
 (autotest)
-(find-file "readme.md")
 (shell)
+(tags-reset-tags-tables)
+(jp-theme)
 (ibuffer)
-(message "nw-jpablobr.el loaded in %ds"
+(message "nw-ruby.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)
            (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))

@@ -5,6 +5,9 @@
 (load-file "~/.emacs.d/jpablobr/jp-meta.el")
 (require 'jp-meta)
 
+(load-file (concat jpablobr-dir "/jp-tags.el"))
+(require 'jp-tags)
+
 ;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
 (lookup-key global-map "\C-x"); --> Control-X-prefi
 (define-key global-map "\C-[" 'Control-X-prefix)

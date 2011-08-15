@@ -242,7 +242,20 @@
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash")))
 
 ;; ---------------------------------------------------------------------
-;; Base dir
-(require 'sr-speedbar)
+;; General
+(autoload 'sr-speedbar "sr-speedbar" t)
+(autoload 'change-case "change-case" t)
+
+;;; Other mode abbreviations =========================================
+(defun itm () "Abbreviation for Indented-Text-Mode"    (interactive) (indented-text-mode))
+(defun mm  () "Abbreviation for Mail-Mode"             (interactive) (mail-mode))
+(defun nrm () "Abbreviation for News-Reply-Mode"       (interactive) (news-reply-mode))
+(defun pm  () "Abbreviation for Perl-Mode"             (interactive) (perl-mode))
+(defun tm  () "Abbreviation for Tcl-Mode"              (interactive) (tcl-mode))
+(defun ccm () "Abbreviation for C++-Mode"              (interactive) (c++-mode))
+(defun cm  () "Abbreviation for C-Mode"                (interactive) (c-mode))
+(defun rm  () "Abbreviation for Ruby-Mode"             (interactive) (ruby-mode))
+(defun lim () "Abbreviation for Lisp-Interaction-Mode" (interactive) (lisp-interaction-mode))
+(defun sw  () "Abbreviation for jw-swap-windows"       (interactive) (jw-swap-windows))
 
 (provide 'jp-misc)

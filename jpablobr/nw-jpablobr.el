@@ -29,6 +29,8 @@
 (require 'jp-w3m)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
 (require 'jp-theme)
+(load-file (concat jpablobr-dir "/jp-tags.el"))
+(require 'jp-tags)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -48,10 +50,5 @@
 (setq initial-scratch-message nil)
 (server-start)
 (message "nw-jpablobr.el loaded in %ds"
-         (destructuring-bind
-             (hi lo ms) (current-time) (-
-                                        (+ hi lo)
-                                        (+ (first
-                                            *emacs-load-start*)
-                                           (second
-                                            *emacs-load-start*)))))
+         (destructuring-bind (hi lo ms) (current-time)
+           (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))

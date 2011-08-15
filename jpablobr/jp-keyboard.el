@@ -99,4 +99,32 @@
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta y)] 'yank-pop)
 
+;; C-C p -- Perforce bindings
+(global-set-key (kbd "C-C p e") 'p4-edit) ; pkg:perforce
+(global-set-key (kbd "C-C p r") 'p4-revert) ; pkg:perforce
+(global-set-key (kbd "C-C p s") 'p4-sync-code-buffers) ; pkg:perforce
+(global-set-key (kbd "C-C p v") 'p4-env) ; pkg:perforce
+
+;;; C-C t -- Testing Commands
+(global-set-key (kbd "C-C t F")    'jw-run-last-test-or-spec-file) ; pkg:testing
+(global-set-key (kbd "C-C t M")    'jw-run-last-test-or-spec-method) ; pkg:testing
+(global-set-key (kbd "C-C t c")    'jw-run-test-cruise) ; pkg:testing
+(global-set-key (kbd "C-C t f")    'jw-run-test-or-spec-file) ; pkg:testing
+(global-set-key (kbd "C-C t i")    'jw-run-test-integration) ; pkg:testing
+(global-set-key (kbd "C-C t l")    'jw-run-test-functionals) ; pkg:testing
+(global-set-key (kbd "C-C t m")    'jw-run-test-or-spec-method) ; pkg:testing
+(global-set-key (kbd "C-C t r")    'jw-run-test-rake) ; pkg:testing
+(global-set-key (kbd "C-C t s")    'toggle-style) ; pkg:testing
+(global-set-key (kbd "C-C t t")    'jw-mark-for-testing) ; pkg:testing
+(global-set-key (kbd "C-C t u")    'jw-run-test-units) ; pkg:testing
+(global-set-key (kbd "C-C t w")    'jw-test-toggle-warnings) ; pkg:testing
+
+(global-set-key (kbd "C-C t C-f")  'jw-run-last-test-or-spec-file) ; pkg:testing
+(global-set-key (kbd "C-C t C-m")  'jw-run-last-test-or-spec-method) ; pkg:testing
+(global-set-key (kbd "C-C t C-t") 'jw-toggle-clear-buffer-styles) ; pkg:testing
+(global-set-key (kbd "C-C t C-s") 'toggle-debug) ; pkg:testing
+
+(global-set-key (kbd "C-C t 1") (lambda () (interactive) (setq jw-test-single-window t))) ; pkg:testing
+(global-set-key (kbd "C-C t 2") (lambda () (interactive) (setq jw-test-single-window nil))) ; pkg:testing
+
 (provide 'jp-keyboard)

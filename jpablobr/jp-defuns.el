@@ -114,11 +114,6 @@ Delete the current buffer too."
 
 ;;; --------------------------------------------------------------------
 ;;; - Insert helper for the lazy.
-(defun insert-date ()
-  "Insert date at point."
-  (interactive)
-  (insert (format-time-string "%a %Y-%m-%d - %l:%M %p")))
-
 (defun insert-name ()
   "Insert name at point."
   (interactive)
@@ -184,22 +179,194 @@ Delete the current buffer too."
     (insert str)
     (forward-line -1)))
 
-(defconst animate-n-steps 3)
-"Print a a tip of the day."
-(random t)
-(defun totd ()
+(defun jw-show-key-binding (key)
+  (interactive "kEnter Key: ")
+  (insert
+   "("
+   (prin1-to-string (key-binding key))
+   ")" ))
+
+(defun jw-zap-ansi-clutter ()
   (interactive)
-  (let* ((commands (loop for s being the symbols
-                         when (commandp s) collect s))
-         (command (nth (random (length commands)) commands)))
-    (animate-string (concat "Your tip for the day is:\n"
-                            "========================\n\n"
-                            (describe-function command)
-                            (delete-other-windows)
-                            "\n\nInvoke with:\n\n"
-                            (where-is command t)
-                            (delete-other-windows)
-                            )0 0)))
+  (re-search-forward "\\[[0-9;]*m")
+  (replace-match "") )
+
+(defun jw-zap-all-ansi ()
+  (interactive)
+  (save-excursion
+    (goto-char 0)
+    (while t (jw-zap-ansi-clutter))  ))
+
+(defun unansi ()
+  "Remove the ansi markup in files"
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (replace-regexp "\\([\\[0-9;\\]*m\\|\r\\)" "")))
+
+(defun unhtml ()
+  "Remove the HTML tags in a file"
+  (interactive)
+  (save-excursion
+    (goto-char (point-min))
+    (replace-regexp "<[^>]*>" "")
+    (goto-char (point-min))
+    (replace-string "&nbsp;" " ")
+    (goto-char (point-min))
+    (replace-string "&lt;" "<")
+    (goto-char (point-min))
+    (replace-string "&gt;" ">")
+    (goto-char (point-min))
+    (replace-string "&amp;" "&") ))
+
+(defun dt ()
+  "Insert the Date."
+  (interactive)
+  (insert-string (current-date-string)))
+
+(defun current-date-string ()
+  (let ((time-string (current-time-string)))
+    (concat (substring time-string 8 10)
+	    "/"
+	    (substring time-string 4 7)
+	    "/"
+	    (substring time-string 22 24))))
+
+(defun current-year-string ()
+  (let ((time-string (current-time-string)))
+    (concat (substring time-string 20 24))))
+
+(defun encrypt (password)
+  "Encrypt/Decrypt the current buffer"
+  (interactive "sPassword: ")
+  (call-process-region
+   (point-min) (point-max)
+   "crypt"
+   t
+   (current-buffer)
+   nil
+   password))
+
+(defun cmt-insert-bar-dots ()
+  (interactive)
+  (cmt-insert-bar-line ". "))
+
+(defun cmt-insert-bar-heavy ()
+  (interactive)
+  (cmt-insert-bar-line "="))
+
+(defun cmt-insert-bar-hash ()
+  (interactive)
+  (cmt-insert-bar-line "#"))
+
+(defun cmt-insert-bar-light ()
+  (interactive)
+  (cmt-insert-bar-line "-"))
+
+(defun cmt-insert-bar-star ()
+  (interactive)
+  (cmt-insert-bar-line "*"))
+
+(defun cmt-insert-bar-hash ()
+  (interactive)
+  (cmt-insert-bar-line "#"))
+
+(defun snip ()
+  (interactive)
+  (insert-string "--><--snip--><---")
+  (cmt-insert-bar-light)
+  (insert-string "\n"))
+
+(defvar cmt-bar-column 70
+  "Column to extend comment bars to")
+
+(defun cmt-insert-bar-line (char)
+  (end-of-line)
+  (if (< (current-column) cmt-bar-column)
+      (progn
+	(if (> (current-column) 0)
+	    (progn
+	      (backward-char)
+	      (if (looking-at (concat "[ \t" char "]"))
+		  (end-of-line)
+		(end-of-line)
+		(insert-string " "))))
+	(while (< (current-column) cmt-bar-column)
+	  (insert-string char))))
+  (while (and (> (current-column) cmt-bar-column)
+	      (save-excursion
+		(backward-char)
+		(looking-at char)))
+    (backward-delete-char-untabify 1)))
+
+(defun display-host ()
+  "Return the Display Host"
+  (let ((disp (getenv "DISPLAY")))
+    (if (equal (substring disp -2) ".0")
+	(setq disp (substring disp 0 -2)))
+    disp))
+
+(defun get-resources ()
+  "Get the Current X Resources from the X Server"
+  (interactive)
+  (let ((vfile (substitute-in-file-name
+		(concat "$HOME/.vue/"
+			(display-host)
+			"/home/vue.resources")))
+	(cfile (substitute-in-file-name
+		(concat "$HOME/.vue/"
+			(display-host)
+			"/current/vue.resources")))
+	(xfile (substitute-in-file-name "$HOME/.Xdefaults")))
+    (cond ((file-writable-p vfile) (find-file vfile))
+	  ((file-writable-p cfile) (find-file cfile))
+	  ((file-writable-p xfile) (find-file xfile))
+	  (t (message "Can not find X Resource file")))))
+
+;  (shell-command "xrdb -q")
+
+(defun save-resources ()
+  "Save the file as the current X Resources on the X Server"
+  (interactive)
+  (save-buffer)
+  (save-excursion
+    (end-of-buffer)
+    (shell-command-on-region 1 (point) "xrdb -load" nil)))
+
+(defun apm ()
+  "Add Initial Code for a perl file"
+  (interactive)
+  (goto-char (point-min))
+  (insert-string "#!/bin/sh -- # -*- perl -*-\n")
+  (insert-string "eval 'exec perl -S $0 ${1+\"$@\"}'\n")
+  (insert-string "  if $runnning_under_a_shell;\n\n")
+  (perl-mode))
+
+;; Courtesy of Steve Yegge (http://steve.yegge.googlepages.com/my-dot-emacs-file)
+(defun jw-swap-windows ()
+ "If you have 2 windows, it swaps them."
+ (interactive)
+ (cond ((not (= (count-windows) 2))
+        (message "You need exactly 2 windows to do this."))
+       (t
+        (let* ((w1 (first (window-list)))
+               (w2 (second (window-list)))
+               (b1 (window-buffer w1))
+               (b2 (window-buffer w2))
+               (s1 (window-start w1))
+               (s2 (window-start w2)))
+          (set-window-buffer w1 b2)
+          (set-window-buffer w2 b1)
+          (set-window-start w1 s2)
+          (set-window-start w2 s1)
+          (other-window 1)))))
+
+(defun jw-show-key-binding (key)
+  (interactive "kEnter Key: ")
+  (insert
+   "("
+   (prin1-to-string (key-binding key))
+   ")" ))
 
 (defun ecb-init-stuff ()
   "Load ECB stuff..."
