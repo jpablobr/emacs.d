@@ -1,4 +1,3 @@
-
 (setq org-completion-use-ido t)
 (require 'org-special-blocks)
 ;; (if window-system (require 'org-mouse))

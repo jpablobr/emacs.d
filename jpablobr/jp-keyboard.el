@@ -85,6 +85,8 @@
 (global-set-key (kbd "C-l ts") 'textmate-goto-symbol)
 (global-set-key (kbd "C-l tf") 'textmate-goto-file)
 (global-set-key (kbd "C-l ri") 'rails-init-stuff)
+(global-set-key (kbd "C-l rh") 'byte-recompile-home)
+(global-set-key (kbd "C-l rc") 'ruby-compile-region)
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key (kbd "M-\d") 'backward-kill-word)

@@ -2,10 +2,10 @@
 (setq snippets-dir (concat vendor-dir "/snippets"))
 (add-to-list 'load-path (concat snippets-dir "/yasnippet-dot-el"))
 
-(autoload 'yasnippet "yasnippet" nil t)
-(autoload 'dropdown-list "dropdown-list" nil t)
-;; (require 'yasnippet)
-;; (require 'dropdown-list)
+;; (autoload 'yasnippet "yasnippet" nil t)
+;; (autoload 'dropdown-list "dropdown-list" nil t)
+(require 'yasnippet)
+(require 'dropdown-list)
 
 (eval-after-load "yasnippet"
   '(progn

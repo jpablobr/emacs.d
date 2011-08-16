@@ -242,11 +242,7 @@
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash")))
 
 ;; ---------------------------------------------------------------------
-;; General
-(autoload 'sr-speedbar "sr-speedbar" t)
-(autoload 'change-case "change-case" t)
-(load-file (concat misc-dir "/anything-match-plugin.el"))
-(require 'anything-match-plugin)
+;; - Tags
 (require 'anything-etags+)
 (setq anything-etags+-use-short-file-name nil)
 ;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
@@ -262,22 +258,28 @@
 (require 'etags-table)
 (setq etags-table-alist
       (list
-       '("/home/jpablob/code/ruby/.*\\.[rb]$" "/home/jpablobr/code/ruby/rails/spree-apps/TAGS" "/home/jpablobr/.tags/ruby/TAGS")
-       '("/home/jpablobr/code/shell-scripts/.*\\.sh$" "/home/jpablobr/code/shell-scripts/TAGS")
-       '(".*\\.java$"  "/opt/sun-jdk-1.6.0.22/src/TAGS" )))
+       '("~/code/ruby/.*\\.[rb]$"
+         "~/code/ruby/rails/spree-apps/TAGS"
+         "~/.tags/ruby/TAGS")
+       '("~/code/shell-scripts/.*\\.sh$"
+         "~/code/shell-scripts/TAGS")))
 
 (add-hook 'anything-etags+-select-hook 'etags-table-recompute)
 
-;;; Other mode abbreviations =========================================
-(defun itm () "Abbreviation for Indented-Text-Mode"    (interactive) (indented-text-mode))
-(defun mm  () "Abbreviation for Mail-Mode"             (interactive) (mail-mode))
-(defun nrm () "Abbreviation for News-Reply-Mode"       (interactive) (news-reply-mode))
-(defun pm  () "Abbreviation for Perl-Mode"             (interactive) (perl-mode))
-(defun tm  () "Abbreviation for Tcl-Mode"              (interactive) (tcl-mode))
-(defun ccm () "Abbreviation for C++-Mode"              (interactive) (c++-mode))
-(defun cm  () "Abbreviation for C-Mode"                (interactive) (c-mode))
-(defun rm  () "Abbreviation for Ruby-Mode"             (interactive) (ruby-mode))
-(defun lim () "Abbreviation for Lisp-Interaction-Mode" (interactive) (lisp-interaction-mode))
-(defun sw  () "Abbreviation for jw-swap-windows"       (interactive) (jw-swap-windows))
+;; ---------------------------------------------------------------------
+;; like aliases ;)
+(defun pm  () "Abbreviation for Perl-Mode" (interactive) (perl-mode))
+(defun rm  () "Abbreviation for Ruby-Mode" (interactive) (ruby-mode))
+
+;; ---------------------------------------------------------------------
+;; emacs hacks/workarounds
+(setq warning-suppress-types nil)
+
+;; ---------------------------------------------------------------------
+;; General
+(autoload 'sr-speedbar "sr-speedbar" t)
+(autoload 'change-case "change-case" t)
+(load-file (concat misc-dir "/anything-match-plugin.el"))
+(require 'anything-match-plugin)
 
 (provide 'jp-misc)

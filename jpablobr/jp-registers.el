@@ -6,7 +6,7 @@
 ;;; - init.el, r for this file) to jump to it.
 ;;; - You should add registers here for the files you edit most often.
 
-(dolist (r `((?i (file . ,(concat dotfiles-dir "init.el")))
+(dolist (r `((?i (file . ,(concat jpablobr-dir "/jp-ruby-helpers.el")))
              (?k (file . ,(concat jpablobr-dir "/jp-keyboard.el")))
              (?m (file . ,(concat jpablobr-dir "/jp-misc.el")))
              (?d (file . ,(concat jpablobr-dir "/jp-defuns.el")))

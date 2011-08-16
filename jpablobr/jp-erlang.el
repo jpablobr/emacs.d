@@ -7,6 +7,10 @@
 (add-to-list 'load-path (concat erlang-dir "/distel/elisp"))
 (add-to-list 'load-path (concat erlang-dir "/esense"))
 
+(defun init-erlang()
+  "load the mode"
+  (interactive)
+
 (require 'erlang-start)
 
 (eval-after-load 'erlang-mode
@@ -58,6 +62,7 @@
               (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
 
 (require 'esense-start)
-(setq esense-indexer-program (concat erlang-dir "/esense/esense.sh"))
+(setq esense-indexer-program (concat erlang-dir "/esense/esense.sh")))
+
 
 (provide 'jp-erlang)

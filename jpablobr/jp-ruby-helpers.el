@@ -9,17 +9,6 @@
 
 (defalias 'rails-search-doc 'yari)
 
-;; Add binding to insert ruby debugger with F7.
-(defun GAU-insert-ruby-debug ()
-  (interactive)
-  (let ((ruby-debug-string "require 'ruby-debug'; debugger; stop_here = 1;\n"))
-    (insert ruby-debug-string))
-  (previous-line)
-  (ruby-indent-line))
-
-(defun GAU-bind-insert-ruby-debug-key ()
-  (local-set-key [f7] 'GAU-insert-ruby-debug))
-
 ;; Inferion ruby
 (add-to-list 'hs-special-modes-alist
              '(ruby-mode
@@ -86,51 +75,21 @@
                                   'flymake-display-err-menu-for-current-line)
                    (flymake-mode t))))))
 
-
-(autoload
-  'jp-ruby-insert-template
-  "ruby-templates"
-  "Insert an Ruby Template")
-
-;;; We might need this function --------------------------------------
-
-(or (fboundp 'char-before)
-    (defun char-before (pos)
-      (char-after (1- (point)))))
-
-;;; Customize Ruby Mode Variables ------------------------------------
-
-;;(setq ruby-deep-arglist nil)          ; Obsolete?
-(setq ruby-deep-indent-paren-style nil) ;
-
-;;; Customize Ruby Electric Mode -------------------------------------
-
 (require 'ruby-electric)
 
-;; ruby-electric uses this function, but for some reason my ruby-mode
-;; version doesn't define it.
 (defun ruby-insert-end ()
   (interactive)
   (insert "end")
   (ruby-indent-line t)
   (end-of-line))
 
-(ruby-electric-mode t)
-
 (defun rel ()
   "Toggle Ruby electric mode (shortcut)"
   (interactive)
   (ruby-electric-mode))
 
-;;; XMP setup --------------------------------------------------------
-
-(defun ruby-xmp-region (reg-start reg-end)
- (interactive "r")
- (shell-command-on-region reg-start reg-end
-   "ruby -r xmp -n -e 'xmp($_, \"%l\t\t# %r\n\")'"
-   t))
-
-;;; TestUnit Compilation Patterns ------------------------------------
+;;;---------------------------------------------------------------------
+;;; TestUnit Compilation Patterns
 ;;; Add the compilation patterns used by Test::Unit to the list of
 ;;; those recognized by emacs.
 
@@ -143,7 +102,6 @@
       (cons
        '("^\\(Failure\\|Error\\) occurred in .*\\[\\([^:]+\\):\\([0-9]+\\)\\]" 2 3)
        compilation-error-regexp-alist))
-
 
 ;;; Better Comment Paragraph Filling ---------------------------------
 
@@ -167,8 +125,6 @@
       (narrow-to-region start (point))
       (fill-region start (point))
       (widen) ) ))
-
-(defun rb () (interactive) (ruby-mode))
 
 ;;; Setup for RDebug -------------------------------------------------
 
@@ -205,31 +161,11 @@
 (defun rd () (interactive) (rdebug))
 (defun rdr () (interactive) (rdebug-rails))
 
-;;; Running Ruby Files -----------------------------------------------
-
-(defun jp-run-ruby-file ()
-  "Run the current buffer in a ruby subprocess."
-  (interactive)
-  (compilation-start
-   (concat "ruby " (buffer-name (current-buffer)))
-   nil
-   (lambda (x) "*ruby-execution*")) )
-
 ;;; Auto loads -------------------------------------------------------
-(defun jp-ruby-init-keys ()
-  (define-key ruby-mode-map "\C-ci"  'jp-ruby-insert-template)
-  (define-key ruby-mode-map "\M-q"   'jp-rb-fill-comment-region)
-  (define-key ruby-mode-map "\C-C\C-t" 'jp-split-or-toggle)
-  (define-key ruby-mode-map "\C-Cx"  'jp-run-ruby-file))
 
-(add-hook 'ruby-mode-hook 'jp-ruby-init-keys)
-(add-hook 'ruby-mode-hook '(lambda () (jwfd) (font-lock-mode)))
 (add-hook 'ruby-mode-hook 'font-lock-fontify-buffer)
 (add-hook 'ruby-mode-hook '(lambda () (inf-ruby-keys) ))
-(add-hook 'ruby-mode-hook '(lambda () (setq zoom-step 2) ))
-(add-hook 'ruby-mode-hook 'turn-off-filladapt-mode)
 (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode 0)))
-
 (add-hook 'ruby-mode-hook '(lambda ()
                              (add-hook
                               (cond ((boundp 'before-save-hook)
@@ -238,9 +174,5 @@
                                     ((boundp 'write-contents-functions) 'write-contents-functions)
                                     ((boundp 'write-contents-hooks) 'write-contents-hooks))
                               'delete-trailing-whitespace)))
-
-;;; Undefine the Control-G binding in the Ruby Mode Control-C submap
-;;; Rinari maps this to rinari-get-path
-(define-key ruby-mode-map "\C-c\C-g" 'undefined)
 
 (provide 'jp-ruby-helpers)
