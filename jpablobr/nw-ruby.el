@@ -25,8 +25,6 @@
 (require 'jp-autocomplete)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
 (require 'jp-theme)
-(load-file (concat jpablobr-dir "/jp-tags.el"))
-(require 'jp-tags)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.

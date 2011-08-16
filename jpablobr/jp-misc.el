@@ -245,6 +245,28 @@
 ;; General
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
+(load-file (concat misc-dir "/anything-match-plugin.el"))
+(require 'anything-match-plugin)
+(require 'anything-etags+)
+(setq anything-etags+-use-short-file-name nil)
+;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
+(global-set-key "\M-." 'anything-etags+-select-one-key)
+;; ;;list all visited tags
+(global-set-key "\M-*" 'anything-etags+-history)
+;; ;;go back directly
+(global-set-key "\M-," 'anything-etags+-history-action-go-back)
+;; ;;go forward directly
+(global-set-key "\M-/" 'anything-etags+-history-action-go-forward)
+;;
+;; and how to work with etags-table.el
+(require 'etags-table)
+(setq etags-table-alist
+      (list
+       '("/home/jpablob/code/ruby/.*\\.[rb]$" "/home/jpablobr/code/ruby/rails/spree-apps/TAGS" "/home/jpablobr/.tags/ruby/TAGS")
+       '("/home/jpablobr/code/shell-scripts/.*\\.sh$" "/home/jpablobr/code/shell-scripts/TAGS")
+       '(".*\\.java$"  "/opt/sun-jdk-1.6.0.22/src/TAGS" )))
+
+(add-hook 'anything-etags+-select-hook 'etags-table-recompute)
 
 ;;; Other mode abbreviations =========================================
 (defun itm () "Abbreviation for Indented-Text-Mode"    (interactive) (indented-text-mode))
