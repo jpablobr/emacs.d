@@ -179,23 +179,23 @@ Delete the current buffer too."
     (insert str)
     (forward-line -1)))
 
-(defun jw-show-key-binding (key)
+(defun jp-show-key-binding (key)
   (interactive "kEnter Key: ")
   (insert
    "("
    (prin1-to-string (key-binding key))
    ")" ))
 
-(defun jw-zap-ansi-clutter ()
+(defun jp-zap-ansi-clutter ()
   (interactive)
   (re-search-forward "\\[[0-9;]*m")
   (replace-match "") )
 
-(defun jw-zap-all-ansi ()
+(defun jp-zap-all-ansi ()
   (interactive)
   (save-excursion
     (goto-char 0)
-    (while t (jw-zap-ansi-clutter))  ))
+    (while t (jp-zap-ansi-clutter))  ))
 
 (defun unansi ()
   "Remove the ansi markup in files"
@@ -247,65 +247,6 @@ Delete the current buffer too."
    nil
    password))
 
-(defun cmt-insert-bar-dots ()
-  (interactive)
-  (cmt-insert-bar-line ". "))
-
-(defun cmt-insert-bar-heavy ()
-  (interactive)
-  (cmt-insert-bar-line "="))
-
-(defun cmt-insert-bar-hash ()
-  (interactive)
-  (cmt-insert-bar-line "#"))
-
-(defun cmt-insert-bar-light ()
-  (interactive)
-  (cmt-insert-bar-line "-"))
-
-(defun cmt-insert-bar-star ()
-  (interactive)
-  (cmt-insert-bar-line "*"))
-
-(defun cmt-insert-bar-hash ()
-  (interactive)
-  (cmt-insert-bar-line "#"))
-
-(defun snip ()
-  (interactive)
-  (insert-string "--><--snip--><---")
-  (cmt-insert-bar-light)
-  (insert-string "\n"))
-
-(defvar cmt-bar-column 70
-  "Column to extend comment bars to")
-
-(defun cmt-insert-bar-line (char)
-  (end-of-line)
-  (if (< (current-column) cmt-bar-column)
-      (progn
-	(if (> (current-column) 0)
-	    (progn
-	      (backward-char)
-	      (if (looking-at (concat "[ \t" char "]"))
-		  (end-of-line)
-		(end-of-line)
-		(insert-string " "))))
-	(while (< (current-column) cmt-bar-column)
-	  (insert-string char))))
-  (while (and (> (current-column) cmt-bar-column)
-	      (save-excursion
-		(backward-char)
-		(looking-at char)))
-    (backward-delete-char-untabify 1)))
-
-(defun display-host ()
-  "Return the Display Host"
-  (let ((disp (getenv "DISPLAY")))
-    (if (equal (substring disp -2) ".0")
-	(setq disp (substring disp 0 -2)))
-    disp))
-
 (defun get-resources ()
   "Get the Current X Resources from the X Server"
   (interactive)
@@ -333,14 +274,15 @@ Delete the current buffer too."
     (end-of-buffer)
     (shell-command-on-region 1 (point) "xrdb -load" nil)))
 
-(defun apm ()
-  "Add Initial Code for a perl file"
+(defun start-bash-script ()
+  "Add Initial Code for a bash script file"
   (interactive)
   (goto-char (point-min))
-  (insert-string "#!/bin/sh -- # -*- perl -*-\n")
-  (insert-string "eval 'exec perl -S $0 ${1+\"$@\"}'\n")
-  (insert-string "  if $runnning_under_a_shell;\n\n")
-  (perl-mode))
+  (insert-string "#!/usr/bin/env sh\n-- # -*- shell -*-\n")
+  (insert-string "set -e \n")
+  (let ((buffer (shell "*Shell-script-mode Shell*")))
+    (comint-send-string buffer (concat "./" (buffer-name (current-buffer)) "\n")))
+  (shell-script-mode))
 
 ;; Courtesy of Steve Yegge (http://steve.yegge.googlepages.com/my-dot-emacs-file)
 (defun jw-swap-windows ()
