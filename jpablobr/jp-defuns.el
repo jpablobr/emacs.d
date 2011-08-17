@@ -408,4 +408,25 @@ Delete the current buffer too."
     (find-file "~/.private/bin/test.sh")
     (comint-send-string buffer (concat "cd ~/.private/bin/; ls -la" "\n"))))
 
+(defun jp-anything ()
+  (interactive)
+  (anything-other-buffer
+   '(anything-c-source-buffers
+     anything-c-source-file-name-history
+     anything-c-source-info-pages
+     anything-c-source-info-elisp
+     anything-c-source-man-pages
+     anything-c-source-locate
+     anything-c-source-emacs-commands
+     anything-c-source-etags-select)
+   " *jp-anything*"))
+
+(defun jp-anything-min ()
+  (interactive)
+  (anything-other-buffer
+   '(anything-c-source-buffers
+     anything-c-source-file-name-history
+     anything-c-source-etags-select)
+   " *jp-anything-min*"))
+
 (provide 'jp-defuns)

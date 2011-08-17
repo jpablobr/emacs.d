@@ -49,7 +49,6 @@
 (cd "./")
 (autotest)
 (shell)
-(tags-reset-tags-tables)
 (jp-theme)
 (ibuffer)
 (message "nw-ruby.el loaded in %ds"

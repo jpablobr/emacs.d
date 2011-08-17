@@ -36,6 +36,9 @@
 ;;; --------------------------------------------------------------------
 ;;; \C-l redefined -----------------------------------------------------
 (global-unset-key "\C-l")
+(global-set-key (kbd "C-l aa") 'jp-anything)
+(global-set-key (kbd "C-l am") 'jp-anything-min)
+(global-set-key (kbd "C-l at") 'anything-c-etags-select)
 (global-set-key (kbd "C-l bu") 'browse-url)
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
@@ -100,6 +103,7 @@
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta y)] 'yank-pop)
+(global-set-key (kbd "M-.") 'tags-search)
 
 ;; C-C p -- Perforce bindings
 (global-set-key (kbd "C-C p e") 'p4-edit) ; pkg:perforce

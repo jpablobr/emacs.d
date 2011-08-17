@@ -242,31 +242,6 @@
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash")))
 
 ;; ---------------------------------------------------------------------
-;; - Tags
-(require 'anything-etags+)
-(setq anything-etags+-use-short-file-name nil)
-;; ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
-(global-set-key "\M-." 'anything-etags+-select-one-key)
-;; ;;list all visited tags
-(global-set-key "\M-*" 'anything-etags+-history)
-;; ;;go back directly
-(global-set-key "\M-," 'anything-etags+-history-action-go-back)
-;; ;;go forward directly
-(global-set-key "\M-/" 'anything-etags+-history-action-go-forward)
-;;
-;; and how to work with etags-table.el
-(require 'etags-table)
-(setq etags-table-alist
-      (list
-       '("~/code/ruby/.*\\.[rb]$"
-         "~/code/ruby/rails/spree-apps/TAGS"
-         "~/.tags/ruby/TAGS")
-       '("~/code/shell-scripts/.*\\.sh$"
-         "~/code/shell-scripts/TAGS")))
-
-(add-hook 'anything-etags+-select-hook 'etags-table-recompute)
-
-;; ---------------------------------------------------------------------
 ;; like aliases ;)
 (defun pm  () "Abbreviation for Perl-Mode" (interactive) (perl-mode))
 (defun rm  () "Abbreviation for Ruby-Mode" (interactive) (ruby-mode))
@@ -276,10 +251,18 @@
 (setq warning-suppress-types nil)
 
 ;; ---------------------------------------------------------------------
+;; - Anything
+(load-file (concat misc-dir "/anything-match-plugin.el"))
+(require 'anything-match-plugin)
+(require 'anything-config)
+;; (require 'anything-exuberant-ctags)
+;; (setq anything-exuberant-ctags-tag-file-name "TAGS")
+;; (setq anything-exuberant-ctags-enable-tag-file-dir-cache t)
+;; (setq anything-exuberant-ctags-cache-tag-file-dir "/home/jpablobr/tmp/")
+
+;; ---------------------------------------------------------------------
 ;; General
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
-(load-file (concat misc-dir "/anything-match-plugin.el"))
-(require 'anything-match-plugin)
 
 (provide 'jp-misc)
