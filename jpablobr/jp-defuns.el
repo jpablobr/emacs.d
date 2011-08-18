@@ -1,5 +1,3 @@
-;; jp-defuns.el ---------------------------------------------------------
-;; - Custom functions
 ;;; --------------------------------------------------------------------
 ;;; - Makes load time faster.
 (defun byte-recompile-home ()
@@ -74,7 +72,7 @@ Delete the current buffer too."
     (when (yes-or-no-p (concat "Delete file: " currentFile))
       (kill-buffer (current-buffer))
       (delete-file currentFile)
-      (message (concat "Deleted file: " currentFile)) ) ) )
+      (message (concat "Deleted file: " currentFile)))))
 
 ;;; --------------------------------------------------------------------
 ;;; - Browser
@@ -179,13 +177,6 @@ Delete the current buffer too."
     (insert str)
     (forward-line -1)))
 
-(defun jp-show-key-binding (key)
-  (interactive "kEnter Key: ")
-  (insert
-   "("
-   (prin1-to-string (key-binding key))
-   ")" ))
-
 (defun jp-zap-ansi-clutter ()
   (interactive)
   (re-search-forward "\\[[0-9;]*m")
@@ -274,18 +265,8 @@ Delete the current buffer too."
     (end-of-buffer)
     (shell-command-on-region 1 (point) "xrdb -load" nil)))
 
-(defun start-bash-script ()
-  "Add Initial Code for a bash script file"
-  (interactive)
-  (goto-char (point-min))
-  (insert-string "#!/usr/bin/env sh\n-- # -*- shell -*-\n")
-  (insert-string "set -e \n")
-  (let ((buffer (shell "*Shell-script-mode Shell*")))
-    (comint-send-string buffer (concat "./" (buffer-name (current-buffer)) "\n")))
-  (shell-script-mode))
-
 ;; Courtesy of Steve Yegge (http://steve.yegge.googlepages.com/my-dot-emacs-file)
-(defun jw-swap-windows ()
+(defun swap-windows ()
  "If you have 2 windows, it swaps them."
  (interactive)
  (cond ((not (= (count-windows) 2))
@@ -303,7 +284,7 @@ Delete the current buffer too."
           (set-window-start w2 s1)
           (other-window 1)))))
 
-(defun jw-show-key-binding (key)
+(defun show-key-binding (key)
   (interactive "kEnter Key: ")
   (insert
    "("
@@ -337,7 +318,7 @@ Delete the current buffer too."
   (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
   (ecb-activate))
 
-(defun jp-test-sh-script ()
+(defun test-sh-script ()
   "Loads a testing script."
   (interactive)
   (let ((buffer (shell "*Testing Script*")))

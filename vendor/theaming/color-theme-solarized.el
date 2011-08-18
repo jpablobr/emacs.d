@@ -93,10 +93,10 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        ;; font-lock
        (font-lock-builtin-face ((t (:foreground ,green))))
        (font-lock-comment-face ((t (:foreground ,base01 :italic t))))
-       (font-lock-constant-face ((t (:foreground ,#333333))))
+       (font-lock-constant-face ((t (:foreground ,base2))))
        (font-lock-function-name-face ((t (:foreground ,blue))))
        (font-lock-keyword-face ((t (:foreground ,green))))
-       (font-lock-string-face ((t (:foreground ,#333333))))
+       (font-lock-string-face ((t (:foreground ,base2))))
        (font-lock-type-face ((t (:foreground ,yellow))))
        (font-lock-variable-name-face ((t (:foreground ,blue))))
        (font-lock-warning-face ((t (:foreground ,red :bold t))))
@@ -108,7 +108,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        (org-todo ((t (:foreground ,red :bold t))))
        (org-done ((t (:foreground ,green :bold t))))
        ;; show-paren
-       (show-paren-match-face ((t (:background ,#333333 :foreground ,base3))))
+       (show-paren-match-face ((t (:background ,base2 :foreground ,base3))))
        (show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))))))
 
 (defun color-theme-solarized-dark ()

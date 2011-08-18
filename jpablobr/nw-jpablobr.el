@@ -29,9 +29,6 @@
 (require 'jp-w3m)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
 (require 'jp-theme)
-;; (load-file (concat jpablobr-dir "/jp-org-config.el"))
-;; (require 'jp-org-config)
-
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.

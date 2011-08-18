@@ -265,4 +265,6 @@
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
 
+(setq debug-on-error t)
+
 (provide 'jp-misc)
