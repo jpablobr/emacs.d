@@ -25,26 +25,6 @@
   (blink-cursor-mode -1));;; - when window-system
 
 ;; ---------------------------------------------------------------------
-;; - Global custom variables
-(custom-set-variables
- '(user-full-name '"Jose Pablo Barrantes R.")
- '(user-mail-address '"xjpablobrx@gmail.com")
- '(user-details '"Jose Pablo Barrantes R. http://jpablobr.com")
- '(user-login-name "jpablobr")
- '(github-user "jpablobr")
- '(w3m-arrived-file "~/Dropbox/private-dotfiles/w3m/.arrived")
- '(w3m-bookmark-file "~/Dropbox/private-dotfiles/w3m/bookmark.html")
- '(w3m-default-save-directory "~/Dropbox/private-dotfiles/w3m")
- '(w3m-form-textarea-directory "~/Dropbox/private-dotfiles/w3m/.textarea")
- '(w3m-profile-directory "~/Dropbox/private-dotfiles/w3m")
- '(w3m-session-file "~/Dropbox/private-dotfiles/w3m/.sessions")
- '(fill-column 72)
- '(font-lock-mode-maximum-decoration t)
- '(global-font-lock-mode t nil (font-lock))
- '(indent-tabs-mode nil)
- '(scroll-preserve-screen-position t))
-
-;; ---------------------------------------------------------------------
 ;; - Git
 (setq git-dir (concat vendor-dir "/git"))
 (add-to-list 'load-path git-dir)
@@ -189,11 +169,6 @@
 (setq CUA-mode-read-only-cursor-color "green")
 
 ;; ---------------------------------------------------------------------
-;; - Linue numbers
-;; (require 'linum)
-;; (global-linum-mode)
-
-;; ---------------------------------------------------------------------
 ;; - Icicles
 (require 'icicles)
 (icy-mode t)
@@ -203,14 +178,6 @@
 (autoload 'word-count-mode "word-count"
           "Minor mode to count words." t nil)
 (global-set-key "\M-+" 'word-count-mode)
-
-;; ---------------------------------------------------------------------
-;; - ASTMA mode
-(add-hook 'astma-mode-hook '(lambda ()
-                             (local-set-key (kbd "RET") 'newline)))
-
-(autoload 'astma-mode "astma-mode.el" "AsTMa mode" t)
-(setq auto-mode-alist (append '(("\\.atm$" . astma-mode)) auto-mode-alist))
 
 ;; ---------------------------------------------------------------------
 ;; - xclip - for kill/yank from terminal, awesomeness! ;)
@@ -255,16 +222,15 @@
 (load-file (concat misc-dir "/anything-match-plugin.el"))
 (require 'anything-match-plugin)
 (require 'anything-config)
-;; (require 'anything-exuberant-ctags)
-;; (setq anything-exuberant-ctags-tag-file-name "TAGS")
-;; (setq anything-exuberant-ctags-enable-tag-file-dir-cache t)
-;; (setq anything-exuberant-ctags-cache-tag-file-dir "/home/jpablobr/tmp/")
+(require 'anything-etags+)
+(setq anything-etags+-use-short-file-name nil)
 
 ;; ---------------------------------------------------------------------
 ;; General
+(load-file "~/.private/.jp-private.el")
+(require 'jp-private)
+
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
-
-(setq debug-on-error t)
 
 (provide 'jp-misc)

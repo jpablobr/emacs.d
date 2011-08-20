@@ -1,5 +1,3 @@
-;;jp-keyboard.el ---------------------------------------------------------
-
 ;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
 (lookup-key global-map "\C-x"); --> Control-X-prefix
 (define-key global-map "\C-[" 'Control-X-prefix)
@@ -43,7 +41,8 @@
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
 (global-set-key (kbd "C-l cg") 'cheat-fu-commit)
-(global-set-key (kbd "C-l cr") 'cua-set-rectangle-mark)
+(global-set-key (kbd "C-l cr") 'ruby-compile-region)
+(global-set-key (kbd "C-l cf") 'ruby-compile-file)
 (global-set-key (kbd "C-l cn") 'cheat-fu-new)
 (global-set-key (kbd "C-l df") 'delete-current-file)
 (global-set-key (kbd "C-l dm") 'ido-imenu); (This is awesome.)
@@ -80,6 +79,8 @@
 (global-set-key (kbd "C-l mp") 'match-paren)
 (global-set-key (kbd "C-l rr") 'replace-regexp)
 (global-set-key (kbd "C-l rf") 'rename-file)
+(global-set-key (kbd "C-l ri") 'rails-init-stuff)
+(global-set-key (kbd "C-l rh") 'byte-recompile-home)
 (global-set-key (kbd "C-l sd") 'definition-s)
 (global-set-key (kbd "C-l ss") 'synonym-s)
 (global-set-key (kbd "C-l sg") 'github-s)
@@ -87,9 +88,6 @@
 (global-set-key (kbd "C-l st") 'jp-test-sh-script)
 (global-set-key (kbd "C-l ts") 'textmate-goto-symbol)
 (global-set-key (kbd "C-l tf") 'textmate-goto-file)
-(global-set-key (kbd "C-l ri") 'rails-init-stuff)
-(global-set-key (kbd "C-l rh") 'byte-recompile-home)
-(global-set-key (kbd "C-l rc") 'ruby-compile-region)
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key (kbd "M-\d") 'backward-kill-word)
@@ -104,6 +102,7 @@
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta y)] 'yank-pop)
 (global-set-key (kbd "M-.") 'tags-search)
+(global-set-key (kbd "M-e") 'cua-set-rectangle-mark)
 
 ;; C-C p -- Perforce bindings
 (global-set-key (kbd "C-C p e") 'p4-edit) ; pkg:perforce
@@ -132,5 +131,15 @@
 
 (global-set-key (kbd "C-C t 1") (lambda () (interactive) (setq jw-test-single-window t))) ; pkg:testing
 (global-set-key (kbd "C-C t 2") (lambda () (interactive) (setq jw-test-single-window nil))) ; pkg:testing
+
+;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
+(global-set-key "\M-." 'anything-etags+-select-one-key)
+ ;;list all visited tags
+(global-set-key "\M-*" 'anything-etags+-history)
+;; go back directly
+(global-set-key "\M-," 'anything-etags+-history-action-go-back)
+ ;;go forward directly
+(global-set-key "\M-/" 'anything-etags+-hi)
+
 
 (provide 'jp-keyboard)

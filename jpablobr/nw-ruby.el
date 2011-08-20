@@ -25,6 +25,8 @@
 (require 'jp-autocomplete)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
 (require 'jp-theme)
+(load-file (concat jpablobr-dir "/jp-keyboard.el"))
+(require 'jp-keyboard)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -32,15 +34,6 @@
 (require 'jp-yasnippet)
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
-
-;; ---------------------------------------------------------------------
-;; - ECB
-(custom-set-variables
- '(ecb-source-path (quote ("./"))))
-
-;; To reset every other keybinding.
-(load-file (concat jpablobr-dir "/jp-keyboard.el"))
-(require 'jp-keyboard)
 
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
