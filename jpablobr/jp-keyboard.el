@@ -101,7 +101,7 @@
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta y)] 'yank-pop)
-(global-set-key (kbd "M-.") 'tags-search)
+;; (global-set-key (kbd "M-.") 'tags-search)
 (global-set-key (kbd "M-e") 'cua-set-rectangle-mark)
 
 ;; C-C p -- Perforce bindings
@@ -133,13 +133,14 @@
 (global-set-key (kbd "C-C t 2") (lambda () (interactive) (setq jw-test-single-window nil))) ; pkg:testing
 
 ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
-(global-set-key "\M-." 'anything-etags+-select-one-key)
+
+(global-set-key "\M-." 'anything-c-etags-select)
  ;;list all visited tags
-(global-set-key "\M-*" 'anything-etags+-history)
+(global-set-key "\M-," 'anything-etags+-select)
 ;; go back directly
-(global-set-key "\M-," 'anything-etags+-history-action-go-back)
- ;;go forward directly
-(global-set-key "\M-/" 'anything-etags+-hi)
+;; (global-set-key "\M-," 'anything-etags+-history-action-go-back)
+;; go forward directly
+;; (global-set-key "\M-/" 'anything-etags+-hi)
 
 
 (provide 'jp-keyboard)
