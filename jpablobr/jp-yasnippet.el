@@ -1,10 +1,7 @@
 (setq snippets-dir (concat vendor-dir "/snippets"))
 (add-to-list 'load-path (concat snippets-dir "/yasnippet-dot-el"))
-(load-file (concat misc-dir "/anything-c-yasnippet.el"))
-
 (require 'yasnippet)
 (require 'dropdown-list)
-(require 'anything-c-yasnippet)
 
 (eval-after-load "yasnippet"
   '(progn

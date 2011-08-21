@@ -27,6 +27,8 @@
 (require 'jp-theme)
 (load-file (concat jpablobr-dir "/jp-keyboard.el"))
 (require 'jp-keyboard)
+(load-file (concat jpablobr-dir "/jp-anything.el"))
+(require 'jp-anything)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.

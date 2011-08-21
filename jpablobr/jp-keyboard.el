@@ -86,23 +86,21 @@
 (global-set-key (kbd "C-l sg") 'github-s)
 (global-set-key (kbd "C-l sb") 'sr-speedbar-toggle)
 (global-set-key (kbd "C-l st") 'jp-test-sh-script)
-(global-set-key (kbd "C-l ts") 'textmate-goto-symbol)
-(global-set-key (kbd "C-l tf") 'textmate-goto-file)
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key (kbd "M-\d") 'backward-kill-word)
 (global-set-key (kbd "M-d") 'kill-word)
 (global-set-key (kbd "C-x b") 'ibuffer)
 (global-set-key (kbd "C-x C-s") 'save-buffer)
-(global-set-key (kbd "M-'") 'beginning-of-line)
 (global-set-key [(meta j)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta y)] 'yank-pop)
-;; (global-set-key (kbd "M-.") 'tags-search)
 (global-set-key (kbd "M-e") 'cua-set-rectangle-mark)
+(global-set-key (kbd "M-,") 'textmate-goto-symbol)
+(global-set-key (kbd "M-l") 'textmate-goto-file)
 
 ;; C-C p -- Perforce bindings
 (global-set-key (kbd "C-C p e") 'p4-edit) ; pkg:perforce
@@ -133,14 +131,7 @@
 (global-set-key (kbd "C-C t 2") (lambda () (interactive) (setq jw-test-single-window nil))) ; pkg:testing
 
 ;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
-
+(define-key global-map (kbd "M-;") 'anything-for-files)
 (global-set-key "\M-." 'anything-c-etags-select)
- ;;list all visited tags
-(global-set-key "\M-," 'anything-etags+-select)
-;; go back directly
-;; (global-set-key "\M-," 'anything-etags+-history-action-go-back)
-;; go forward directly
-;; (global-set-key "\M-/" 'anything-etags+-hi)
-
 
 (provide 'jp-keyboard)

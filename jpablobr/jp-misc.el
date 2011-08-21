@@ -1,5 +1,3 @@
-;; jp-misc.el ---------------------------------------------------------
-;; - Things that don't fit anywhere else
 (require 'thingatpt)
 (require 'imenu)
 
@@ -216,14 +214,6 @@
 ;; ---------------------------------------------------------------------
 ;; emacs hacks/workarounds
 (setq warning-suppress-types nil)
-
-;; ---------------------------------------------------------------------
-;; - Anything
-(load-file (concat misc-dir "/anything-match-plugin.el"))
-(require 'anything-match-plugin)
-(require 'anything-config)
-(require 'anything-etags+)
-(setq anything-etags+-use-short-file-name nil)
 
 ;; ---------------------------------------------------------------------
 ;; General
