@@ -352,4 +352,14 @@ Delete the current buffer too."
      anything-c-source-etags-select)
    " *jp-anything-min*"))
 
+(defun decamelize (string)
+  "Convert from CamelCaseString to camel_case_string."
+  (let ((case-fold-search nil))
+    (downcase
+     (replace-regexp-in-string
+      "\\([A-Z]+\\)\\([A-Z][a-z]\\)" "\\1_\\2"
+      (replace-regexp-in-string
+       "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2"
+       string)))))
+
 (provide 'jp-defuns)

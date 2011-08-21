@@ -1,4 +1,4 @@
-;;; rails-lib.el ---
+;; rails-lib.el ---
 
 ;; Copyright (C) 2006 Dmitry Galinsky <dima dot exe at gmail dot com>
 
