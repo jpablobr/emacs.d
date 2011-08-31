@@ -1,4 +1,4 @@
-	### Makefile --- jpablobr emacs.d Makefile
+### Makefile --- jpablobr emacs.d Makefile
 
 ## Author: xjpablobrx@gmail.com
 ## Version: $Id: Makefile,v 0.0 2011/04/26 15:26:45 jpablobr Exp $

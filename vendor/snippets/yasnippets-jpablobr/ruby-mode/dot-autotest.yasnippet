@@ -1,0 +1,23 @@
+# -*- mode: snippet -*-
+# name: dot-autotest
+# --
+# ~.autotest
+#require 'autotest_notification'
+SPEAKING = false
+DOOM_EDITION = false
+BUUF = true
+PENDING = true
+STICKY = false
+SUCCESS_SOUND = ''
+FAILURE_SOUND = ''
+PLATFORM = ''
+
+Autotest.add_hook(:initialize) {|at|
+  at.add_exception %r{^\.git}  # ignore Version Control System
+  at.add_exception %r{^./tmp}  # ignore temp files, lest autotest will run again, and again...
+  #  at.clear_mappings         # take out the default (test/test*rb)
+  at.add_mapping(%r{^lib/.*\.rb$}) {|f, _|
+    Dir['spec/**/*_spec.rb']
+  }
+  nil
+}

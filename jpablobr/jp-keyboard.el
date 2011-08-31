@@ -101,6 +101,8 @@
 (global-set-key (kbd "M-e") 'cua-set-rectangle-mark)
 (global-set-key (kbd "M-,") 'textmate-goto-symbol)
 (global-set-key (kbd "M-l") 'textmate-goto-file)
+(global-set-key (kbd "M-f") 'forward-word)
+(global-set-key (kbd "M-b") 'backward-word)
 
 ;; C-C p -- Perforce bindings
 (global-set-key (kbd "C-C p e") 'p4-edit) ; pkg:perforce

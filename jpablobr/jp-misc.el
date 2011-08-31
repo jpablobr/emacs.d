@@ -214,6 +214,7 @@
 ;; ---------------------------------------------------------------------
 ;; emacs hacks/workarounds
 (setq warning-suppress-types nil)
+(setq org-directory nil)
 
 ;; ---------------------------------------------------------------------
 ;; General
