@@ -75,91 +75,11 @@
                                   'flymake-display-err-menu-for-current-line)
                    (flymake-mode t))))))
 
-(require 'ruby-electric)
-
 (defun ruby-insert-end ()
   (interactive)
   (insert "end")
   (ruby-indent-line t)
   (end-of-line))
-
-(defun rel ()
-  "Toggle Ruby electric mode (shortcut)"
-  (interactive)
-  (ruby-electric-mode))
-
-;;;---------------------------------------------------------------------
-;;; TestUnit Compilation Patterns
-;;; Add the compilation patterns used by Test::Unit to the list of
-;;; those recognized by emacs.
-
-;(setq compilation-error-regexp-alist
-;      (cons
-;       '("^	\\([^:]+\\):\\([0-9]+\\):in" 1 2)
-;       compilation-error-regexp-alist))
-
-(setq compilation-error-regexp-alist
-      (cons
-       '("^\\(Failure\\|Error\\) occurred in .*\\[\\([^:]+\\):\\([0-9]+\\)\\]" 2 3)
-       compilation-error-regexp-alist))
-
-;;; Better Comment Paragraph Filling ---------------------------------
-
-(defvar jp-rb-para-begin-re "\\(^\\s-*#*\\s-*$\\)\\|\\(^\\s-*[^# ]\\)")
-
-(defun jp-rb-goto-para-begin ()
-  (search-backward-regexp jp-rb-para-begin-re)
-  (beginning-of-line)
-  (forward-line 1) )
-
-(defun jp-rb-goto-para-end ()
-  (search-forward-regexp jp-rb-para-begin-re)
-  (beginning-of-line) )
-
-(defun jp-rb-fill-comment-region ()
-  (interactive)
-  (save-excursion
-    (jp-rb-goto-para-begin)
-    (let ((start (point)))
-      (jp-rb-goto-para-end)
-      (narrow-to-region start (point))
-      (fill-region start (point))
-      (widen) ) ))
-
-;;; Setup for RDebug -------------------------------------------------
-
-(defun jp-starts-with (prefix string)
-  "Does STRING begin with PREFIX?"
-  (cond ((< (length string) (length prefix)) nil)
-        ((string-equal prefix (substring string 0 (length prefix))) t)
-        (t nil) ))
-
-(defun jp-find-gud-buffer1 (bufs)
-  (cond ((null bufs)())
-        ((jp-starts-with "*gud-"(buffer-name (car bufs)))
-         (car bufs))
-        (t (jp-find-gud-buffer1 (cdr bufs))) ))
-
-(defun jp-find-gud-buffer ()
-  "Find the GUD interaction buffer, nil if not found."
-  (jp-find-gud-buffer1 (buffer-list)) )
-
-(defun jp-select-gud-buffer ()
-  "Select the GUD interaction buffer."
-  (interactive)
-  (let ((gud-buffer (jp-find-gud-buffer)))
-    (if (null gud-buffer)
-        (message "No gud buffer found.")
-      (pop-to-buffer gud-buffer)
-      (goto-char (point-max)) )))
-
-(defun rdebug-rails ()
-  (interactive)
-  (rdebug "rdebug script/server")
-  (insert "e Dir.chdir('..')") )
-
-(defun rd () (interactive) (rdebug))
-(defun rdr () (interactive) (rdebug-rails))
 
 ;;; Auto loads -------------------------------------------------------
 
@@ -174,5 +94,29 @@
                                     ((boundp 'write-contents-functions) 'write-contents-functions)
                                     ((boundp 'write-contents-hooks) 'write-contents-hooks))
                               'delete-trailing-whitespace)))
+
+(defun find-rails-root (&optional dir)
+  (or dir (setq dir default-directory))
+  (if (file-exists-p (concat dir "config/environment.rb"))
+      dir
+    (if (equal dir  "/")
+	nil
+      (find-rails-root (expand-file-name (concat dir "../"))))))
+
+(defun routes ()
+  (interactive)
+  (find-file (concat (find-rails-root) "/config/routes.rb")))
+
+(defun schema ()
+  (interactive)
+  (find-file (concat (find-rails-root) "/db/schema.rb")))
+
+(defun t-ruby-complexity ()
+"Starts ruby complexity"
+  (add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
+  (require 'ruby-complexity)
+  (interactive)
+  (linum-mode)
+  (ruby-complexity-mode))
 
 (provide 'jp-ruby-helpers)

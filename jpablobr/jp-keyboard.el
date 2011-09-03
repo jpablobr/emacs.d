@@ -12,8 +12,10 @@
 ;;; - Use regex searches by default.
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
+(global-set-key "\C-m" 'isearch-forward-at-point)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
+
 
 ;;; - Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x u") 'view-url)
@@ -34,9 +36,6 @@
 ;;; --------------------------------------------------------------------
 ;;; \C-l redefined -----------------------------------------------------
 (global-unset-key "\C-l")
-(global-set-key (kbd "C-l aa") 'jp-anything)
-(global-set-key (kbd "C-l am") 'jp-anything-min)
-(global-set-key (kbd "C-l at") 'anything-c-etags-select)
 (global-set-key (kbd "C-l bu") 'browse-url)
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
@@ -81,11 +80,12 @@
 (global-set-key (kbd "C-l rf") 'rename-file)
 (global-set-key (kbd "C-l ri") 'rails-init-stuff)
 (global-set-key (kbd "C-l rh") 'byte-recompile-home)
-(global-set-key (kbd "C-l sd") 'definition-s)
+(global-set-key (kbd "C-l tc") 't-ruby-complexity)
+(global-set-key (kbd "C-l tl") 't-linum)
+(global-set-key (kbd "C-l ta") 't-anything)
+(global-set-key (kbd "C-l tm") 't-anything-min)
 (global-set-key (kbd "C-l ss") 'synonym-s)
-(global-set-key (kbd "C-l sg") 'github-s)
-(global-set-key (kbd "C-l sb") 'sr-speedbar-toggle)
-(global-set-key (kbd "C-l st") 'jp-test-sh-script)
+(global-set-key (kbd "C-l st") 'test-sh-script)
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key (kbd "M-\d") 'backward-kill-word)

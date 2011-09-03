@@ -7,6 +7,8 @@
 
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.coffee$" . coffee-mode))
+(add-to-list 'auto-mode-alist '("Cakefile" . coffee-mode))
 
 ;; On-the-fly syntax checking
 (autoload 'flymake-js-load "flymake-js" "On-the-fly syntax checking of javascript" t)

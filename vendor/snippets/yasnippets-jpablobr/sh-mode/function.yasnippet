@@ -2,12 +2,9 @@
 # name: function
 # --
 ${1:function_name}() {
-
     if [[ "\$1" = "h" ]]; then
-	      cat <<- -EOF-
-        $2
--EOF-
+       echo "\$1"
     else
-        $0 "\$1"
+       echo "\$1"
     fi
 }

@@ -99,7 +99,7 @@ Delete the current buffer too."
   (browse-url myurl))
 
 (defun google-s ()
-  "Google search on the current region.\n"
+  "Google search on current region.\n"
   (interactive)
   (let (myword myurl)
     (setq myword
@@ -109,6 +109,27 @@ Delete the current buffer too."
     (setq myword (replace-regexp-in-string " " "%20" myword))
     (setq myurl (concat "http://www.google.com/search?q=" myword))
     (browse-url myurl)))
+
+;; I-search with initial contents.
+;; original source: http://platypope.org/blog/2007/8/5/a-compendium-of-awesomeness
+(defvar isearch-initial-string nil)
+
+(defun isearch-set-initial-string ()
+  (remove-hook 'isearch-mode-hook 'isearch-set-initial-string)
+  (setq isearch-string isearch-initial-string)
+  (isearch-search-and-update))
+
+(defun isearch-forward-at-point (&optional regexp-p no-recursive-edit)
+  "Interactive search forward for the symbol at point."
+  (interactive "P\np")
+  (if regexp-p (isearch-forward regexp-p no-recursive-edit)
+    (let* ((end (progn (skip-syntax-forward "w_") (point)))
+           (begin (progn (skip-syntax-backward "w_") (point))))
+      (if (eq begin end)
+          (isearch-forward-regexp regexp-p no-recursive-edit)
+        (setq isearch-initial-string (buffer-substring begin end))
+        (add-hook 'isearch-mode-hook 'isearch-set-initial-string)
+        (isearch-forward-regexp regexp-p no-recursive-edit)))))
 
 ;;; --------------------------------------------------------------------
 ;;; - Insert helper for the lazy.
@@ -238,33 +259,6 @@ Delete the current buffer too."
    nil
    password))
 
-(defun get-resources ()
-  "Get the Current X Resources from the X Server"
-  (interactive)
-  (let ((vfile (substitute-in-file-name
-		(concat "$HOME/.vue/"
-			(display-host)
-			"/home/vue.resources")))
-	(cfile (substitute-in-file-name
-		(concat "$HOME/.vue/"
-			(display-host)
-			"/current/vue.resources")))
-	(xfile (substitute-in-file-name "$HOME/.Xdefaults")))
-    (cond ((file-writable-p vfile) (find-file vfile))
-	  ((file-writable-p cfile) (find-file cfile))
-	  ((file-writable-p xfile) (find-file xfile))
-	  (t (message "Can not find X Resource file")))))
-
-;  (shell-command "xrdb -q")
-
-(defun save-resources ()
-  "Save the file as the current X Resources on the X Server"
-  (interactive)
-  (save-buffer)
-  (save-excursion
-    (end-of-buffer)
-    (shell-command-on-region 1 (point) "xrdb -load" nil)))
-
 ;; Courtesy of Steve Yegge (http://steve.yegge.googlepages.com/my-dot-emacs-file)
 (defun swap-windows ()
  "If you have 2 windows, it swaps them."
@@ -283,13 +277,6 @@ Delete the current buffer too."
           (set-window-start w1 s2)
           (set-window-start w2 s1)
           (other-window 1)))))
-
-(defun show-key-binding (key)
-  (interactive "kEnter Key: ")
-  (insert
-   "("
-   (prin1-to-string (key-binding key))
-   ")" ))
 
 (defun ecb-init-stuff ()
   "Load ECB stuff..."
@@ -331,7 +318,7 @@ Delete the current buffer too."
     (find-file "~/.private/bin/test.sh")
     (comint-send-string buffer (concat "cd ~/.private/bin/; ls -la" "\n"))))
 
-(defun jp-anything ()
+(defun t-anything ()
   (interactive)
   (anything-other-buffer
    '(anything-c-source-buffers
@@ -344,13 +331,18 @@ Delete the current buffer too."
      anything-c-source-etags-select)
    " *jp-anything*"))
 
-(defun jp-anything-min ()
+(defun t-anything-min ()
   (interactive)
   (anything-other-buffer
    '(anything-c-source-buffers
      anything-c-source-file-name-history
      anything-c-source-etags-select)
    " *jp-anything-min*"))
+
+(defun t-linum  ()
+  "Toggle linum mode"
+  (interactive)
+  (linum-mode))
 
 (defun decamelize (string)
   "Convert from CamelCaseString to camel_case_string."
@@ -361,5 +353,6 @@ Delete the current buffer too."
       (replace-regexp-in-string
        "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2"
        string)))))
+
 
 (provide 'jp-defuns)
