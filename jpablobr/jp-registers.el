@@ -12,6 +12,7 @@
              (?d (file . ,(concat jpablobr-dir "/jp-defuns.el")))
              (?t (file . ,(concat jpablobr-dir "/nw-init.el")))
              (?j (file . ,(concat jpablobr-dir "/nw-jpablobr.el")))
+             (?g (file . ,"~/.private/notes/jpablobr-general.md"))
              (?p (file . ,"~/.private/.jp-private.el"))
              (?a (file . ,"~/.mp/bash/plugins/aliases"))
              (?s (file . ,"~/.mp/setup/install.sh"))

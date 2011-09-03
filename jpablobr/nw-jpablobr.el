@@ -39,6 +39,9 @@
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
 
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
+
 ;; ---------------------------------------------------------------------
 ;; - Startup
 (menu-bar-mode 0)
@@ -46,6 +49,7 @@
 (jp-theme)
 (when (file-exists-p "~/org")
   (find-file "~/org/yacs/linux.org")
+  (find-file "~/.private/notes/jpablobr-general.md")
   (find-file "~/jpablobr.org"))
 (setq initial-scratch-message nil)
 (server-start)
