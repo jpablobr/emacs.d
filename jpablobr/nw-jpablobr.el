@@ -31,6 +31,8 @@
 (require 'jp-theme)
 (load-file (concat jpablobr-dir "/jp-anything.el"))
 (require 'jp-anything)
+(load-file (concat jpablobr-dir "/jp-php.el"))
+(require 'jp-php)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.

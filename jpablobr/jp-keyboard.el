@@ -2,25 +2,16 @@
 (lookup-key global-map "\C-x"); --> Control-X-prefix
 (define-key global-map "\C-[" 'Control-X-prefix)
 (define-key global-map "\M-x" 'execute-extended-command)
-
-;;; - Align your code in a pretty way.
 (global-set-key (kbd "C-x \\") 'align-regexp)
-;;; - Completion that uses many different methods to find options.
 (global-set-key (kbd "M-=") 'dabbrev-expand)
-;;; - Perform general cleanup.
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
-;;; - Use regex searches by default.
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
 (global-set-key "\M-m" 'isearch-forward-at-point)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
-
-;;; - Fetch the contents at a URL, display it raw.
 (global-set-key (kbd "C-x u") 'view-url)
-;;; - mark-whole-buffer
 (global-set-key (kbd "C-x h") 'mark-whole-buffer)
-;;; - Help should search more than just commands
 (global-set-key (kbd "C-h a") 'apropos)
 (global-set-key (kbd "C-x g") 'magit-status)
 (global-set-key (kbd "C-x C-b") 'ibuffer)

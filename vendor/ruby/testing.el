@@ -21,7 +21,7 @@
 (defconst jw-rdebug-command "rdebug")
 
 ;;; Name of the command to remove ANSI terminal cruft
-(defconst jw-noansi-command  (concat (file-name-as-directory elisp-directory) "bin/noansi"))
+(defconst jw-noansi-command "~/bin/ruby/noansi.rb")
 
 ;;; NOANSI option string (may be empty, or a pipe to the noansi command)
 ;;;(defconst jw-noansi-option  (concat " | " jw-noansi-command))
@@ -708,3 +708,5 @@ mappings from other projects."
       (pop-to-buffer jw-test-last-test-buffer) ))
 
 (define-key compilation-mode-map "\C-c\C-t" 'jw-test-kill-test-buffer)
+
+(provide 'testing)
