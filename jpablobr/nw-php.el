@@ -11,26 +11,24 @@
 (require 'jp-misc)
 (load-file (concat jpablobr-dir "/jp-defuns.el"))
 (require 'jp-defuns)
-(load-file (concat jpablobr-dir "/jp-keyboard.el"))
-(require 'jp-keyboard)
 (load-file (concat jpablobr-dir "/jp-registers.el"))
 (require 'jp-registers)
 (load-file (concat jpablobr-dir "/jp-yaml.el"))
 (require 'jp-yaml)
 (load-file (concat jpablobr-dir "/jp-markdown.el"))
 (require 'jp-markdown)
-(load-file (concat jpablobr-dir "/jp-ruby.el"))
-(require 'jp-ruby)
 (load-file (concat jpablobr-dir "/jp-eshell.el"))
 (require 'jp-eshell)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
 (require 'jp-autocomplete)
-(load-file (concat jpablobr-dir "/jp-w3m.el"))
-(require 'jp-w3m)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
 (require 'jp-theme)
+(load-file (concat jpablobr-dir "/jp-keyboard.el"))
+(require 'jp-keyboard)
 (load-file (concat jpablobr-dir "/jp-anything.el"))
 (require 'jp-anything)
+(load-file (concat jpablobr-dir "/jp-php.el"))
+(require 'jp-php)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -39,19 +37,14 @@
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
 ;; ---------------------------------------------------------------------
-;; - Startup
+;; Base rails pre-loading env stuff
+(setq initial-scratch-message nil)
 (menu-bar-mode 0)
+(cd "./")
 (shell)
 (jp-theme)
-(when (file-exists-p "~/org")
-  (find-file "~/org/yacs/linux.org")
-  (find-file "~/.private/notes/jpablobr-tmp.md"))
-(setq initial-scratch-message nil)
-(server-start)
-(message "nw-jpablobr.el loaded in %ds"
+(ibuffer)
+(message "nw-php.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)
            (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
