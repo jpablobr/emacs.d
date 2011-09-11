@@ -221,6 +221,7 @@
 (load-file "~/.private/.jp-private.el")
 (require 'jp-private)
 (require 'isearch+)
+(require 'deft)
 
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)

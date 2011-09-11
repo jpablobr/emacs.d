@@ -47,9 +47,10 @@
 (menu-bar-mode 0)
 (shell)
 (jp-theme)
-(when (file-exists-p "~/org")
-  (find-file "~/org/yacs/linux.org")
-  (find-file "~/.private/notes/jpablobr-tmp.md"))
+(setq deft-extension "md")
+(setq deft-directory "~/.private/notes")
+(setq deft-text-mode 'markdown-mode)
+(deft)
 (setq initial-scratch-message nil)
 (server-start)
 (message "nw-jpablobr.el loaded in %ds"
