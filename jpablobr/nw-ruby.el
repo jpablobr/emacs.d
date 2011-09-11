@@ -45,10 +45,8 @@
 (autotest)
 (shell)
 (jp-theme)
-(setq deft-extension "ronn")
-(setq deft-directory "~/.cheat_fu_sheets")
 (setq deft-text-mode 'markdown-mode)
-(deft)
+(cheat-fu-deft)
 (ibuffer)
 (message "nw-ruby.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)

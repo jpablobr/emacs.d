@@ -222,6 +222,7 @@
 (require 'jp-private)
 (require 'isearch+)
 (require 'deft)
+(require 'cheat-fu-deft)
 
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)

@@ -51,6 +51,7 @@
 (setq deft-directory "~/.private/notes")
 (setq deft-text-mode 'markdown-mode)
 (deft)
+(cheat-fu-deft)
 (setq initial-scratch-message nil)
 (server-start)
 (message "nw-jpablobr.el loaded in %ds"
