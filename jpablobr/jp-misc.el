@@ -218,8 +218,6 @@
 
 ;; ---------------------------------------------------------------------
 ;; General
-(load-file "~/.private/.jp-private.el")
-(require 'jp-private)
 (require 'isearch+)
 (require 'deft)
 (require 'cheat-fu-deft)
