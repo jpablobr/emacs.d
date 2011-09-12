@@ -29,6 +29,8 @@
 (require 'jp-keyboard)
 (load-file (concat jpablobr-dir "/jp-anything.el"))
 (require 'jp-anything)
+(load-file (concat jpablobr-dir "/jp-w3m.el"))
+(require 'jp-w3m)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -41,12 +43,13 @@
 ;; Base rails pre-loading env stuff
 (setq initial-scratch-message nil)
 (menu-bar-mode 0)
+(dot-rvmrc)
 (cd "./")
-(autotest)
 (shell)
 (jp-theme)
-(setq deft-text-mode 'markdown-mode)
 (cheat-fu-deft)
+(setq jp-rails-api-root "~/code/apis/rails")
+(setq ruby-api-root "~/code/apis/ruby_1_9_2_core")
 (ibuffer)
 (message "nw-ruby.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)

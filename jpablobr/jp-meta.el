@@ -37,7 +37,7 @@
 
 ;; Helpers
 (setq tab-width 2)
-(show-paren-mode 1)
+;; (show-paren-mode 1)
 (transient-mark-mode 1)
 (setq line-number-mode t)
 (delete-selection-mode 1)

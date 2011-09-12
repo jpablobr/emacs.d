@@ -3,6 +3,8 @@
 (add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
 (add-to-list 'load-path (concat ruby-dir "/rhtml"))
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
+(load-file (concat jpablobr-dir "/jp-ruby-api-helper.el"))
+(load-file (concat jpablobr-dir "/jp-rails-api-helper.el"))
 (load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
 
@@ -14,15 +16,17 @@
 (require 'yari)
 (require 'rails)
 (require 'jp-ruby-helpers)
+(require 'jp-ruby-api-helper)
+(require 'jp-rails-api-helper)
 (require 'jp-rails-helpers)
 (require 'ruby-comint)
-(require 'testing)
+(require 'testing)'
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'scss-mode "scss-mode" nil t)
 (autoload 'flymake-ruby "flymake-ruby" nil t)
 (autoload 'flymake-haml "flymake-haml" nil t)
 (autoload 'run-unit-tests "unit-test" "Unit Test mode" t)
-;; (autoload 'unit-test "unit-test" nil t)
+(autoload 'unit-test "unit-test" nil t)
 (autoload 'toggle "toggle" nil t)
 (autoload 'autotest-switch "autotest" nil t)
 (autoload 'autotest "autotest" nil t)
@@ -42,6 +46,7 @@
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.html.erb$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
+(add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 
 (setq ruby-deep-indent-paren '(?\( t))
 (setq inf-ruby-first-prompt-pattern "^>> "
@@ -60,8 +65,8 @@
              (modify-syntax-entry ?! "w" (syntax-table))
              (modify-syntax-entry ?: "w" (syntax-table))
              (modify-syntax-entry ?_ "w" (syntax-table))
-             (ruby-electric-mode t)
-             ;; (local-set-key (kbd "C-.") 'complete-tag)
+             (ruby-electric-mode null)
+             (local-set-key (kbd "C-.") 'complete-tag)
              (ri-bind-key)
              (inf-ruby-keys)
              (when window-system
@@ -72,6 +77,10 @@
             (define-key ruby-mode-map (kbd "C-c l") "lambda")
             (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)
             (local-set-key (kbd "<return>") 'newline-and-indent)))
+
+(add-hook 'ruby-mode-hook
+          '(lambda ()
+             (ruby-electric-mode null)))
 
 (add-hook 'haml-mode-hook 'flymake-haml-load)
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
@@ -93,7 +102,6 @@
 (add-to-list 'auto-mode-alist '("\\.haml?$" . haml-mode))
 (add-to-list 'auto-mode-alist '("\\.html.haml?$" . haml-mode))
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
-(add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
 (define-key haml-mode-map [(control meta down)] 'haml-forward-sexp)
 (define-key haml-mode-map [(control meta up)] 'haml-backward-sexp)
 (define-key haml-mode-map [(control meta left)] 'haml-up-list)

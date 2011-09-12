@@ -68,7 +68,7 @@
 (global-set-key (kbd "C-l mp") 'match-paren)
 (global-set-key (kbd "C-l rr") 'replace-regexp)
 (global-set-key (kbd "C-l rf") 'rename-file)
-(global-set-key (kbd "C-l ri") 'rails-init-stuff)
+(global-set-key (kbd "C-l ri") 'ruby-init-stuff)
 (global-set-key (kbd "C-l rh") 'byte-recompile-home)
 (global-set-key (kbd "C-l tc") 't-ruby-complexity)
 (global-set-key (kbd "C-l tl") 't-linum)

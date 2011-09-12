@@ -96,7 +96,7 @@
 ;; --------------------------------------------------------------------
 ;; - Autopair edit
 (require 'autopair)
-(autopair-global-mode) ;; to enable in all buffers
+(autopair-global-mode)
 (setq autopair-autowrap t)
 
 ;; ---------------------------------------------------------------------

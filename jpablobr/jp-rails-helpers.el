@@ -58,10 +58,7 @@
 (defun rails-init-stuff ()
   "Rails init default stuff."
   (interactive)
-  ;; (rails-passenger:start)
   (rails-console:start)
-  (rails-guard:start)
-  (magit-status "./")
-  (find-file "Gemfile"))
+  (rails-guard:start))
 
 (provide 'jp-rails-helpers)
