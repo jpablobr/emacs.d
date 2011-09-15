@@ -231,7 +231,7 @@ Delete the current buffer too."
     (goto-char (point-min))
     (replace-string "&amp;" "&") ))
 
-(defun dt ()
+(defun insert-date ()
   "Insert the Date."
   (interactive)
   (insert-string (current-date-string)))

@@ -47,7 +47,6 @@
 (cd "./")
 (shell)
 (jp-theme)
-(cheat-fu-deft)
 (setq ruby-browse-api-with-w3m t)
 (setq ruby-api-root "~/code/apis/ruby_1_9_2_core")
 (setq jp-rails-api-root "~/code/apis/rails")
