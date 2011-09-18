@@ -163,7 +163,7 @@ Delete the current buffer too."
 ;;; --------------------------------------------------------------------
 ;;; - ERC
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl")))
+      '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl" "#github")))
 
 (defun erc-connect ()
   "Default ERC stuff."
