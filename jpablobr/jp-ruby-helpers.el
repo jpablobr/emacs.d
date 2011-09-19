@@ -95,31 +95,8 @@
                                     ((boundp 'write-contents-hooks) 'write-contents-hooks))
                               'delete-trailing-whitespace)))
 
-(defun find-rails-root (&optional dir)
-  (or dir (setq dir default-directory))
-  (if (file-exists-p (concat dir "config/environment.rb"))
-      dir
-    (if (equal dir  "/")
-	nil
-      (find-rails-root (expand-file-name (concat dir "../"))))))
 
-(defun routes ()
-  (interactive)
-  (find-file (concat (find-rails-root) "/config/routes.rb")))
-
-(defun schema ()
-  (interactive)
-  (find-file (concat (find-rails-root) "/db/schema.rb")))
-
-(defun dot-rvmrc ()
-  (interactive)
-  (find-file (concat (find-rails-root) "/.rvmrc")))
-
-(defun gemfile ()
-  (interactive)
-  (find-file (concat (find-rails-root) "/Gemfile")))
-
-(defun t-ruby-complexity ()
+(defun r-ruby-complexity ()
 "Starts ruby complexity"
   (add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
   (require 'ruby-complexity)
@@ -127,7 +104,7 @@
   (linum-mode)
   (ruby-complexity-mode))
 
-(defun pry-console:start ()
+(defun r-pry-console:start ()
   "Fire up a Pry console"
   (interactive)
   (let ((buffer (shell "*Pry*")))
@@ -142,13 +119,34 @@
     (compilation-shell-minor-mode 1)
     (comint-send-string buffer (concat "pry" "\n"))))
 
-(defun ruby-init-stuff ()
+(defun r-guard:start ()
+  "Fire up an Guard"
+  (interactive)
+  (let ((buffer (shell "*Guard*")))
+
+    (set (make-local-variable 'comint-output-filter-functions)
+         '(comint-truncate-buffer
+           comint-postoutput-scroll-to-bottom
+           ansi-color-process-output
+           ))
+    (set (make-local-variable 'comint-buffer-maximum-size) 5000)
+    (set (make-local-variable 'comint-scroll-show-maximum-output) t)
+    (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
+
+    (ansi-color-for-comint-mode-on)
+    (compilation-shell-minor-mode 1)
+    (comint-send-string buffer (concat "guard" "\n"))))
+
+(defun r-init ()
   "Ruby init default stuff."
   (interactive)
   (magit-status "./")
   (autotest)
   (find-file "readme.md")
-  (gemfile)
-  (pry-console:start))
+  (find-file ".rvmrc")
+  (find-file "Gemfile")
+  (r-pry-console:start)
+  (r-guard:start)
+  (cheat-fu-deft))
 
 (provide 'jp-ruby-helpers)

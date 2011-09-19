@@ -61,11 +61,11 @@
              (set (make-local-variable 'tab-width) 2)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
-             (t-ruby-complexity)
+             (r-ruby-complexity)
              (modify-syntax-entry ?! "w" (syntax-table))
              (modify-syntax-entry ?: "w" (syntax-table))
              (modify-syntax-entry ?_ "w" (syntax-table))
-             (ruby-electric-mode null)
+             ;; (ruby-electric-mode null)
              (local-set-key (kbd "C-.") 'complete-tag)
              (ri-bind-key)
              (inf-ruby-keys)
@@ -77,10 +77,6 @@
             (define-key ruby-mode-map (kbd "C-c l") "lambda")
             (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)
             (local-set-key (kbd "<return>") 'newline-and-indent)))
-
-(add-hook 'ruby-mode-hook
-          '(lambda ()
-             (ruby-electric-mode null)))
 
 (add-hook 'haml-mode-hook 'flymake-haml-load)
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)

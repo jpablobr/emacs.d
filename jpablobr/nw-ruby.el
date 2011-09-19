@@ -43,7 +43,6 @@
 ;; Base rails pre-loading env stuff
 (setq initial-scratch-message nil)
 (menu-bar-mode 0)
-(dot-rvmrc)
 (cd "./")
 (shell)
 (jp-theme)
