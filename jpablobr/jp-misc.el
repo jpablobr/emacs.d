@@ -27,6 +27,7 @@
 (setq git-dir (concat vendor-dir "/git"))
 (add-to-list 'load-path git-dir)
 (add-to-list 'load-path (concat git-dir "/magit"))
+(load-file (concat git-dir "/magit/magit.el"))
 
 (require 'magit)
 (require 'gist)
