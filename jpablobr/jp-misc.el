@@ -7,9 +7,8 @@
 
 ;;; Stuff to run only on window systems.
 (when window-system
-  (add-to-list 'load-path (concat misc-dir "/maxframe"))
   (add-to-list 'load-path (concat misc-dir "/mmm-mode"))
-
+  (load-file (concat misc-dir "/mmm-mode/mmm-mode.el"))
   ;;----------------------------------------------------------------------
   ;; - Multiple major modes
   (require 'mmm-auto)

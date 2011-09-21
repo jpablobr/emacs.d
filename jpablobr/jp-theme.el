@@ -12,14 +12,12 @@
 
   (require 'color-theme-solarized)
   (color-theme-solarized-light)
+  (set-face-background 'region "#666666")
 
 (when window-system
   ;; (load-file (concat theaming-dir "/color-theme-tango.el"))
   ;; (load-file (concat theaming-dir "/color-theme-tangotango.el"))
   ;; (color-theme-tangotango)
-
-  (require 'maxframe)
-  (add-hook 'window-setup-hook 'maximize-frame t)
 
   (defun transparency ()
     "Sets transparency"

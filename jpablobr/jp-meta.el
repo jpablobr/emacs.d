@@ -10,12 +10,12 @@
 (defun auto-save-file-name-p (filename)
   (string-match "^#.*#$" (file-name-nondirectory filename)))
 
-(defun make-auto-save-file-name ()
-  (concat autosave-dir
-          (if buffer-file-name
-              (concat "#" (file-name-nondirectory buffer-file-name) "#")
-            (expand-file-name
-             (concat "#%" (buffer-name) "#")))))
+;; (defun make-auto-save-file-name ()
+;;   (concat autosave-dir
+;;           (if buffer-file-name
+;;               (concat "#" (file-name-nondirectory buffer-file-name) "#")
+;;             (expand-file-name
+;;              (concat "#%" (buffer-name) "#")))))
 
 ;;; ----------------------------------------------------------------------------
 ;;; - backups dir
@@ -37,12 +37,16 @@
 
 ;; Helpers
 (setq tab-width 2)
-;; (show-paren-mode 1)
-(transient-mark-mode 1)
+(show-paren-mode 1)
 (setq line-number-mode t)
 (delete-selection-mode 1)
 (setq default-tab-width 2)
 (setq column-number-mode t)
+(global-hl-line-mode)
+(tool-bar-mode 0)
+(menu-bar-mode 0)
+(transient-mark-mode t)
+(set-scroll-bar-mode nil)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (custom-set-variables

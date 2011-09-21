@@ -354,5 +354,10 @@ Delete the current buffer too."
        "\\([a-z0-9]\\)\\([A-Z]\\)" "\\1_\\2"
        string)))))
 
+(defun fullscreen-toggle ()
+  (interactive)
+  (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
+                                           nil
+                                         'fullboth)))
 
 (provide 'jp-defuns)
