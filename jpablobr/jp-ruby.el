@@ -3,8 +3,6 @@
 (add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
 (add-to-list 'load-path (concat ruby-dir "/rhtml"))
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
-(load-file (concat jpablobr-dir "/jp-ruby-api-helper.el"))
-(load-file (concat jpablobr-dir "/jp-rails-api-helper.el"))
 (load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
 
@@ -16,8 +14,6 @@
 (require 'yari)
 (require 'rails)
 (require 'jp-ruby-helpers)
-(require 'jp-ruby-api-helper)
-(require 'jp-rails-api-helper)
 (require 'jp-rails-helpers)
 (require 'ruby-comint)
 (require 'testing)'
