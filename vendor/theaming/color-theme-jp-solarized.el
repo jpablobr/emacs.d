@@ -13,17 +13,17 @@
 (eval-when-compile
   (require 'color-theme))
 
-(defun color-theme-solarized (mode)
+(defun color-theme-jp-solarized (mode)
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
   (interactive "Slight or dark? ")
   (let ((base03  "#000000")
-        (base02  "#073642")
+        (base02  "#585858")
         (base01  "#586e75")
         (base00  "#657b83")
         (base0   "#839496")
         (base1   "#666666")
-        (base2   "#333333")
+        (base2   "#111111")
         (base3   "#000000")
         (yellow  "#b58900")
         (orange  "#cb4b16")
@@ -39,7 +39,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
       (rotatef base01 base1)
       (rotatef base00 base0))
     (color-theme-install
-     `(color-theme-solarized
+     `(color-theme-jp-solarized
        ((foreground-color . ,base0)
         (background-color . ,base03)
         (background-mode . ,mode)
@@ -111,21 +111,21 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        (show-paren-match-face ((t (:background ,base2 :foreground ,base3))))
        (show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))))))
 
-(defun color-theme-solarized-dark ()
+(defun color-theme-jp-solarized-dark ()
   (interactive)
-  (color-theme-solarized 'dark))
+  (color-theme-jp-solarized 'dark))
 
-(defun color-theme-solarized-light ()
+(defun color-theme-jp-solarized-light ()
   (interactive)
-  (color-theme-solarized 'light))
+  (color-theme-jp-solarized 'light))
 
 (add-to-list 'color-themes
-             '(color-theme-solarized-light
+             '(color-theme-jp-solarized-light
                "Solarized Light"
                "Ethan Schoonover & Greg Pfeil <greg@technomadic.org>"))
 (add-to-list 'color-themes
-             '(color-theme-solarized-dark
+             '(color-theme-jp-solarized-dark
                "Solarized Dark"
                "Ethan Schoonover & Greg Pfeil <greg@technomadic.org>"))
 
-(provide 'color-theme-solarized)
+(provide 'color-theme-jp-solarized)

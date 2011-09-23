@@ -104,21 +104,6 @@
   (linum-mode)
   (ruby-complexity-mode))
 
-(defun r-pry-console:start ()
-  "Fire up a Pry console"
-  (interactive)
-  (let ((buffer (shell "*Pry*")))
-    (set (make-local-variable 'comint-output-filter-functions)
-         '(comint-truncate-buffer
-           comint-postoutput-scroll-to-bottom
-           ansi-color-process-output))
-    (set (make-local-variable 'comint-buffer-maximum-size) 5000)
-    (set (make-local-variable 'comint-scroll-show-maximum-output) t)
-    (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
-    (ansi-color-for-comint-mode-on)
-    (compilation-shell-minor-mode 1)
-    (comint-send-string buffer (concat "pry" "\n"))))
-
 (defun r-guard:start ()
   "Fire up an Guard"
   (interactive)
@@ -142,7 +127,6 @@
   (interactive)
   (magit-status "./")
   (autotest)
-  (r-pry-console:start)
   (r-guard:start)
   (cheat-fu-deft))
 

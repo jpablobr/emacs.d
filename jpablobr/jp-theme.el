@@ -8,16 +8,18 @@
 
   (load-file (concat theaming-dir "/rainbow-mode.el"))
   (autoload 'rainbow-mode "rainbow-mode" t)
-  ;; (rainbow-turn-on)
 
-  (require 'color-theme-solarized)
-  (color-theme-solarized-light)
-  (set-face-background 'region "#666666")
+  (require 'color-theme-jp-solarized)
+  (color-theme-jp-solarized-light)
 
 (when window-system
   ;; (load-file (concat theaming-dir "/color-theme-tango.el"))
   ;; (load-file (concat theaming-dir "/color-theme-tangotango.el"))
   ;; (color-theme-tangotango)
+
+  ;; (add-to-list 'load-path (concat theaming-dir "/emacs-color-theme-solarized"))
+  ;; (require 'color-theme-solarized)
+  ;; (color-theme-solarized-dark)
 
   (defun transparency ()
     "Sets transparency"
@@ -49,6 +51,9 @@
    '(mumamo-background-chunk-submode2 ((((class color) (min-colors 88) (background dark)) nil)))
    '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) nil)))
    '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil)))
+   '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "apple-inconsolata"))))
+   '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "apple-inconsolata"))))
+
    '(whitespace-line ((t (:background "purple" :foreground "green"))))))
 
 (provide 'jp-theme)

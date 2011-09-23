@@ -47,6 +47,7 @@
 (menu-bar-mode 0)
 (transient-mark-mode t)
 (set-scroll-bar-mode nil)
+(setq blink-cursor t)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 (custom-set-variables
