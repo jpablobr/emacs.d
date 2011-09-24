@@ -50,7 +50,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        (escape-glyph-face ((t (:foreground ,red))))
        (fringe ((t (:foreground ,base01 :background ,base02))))
        (header-line ((t (:foreground ,base0 :background ,base2))))
-       (highlight ((t (:background ,violet))))
+       (highlight ((t (:background ,#111111))))
        (isearch ((t (:foreground ,yellow :inverse-video t))))
        (menu ((t (:foreground ,base0 :background ,base02))))
        (minibuffer-prompt ((t (:foreground ,blue))))

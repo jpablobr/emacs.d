@@ -12,6 +12,7 @@
   (require 'color-theme-jp-solarized)
   (color-theme-jp-solarized-light)
   (set-face-background 'region "#444444")
+  (set-face-background 'hl-line "#111111")
 
 (when window-system
   ;; (load-file (concat theaming-dir "/color-theme-tango.el"))
