@@ -47,6 +47,9 @@
 (menu-bar-mode 0)
 (transient-mark-mode t)
 (set-scroll-bar-mode nil)
+(setq font-lock-maximum-decoration t
+      font-lock-maximum-size nil)
+(setq font-lock-maximum-size 512000)
 (setq blink-cursor t)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
