@@ -61,7 +61,6 @@
              (modify-syntax-entry ?! "w" (syntax-table))
              (modify-syntax-entry ?: "w" (syntax-table))
              (modify-syntax-entry ?_ "w" (syntax-table))
-             ;; (ruby-electric-mode null)
              (local-set-key (kbd "C-.") 'complete-tag)
              (pretty-lambdas)
              (ri-bind-key)

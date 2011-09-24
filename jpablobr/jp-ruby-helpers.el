@@ -126,8 +126,6 @@
   "Ruby init default stuff."
   (interactive)
   (magit-status "./")
-  (autotest)
-  (r-guard:start)
   (cheat-fu-deft))
 
 (provide 'jp-ruby-helpers)
