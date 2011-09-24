@@ -53,6 +53,7 @@
 (deft)
 (cheat-fu-deft)
 (setq initial-scratch-message nil)
+(fullscreen-toggle)
 (server-start)
 (message "nw-jpablobr.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)
