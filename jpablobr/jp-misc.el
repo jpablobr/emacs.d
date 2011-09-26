@@ -30,9 +30,6 @@
 
 (require 'magit)
 (require 'gist)
-(setq gist-view-gist t)
-(setq gist-use-curl t)
-
 (require 'diff-mode-)
 
 ;; ---------------------------------------------------------------------
