@@ -13,15 +13,22 @@
   (color-theme-jp-solarized-light)
   (set-face-background 'region "#444444")
   (set-face-background 'hl-line "#111111")
+  (set-face-foreground 'font-lock-comment-face "#93a1a1")
+  (set-face-foreground 'font-lock-comment-delimiter-face "#93a1a1")
+  ;; (set-face-foreground 'font-lock-string-face "#d7d7af")
+  ;; (set-face-foreground 'font-lock-builtin-face "")
+  ;; (set-face-foreground 'font-lock-comment-face "")
+  ;; (set-face-foreground 'font-lock-constant-face "")
+  ;; (set-face-foreground 'font-lock-function-name-face "")
+  ;; (set-face-foreground 'font-lock-keyword-face "")
+  ;; (set-face-foreground 'font-lock-type-face "")
+  ;; (set-face-foreground 'font-lock-variable-name-face "")
+  ;; (set-face-foreground 'font-lock-warning-face "")
 
 (when window-system
   ;; (load-file (concat theaming-dir "/color-theme-tango.el"))
   ;; (load-file (concat theaming-dir "/color-theme-tangotango.el"))
   ;; (color-theme-tangotango)
-
-  ;; (add-to-list 'load-path (concat theaming-dir "/emacs-color-theme-solarized"))
-  ;; (require 'color-theme-solarized)
-  ;; (color-theme-solarized-dark)
 
   (defun transparency ()
     "Sets transparency"
