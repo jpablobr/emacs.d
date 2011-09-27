@@ -709,4 +709,7 @@ mappings from other projects."
 
 (define-key compilation-mode-map "\C-c\C-t" 'jw-test-kill-test-buffer)
 
+(require 'ansi-color)
+(add-hook 'compilation-mode-hook 'ansi-color-for-comint-mode-on)
+
 (provide 'testing)

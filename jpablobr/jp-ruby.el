@@ -5,6 +5,8 @@
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
 (load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
+(load-file (concat ruby-dir "/ruby-test-mode.el"))
+(load-file (concat ruby-dir "/testing.el"))
 
 (require 'rdebug)
 (require 'rhtml-mode)
@@ -17,6 +19,7 @@
 (require 'jp-rails-helpers)
 (require 'ruby-comint)
 (require 'testing)'
+(require 'ruby-test-mode)'
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'scss-mode "scss-mode" nil t)
 (autoload 'flymake-ruby "flymake-ruby" nil t)

@@ -5,11 +5,9 @@
   ;; If there is more than one, they won't work right.
  '(fill-column 72)
  '(font-lock-mode-maximum-decoration t)
+ '(gist-authenticate-function (quote gist-basic-authentication))
+ '(gist-view-gist t t)
  '(github-user "jpablobr" t)
- '(gist-view-gist t)
- '(gist-authenticate-function 'gist-basic-authentication)
- ;; '(github-token t)
- ;; '(gist-use-curl t)
  '(global-font-lock-mode t nil (font-lock))
  '(indent-tabs-mode nil)
  '(scroll-preserve-screen-position t)
@@ -29,6 +27,8 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
+ '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "apple-inconsolata"))))
+ '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "apple-inconsolata"))))
  '(diff-added ((((background dark)) (:foreground "#FFFF9B9BFFFF")) (t (:foreground "DarkGreen"))))
  '(diff-changed ((((background dark)) (:foreground "Yellow")) (t (:foreground "MediumBlue"))))
  '(diff-context ((((background dark)) (:foreground "White")) (t (:foreground "Black"))))
@@ -48,4 +48,8 @@
  '(mumamo-background-chunk-submode3 ((((class color) (min-colors 88) (background dark)) nil)))
  '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil)))
  '(query-replace ((t (:background "green" :foreground "white"))))
+ '(test-failure ((t (:background "black" :foreground "ff3333" :weight bold :height 140 :family "arial"))) t)
+ '(test-heading1 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+ '(test-heading2 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+ '(test-success ((t (:background "black" :foreground "#33ff33" :weight bold :height 140 :family "arial"))) t)
  '(whitespace-line ((t (:background "purple" :foreground "green")))))

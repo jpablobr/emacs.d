@@ -29,8 +29,8 @@
 (require 'jp-keyboard)
 (load-file (concat jpablobr-dir "/jp-anything.el"))
 (require 'jp-anything)
-(load-file (concat jpablobr-dir "/jp-w3m.el"))
-(require 'jp-w3m)
+(load-file (concat jpablobr-dir "/jp-compile.el"))
+(require 'jp-compile)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -38,6 +38,9 @@
 (require 'jp-yasnippet)
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
+
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
@@ -47,9 +50,6 @@
 (shell)
 (jp-theme)
 (fullscreen-toggle)
-(setq ruby-browse-api-with-w3m t)
-(setq ruby-api-root "~/code/apis/ruby_1_9_2_core")
-(setq jp-rails-api-root "~/code/apis/rails")
 (ibuffer)
 (message "nw-ruby.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)

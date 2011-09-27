@@ -62,7 +62,10 @@
    '(mumamo-background-chunk-submode4 ((((class color) (min-colors 88) (background dark)) nil)))
    '(default ((t (:stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "apple-inconsolata"))))
    '(autoface-default ((t (:inherit default :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :family "apple-inconsolata"))))
-
+ '(test-failure ((t (:background "black" :foreground "ff3333" :weight bold :height 140 :family "arial"))) t)
+ '(test-heading1 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+ '(test-heading2 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+ '(test-success ((t (:background "black" :foreground "#33ff33" :weight bold :height 140 :family "arial"))) t)
    '(whitespace-line ((t (:background "purple" :foreground "green"))))))
 
 (provide 'jp-theme)

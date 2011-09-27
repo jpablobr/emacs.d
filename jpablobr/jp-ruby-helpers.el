@@ -128,4 +128,12 @@
   (magit-status "./")
   (cheat-fu-deft))
 
+(defun r-koans ()
+  "Run the current buffer in a ruby subprocess."
+  (interactive)
+  (compilation-start
+   (concat "/usr/bin/env ruby " "./path_to_enlightenment.rb")
+   nil
+   (lambda (x) "*Ruby Koans Path*")))
+
 (provide 'jp-ruby-helpers)

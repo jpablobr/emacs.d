@@ -72,6 +72,7 @@
 (global-set-key (kbd "C-l ri") 'r-init)
 (global-set-key (kbd "C-l rh") 'byte-recompile-home)
 (global-set-key (kbd "C-l rc") 'r-ruby-complexity)
+(global-set-key (kbd "C-l rk") 'r-koans)
 (global-set-key (kbd "C-l tl") 't-linum)
 (global-set-key (kbd "C-l ta") 't-anything)
 (global-set-key (kbd "C-l tm") 't-anything-min)
