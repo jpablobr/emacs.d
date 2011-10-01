@@ -64,6 +64,7 @@
 (global-set-key (kbd "C-l hs") 'hs-show-all)
 (global-set-key (kbd "C-l hl") 'hs-toggle-hiding)
 (global-set-key (kbd "C-l ll") 'end-of-buffer)
+(global-set-key (kbd "C-l lk") 'tex-compile)
 (global-set-key (kbd "C-l mb") 'menu-bar-mode)
 (global-set-key (kbd "C-l mp") 'match-paren)
 (global-set-key (kbd "C-l ra") 'rr-init)
@@ -95,6 +96,8 @@
 (global-set-key (kbd "M-l") 'textmate-goto-file)
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-b") 'backward-word)
+(global-set-key (kbd "M-s") 'save-buffer)
+(global-set-key (kbd "M-r b") 'ibuffer)
 
 ;; C-C p -- Perforce bindings
 (global-set-key (kbd "C-C p e") 'p4-edit) ; pkg:perforce

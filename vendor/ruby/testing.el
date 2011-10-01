@@ -15,7 +15,7 @@
 (defconst jw-test-buffer-name "*testing*")
 
 ;;; Path to Ruby
-(defconst jw-ruby-program "ruby")
+(defconst jw-ruby-program "/usr/bin/env ruby")
 
 ;;; Name of the ruby debugging command to run the tests in debug mode.
 (defconst jw-rdebug-command "rdebug")
@@ -31,7 +31,7 @@
   (concat (jw-project-env-file )))
 
 ;;; Name of the rake command ot run the rake based tests.
-(defconst jw-rake-command "rake")
+(defconst jw-rake-command "bundle exec rake")
 
 ;;; Options to be added to the ruby based test commands.
 (defconst jw-test-options "-Ilib:test:.")
