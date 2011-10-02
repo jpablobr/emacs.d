@@ -21,7 +21,9 @@
 
 ;; Turn off trailing space notification
 
-(add-hook 'compilation-mode-hook '(lambda () (setq show-trailing-whitespace nil)))
+(add-hook 'compilation-mode-hook '(lambda ()
+                                    (setq show-trailing-whitespace nil)
+                                    (compilation-font-locks)))
 
 (require 'ansi-color)
 (defun colorize-compilation-buffer ()
@@ -30,5 +32,14 @@
   (toggle-read-only))
 
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+(defun compilation-font-locks ()
+  "Custom font locks."
+  (interactive)
+  (custom-set-faces
+   '(test-failure ((t (:background "black" :foreground "ff3333" :weight bold :height 140 :family "arial"))) t)
+   '(test-heading1 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+   '(test-heading2 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+   '(test-success ((t (:foreground "#33ff33" :weight bold :height 140 :family "arial"))) t)))
 
 (provide 'jp-compile)

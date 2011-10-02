@@ -48,7 +48,6 @@
 ;; - Startup
 (menu-bar-mode 0)
 (shell)
-(jp-theme)
 (setq deft-extension "md")
 (setq deft-directory "~/.private/notes")
 (setq deft-text-mode 'markdown-mode)

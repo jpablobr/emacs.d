@@ -45,12 +45,10 @@
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
 (setq initial-scratch-message nil)
-(menu-bar-mode 0)
 (cd "./")
-(shell)
-(jp-theme)
-(fullscreen-toggle)
 (ibuffer)
-(message "nw-ruby.el loaded in %ds"
+(shell)
+(fullscreen-toggle)
+(message "ruby-init.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)
            (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))

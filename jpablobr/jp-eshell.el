@@ -57,10 +57,11 @@
 ;;; - escape the shell
 ;;;
 (add-hook 'shell-mode-hook
-  '(lambda nil
-     (setq comint-prompt-read-only)
-     (rvm-activate-corresponding-ruby)
-     (local-set-key [(meta P)] 'mouse-buffer-menu)
-     (local-set-key [(meta up)] 'beginning-of-buffer)))
+          '(lambda nil
+             (setq comint-prompt-read-only)
+             (rvm-activate-corresponding-ruby)
+             (setq test-failure "red" )
+             (local-set-key [(meta P)] 'mouse-buffer-menu)
+             (local-set-key [(meta up)] 'beginning-of-buffer)))
 
 (provide 'jp-eshell)

@@ -5,7 +5,7 @@
   ;; If there is more than one, they won't work right.
  '(fill-column 72)
  '(font-lock-mode-maximum-decoration t)
- '(gist-authenticate-function (quote gist-basic-authentication))
+ '(gist-authenticate-function (quote gist-basic-authentication) t)
  '(gist-view-gist t t)
  '(github-user "jpablobr" t)
  '(global-font-lock-mode t nil (font-lock))
@@ -51,5 +51,5 @@
  '(test-failure ((t (:background "black" :foreground "ff3333" :weight bold :height 140 :family "arial"))) t)
  '(test-heading1 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
  '(test-heading2 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
- '(test-success ((t (:background "black" :foreground "#33ff33" :weight bold :height 140 :family "arial"))) t)
+ '(test-success ((t (:foreground "#33ff33" :weight bold :height 140 :family "arial"))) t)
  '(whitespace-line ((t (:background "purple" :foreground "green")))))
