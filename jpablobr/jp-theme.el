@@ -1,10 +1,10 @@
+(setq theaming-dir (concat vendor-dir "/theaming"))
+(add-to-list 'load-path theaming-dir)
+(require 'color-theme)
+
 (defun jp-theme()
   "load theme interactively."
   (interactive)
-
-  (setq theaming-dir (concat vendor-dir "/theaming"))
-  (add-to-list 'load-path theaming-dir)
-  (require 'color-theme)
 
   (load-file (concat theaming-dir "/rainbow-mode.el"))
   (autoload 'rainbow-mode "rainbow-mode" t)
@@ -12,27 +12,7 @@
   (load-file (concat theaming-dir "/color-theme-zenburn.el"))
   (color-theme-zenburn)
 
-  ;; (require 'color-theme-jp-solarized)
-  ;; (color-theme-jp-solarized-light)
-  ;; (set-face-background 'region "#444444")
-  ;; (set-face-background 'hl-line "#111111")
-  ;; (set-face-foreground 'font-lock-comment-face "#93a1a1")
-  ;; (set-face-foreground 'font-lock-comment-delimiter-face "#93a1a1")
-  ;; (set-face-foreground 'font-lock-string-face "#d7d7af")
-  ;; (set-face-foreground 'font-lock-builtin-face "")
-  ;; (set-face-foreground 'font-lock-comment-face "")
-  ;; (set-face-foreground 'font-lock-constant-face "")
-  ;; (set-face-foreground 'font-lock-function-name-face "")
-  ;; (set-face-foreground 'font-lock-keyword-face "")
-  ;; (set-face-foreground 'font-lock-type-face "")
-  ;; (set-face-foreground 'font-lock-variable-name-face "")
-  ;; (set-face-foreground 'font-lock-warning-face "")
-
 (when window-system
-  ;; (load-file (concat theaming-dir "/color-theme-tango.el"))
-  ;; (load-file (concat theaming-dir "/color-theme-tangotango.el"))
-  ;; (color-theme-tangotango)
-
   (defun transparency ()
     "Sets transparency"
     (interactive)

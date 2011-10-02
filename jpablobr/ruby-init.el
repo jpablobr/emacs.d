@@ -19,8 +19,6 @@
 (require 'jp-markdown)
 (load-file (concat jpablobr-dir "/jp-ruby.el"))
 (require 'jp-ruby)
-(load-file (concat jpablobr-dir "/jp-eshell.el"))
-(require 'jp-eshell)
 (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
 (require 'jp-autocomplete)
 (load-file (concat jpablobr-dir "/jp-theme.el"))
@@ -31,6 +29,8 @@
 (require 'jp-anything)
 (load-file (concat jpablobr-dir "/jp-compile.el"))
 (require 'jp-compile)
+(load-file (concat jpablobr-dir "/jp-eshell.el"))
+(require 'jp-eshell)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
