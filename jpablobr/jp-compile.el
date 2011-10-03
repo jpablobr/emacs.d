@@ -37,9 +37,9 @@
   "Custom font locks."
   (interactive)
   (custom-set-faces
-   '(test-failure ((t (:background "black" :foreground "ff3333" :weight bold :height 140 :family "arial"))) t)
-   '(test-heading1 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
-   '(test-heading2 ((t (:background "#000000" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
-   '(test-success ((t (:foreground "#33ff33" :weight bold :height 140 :family "arial"))) t)))
+   '(test-failure ((t (:background "#3f3f3f" :foreground "red" :weight bold :height 140 :family "arial"))) t)
+   '(test-heading1 ((t (:background "#3f3f3f" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+   '(test-heading2 ((t (:background "#3f3f3f" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+   '(test-success ((t (:background "#3f3f3f" :foreground "#33ff33" :weight bold :height 140 :family "arial"))) t)))
 
 (provide 'jp-compile)

@@ -31,7 +31,6 @@
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
 (global-set-key (kbd "C-l cg") 'cheat-fu-commit)
 (global-set-key (kbd "C-l cr") 'ruby-compile-region)
-(global-set-key (kbd "C-l cf") 'ruby-compile-file)
 (global-set-key (kbd "C-l cn") 'cheat-fu-new)
 (global-set-key (kbd "C-l df") 'delete-current-file)
 (global-set-key (kbd "C-l dm") 'ido-imenu); (This is awesome.)
@@ -97,6 +96,7 @@
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-s") 'save-buffer)
+(global-set-key (kbd "M-c") 'ruby-compile-file)
 (global-set-key (kbd "M-r b") 'ibuffer)
 
 ;; C-C p -- Perforce bindings

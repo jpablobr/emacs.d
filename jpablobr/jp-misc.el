@@ -92,9 +92,9 @@
 
 ;; --------------------------------------------------------------------
 ;; - Autopair edit
-(require 'autopair)
-(autopair-global-mode)
-(setq autopair-autowrap t)
+;; (require 'autopair)
+;; (autopair-global-mode)
+;; (setq autopair-autowrap t)
 
 ;; ---------------------------------------------------------------------
 ;; - Cheat-fu
