@@ -107,6 +107,12 @@
     (compilation-shell-minor-mode 1)
     (comint-send-string buffer (concat "guard" "\n"))))
 
+(defun r-tmp-test ()
+  "Open a tmp test.rb file."
+  (interactive)
+  (when (file-exists-p "~/tmp")
+    (find-file "~/tmp/test/tmp_test.rb")))
+
 (defun r-koans ()
   "Run the current buffer in a ruby subprocess."
   (interactive)

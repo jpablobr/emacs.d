@@ -64,7 +64,6 @@
              (modify-syntax-entry ?_ "w" (syntax-table))
              (local-set-key (kbd "C-.") 'complete-tag)
              (pretty-lambdas)
-             (ri-bind-key)
              (inf-ruby-keys)
              (when window-system
                (menu-bar-mode t))
