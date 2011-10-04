@@ -41,9 +41,6 @@
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
 
-(setq custom-file "~/.emacs.d/custom.el")
-(load custom-file)
-
 ;; ---------------------------------------------------------------------
 ;; - Startup
 (menu-bar-mode 0)

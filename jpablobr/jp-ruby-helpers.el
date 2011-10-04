@@ -1,19 +1,8 @@
-;;jp-ruby-helpers.el ---------------------------------------------------
+;;; jp-ruby-helpers.el ---------------------------------------------------
 ;;; - Ruby helper functions
 ;;;
 (require 'font-lock)
 (load-library "rubydb3x")
-
-(defun ri-bind-key ()
-  (local-set-key [f1] 'yari-anything))
-
-(defalias 'rails-search-doc 'yari)
-
-;; Inferion ruby
-(add-to-list 'hs-special-modes-alist
-             '(ruby-mode
-               "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
-               (lambda (arg) (ruby-end-of-block)) nil))
 
 ;; Clear the compilation buffer between test runs.
 (eval-after-load 'ruby-compilation
@@ -42,9 +31,7 @@
 ;;;; Flymake
 (eval-after-load 'ruby-mode
   '(progn
-     ;; Libraries
      (require 'flymake)
-
      ;; Invoke ruby with '-c' to get syntax checking
      (defun flymake-ruby-init ()
        (let* ((temp-file (flymake-init-create-temp-buffer-copy
@@ -94,9 +81,8 @@
                                     ((boundp 'write-contents-hooks) 'write-contents-hooks))
                               'delete-trailing-whitespace)))
 
-
 (defun r-ruby-complexity ()
-"Starts ruby complexity"
+  "Starts ruby complexity"
   (add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
   (require 'ruby-complexity)
   (interactive)

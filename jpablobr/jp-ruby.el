@@ -21,8 +21,8 @@
 (require 'testing)'
 (require 'ruby-test-mode)'
 (require 'ruby-electric)'
+(require 'scss-mode)
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
-(autoload 'scss-mode "scss-mode" nil t)
 (autoload 'flymake-ruby "flymake-ruby" nil t)
 (autoload 'flymake-haml "flymake-haml" nil t)
 (autoload 'run-unit-tests "unit-test" "Unit Test mode" t)
@@ -47,10 +47,6 @@
 (add-to-list 'auto-mode-alist '("\\.html.erb$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
-
-(setq ruby-deep-indent-paren '(?\( t))
-(setq inf-ruby-first-prompt-pattern "^>> "
-      inf-ruby-prompt-pattern "^>> ")
 
 ;; work around possible elpa bug
 (ignore-errors (require 'ruby-compilation))
@@ -99,9 +95,5 @@
 (add-to-list 'auto-mode-alist '("\\.haml?$" . haml-mode))
 (add-to-list 'auto-mode-alist '("\\.html.haml?$" . haml-mode))
 (add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
-(define-key haml-mode-map [(control meta down)] 'haml-forward-sexp)
-(define-key haml-mode-map [(control meta up)] 'haml-backward-sexp)
-(define-key haml-mode-map [(control meta left)] 'haml-up-list)
-(define-key haml-mode-map [(control meta right)] 'haml-down-list)
 
 (provide 'jp-ruby)
