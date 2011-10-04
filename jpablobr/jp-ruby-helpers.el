@@ -85,7 +85,6 @@
 
 (add-hook 'ruby-mode-hook 'font-lock-fontify-buffer)
 (add-hook 'ruby-mode-hook '(lambda () (inf-ruby-keys) ))
-;; (add-hook 'ruby-mode-hook '(lambda () (ruby-electric-mode 0)))
 (add-hook 'ruby-mode-hook '(lambda ()
                              (add-hook
                               (cond ((boundp 'before-save-hook)
@@ -121,13 +120,6 @@
     (ansi-color-for-comint-mode-on)
     (compilation-shell-minor-mode 1)
     (comint-send-string buffer (concat "guard" "\n"))))
-
-(defun r-init ()
-  "Ruby init default stuff."
-  (interactive)
-  (jp-load-yasnippets)
-  (magit-status "./")
-  (cheat-fu-deft))
 
 (defun r-koans ()
   "Run the current buffer in a ruby subprocess."

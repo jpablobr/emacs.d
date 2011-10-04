@@ -7,7 +7,7 @@
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
 (load-file (concat ruby-dir "/ruby-test-mode.el"))
 (load-file (concat ruby-dir "/testing.el"))
-
+(load-file (concat ruby-dir "/ruby-electric.el"))
 (require 'rdebug)
 (require 'rhtml-mode)
 (require 'align)
@@ -20,6 +20,7 @@
 (require 'ruby-comint)
 (require 'testing)'
 (require 'ruby-test-mode)'
+(require 'ruby-electric)'
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'scss-mode "scss-mode" nil t)
 (autoload 'flymake-ruby "flymake-ruby" nil t)
@@ -61,6 +62,7 @@
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (r-ruby-complexity)
+             (ruby-electric-mode t)
              (modify-syntax-entry ?! "w" (syntax-table))
              (modify-syntax-entry ?: "w" (syntax-table))
              (modify-syntax-entry ?_ "w" (syntax-table))
