@@ -25,6 +25,4 @@ aliases:
 
 [jpablobr Emacs.d by xjpablobrx, on Flickr](http://www.flickr.com/photos/30142618@N02/4788235562/)
 
-[Emacs-w3c](http://imgur.com/EbVqd)
-
-[Transparency](http://imgur.com/i1nT4)
+[Transparency](http://i.imgur.com/8WI8L.png)
