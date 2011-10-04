@@ -2,7 +2,7 @@
 (require 'cl)
 (defvar *emacs-load-start* (current-time))
 
-(load-file "~/.emacs.d/jpablobr/jp-meta.el")
+(load-file "~/.emacs.d/custom/jp-meta.el")
 (require 'jp-meta)
 
 ;; http://www.nongnu.org/emacs-tiny-tools/keybindings/

@@ -1,7 +1,7 @@
 (defvar *emacs-load-start* (current-time))
 (setq dotfiles-dir "~/.emacs.d/")
 (setq vendor-dir (concat dotfiles-dir "vendor"))
-(setq jpablobr-dir (concat dotfiles-dir "/jpablobr"))
+(setq jpablobr-dir (concat dotfiles-dir "/custom"))
 (setq misc-dir (concat dotfiles-dir "/vendor/misc"))
 (add-to-list 'load-path misc-dir)
 
@@ -45,6 +45,6 @@
 (shell)
 (jp-theme)
 (ibuffer)
-(message "nw-php.el loaded in %ds"
+(message "php-init.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)
            (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
