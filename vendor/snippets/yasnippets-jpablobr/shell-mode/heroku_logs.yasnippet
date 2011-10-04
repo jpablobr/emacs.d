@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: heroku_logs
+# --
+File.open('log/${1:env}.log', 'r').each_line { |line| puts line }

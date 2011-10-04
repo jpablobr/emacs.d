@@ -125,6 +125,7 @@
 (defun r-init ()
   "Ruby init default stuff."
   (interactive)
+  (jp-load-yasnippets)
   (magit-status "./")
   (cheat-fu-deft))
 

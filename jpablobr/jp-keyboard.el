@@ -97,7 +97,6 @@
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-c") 'ruby-compile-file)
-(global-set-key (kbd "M-r b") 'ibuffer)
 
 ;; C-C p -- Perforce bindings
 (global-set-key (kbd "C-C p e") 'p4-edit) ; pkg:perforce
