@@ -22,8 +22,7 @@ mv             = $(shell which mv)
 test           = $(shell which test)
 complile_files = $(emacs) -batch -f batch-byte-compile *.el
 
-r_links = https://raw.github.com/hron/yari.el/master/yari.el																													\
-					http://www.emacswiki.org/emacs/download/toggle.el																														\
+r_links = http://www.emacswiki.org/emacs/download/toggle.el																														\
 					https://raw.github.com/ruby/ruby/trunk/misc/inf-ruby.el																											\
 					https://raw.github.com/ruby/ruby/trunk/misc/rdoc-mode.el																										\
 					https://raw.github.com/ruby/ruby/trunk/misc/ruby-mode.el									                                  \

@@ -10,7 +10,7 @@
              (?k (file . ,(concat jpablobr-dir "/jp-keyboard.el")))
              (?m (file . ,(concat jpablobr-dir "/jp-misc.el")))
              (?d (file . ,(concat jpablobr-dir "/jp-defuns.el")))
-             (?j (file . ,(concat jpablobr-dir "/jpablobr-init.el")))
+             (?j (file . ,"~/.emacs.d/inits/jpablobr-init.el"))
              (?a (file . ,"~/.mp/bash/plugins/aliases"))
              (?c (file . ,"~/.mp/bash/config"))
              (?r (file . ,(concat jpablobr-dir "/jp-registers.el")))))

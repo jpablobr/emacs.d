@@ -42,9 +42,10 @@
   (require 'jp-anything)
   (load-file (concat jpablobr-dir "/jp-compile.el"))
   (require 'jp-compile)
+  (cheat-fu-deft)
   (jp-load-yasnippets)
   (magit-status "./")
-  (cheat-fu-deft))
+  (anything-for-files))
 
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff

@@ -121,4 +121,10 @@
    nil
    (lambda (x) "*Ruby Koans Path*")))
 
+(defun r-rhtml ()
+  "Load rhtml mode"
+  (interactive)
+  (add-to-list 'load-path (concat ruby-dir "/rhtml"))
+  (require 'rhtml-mode))
+
 (provide 'jp-ruby-helpers)

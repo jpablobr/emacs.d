@@ -1,19 +1,20 @@
 (setq ruby-dir (concat vendor-dir "/ruby"))
 (add-to-list 'load-path ruby-dir)
 (add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
-(add-to-list 'load-path (concat ruby-dir "/rhtml"))
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
 (load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
 (load-file (concat ruby-dir "/ruby-test-mode.el"))
 (load-file (concat ruby-dir "/testing.el"))
 (load-file (concat ruby-dir "/ruby-electric.el"))
+(load-file (concat ruby-dir "/rcodetools-0.8.5.0/rcodetools.el"))
+(load-file (concat ruby-dir "/rcodetools-0.8.5.0/icicles-rcodetools.el"))
+(load-file (concat ruby-dir "/rcodetools-0.8.5.0/anything-rcodetools.el"))
+
 (require 'rdebug)
-(require 'rhtml-mode)
 (require 'align)
 (require 'ruby-hacks)
 (require 'inf-ruby)
-(require 'yari)
 (require 'rails)
 (require 'jp-ruby-helpers)
 (require 'jp-rails-helpers)
@@ -22,14 +23,27 @@
 (require 'ruby-test-mode)'
 (require 'ruby-electric)'
 (require 'scss-mode)
+(require 'ruby-style)
+
+(require 'rcodetools)
+(require 'anything-rcodetools)
+(require 'icicles-rcodetools)
+(require 'auto-complete-ruby)
+;; Command to get all RI entries.
+(setq rct-get-all-methods-command "PAGER=cat fri -l")
+
+(require 'ruby-block)
+;; do overlay
+(setq ruby-block-highlight-toggle 'overlay)
+;; display to minibuffer
+(setq ruby-block-highlight-toggle 'minibuffer)
+;; display to minibuffer and do overlay
+(setq ruby-block-highlight-toggle t)
+
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'flymake-ruby "flymake-ruby" nil t)
 (autoload 'flymake-haml "flymake-haml" nil t)
-(autoload 'run-unit-tests "unit-test" "Unit Test mode" t)
-(autoload 'unit-test "unit-test" nil t)
 (autoload 'toggle "toggle" nil t)
-(autoload 'autotest-switch "autotest" nil t)
-(autoload 'autotest "autotest" nil t)
 
 ;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
@@ -57,6 +71,7 @@
              (set (make-local-variable 'tab-width) 2)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
+             (semantic-mode t)
              (r-ruby-complexity)
              (ruby-electric-mode t)
              (modify-syntax-entry ?! "w" (syntax-table))
@@ -68,6 +83,22 @@
              (when window-system
                (menu-bar-mode t))
              (inf-ruby-keys)
+             (ruby-block-mode t)
+            (make-local-variable 'ac-omni-completion-sources)
+            (setq ac-omni-completion-sources
+                  '(("\\.\\=" . (ac-source-rcodetools))))
+            (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
+            (add-to-list 'ac-sources 'ac-source-yasnippet)
+            (add-to-list 'ac-sources 'ac-source-rcodetools)
+            (add-to-list 'ac-sources 'ac-source-functions)
+            (add-to-list 'ac-sources 'ac-source-variables)
+            (add-to-list 'ac-sources 'ac-source-symbols)
+            (add-to-list 'ac-sources 'ac-source-semantic)
+            (add-to-list 'ac-sources 'ac-source-semantic-raw)
+            (add-to-list 'ac-sources 'ac-source-filename)
+            (add-to-list 'ac-sources 'ac-source-words-in-buffer)
+            (add-to-list 'ac-sources 'ac-source-slime)
+            (add-to-list 'ac-sources 'ac-source-features)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
             (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
             (define-key ruby-mode-map (kbd "C-c l") "lambda")

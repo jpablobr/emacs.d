@@ -2,6 +2,7 @@
 (lookup-key global-map "\C-x"); --> Control-X-prefix
 (define-key global-map "\C-[" 'Control-X-prefix)
 (define-key global-map "\M-x" 'execute-extended-command)
+(define-key global-map "\M-x" 'anything-M-x)
 (global-set-key (kbd "C-x \\") 'align-regexp)
 (global-set-key (kbd "M-=") 'dabbrev-expand)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
@@ -90,13 +91,16 @@
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta y)] 'yank-pop)
-(global-set-key (kbd "M-e") 'cua-set-rectangle-mark)
+(global-set-key (kbd "M-a") 'beginning-of-line)
+(global-set-key (kbd "M-e") 'end-of-line)
+(global-set-key (kbd "M-z") 'cua-set-rectangle-mark)
 (global-set-key (kbd "M-,") 'textmate-goto-symbol)
 (global-set-key (kbd "M-l") 'textmate-goto-file)
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-c") 'ruby-compile-file)
+(global-set-key (kbd "M-g") 'keyboard-quit)
 
 ;; C-C p -- Perforce bindings
 (global-set-key (kbd "C-C p e") 'p4-edit) ; pkg:perforce
