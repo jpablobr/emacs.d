@@ -61,21 +61,11 @@
 
 (require 'php-mode)
 
-;; (setq php-manual-path "/usr/share/doc/php-doc/ru"
-;;       php-manual-url (concat "file://" php-manual-path))
-
 (add-hook 'php-mode-hook '(lambda ()
 			    (flyspell-prog-mode)
 			    (c-toggle-auto-newline -1)
-			    ;; (turn-on-orgstruct)
-			    ;; (turn-on-orgtbl)
 			    (setq c-basic-offset 4
 				  indent-tabs-mode nil)))
-
-(require 'phpunit)
-;; Make clickalabe of standard PHP fatals too.
-(setq phpunit-regexp-alist (append phpunit-regexp-alist
-				   '(php)))
 
 (require 'flymake-php)
 (add-hook 'php-mode-hook '(lambda () (flymake-mode t)))

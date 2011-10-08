@@ -1,22 +1,43 @@
 ;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
 (lookup-key global-map "\C-x"); --> Control-X-prefix
 (define-key global-map "\C-[" 'Control-X-prefix)
-(define-key global-map "\M-x" 'execute-extended-command)
-(define-key global-map "\M-x" 'anything-M-x)
 (global-set-key (kbd "C-x \\") 'align-regexp)
-(global-set-key (kbd "M-=") 'dabbrev-expand)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 (global-set-key "\C-s" 'isearch-forward-regexp)
 (global-set-key "\C-r" 'isearch-backward-regexp)
-(global-set-key "\M-m" 'isearch-forward-at-point)
 (global-set-key "\C-\M-s" 'isearch-forward)
 (global-set-key "\C-\M-r" 'isearch-backward)
-(global-set-key (kbd "C-x u") 'view-url)
-(global-set-key (kbd "C-x h") 'mark-whole-buffer)
-(global-set-key (kbd "C-h a") 'apropos)
-(global-set-key (kbd "C-x g") 'magit-status)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-(global-set-key (kbd "C-x C-n") 'ibuffer)
+(global-set-key "\C-\M-r" 'isearch-backward)
+(define-key global-map "\M-x" 'execute-extended-command)
+(define-key global-map "\M-x" 'anything-M-x)
+(define-key global-map (kbd "M-;") 'anything-for-files)
+(global-set-key (kbd "M-=") 'dabbrev-expand)
+(global-set-key "\M-m" 'isearch-forward-at-point)
+(global-set-key "\M-m" 'isearch-forward-at-point)
+(global-set-key (kbd "M-=") 'dabbrev-expand)
+(global-set-key (kbd "M-q") 'org-cycle)
+(global-set-key (kbd "M-w") 'copy-region-as-kill)
+(global-set-key (kbd "M-\d") 'backward-kill-word)
+(global-set-key (kbd "M-d") 'kill-word)
+(global-set-key (kbd "C-x b") 'ibuffer)
+(global-set-key (kbd "C-x C-s") 'save-buffer)
+(global-set-key (kbd "M-a") 'beginning-of-line)
+(global-set-key (kbd "M-e") 'end-of-line)
+(global-set-key (kbd "M-z") 'cua-set-rectangle-mark)
+(global-set-key (kbd "M-,") 'textmate-goto-symbol)
+(global-set-key (kbd "M-l") 'textmate-goto-file)
+(global-set-key (kbd "M-f") 'forward-word)
+(global-set-key (kbd "M-b") 'backward-word)
+(global-set-key (kbd "M-s") 'save-buffer)
+(global-set-key (kbd "M-c") 'ruby-compile-file)
+(global-set-key (kbd "M-g") 'keyboard-quit)
+(global-set-key "\M-." 'anything-c-etags-select)
+(global-set-key [(meta j)] 'fill-region)
+(global-set-key [(meta up)] 'beginning-of-buffer)
+(global-set-key [(meta down)] 'end-of-buffer)
+(global-set-key [(meta p)] 'beginning-of-buffer)
+(global-set-key [(meta n)] 'end-of-buffer)
+(global-set-key [(meta y)] 'yank-pop)
 
 ;; Texmate mode
 (global-set-key [(meta \])] 'textmate-shift-right)
@@ -79,59 +100,5 @@
 (global-set-key (kbd "C-l tm") 't-anything-min)
 (global-set-key (kbd "C-l ss") 'synonym-s)
 (global-set-key (kbd "C-l st") 'test-sh-script)
-(global-set-key (kbd "M-q") 'org-cycle)
-(global-set-key (kbd "M-w") 'copy-region-as-kill)
-(global-set-key (kbd "M-\d") 'backward-kill-word)
-(global-set-key (kbd "M-d") 'kill-word)
-(global-set-key (kbd "C-x b") 'ibuffer)
-(global-set-key (kbd "C-x C-s") 'save-buffer)
-(global-set-key [(meta j)] 'fill-region)
-(global-set-key [(meta up)] 'beginning-of-buffer)
-(global-set-key [(meta down)] 'end-of-buffer)
-(global-set-key [(meta p)] 'beginning-of-buffer)
-(global-set-key [(meta n)] 'end-of-buffer)
-(global-set-key [(meta y)] 'yank-pop)
-(global-set-key (kbd "M-a") 'beginning-of-line)
-(global-set-key (kbd "M-e") 'end-of-line)
-(global-set-key (kbd "M-z") 'cua-set-rectangle-mark)
-(global-set-key (kbd "M-,") 'textmate-goto-symbol)
-(global-set-key (kbd "M-l") 'textmate-goto-file)
-(global-set-key (kbd "M-f") 'forward-word)
-(global-set-key (kbd "M-b") 'backward-word)
-(global-set-key (kbd "M-s") 'save-buffer)
-(global-set-key (kbd "M-c") 'ruby-compile-file)
-(global-set-key (kbd "M-g") 'keyboard-quit)
-
-;; C-C p -- Perforce bindings
-(global-set-key (kbd "C-C p e") 'p4-edit) ; pkg:perforce
-(global-set-key (kbd "C-C p r") 'p4-revert) ; pkg:perforce
-(global-set-key (kbd "C-C p s") 'p4-sync-code-buffers) ; pkg:perforce
-(global-set-key (kbd "C-C p v") 'p4-env) ; pkg:perforce
-
-;;; C-C t -- Testing Commands
-(global-set-key (kbd "C-C t F")    'jw-run-last-test-or-spec-file) ; pkg:testing
-(global-set-key (kbd "C-C t M")    'jw-run-last-test-or-spec-method) ; pkg:testing
-(global-set-key (kbd "C-C t c")    'jw-run-test-cruise) ; pkg:testing
-(global-set-key (kbd "C-C t f")    'jw-run-test-or-spec-file) ; pkg:testing
-(global-set-key (kbd "C-C t i")    'jw-run-test-integration) ; pkg:testing
-(global-set-key (kbd "C-C t l")    'jw-run-test-functionals) ; pkg:testing
-(global-set-key (kbd "C-C t m")    'jw-run-test-or-spec-method) ; pkg:testing
-(global-set-key (kbd "C-C t r")    'jw-run-test-rake) ; pkg:testing
-(global-set-key (kbd "C-C t s")    'toggle-style) ; pkg:testing
-(global-set-key (kbd "C-C t t")    'jw-mark-for-testing) ; pkg:testing
-(global-set-key (kbd "C-C t u")    'jw-run-test-units) ; pkg:testing
-(global-set-key (kbd "C-C t w")    'jw-test-toggle-warnings) ; pkg:testing
-
-(global-set-key (kbd "C-C t C-f")  'jw-run-last-test-or-spec-file) ; pkg:testing
-(global-set-key (kbd "C-C t C-m")  'jw-run-last-test-or-spec-method) ; pkg:testing
-(global-set-key (kbd "C-C t C-t") 'jw-toggle-clear-buffer-styles) ; pkg:testing
-(global-set-key (kbd "C-C t C-s") 'toggle-debug) ; pkg:testing
-
-(global-set-key (kbd "C-C t 1") (lambda () (interactive) (setq jw-test-single-window t))) ; pkg:testing
-(global-set-key (kbd "C-C t 2") (lambda () (interactive) (setq jw-test-single-window nil))) ; pkg:testing
-
-;;you can use  C-uM-. input symbol (default thing-at-point 'symbol)
-(define-key global-map (kbd "M-;") 'anything-for-files)
-(global-set-key "\M-." 'anything-c-etags-select)
 
 (provide 'jp-keyboard)
