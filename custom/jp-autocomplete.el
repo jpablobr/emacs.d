@@ -18,12 +18,14 @@
 
 (set-default 'ac-sources '( ac-source-yasnippet
                             ac-source-filename
-                            ;; ac-source-functions
-                            ;; ac-source-variables
-                            ;; ac-source-symbols
-                            ;; ac-source-features
-                            ;; ac-source-abbrev
+                            ac-source-functions
+                            ac-source-variables
+                            ac-source-symbols
+                            ac-source-features
+                            ac-source-abbrev
                             ac-source-words-in-same-mode-buffers
+                            ac-source-semantic
+                            ac-source-semantic-raw
                             ac-source-dictionary))
 
 (setq ac-modes

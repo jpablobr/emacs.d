@@ -421,4 +421,36 @@ Current buffer goes to first position."
           (set-window-start w2 s1)
           (other-window 1)))))
 
+(defconst find-errors-pattern "^[][A-Za-z0-9*+@#%^&=?:;./_- ]*\\$")
+
+(defun find-errors ()
+  "Find the Errors in the current shell buffer."
+  (interactive)
+  (save-excursion
+    (re-search-backward find-errors-pattern)
+    (set-mark (point))
+    (re-search-backward find-errors-pattern)
+    (find-errors-in-region)
+    (next-error '(4)))
+ )
+
+(defun find-errors-in-region ()
+  "Use highlighted errors as compile errors."
+  (interactive)
+  (copy-region-as-kill (region-beginning) (region-end))
+  (goto-char (point-max))
+  (let ((oldbuf (get-buffer "*shell errors*")))
+    (if oldbuf (kill-buffer oldbuf)))
+  (let ((outbuf (get-buffer-create "*shell errors*")) )
+    (switch-to-buffer outbuf)
+    (insert-string "\n\n\n\n")
+    (yank)
+    (setq compilation-last-buffer outbuf)
+    (compilation-mode) ))
+
+(defun refresh ()
+  "Refresh the current buffer from disk"
+  (interactive)
+  (revert-buffer t t) )
+
 (provide 'jp-defuns)

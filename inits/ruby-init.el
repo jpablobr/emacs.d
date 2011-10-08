@@ -44,7 +44,6 @@
   (require 'jp-compile)
   (cheat-fu-deft)
   (jp-load-yasnippets)
-  (magit-status "./")
   (anything-for-files))
 
 ;; ---------------------------------------------------------------------

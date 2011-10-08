@@ -1,21 +1,18 @@
 (setq ruby-dir (concat vendor-dir "/ruby"))
 (add-to-list 'load-path ruby-dir)
-(add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
+;; (add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
 (load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
 (load-file (concat ruby-dir "/ruby-test-mode.el"))
 (load-file (concat ruby-dir "/testing.el"))
 (load-file (concat ruby-dir "/ruby-electric.el"))
-(load-file (concat ruby-dir "/rcodetools-0.8.5.0/rcodetools.el"))
-(load-file (concat ruby-dir "/rcodetools-0.8.5.0/icicles-rcodetools.el"))
-(load-file (concat ruby-dir "/rcodetools-0.8.5.0/anything-rcodetools.el"))
 
 (require 'rdebug)
 (require 'align)
 (require 'ruby-hacks)
 (require 'inf-ruby)
-(require 'rails)
+;; (require 'rails)
 (require 'jp-ruby-helpers)
 (require 'jp-rails-helpers)
 (require 'ruby-comint)
@@ -24,13 +21,6 @@
 (require 'ruby-electric)'
 (require 'scss-mode)
 (require 'ruby-style)
-
-(require 'rcodetools)
-(require 'anything-rcodetools)
-(require 'icicles-rcodetools)
-(require 'auto-complete-ruby)
-;; Command to get all RI entries.
-(setq rct-get-all-methods-command "PAGER=cat fri -l")
 
 (require 'ruby-block)
 ;; do overlay
@@ -84,26 +74,11 @@
                (menu-bar-mode t))
              (inf-ruby-keys)
              (ruby-block-mode t)
-            (make-local-variable 'ac-omni-completion-sources)
-            (setq ac-omni-completion-sources
-                  '(("\\.\\=" . (ac-source-rcodetools))))
-            (add-to-list 'ac-sources 'ac-source-words-in-same-mode-buffers)
-            (add-to-list 'ac-sources 'ac-source-yasnippet)
-            (add-to-list 'ac-sources 'ac-source-rcodetools)
-            (add-to-list 'ac-sources 'ac-source-functions)
-            (add-to-list 'ac-sources 'ac-source-variables)
-            (add-to-list 'ac-sources 'ac-source-symbols)
-            (add-to-list 'ac-sources 'ac-source-semantic)
-            (add-to-list 'ac-sources 'ac-source-semantic-raw)
-            (add-to-list 'ac-sources 'ac-source-filename)
-            (add-to-list 'ac-sources 'ac-source-words-in-buffer)
-            (add-to-list 'ac-sources 'ac-source-slime)
-            (add-to-list 'ac-sources 'ac-source-features)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
-            (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-            (define-key ruby-mode-map (kbd "C-c l") "lambda")
-            (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)
-            (local-set-key (kbd "<return>") 'newline-and-indent)))
+             (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
+             (define-key ruby-mode-map (kbd "C-c l") "lambda")
+             (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)
+             (local-set-key (kbd "<return>") 'newline-and-indent)))
 
 (add-hook 'haml-mode-hook 'flymake-haml-load)
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
@@ -113,9 +88,9 @@
 ;;----------------------------------------------------------------------
 ;; - Hide/Show modes
 (add-to-list 'hs-special-modes-alist
-	     '(ruby-mode
-	       "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
-	       (lambda (arg) (ruby-end-of-block)) nil))
+             '(ruby-mode
+               "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
+               (lambda (arg) (ruby-end-of-block)) nil))
 
 ;;----------------------------------------------------------------------
 ;; - jp-haml.el

@@ -43,6 +43,7 @@
 
 ;; ---------------------------------------------------------------------
 ;; - Startup
+(fullscreen-toggle)
 (menu-bar-mode 0)
 (shell)
 (setq deft-extension "md")
@@ -51,7 +52,8 @@
 (deft)
 (cheat-fu-deft)
 (setq initial-scratch-message nil)
-(fullscreen-toggle)
+(cd "~/")
+(anything-for-files)
 (server-start)
 (message "nw-jpablobr.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)
