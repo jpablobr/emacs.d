@@ -16,16 +16,16 @@
 (define-key ac-complete-mode-map "\C-n" 'ac-next)
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
 
-(set-default 'ac-sources '( ac-source-yasnippet
+(set-default 'ac-sources '( ;; ac-source-functions
+                            ;; ac-source-variables
+                            ;; ac-source-symbols
+                            ;; ac-source-features
+                            ;; ac-source-abbrev
+                            ;; ac-source-semantic
+                            ;; ac-source-semantic-raw
+                            ac-source-yasnippet
                             ac-source-filename
-                            ac-source-functions
-                            ac-source-variables
-                            ac-source-symbols
-                            ac-source-features
-                            ac-source-abbrev
                             ac-source-words-in-same-mode-buffers
-                            ac-source-semantic
-                            ac-source-semantic-raw
                             ac-source-dictionary))
 
 (setq ac-modes
