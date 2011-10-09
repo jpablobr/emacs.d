@@ -13,7 +13,6 @@
 (define-key global-map (kbd "M-;") 'anything-for-files)
 (global-set-key (kbd "M-=") 'dabbrev-expand)
 (global-set-key "\M-m" 'isearch-forward-at-point)
-(global-set-key "\M-m" 'isearch-forward-at-point)
 (global-set-key (kbd "M-=") 'dabbrev-expand)
 (global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)

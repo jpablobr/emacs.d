@@ -19,6 +19,10 @@
 (require 'jp-keyboard)
 (load-file (concat jpablobr-dir "/jp-eshell.el"))
 (require 'jp-eshell)
+(load-file (concat jpablobr-dir "/jp-autocomplete.el"))
+(require 'jp-autocomplete)
+(load-file (concat jpablobr-dir "/jp-anything.el"))
+(require 'jp-anything)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -36,22 +40,17 @@
   (require 'jp-yaml)
   (load-file (concat jpablobr-dir "/jp-markdown.el"))
   (require 'jp-markdown)
-  (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
-  (require 'jp-autocomplete)
-  (load-file (concat jpablobr-dir "/jp-anything.el"))
-  (require 'jp-anything)
   (load-file (concat jpablobr-dir "/jp-compile.el"))
   (require 'jp-compile)
   (cheat-fu-deft)
-  (jp-load-yasnippets)
-  (anything-for-files))
+  (jp-load-yasnippets))
 
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
 (setq initial-scratch-message nil)
 (cd "./")
-(ibuffer)
 (shell)
+(anything-for-files)
 (fullscreen-toggle)
 (message "ruby-init.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)
