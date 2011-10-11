@@ -77,6 +77,22 @@
  nxml-degraded t)
 (add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo))
 
+(eval-after-load "mmm-vars"
+  '(progn
+     (mmm-add-classes
+      '((eruby :submode ruby-mode :front "<%[#=]?" :back "-?%>"
+               :match-face (("<%#" . mmm-comment-submode-face)
+                            ("<%=" . mmm-output-submode-face)
+                            ("<%"  . mmm-code-submode-face))
+               :insert ((?% erb-code       nil @ "<%"  @ " " _ " " @ "%>" @)
+                        (?# erb-comment    nil @ "<%#" @ " " _ " " @ "%>" @)
+                        (?= erb-expression nil @ "<%=" @ " " _ " " @ "%>" @)))))
+     (dolist (mode (list 'html-mode 'nxml-mode))
+       (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?$" 'eruby))
+     (mmm-add-mode-ext-class 'yaml-mode "\\.yaml$" 'eruby)
+     (dolist (mode (list 'js-mode 'js2-mode))
+       (mmm-add-mode-ext-class mode "\\.js\\.erb$" 'eruby))))
+
 ;(require 'mumamo-fun)
 ;(setq mumamo-chunk-coloring 'submode-colored)
 ;(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-html-mumamo))

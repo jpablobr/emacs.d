@@ -42,6 +42,7 @@
   (require 'jp-markdown)
   (load-file (concat jpablobr-dir "/jp-compile.el"))
   (require 'jp-compile)
+  (r-rhtml)
   (cheat-fu-deft)
   (jp-load-yasnippets))
 

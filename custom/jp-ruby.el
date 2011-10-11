@@ -25,12 +25,11 @@
 (require 'rinari)
 
 (require 'ruby-block)
-;; do overlay
-(setq ruby-block-highlight-toggle 'overlay)
+;; (setq ruby-block-highlight-toggle 'overlay)
 ;; display to minibuffer
-(setq ruby-block-highlight-toggle 'minibuffer)
+;; (setq ruby-block-highlight-toggle 'minibuffer)
 ;; display to minibuffer and do overlay
-(setq ruby-block-highlight-toggle t)
+;; (setq ruby-block-highlight-toggle t)
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'flymake-ruby "flymake-ruby" nil t)
