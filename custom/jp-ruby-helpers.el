@@ -68,6 +68,23 @@
   (ruby-indent-line t)
   (end-of-line))
 
+(setq
+ nxhtml-global-minor-mode t
+ mumamo-chunk-coloring 'submode-colored
+ nxhtml-skip-welcome t
+ indent-region-mode t
+ rng-nxml-auto-validate-flag nil
+ nxml-degraded t)
+(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo))
+
+;(require 'mumamo-fun)
+;(setq mumamo-chunk-coloring 'submode-colored)
+;(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-html-mumamo))
+;(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-html-mumamo))
+
+(add-hook 'rhtml-mode-hook
+					(lambda () (rinari-launch)))
+
 ;;; Auto loads -------------------------------------------------------
 
 (add-hook 'ruby-mode-hook 'font-lock-fontify-buffer)

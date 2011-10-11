@@ -17,7 +17,7 @@
 
     (ansi-color-for-comint-mode-on)
     (compilation-shell-minor-mode 1)
-    (comint-send-string buffer (concat "passenger start -p 8080 -e development" "\n"))))
+    (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
 
 (defun rr-console:start ()
   "Fire up a rails console"

@@ -50,7 +50,6 @@
 (setq initial-scratch-message nil)
 (cd "./")
 (shell)
-(anything-for-files)
 (fullscreen-toggle)
 (message "ruby-init.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)
