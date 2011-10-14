@@ -1,5 +1,5 @@
 #name : t.text
 #key : tt
-#condition : (rails/migration?)
+#condition : (ruby/migration?)
 # --
 t.text :${1:name}

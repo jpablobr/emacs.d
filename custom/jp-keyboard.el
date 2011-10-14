@@ -30,6 +30,7 @@
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-c") 'ruby-compile-file)
 (global-set-key (kbd "M-g") 'keyboard-quit)
+(global-set-key (kbd "M-r") 'isearch-forward)
 (global-set-key "\M-." 'anything-c-etags-select)
 (global-set-key [(meta j)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
