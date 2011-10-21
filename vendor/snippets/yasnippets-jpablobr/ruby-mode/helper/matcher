@@ -1,26 +1,13 @@
-#name : RSpec matcher
+# -*- mode: ruby; require-final-newline: nil; backup-inhibited: t -*-
+#name : rspec matcher
 # --
-class ${1:ReverseTo}
-  def initialize($3)
-    @$3 = $3
-  end
+module RSpec::Matchers
+  matcher :${1:matcher_name} do |${2:expected}|
+    match do |${3:actual}|
+      $0
+    end
 
-  def matches?(actual)
-    @actual = actual
-    # Satisfy expectation here. Return false or raise an error if it's not met.
-    ${0:@actual.reverse.should == @$3}
-    true
+    # failure_message_for_should do |expected| ... end
+    # failure_message_for_should_not do |expected| ... end
   end
-
-  def failure_message
-    "expected #{@actual.inspect} to $2 #{@$3.inspect}, but it didn't"
-  end
-
-  def negative_failure_message
-    "expected #{@actual.inspect} not to $2 #{@$3.inspect}, but it did"
-  end
-end
-
-def ${2:reverse_to}(${3:expected})
-  $1.new($3)
 end

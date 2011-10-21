@@ -47,7 +47,9 @@
 ;;; Code:
 
 (defcustom rvm-executable
-  (or (executable-find "rvm") "~/.rvm/bin/rvm")
+  (or (executable-find "rvm")
+      (and (file-readable-p "~/.rvm/bin/rvm") "~/.rvm/bin/rvm")
+      (and (file-readable-p "/usr/local/rvm/bin/rvm") "/usr/local/rvm/bin/rvm"))
   "Location of RVM executable."
   :group 'rvm
   :type 'file)
@@ -309,7 +311,7 @@ If no .rvmrc file is found, the default ruby is used insted."
   (car (rvm/list t)))
 
 (defun rvm-working-p ()
-  (file-exists-p rvm-executable))
+  (and rvm-executable (file-exists-p rvm-executable)))
 
 (defun rvm--default-gemset-p (gemset)
   (string= gemset rvm--gemset-default))

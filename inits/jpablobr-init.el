@@ -41,6 +41,8 @@
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
 
+(custom-set-faces '(mode-line ((t (:foreground "#94bff3" :background "#5f5f5f")))))
+
 ;; ---------------------------------------------------------------------
 ;; - Startup
 (fullscreen-toggle)
@@ -50,10 +52,8 @@
 (setq deft-directory "~/.private/notes")
 (setq deft-text-mode 'markdown-mode)
 (deft)
-(cheat-fu-deft)
 (setq initial-scratch-message nil)
 (cd "~/")
-(anything-for-files)
 (server-start)
 (message "nw-jpablobr.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)

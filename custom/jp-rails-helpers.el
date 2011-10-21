@@ -20,9 +20,9 @@
     (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
 
 (defun rr-console:start ()
-  "Fire up a rails console"
+  "Fire up a Rails Console"
   (interactive)
-  (let ((buffer (shell "*console*")))
+  (let ((buffer (shell "*Rails Console*")))
 
     (set (make-local-variable 'comint-output-filter-functions)
          '(comint-truncate-buffer

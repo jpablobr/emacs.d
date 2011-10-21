@@ -135,9 +135,9 @@
 (defface egoge-display-time
   '((((type x w32 mac))
      ;; #060525 is the background colour of my default face.
-     (:foreground "green" :inherit bold))
+     (:foreground "#7f9f7f" :inherit bold))
     (((type tty))
-     (:foreground "green")))
+     (:foreground "#7f9f7f")))
   "Face used to display the time in the mode line.")
 
 ;; This causes the current time in the mode line to be displayed in
@@ -220,7 +220,7 @@
 (require 'cheat-fu-deft)
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
-;; (setq debug-on-error t)
+(setq debug-on-error t)
 
 (autoload 'doc-mode "doc-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
@@ -231,6 +231,5 @@
     (require 'asciidoc)))
 (autoload 'asciidoc-mode "asciidoc-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.asciidoc$" . asciidoc-mode))
-(add-to-list 'auto-mode-alist '("\\.asc$" . asciidoc-mode))
 
 (provide 'jp-misc)

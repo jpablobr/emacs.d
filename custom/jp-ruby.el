@@ -1,7 +1,7 @@
 (setq ruby-dir (concat vendor-dir "/ruby"))
 (add-to-list 'load-path ruby-dir)
 ;; (add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
-(add-to-list 'load-path (concat ruby-dir "/rinari"))
+;; (add-to-list 'load-path (concat ruby-dir "/rinari"))
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
 (load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
@@ -13,7 +13,6 @@
 (require 'align)
 (require 'ruby-hacks)
 (require 'inf-ruby)
-;; (require 'rails)
 (require 'jp-ruby-helpers)
 (require 'jp-rails-helpers)
 (require 'ruby-comint)
@@ -22,14 +21,6 @@
 (require 'ruby-electric)'
 (require 'scss-mode)
 (require 'ruby-style)
-(require 'rinari)
-
-(require 'ruby-block)
-;; (setq ruby-block-highlight-toggle 'overlay)
-;; display to minibuffer
-;; (setq ruby-block-highlight-toggle 'minibuffer)
-;; display to minibuffer and do overlay
-;; (setq ruby-block-highlight-toggle t)
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'flymake-ruby "flymake-ruby" nil t)
@@ -74,7 +65,6 @@
              (when window-system
                (menu-bar-mode t))
              (inf-ruby-keys)
-             (ruby-block-mode t)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "C-c l") "lambda")
