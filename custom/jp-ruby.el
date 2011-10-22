@@ -5,8 +5,8 @@
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
 (load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
-(load-file (concat ruby-dir "/ruby-test-mode.el"))
-(load-file (concat ruby-dir "/testing.el"))
+;; (load-file (concat ruby-dir "/ruby-test-mode.el"))
+;; (load-file (concat ruby-dir "/testing.el"))
 (load-file (concat ruby-dir "/ruby-electric.el"))
 
 (require 'rdebug)
@@ -16,8 +16,8 @@
 (require 'jp-ruby-helpers)
 (require 'jp-rails-helpers)
 (require 'ruby-comint)
-(require 'testing)'
-(require 'ruby-test-mode)'
+;; (require 'testing)'
+;; (require 'ruby-test-mode)'
 (require 'ruby-electric)'
 (require 'scss-mode)
 (require 'ruby-style)
@@ -75,13 +75,6 @@
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 (setq scss-compile-at-save nil)
 (setq rdebug-short-key-mode t)
-
-;;----------------------------------------------------------------------
-;; - Hide/Show modes
-(add-to-list 'hs-special-modes-alist
-             '(ruby-mode
-               "\\(def\\|do\\|{\\)" "\\(end\\|end\\|}\\)" "#"
-               (lambda (arg) (ruby-end-of-block)) nil))
 
 ;;----------------------------------------------------------------------
 ;; - jp-haml.el

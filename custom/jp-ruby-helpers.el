@@ -150,7 +150,7 @@
   "Run the current buffer in a ruby subprocess."
   (interactive)
   (compilation-start
-   (concat "/usr/bin/env ruby " "./path_to_enlightenment.rb")
+   (concat "/usr/bin/env ruby " "~/code/ruby/ruby_koans/koans/path_to_enlightenment.rb")
    nil
    (lambda (x) "*Ruby Koans Path*")))
 

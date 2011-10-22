@@ -33,6 +33,8 @@
 (require 'jp-anything)
 (load-file (concat jpablobr-dir "/jp-compile.el"))
 (require 'jp-compile)
+(load-file "~/.private/.jp-private.el")
+(require 'jp-private)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.

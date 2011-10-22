@@ -1,7 +1,7 @@
 (require 'thingatpt)
 (require 'imenu)
 
-(add-to-list 'load-path (concat misc-dir "/icicles"))
+;; (add-to-list 'load-path (concat misc-dir "/icicles"))
 (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
 (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
 
@@ -165,8 +165,8 @@
 
 ;; ---------------------------------------------------------------------
 ;; - Icicles
-(require 'icicles)
-(icy-mode t)
+;; (require 'icicles)
+;; (icy-mode t)
 
 ;; ---------------------------------------------------------------------
 ;; - Word Count
@@ -231,5 +231,8 @@
     (require 'asciidoc)))
 (autoload 'asciidoc-mode "asciidoc-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.asciidoc$" . asciidoc-mode))
+
+(setq uniquify-buffer-name-style 'forward)
+(require 'uniquify)
 
 (provide 'jp-misc)
