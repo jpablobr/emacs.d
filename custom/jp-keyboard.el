@@ -12,7 +12,6 @@
 (global-set-key (kbd "M-=") 'dabbrev-expand)
 (global-set-key "\M-m" 'isearch-forward-at-point)
 (global-set-key (kbd "M-=") 'dabbrev-expand)
-(global-set-key (kbd "M-q") 'org-cycle)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key (kbd "M-\d") 'backward-kill-word)
 (global-set-key (kbd "M-d") 'kill-word)
@@ -28,6 +27,7 @@
 (global-set-key (kbd "M-s") 'save-buffer)
 (global-set-key (kbd "M-c") 'ruby-compile-file)
 (global-set-key (kbd "M-g") 'keyboard-quit)
+(global-set-key (kbd "M-q") 'find-file)
 (global-set-key "\M-." 'anything-c-etags-select)
 (global-set-key [(meta j)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
@@ -64,7 +64,6 @@
 (global-set-key (kbd "C-l el") 'ecb-goto-window-edit-last)
 (global-set-key (kbd "C-l ea") 'ecb-goto-window-analyse)
 ;;; ecb
-(global-set-key (kbd "C-l ff") 'find-file)
 (global-set-key (kbd "C-l fl") 'beginning-of-buffer)
 (global-set-key (kbd "C-l fg") 'find-grep)
 (global-set-key (kbd "C-l gt") 'register-to-point)

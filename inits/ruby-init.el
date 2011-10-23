@@ -23,6 +23,14 @@
 (require 'jp-autocomplete)
 (load-file (concat jpablobr-dir "/jp-anything.el"))
 (require 'jp-anything)
+(load-file (concat jpablobr-dir "/jp-registers.el"))
+(require 'jp-registers)
+(load-file (concat jpablobr-dir "/jp-yaml.el"))
+(require 'jp-yaml)
+(load-file (concat jpablobr-dir "/jp-markdown.el"))
+(require 'jp-markdown)
+(load-file (concat jpablobr-dir "/jp-compile.el"))
+(require 'jp-compile)
 
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
@@ -30,20 +38,6 @@
 (require 'jp-yasnippet)
 (load-file (concat jpablobr-dir "/jp-hippie.el"))
 (require 'jp-hippie)
-
-(defun r-init ()
-  "Ruby init default stuff."
-  (interactive)
-  (load-file (concat jpablobr-dir "/jp-registers.el"))
-  (require 'jp-registers)
-  (load-file (concat jpablobr-dir "/jp-yaml.el"))
-  (require 'jp-yaml)
-  (load-file (concat jpablobr-dir "/jp-markdown.el"))
-  (require 'jp-markdown)
-  (load-file (concat jpablobr-dir "/jp-compile.el"))
-  (require 'jp-compile)
-  (r-rhtml)
-  (jp-load-yasnippets))
 
 ;; ---------------------------------------------------------------------
 ;; Base rails pre-loading env stuff
