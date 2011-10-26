@@ -1,7 +1,5 @@
 (setq ruby-dir (concat vendor-dir "/ruby"))
 (add-to-list 'load-path ruby-dir)
-;; (add-to-list 'load-path (concat ruby-dir "/emacs-rails"))
-;; (add-to-list 'load-path (concat ruby-dir "/rinari"))
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
 (load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))

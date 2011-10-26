@@ -98,9 +98,6 @@
 ;(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-html-mumamo))
 ;(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-html-mumamo))
 
-(add-hook 'rhtml-mode-hook
-					(lambda () (rinari-launch)))
-
 ;;; Auto loads -------------------------------------------------------
 
 (add-hook 'ruby-mode-hook 'font-lock-fontify-buffer)
@@ -159,21 +156,6 @@
   (interactive)
   (add-to-list 'load-path (concat ruby-dir "/rhtml"))
   (require 'rhtml-mode))
-
-(defvar ruby-debugging-regex "DBG:"
-  "Regex that matches debuggin statments.")
-
-(defun r-find-debugging (&optional arg)
-  "Search through the rails project for a debug statemens"
-  (interactive)
-  (grep-compute-defaults)
-  (if arg (call-interactively 'rgrep)
-    (let ((query))
-      (if mark-active
-          (setq query (buffer-substring-no-properties (point) (mark)))
-        (setq query (thing-at-point 'word)))
-      (funcall 'rgrep ruby-debugging-regex
-               rinari-rgrep-file-endings (rinari-root)))))
 
 (add-hook 'ruby-mode-common-hook
           '(lambda ()

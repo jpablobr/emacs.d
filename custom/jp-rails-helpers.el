@@ -45,26 +45,6 @@
 	nil
       (find-rails-root (expand-file-name (concat dir "../"))))))
 
-(defun rr-routes ()
-  (interactive)
-  (find-file (concat (find-rails-root) "/config/routes.rb")))
-
-(defun rr-schema ()
-  (interactive)
-  (find-file (concat (find-rails-root) "/db/schema.rb")))
-
-(defun rr-dot-rvmrc ()
-  (interactive)
-  (find-file (concat (find-rails-root) "/.rvmrc")))
-
-(defun rr-gemfile ()
-  (interactive)
-  (find-file (concat (find-rails-root) "/Gemfile")))
-
-(defun rr-readme ()
-  (interactive)
-  (find-file (concat (find-rails-root) "/readme.md")))
-
 (defun rr-init()
   "Rails init default stuff."
   (interactive)

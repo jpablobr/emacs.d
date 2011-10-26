@@ -220,7 +220,7 @@
 (require 'cheat-fu-deft)
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
-(setq debug-on-error t)
+;; (setq debug-on-error t)
 
 (autoload 'doc-mode "doc-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
