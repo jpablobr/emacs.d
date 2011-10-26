@@ -91,13 +91,6 @@ Delete the current buffer too."
   (w3m-browse-url (concat "http://www.thefreedictionary.com/"
                           (w3m-url-encode-string what))))
 
-(defun github-s (what)
-  "Use github to search for WHAT."
-  (interactive "sSearch: ")
-  (setq myword (replace-regexp-in-string " " "%20" what))
-  (setq myurl (concat "https://github.com/search?q=" myword))
-  (browse-url myurl))
-
 (defun google-s ()
   "Google search on current region.\n"
   (interactive)
@@ -163,7 +156,7 @@ Delete the current buffer too."
 ;;; --------------------------------------------------------------------
 ;;; - ERC
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl" "#github")))
+      '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl" "#github" "#rubinius")))
 
 (defun erc-connect ()
   "Default ERC stuff."
@@ -259,25 +252,6 @@ Delete the current buffer too."
    nil
    password))
 
-;; Courtesy of Steve Yegge (http://steve.yegge.googlepages.com/my-dot-emacs-file)
-(defun swap-windows ()
- "If you have 2 windows, it swaps them."
- (interactive)
- (cond ((not (= (count-windows) 2))
-        (message "You need exactly 2 windows to do this."))
-       (t
-        (let* ((w1 (first (window-list)))
-               (w2 (second (window-list)))
-               (b1 (window-buffer w1))
-               (b2 (window-buffer w2))
-               (s1 (window-start w1))
-               (s2 (window-start w2)))
-          (set-window-buffer w1 b2)
-          (set-window-buffer w2 b1)
-          (set-window-start w1 s2)
-          (set-window-start w2 s1)
-          (other-window 1)))))
-
 (defun ecb-init-stuff ()
   "Load ECB stuff..."
   (interactive)
@@ -331,14 +305,6 @@ Delete the current buffer too."
      anything-c-source-etags-select)
    " *jp-anything*"))
 
-(defun t-anything-min ()
-  (interactive)
-  (anything-other-buffer
-   '(anything-c-source-buffers
-     anything-c-source-file-name-history
-     anything-c-source-etags-select)
-   " *jp-anything-min*"))
-
 (defun t-linum  ()
   "Toggle linum mode"
   (interactive)
@@ -359,98 +325,5 @@ Delete the current buffer too."
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
                                            nil
                                          'fullboth)))
-
-;;; Window Swapping ==================================================
-
-(defun jw-minibuffer-window-p (win)
-  (and win
-       (string-match "Minibuf" (buffer-name (window-buffer win)))))
-
-(defun jw-window-at-origin ()
-  (window-at 0 0))
-
-(defun jw-neighbor-window (win)
-  "Return a neighboring window to WIN.
-Prefer windows on the right to those below.  Might return the minibuffer."
-  (let* ((edges (window-edges win))
-         (left (caddr edges))
-         (bottom (cadddr edges)))
-    (cond ((window-at left 0))
-          ((window-at 0 bottom)))))
-
-(defun jw-neighbor-edit-window (win)
-  "Return a neighboring edit window to WIN.
-Never returns the minibuffer."
-  (let ((neighbor (jw-neighbor-window win)))
-    (if (jw-minibuffer-window-p neighbor)
-        nil
-      neighbor)))
-
-(defun jw-neighboring-windows (buf1 buf2)
-  (let* ((w1 (jw-window-at-origin))
-         (w2 (jw-neighbor-edit-window w1)))
-    (set-window-buffer w1 buf1)
-    (set-window-buffer w2 buf2)
-    (select-window w2)))
-
-(defun jw-push-buffer (buffer)
-  "Push a new buffer onto the screen.
-Current buffer goes to first position."
-  (if (= 2 (count-windows))
-      (jw-neighboring-windows
-       (window-buffer (selected-window))
-       buffer)
-    (switch-to-buffer buffer)))
-
-;; Courtesy of Steve Yegge (http://steve.yegge.googlepages.com/my-dot-emacs-file)
-(defun jw-swap-windows ()
- "If you have 2 windows, it swaps them."
- (interactive)
- (cond ((not (= (count-windows) 2))
-        (message "You need exactly 2 windows to do this."))
-       (t
-        (let* ((w1 (first (window-list)))
-               (w2 (second (window-list)))
-               (b1 (window-buffer w1))
-               (b2 (window-buffer w2))
-               (s1 (window-start w1))
-               (s2 (window-start w2)))
-          (set-window-buffer w1 b2)
-          (set-window-buffer w2 b1)
-          (set-window-start w1 s2)
-          (set-window-start w2 s1)
-          (other-window 1)))))
-
-(defconst find-errors-pattern "^[][A-Za-z0-9*+@#%^&=?:;./_- ]*\\$")
-
-(defun find-errors ()
-  "Find the Errors in the current shell buffer."
-  (interactive)
-  (save-excursion
-    (re-search-backward find-errors-pattern)
-    (set-mark (point))
-    (re-search-backward find-errors-pattern)
-    (find-errors-in-region)
-    (next-error '(4)))
- )
-
-(defun find-errors-in-region ()
-  "Use highlighted errors as compile errors."
-  (interactive)
-  (copy-region-as-kill (region-beginning) (region-end))
-  (goto-char (point-max))
-  (let ((oldbuf (get-buffer "*shell errors*")))
-    (if oldbuf (kill-buffer oldbuf)))
-  (let ((outbuf (get-buffer-create "*shell errors*")) )
-    (switch-to-buffer outbuf)
-    (insert-string "\n\n\n\n")
-    (yank)
-    (setq compilation-last-buffer outbuf)
-    (compilation-mode) ))
-
-(defun refresh ()
-  "Refresh the current buffer from disk"
-  (interactive)
-  (revert-buffer t t) )
 
 (provide 'jp-defuns)
