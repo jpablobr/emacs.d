@@ -51,7 +51,6 @@
              (set (make-local-variable 'tab-width) 2)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
-             (semantic-mode t)
              (r-ruby-complexity)
              (ruby-electric-mode t)
              (modify-syntax-entry ?! "w" (syntax-table))
@@ -60,13 +59,9 @@
              (local-set-key (kbd "C-.") 'complete-tag)
              (pretty-lambdas)
              (inf-ruby-keys)
-             (when window-system
-               (menu-bar-mode t))
-             (inf-ruby-keys)
+             (jp-load-yasnippets)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-             (define-key ruby-mode-map (kbd "C-c l") "lambda")
-             (define-key ruby-mode-map (kbd "C-c C-a") 'autotest-switch)
              (local-set-key (kbd "<return>") 'newline-and-indent)))
 
 (add-hook 'haml-mode-hook 'flymake-haml-load)
