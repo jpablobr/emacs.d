@@ -12,9 +12,6 @@
 
 (setenv "EMACS_SHELL" "emacs")
 
-;; (setq gem-bin-path (when (string-match "@global" (getenv "GEM_PATH"))
-;;   (replace-match "/bin" nil nil (getenv "GEM_PATH"))))
-
 (if (eq system-type 'windows-nt)
     (progn
       (let ((JAVA_HOME))
@@ -31,9 +28,7 @@
                          "/usr/local/sbin:"
                          "/home/jpablobr/.rvm/bin:"
                          "/usr/bin:"
-                         "/bin:"
-                         ;; gem-bin-path
-                         ))
+                         "/bin:"))
       (setenv "PATH" path)))))
 
 (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
@@ -63,8 +58,5 @@
              (setq test-failure "red" )
              (local-set-key [(meta P)] 'mouse-buffer-menu)
              (local-set-key [(meta up)] 'beginning-of-buffer)))
-
-;; (require 'shell-command)
-;; (shell-command-completion-mode)
 
 (provide 'jp-eshell)
