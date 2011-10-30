@@ -64,4 +64,7 @@
              (local-set-key [(meta P)] 'mouse-buffer-menu)
              (local-set-key [(meta up)] 'beginning-of-buffer)))
 
+;; (require 'shell-command)
+;; (shell-command-completion-mode)
+
 (provide 'jp-eshell)

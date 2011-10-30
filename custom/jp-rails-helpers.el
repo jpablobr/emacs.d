@@ -4,7 +4,7 @@
 (defun rr-passenger:start ()
   "Fire up an instance of a Passenger server"
   (interactive)
-  (let ((buffer (shell "*Passenger Rails Server at port 8080*")))
+  (let ((buffer (shell "*Passenger Rails Server at port 3000*")))
 
     (set (make-local-variable 'comint-output-filter-functions)
          '(comint-truncate-buffer

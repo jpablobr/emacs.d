@@ -45,6 +45,8 @@
 
 (custom-set-faces '(mode-line ((t (:foreground "#94bff3" :background "#5f5f5f")))))
 
+(require 'twittering-mode)
+
 ;; ---------------------------------------------------------------------
 ;; - Startup
 (fullscreen-toggle)
