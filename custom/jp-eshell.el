@@ -23,7 +23,10 @@
       (setenv "JAVA_HOME" path))
     (let ((path))
       (setq path (concat "/usr/local/mysql/bin:"
-                         "/home/jpablobr/bin:"
+                         "/home/jpablobr/bin/sh:"
+                         "/home/jpablobr/bin/ruby:"
+                         "/home/jpablobr/bin/python:"
+                         "/home/jpablobr/bin/perl:"
                          "/usr/local/bin:"
                          "/usr/local/sbin:"
                          "/home/jpablobr/.rvm/bin:"
