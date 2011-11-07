@@ -9,16 +9,16 @@
 
 (require 'rdebug)
 (require 'align)
-(require 'ruby-hacks)
 (require 'inf-ruby)
 (require 'jp-ruby-helpers)
 (require 'jp-rails-helpers)
 (require 'ruby-comint)
-;; (require 'testing)'
-;; (require 'ruby-test-mode)'
 (require 'ruby-electric)'
 (require 'scss-mode)
 (require 'ruby-style)
+;; (require 'ruby-hacks)
+;; (require 'testing)'
+;; (require 'ruby-test-mode)'
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'flymake-ruby "flymake-ruby" nil t)
@@ -51,15 +51,13 @@
              (set (make-local-variable 'tab-width) 2)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
-             (r-ruby-complexity)
+             ;; (r-ruby-complexity)
              (ruby-electric-mode t)
              (modify-syntax-entry ?! "w" (syntax-table))
              (modify-syntax-entry ?: "w" (syntax-table))
              (modify-syntax-entry ?_ "w" (syntax-table))
              (local-set-key (kbd "C-.") 'complete-tag)
-             (pretty-lambdas)
              (inf-ruby-keys)
-             (jp-load-yasnippets)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
              (local-set-key (kbd "<return>") 'newline-and-indent)))

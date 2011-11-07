@@ -101,7 +101,6 @@
 ;;; Auto loads -------------------------------------------------------
 
 (add-hook 'ruby-mode-hook 'font-lock-fontify-buffer)
-(add-hook 'ruby-mode-hook '(lambda () (inf-ruby-keys) ))
 (add-hook 'ruby-mode-hook '(lambda ()
                              (add-hook
                               (cond ((boundp 'before-save-hook)

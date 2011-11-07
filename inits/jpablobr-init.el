@@ -36,6 +36,7 @@
 (load-file "~/.private/.jp-private.el")
 (require 'jp-private)
 
+
 ;; ---------------------------------------------------------------------
 ;; - requiring yasnippets after everything has been loaded.
 (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
@@ -45,13 +46,13 @@
 
 (custom-set-faces '(mode-line ((t (:foreground "#94bff3" :background "#5f5f5f")))))
 
-(require 'twittering-mode)
-
 ;; ---------------------------------------------------------------------
 ;; - Startup
 (fullscreen-toggle)
 (menu-bar-mode 0)
 (shell)
+(jp-load-yasnippets)
+(r-rhtml)
 (setq deft-extension "md")
 (setq deft-directory "~/.private/notes")
 (setq deft-text-mode 'markdown-mode)
