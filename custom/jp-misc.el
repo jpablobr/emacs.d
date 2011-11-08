@@ -1,7 +1,6 @@
 (require 'thingatpt)
 (require 'imenu)
 
-;; (add-to-list 'load-path (concat misc-dir "/icicles"))
 (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
 (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
 
@@ -90,12 +89,6 @@
      (set-face-foreground 'magit-diff-add "green3")
      (set-face-foreground 'magit-diff-del "red3")))
 
-;; --------------------------------------------------------------------
-;; - Autopair edit
-;; (require 'autopair)
-;; (autopair-global-mode)
-;; (setq autopair-autowrap t)
-
 ;; ---------------------------------------------------------------------
 ;; - Cheat-fu
 (require 'cheat-fu)
@@ -164,17 +157,6 @@
 (setq CUA-mode-read-only-cursor-color "green")
 
 ;; ---------------------------------------------------------------------
-;; - Icicles
-;; (require 'icicles)
-;; (icy-mode t)
-
-;; ---------------------------------------------------------------------
-;; - Word Count
-(autoload 'word-count-mode "word-count"
-          "Minor mode to count words." t nil)
-(global-set-key "\M-+" 'word-count-mode)
-
-;; ---------------------------------------------------------------------
 ;; - xclip - for kill/yank from terminal, awesomeness! ;)
 (require 'xclip)
 (turn-on-xclip)
@@ -220,7 +202,6 @@
 (require 'cheat-fu-deft)
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
-;; (setq debug-on-error t)
 
 (autoload 'doc-mode "doc-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
@@ -234,5 +215,25 @@
 
 (setq uniquify-buffer-name-style 'forward)
 (require 'uniquify)
+
+(set-default-font "Monospace-9")
+
+(custom-set-faces '(mode-line ((t (:foreground "#94bff3" :background "#5f5f5f"))))
+                  '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
+                  '(font-lock-builtin-face ((t (:foreground "#8cd0d3"))))
+                  '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
+                  '(font-lock-comment-delimiter-face ((t (:foreground "#7f9f7f"))))
+                  '(font-lock-constant-face ((t (:foreground "#bfebbf"))))
+                  '(font-lock-doc-face ((t (:foreground "#8fb28f"))))
+                  '(font-lock-doc-string-face ((t (:foreground "#94bff3"))))
+                  '(font-lock-function-name-face ((t (:foreground "#8cd0d3"))))
+                  '(font-lock-keyword-face ((t (:foreground "#f0dfaf" :weight bold))))
+                  '(font-lock-negation-char-face ((t (:foreground "#dcdccc"))))
+                  '(font-lock-preprocessor-face ((t (:foreground "#8cd0d3"))))
+                  '(font-lock-string-face ((t (:foreground "#cc9393"))))
+                  '(font-lock-type-face ((t (:foreground "#8cd0d3"))))
+                  '(font-lock-variable-name-face ((t (:foreground  "#dfaf8f")))))
+
+;; (setq debug-on-error t)
 
 (provide 'jp-misc)
