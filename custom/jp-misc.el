@@ -29,7 +29,6 @@
 
 (require 'magit)
 (require 'gist)
-(require 'diff-mode-)
 
 ;; ---------------------------------------------------------------------
 ;; - Highlighting

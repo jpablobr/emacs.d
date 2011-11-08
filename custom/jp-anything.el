@@ -27,7 +27,7 @@
   (descbinds-anything-install)
   )
 
-(require 'anything-grep)
+;; (require 'anything-grep)
 
 (setq anything-sources
       (list anything-c-source-buffers
