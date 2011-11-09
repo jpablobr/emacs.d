@@ -185,11 +185,6 @@
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash")))
 
 ;; ---------------------------------------------------------------------
-;; like aliases ;)
-(defun pm  () "Abbreviation for Perl-Mode" (interactive) (perl-mode))
-(defun rm  () "Abbreviation for Ruby-Mode" (interactive) (ruby-mode))
-
-;; ---------------------------------------------------------------------
 ;; emacs hacks/workarounds
 (setq warning-suppress-types nil)
 (setq org-directory nil)
@@ -215,8 +210,6 @@
 (setq uniquify-buffer-name-style 'forward)
 (require 'uniquify)
 
-(set-default-font "Monospace-9")
-
 (custom-set-faces '(mode-line ((t (:foreground "#94bff3" :background "#5f5f5f"))))
                   '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
                   '(font-lock-builtin-face ((t (:foreground "#8cd0d3"))))
@@ -231,8 +224,11 @@
                   '(font-lock-preprocessor-face ((t (:foreground "#8cd0d3"))))
                   '(font-lock-string-face ((t (:foreground "#cc9393"))))
                   '(font-lock-type-face ((t (:foreground "#8cd0d3"))))
-                  '(font-lock-variable-name-face ((t (:foreground  "#dfaf8f")))))
+                  '(font-lock-variable-name-face ((t (:foreground  "#dfaf8f"))))
+                  '(hl-line ((t (:background "#4f4f4f"))))
+                  '(region ((t (:foreground nil :background "#333333")))))
 
+;; (set-default-font "Monospace-9")
 ;; (setq debug-on-error t)
 
 (provide 'jp-misc)
