@@ -25,8 +25,6 @@
 (require 'jp-autocomplete)
 (load-file (concat jpablobr-dir "/jp-w3m.el"))
 (require 'jp-w3m)
-;; (load-file (concat jpablobr-dir "/jp-theme.el"))
-;; (require 'jp-theme)
 (load-file (concat jpablobr-dir "/jp-eshell.el"))
 (require 'jp-eshell)
 (load-file (concat jpablobr-dir "/jp-anything.el"))

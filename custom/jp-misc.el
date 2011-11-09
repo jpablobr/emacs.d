@@ -202,7 +202,6 @@
 (add-to-list 'auto-mode-alist '("\\.asc$" . doc-mode))
 (add-hook 'doc-mode-hook
 '(lambda ()
-    (turn-on-auto-fill)
     (require 'asciidoc)))
 (autoload 'asciidoc-mode "asciidoc-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.asciidoc$" . asciidoc-mode))
@@ -210,7 +209,7 @@
 (setq uniquify-buffer-name-style 'forward)
 (require 'uniquify)
 
-(custom-set-faces '(mode-line ((t (:foreground "#94bff3" :background "#5f5f5f"))))
+(custom-set-faces '(mode-line ((t (:foreground "#94bff3" :background "#222222"))))
                   '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
                   '(font-lock-builtin-face ((t (:foreground "#8cd0d3"))))
                   '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
@@ -226,9 +225,10 @@
                   '(font-lock-type-face ((t (:foreground "#8cd0d3"))))
                   '(font-lock-variable-name-face ((t (:foreground  "#dfaf8f"))))
                   '(hl-line ((t (:background "#4f4f4f"))))
-                  '(region ((t (:foreground nil :background "#333333")))))
+                  '(region ((t (:foreground nil :background "#333333"))))
+                  '(default ((t (:slant normal :weight normal :height 105 :width normal :family "Monospace"))))
+                  '(autoface-default ((t (:inherit default :slant normal :weight normal :height 105 :width normal :family "Monospace")))))
 
-;; (set-default-font "Monospace-9")
 ;; (setq debug-on-error t)
 
 (provide 'jp-misc)
