@@ -185,6 +185,16 @@
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash")))
 
 ;; ---------------------------------------------------------------------
+;; Lua
+(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+(require 'flymake-lua)
+(add-hook 'lua-mode-hook 'flymake-lua-load)
+(require 'lua-block)
+(lua-block-mode t)
+
+;; ---------------------------------------------------------------------
 ;; emacs hacks/workarounds
 (setq warning-suppress-types nil)
 (setq org-directory nil)
@@ -226,8 +236,8 @@
                   '(font-lock-variable-name-face ((t (:foreground  "#dfaf8f"))))
                   '(hl-line ((t (:background "#4f4f4f"))))
                   '(region ((t (:foreground nil :background "#333333"))))
-                  '(default ((t (:slant normal :weight normal :height 105 :width normal :family "Monospace"))))
-                  '(autoface-default ((t (:inherit default :slant normal :weight normal :height 105 :width normal :family "Monospace")))))
+                  '(default ((t (:slant normal :weight normal :height 100 :width normal :family "Monospace"))))
+                  '(autoface-default ((t (:inherit default :slant normal :weight normal :height 100 :width normal :family "Monospace")))))
 
 ;; (setq debug-on-error t)
 

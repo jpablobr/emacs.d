@@ -44,7 +44,7 @@
 
 ;; ---------------------------------------------------------------------
 ;; - Startup
-(fullscreen-toggle)
+;; (fullscreen-toggle)
 (menu-bar-mode 0)
 (shell)
 (jp-load-yasnippets)
