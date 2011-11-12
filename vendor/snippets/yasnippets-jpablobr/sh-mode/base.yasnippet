@@ -1,0 +1,39 @@
+# -*- mode: snippet -*-
+# name: base
+# --
+#!/bin/bash
+
+set -e
+
+exe=$(basename $0)
+
+die() {
+    echo 1>&2 "$1"
+    exit 1
+}
+
+usage() {
+    cat 1>&2 <<-USAGE
+$(tput setaf 2)
+usage: $exe [OPTS] [ON]
+
+Examples:
+    # A simple, recursive, find and replace
+    $exe -opts path/to/what path/to/with
+
+See also:
+    what(1)
+$(tput op)
+USAGE
+
+    exit 1
+}
+
+[ "$#" -lt 2 ] &&  usage
+
+what="$1" ; shift
+with="$1" ; shift
+
+echo "$(tput setaf 2) Somethind with $what and $with $(tput op)"
+
+exit 0
