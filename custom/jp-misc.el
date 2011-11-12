@@ -207,6 +207,10 @@
 (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
 
+;; (require 'gtypist-mode "gtypist-mode")
+;; (setq auto-mode-alist
+;;       (cons '("\\.typ\\'" . gtypist-mode) auto-mode-alist))
+
 (autoload 'doc-mode "doc-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
 (add-to-list 'auto-mode-alist '("\\.asc$" . doc-mode))
