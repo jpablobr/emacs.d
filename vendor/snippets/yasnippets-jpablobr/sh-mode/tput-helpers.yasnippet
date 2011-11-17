@@ -1,32 +1,13 @@
 # -*- mode: snippet -*-
-# name: base
+# name: tput-helpers
 # --
+
 #!/bin/sh
 
 set -e
 exe=$(basename $0)
 
 # Helpers
-
-die() {
-    echo 1>&2 "$1"
-    exit 1
-}
-
-usage() {
-    cat 1>&2 <<-USAGE
-usage: $exe [OPTIONS] WHAT WITH
-
-Examples:
-    # It does something...
-    $exe what with
-
-See also:
-    bash(1)
-USAGE
-    exit 1
-}
-
 _print_info() {
     echo "$(tput setaf 2)[I]$(tput op) $1"
 }
@@ -47,6 +28,25 @@ _print_section() {
     echo ''; echo "$(tput setaf 5)###$(tput op) $1"; echo ''
 }
 
+die() {
+    echo 1>&2 "$1"
+    exit 1
+}
+
+usage() {
+    cat 1>&2 <<-USAGE
+usage: $exe [OPTIONS] WHAT WITH
+
+Examples:
+    # It does something...
+    $exe what with
+
+See also:
+    bash(1)
+USAGE
+    exit 1
+}
+
 ACKOPTS=
 while echo "$1" | grep -q "^-"; do
     ACKOPTS="$ackopts $1"
@@ -54,7 +54,3 @@ while echo "$1" | grep -q "^-"; do
 done
 
 [ "$#" -lt 2 ] &&  usage
-
-_print-info "Somethind with $what and $with"
-
-exit 0
