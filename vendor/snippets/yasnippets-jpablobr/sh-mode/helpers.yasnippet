@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-
+# name: helpers
+# --
+
+# Helpers
+# -------
+
+# Helpers for printing to `standard output`.
+_print_info() {
+    echo "$(tput setaf 2)[I]$(tput op) $1"
+}
+
+_print_error() {
+    echo "$(tput setaf 1)[E]$(tput op) $1"
+}
+
+_print_warning() {
+    echo "$(tput setaf 3)[W]$(tput op) $1"
+}
+
+_print_help() {
+    echo "$(tput setaf 7)[H]$(tput op) $1"
+}
+
+_print_section() {
+    echo ''; echo "$(tput setaf 5)###$(tput op) $1"; echo ''
+}
