@@ -34,30 +34,17 @@
 ;; - Highlighting
 (require 'highlight-parentheses)
 (require 'highlight-symbol)
-(global-set-key [(control f3)] 'highlight-symbol-at-point)
-(global-set-key [f3] 'highlight-symbol-next)
-(global-set-key [(shift f3)] 'highlight-symbol-prev)
-(global-set-key [(meta f3)] 'highlight-symbol-prev)
-(global-set-key [(control meta f3)] 'highlight-symbol-query-replace)
 
 (setq visible-bell t
       font-lock-maximum-decoration t
       inhibit-startup-message t
       transient-mark-mode t
-      color-theme-is-global t
       delete-by-moving-to-trash t
       shift-select-mode nil
       truncate-partial-width-windows nil
       uniquify-buffer-name-style 'forward
       ediff-window-setup-function 'ediff-setup-windows-plain
       save-place-file (concat dotfiles-dir "places"))
-
-;; - Smoother scrolling
-(setq
- scroll-margin 0
-  scroll-conservatively 100000
-  scroll-preserve-screen-position 1)
-  (put 'scroll-left 'disabled nil)
 
 ;; - Transparently open compressed files
 (auto-compression-mode t)
@@ -88,6 +75,10 @@
      (set-face-foreground 'magit-diff-add "green3")
      (set-face-foreground 'magit-diff-del "red3")))
 
+(eval-after-load 'shell-mode
+  '(progn
+     (set-background-color "black")))
+
 ;; ---------------------------------------------------------------------
 ;; - Cheat-fu
 (require 'cheat-fu)
@@ -100,26 +91,8 @@
 
 ;; --------------------------------------------------------------------
 ;; - Find-recursive
- (require 'find-recursive)
+;; (require 'find-recursive)
 
-;; ---------------------------------------------------------------------
-;; - Display time
-(defface egoge-display-time
-  '((((type x w32 mac))
-     ;; #060525 is the background colour of my default face.
-     (:foreground "#7f9f7f" :inherit bold))
-    (((type tty))
-     (:foreground "#7f9f7f")))
-  "Face used to display the time in the mode line.")
-
-;; This causes the current time in the mode line to be displayed in
-;; `egoge-display-time-face' to make it stand out visually.
-(setq display-time-string-forms
-      '((propertize (concat " " 12-hours ":" minutes " ")
-                    'face 'egoge-display-time)))
-(display-time-mode t)
-
-;; ---------------------------------------------------------------------
 ;; - mode-compile
 (autoload 'mode-compile "mode-compile"
   "Command to compile current buffer file based on the major mode" t)
@@ -139,13 +112,6 @@
 ;; - xclip - for kill/yank from terminal, awesomeness! ;)
 (require 'xclip)
 (turn-on-xclip)
-
-;; ---------------------------------------------------------------------
-;; - Auto fill
-(add-hook 'org-mode-hook
-          '(lambda ()
-             (turn-on-auto-fill)
-             (auto-fill-mode 1)))
 
 ;; ---------------------------------------------------------------------
 ;; - White-space builder
@@ -184,7 +150,7 @@
 (require 'isearch+)
 (require 'deft)
 (require 'cheat-fu-deft)
-(autoload 'sr-speedbar "sr-speedbar" t)
+;; (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
 
 ;; (require 'gtypist-mode "gtypist-mode")
@@ -202,9 +168,6 @@
 
 (setq uniquify-buffer-name-style 'forward)
 (require 'uniquify)
-
-(require 'auto-dictionary)
-(add-hook 'flyspell-mode-hook (lambda () (auto-dictionary-mode 1)))
 
 (custom-set-faces '(mode-line ((t (:foreground "#94bff3" :background "#222222"))))
                   '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
