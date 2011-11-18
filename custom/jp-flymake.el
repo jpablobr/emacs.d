@@ -1,13 +1,11 @@
-;;; jp-flymake.el --- jp-flymake
 ;; https://github.com/purcell/emacs.d/blob/master/init-flymake.el
-
 (setq flymake-gui-warnings-enabled nil)
 
 ;; Stop flymake from breaking when ruby-mode is invoked by mmm-mode,
 ;; at which point buffer-file-name is nil
 (eval-after-load "flymake"
   '(progn
-     (require 'flymake-point)
+     (require 'flymake-cursor)
 
      (global-set-key (kbd "C-`") 'flymake-goto-next-error)
 

@@ -241,7 +241,12 @@
                   '(hl-line ((t (:background "#4f4f4f"))))
                   '(region ((t (:foreground nil :background "#333333"))))
                   '(default ((t (:slant normal :weight normal :height 100 :width normal :family "Monospace"))))
-                  '(autoface-default ((t (:inherit default :slant normal :weight normal :height 100 :width normal :family "Monospace")))))
+                  '(test-failure ((t (:background "#3f3f3f" :foreground "#8c5353" :weight bold :height 140 :family "arial"))) t)
+                  '(test-heading1 ((t (:background "#3f3f3f" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+                  '(test-heading2 ((t (:background "#3f3f3f" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
+                  '(test-success ((t (:background "#3f3f3f" :foreground "#5f7f5f" :weight bold :height 140 :family "arial"))) t)
+
+'(autoface-default ((t (:inherit default :slant normal :weight normal :height 100 :width normal :family "Monospace")))))
 
 ;; (setq debug-on-error t)
 

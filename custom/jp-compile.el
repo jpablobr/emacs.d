@@ -19,27 +19,9 @@
 (add-to-list 'compilation-error-regexp-alist
              '("Line \\([0-9]+\\) column [0-9]+ in [A-Za-z0-9_]+ (\\(.*\\)) +:" 2 1) )
 
-;; Turn off trailing space notification
-
 (add-hook 'compilation-mode-hook '(lambda ()
-                                    (setq show-trailing-whitespace nil)
-                                    (compilation-font-locks)))
-
-(require 'ansi-color)
-(defun colorize-compilation-buffer ()
-  (toggle-read-only)
-  (ansi-color-apply-on-region (point-min) (point-max))
-  (toggle-read-only))
+                                    (setq show-trailing-whitespace nil)))
 
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
-
-(defun compilation-font-locks ()
-  "Custom font locks."
-  (interactive)
-  (custom-set-faces
-   '(test-failure ((t (:background "#3f3f3f" :foreground "#8c5353" :weight bold :height 140 :family "arial"))) t)
-   '(test-heading1 ((t (:background "#3f3f3f" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
-   '(test-heading2 ((t (:background "#3f3f3f" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
-   '(test-success ((t (:background "#3f3f3f" :foreground "#5f7f5f" :weight bold :height 140 :family "arial"))) t)))
 
 (provide 'jp-compile)

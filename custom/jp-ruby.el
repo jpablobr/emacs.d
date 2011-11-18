@@ -16,13 +16,13 @@
 (require 'ruby-electric)'
 (require 'scss-mode)
 (require 'ruby-style)
+(require 'flymake-ruby)
+(require 'flymake-haml)
 ;; (require 'ruby-hacks)
 ;; (require 'testing)'
 ;; (require 'ruby-test-mode)'
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
-(autoload 'flymake-ruby "flymake-ruby" nil t)
-(autoload 'flymake-haml "flymake-haml" nil t)
 (autoload 'toggle "toggle" nil t)
 
 ;; We never want to edit Rubinius bytecode
@@ -51,6 +51,7 @@
              (set (make-local-variable 'tab-width) 2)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
+             (flymake-ruby-load)
              ;; (r-ruby-complexity)
              (ruby-electric-mode t)
              (modify-syntax-entry ?! "w" (syntax-table))
