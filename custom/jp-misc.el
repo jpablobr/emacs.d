@@ -169,7 +169,7 @@
 (setq uniquify-buffer-name-style 'forward)
 (require 'uniquify)
 
-(custom-set-faces '(mode-line ((t (:foreground "#94bff3" :background "#222222"))))
+(custom-set-faces '(mode-line ((t (:foreground "#222222" :background "#94bff3"))))
                   '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
                   '(font-lock-builtin-face ((t (:foreground "#8cd0d3"))))
                   '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))

@@ -57,7 +57,7 @@
 (deft)
 (setq initial-scratch-message nil)
 (cd "~/")
-(server-start)
+;; (server-start)
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 (message "nw-jpablobr.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)
