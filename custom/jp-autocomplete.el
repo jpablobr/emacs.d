@@ -69,6 +69,7 @@
                 sgml-mode
                 sass-mode
                 haml-mode
+                asciidoc-mode
                 html-mode)))
 
 ;; Exclude very large buffers from dabbrev

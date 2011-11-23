@@ -169,6 +169,17 @@
 (setq uniquify-buffer-name-style 'forward)
 (require 'uniquify)
 
+(autoload 'xrdb-mode "xrdb-mode" "Mode for editing X resource files" t)
+
+(setq auto-mode-alist
+      (append '(("\\.Xdefaults$"    . xrdb-mode)
+                ("\\.Xenvironment$" . xrdb-mode)
+                ("\\.xrdb$"         . xrdb-mode)
+                ("\\.Xresources$"   . xrdb-mode)
+                ("*.\\.ad$"         . xrdb-mode)
+                )
+              auto-mode-alist))
+
 (custom-set-faces '(mode-line ((t (:foreground "#222222" :background "#94bff3"))))
                   '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
                   '(font-lock-builtin-face ((t (:foreground "#8cd0d3"))))

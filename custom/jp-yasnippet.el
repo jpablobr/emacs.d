@@ -42,6 +42,7 @@
        (add-hook 'tex-mode-hook 'yas/minor-mode-on)
        (add-hook 'markdown-mode-hook 'yas/minor-mode-on)
        (add-hook 'jde-mode-hook 'yas/minor-mode-on)
+       (add-hook 'asciidoc-mode-hook 'yas/minor-mode-on)
 
        (yas/define-snippets  'nxml-mode nil  'html-mode)
        (yas/define-snippets  'js2-mode nil  'javascript-mode)
