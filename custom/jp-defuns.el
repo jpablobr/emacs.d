@@ -77,7 +77,7 @@ Delete the current buffer too."
 ;;; --------------------------------------------------------------------
 ;;; - Browser
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "google-chrome")
+      browse-url-generic-program "chromium-dev")
 
 (defun synonym-s (what)
   "Use synonym.com to search for WHAT."
@@ -357,5 +357,30 @@ Delete the current buffer too."
   (toggle-read-only)
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
+
+(defvar *ruby-code-root* "~/code/ruby")
+(defun jp-ruby-ido-find-file ()
+  (interactive)
+  (ido-find-file-in-dir *ruby-code-root*))
+
+(defun word-count ()
+  "Count words in buffer"
+  (interactive)
+  (shell-command-on-region (point-min) (point-max) "wc -w"))
+
+(defun jp-ido-find-config ()
+  (interactive)
+  (find-file
+   (concat "~/.emacs.d/custom/"
+           (ido-completing-read "Config file: "
+                                (directory-files "~/.emacs.d/custom/"
+                                                 nil
+                                                 "^[^.]")))))
+
+(defun jp-ido-find-project ()
+  (interactive)
+  (find-file
+   (concat "~/code/" (ido-completing-read "Project: "
+                           (directory-files "~/code/" nil "^[^.]")))))
 
 (provide 'jp-defuns)
