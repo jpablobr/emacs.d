@@ -1,4 +1,4 @@
-;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
+ ;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
 (lookup-key global-map "\C-x"); --> Control-X-prefix
 (define-key global-map "\C-[" 'Control-X-prefix)
 (global-set-key (kbd "C-x \\") 'align-regexp)
