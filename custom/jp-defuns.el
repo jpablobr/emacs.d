@@ -77,7 +77,7 @@ Delete the current buffer too."
 ;;; --------------------------------------------------------------------
 ;;; - Browser
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium-dev")
+      browse-url-generic-program "google-chrome")
 
 (defun synonym-s (what)
   "Use synonym.com to search for WHAT."

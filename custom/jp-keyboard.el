@@ -23,6 +23,7 @@
 (global-set-key (kbd "M-g") 'keyboard-quit)
 (global-set-key (kbd "M-q") 'find-file)
 (global-set-key (kbd "M-.") 'anything-c-etags-select)
+(global-set-key (kbd "M-e") 'shell-command)
 (global-set-key [(meta j)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)

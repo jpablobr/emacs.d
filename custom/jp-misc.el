@@ -150,12 +150,7 @@
 (require 'isearch+)
 (require 'deft)
 (require 'cheat-fu-deft)
-;; (autoload 'sr-speedbar "sr-speedbar" t)
 (autoload 'change-case "change-case" t)
-
-;; (require 'gtypist-mode "gtypist-mode")
-;; (setq auto-mode-alist
-;;       (cons '("\\.typ\\'" . gtypist-mode) auto-mode-alist))
 
 (autoload 'doc-mode "doc-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
@@ -169,6 +164,8 @@
 (setq uniquify-buffer-name-style 'forward)
 (require 'uniquify)
 
+(setq recentf-auto-cleanup 'never)
+
 (autoload 'xrdb-mode "xrdb-mode" "Mode for editing X resource files" t)
 
 (setq auto-mode-alist
@@ -179,30 +176,6 @@
                 ("*.\\.ad$"         . xrdb-mode)
                 )
               auto-mode-alist))
-
-(custom-set-faces
- '(hl-line ((t (:background "#4f4f4f")))))
- '(region ((t (:foreground nil :background "#333333"))))
-;;  '(mode-line ((t (:foreground "#222222" :background "#94bff3"))))
-;;  '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
-;;  '(font-lock-builtin-face ((t (:foreground "#8cd0d3"))))
-;;  '(font-lock-comment-face ((t (:foreground "#7f9f7f"))))
-;;  '(font-lock-comment-delimiter-face ((t (:foreground "#7f9f7f"))))
-;;  '(font-lock-constant-face ((t (:foreground "#bfebbf"))))
-;;  '(font-lock-doc-face ((t (:foreground "#8fb28f"))))
-;;  '(font-lock-doc-string-face ((t (:foreground "#94bff3"))))
-;;  '(font-lock-function-name-face ((t (:foreground "#8cd0d3"))))
-;;  '(font-lock-keyword-face ((t (:foreground "#f0dfaf" :weight bold))))
-;;  '(font-lock-negation-char-face ((t (:foreground "#dcdccc"))))
-;;  '(font-lock-preprocessor-face ((t (:foreground "#8cd0d3"))))
-;;  '(font-lock-string-face ((t (:foreground "#cc9393"))))
-;;  '(font-lock-type-face ((t (:foreground "#8cd0d3"))))
-;;  '(font-lock-variable-name-face ((t (:foreground  "#dfaf8f"))))
-;; '(default ((t (:slant normal :weight normal :height 100 :width normal :family "Monospace"))))
-;; '(test-failure ((t (:background "#3f3f3f" :foreground "#8c5353" :weight bold :height 140 :family "arial"))) t)
-;; '(test-heading1 ((t (:background "#3f3f3f" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
-;; '(test-heading2 ((t (:background "#3f3f3f" :foreground "#9999ff" :weight bold :height 140 :family "arial"))) t)
-;; '(test-success ((t (:background "#3f3f3f" :foreground "#5f7f5f" :weight bold :height 140 :family "arial"))) t))
 
 ;; (setq debug-on-error t)
 
