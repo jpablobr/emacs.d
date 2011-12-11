@@ -3,8 +3,11 @@
 (require 'rvm)
 
 (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
-(autoload 'flymake-shell-load "flymake-shell" "On-the-fly syntax checking of shell scripts" t)
+
+;; Flymake
+(require 'flymake-shell)
 (add-hook 'sh-mode-hook 'flymake-shell-load)
+(add-hook 'shell-script-mode-hook 'flymake-shell-load)
 
 ;;; ----------------------------------------------------------------------------
 ;;; - Completions
