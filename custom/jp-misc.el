@@ -147,7 +147,12 @@
 
 ;; ---------------------------------------------------------------------
 ;; General
+(require 'color-theme-reg)
 (require 'isearch+)
+(add-hook 'isearch-mode-hook
+          '(lambda ()
+             (define-key isearch-mode-map "\M-i" 'isearch-repeat-forward)))
+
 (require 'deft)
 (require 'cheat-fu-deft)
 (autoload 'change-case "change-case" t)

@@ -3,7 +3,8 @@
 (define-key global-map "\C-[" 'Control-X-prefix)
 (global-set-key (kbd "C-x \\") 'align-regexp)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
-(define-key global-map (kbd "C-;") 'isearch-forward-at-point)
+;; probably the most important key-binding.
+(define-key global-map (kbd "M-i") 'isearch-forward-at-point)
 (define-key global-map "\M-x" 'execute-extended-command)
 (define-key global-map "\M-x" 'anything-M-x)
 (define-key global-map (kbd "M-;") 'anything-for-files)
@@ -15,13 +16,10 @@
 (global-set-key (kbd "M-a") 'beginning-of-line)
 (global-set-key (kbd "M-e") 'end-of-line)
 (global-set-key (kbd "M-z") 'cua-set-rectangle-mark)
-(global-set-key (kbd "M-,") 'textmate-goto-symbol)
-(global-set-key (kbd "M-l") 'textmate-goto-file)
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-a") 'save-buffer)
 (global-set-key (kbd "M-g") 'keyboard-quit)
-(global-set-key (kbd "M-q") 'find-file)
 (global-set-key (kbd "M-.") 'anything-c-etags-select)
 (global-set-key (kbd "M-e") 'shell-command)
 (global-set-key [(meta j)] 'fill-region)
@@ -36,6 +34,8 @@
 (global-set-key [(meta \[)] 'textmate-shift-left)
 (global-set-key [(meta /)] 'comment-or-uncomment-region-or-line)
 (global-set-key [(meta L)] 'textmate-select-line)
+(global-set-key (kbd "M-,") 'textmate-goto-symbol)
+(global-set-key (kbd "M-l") 'textmate-goto-file)
 
 ;;; --------------------------------------------------------------------
 ;;; \C-l redefined -----------------------------------------------------

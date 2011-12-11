@@ -292,6 +292,13 @@ Delete the current buffer too."
     (find-file "~/.private/bin/test.sh")
     (comint-send-string buffer (concat "cd ~/.private/bin/; ls -la" "\n"))))
 
+(defun new-sh-script (name)
+  "Loads a template for a new sh script."
+  (interactive "sName: ")
+  (let ((buffer (shell "*New Script*")))
+    (find-file (concat "~/.private/bin/" name ".sh"))
+    (comint-send-string buffer (concat "cd ~/.private/bin/; ls -la" "\n"))))
+
 (defun t-anything ()
   (interactive)
   (anything-other-buffer
@@ -382,5 +389,19 @@ Delete the current buffer too."
   (find-file
    (concat "~/code/" (ido-completing-read "Project: "
                            (directory-files "~/code/" nil "^[^.]")))))
+
+(defun jp-make-script-executable ()
+  "If file starts with a shebang, make `buffer-file-name' executable"
+  (save-excursion
+    (save-restriction
+      (widen)
+      (goto-char (point-min))
+      (when (and (looking-at "^#!")
+		 (not (file-executable-p buffer-file-name)))
+	(set-file-modes buffer-file-name
+			(logior (file-modes buffer-file-name) #o100))
+	(message (concat "Made " buffer-file-name " executable"))))))
+
+(add-hook 'after-save-hook 'jp-make-script-executable)
 
 (provide 'jp-defuns)
