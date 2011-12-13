@@ -91,7 +91,19 @@ Delete the current buffer too."
   (w3m-browse-url (concat "http://www.thefreedictionary.com/"
                           (w3m-url-encode-string what))))
 
-(defun google-s ()
+(defun current-word-definition ()
+  "Google search on current region.\n"
+  (interactive)
+  (let (myword myurl)
+    (setq myword
+          (if (and transient-mark-mode mark-active)
+              (buffer-substring-no-properties (region-beginning) (region-end))
+            (thing-at-point 'symbol)))
+    (setq myword (replace-regexp-in-string " " "%20" myword))
+    (setq myurl (concat "http://www.thefreedictionary.com/" myword))
+    (browse-url myurl)))
+
+(defun google-region ()
   "Google search on current region.\n"
   (interactive)
   (let (myword myurl)
@@ -104,7 +116,8 @@ Delete the current buffer too."
     (browse-url myurl)))
 
 ;; I-search with initial contents.
-;; original source: http://platypope.org/blog/2007/8/5/a-compendium-of-awesomeness
+;; original source:
+;; http://platypope.org/blog/2007/8/5/a-compendium-of-awesomeness
 (defvar isearch-initial-string nil)
 
 (defun isearch-set-initial-string ()

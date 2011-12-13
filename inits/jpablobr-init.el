@@ -58,6 +58,7 @@
 (setq deft-extension "md")
 (setq deft-directory "~/.private/notes")
 (setq deft-text-mode 'markdown-mode)
+(cheat-fu-deft)
 (deft)
 (setq initial-scratch-message nil)
 (cd "~/")

@@ -82,8 +82,8 @@
 completing filenames and symbols (`ido' by default)")
 
 (defvar textmate-find-files-command "find \"%s\" -type f"
-  "The command `textmate-project-root' uses to find files. %s will be replaced
-the project root.")
+  "The command `textmate-project-files' uses to find files. %s will be replaced
+by the project root.")
 
 (defvar *textmate-completing-function-alist* '((ido ido-completing-read)
                                                (icicles  icicle-completing-read)
@@ -295,12 +295,12 @@ Symbols matching the text at point are put first in the completion list."
   "Uses your completing read to quickly jump to a file in a project."
   (interactive)
   (let ((root (textmate-project-root)))
-    (when (null root)
+    (when (null root) 
       (error "Can't find any .git directory"))
-    (find-file
-     (concat
+    (find-file 
+     (concat 
       (expand-file-name root) "/"
-      (textmate-completing-read
+      (textmate-completing-read 
        "Find file: "
        (mapcar
 	(lambda (e)
@@ -316,7 +316,7 @@ Symbols matching the text at point are put first in the completion list."
 
 ;;; Utilities
 
-(defun textmate-project-files (root)
+(defun textmate-find-project-files (root)
   "Finds all files in a given project."
   (split-string
     (shell-command-to-string
@@ -327,6 +327,11 @@ Symbols matching the text at point are put first in the completion list."
       "' | sed 's:"
       *textmate-project-root*
       "/::'")) "\n" t))
+
+(defun textmate-project-files (root)
+  (sort
+    (textmate-find-project-files root)
+    '(lambda (a b) (< (length a) (length b)))))
 
 ;; http://snipplr.com/view/18683/stringreplace/
 (defun textmate-string-replace (this withthat in)

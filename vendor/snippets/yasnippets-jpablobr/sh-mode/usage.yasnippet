@@ -1,7 +1,10 @@
 # -*- mode: snippet -*-
 # name: usage
 # --
-cat 1>&2 <<-USAGE
-    Usage: $exe [options]
+DOC_REQUEST=70
 
-USAGE
+[ "$1" = "-h"  -o "$1" = "--help" ] &&
+  cat <<USAGE
+      Usage: \$0 [options]
+
+USAGE; exit $DOC_REQUEST

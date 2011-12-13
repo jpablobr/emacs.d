@@ -33,6 +33,7 @@
        (add-hook 'yaml-mode-hook 'yas/minor-mode-on)
        (add-hook 'lisp-mode-hook 'yas/minor-mode-on)
        (add-hook 'shell-mode-hook 'yas/minor-mode-on)
+       (add-hook 'shell-script-mode-hook 'yas/minor-mode-on)
        (add-hook 'erlang-mode-hook 'yas/minor-mode-on)
        (add-hook 'cperl-mode-hook 'yas/minor-mode-on)
        (add-hook 'perl-mode-hook 'yas/minor-mode-on)
