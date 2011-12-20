@@ -22,10 +22,10 @@
                             ;; ac-source-abbrev
                             ;; ac-source-semantic
                             ;; ac-source-semantic-raw
+                            ;; ac-source-dictionary
+                            ;; ac-source-words-in-same-mode-buffers
                             ac-source-yasnippet
-                            ac-source-filename
-                            ac-source-words-in-same-mode-buffers
-                            ac-source-dictionary))
+                            ac-source-filename))
 
 (setq ac-modes
       (append ac-modes

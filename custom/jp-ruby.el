@@ -1,13 +1,13 @@
 (setq ruby-dir (concat vendor-dir "/ruby"))
 (add-to-list 'load-path ruby-dir)
-(load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
+(load-file (concat jpablobr-lib "/jp-lib-ruby.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
 (load-file (concat ruby-dir "/ruby-electric.el"))
 
 (require 'rdebug)
 (require 'align)
 (require 'inf-ruby)
-(require 'jp-ruby-helpers)
+(require 'jp-lib-ruby)
 (require 'ruby-comint)
 (require 'ruby-electric)'
 (require 'ruby-style)

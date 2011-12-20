@@ -112,6 +112,41 @@
   "Load rhtml mode"
   (interactive)
   (add-to-list 'load-path (concat ruby-dir "/rhtml"))
-  (require 'rhtml-mode))
+  (require 'rhtml-mode)
+	(setq
+	 nxhtml-global-minor-mode t
+	 mumamo-chunk-coloring 'submode-colored
+	 nxhtml-skip-welcome t
+	 indent-region-mode t
+	 rng-nxml-auto-validate-flag nil
+	 nxml-degraded t)
+	(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo))
+
+	(eval-after-load "mmm-vars"
+		'(progn
+			 (mmm-add-classes
+				'((eruby :submode ruby-mode :front "<%[#=]?" :back "-?%>"
+								 :match-face (("<%#" . mmm-comment-submode-face)
+															("<%=" . mmm-output-submode-face)
+															("<%"  . mmm-code-submode-face))
+								 :insert ((?% erb-code       nil @ "<%"  @ " " _ " " @ "%>" @)
+													(?# erb-comment    nil @ "<%#" @ " " _ " " @ "%>" @)
+													(?= erb-expression nil @ "<%=" @ " " _ " " @ "%>" @)))))
+			 (dolist (mode (list 'html-mode 'nxml-mode))
+				 (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?$" 'eruby))
+			 (mmm-add-mode-ext-class 'yaml-mode "\\.yaml$" 'eruby)
+			 (dolist (mode (list 'js-mode 'js2-mode))
+				 (mmm-add-mode-ext-class mode "\\.js\\.erb$" 'eruby)))))
+
+																				;(require 'mumamo-fun)
+																				;(setq mumamo-chunk-coloring 'submode-colored)
+																				;(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-html-mumamo))
+																				;(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-html-mumamo)))
+
+(defun jp-load-js ()
+	"Load js mode."
+	(interactive)
+	(load-file (concat jpablobr-dir "/jp-js.el"))
+	(require 'jp-jp))
 
 (provide 'jp-lib-module-loader)

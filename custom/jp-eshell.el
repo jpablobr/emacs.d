@@ -3,10 +3,6 @@
 (require 'rvm)
 (require 'ansi-color)
 
-;; (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
-
-(setq shell-prompt-pattern "^\[dearl@*\]$ ")
-
 ;; Flymake
 (require 'flymake-shell)
 (add-hook 'sh-mode-hook 'flymake-shell-load)

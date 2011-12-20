@@ -1,6 +1,3 @@
-;; jp-ruby-helpers.el ---------------------------------------------------
-;;; - Ruby helper functions
-;;;
 (require 'font-lock)
 (load-library "rubydb3x")
 
@@ -19,36 +16,6 @@
   (insert "end")
   (ruby-indent-line t)
   (end-of-line))
-
-(setq
- nxhtml-global-minor-mode t
- mumamo-chunk-coloring 'submode-colored
- nxhtml-skip-welcome t
- indent-region-mode t
- rng-nxml-auto-validate-flag nil
- nxml-degraded t)
-(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo))
-
-(eval-after-load "mmm-vars"
-  '(progn
-     (mmm-add-classes
-      '((eruby :submode ruby-mode :front "<%[#=]?" :back "-?%>"
-               :match-face (("<%#" . mmm-comment-submode-face)
-                            ("<%=" . mmm-output-submode-face)
-                            ("<%"  . mmm-code-submode-face))
-               :insert ((?% erb-code       nil @ "<%"  @ " " _ " " @ "%>" @)
-                        (?# erb-comment    nil @ "<%#" @ " " _ " " @ "%>" @)
-                        (?= erb-expression nil @ "<%=" @ " " _ " " @ "%>" @)))))
-     (dolist (mode (list 'html-mode 'nxml-mode))
-       (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?$" 'eruby))
-     (mmm-add-mode-ext-class 'yaml-mode "\\.yaml$" 'eruby)
-     (dolist (mode (list 'js-mode 'js2-mode))
-       (mmm-add-mode-ext-class mode "\\.js\\.erb$" 'eruby))))
-
-;(require 'mumamo-fun)
-;(setq mumamo-chunk-coloring 'submode-colored)
-;(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-html-mumamo))
-;(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-html-mumamo))
 
 ;;; Auto loads -------------------------------------------------------
 
@@ -92,4 +59,4 @@
                                 ac-source-semantic
                                 ac-source-semantic-raw))))
 
-(provide 'jp-ruby-helpers)
+(provide 'jp-lib-ruby)
