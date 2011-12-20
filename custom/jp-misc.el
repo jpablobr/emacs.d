@@ -53,6 +53,10 @@
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
+;; show the name of the current function definition in the modeline
+(require 'which-func)
+(which-func-mode 1)
+
 (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
 (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
 
@@ -83,8 +87,8 @@
 
 ;; --------------------------------------------------------------------
 ;; - Textmate
-(require 'textmate)
-(textmate-mode)
+;; (require 'textmate)
+;; (textmate-mode)
 
 ;; - mode-compile
 (autoload 'mode-compile "mode-compile"
@@ -115,6 +119,17 @@
 ;; emacs hacks/workarounds
 (setq warning-suppress-types nil)
 (setq org-directory nil)
+
+;; ---------------------------------------------------------------------
+;; Flyspell
+(defun jp-turn-on-flyspell ()
+  "Force flyspell-mode on using a positive argument.  For use in hooks."
+  (interactive)
+  (flyspell-mode +1))
+
+(add-hook 'message-mode-hook 'jp-turn-on-flyspell)
+(add-hook 'text-mode-hook 'jp-turn-on-flyspell)
+(add-hook 'markdown-mode-hook 'jp-turn-on-flyspell)
 
 ;; ---------------------------------------------------------------------
 ;; General
@@ -153,6 +168,14 @@
 (custom-set-faces
  '(hl-line ((t (:background "#4f4f4f"))))
  '(isearch ((((class color) (min-colors 8)) (:background "green" :foreground "black")))))
+
+;; time-stamps
+;; when there's "Time-stamp: <>" in the first 10 lines of the file
+(setq time-stamp-active t
+      ;; check first 10 buffer lines for Time-stamp: <>
+      time-stamp-line-limit 10
+      time-stamp-format "%04y-%02m-%02d %02H:%02M:%02S (%u)") ; date format
+(add-hook 'write-file-hooks 'time-stamp) ; update when saving
 
 ;; (setq debug-on-error t)
 

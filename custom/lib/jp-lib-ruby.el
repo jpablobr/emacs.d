@@ -11,14 +11,6 @@
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
 
-(defun ruby-insert-end ()
-  (interactive)
-  (insert "end")
-  (ruby-indent-line t)
-  (end-of-line))
-
-;;; Auto loads -------------------------------------------------------
-
 (add-hook 'ruby-mode-hook 'font-lock-fontify-buffer)
 (add-hook 'ruby-mode-hook '(lambda ()
                              (add-hook

@@ -10,6 +10,8 @@
 (require 'ruby-style)
 (require 'flymake-ruby)
 (require 'ruby-hacks)
+(require 'ruby-block)
+(require 'ruby-end)
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'toggle "toggle" nil t)
@@ -40,6 +42,7 @@
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (flymake-ruby-load)
+						 (ruby-block-mode t)
              (modify-syntax-entry ?! "w" (syntax-table))
              (modify-syntax-entry ?: "w" (syntax-table))
              (modify-syntax-entry ?_ "w" (syntax-table))

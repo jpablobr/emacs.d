@@ -28,13 +28,10 @@
 (global-set-key [(meta p)] 'beginning-of-buffer)
 (global-set-key [(meta n)] 'end-of-buffer)
 (global-set-key [(meta y)] 'yank-pop)
-
-;; Texmate mode
-(global-set-key [(meta \])] 'textmate-shift-right)
-(global-set-key [(meta \[)] 'textmate-shift-left)
+(global-set-key [(meta \])] 'jp-shift-right)
+(global-set-key [(meta \[)] 'jp-shift-left)
 (global-set-key [(meta /)] 'comment-or-uncomment-region-or-line)
-(global-set-key [(meta L)] 'textmate-select-line)
-(global-set-key (kbd "M-,") 'textmate-goto-symbol)
+(global-set-key (kbd "M-,") 'jp-ido-goto-symbol)
 
 ;;; --------------------------------------------------------------------
 ;;; \C-l redefined -----------------------------------------------------
