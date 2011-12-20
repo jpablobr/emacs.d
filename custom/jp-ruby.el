@@ -2,13 +2,11 @@
 (add-to-list 'load-path ruby-dir)
 (load-file (concat jpablobr-lib "/jp-lib-ruby.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
-;; (load-file (concat ruby-dir "/ruby-electric.el"))
 
 (require 'align)
 (require 'inf-ruby)
 (require 'jp-lib-ruby)
 (require 'ruby-comint)
-;; (require 'ruby-electric)
 (require 'ruby-style)
 (require 'flymake-ruby)
 (require 'ruby-hacks)
@@ -16,7 +14,6 @@
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'toggle "toggle" nil t)
 
-;; We never want to edit Rubinius bytecode
 (add-to-list 'completion-ignored-extensions ".rbc")
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
@@ -43,8 +40,6 @@
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (flymake-ruby-load)
-             ;; (r-ruby-complexity)
-             ;; (ruby-electric-mode t)
              (modify-syntax-entry ?! "w" (syntax-table))
              (modify-syntax-entry ?: "w" (syntax-table))
              (modify-syntax-entry ?_ "w" (syntax-table))
