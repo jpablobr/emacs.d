@@ -27,6 +27,7 @@
 	(require 'jp-private)
 	(require 'jp-lib-misc)
 	(require 'jp-lib-templates)
+	(require 'jp-lib-programming)
 	(load-file (concat jpablobr-dir "/jp-yasnippet.el"))
 	(require 'jp-yasnippet)
 	(load-file (concat jpablobr-dir "/jp-hippie.el"))
