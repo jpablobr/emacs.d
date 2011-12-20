@@ -7,8 +7,6 @@
 	(require 'jp-yaml)
 	(load-file (concat jpablobr-dir "/jp-markdown.el"))
 	(require 'jp-markdown)
-	(load-file (concat jpablobr-dir "/jp-flymake.el"))
-	(require 'jp-flymake)
 	(load-file (concat jpablobr-dir "/jp-ruby.el"))
 	(require 'jp-ruby)
 	(load-file (concat jpablobr-dir "/jp-autocomplete.el"))
@@ -40,7 +38,7 @@
 	(setq deft-text-mode 'markdown-mode)
 	(cheat-fu-deft)
 	(deft)
-	;; (jp-load-git)
+	(jp-load-git)
 	(setq initial-scratch-message nil)
 	(cd "~/")
 	(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
@@ -169,12 +167,11 @@
   (interactive)
 	(setq git-dir (concat vendor-dir "/git"))
 	(add-to-list 'load-path git-dir)
-	(load-file (concat git-dir "/git-emacs/git-emacs.el"))
 	(load-file (concat git-dir "/git-show/git-show.el"))
 	(require 'magit)
 	(require 'gist)
-	(require 'git-show)
-	(require 'git-emacs))
+	(require 'git-show))
+
 
 (defun jp-load-lua ()
   "Load Lua."
@@ -183,9 +180,7 @@
 	(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 	(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
 	(require 'flymake-lua)
-	(add-hook 'lua-mode-hook 'flymake-lua-load)
-	(require 'lua-block)
-	(lua-block-mode t))
+	(add-hook 'lua-mode-hook 'flymake-lua-load))
 
 (defun jp-load-ascii-doc ()
   "Load Ascii-doc."

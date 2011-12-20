@@ -142,17 +142,6 @@
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
           1 font-lock-warning-face t))))
 
-(defun jp-prog-coding-hook ()
-  "Enable things that are convenient across all coding buffers."
-  (set (make-local-variable 'comment-auto-fill-only-comments) t)
-  (make-local-variable 'column-number-mode)
-  (column-number-mode t)
-  (setq save-place t)
-  (jp-add-watchwords)
-  (auto-fill-mode)
-  (if window-system (hl-line-mode t))
-  (pretty-lambdas))
-
 (defun jp-visit-term-buffer ()
   (interactive)
   (if (not (get-buffer "*ansi-term*"))
@@ -185,6 +174,24 @@ region\) apply comment-or-uncomment to the current line"
       (if (< (point) (mark))
           (comment-or-uncomment-region (point) (mark))
         (comment-or-uncomment-region (mark) (point)))))
+
+;; https://github.com/purcell/emacs.d/blob/master/init-flymake.el
+(setq flymake-gui-warnings-enabled nil)
+
+;; Stop flymake from breaking when ruby-mode is invoked by mmm-mode,
+;; at which point buffer-file-name is nil
+(eval-after-load "flymake"
+  '(progn
+     (defun flymake-can-syntax-check-file (file-name)
+       "Determine whether we can syntax check FILE-NAME.
+Return nil if we cannot, non-nil if we can."
+       (if (and file-name (flymake-get-init-function file-name)) t nil))))
+
+(defun jp-prog-mode-hook ()
+  "Enable things that are convenient across all coding buffers."
+  (set (make-local-variable 'comment-auto-fill-only-comments) t)
+  (jp-add-watchwords)
+  (auto-fill-mode))
 
 ;; in Emacs 24 programming major modes generally derive
 ;; from a common mode named prog-mode
