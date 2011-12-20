@@ -30,7 +30,7 @@
 (global-set-key [(meta y)] 'yank-pop)
 (global-set-key [(meta \])] 'jp-shift-right)
 (global-set-key [(meta \[)] 'jp-shift-left)
-(global-set-key [(meta /)] 'comment-or-uncomment-region-or-line)
+(global-set-key [(meta /)] 'jp-comment-or-uncomment-region-or-line)
 (global-set-key (kbd "M-,") 'jp-ido-goto-symbol)
 
 ;;; --------------------------------------------------------------------

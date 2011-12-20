@@ -175,6 +175,17 @@
   (interactive)
   (untabify (point-min) (point-max)))
 
+(defun jp-comment-or-uncomment-region-or-line ()
+  "Like comment-or-uncomment-region, but if there's no mark \(that means no
+region\) apply comment-or-uncomment to the current line"
+  (interactive)
+  (if (not mark-active)
+      (comment-or-uncomment-region
+        (line-beginning-position) (line-end-position))
+      (if (< (point) (mark))
+          (comment-or-uncomment-region (point) (mark))
+        (comment-or-uncomment-region (mark) (point)))))
+
 ;; in Emacs 24 programming major modes generally derive
 ;; from a common mode named prog-mode
 (add-hook 'prog-mode-hook 'jp-prog-mode-hook)
