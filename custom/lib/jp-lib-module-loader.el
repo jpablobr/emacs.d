@@ -1,10 +1,6 @@
 (defun jp-main-module-loader ()
   "Loads all the defaults."
   (interactive)
-	(require 'jp-lib-misc)
-	(require 'jp-lib-templates)
-	(load-file (concat jpablobr-dir "/jp-meta.el"))
-	(require 'jp-meta)
 	(load-file (concat jpablobr-dir "/jp-misc.el"))
 	(require 'jp-misc)
 	(load-file (concat jpablobr-dir "/jp-yaml.el"))
@@ -29,19 +25,21 @@
 	(require 'jp-keyboard)
 	(load-file "~/.private/.jp-private.el")
 	(require 'jp-private)
-	; Load yasnippets last
+	(require 'jp-lib-misc)
+	(require 'jp-lib-templates)
 	(load-file (concat jpablobr-dir "/jp-yasnippet.el"))
 	(require 'jp-yasnippet)
 	(load-file (concat jpablobr-dir "/jp-hippie.el"))
 	(require 'jp-hippie)
-	(menu-bar-mode 0)
 	(shell)
+	(jp-load-lua)
 	(jp-load-yasnippets)
 	(setq deft-extension "md")
 	(setq deft-directory "~/.private/notes")
 	(setq deft-text-mode 'markdown-mode)
 	(cheat-fu-deft)
 	(deft)
+	;; (jp-load-git)
 	(setq initial-scratch-message nil)
 	(cd "~/")
 	(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
@@ -119,6 +117,16 @@
   (interactive)
   (add-to-list 'load-path (concat ruby-dir "/rhtml"))
   (require 'rhtml-mode)
+
+	(custom-set-faces
+	 '(erb-delim-face ((t (:background "black" :foreground "blue" :weigth thin))))
+	 '(erb-exec-face ((t (:background "black" :foreground "white" :weight thin))))
+	 '(erb-exec-delim-face ((t (:background "black" :foreground "red" :weight thin))))
+	 '(erb-out-face ((t (:background "black" :foreground "white" :weight thin ))))
+	 '(erb-out-delim-face ((t (:background "black") :foreground "red" :weight thin)))
+	 '(erb-comment-face ((t (:background "black" :foreground "red" :weight thin))))
+	 '(erb-comment-delim-face ((t (:background "black" :foreground "red" :weight thin)))))
+
 	(setq
 	 nxhtml-global-minor-mode t
 	 mumamo-chunk-coloring 'submode-colored
@@ -127,6 +135,11 @@
 	 rng-nxml-auto-validate-flag nil
 	 nxml-degraded t)
 	(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-nxhtml-mumamo))
+
+	;(require 'mumamo-fun)
+	;(setq mumamo-chunk-coloring 'submode-colored)
+  ;(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-html-mumamo))
+	;(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-html-mumamo)))
 
 	(eval-after-load "mmm-vars"
 		'(progn
@@ -144,15 +157,48 @@
 			 (dolist (mode (list 'js-mode 'js2-mode))
 				 (mmm-add-mode-ext-class mode "\\.js\\.erb$" 'eruby)))))
 
-																				;(require 'mumamo-fun)
-																				;(setq mumamo-chunk-coloring 'submode-colored)
-																				;(add-to-list 'auto-mode-alist '("\\.rhtml\\'" . eruby-html-mumamo))
-																				;(add-to-list 'auto-mode-alist '("\\.html\\.erb\\'" . eruby-html-mumamo)))
-
 (defun jp-load-js ()
 	"Load js mode."
 	(interactive)
 	(load-file (concat jpablobr-dir "/jp-js.el"))
 	(require 'jp-jp))
+
+(defun jp-load-git ()
+  "Load Git(1)."
+  (interactive)
+	(setq git-dir (concat vendor-dir "/git"))
+	(add-to-list 'load-path git-dir)
+	(add-to-list 'load-path (concat git-dir "/magit"))
+	(load-file (concat git-dir "/magit/magit.el"))
+	(add-to-list 'load-path (concat git-dir "/git-emacs"))
+	(load-file (concat git-dir "/git-emacs/git-emacs.el"))
+	(load-file (concat git-dir "/git-show/git-show.el"))
+	(require 'magit)
+	(require 'gist)
+	(require 'git-show)
+	(require 'git-emacs))
+
+(defun jp-load-lua ()
+  "Load Lua."
+  (interactive)
+	(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
+	(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
+	(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
+	(require 'flymake-lua)
+	(add-hook 'lua-mode-hook 'flymake-lua-load)
+	(require 'lua-block)
+	(lua-block-mode t))
+
+(defun jp-load-ascii-doc ()
+  "Load Ascii-doc."
+  (interactive)
+	(autoload 'doc-mode "doc-mode" nil t)
+	(add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
+	(add-to-list 'auto-mode-alist '("\\.asc$" . doc-mode))
+	(add-hook 'doc-mode-hook
+						'(lambda ()
+							 (require 'asciidoc)))
+	(autoload 'asciidoc-mode "asciidoc-mode" nil t)
+	(add-to-list 'auto-mode-alist '("\\.asciidoc$" . asciidoc-mode)))
 
 (provide 'jp-lib-module-loader)
