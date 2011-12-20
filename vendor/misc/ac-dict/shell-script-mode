@@ -467,6 +467,7 @@ rake-ruby-1.9.3-p0
 ri-ruby-1.8.7-p352@global
 rake-ruby-1.9.3-p0@global
 rvmsudo
+perltidy
 open
 twitter-notify.py
 mailrun.sh
@@ -478,6 +479,7 @@ notify-pipe.sh
 start-dropbox.sh
 youjizzdlr.sh
 awesome-clock.sh
+rename_file_extension.sh
 all_commands_available.sh
 swap_file_creation.sh
 12-ways-to-parse.sh
@@ -499,11 +501,13 @@ dns-crontab.sh
 jp-backups.sh
 network-up.sh
 mount-toshiba.sh
+man_filter.sh
 new_script.sh
 #you_downloader.sh#
 xcompmgr.sh
 backup-to-toshiba.sh
 jpablobr-startups.sh
+updatedb.sh
 start-chrome.sh
 notify-test.sh
 completion-rake
@@ -528,11 +532,6 @@ youtube-dl.py
 packet.pl
 ack
 html2latex
-conkydate
-conkymin
-conkystats
-conkyhr
-weather.sh
 bash_test_simple.sh
 try-find-disk-error.sh
 backup-media.sh
@@ -552,6 +551,7 @@ unrarr.sh
 fdswap.sh
 git-thanks.sh
 eml
+shocco.sh
 speedfox
 curl_rest_api.sh
 license.sh
@@ -2638,6 +2638,7 @@ qpaeq
 nm-applet
 itweb-settings
 extractbb
+html2text
 mp4track
 ps4pdf
 repo-remove
@@ -3998,7 +3999,6 @@ awesome
 awesome-wm
 awsetbg
 awesome-client
-shocco
 runant.py
 antRun
 antRun.pl

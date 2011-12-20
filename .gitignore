@@ -27,3 +27,5 @@ u_misc
 u_sudo
 abbrev_defs
 ede-projects.el
+vendor/misc/ac-dict/shell-mode
+vendor/misc/ac-dict/shell-script-mode

@@ -32,6 +32,7 @@
        (add-hook 'jse-mode-hook 'yas/minor-mode-on)
        (add-hook 'yaml-mode-hook 'yas/minor-mode-on)
        (add-hook 'lisp-mode-hook 'yas/minor-mode-on)
+       (add-hook 'sh-mode-hook 'yas/minor-mode-on)
        (add-hook 'shell-mode-hook 'yas/minor-mode-on)
        (add-hook 'shell-script-mode-hook 'yas/minor-mode-on)
        (add-hook 'erlang-mode-hook 'yas/minor-mode-on)

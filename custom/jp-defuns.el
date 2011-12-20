@@ -309,8 +309,10 @@ Delete the current buffer too."
   "Loads a template for a new sh script."
   (interactive "sName: ")
   (let ((buffer (shell "*New Script*")))
-    (find-file (concat "~/.private/bin/" name ".sh"))
-    (comint-send-string buffer (concat "cd ~/.private/bin/; ls -la" "\n"))))
+		(setq script-name (concat name ".sh"))
+		(setq script-path "~/.private/bin/" )
+    (find-file (concat script-path script-name))
+    (comint-send-string buffer (concat "cd " script-path ";echo './" script-name "'\n"))))
 
 (defun t-anything ()
   (interactive)
@@ -378,30 +380,10 @@ Delete the current buffer too."
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
 
-(defvar *ruby-code-root* "~/code/ruby")
-(defun jp-ruby-ido-find-file ()
-  (interactive)
-  (ido-find-file-in-dir *ruby-code-root*))
-
 (defun word-count ()
   "Count words in buffer"
   (interactive)
   (shell-command-on-region (point-min) (point-max) "wc -w"))
-
-(defun jp-ido-find-config ()
-  (interactive)
-  (find-file
-   (concat "~/.emacs.d/custom/"
-           (ido-completing-read "Config file: "
-                                (directory-files "~/.emacs.d/custom/"
-                                                 nil
-                                                 "^[^.]")))))
-
-(defun jp-ido-find-project ()
-  (interactive)
-  (find-file
-   (concat "~/code/" (ido-completing-read "Project: "
-                           (directory-files "~/code/" nil "^[^.]")))))
 
 (defun jp-make-script-executable ()
   "If file starts with a shebang, make `buffer-file-name' executable"
@@ -416,5 +398,60 @@ Delete the current buffer too."
 	(message (concat "Made " buffer-file-name " executable"))))))
 
 (add-hook 'after-save-hook 'jp-make-script-executable)
+
+;; http://www.emacswiki.org/emacs/EmacsAsDaemon
+(defun client-save-kill-emacs(&optional display)
+  " This is a function that can bu used to shutdown save buffers and
+shutdown the emacs daemon. It should be called using
+emacsclient -e '(client-save-kill-emacs)'.  This function will
+check to see if there are any modified buffers or active clients
+or frame.  If so an x window will be opened and the user will
+be prompted."
+  (let (new-frame modified-buffers active-clients-or-frames)
+    (setq modified-buffers (modified-buffers-exist))
+    (setq active-clients-or-frames ( or (> (length server-clients) 1)
+                                        (> (length (frame-list)) 1)))
+    (when (or modified-buffers active-clients-or-frames)
+      (when (not (eq window-system 'x))
+	(message "Initializing x windows system.")
+	(x-initialize-window-system))
+      (when (not display) (setq display (getenv "DISPLAY")))
+      (message "Opening frame on display: %s" display)
+      (select-frame (make-frame-on-display display '((window-system . x)))))
+
+    (setq new-frame (selected-frame))
+    (when (or (not active-clients-or-frames)
+              (yes-or-no-p (format
+                            "There are currently %d clients and %d frames. Exit anyway?"
+                            (- (length server-clients) 1) (- (length (frame-list)) 2))))
+      (let ((inhibit-quit t))
+	(with-local-quit
+	  (save-some-buffers))
+	(if quit-flag
+      (setq quit-flag nil)
+	  (progn
+	    (dolist (client server-clients)
+	      (server-delete-client client))
+	    (kill-emacs)))))
+    (when (or modified-buffers active-clients-or-frames)
+      (delete-frame new-frame))))
+
+
+(defun modified-buffers-exist()
+  "This function will check to see if there are any buffers
+that have been modified.  It will return true if there are
+and nil otherwise. Buffers that have buffer-offer-save set to
+nil are ignored."
+  (let (modified-found)
+    (dolist (buffer (buffer-list))
+      (when (and (buffer-live-p buffer)
+		 (buffer-modified-p buffer)
+		 (not (buffer-base-buffer buffer))
+		 (or
+		  (buffer-file-name buffer)
+		  (progn
+		    (set-buffer buffer)
+		    (and buffer-offer-save (> (buffer-size) 0)))))
+	(setq modified-found t)))modified-found))
 
 (provide 'jp-defuns)

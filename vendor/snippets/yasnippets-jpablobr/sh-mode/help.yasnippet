@@ -1,0 +1,28 @@
+# -*- mode: snippet -*-
+# name: help
+# --
+
+exe=\$(basename \$0)
+
+usage() {
+	echo "Usage: \${exe} [-h | --help] | [ [-i] [-f file] ]"
+  exit 1
+}
+
+help_text() {
+	cat <<EOF
+
+	\$(usage)
+
+	Options:
+
+	-h, --help	Display this help message and exit.
+	-i		      Interactive mode.
+	-f file		  Write output to file, otherwise write
+              output to standard output.
+
+	This program ...
+
+EOF
+  exit 0
+}

@@ -1,6 +1,7 @@
 ;;; -*- coding: utf-8-unix; -*-
 
 (require 'rvm)
+(require 'ansi-color)
 
 (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
 
@@ -17,22 +18,15 @@
       shell-cmpl-dir-ignore "\\`\\(\\.\\.?\\|CVS\\|\\.svn\\|\\.git\\)/\\'")
 
 ;;; ----------------------------------------------------------------------------
-;;; - colorful shell
-;;;
-(require 'ansi-color)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on)
-
-;;; ----------------------------------------------------------------------------
 ;;; - escape the shell
 ;;;
 (add-hook 'shell-mode-hook
           '(lambda nil
              (setq comint-prompt-read-only)
              (rvm-activate-corresponding-ruby)
-             (setq test-failure "red" )
-             (setq show-trailing-whitespace nil)
-             (local-set-key [(meta P)] 'mouse-buffer-menu)
-             (local-set-key [(meta up)] 'beginning-of-buffer)))
+             (ansi-color-for-comint-mode-on)
+             ;; (setq test-failure "red" )
+             (setq show-trailing-whitespace nil)))
 
 (add-hook 'shell-filter-hook 'colorize-compilation-buffer)
 

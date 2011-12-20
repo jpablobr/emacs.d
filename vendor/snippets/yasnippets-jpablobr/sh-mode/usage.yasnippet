@@ -1,10 +1,16 @@
 # -*- mode: snippet -*-
 # name: usage
 # --
-DOC_REQUEST=70
+# -f: file
+# -z: string
 
-[ "$1" = "-h"  -o "$1" = "--help" ] &&
-  cat <<USAGE
-      Usage: \$0 [options]
+[ ! $1 \$1 ] && {
+cat <<USAGE
 
-USAGE; exit $DOC_REQUEST
+  Usage: \$(basename \$0) [FILE NAME]
+
+  ${1:description}
+
+USAGE
+exit 1
+}

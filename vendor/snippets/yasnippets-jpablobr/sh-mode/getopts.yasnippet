@@ -2,31 +2,8 @@
 # name: getopts
 # --
 
-usage () {
-	echo "Usage: $(basename $0) [-h | --help] | [ [-i] [-f file] ]"
-}
-
-helptext () {
-
-	cat <<EOF
-
-	This program ...
-
-	$(usage)
-
-	Options:
-
-	-h, --help	Display this help message and exit.
-	-i		      Interactive mode.
-	-f file		  Write output to file, otherwise write
-              output to standard output.
-
-EOF
-}
-
-if [ "$1" = "--help" ]; then
+if [ "\$1" = "--help" ]; then
 	helptext
-	graceful_exit
 fi
 
 while getopts ":hif:" opt; do
@@ -36,9 +13,8 @@ while getopts ":hif:" opt; do
 		i )	echo "something todo with -i"
 			;;
 		h )	helptext
-			graceful_exit
 			;;
 		* )	usage
 			exit 1
 	esac
-done
+done;:

@@ -115,10 +115,10 @@
 
 ;; ---------------------------------------------------------------------
 ;; - White-space builder
-(global-whitespace-mode 1)
-(setq whitespace-style '(trailing))
-(set-default 'indent-tabs-mode nil)
-(set-default 'indicate-empty-lines t)
+;; (global-whitespace-mode 1)
+;; (setq whitespace-style '(trailing))
+;; (set-default 'indent-tabs-mode nil)
+;; (set-default 'indicate-empty-lines t)
 
 ;; ---------------------------------------------------------------------
 ;; - Regex builder
@@ -181,6 +181,17 @@
                 ("*.\\.ad$"         . xrdb-mode)
                 )
               auto-mode-alist))
+
+(custom-set-faces
+ '(hl-line ((t (:background "#4f4f4f"))))
+ '(isearch ((((class color) (min-colors 8)) (:background "green" :foreground "black"))))
+ '(erb-delim-face ((t (:background "black" :foreground "blue" :weigth thin))))
+ '(erb-exec-face ((t (:background "black" :foreground "white" :weight thin))))
+ '(erb-exec-delim-face ((t (:background "black" :foreground "red" :weight thin))))
+ '(erb-out-face ((t (:background "black" :foreground "white" :weight thin ))))
+ '(erb-out-delim-face ((t (:background "black") :foreground "red" :weight thin)))
+ '(erb-comment-face ((t (:background "black" :foreground "red" :weight thin))))
+ '(erb-comment-delim-face ((t (:background "black" :foreground "red" :weight thin)))))
 
 ;; (setq debug-on-error t)
 

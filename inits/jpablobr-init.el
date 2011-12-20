@@ -35,8 +35,6 @@
 (require 'jp-php)
 (load-file (concat jpablobr-dir "/jp-keyboard.el"))
 (require 'jp-keyboard)
-(load-file (concat jpablobr-dir "/jp-theme.el"))
-(require 'jp-theme)
 (load-file "~/.private/.jp-private.el")
 (require 'jp-private)
 
@@ -62,7 +60,6 @@
 (deft)
 (setq initial-scratch-message nil)
 (cd "~/")
-;; (server-start)
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 (message "nw-jpablobr.el loaded in %ds"
          (destructuring-bind (hi lo ms) (current-time)

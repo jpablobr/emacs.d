@@ -179,7 +179,6 @@
     (define-key keymap "b" 'cheat-fu-buttonize-buffer)
     keymap))
 
-;;;###autoload
 (define-minor-mode cheat-fu-mode "Cheat-Fu Emulation Minor Mode"
   :lighter " cheat-fu"
   (use-local-map cheat-fu-mode-map))
