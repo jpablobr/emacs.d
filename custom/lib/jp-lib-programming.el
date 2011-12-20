@@ -5,7 +5,6 @@
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 
-
 (defun escape-quotes-region (start end)
   "escape quotes"
   (interactive "r")
@@ -83,10 +82,10 @@
       (widen)
       (goto-char (point-min))
       (when (and (looking-at "^#!")
-		 (not (file-executable-p buffer-file-name)))
-	(set-file-modes buffer-file-name
-			(logior (file-modes buffer-file-name) #o100))
-	(message (concat "Made " buffer-file-name " executable"))))))
+                 (not (file-executable-p buffer-file-name)))
+        (set-file-modes buffer-file-name
+                        (logior (file-modes buffer-file-name) #o100))
+        (message (concat "Made " buffer-file-name " executable"))))))
 
 (add-hook 'after-save-hook 'jp-make-script-executable)
 
