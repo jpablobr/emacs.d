@@ -138,35 +138,6 @@ Delete the current buffer too."
         (isearch-forward-regexp regexp-p no-recursive-edit)))))
 
 ;;; --------------------------------------------------------------------
-;;; - Insert helper for the lazy.
-(defun insert-name ()
-  "Insert name at point."
-  (interactive)
-  (insert user-full-name))
-
-(defun insert-email ()
-  "Insert user email at point."
-  (interactive)
-  (insert user-mail-address))
-
-(defun colorize-compilation-buffer ()
-  (toggle-read-only)
-  (ansi-color-apply-on-region (point-min) (point-max))
-  (toggle-read-only))
-(add-hook 'ri-filter-hook 'colorize-compilation-buffer)
-
-(defun lorem ()
-  "Insert a lorem ipsum."
-  (interactive)
-  (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
-          "eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad "
-          "minim veniam, quis nostrud exercitation ullamco laboris nisi ut "
-          "aliquip ex ea commodo consequat. Duis aute irure dolor in "
-          "reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
-          "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
-          "culpa qui officia deserunt mollit anim id est laborum."))
-
-;;; --------------------------------------------------------------------
 ;;; - ERC
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl" "#github" "#rubinius" "#debian")))
@@ -237,11 +208,6 @@ Delete the current buffer too."
     (goto-char (point-min))
     (replace-string "&amp;" "&") ))
 
-(defun insert-date ()
-  "Insert the Date."
-  (interactive)
-  (insert-string (current-date-string)))
-
 (defun current-date-string ()
   (let ((time-string (current-time-string)))
     (concat (substring time-string 8 10)
@@ -265,55 +231,6 @@ Delete the current buffer too."
    nil
    password))
 
-(defun ecb-init-stuff ()
-  "Load ECB stuff..."
-  (interactive)
-  (add-to-list 'load-path (concat misc-dir "/cedet-1.0pre7/common/cedet.el"))
-  (add-to-list 'load-path (concat misc-dir "/ecb-2.40"))
-  (require 'semantic/analyze)
-  (provide 'semantic-analyze)
-  (provide 'semantic-ctxt)
-  (provide 'semanticdb)
-  (provide 'semanticdb-find)
-  (provide 'semanticdb-mode)
-  (provide 'semantic-load)
-  (require 'ecb)
-  (custom-set-variables
-  '(ecb-options-version "2.40")
-   '(ecb-layout-window-sizes
-     (quote
-      (("left8"
-        (0.19801980198019803 . 0.29310344827586204)
-        (0.19801980198019803 . 0.2413793103448276)
-        (0.19801980198019803 . 0.27586206896551724)
-        (0.19801980198019803 . 0.1724137931034483))))))
-  (global-ede-mode 1)
-  (setq ecb-tip-of-the-day nil)
-  (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
-  (ecb-activate))
-
-(defun test-sh-script ()
-  "Loads a testing script."
-  (interactive)
-  (let ((buffer (shell "*Testing Script*")))
-    (set (make-local-variable 'comint-output-filter-functions)
-         '(comint-truncate-buffer
-           comint-postoutput-scroll-to-bottom
-           ansi-color-process-output))
-    (ansi-color-for-comint-mode-on)
-    (compilation-shell-minor-mode 1)
-    (find-file "~/.private/bin/test.sh")
-    (comint-send-string buffer (concat "cd ~/.private/bin/; ls -la" "\n"))))
-
-(defun new-sh-script (name)
-  "Loads a template for a new sh script."
-  (interactive "sName: ")
-  (let ((buffer (shell "*New Script*")))
-		(setq script-name (concat name ".sh"))
-		(setq script-path "~/.private/bin/" )
-    (find-file (concat script-path script-name))
-    (comint-send-string buffer (concat "cd " script-path ";echo './" script-name "'\n"))))
-
 (defun t-anything ()
   (interactive)
   (anything-other-buffer
@@ -326,11 +243,6 @@ Delete the current buffer too."
      anything-c-source-emacs-commands
      anything-c-source-etags-select)
    " *jp-anything*"))
-
-(defun t-linum  ()
-  "Toggle linum mode"
-  (interactive)
-  (linum-mode))
 
 (defun decamelize (string)
   "Convert from CamelCaseString to camel_case_string."
@@ -347,13 +259,6 @@ Delete the current buffer too."
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
                                            nil
                                          'fullboth)))
-
-(defun load-rainbow-mode  ()
-  "Loads rainsbow-mode"
-  (interactive)
-  (load-file (concat vendor-dir "/theaming/rainbow-mode.el"))
-  (require'rainbow-mode "rainbow-mode" t)
-  (rainbow-mode))
 
 (when window-system
   (defun transparency ()
@@ -454,4 +359,22 @@ nil are ignored."
 		    (and buffer-offer-save (> (buffer-size) 0)))))
 	(setq modified-found t)))modified-found))
 
-(provide 'jp-defuns)
+(defun passenger:start ()
+  "Fire up an instance of a Passenger server"
+  (interactive)
+  (let ((buffer (shell "*Passenger Server at port 3000*")))
+
+    (set (make-local-variable 'comint-output-filter-functions)
+         '(comint-truncate-buffer
+           comint-postoutput-scroll-to-bottom
+           ansi-color-process-output
+           ))
+    (set (make-local-variable 'comint-buffer-maximum-size) 5000)
+    (set (make-local-variable 'comint-scroll-show-maximum-output) t)
+    (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
+
+    (ansi-color-for-comint-mode-on)
+    (compilation-shell-minor-mode 1)
+    (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
+
+(provide 'jp-lib-misc)

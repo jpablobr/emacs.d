@@ -1,26 +1,18 @@
 (setq ruby-dir (concat vendor-dir "/ruby"))
 (add-to-list 'load-path ruby-dir)
 (load-file (concat jpablobr-dir "/jp-ruby-helpers.el"))
-(load-file (concat jpablobr-dir "/jp-rails-helpers.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
-;; (load-file (concat ruby-dir "/ruby-test-mode.el"))
-;; (load-file (concat ruby-dir "/testing.el"))
 (load-file (concat ruby-dir "/ruby-electric.el"))
 
 (require 'rdebug)
 (require 'align)
 (require 'inf-ruby)
 (require 'jp-ruby-helpers)
-(require 'jp-rails-helpers)
 (require 'ruby-comint)
 (require 'ruby-electric)'
-(require 'scss-mode)
 (require 'ruby-style)
 (require 'flymake-ruby)
-(require 'flymake-haml)
-;; (require 'ruby-hacks)
-;; (require 'testing)'
-;; (require 'ruby-test-mode)'
+(require 'ruby-hacks)
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'toggle "toggle" nil t)
@@ -63,18 +55,7 @@
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
              (local-set-key (kbd "<return>") 'newline-and-indent)))
 
-(add-hook 'haml-mode-hook 'flymake-haml-load)
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
-(setq scss-compile-at-save nil)
 (setq rdebug-short-key-mode t)
-
-;;----------------------------------------------------------------------
-;; - jp-haml.el
-(setq haml-dir (concat vendor-dir "/haml"))
-(add-to-list 'load-path haml-dir)
-(require 'haml-mode)
-(add-to-list 'auto-mode-alist '("\\.haml?$" . haml-mode))
-(add-to-list 'auto-mode-alist '("\\.html.haml?$" . haml-mode))
-(add-to-list 'auto-mode-alist '("\\.sass$" . sass-mode))
 
 (provide 'jp-ruby)

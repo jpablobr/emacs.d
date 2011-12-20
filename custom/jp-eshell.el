@@ -3,7 +3,9 @@
 (require 'rvm)
 (require 'ansi-color)
 
-(setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+;; (setq tramp-shell-prompt-pattern "^[^$>\n]*[#$%>] *\\(\[[0-9;]*[a-zA-Z] *\\)*")
+
+(setq shell-prompt-pattern "^\[dearl@*\]$ ")
 
 ;; Flymake
 (require 'flymake-shell)
@@ -25,7 +27,6 @@
              (setq comint-prompt-read-only)
              (rvm-activate-corresponding-ruby)
              (ansi-color-for-comint-mode-on)
-             ;; (setq test-failure "red" )
              (setq show-trailing-whitespace nil)))
 
 (add-hook 'shell-filter-hook 'colorize-compilation-buffer)

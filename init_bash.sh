@@ -1,0 +1,1 @@
+PROMPT_COMMAND=simple_prompt_command

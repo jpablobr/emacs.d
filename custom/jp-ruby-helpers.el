@@ -62,32 +62,6 @@
                                     ((boundp 'write-contents-hooks) 'write-contents-hooks))
                               'delete-trailing-whitespace)))
 
-(defun r-ruby-complexity ()
-  "Starts ruby complexity"
-  (add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
-  (require 'ruby-complexity)
-  (interactive)
-  (linum-mode)
-  (ruby-complexity-mode))
-
-(defun r-guard:start ()
-  "Fire up an Guard"
-  (interactive)
-  (let ((buffer (shell "*Guard*")))
-
-    (set (make-local-variable 'comint-output-filter-functions)
-         '(comint-truncate-buffer
-           comint-postoutput-scroll-to-bottom
-           ansi-color-process-output
-           ))
-    (set (make-local-variable 'comint-buffer-maximum-size) 5000)
-    (set (make-local-variable 'comint-scroll-show-maximum-output) t)
-    (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
-
-    (ansi-color-for-comint-mode-on)
-    (compilation-shell-minor-mode 1)
-    (comint-send-string buffer (concat "guard" "\n"))))
-
 (defun r-tmp-test ()
   "Open a tmp test.rb file."
   (interactive)
@@ -102,12 +76,6 @@
    nil
    (lambda (x) "*Ruby Koans Path*")))
 
-(defun r-rhtml ()
-  "Load rhtml mode"
-  (interactive)
-  (add-to-list 'load-path (concat ruby-dir "/rhtml"))
-  (require 'rhtml-mode))
-
 (add-hook 'ruby-mode-common-hook
           '(lambda ()
              (add-to-list 'ac-omni-completion-sources
@@ -121,10 +89,7 @@
                                 ac-source-variables
                                 ac-source-symbols
                                 ac-source-features
-                                ac-source-abbrev
-                                ac-source-words-in-same-mode-buffers
                                 ac-source-semantic
-                                ac-source-semantic-raw
-                                ac-source-dictionary))))
+                                ac-source-semantic-raw))))
 
 (provide 'jp-ruby-helpers)
