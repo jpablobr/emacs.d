@@ -108,6 +108,12 @@
   (linum-mode)
   (ruby-complexity-mode))
 
+(defun jp-load-rdebug ()
+  "Load rdebug."
+  (interactive)
+	(add-to-list 'load-path (concat ruby-dir "/rdebug"))
+	(require 'rdebug))
+
 (defun jp-load-rhtml ()
   "Load rhtml mode"
   (interactive)

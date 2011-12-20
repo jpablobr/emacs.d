@@ -4,7 +4,6 @@
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
 (load-file (concat ruby-dir "/ruby-electric.el"))
 
-(require 'rdebug)
 (require 'align)
 (require 'inf-ruby)
 (require 'jp-lib-ruby)
