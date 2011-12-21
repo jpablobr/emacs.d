@@ -54,8 +54,6 @@
 (add-hook 'nxml-mode-hook (lambda ()
                             (make-variable-buffer-local 'ido-use-filename-at-point)
                             (setq ido-use-filename-at-point nil)))
-(add-hook 'nxml-mode-hook (lambda () (tidy-build-menu nxml-mode-map)))
-(add-hook 'html-mode-hook (lambda () (tidy-build-menu html-mode-map)))
 (add-hook 'html-mode-hook
           '(lambda()
              (local-set-key (kbd "<return>") 'newline-and-indent)))

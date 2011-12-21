@@ -31,7 +31,6 @@
 (auto-compression-mode t)
 (setq turn-on-xclip t)
 (cua-mode 'emacs)
-(which-func-mode 1)
 (setq truncate-partial-width-windows 0)
 (setq uniquify-buffer-name-style 'forward)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -71,10 +70,10 @@
       time-stamp-format "%04y-%02m-%02d %02H:%02M:%02S (%u)")
 
 (when window-system
-  (load-file (concat misc-dir "/mmm-mode/mmm-mode.el"))
-  (require 'mmm-auto)
-  (setq mmm-global-mode 'buffers-with-submode-classes)
-  (setq mmm-submode-decoration-level 2)
+  ;; (load-file (concat misc-dir "/mmm-mode/mmm-mode.el"))
+  ;; (require 'mmm-auto)
+  ;; (setq mmm-global-mode 'buffers-with-submode-classes)
+  ;; (setq mmm-submode-decoration-level 2)
 
   (mouse-wheel-mode t)
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
@@ -82,14 +81,12 @@
   (tool-bar-mode -1)
   (blink-cursor-mode -1))
 
-(require 'which-func)
 (require 'highlight-parentheses)
 (require 'highlight-symbol)
 (require 'cheat-fu)
 (require 'xclip)
 (require 're-builder)
 (require 'autopair)
-;; (require 'isearch+)
 (require 'deft)
 (require 'cheat-fu-deft)
 (require 'uniquify)
