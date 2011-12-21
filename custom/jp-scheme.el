@@ -20,53 +20,11 @@
 		   (require 'quack)
 		   (run-scheme mzscheme-program)))
 
-;; Scheme Hooks
-(add-hook 'scheme-mode-hook
-	  (lambda ()
-	    (define-key scheme-mode-map [f1]
-	      '(lambda ()
-		 (interactive)
-		 (ignore-errors
-		   (let ((symbol (thing-at-point 'symbol)))
-		     (info "(r5rs)")
-		     (Info-index symbol)))))
-	    (mapc (lambda (key-arg)
-                    (define-key scheme-mode-map (car key-arg)
-                      (eval `(lambda ()
-                               (interactive)
-                               (-test ,(cadr key-arg))))))
-                  '(([(control c) (control m)] nil)
-                    ([(control c) (h)]         :this)
-                    ([(control c) (e)]         :expand)
-                    ([(control c) (o)]         :expand-once)
-                    ([(control c) (*)]         :expand*)
-                    ([(control c) (p)]         :pp)))
-	    (define-key scheme-mode-map [(control c) (x)] 'scheme-send-dwim)
-	    (define-key scheme-mode-map [(control c) (\;)] 'insert-balanced-comments)
-	    (define-key scheme-mode-map [(control c) (:)] 'remove-balanced-comments)
-	    (define-key scheme-mode-map [(control c) (t)]
-	      (lambda (prefix)
-		(interactive "P")
-		(-trace "trace" prefix)))
-	    (define-key scheme-mode-map [(control c) (T)]
-	      (lambda (prefix)
-		(interactive "P")
-		(-trace "trace-all" prefix)))
-	    (imenu-add-to-menubar "Symbols")
-	    (outline-minor-mode)
-	    (make-local-variable 'outline-regexp)
-	    (setq outline-regexp "^(.*")))
-
-(add-hook 'Info-mode-hook
-	  (lambda ()
-	    (interactive)
-	    (define-key Info-mode-map [(control c) (x)] 'scheme-send-dwim)))
-
 ;; Scheme-specific Functions
 (defun insert-balanced-comments (arg)
-  "Insert a set of balanced comments around the s-expression 
+  "Insert a set of balanced comments around the s-expression
 containing the point.  If this command is invoked repeatedly
-(without any other command occurring between invocations), the 
+(without any other command occurring between invocations), the
 comment progressively moves outward over enclosing expressions."
   (interactive "*p")
   (save-excursion
@@ -115,15 +73,15 @@ comment progressively moves outward over enclosing expressions."
 	'("*scheme*"))
   (if mswindows-p
       (ignore-errors
-	(progn 
-	  (require 'gnuserv) 
-	  (gnuserv-start t))))) 
+	(progn
+	  (require 'gnuserv)
+	  (gnuserv-start t)))))
 
 (defun scheme-send-dwim (arg)
   "Send the appropriate forms to Scheme to be evaluated."
   (interactive "P")
   (save-excursion
-    (cond 
+    (cond
      ;;Region selected - evaluate region
      ((not (equal mark-active nil))
       (scheme-send-region (mark) (point)))
@@ -133,7 +91,7 @@ comment progressively moves outward over enclosing expressions."
 	    (backward-char 1)
 	    (looking-at "\\s\)")))
       (if (looking-at "\\s\)")
-	  (forward-char 1)) 
+	  (forward-char 1))
       (scheme-send-last-sexp))
      ;; At/before sexp - evaluate next sexp
      ((or (looking-at "\\s\(")
@@ -141,7 +99,7 @@ comment progressively moves outward over enclosing expressions."
 	    (forward-char 1)
 	    (looking-at "\\s\(")))
       (if (looking-at "\\s\(")
-	  (forward-list 1)) 
+	  (forward-list 1))
       (scheme-send-last-sexp))
      ;; Default - evaluate enclosing top-level sexp
      (t (scheme-send-definition)))
@@ -175,7 +133,7 @@ Eli Barzilay.  Actions: nil set current using sexp at point
  :pp          pprint current"
   (interactive (mzexpand-get-action))
   (comint-send-string (get-buffer-process "*scheme*")
-                      (format "(-test %S)" (or action 
+                      (format "(-test %S)" (or action
 					       (sexp-at-point))))
   (pop-to-buffer "*scheme*" t)
   (other-window 1))
@@ -197,9 +155,6 @@ Eli Barzilay.  Actions: nil set current using sexp at point
   (other-window 1))
 
 (autoload 'enable-paredit-mode "paredit"
-  "Turn on pseudo-structural editing of Lisp code."
-  t)
-
-(add-hook 'scheme-mode-hook 'enable-paredit-mode)
+  "Turn on pseudo-structural editing of Lisp code." t)
 
 (provide 'jp-scheme)

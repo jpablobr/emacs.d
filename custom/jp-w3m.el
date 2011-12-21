@@ -5,7 +5,6 @@
 
 (defun fc-w3m-rename-buffer (url)
   (rename-buffer url t))
-(add-hook 'w3m-display-hook 'fc-w3m-rename-buffer)
 
 (defun fc-w3m-setup ()
   "Setup a w3m buffer."
@@ -40,9 +39,6 @@ a prefix argument is given."
       (error "No url."))))
 
 (autoload 'w3m-browse-url "w3m" "Ask emacs-w3m to browse URL." t)
-
-(add-hook 'w3m-mode-hook 'fc-w3m-setup)
-(add-hook 'w3m-form-input-textarea-mode-hook 'fc-remove-cr)
 
 (setq w3m-use-cookies t
       w3m-cookie-accept-bad-cookies t

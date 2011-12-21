@@ -35,24 +35,6 @@
 ;; work around possible elpa bug
 (ignore-errors (require 'ruby-compilation))
 (setq ruby-use-encoding-map nil)
-
-(add-hook 'ruby-mode-hook
-          '(lambda ()
-             (set (make-local-variable 'tab-width) 2)
-             (highlight-parentheses-mode t)
-             (highlight-symbol-mode t)
-             (flymake-ruby-load)
-						 (ruby-block-mode t)
-             (modify-syntax-entry ?! "w" (syntax-table))
-             (modify-syntax-entry ?: "w" (syntax-table))
-             (modify-syntax-entry ?_ "w" (syntax-table))
-             (local-set-key (kbd "C-.") 'complete-tag)
-             (inf-ruby-keys)
-             (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
-             (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
-             (local-set-key (kbd "<return>") 'newline-and-indent)))
-
-(add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 (setq rdebug-short-key-mode t)
 
 (provide 'jp-ruby)

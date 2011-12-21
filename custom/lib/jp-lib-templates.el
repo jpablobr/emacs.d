@@ -1,4 +1,4 @@
-(defun test-sh-script ()
+(defun jp-test-sh-script ()
   "Loads a testing script."
   (interactive)
   (let ((buffer (shell "*Testing Script*")))
@@ -11,7 +11,7 @@
     (find-file "~/.private/bin/test.sh")
     (comint-send-string buffer (concat "cd ~/.private/bin/; ls -la" "\n"))))
 
-(defun new-sh-script (name)
+(defun jp-new-sh-script (name)
   "Loads a template for a new sh script."
   (interactive "sName: ")
   (let ((buffer (shell "*New Script*")))
@@ -20,30 +20,17 @@
     (find-file (concat script-path script-name))
     (comint-send-string buffer (concat "cd " script-path ";echo './" script-name "'\n"))))
 
-(defun toggle-linum  ()
-  "Toggle linum mode"
-  (interactive)
-  (linum-mode))
-
-;;; --------------------------------------------------------------------
-;;; - Insert helper for the lazy.
-(defun insert-name ()
+(defun jp-insert-name ()
   "Insert name at point."
   (interactive)
   (insert user-full-name))
 
-(defun insert-email ()
+(defun jp-insert-email ()
   "Insert user email at point."
   (interactive)
   (insert user-mail-address))
 
-(defun colorize-compilation-buffer ()
-  (toggle-read-only)
-  (ansi-color-apply-on-region (point-min) (point-max))
-  (toggle-read-only))
-(add-hook 'ri-filter-hook 'colorize-compilation-buffer)
-
-(defun lorem ()
+(defun jp-lorem ()
   "Insert a lorem ipsum."
   (interactive)
   (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
@@ -54,7 +41,7 @@
           "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in "
           "culpa qui officia deserunt mollit anim id est laborum."))
 
-(defun insert-date ()
+(defun jp-insert-date ()
   "Insert the Date."
   (interactive)
   (insert-string (current-date-string)))

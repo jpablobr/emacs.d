@@ -1,5 +1,15 @@
 (load-library "compile")
 
+(autoload 'mode-compile "mode-compile"
+  "Command to compile current buffer file based on the major mode" t)
+
+(global-set-key "\C-cc" 'mode-compile)
+
+(autoload 'mode-compile-kill "mode-compile"
+  "Command to kill a compilation launched by `mode-compile'" t)
+
+(global-set-key "\C-ck" 'mode-compile-kill)
+
 ;;; For some reason, the gnu regex is capturing leading white space.
 (setq compilation-error-regexp-alist
       (remq 'gnu compilation-error-regexp-alist))
@@ -18,10 +28,5 @@
 ;; Line 81 column 13 in GREED_GAME (./greed_game.e) :
 (add-to-list 'compilation-error-regexp-alist
              '("Line \\([0-9]+\\) column [0-9]+ in [A-Za-z0-9_]+ (\\(.*\\)) +:" 2 1) )
-
-(add-hook 'compilation-mode-hook '(lambda ()
-                                    (setq show-trailing-whitespace nil)))
-
-(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 (provide 'jp-compile)

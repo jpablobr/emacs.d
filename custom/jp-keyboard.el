@@ -1,4 +1,4 @@
- ;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
+;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
 (lookup-key global-map "\C-x"); --> Control-X-prefix
 (define-key global-map "\C-[" 'Control-X-prefix)
 (global-set-key (kbd "C-x \\") 'align-regexp)
@@ -42,7 +42,7 @@
 (global-set-key (kbd "C-l cg") 'cheat-fu-commit)
 (global-set-key (kbd "C-l cr") 'ruby-compile-region)
 (global-set-key (kbd "C-l cn") 'cheat-fu-new)
-(global-set-key (kbd "C-l df") 'delete-current-file)
+(global-set-key (kbd "C-l df") 'jp-delete-current-file)
 (global-set-key (kbd "C-l dm") 'ido-imenu)
 (global-set-key (kbd "C-l ee") 'eval-buffer)
 (global-set-key (kbd "C-l ei") 'ecb-init-stuff)
