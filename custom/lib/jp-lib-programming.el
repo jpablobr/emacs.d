@@ -87,8 +87,6 @@
                         (logior (file-modes buffer-file-name) #o100))
         (message (concat "Made " buffer-file-name " executable"))))))
 
-(add-hook 'after-save-hook 'jp-make-script-executable)
-
 (defun jp-ido-goto-symbol (&optional symbol-list)
   "Refresh imenu and jump to a place in the buffer using Ido."
   (interactive)
@@ -192,9 +190,5 @@ Return nil if we cannot, non-nil if we can."
   (set (make-local-variable 'comment-auto-fill-only-comments) t)
   (jp-add-watchwords)
   (auto-fill-mode))
-
-;; in Emacs 24 programming major modes generally derive
-;; from a common mode named prog-mode
-(add-hook 'prog-mode-hook 'jp-prog-mode-hook)
 
 (provide 'jp-lib-programming)

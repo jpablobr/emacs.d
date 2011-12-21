@@ -278,4 +278,9 @@ A place is considered `tab-width' character columns."
   (interactive)
   (textmate-shift-right (* -1 (or arg 1))))
 
+(defun jp-turn-on-flyspell ()
+  "Force flyspell-mode on using a positive argument.  For use in hooks."
+  (interactive)
+  (flyspell-mode +1))
+
 (provide 'jp-lib-misc)

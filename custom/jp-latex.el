@@ -1,15 +1,5 @@
-
 (load "auctex.el" nil t t)
-
 (load "preview-latex.el" nil t t)
-
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
-  (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
-  (autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
-  (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
-  (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
-  (add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
 
 (dolist (i '("tex" "toc" "sty" "cls" "clo"))
   (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'tex-mode)))
@@ -29,8 +19,6 @@
     (file-exists-p (buffer-file-name))
     (reftex-parse-all))
     (define-key org-mode-map (kbd "C-c (") 'reftex-citation))
-
-  (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 
   ;; RefTeX formats for biblatex (not natbib)
   (setq reftex-cite-format

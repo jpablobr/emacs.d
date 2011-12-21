@@ -1,7 +1,3 @@
-;;jp-erlang.el ----------------------------------------------------------------------------
-;; - Erlang
-;;
-
 (setq erlang-dir (concat vendor-dir "/erlang"))
 (add-to-list 'load-path (concat erlang-dir "/erlware-mode"))
 (add-to-list 'load-path (concat erlang-dir "/distel/elisp"))
@@ -41,9 +37,6 @@
     (flymake-mode -1))
   (local-set-key [return] 'newline-and-indent)
   )
-(add-hook 'erlang-mode-hook 'alexott/erlang-mode-hook)
-;; (add-hook 'erlang-mode-hook 'alexott/common-hook)
-;; (add-hook 'erlang-mode-hook 'alexott/show-prog-keywords)
 
 ;; A number of the erlang-extended-mode key bindings are useful in the shell too
 (defconst distel-shell-keys
@@ -55,14 +48,7 @@
     )
   "Additional keys to bind when in Erlang shell.")
 
-(add-hook 'erlang-shell-mode-hook
-          (lambda ()
-            ;; add some Distel bindings to the Erlang shell
-            (dolist (spec distel-shell-keys)
-              (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
-
 (require 'esense-start)
 (setq esense-indexer-program (concat erlang-dir "/esense/esense.sh")))
-
 
 (provide 'jp-erlang)

@@ -1,16 +1,11 @@
-;;jp-php.el ----------------------------------------------------------------------------
-;; - PHP
 (setq php-dir (concat vendor-dir "/php"))
 (add-to-list 'load-path php-dir)
 (add-to-list 'load-path (concat php-dir "/php-mode"))
-(require 'php-mode)
-
+(autoload 'geben "geben" "PHP Debugger on Emacs" t)
 (autoload 'php-mode "php-mode" "mode for editing php files" t)
+(require 'flymake-php)
+
 (add-auto-mode 'php-mode "\\.php[345]?\\'\\|\\.phtml\\." "\\.(inc|tpl)$" "\\.module$")
-(add-hook 'php-mode-hook
-          (lambda ()
-            (require 'flymake-php)
-            (flymake-mode t)))
 
 (defun wicked/php-mode-init ()
   "Set some buffer-local variables."
@@ -22,7 +17,6 @@
   (c-set-offset 'arglist-intro '+)
   (c-set-offset 'case-label 2)
   (c-set-offset 'arglist-close 0))
-(add-hook 'php-mode-hook 'wicked/php-mode-init)
 
 (defun terminate-line ()
   "Terminate the line with a semicolon, and prepare to start typing on the next line. A second semicolon will not be inserted if one is already present.
@@ -50,32 +44,5 @@
      (open-line n)
      (next-line n)
      (indent-according-to-mode)))
-
-(define-key php-mode-map "\r" 'reindent-then-newline-and-indent)
-(define-key php-mode-map "\C-c\C-c" 'comment-or-uncomment-region-or-line)
-(define-key php-mode-map "\M-;" 'terminate-line)
-(define-key php-mode-map "\C-o" 'open-line-indent)
-(define-key php-mode-map (kbd "RET") 'newline-and-indent)
-(setq show-paren-mode t)
-
-
-(require 'php-mode)
-
-(add-hook 'php-mode-hook '(lambda ()
-			    (flyspell-prog-mode)
-			    (c-toggle-auto-newline -1)
-			    (setq c-basic-offset 4
-				  indent-tabs-mode nil)))
-
-(require 'flymake-php)
-(add-hook 'php-mode-hook '(lambda () (flymake-mode t)))
-
-(require 'php-electric)
-(add-hook 'php-mode-hook '(lambda () (php-electric-mode)))
-
-(autoload 'geben "geben" "PHP Debugger on Emacs" t)
-
-(add-hook 'php-mode-hook '(lambda ()
-			    (highlight-parentheses-mode 1)))
 
 (provide 'jp-php)

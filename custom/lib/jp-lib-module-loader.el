@@ -1,6 +1,8 @@
 (defun jp-main-module-loader ()
   "Loads all the defaults."
   (interactive)
+	(add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
+	(add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
 	(load-file (concat jpablobr-dir "/jp-misc.el"))
 	(require 'jp-misc)
 	(load-file (concat jpablobr-dir "/jp-yaml.el"))
@@ -26,6 +28,7 @@
 	(require 'jp-lib-misc)
 	(require 'jp-lib-templates)
 	(require 'jp-lib-programming)
+	(require 'jp-lib-hooks)
 	(load-file (concat jpablobr-dir "/jp-yasnippet.el"))
 	(require 'jp-yasnippet)
 	(load-file (concat jpablobr-dir "/jp-hippie.el"))
@@ -33,18 +36,17 @@
 	(shell)
 	(jp-load-lua)
 	(jp-load-yasnippets)
+	(jp-load-git)
 	(setq deft-extension "md")
 	(setq deft-directory "~/.private/notes")
 	(setq deft-text-mode 'markdown-mode)
 	(cheat-fu-deft)
 	(deft)
-	(jp-load-git)
 	(setq initial-scratch-message nil)
-	(cd "~/")
-	(remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function))
+	(cd "~/"))
 
 (defun ecb-init-stuff ()
-  "Load ECB stuff..."
+  "Load ECB"
   (interactive)
   (add-to-list 'load-path (concat misc-dir "/cedet-1.0pre7/common/cedet.el"))
   (add-to-list 'load-path (concat misc-dir "/ecb-2.40"))
@@ -179,8 +181,7 @@
 	(autoload 'lua-mode "lua-mode" "Lua editing mode." t)
 	(add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
 	(add-to-list 'interpreter-mode-alist '("lua" . lua-mode))
-	(require 'flymake-lua)
-	(add-hook 'lua-mode-hook 'flymake-lua-load))
+	(require 'flymake-lua))
 
 (defun jp-load-ascii-doc ()
   "Load Ascii-doc."
@@ -188,9 +189,6 @@
 	(autoload 'doc-mode "doc-mode" nil t)
 	(add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))
 	(add-to-list 'auto-mode-alist '("\\.asc$" . doc-mode))
-	(add-hook 'doc-mode-hook
-						'(lambda ()
-							 (require 'asciidoc)))
 	(autoload 'asciidoc-mode "asciidoc-mode" nil t)
 	(add-to-list 'auto-mode-alist '("\\.asciidoc$" . asciidoc-mode)))
 

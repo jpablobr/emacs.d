@@ -1,10 +1,7 @@
-;;jp-python.el ----------------------------------------------------------------------------
-;;
 (setq python-dir (concat vendor-dir "/python"))
 (setq pylookup-dir (concat python-dir "/pylookup"))
 (add-to-list 'load-path pylookup-dir)
 
-;; load pylookup when compile time
 (eval-when-compile (require 'pylookup))
 
 (defun python-custom ()
@@ -29,22 +26,6 @@
   ;; Emacs key binding
   (global-set-key "\C-ch" 'pylookup-lookup))
 
-(add-hook 'python-mode-hook '(lambda () (python-custom)))
-
-;; TODO: (void-variable python-mode-map) error
-(setq interpreter-mode-alist
-      (cons '("python" . python-mode)
-            interpreter-mode-alist)
-      python-mode-hook
-      '(lambda () (progn
-               (set-variable 'py-indent-offset 4)
-               (set-variable 'py-smart-indentation nil)
-               (set-variable 'indent-tabs-mode nil)
-               ;;(highlight-beyond-fill-column)
-               (define-key python-mode-map "\C-m" 'newline-and-indent)
-               (pabbrev-mode)
-               (abbrev-mode))))
-
 ;; pymacs
 (autoload 'pymacs-apply "pymacs")
 (autoload 'pymacs-call "pymacs")
@@ -53,7 +34,6 @@
 (autoload 'pymacs-load "pymacs" nil t)
 (setq ropemacs-enable-autoimport t)
 
-(add-hook 'pre-abbrev-expand-hook 'abbrev-table-change)
 (defun abbrev-table-change (&optional args)
   (setq local-abbrev-table
         (if (eq major-mode 'jde-mode)
