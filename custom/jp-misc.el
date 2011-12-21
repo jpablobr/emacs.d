@@ -89,7 +89,7 @@
 (require 'xclip)
 (require 're-builder)
 (require 'autopair)
-(require 'isearch+)
+;; (require 'isearch+)
 (require 'deft)
 (require 'cheat-fu-deft)
 (require 'uniquify)

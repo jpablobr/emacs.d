@@ -11,13 +11,13 @@
              (delete-region (point-min) (point-max))))))
      (ad-activate 'ruby-do-run-w/compilation)))
 
-(defun r-tmp-test ()
+(defun jp-ruby-tmp-test ()
   "Open a tmp test.rb file."
   (interactive)
   (when (file-exists-p "~/tmp")
     (find-file "~/tmp/test/tmp_test.rb")))
 
-(defun r-koans ()
+(defun jp-ruby-koans ()
   "Run the current buffer in a ruby subprocess."
   (interactive)
   (compilation-start

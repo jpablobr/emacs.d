@@ -1,12 +1,12 @@
 ;;; --------------------------------------------------------------------
 ;;; - Makes load time faster.
-(defun byte-recompile-home ()
+(defun jp-byte-recompile-home ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d" 0))
 
 ;;; --------------------------------------------------------------------
 ;;; - Network
-(defun view-url ()
+(defun jp-view-url ()
   "Open a new buffer containing the contents of URL."
   (interactive)
   (let* ((default (thing-at-point-url-at-point))
@@ -17,22 +17,22 @@
     (cond ((search-forward "<?xml" nil t) (xml-mode))
           ((search-forward "<html" nil t) (html-mode)))))
 
-(defun untabify-buffer ()
+(defun jp-untabify-buffer ()
   (interactive)
   (untabify (point-min) (point-max)))
 
-(defun indent-buffer ()
+(defun jp-indent-buffer ()
   (interactive)
   (indent-region (point-min) (point-max)))
 
-(defun cleanup-buffer ()
+(defun jp-cleanup-buffer ()
   "Perform a bunch of operations on the whitespace content of a buffer."
   (interactive)
-  (indent-buffer)
-  (untabify-buffer)
+  (jp-indent-buffer)
+  (jp-untabify-buffer)
   (delete-trailing-whitespace))
 
-(defun delete-current-file ()
+(defun jp-delete-current-file ()
   "Delete the file associated with the current buffer.
 Delete the current buffer too."
   (interactive)
@@ -48,19 +48,19 @@ Delete the current buffer too."
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
-(defun synonym-s (what)
+(defun jp-synonym-s (what)
   "Use synonym.com to search for WHAT."
   (interactive "sSearch: ")
   (w3m-browse-url (concat "http://www.synonym.com/synonyms/"
                           (w3m-url-encode-string what))))
 
-(defun definition-s (what)
+(defun jp-definition-s (what)
   "Use dictionary.reference.com  to search for WHAT."
   (interactive "sSearch: ")
   (w3m-browse-url (concat "http://www.thefreedictionary.com/"
                           (w3m-url-encode-string what))))
 
-(defun current-word-definition ()
+(defun jp-current-word-definition ()
   "Google search on current region.\n"
   (interactive)
   (let (myword myurl)
@@ -72,7 +72,7 @@ Delete the current buffer too."
     (setq myurl (concat "http://www.thefreedictionary.com/" myword))
     (browse-url myurl)))
 
-(defun google-region ()
+(defun jp-google-region ()
   "Google search on current region.\n"
   (interactive)
   (let (myword myurl)
@@ -111,31 +111,31 @@ Delete the current buffer too."
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl" "#github" "#rubinius" "#debian")))
 
-(defun erc-connect ()
+(defun jp-erc-connect ()
   "Default ERC stuff."
   (interactive)
   (progn (erc :server "irc.freenode.net" :port 6667 :nick "jpablobr")))
 
 ;;; --------------------------------------------------------------------
 ;;; - General
-(defun add-auto-mode (mode &rest patterns)
+(defun jp-add-auto-mode (mode &rest patterns)
   "Handier way to add modes to auto-mode-alist"
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
-(defun current-date-string ()
+(defun jp-current-date-string ()
   (let ((time-string (current-time-string)))
     (concat (substring time-string 8 10)
-	    "/"
-	    (substring time-string 4 7)
-	    "/"
-	    (substring time-string 22 24))))
+            "/"
+            (substring time-string 4 7)
+            "/"
+            (substring time-string 22 24))))
 
-(defun current-year-string ()
+(defun jp-current-year-string ()
   (let ((time-string (current-time-string)))
     (concat (substring time-string 20 24))))
 
-(defun encrypt (password)
+(defun jp-encrypt (password)
   "Encrypt/Decrypt the current buffer"
   (interactive "sPassword: ")
   (call-process-region
@@ -146,7 +146,7 @@ Delete the current buffer too."
    nil
    password))
 
-(defun t-anything ()
+(defun jp--anything ()
   (interactive)
   (anything-other-buffer
    '(anything-c-source-buffers
@@ -159,38 +159,38 @@ Delete the current buffer too."
      anything-c-source-etags-select)
    " *jp-anything*"))
 
-(defun fullscreen-toggle ()
+(defun jp-fullscreen-toggle ()
   (interactive)
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
                                            nil
                                          'fullboth)))
 
 (when window-system
-  (defun transparency ()
+  (defun jp-transparency ()
     "Sets transparency"
     (interactive)
     (set-frame-parameter (selected-frame) 'alpha '(85 85))
     (add-to-list 'default-frame-alist '(alpha 85 85)))
 
-  (defun reset-transparency ()
+  (defun jp-reset-transparency ()
     "Resets transparency"
     (interactive)
     (set-frame-parameter (selected-frame) 'alpha '(100 100))
     (add-to-list 'default-frame-alist '(alpha 100 100)))); - when window-system
 
-(defun sudo-find-file (file-name)
+(defun jp-sudo-find-file (file-name)
   "Like find file, but opens the file as root."
   (interactive "FSudo Find File: ")
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
     (find-file tramp-file-name)))
 
-(defun word-count ()
+(defun jp-word-count ()
   "Count words in buffer"
   (interactive)
   (shell-command-on-region (point-min) (point-max) "wc -w"))
 
 ;; http://www.emacswiki.org/emacs/EmacsAsDaemon
-(defun client-save-kill-emacs(&optional display)
+(defun jp-client-save-kill-emacs(&optional display)
   " This is a function that can bu used to shutdown save buffers and
 shutdown the emacs daemon. It should be called using
 emacsclient -e '(client-save-kill-emacs)'.  This function will
@@ -203,8 +203,8 @@ be prompted."
                                         (> (length (frame-list)) 1)))
     (when (or modified-buffers active-clients-or-frames)
       (when (not (eq window-system 'x))
-	(message "Initializing x windows system.")
-	(x-initialize-window-system))
+        (message "Initializing x windows system.")
+        (x-initialize-window-system))
       (when (not display) (setq display (getenv "DISPLAY")))
       (message "Opening frame on display: %s" display)
       (select-frame (make-frame-on-display display '((window-system . x)))))
@@ -215,19 +215,19 @@ be prompted."
                             "There are currently %d clients and %d frames. Exit anyway?"
                             (- (length server-clients) 1) (- (length (frame-list)) 2))))
       (let ((inhibit-quit t))
-	(with-local-quit
-	  (save-some-buffers))
-	(if quit-flag
-      (setq quit-flag nil)
-	  (progn
-	    (dolist (client server-clients)
-	      (server-delete-client client))
-	    (kill-emacs)))))
+        (with-local-quit
+          (save-some-buffers))
+        (if quit-flag
+            (setq quit-flag nil)
+          (progn
+            (dolist (client server-clients)
+              (server-delete-client client))
+            (kill-emacs)))))
     (when (or modified-buffers active-clients-or-frames)
       (delete-frame new-frame))))
 
 
-(defun modified-buffers-exist()
+(defun jp-modified-buffers-exist()
   "This function will check to see if there are any buffers
 that have been modified.  It will return true if there are
 and nil otherwise. Buffers that have buffer-offer-save set to
@@ -235,16 +235,16 @@ nil are ignored."
   (let (modified-found)
     (dolist (buffer (buffer-list))
       (when (and (buffer-live-p buffer)
-		 (buffer-modified-p buffer)
-		 (not (buffer-base-buffer buffer))
-		 (or
-		  (buffer-file-name buffer)
-		  (progn
-		    (set-buffer buffer)
-		    (and buffer-offer-save (> (buffer-size) 0)))))
-	(setq modified-found t)))modified-found))
+                 (buffer-modified-p buffer)
+                 (not (buffer-base-buffer buffer))
+                 (or
+                  (buffer-file-name buffer)
+                  (progn
+                    (set-buffer buffer)
+                    (and buffer-offer-save (> (buffer-size) 0)))))
+        (setq modified-found t)))modified-found))
 
-(defun passenger:start ()
+(defun jp-passenger:start ()
   "Fire up an instance of a Passenger server"
   (interactive)
   (let ((buffer (shell "*Passenger Server at port 3000*")))

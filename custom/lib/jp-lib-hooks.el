@@ -4,7 +4,7 @@
 
 (add-hook 'after-save-hook 'jp-make-script-executable)
 
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'jp-cleanup-buffer)
 
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 
@@ -36,6 +36,8 @@
                                 ac-source-semantic-raw))))
 
 (add-hook 'lua-mode-hook 'flymake-lua-load)
+
+(add-hook 'ri-filter-hook 'jp-colorize-compilation-buffer)
 
 (add-hook 'doc-mode-hook
           '(lambda ()

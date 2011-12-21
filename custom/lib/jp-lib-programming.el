@@ -1,22 +1,22 @@
-(defun match-paren (arg)
+(defun jp-match-paren (arg)
   "Go to the matching parenthesis if on parenthesis otherwise insert %."
   (interactive "p")
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
         ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
         (t (self-insert-command (or arg 1)))))
 
-(defun escape-quotes-region (start end)
+(defun jp-escape-quotes-region (start end)
   "escape quotes"
   (interactive "r")
   "Replace \" by \\\"."
   (replace-pairs-region start end '(["\"" "\\\""])))
 
-(defun unescape-quotes-region (start end)
+(defun jp-unescape-quotes-region (start end)
   (interactive "r")
   "Replace \\\" by \"."
   (replace-pairs-region start end '(["\\\"" "\""])))
 
-(defun add-string-to-end-of-lines-in-region (str b e)
+(defun jp-add-string-to-end-of-lines-in-region (str b e)
   "prompt for string, add it to end of lines in the region"
   (interactive "sWhat shall we append? \nr")
   (goto-char e)
@@ -70,7 +70,7 @@
        string)))))
 
 (require 'ansi-color)
-(defun colorize-compilation-buffer ()
+(defun jp-colorize-compilation-buffer ()
   (toggle-read-only)
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
@@ -140,7 +140,7 @@
    nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
           1 font-lock-warning-face t))))
 
-(defun jp-visit-term-buffer ()
+(defun jp-ansi-term ()
   (interactive)
   (if (not (get-buffer "*ansi-term*"))
       (ansi-term "/bin/bash")
