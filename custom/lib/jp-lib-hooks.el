@@ -115,7 +115,7 @@
 (add-hook 'compilation-mode-hook '(lambda ()
                                     (setq show-trailing-whitespace nil)))
 
-(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+(add-hook 'compilation-filter-hook 'jp-colorize-compilation-buffer)
 
 (add-hook 'scheme-mode-hook
           (lambda ()
@@ -205,7 +205,7 @@
              (ansi-color-for-comint-mode-on)
              (setq show-trailing-whitespace nil)))
 
-(add-hook 'shell-filter-hook 'colorize-compilation-buffer)
+(add-hook 'shell-filter-hook 'jp-colorize-compilation-buffer)
 
 (add-hook 'shell-script-mode-hook 'flymake-shell-load)
 

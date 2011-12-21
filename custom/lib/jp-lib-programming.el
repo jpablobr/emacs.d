@@ -105,7 +105,7 @@
       (while (progn
                (imenu--cleanup)
                (setq imenu--index-alist nil)
-               (prelude-ido-goto-symbol (imenu--make-index-alist))
+               (jp-ido-goto-symbol (imenu--make-index-alist))
                (setq selected-symbol
                      (ido-completing-read "Symbol? " symbol-names))
                (string= (car imenu--rescan-item) selected-symbol)))
@@ -122,7 +122,7 @@
       (let (name position)
         (cond
          ((and (listp symbol) (imenu--subalist-p symbol))
-          (prelude-ido-goto-symbol symbol))
+          (jp-ido-goto-symbol symbol))
          ((listp symbol)
           (setq name (car symbol))
           (setq position (cdr symbol)))
@@ -168,10 +168,10 @@ region\) apply comment-or-uncomment to the current line"
   (interactive)
   (if (not mark-active)
       (comment-or-uncomment-region
-        (line-beginning-position) (line-end-position))
-      (if (< (point) (mark))
-          (comment-or-uncomment-region (point) (mark))
-        (comment-or-uncomment-region (mark) (point)))))
+       (line-beginning-position) (line-end-position))
+    (if (< (point) (mark))
+        (comment-or-uncomment-region (point) (mark))
+      (comment-or-uncomment-region (mark) (point)))))
 
 ;; https://github.com/purcell/emacs.d/blob/master/init-flymake.el
 (setq flymake-gui-warnings-enabled nil)

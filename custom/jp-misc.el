@@ -81,15 +81,6 @@
   (tool-bar-mode -1)
   (blink-cursor-mode -1))
 
-(require 'highlight-parentheses)
-(require 'highlight-symbol)
-(require 'cheat-fu)
-(require 'xclip)
-(require 're-builder)
-(require 'autopair)
-(require 'deft)
-(require 'cheat-fu-deft)
-(require 'uniquify)
 (autoload 'change-case "change-case" t)
 (autoload 'xrdb-mode "xrdb-mode" "Mode for editing X resource files" t)
 
