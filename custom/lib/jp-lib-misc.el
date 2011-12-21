@@ -276,7 +276,7 @@ A place is considered `tab-width' character columns."
 (defun jp-shift-left (&optional arg)
   "Shift the line or region to the ARG places to the left."
   (interactive)
-  (textmate-shift-right (* -1 (or arg 1))))
+  (jp-shift-right (* -1 (or arg 1))))
 
 (defun jp-turn-on-flyspell ()
   "Force flyspell-mode on using a positive argument.  For use in hooks."

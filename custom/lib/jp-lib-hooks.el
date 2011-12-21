@@ -79,14 +79,9 @@
           (lambda ()
             (jp-turn-on-flyspell)))
 
-(add-hook 'emacs-lisp-mode-common-hook
+(add-hook 'emacs-lisp-mode-hook
           '(lambda ()
-             (define-key emacs-lisp-mode-map [(control j)] 'newline)
-             (define-key emacs-lisp-mode-map [(control m)] 'newline-and-indent)
-             (define-key emacs-lisp-mode-map [(control c) (x)] 'copy-eval-dwim-lisp)
              (autopair-mode)
-             (emacs-lisp-remove-elc-on-save)
-             (coding-hook)
              (add-to-list 'ac-omni-completion-sources
                           (cons "\\." '(ac-source-semantic)))
              (add-to-list 'ac-omni-completion-sources
@@ -190,7 +185,6 @@
                     (set-variable 'py-indent-offset 4)
                     (set-variable 'py-smart-indentation nil)
                     (set-variable 'indent-tabs-mode nil)
-                    ;;(highlight-beyond-fill-column)
                     (define-key python-mode-map "\C-m" 'newline-and-indent)
                     (pabbrev-mode)
                     (python-custom)
@@ -208,8 +202,6 @@
 (add-hook 'shell-filter-hook 'jp-colorize-compilation-buffer)
 
 (add-hook 'shell-script-mode-hook 'flymake-shell-load)
-
-(add-hook 'lisp-mode-hook 'coding-hook)
 
 (add-hook 'w3m-display-hook 'fc-w3m-rename-buffer)
 (add-hook 'w3m-mode-hook 'fc-w3m-setup)

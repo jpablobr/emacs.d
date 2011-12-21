@@ -36,6 +36,7 @@
 ;;; --------------------------------------------------------------------
 ;;; \C-l redefined -----------------------------------------------------
 (global-unset-key "\C-l")
+(global-set-key (kbd "C-l ab") 'anything-browse-code)
 (global-set-key (kbd "C-l bu") 'browse-url)
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)

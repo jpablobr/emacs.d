@@ -154,9 +154,9 @@
   "Load Git(1)."
   (interactive)
   (load-file (concat misc-dir "/git-show/git-show.el"))
+  (require 'git)
   (require 'magit)
   (require 'git-show))
-
 
 (defun jp-load-lua ()
   "Load Lua."
