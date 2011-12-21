@@ -15,7 +15,6 @@
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (flymake-ruby-load)
-             (ruby-block-mode t)
              (inf-ruby-keys)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)

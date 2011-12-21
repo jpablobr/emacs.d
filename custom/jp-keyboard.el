@@ -52,8 +52,6 @@
 (global-set-key (kbd "C-l gc") 'g-commit)
 (global-set-key (kbd "C-l gs") 'git-status)
 (global-set-key (kbd "C-l gf") 'git-show-file)
-(global-set-key (kbd "C-l gp") 'gist-buffer-private)
-(global-set-key (kbd "C-l gr") 'gist-buffer)
 (global-set-key (kbd "C-l gl") 'git-mode-line)
 (global-set-key (kbd "C-l gt") 'goto-line)
 (global-set-key (kbd "C-l ie") 'insert-email)

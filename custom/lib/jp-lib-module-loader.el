@@ -166,11 +166,8 @@
 (defun jp-load-git ()
   "Load Git(1)."
   (interactive)
-  (setq git-dir (concat vendor-dir "/git"))
-  (add-to-list 'load-path git-dir)
-  (load-file (concat git-dir "/git-show/git-show.el"))
+  (load-file (concat misc-dir "/git-show/git-show.el"))
   (require 'magit)
-  (require 'gist)
   (require 'git-show))
 
 

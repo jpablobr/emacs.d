@@ -10,7 +10,6 @@
 (require 'ruby-style)
 (require 'flymake-ruby)
 (require 'ruby-hacks)
-(require 'ruby-block)
 (require 'ruby-end)
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
