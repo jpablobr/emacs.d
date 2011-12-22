@@ -34,15 +34,15 @@
 (autoload 'pymacs-load "pymacs" nil t)
 (setq ropemacs-enable-autoimport t)
 
-(defun abbrev-table-change (&optional args)
-  (setq local-abbrev-table
-        (if (eq major-mode 'jde-mode)
-            (if (jde-parse-comment-or-quoted-p)
-                text-mode-abbrev-table
-              java-mode-abbrev-table)
-          (if (eq major-mode 'python-mode)
-              (if (inside-comment-p)
-                  text-mode-abbrev-table
-                python-mode-abbrev-table)))))
+;; (defun abbrev-table-change (&optional args)
+;;   (setq local-abbrev-table
+;;         (if (eq major-mode 'jde-mode)
+;;             (if (jde-parse-comment-or-quoted-p)
+;;                 text-mode-abbrev-table
+;;               java-mode-abbrev-table)
+;;           (if (eq major-mode 'python-mode)
+;;               (if (inside-comment-p)
+;;                   text-mode-abbrev-table
+;;                 python-mode-abbrev-table)))))
 
 (provide 'jp-python)

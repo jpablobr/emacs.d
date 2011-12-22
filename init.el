@@ -10,7 +10,8 @@
 (require 'jp-lib-module-loader)
 (jp-main-module-loader)
 
-(setq initial-scratch-message (shell-command-to-string "/usr/bin/fortune"))
+(setq initial-scratch-message
+      (shell-command-to-string "/usr/bin/fortune"))
 
 (message "init.el loaded in %ds"
          (destructuring-bind (hi lo ms)

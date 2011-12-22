@@ -104,9 +104,7 @@ See `x-set-selection'."
   (setq interprogram-cut-function nil)
   (setq interprogram-paste-function nil))
 
-
 (add-hook 'terminal-init-xterm-hook 'turn-on-xclip)
-
 
 (provide 'xclip)
 ;;; xclip.el ends here

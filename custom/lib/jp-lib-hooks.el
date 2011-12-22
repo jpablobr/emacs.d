@@ -184,8 +184,6 @@
                     (python-custom)
                     (abbrev-mode))))
 
-(add-hook 'pre-abbrev-expand-hook 'abbrev-table-change)
-
 (add-hook 'shell-mode-hook
           '(lambda nil
              (setq comint-prompt-read-only)
