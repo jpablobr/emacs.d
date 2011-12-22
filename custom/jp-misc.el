@@ -92,7 +92,8 @@
 
 (custom-set-faces
  '(hl-line ((t (:background "#4f4f4f"))))
- '(isearch ((((class color) (min-colors 8)) (:background "green" :foreground "black")))))
+ '(isearch ((((class color) (min-colors 8)) (:background "green" :foreground "black"))))
+ '(warning ((((class color) (min-colors 8)) (:background "green" :foreground "black")))))
 
 ;; (setq debug-on-error t)
 

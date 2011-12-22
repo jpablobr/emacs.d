@@ -32,7 +32,7 @@
   (replace-match "") )
 
 (defun jp-zap-all-ansi ()
-  (interactive)
+  n  (interactive)
   (save-excursion
     (goto-char 0)
     (while t (jp-zap-ansi-clutter))  ))
@@ -87,57 +87,9 @@
                         (logior (file-modes buffer-file-name) #o100))
         (message (concat "Made " buffer-file-name " executable"))))))
 
-(defun jp-ido-goto-symbol (&optional symbol-list)
-  "Refresh imenu and jump to a place in the buffer using Ido."
-  (interactive)
-  (unless (featurep 'imenu)
-    (require 'imenu nil t))
-  (cond
-   ((not symbol-list)
-    (let ((ido-mode ido-mode)
-          (ido-enable-flex-matching
-           (if (boundp 'ido-enable-flex-matching)
-               ido-enable-flex-matching t))
-          name-and-pos symbol-names position)
-      (unless ido-mode
-        (ido-mode 1)
-        (setq ido-enable-flex-matching t))
-      (while (progn
-               (imenu--cleanup)
-               (setq imenu--index-alist nil)
-               (jp-ido-goto-symbol (imenu--make-index-alist))
-               (setq selected-symbol
-                     (ido-completing-read "Symbol? " symbol-names))
-               (string= (car imenu--rescan-item) selected-symbol)))
-      (unless (and (boundp 'mark-active) mark-active)
-        (push-mark nil t nil))
-      (setq position (cdr (assoc selected-symbol name-and-pos)))
-      (cond
-       ((overlayp position)
-        (goto-char (overlay-start position)))
-       (t
-        (goto-char position)))))
-   ((listp symbol-list)
-    (dolist (symbol symbol-list)
-      (let (name position)
-        (cond
-         ((and (listp symbol) (imenu--subalist-p symbol))
-          (jp-ido-goto-symbol symbol))
-         ((listp symbol)
-          (setq name (car symbol))
-          (setq position (cdr symbol)))
-         ((stringp symbol)
-          (setq name symbol)
-          (setq position
-                (get-text-property 1 'org-imenu-marker symbol))))
-        (unless (or (null position) (null name)
-                    (string= (car imenu--rescan-item) name))
-          (add-to-list 'symbol-names name)
-          (add-to-list 'name-and-pos (cons name position))))))))
-
 (defun jp-add-watchwords ()
   (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
+   nil '(("\\<\\(FIX\\|TODO\\|todo\\|fixme\\|FIXME\\|HACK\\|REFACTOR\\):"
           1 font-lock-warning-face t))))
 
 (defun jp-ansi-term ()
@@ -184,11 +136,5 @@ region\) apply comment-or-uncomment to the current line"
        "Determine whether we can syntax check FILE-NAME.
 Return nil if we cannot, non-nil if we can."
        (if (and file-name (flymake-get-init-function file-name)) t nil))))
-
-(defun jp-prog-mode-hook ()
-  "Enable things that are convenient across all coding buffers."
-  (set (make-local-variable 'comment-auto-fill-only-comments) t)
-  (jp-add-watchwords)
-  (auto-fill-mode))
 
 (provide 'jp-lib-programming)

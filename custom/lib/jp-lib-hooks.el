@@ -1,9 +1,3 @@
-;; in Emacs 24 programming major modes generally derive
-;; from a common mode named prog-mode
-(add-hook 'prog-mode-hook 'jp-prog-mode-hook)
-
-(add-hook 'after-save-hook 'jp-make-script-executable)
-
 (add-hook 'before-save-hook 'jp-cleanup-buffer)
 
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
@@ -15,6 +9,7 @@
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (flymake-ruby-load)
+             (jp-add-watchwords)
              (inf-ruby-keys)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
@@ -192,6 +187,8 @@
              (setq show-trailing-whitespace nil)))
 
 (add-hook 'shell-filter-hook 'jp-colorize-compilation-buffer)
+
+(add-hook 'after-save-hook 'jp-make-script-executable)
 
 (add-hook 'shell-script-mode-hook
           '(lambda ()

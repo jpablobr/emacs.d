@@ -873,6 +873,12 @@ type\\|theme\\|var\\|group\\|custom\\|const\\|method\\|class\\)"
   :type 'string
   :group 'anything-config)
 
+(defcustom anything-c-browse-code-regexp-sh
+  "\\<function\\>\\|\\<if\\>|\\<loop\\>|\\<while\\>|\\<\\(\\)\\>"
+  "*Regexp used to parse python buffer when browsing code."
+  :type 'string
+  :group 'anything-config)
+
 (defcustom anything-c-browse-code-regexp-ruby
   "\\<def\\>\\|\\<class\\>|\\<module\\>"
   "*Regexp used to parse ruby buffer when browsing code."
@@ -884,6 +890,7 @@ type\\|theme\\|var\\|group\\|custom\\|const\\|method\\|class\\)"
     (emacs-lisp-mode . ,anything-c-browse-code-regexp-lisp)
     (lisp-mode . ,anything-c-browse-code-regexp-lisp)
     (ruby-mode . ,anything-c-browse-code-regexp-ruby)
+    (sh-mode . ,anything-c-browse-code-regexp-sh)
     (python-mode . ,anything-c-browse-code-regexp-python))
   "*Alist to store regexps for browsing code corresponding \
 to a specific `major-mode'."

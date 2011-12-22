@@ -146,19 +146,6 @@ Delete the current buffer too."
    nil
    password))
 
-(defun jp--anything ()
-  (interactive)
-  (anything-other-buffer
-   '(anything-c-source-buffers
-     anything-c-source-file-name-history
-     anything-c-source-info-pages
-     anything-c-source-info-elisp
-     anything-c-source-man-pages
-     anything-c-source-locate
-     anything-c-source-emacs-commands
-     anything-c-source-etags-select)
-   " *jp-anything*"))
-
 (defun jp-fullscreen-toggle ()
   (interactive)
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)

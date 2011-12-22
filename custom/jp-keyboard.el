@@ -16,11 +16,10 @@
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-a") 'save-buffer)
-(global-set-key (kbd "M-.") 'anything-c-etags-select)
-(global-set-key (kbd "M-e") 'shell-command)
 (global-set-key (kbd "M-l") 'git-show)
-(global-set-key (kbd "M-,") 'anything-browse-code)
 (global-set-key (kbd "M-m") 'anything-top)
+(global-set-key (kbd "M-,") 'jp-anything-code)
+(global-set-key (kbd "M-.") 'shell-command)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 (global-set-key (kbd "C-c s") 'jp-ido-goto-symbol)
 (global-set-key [(meta j)] 'fill-region)
@@ -32,10 +31,6 @@
 (global-set-key [(meta \])] 'jp-shift-right)
 (global-set-key [(meta \[)] 'jp-shift-left)
 (global-set-key [(meta /)] 'jp-comment-or-uncomment-region-or-line)
-(global-set-key (kbd "M-,") 'anything-browse-code)
-;; (global-set-key (kbd "C-m") 'anything-top)
-;; (global-set-key (kbd "M-,") 'jp-ido-goto-symbol)
-(global-set-key (kbd "C-c n") 'cleanup-buffer)
 
 ;;; --------------------------------------------------------------------
 ;;; \C-l redefined -----------------------------------------------------
