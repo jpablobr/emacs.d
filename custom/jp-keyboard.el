@@ -33,8 +33,10 @@
 (global-set-key [(meta \[)] 'jp-shift-left)
 (global-set-key [(meta /)] 'jp-comment-or-uncomment-region-or-line)
 (global-set-key (kbd "M-,") 'anything-browse-code)
+(global-set-key (kbd "C-m") 'anything-top)
 ;; (global-set-key (kbd "M-,") 'jp-ido-goto-symbol)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
+
 ;;; --------------------------------------------------------------------
 ;;; \C-l redefined -----------------------------------------------------
 (global-unset-key "\C-l")

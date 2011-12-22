@@ -71,10 +71,6 @@
           '(lambda()
              (set (make-local-variable 'apache-indent-level) 2)))
 
-(add-hook 'message-mode-hook 'jp-turn-on-flyspell)
-
-(add-hook 'text-mode-hook 'jp-turn-on-flyspell)
-
 (add-hook 'markdown-mode-hook
           (lambda ()
             (jp-turn-on-flyspell)))
@@ -168,9 +164,7 @@
 (add-hook 'php-mode-hook
           (lambda ()
             (require 'flymake-php)
-            (flymake-mode t)
             (wicked/php-mode-init)
-            (flyspell-prog-mode)
             (c-toggle-auto-newline -1)
             (setq c-basic-offset 4)
             (highlight-parentheses-mode 1)
