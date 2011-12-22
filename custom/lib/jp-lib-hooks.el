@@ -193,7 +193,15 @@
 
 (add-hook 'shell-filter-hook 'jp-colorize-compilation-buffer)
 
-(add-hook 'shell-script-mode-hook 'flymake-shell-load)
+(add-hook 'shell-script-mode-hook
+          '(lambda ()
+             (autopair-mode)
+             (flymake-shell-load)))
+
+(add-hook 'sh-mode-hook
+          '(lambda ()
+             (autopair-mode)
+             (flymake-shell-load)))
 
 (add-hook 'w3m-display-hook 'fc-w3m-rename-buffer)
 (add-hook 'w3m-mode-hook 'fc-w3m-setup)
