@@ -70,11 +70,6 @@
       time-stamp-format "%04y-%02m-%02d %02H:%02M:%02S (%u)")
 
 (when window-system
-  ;; (load-file (concat misc-dir "/mmm-mode/mmm-mode.el"))
-  ;; (require 'mmm-auto)
-  ;; (setq mmm-global-mode 'buffers-with-submode-classes)
-  ;; (setq mmm-submode-decoration-level 2)
-
   (mouse-wheel-mode t)
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (tooltip-mode -1)

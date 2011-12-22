@@ -1,8 +1,6 @@
-;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
 (lookup-key global-map "\C-x"); --> Control-X-prefix
 (define-key global-map "\C-[" 'Control-X-prefix)
 (global-set-key (kbd "C-x \\") 'align-regexp)
-;; probably the most important key-binding.
 (define-key global-map (kbd "M-i") 'isearch-forward-at-point)
 (define-key global-map "\M-x" 'execute-extended-command)
 (define-key global-map "\M-x" 'anything-M-x)
@@ -21,6 +19,10 @@
 (global-set-key (kbd "M-.") 'anything-c-etags-select)
 (global-set-key (kbd "M-e") 'shell-command)
 (global-set-key (kbd "M-l") 'git-show)
+(global-set-key (kbd "M-,") 'anything-browse-code)
+(global-set-key (kbd "M-m") 'anything-top)
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
+(global-set-key (kbd "C-c s") 'jp-ido-goto-symbol)
 (global-set-key [(meta j)] 'fill-region)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
@@ -33,12 +35,12 @@
 (global-set-key (kbd "M-,") 'anything-browse-code)
 ;; (global-set-key (kbd "M-,") 'jp-ido-goto-symbol)
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
-
 ;;; --------------------------------------------------------------------
 ;;; \C-l redefined -----------------------------------------------------
 (global-unset-key "\C-l")
 (global-set-key (kbd "C-l at") 'anything-top)
 (global-set-key (kbd "C-l ab") 'anything-browse-code)
+(global-set-key (kbd "C-l at") 'anything-top)
 (global-set-key (kbd "C-l bu") 'browse-url)
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)
 (global-set-key (kbd "C-l cc") 'cheat-fu-convert)
