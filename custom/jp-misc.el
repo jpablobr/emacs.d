@@ -29,7 +29,7 @@
 (global-font-lock-mode t)
 (recentf-mode t)
 (auto-compression-mode t)
-(setq turn-on-xclip t)
+(turn-on-xclip)
 (cua-mode 'emacs)
 (setq truncate-partial-width-windows 0)
 (setq uniquify-buffer-name-style 'forward)
