@@ -31,7 +31,6 @@
 (require 'anything-config)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
-(custom-set-variables '(vc-follow-symlinks t))
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (show-paren-mode 1)
@@ -44,6 +43,8 @@
 (recentf-mode t)
 (cua-mode 'emacs)
 (auto-compression-mode t)
+;; (display-time-mode)
+;; (timeclock-modeline-display t)
 ;; (setq rsense-home (expand-file-name "~/bin/ruby/rsense"))
 ;; (setq rsense-rurema-home "~/Downloads/ruby-refm-1.9.2-dynamic-20110629")
 (setq x-select-enable-clipboard t)
@@ -94,6 +95,12 @@
 
 (autoload 'change-case "change-case" t)
 (autoload 'xrdb-mode "xrdb-mode" "Mode for editing X resource files" t)
+
+(custom-set-variables
+ '(vc-follow-symlinks t)
+ '(git--timer-sec 1.0)
+ '(git-state-modeline-decoration (quote git-state-decoration-colored-letter))
+ '(git-working-dir-change-behaviour (quote git-refresh-all-saved)))
 
 (custom-set-faces
  '(hl-line ((t (:background "#4f4f4f"))))

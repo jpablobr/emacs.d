@@ -2,7 +2,6 @@
   "Loads all the defaults."
   (interactive)
   (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
-  (add-to-list 'load-path (concat misc-dir "/emacs-w3m"))
   (load-file (concat jpablobr-dir "/jp-misc.el"))
   (require 'jp-misc)
   (load-file (concat jpablobr-dir "/jp-yaml.el"))
@@ -13,8 +12,6 @@
   (require 'jp-ruby)
   (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
   (require 'jp-autocomplete)
-  (load-file (concat jpablobr-dir "/jp-w3m.el"))
-  (require 'jp-w3m)
   (load-file (concat jpablobr-dir "/jp-eshell.el"))
   (require 'jp-eshell)
   (load-file (concat jpablobr-dir "/jp-compile.el"))
@@ -142,8 +139,8 @@
   "Load Git(1)."
   (interactive)
   (load-file (concat misc-dir "/git-show/git-show.el"))
-  (require 'git)
-  (require 'magit)
+  (add-to-list 'load-path  (concat misc-dir "/git-emacs"))
+  (require 'git-emacs)
   (require 'git-show))
 
 (defun jp-load-lua ()

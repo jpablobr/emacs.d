@@ -40,7 +40,7 @@
   "Fire up an instance of a Rails server"
   (interactive)
   (let ((buffer (shell "*Rails Server at port 3000*")))
-    (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
+    (comint-send-string buffer (concat "./script/rails s -p 3000 -e development" "\n"))))
 
 (defun jp-rdebug-rails ()
   (interactive)
