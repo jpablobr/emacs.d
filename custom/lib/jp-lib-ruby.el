@@ -25,4 +25,38 @@
    nil
    (lambda (x) "*Ruby Koans Path*")))
 
+(defun ruby-send-buffer ()
+  "Send the current buffer to the inferior Ruby process."
+  (interactive)
+  (ruby-send-region (point-min) (point-max)))
+
+(defun jp-passenger:start ()
+  "Fire up an instance of a Passenger server"
+  (interactive)
+  (let ((buffer (shell "*Passenger Server at port 3000*")))
+    (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
+
+(defun jp-rails-server ()
+  "Fire up an instance of a Rails server"
+  (interactive)
+  (let ((buffer (shell "*Rails Server at port 3000*")))
+    (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
+
+(defun jp-rdebug-rails ()
+  (interactive)
+  (rdebug "rdebug script/server")
+  (insert "e Dir.chdir('..')") )
+
+(defun jp-rails-root (&optional dir)
+  (or dir (setq dir default-directory))
+  (if (file-exists-p (concat dir "config/environment.rb"))
+      dir
+    (if (equal dir  "/")
+        nil
+      (jp-rails-root (expand-file-name (concat dir "../"))))))
+
+(defun jp-rails-console ()
+  (interactive)
+  (run-ruby (concat (jp-rails-root) "/script/console")))
+
 (provide 'jp-lib-ruby)

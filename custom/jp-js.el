@@ -1,4 +1,3 @@
-
 (setq js-dir (concat vendor-dir "/js"))
 (add-to-list 'load-path js-dir)
 (defvar preferred-javascript-mode 'js2-mode)
@@ -35,32 +34,6 @@
 
 (setq javascript-indent-level preferred-javascript-indent-level)
 
-(eval-after-load "mmm-vars"
-  `(progn
-     (mmm-add-group
-      'html-js
-      '((js-script-cdata
-         :submode ,preferred-mmm-javascript-mode
-         :face mmm-code-submode-face
-         :front "<script[^>]*>[ \t\n]*\\(//\\)?<!\\[CDATA\\[[ \t]*\n?"
-         :back "[ \t]*\\(//\\)?]]>[ \t\n]*</script>"
-         :insert ((?j js-tag nil @ "<script language=\"JavaScript\">"
-                      @ "\n" _ "\n" @ "</script>" @)))
-        (js-script
-         :submode ,preferred-mmm-javascript-mode
-         :face mmm-code-submode-face
-         :front "<script[^>]*>[ \t]*\n?"
-         :back "[ \t]*</script>"
-         :insert ((?j js-tag nil @ "<script language=\"JavaScript\">"
-                      @ "\n" _ "\n" @ "</script>" @)))
-        (js-inline
-         :submode ,preferred-mmm-javascript-mode
-         :face mmm-code-submode-face
-         :front "on\w+=\""
-         :back "\"")))
-     (dolist (mode (list 'html-mode 'nxml-mode))
-       (mmm-add-mode-ext-class mode "\\.r?html\\(\\.erb\\)?$" 'html-js))))
-
 (eval-after-load "coffee-mode"
   `(setq coffee-js-mode preferred-javascript-mode
          coffee-tab-width preferred-javascript-indent-level))
@@ -90,27 +63,14 @@
                                              "ƒ")
                              nil)))))
 
-     (font-lock-add-keywords
-      'js2-mode
-      '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
-         1 font-lock-warning-face t)))
-
      (defun js-lambda () (interactive) (insert "function () {\n}")
        (backward-char 5))
 
-     (define-key js2-mode-map (kbd "C-c l") 'js-lambda)
-     (define-key js2-mode-map "\C-\M-h" 'backward-kill-word)
      (define-key js2-mode-map (kbd "TAB") (lambda () (interactive)
                                             (indent-for-tab-command)
                                             (back-to-indentation)))
-
-     (add-hook 'js2-mode-hook 'coding-hook)
      (setq js2-bounce-indent-flag nil
            js2-indent-on-enter-key t)))
-
-(add-hook 'javascript-mode-hook
-          (lambda ()
-            (setq imenu-generic-expression jpablobr-js-imenu-generic-expression)))
 
 (add-hook 'javascript-mode-hook
           (lambda ()
@@ -194,20 +154,10 @@
   "coffee-mode-hook"
 
   (imenu-add-to-menubar "IMENU")
-
-  ;; CoffeeScript uses two spaces.
-  (set (make-local-variable 'tab-width) 4)
-
   ;; If you don't want your compiled files to be wrapped
   (setq coffee-args-compile '("-c" "--bare"))
-
   ;; *Messages* spam
   (setq coffee-debug-mode t)
-
-  ;; Emacs key binding
-  (define-key coffee-mode-map [(meta r)] 'coffee-compile-buffer)
-  (define-key coffee-mode-map [(meta R)] 'coffee-compile-region)
-
   ;; Compile '.coffee' files on every save
   (add-hook 'after-save-hook
       '(lambda ()

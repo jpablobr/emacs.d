@@ -1,5 +1,3 @@
-(add-hook 'before-save-hook 'jp-cleanup-buffer)
-
 (add-hook 'inf-ruby-mode-hook 'ansi-color-for-comint-mode-on)
 
 (add-hook 'ruby-mode-hook
@@ -9,7 +7,6 @@
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (flymake-ruby-load)
-             (jp-add-watchwords)
              (inf-ruby-keys)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
@@ -17,17 +14,8 @@
              (font-lock-fontify-buffer)
              (add-to-list 'ac-omni-completion-sources
                           (cons "\\." '(ac-source-semantic)))
-             (add-to-list 'ac-omni-completion-sources
-                          (cons "->" '(ac-source-semantic)))
-             (setq ac-sources '(ac-source-semantic
-                                ac-source-yasnippet
-                                ac-source-filename
-                                ac-source-functions
-                                ac-source-variables
-                                ac-source-symbols
-                                ac-source-features
-                                ac-source-semantic
-                                ac-source-semantic-raw))))
+             (setq ac-sources '( ac-source-yasnippet
+																 ac-source-ruby))))
 
 (add-hook 'lua-mode-hook 'flymake-lua-load)
 
@@ -42,7 +30,6 @@
 (add-hook 'erlang-mode-hook 'alexott/erlang-mode-hook)
 (add-hook 'erlang-shell-mode-hook
           (lambda ()
-            ;; add some Distel bindings to the Erlang shell
             (dolist (spec distel-shell-keys)
               (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
 
@@ -92,8 +79,6 @@
 
 (add-hook 'lisp-interaction-mode-hook #'(lambda () (autopair-mode)))
 
-(add-hook 'scheme-mode-hook           #'(lambda () (autopair-mode)))
-
 (add-hook 'isearch-mode-hook
           '(lambda ()
              (define-key isearch-mode-map "\M-i" 'isearch-repeat-forward)))
@@ -103,56 +88,15 @@
 
 (add-hook 'compilation-filter-hook 'jp-colorize-compilation-buffer)
 
-(add-hook 'scheme-mode-hook
-          (lambda ()
-            (define-key scheme-mode-map [f1]
-              '(lambda ()
-                 (interactive)
-                 (ignore-errors
-                   (let ((symbol (thing-at-point 'symbol)))
-                     (info "(r5rs)")
-                     (Info-index symbol)))))
-            (mapc (lambda (key-arg)
-                    (define-key scheme-mode-map (car key-arg)
-                      (eval `(lambda ()
-                               (interactive)
-                               (-test ,(cadr key-arg))))))
-                  '(([(control c) (control m)] nil)
-                    ([(control c) (h)]         :this)
-                    ([(control c) (e)]         :expand)
-                    ([(control c) (o)]         :expand-once)
-                    ([(control c) (*)]         :expand*)
-                    ([(control c) (p)]         :pp)))
-            (define-key scheme-mode-map [(control c) (x)] 'scheme-send-dwim)
-            (define-key scheme-mode-map [(control c) (\;)] 'insert-balanced-comments)
-            (define-key scheme-mode-map [(control c) (:)] 'remove-balanced-comments)
-            (define-key scheme-mode-map [(control c) (t)]
-              (lambda (prefix)
-                (interactive "P")
-                (-trace "trace" prefix)))
-            (define-key scheme-mode-map [(control c) (T)]
-              (lambda (prefix)
-                (interactive "P")
-                (-trace "trace-all" prefix)))
-            (imenu-add-to-menubar "Symbols")
-            (outline-minor-mode)
-            (make-local-variable 'outline-regexp)
-            (setq outline-regexp "^(.*")))
-
-(add-hook 'Info-mode-hook
-          (lambda ()
-            (interactive)
-            (define-key Info-mode-map [(control c) (x)] 'scheme-send-dwim)))
-
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
 (autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
 (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
 (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
 
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 
-(add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+(add-hook 'latex-mode-hook 'turn-on-reftex)
 
 (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 
@@ -164,20 +108,6 @@
             (setq c-basic-offset 4)
             (highlight-parentheses-mode 1)
             (indent-tabs-mode nil)))
-
-;; TODO: (void-variable python-mode-map) error
-(setq interpreter-mode-alist
-      (cons '("python" . python-mode)
-            interpreter-mode-alist)
-      python-mode-hook
-      '(lambda () (progn
-                    (set-variable 'py-indent-offset 4)
-                    (set-variable 'py-smart-indentation nil)
-                    (set-variable 'indent-tabs-mode nil)
-                    (define-key python-mode-map "\C-m" 'newline-and-indent)
-                    (pabbrev-mode)
-                    (python-custom)
-                    (abbrev-mode))))
 
 (add-hook 'shell-mode-hook
           '(lambda nil
@@ -203,5 +133,6 @@
 (add-hook 'w3m-display-hook 'fc-w3m-rename-buffer)
 (add-hook 'w3m-mode-hook 'fc-w3m-setup)
 (add-hook 'w3m-form-input-textarea-mode-hook 'fc-remove-cr)
+(add-hook 'before-save-hook 'jp-cleanup-buffer)
 
 (provide 'jp-lib-hooks)

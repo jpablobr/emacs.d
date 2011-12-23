@@ -1,11 +1,16 @@
 ;;jp-autocomplete.el ---------------------------------------------------------
+(add-to-list 'load-path (concat misc-dir "/auto-complete"))
+
 (require 'auto-complete)
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories (concat misc-dir "/ac-dict"))
+(require 'ac-ruby)
+
+(add-to-list 'ac-dictionary-directories (concat misc-dir "/auto-complet/dict"))
+
 ;; (ac-config-default)
 (global-auto-complete-mode t)
 (setq ac-auto-start t)
-;; (setq ac-dwim t)
+(setq ac-dwim t)
 ;; (setq ac-delay 0.1)
 ;; (setq ac-auto-show-menu nil)
 ;; (setq ac-show-menu-immediately-on-auto-complete t)
@@ -24,8 +29,12 @@
                             ;; ac-source-semantic-raw
                             ;; ac-source-dictionary
                             ;; ac-source-words-in-same-mode-buffers
-                            ac-source-yasnippet
-                            ac-source-filename))
+													 ;; ac-source-rsense-constant
+													 ;; ac-source-rsense-method
+													 ac-source-imenu
+													 ac-source-words-in-same-mode-buffers
+													 ac-source-yasnippet
+													 ac-source-filename))
 
 (setq ac-modes
       (append ac-modes
