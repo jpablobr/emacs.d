@@ -29,6 +29,7 @@
 (require 'face-list)
 (require 'anything)
 (require 'anything-config)
+;; (require 'rsense)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (tool-bar-mode 0)
@@ -43,8 +44,6 @@
 (recentf-mode t)
 (cua-mode 'emacs)
 (auto-compression-mode t)
-;; (display-time-mode)
-;; (timeclock-modeline-display t)
 ;; (setq rsense-home (expand-file-name "~/bin/ruby/rsense"))
 ;; (setq rsense-rurema-home "~/Downloads/ruby-refm-1.9.2-dynamic-20110629")
 (setq x-select-enable-clipboard t)

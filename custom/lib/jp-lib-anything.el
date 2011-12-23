@@ -14,6 +14,19 @@
                               (git-show/find-git-repo file-content)
                               (anything-attr 'pwd)))))
 
+(defun jp-find-rakefile ()
+  (interactive)
+  (setq dir (jp-find-git-repo default-directory))
+  (message (concat "DBG: dirs=" dir))
+  (if (file-exists-p (concat dir "Rakefile"))
+      (setq rake-file (shell-command-to-string
+                       (concat
+                        "cd " dir " && ls -t .rake_tasks~ Rakefile "
+                        "**/*.rake 2>/dev/null | head -n 1"))))
+  (if (string= rake-file ".rake_task~")
+      (concat "cd " dir " && cat ./.rake_tasks~")
+    (concat "cd " dir " && rake --tasks | cut -d ' ' -f 2 > .rake_tasks~")))
+
 (defun jp-anything-find-rake-tasks ()
   "Rake tasks."
   (setq mode-line-format
@@ -21,7 +34,8 @@
           (line-number-mode "%l") " "
           (:eval (propertize "(Rake -T Process Running) "
                              'face '((:foreground "red"))))))
-  (setq cmd "rake -T")
+  (setq cmd (jp-find-rakefile))
+  (message (concat "DBG: cmd=" cmd))
   (prog1
       (start-process-shell-command "rake-tasks-process" nil cmd)
 

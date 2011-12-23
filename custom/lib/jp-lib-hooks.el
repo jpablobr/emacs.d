@@ -8,14 +8,17 @@
              (highlight-symbol-mode t)
              (flymake-ruby-load)
              (inf-ruby-keys)
+             ;; (add-to-list 'ac-sources 'ac-source-rsense-method)
+             ;; (add-to-list 'ac-sources 'ac-source-rsense-constant)
+             ;; (add-to-list 'ac-sources 'ac-source-rcodetools)
+             ;; (add-to-list 'ac-sources 'ac-source-rsense)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
              (local-set-key (kbd "<return>") 'newline-and-indent)
              (font-lock-fontify-buffer)
              (add-to-list 'ac-omni-completion-sources
                           (cons "\\." '(ac-source-semantic)))
-             (setq ac-sources '( ac-source-yasnippet
-																 ac-source-ruby))))
+             (setq ac-sources '(ac-source-yasnippet))))
 
 (add-hook 'lua-mode-hook 'flymake-lua-load)
 

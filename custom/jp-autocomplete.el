@@ -3,7 +3,6 @@
 
 (require 'auto-complete)
 (require 'auto-complete-config)
-(require 'ac-ruby)
 
 (add-to-list 'ac-dictionary-directories (concat misc-dir "/auto-complet/dict"))
 
@@ -21,20 +20,20 @@
 (define-key ac-complete-mode-map "\C-p" 'ac-previous)
 
 (set-default 'ac-sources '( ;; ac-source-functions
-                            ;; ac-source-variables
-                            ;; ac-source-symbols
-                            ;; ac-source-features
-                            ;; ac-source-abbrev
-                            ;; ac-source-semantic
-                            ;; ac-source-semantic-raw
-                            ;; ac-source-dictionary
-                            ;; ac-source-words-in-same-mode-buffers
-													 ;; ac-source-rsense-constant
-													 ;; ac-source-rsense-method
-													 ac-source-imenu
-													 ac-source-words-in-same-mode-buffers
-													 ac-source-yasnippet
-													 ac-source-filename))
+                           ;; ac-source-variables
+                           ;; ac-source-symbols
+                           ;; ac-source-features
+                           ;; ac-source-abbrev
+                           ;; ac-source-semantic
+                           ;; ac-source-semantic-raw
+                           ;; ac-source-dictionary
+                           ;; ac-source-words-in-same-mode-buffers
+                           ;; ac-source-rsense-constant
+                           ;; ac-source-rsense-method
+                           ac-source-imenu
+                           ac-source-words-in-same-mode-buffers
+                           ac-source-yasnippet
+                           ac-source-filename))
 
 (setq ac-modes
       (append ac-modes

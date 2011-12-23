@@ -140,8 +140,8 @@
   (interactive)
   (load-file (concat misc-dir "/git-show/git-show.el"))
   (add-to-list 'load-path  (concat misc-dir "/git-emacs"))
-  (require 'git-emacs)
-  (require 'git-show))
+  (require 'git-show)
+  (require 'git-emacs))
 
 (defun jp-load-lua ()
   "Load Lua."
