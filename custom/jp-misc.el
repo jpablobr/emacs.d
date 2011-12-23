@@ -26,6 +26,9 @@
 (require 'deft)
 (require 'cheat-fu-deft)
 (require 'uniquify)
+(require 'face-list)
+(require 'anything)
+(require 'anything-config)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (custom-set-variables '(vc-follow-symlinks t))
@@ -41,6 +44,8 @@
 (recentf-mode t)
 (cua-mode 'emacs)
 (auto-compression-mode t)
+;; (setq rsense-home (expand-file-name "~/bin/ruby/rsense"))
+;; (setq rsense-rurema-home "~/Downloads/ruby-refm-1.9.2-dynamic-20110629")
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 (setq truncate-partial-width-windows 0)

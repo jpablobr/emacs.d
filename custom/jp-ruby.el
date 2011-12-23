@@ -3,8 +3,13 @@
 (load-file (concat jpablobr-lib "/jp-lib-ruby.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
 
-(require 'align)
-(require 'inf-ruby)
+(autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
+(autoload 'run-ruby "inf-ruby"
+	"Run an inferior Ruby process")
+(autoload 'inf-ruby-keys "inf-ruby"
+	"Set local key defs for inf-ruby in ruby-mode")
+
+;; (require 'align)
 (require 'jp-lib-ruby)
 (require 'ruby-comint)
 (require 'ruby-style)
@@ -12,8 +17,7 @@
 (require 'ruby-hacks)
 (require 'ruby-end)
 
-(autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
-(autoload 'toggle "toggle" nil t)
+;; (autoload 'toggle "toggle" nil t)
 
 (add-to-list 'completion-ignored-extensions ".rbc")
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))

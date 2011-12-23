@@ -54,15 +54,13 @@ a prefix argument is given."
 
 ;;; webjump
 (setq webjump-sites
-      '(("csw" . "http://community.schemewiki.org/")
-        ("EmacsWiki" . "http://www.emacswiki.org/cgi-bin/wiki/RecentChanges")
+      '(("EmacsWiki" . "http://www.emacswiki.org/cgi-bin/wiki/RecentChanges")
         ("OeWiki" . "http://www.informatik.uni-hamburg.de/cgi-bin/oe/wiki.pl?action=rc;all=1;showedit=1")
         ("FsWiki" . "http://www.informatik.uni-hamburg.de/cgi-bin/fsr-wiki.pl")
         ("fb18" . "http://3773.rapidforum.com/")
         ("DB" . "http://bahn.hafas.de/bin/query.exe/dl")
         ("Haspa" . "https://ssl2.haspa.de/OnlineBanking/login_banking.jsp")
         ("geofox" . "http://www.geofox.de/")
-        ("srfi" . "http://srfi.schemers.org/")
         ("google" . "http://www.google.de/")
         ("css" . "http://www.w3.org/TR/CSS21/")
         ("riablog" . "http://www.mumble.net/~campbell/blog.txt")

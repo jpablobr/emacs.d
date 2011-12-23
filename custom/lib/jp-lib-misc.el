@@ -231,24 +231,6 @@ nil are ignored."
                     (and buffer-offer-save (> (buffer-size) 0)))))
         (setq modified-found t)))modified-found))
 
-(defun jp-passenger:start ()
-  "Fire up an instance of a Passenger server"
-  (interactive)
-  (let ((buffer (shell "*Passenger Server at port 3000*")))
-
-    (set (make-local-variable 'comint-output-filter-functions)
-         '(comint-truncate-buffer
-           comint-postoutput-scroll-to-bottom
-           ansi-color-process-output
-           ))
-    (set (make-local-variable 'comint-buffer-maximum-size) 5000)
-    (set (make-local-variable 'comint-scroll-show-maximum-output) t)
-    (set (make-local-variable 'comint-scroll-to-bottom-on-output) 'others)
-
-    (ansi-color-for-comint-mode-on)
-    (compilation-shell-minor-mode 1)
-    (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
-
 (defun jp-shift-right (&optional arg)
   "Shift the line or region to the ARG places to the right.
 
@@ -269,5 +251,15 @@ A place is considered `tab-width' character columns."
   "Force flyspell-mode on using a positive argument.  For use in hooks."
   (interactive)
   (flyspell-mode +1))
+
+(defun jp-add-buffer-cleanup ()
+  "Add `before-save' cleanup buffer hook"
+  (interactive)
+  (add-hook 'before-save-hook 'jp-cleanup-buffer))
+
+(defun jp-remove-buffer-cleanup ()
+  "Removes `before-save' cleanup buffer hook"
+  (interactive)
+  (remove-hook 'before-save-hook 'jp-cleanup-buffer))
 
 (provide 'jp-lib-misc)

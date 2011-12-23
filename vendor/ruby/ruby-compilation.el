@@ -33,7 +33,6 @@
 
 ;;; Code:
 (require 'ansi-color)
-(require 'pcmpl-rake)
 
 (defvar ruby-compilation-error-regexp
   "^\\([[:space:]]*\\|.*\\[\\|.*at \\)\\[?\\([^[:space:]]*\\):\\([[:digit:]]+\\)[]:)]"

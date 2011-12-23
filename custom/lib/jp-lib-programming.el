@@ -87,11 +87,6 @@
                         (logior (file-modes buffer-file-name) #o100))
         (message (concat "Made " buffer-file-name " executable"))))))
 
-(defun jp-add-watchwords ()
-  (font-lock-add-keywords
-   nil '(("\\<\\(FIX\\|TODO\\|todo\\|fixme\\|FIXME\\|HACK\\|REFACTOR\\):"
-          1 font-lock-warning-face t))))
-
 (defun jp-ansi-term ()
   (interactive)
   (if (not (get-buffer "*ansi-term*"))

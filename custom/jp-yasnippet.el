@@ -77,4 +77,17 @@
                  '(lambda ()
                     (setq yas/mode-symbol 'espresso-mode))))))
 
+;; (when (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+;; (require 'hippie-exp)
+;; (setq hippie-expand-try-functions-list
+;;       '(yas/hippie-try-expand))
+
+;; (defun indent-or-complete ()
+;;   (interactive)
+;;   (if (and (looking-at "$") (not (looking-back "^\\s-*")))
+;;       (hippie-expand nil)
+;;     (indent-for-tab-command)))
+;; (add-hook 'find-file-hooks (function (lambda ()
+;;                                        (local-set-key (kbd "TAB") 'indent-or-complete))))
+
 (provide 'jp-yasnippet)
