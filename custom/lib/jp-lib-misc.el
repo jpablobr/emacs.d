@@ -191,7 +191,6 @@ be prompted."
     (when (or modified-buffers active-clients-or-frames)
       (delete-frame new-frame))))
 
-
 (defun jp-modified-buffers-exist()
   "This function will check to see if there are any buffers
 that have been modified.  It will return true if there are
@@ -240,11 +239,17 @@ A place is considered `tab-width' character columns."
   (interactive)
   (remove-hook 'before-save-hook 'jp-cleanup-buffer))
 
-(defun jp-grep-emacs-config (what)
-  (interactive "sSearch: ")
-  (setq cmd
-        (concat "find /home/jpablobr/.emacs.d/ -type f -exec grep -nH -e  " what " {} +"))
-  (compilation-start cmd
-                     'grep-mode))
+(defun jp-grep-emacs-config ()
+	(interactive
+	 (let (what cmd)
+		 (setq what
+					 (read-from-minibuffer "Run grep like this: "
+																 (if (and transient-mark-mode mark-active)
+																		 (buffer-substring-no-properties (region-beginning) (region-end))
+																	 (thing-at-point 'symbol))))
+		 (setq cmd
+					 (concat "find " dotfiles-dir " -type f -exec grep -nH -e  " what " {} +"))
+		 (compilation-start cmd
+												'grep-mode))))
 
 (provide 'jp-lib-misc)

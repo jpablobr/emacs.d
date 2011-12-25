@@ -16,6 +16,7 @@
 (require 'flymake-ruby)
 (require 'ruby-hacks)
 (require 'ruby-end)
+(require 'anything-rake)
 
 ;; (autoload 'toggle "toggle" nil t)
 
