@@ -3,15 +3,11 @@
 (add-hook 'ruby-mode-hook
           '(lambda ()
              (autopair-mode)
-             (set (make-local-variable 'tab-width) 2)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (flymake-ruby-load)
              (inf-ruby-keys)
-             ;; (add-to-list 'ac-sources 'ac-source-rsense-method)
-             ;; (add-to-list 'ac-sources 'ac-source-rsense-constant)
-             ;; (add-to-list 'ac-sources 'ac-source-rcodetools)
-             ;; (add-to-list 'ac-sources 'ac-source-rsense)
+             (add-hook 'before-save-hook 'jp-indent-buffer)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
              (local-set-key (kbd "<return>") 'newline-and-indent)
@@ -31,6 +27,7 @@
 (remove-hook 'kill-buffer-query-functions 'server-kill-buffer-query-function)
 
 (add-hook 'erlang-mode-hook 'alexott/erlang-mode-hook)
+
 (add-hook 'erlang-shell-mode-hook
           (lambda ()
             (dolist (spec distel-shell-keys)
@@ -63,6 +60,7 @@
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()
              (autopair-mode)
+             (add-hook 'before-save-hook 'jp-indent-buffer)
              (add-to-list 'ac-omni-completion-sources
                           (cons "\\." '(ac-source-semantic)))
              (add-to-list 'ac-omni-completion-sources
@@ -78,7 +76,7 @@
                                 ac-source-semantic
                                 ac-source-semantic-raw))))
 
-(add-hook 'lisp-mode-hook             #'(lambda () (autopair-mode)))
+(add-hook 'lisp-mode-hook #'(lambda () (autopair-mode)))
 
 (add-hook 'lisp-interaction-mode-hook #'(lambda () (autopair-mode)))
 
@@ -92,9 +90,13 @@
 (add-hook 'compilation-filter-hook 'jp-colorize-compilation-buffer)
 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+
 (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
+
 (autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
+
 (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
+
 (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
 
 (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
@@ -134,8 +136,11 @@
              (flymake-shell-load)))
 
 (add-hook 'w3m-display-hook 'fc-w3m-rename-buffer)
+
 (add-hook 'w3m-mode-hook 'fc-w3m-setup)
+
 (add-hook 'w3m-form-input-textarea-mode-hook 'fc-remove-cr)
+
 (add-hook 'before-save-hook 'jp-cleanup-buffer)
 
 (provide 'jp-lib-hooks)

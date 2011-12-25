@@ -29,7 +29,6 @@
 (require 'face-list)
 (require 'anything)
 (require 'anything-config)
-;; (require 'rsense)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (tool-bar-mode 0)
@@ -44,8 +43,6 @@
 (recentf-mode t)
 (cua-mode 'emacs)
 (auto-compression-mode t)
-;; (setq rsense-home (expand-file-name "~/bin/ruby/rsense"))
-;; (setq rsense-rurema-home "~/Downloads/ruby-refm-1.9.2-dynamic-20110629")
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 (setq truncate-partial-width-windows 0)
@@ -69,7 +66,16 @@
 (setq warning-suppress-types nil)
 (setq org-directory nil)
 (setq uniquify-buffer-name-style 'forward)
+(setq deft-extension "md")
+(setq deft-directory "~/.private/notes")
+(setq deft-text-mode 'markdown-mode)
 (setq cheat-fu-root "/home/jpablobr/.cheat_fu_sheets/")
+(setq CUA-mode-normal-cursor-color "red")
+(setq CUA-mode-overwrite-cursor-color "yellow")
+(setq CUA-mode-read-only-cursor-color "green")
+(setq time-stamp-active t
+      time-stamp-line-limit 10
+      time-stamp-format "%04y-%02m-%02d %02H:%02M:%02S (%u)")
 (setq auto-mode-alist
       (append '(("\\.Xdefaults$"    . xrdb-mode)
                 ("\\.Xenvironment$" . xrdb-mode)
@@ -78,12 +84,6 @@
                 ("*.\\.ad$"         . xrdb-mode)
                 )
               auto-mode-alist))
-(setq CUA-mode-normal-cursor-color "red")
-(setq CUA-mode-overwrite-cursor-color "yellow")
-(setq CUA-mode-read-only-cursor-color "green")
-(setq time-stamp-active t
-      time-stamp-line-limit 10
-      time-stamp-format "%04y-%02m-%02d %02H:%02M:%02S (%u)")
 
 (when window-system
   (mouse-wheel-mode t)
@@ -103,8 +103,7 @@
 
 (custom-set-faces
  '(hl-line ((t (:background "#4f4f4f"))))
- '(isearch ((((class color) (min-colors 8)) (:background "green" :foreground "black"))))
- '(warning ((((class color) (min-colors 8)) (:background "green" :foreground "black")))))
+ '(isearch ((((class color) (min-colors 8)) (:background "green" :foreground "black")))))
 
 ;; (setq debug-on-error t)
 

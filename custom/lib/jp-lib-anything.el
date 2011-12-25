@@ -14,38 +14,6 @@
                               (git-show/find-git-repo file-content)
                               (anything-attr 'pwd)))))
 
-(defun jp-find-rakefile ()
-  (interactive)
-  (setq dir (jp-find-git-repo default-directory))
-  (message (concat "DBG: dirs=" dir))
-  (if (file-exists-p (concat dir "Rakefile"))
-      (setq rake-file (shell-command-to-string
-                       (concat
-                        "cd " dir " && ls -t .rake_tasks~ Rakefile "
-                        "**/*.rake 2>/dev/null | head -n 1"))))
-  (if (string= rake-file ".rake_task~")
-      (concat "cd " dir " && cat ./.rake_tasks~")
-    (concat "cd " dir " && rake --tasks | cut -d ' ' -f 2 > .rake_tasks~")))
-
-(defun jp-anything-find-rake-tasks ()
-  "Rake tasks."
-  (setq mode-line-format
-        '(" " mode-line-buffer-identification " "
-          (line-number-mode "%l") " "
-          (:eval (propertize "(Rake -T Process Running) "
-                             'face '((:foreground "red"))))))
-  (setq cmd (jp-find-rakefile))
-  (message (concat "DBG: cmd=" cmd))
-  (prog1
-      (start-process-shell-command "rake-tasks-process" nil cmd)
-
-    (set-process-sentinel (get-process "rake-tasks-process")
-                          #'(lambda (process event)
-                              (when (string= event "finished\n")
-                                (kill-local-variable 'mode-line-format)
-                                (with-anything-window
-                                  (anything-update-move-first-line)))))))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Interactive
 (defun jp-anything-regexp ()
@@ -53,21 +21,6 @@
   (anything-other-buffer
    '(anything-c-source-regexp)
    " *Anything Regexp*"))
-
-(defun jp-anything-rake ()
-  "Return a list of all the rake tasks defined in the current
-projects.  I know this is a hack to put all the logic in the
-exec-to-string command, but it works and seems fast"
-  (interactive)
-  (anything-other-buffer
-   '((name . "Anything Rake")
-     (candidates . jp-anything-find-rake-tasks)
-     (candidate-number-limit . 9999)
-     (candidates-in-buffer)
-     (action . (lambda (candidate)
-                 (if (string-match "rake \\([^ ]+\\)" candidate)
-                     (compile (concat "rake " (match-string 1 candidate)))))))
-   "*Anythig Rake*"))
 
 (defun jp-anything-git-goto ()
   "Find a file from current git repo."

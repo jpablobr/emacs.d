@@ -1,21 +1,6 @@
-;;; --------------------------------------------------------------------
-;;; - Makes load time faster.
 (defun jp-byte-recompile-home ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d" 0))
-
-;;; --------------------------------------------------------------------
-;;; - Network
-(defun jp-view-url ()
-  "Open a new buffer containing the contents of URL."
-  (interactive)
-  (let* ((default (thing-at-point-url-at-point))
-         (url (read-from-minibuffer "URL: " default)))
-    (switch-to-buffer (url-retrieve-synchronously url))
-    (rename-buffer url t)
-    ;; TODO: switch to nxml-mode
-    (cond ((search-forward "<?xml" nil t) (xml-mode))
-          ((search-forward "<html" nil t) (html-mode)))))
 
 (defun jp-untabify-buffer ()
   (interactive)
@@ -28,7 +13,6 @@
 (defun jp-cleanup-buffer ()
   "Perform a bunch of operations on the whitespace content of a buffer."
   (interactive)
-  (jp-indent-buffer)
   (jp-untabify-buffer)
   (delete-trailing-whitespace))
 
@@ -43,8 +27,6 @@ Delete the current buffer too."
       (delete-file currentFile)
       (message (concat "Deleted file: " currentFile)))))
 
-;;; --------------------------------------------------------------------
-;;; - Browser
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
@@ -106,8 +88,6 @@ Delete the current buffer too."
         (add-hook 'isearch-mode-hook 'isearch-set-initial-string)
         (isearch-forward-regexp regexp-p no-recursive-edit)))))
 
-;;; --------------------------------------------------------------------
-;;; - ERC
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl" "#github" "#rubinius" "#debian")))
 
@@ -116,8 +96,6 @@ Delete the current buffer too."
   (interactive)
   (progn (erc :server "irc.freenode.net" :port 6667 :nick "jpablobr")))
 
-;;; --------------------------------------------------------------------
-;;; - General
 (defun jp-add-auto-mode (mode &rest patterns)
   "Handier way to add modes to auto-mode-alist"
   (dolist (pattern patterns)
@@ -163,7 +141,7 @@ Delete the current buffer too."
     "Resets transparency"
     (interactive)
     (set-frame-parameter (selected-frame) 'alpha '(100 100))
-    (add-to-list 'default-frame-alist '(alpha 100 100)))); - when window-system
+    (add-to-list 'default-frame-alist '(alpha 100 100))))
 
 (defun jp-sudo-find-file (file-name)
   "Like find file, but opens the file as root."
@@ -261,5 +239,12 @@ A place is considered `tab-width' character columns."
   "Removes `before-save' cleanup buffer hook"
   (interactive)
   (remove-hook 'before-save-hook 'jp-cleanup-buffer))
+
+(defun jp-grep-emacs-config (what)
+  (interactive "sSearch: ")
+  (setq cmd
+        (concat "find /home/jpablobr/.emacs.d/ -type f -exec grep -nH -e  " what " {} +"))
+  (compilation-start cmd
+                     'grep-mode))
 
 (provide 'jp-lib-misc)

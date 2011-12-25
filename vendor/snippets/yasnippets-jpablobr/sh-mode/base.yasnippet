@@ -1,60 +1,17 @@
 # -*- mode: snippet -*-
 # name: base
 # --
-#!/bin/sh
-
 set -e
-exe=$(basename $0)
 
-# Helpers
-
-die() {
-    echo 1>&2 "$1"
-    exit 1
-}
+prgm=\$(basename \$0)
 
 usage() {
-    cat 1>&2 <<-USAGE
-usage: $exe [OPTIONS] WHAT WITH
-
-Examples:
-    # It does something...
-    $exe what with
+    cat <<USAGE
+usage: \${prgm} [OPTIONS] WHAT WITH
 
 See also:
-    bash(1)
+bash(1)
 USAGE
-    exit 1
 }
 
-_print_info() {
-    echo "$(tput setaf 2)[I]$(tput op) $1"
-}
-
-_print_error() {
-    echo "$(tput setaf 1)[E]$(tput op) $1"
-}
-
-_print_warning() {
-    echo "$(tput setaf 3)[W]$(tput op) $1"
-}
-
-_print_help() {
-    echo "$(tput setaf 7)[H]$(tput op) $1"
-}
-
-_print_section() {
-    echo ''; echo "$(tput setaf 5)###$(tput op) $1"; echo ''
-}
-
-ACKOPTS=
-while echo "$1" | grep -q "^-"; do
-    ACKOPTS="$ackopts $1"
-    shift
-done
-
-[ "$#" -lt 2 ] &&  usage
-
-_print-info "Somethind with $what and $with"
-
-exit 0
+[ "\$#" -lt 1 ] && usage; exit 1
