@@ -6,6 +6,7 @@
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (flymake-ruby-load)
+             (jp-ri-bind-key)
              (inf-ruby-keys)
              (add-hook 'before-save-hook 'jp-indent-buffer)
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
@@ -56,7 +57,7 @@
 (add-hook 'markdown-mode-hook
           (lambda ()
             (jp-turn-on-flyspell)
-						'turn-on-pandoc))
+            'turn-on-pandoc))
 
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()

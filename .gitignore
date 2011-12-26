@@ -1,6 +1,6 @@
 backups/*
 auto-save-list
-*elc
+*.elc
 places
 thumbs/*
 .nnmail-cache

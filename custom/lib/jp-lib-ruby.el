@@ -59,4 +59,7 @@
   (interactive)
   (run-ruby (concat (jp-rails-root) "/script/console")))
 
+(defun jp-ri-bind-key ()
+  (local-set-key [f1] 'yari-anything))
+
 (provide 'jp-lib-ruby)
