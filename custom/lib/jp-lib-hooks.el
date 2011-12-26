@@ -55,7 +55,8 @@
 
 (add-hook 'markdown-mode-hook
           (lambda ()
-            (jp-turn-on-flyspell)))
+            (jp-turn-on-flyspell)
+						'turn-on-pandoc))
 
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()

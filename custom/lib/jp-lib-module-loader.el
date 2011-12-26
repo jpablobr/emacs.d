@@ -18,6 +18,9 @@
   (require 'jp-compile)
   (load-file (concat jpablobr-dir "/jp-keyboard.el"))
   (require 'jp-keyboard)
+  (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
+  (require 'jp-yasnippet)
+  ;; (jp-load-yasnippets)
   (load-file "~/.private/.jp-private.el")
   (require 'jp-private)
   (require 'jp-lib-misc)
@@ -25,12 +28,9 @@
   (require 'jp-lib-programming)
   (require 'jp-lib-hooks)
   (require 'jp-lib-anything)
-  (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
-  (require 'jp-yasnippet)
   (shell)
   (jp-load-lua)
-  ;; (jp-load-yasnippets)
-	(turn-on-xclip)
+  (turn-on-xclip)
   (cheat-fu-deft)
   (jp-load-git)
   (deft)
@@ -77,7 +77,6 @@
   (require 'jp-php))
 
 (defun jp-load-haml-scss ()
-  "thisandthat."
   (interactive)
   (require 'scss-mode)
   (require 'flymake-haml)
@@ -109,7 +108,6 @@
   (interactive)
   (add-to-list 'load-path (concat ruby-dir "/rhtml"))
   (require 'rhtml-mode)
-
   (custom-set-faces
    '(erb-delim-face ((t (:background "black" :foreground "blue" :weigth thin))))
    '(erb-exec-face ((t (:background "black" :foreground "white" :weight thin))))
@@ -118,7 +116,6 @@
    '(erb-out-delim-face ((t (:background "black") :foreground "red" :weight thin)))
    '(erb-comment-face ((t (:background "black" :foreground "red" :weight thin))))
    '(erb-comment-delim-face ((t (:background "black" :foreground "red" :weight thin)))))
-
   (setq
    nxhtml-global-minor-mode t
    nxhtml-skip-welcome t

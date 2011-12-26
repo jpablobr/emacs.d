@@ -29,6 +29,7 @@
 (require 'face-list)
 (require 'anything)
 (require 'anything-config)
+(require 'pandoc-mode)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (tool-bar-mode 0)

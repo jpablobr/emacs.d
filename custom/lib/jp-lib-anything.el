@@ -25,6 +25,8 @@
 (defun jp-anything-git-goto ()
   "Find a file from current git repo."
   (interactive)
+  (setq buff-name
+        (concat "*Git goto in: " (find-git-repo default-directory) " *"))
   (anything-other-buffer
    '((name . "Git goto")
      (init
@@ -36,7 +38,8 @@
      (candidate-number-limit . 9999)
      (candidates-in-buffer)
      (action . jp-goto))
-   "*Git goto*"))
+   buff-name)
+  (kill-buffer buff-name))
 
 (defun jp-anything-code ()
   (interactive)

@@ -2,12 +2,14 @@
 (add-to-list 'load-path ruby-dir)
 (load-file (concat jpablobr-lib "/jp-lib-ruby.el"))
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
+(load-file (concat ruby-dir "/anything-rake/anything-rake.el"))
+(load-file (concat ruby-dir "/yari.el/yari.el"))
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'run-ruby "inf-ruby"
-	"Run an inferior Ruby process")
+  "Run an inferior Ruby process")
 (autoload 'inf-ruby-keys "inf-ruby"
-	"Set local key defs for inf-ruby in ruby-mode")
+  "Set local key defs for inf-ruby in ruby-mode")
 
 ;; (require 'align)
 (require 'jp-lib-ruby)
@@ -17,6 +19,7 @@
 (require 'ruby-hacks)
 (require 'ruby-end)
 (require 'anything-rake)
+(require 'yari)
 
 ;; (autoload 'toggle "toggle" nil t)
 
