@@ -32,7 +32,7 @@
      (init
       . (lambda ()
           (call-process-shell-command
-           (format "cd %s && git ls-files -cmo --directory"
+           (format "cd %s && git ls-files -cmo --exclude-standard --directory"
                    (jp-find-git-repo default-directory))
            nil (anything-candidate-buffer 'global))))
      (candidate-number-limit . 9999)
