@@ -19,7 +19,6 @@
 (require 'ruby-end)
 (require 'anything-rake)
 (require 'yari)
-(require 'rdoc-mode)
 
 (add-to-list 'completion-ignored-extensions ".rbc")
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
