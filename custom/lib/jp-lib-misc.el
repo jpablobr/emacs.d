@@ -240,16 +240,16 @@ A place is considered `tab-width' character columns."
   (remove-hook 'before-save-hook 'jp-cleanup-buffer))
 
 (defun jp-grep-emacs-config ()
-	(interactive
-	 (let (what cmd)
-		 (setq what
-					 (read-from-minibuffer "Run grep like this: "
-																 (if (and transient-mark-mode mark-active)
-																		 (buffer-substring-no-properties (region-beginning) (region-end))
-																	 (thing-at-point 'symbol))))
-		 (setq cmd
-					 (concat "find " dotfiles-dir " -type f -exec grep -nH -e  " what " {} +"))
-		 (compilation-start cmd
-												'grep-mode))))
+  (interactive
+   (let (what cmd)
+     (setq what
+           (read-from-minibuffer "Run grep like this: "
+                                 (if (and transient-mark-mode mark-active)
+                                     (buffer-substring-no-properties (region-beginning) (region-end))
+                                   (thing-at-point 'symbol))))
+     (setq cmd
+           (concat "find " dotfiles-dir " -type f -exec grep -nH -e  " what " {} +"))
+     (compilation-start cmd
+                        'grep-mode))))
 
 (provide 'jp-lib-misc)

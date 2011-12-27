@@ -8,7 +8,9 @@
              (flymake-ruby-load)
              (jp-ri-bind-key)
              (inf-ruby-keys)
-             (add-hook 'before-save-hook 'jp-indent-buffer)
+             (font-lock-add-keywords
+              nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
+                     1 font-lock-keyword-face prepend)))
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET") 'reindent-then-newline-and-indent)
              (local-set-key (kbd "<return>") 'newline-and-indent)

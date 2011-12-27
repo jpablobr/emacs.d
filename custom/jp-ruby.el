@@ -11,7 +11,6 @@
 (autoload 'inf-ruby-keys "inf-ruby"
   "Set local key defs for inf-ruby in ruby-mode")
 
-;; (require 'align)
 (require 'jp-lib-ruby)
 (require 'ruby-comint)
 (require 'ruby-style)
@@ -20,8 +19,7 @@
 (require 'ruby-end)
 (require 'anything-rake)
 (require 'yari)
-
-;; (autoload 'toggle "toggle" nil t)
+(require 'rdoc-mode)
 
 (add-to-list 'completion-ignored-extensions ".rbc")
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))

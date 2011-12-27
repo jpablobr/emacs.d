@@ -65,7 +65,7 @@
 (setq recentf-auto-cleanup 'never)
 (setq reb-re-syntax 'string)
 (setq warning-suppress-types nil)
-(setq org-directory nil)
+;; (setq org-directory nil)
 (setq uniquify-buffer-name-style 'forward)
 (setq deft-extension "md")
 (setq deft-directory "~/.private/notes")
