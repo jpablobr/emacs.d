@@ -252,4 +252,57 @@ A place is considered `tab-width' character columns."
      (compilation-start cmd
                         'grep-mode))))
 
+(defun jp-unfill-paragraph ()
+  (interactive)
+  (let ((fill-column (point-max)))
+    (fill-paragraph nil)))
+
+(defun jp-space2underscore-region (start end)
+  "Replace space by underscore in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward " " nil t) (replace-match "_")) ) )
+
+(defun jp-space2dash-region (start end)
+  "Replace space by dash in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward " " nil t) (replace-match "-")) ) )
+
+(defun jp-underscore2space-region (start end)
+  "Replace underscore by space in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward "_" nil t) (replace-match " ")) ))
+
+(defun jp-dash2space-region (start end)
+  "Replace dash by space in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward "-" nil t) (replace-match " ")) ))
+
+(defun jp-underscore2dash-region (start end)
+  "Replace dash by space in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward "_" nil t) (replace-match "-")) ))
+
+(defun jp-dash2underscore-region (start end)
+  "Replace dash by space in region."
+  (interactive "r")
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (search-forward "-" nil t) (replace-match "_")) ))
+
 (provide 'jp-lib-misc)
