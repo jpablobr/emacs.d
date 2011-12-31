@@ -30,6 +30,11 @@
 (require 'anything)
 (require 'anything-config)
 (require 'pandoc-mode)
+(autoload 'xub-mode "xub-mode" "Load xub-mode for browsing Unicode." t)
+(autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
+(autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
+(autoload 'reftex-citation "reftex-cite" "Make citation" nil)
+(autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (tool-bar-mode 0)
@@ -44,6 +49,7 @@
 (recentf-mode t)
 (cua-mode 'emacs)
 (auto-compression-mode t)
+(setq require-final-newline t)
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 (setq truncate-partial-width-windows 0)
@@ -61,12 +67,9 @@
 (setq delete-selection-mode t)
 (setq delete-by-moving-to-trash t)
 (setq shift-select-mode nil)
-(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 (setq recentf-auto-cleanup 'never)
 (setq reb-re-syntax 'string)
 (setq warning-suppress-types nil)
-;; (setq org-directory nil)
-(setq uniquify-buffer-name-style 'forward)
 (setq deft-extension "md")
 (setq deft-directory "~/.private/notes")
 (setq deft-text-mode 'markdown-mode)
@@ -92,8 +95,8 @@
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.ronn\\'" . markdown-mode))
 
-(setq jpablobr-markdown-imenu-generic-expression
-      '(("Top-level Heading" "#\+ \\(\.\*\\)" 1)))
+;; (setq jpablobr-markdown-imenu-generic-expression
+;;       '(("Top-level Heading" "#\+ \\(\.\*\\)" 1)))
 
 (when window-system
   (mouse-wheel-mode t)

@@ -14,6 +14,8 @@
   "Perform a bunch of operations on the whitespace content of a buffer."
   (interactive)
   (jp-untabify-buffer)
+  (jp-indent-buffer)
+  (delete-blank-lines)
   (delete-trailing-whitespace))
 
 (defun jp-delete-current-file ()
@@ -304,5 +306,12 @@ A place is considered `tab-width' character columns."
     (narrow-to-region start end)
     (goto-char (point-min))
     (while (search-forward "-" nil t) (replace-match "_")) ))
+
+(defun jp-latin-9-input-method ()
+  "Latin chars without having to type
+  C-x 8 'e for: 'é' character
+  http://xahlee.org/emacs/emacs_n_unicode.html"
+  (interactive)
+  (set-input-method "latin-9-prefix"))
 
 (provide 'jp-lib-misc)

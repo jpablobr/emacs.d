@@ -47,6 +47,13 @@
   (rdebug "rdebug script/server")
   (insert "e Dir.chdir('..')") )
 
+(defun jp-pry-console ()
+  "Fire up a pry console."
+  (interactive)
+  (setq current-file (buffer-name))
+  (let ((buffer (shell (concat"*Pry @ " default-directory "*"))))
+    (comint-send-string buffer (concat "pry -r ./" current-file  "\n"))))
+
 (defun jp-rails-root (&optional dir)
   (or dir (setq dir default-directory))
   (if (file-exists-p (concat dir "config/environment.rb"))

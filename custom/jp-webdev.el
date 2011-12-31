@@ -1,20 +1,12 @@
-
 (dolist (i '("xml" "xsd" "rng" "xsl" "xslt" "svg" "rss" "html" "php"))
   (add-to-list 'auto-mode-alist (cons (concat "\\." i "\\'") 'nxml-mode)))
 
-;; (unify-8859-on-decoding-mode)
 (setq magic-mode-alist (cons '("<\\?xml " . nxml-mode) magic-mode-alist))
 (fset 'html-mode 'nxml-mode)
 (fset 'xml-mode 'nxml-mode)
 (setq nxml-slash-auto-complete-flag t)
 
-(autoload 'tidy-buffer "tidy" "Run Tidy HTML parser on current buffer" t)
-(autoload 'tidy-parse-config-file "tidy" "Parse the `tidy-config-file'" t)
-(autoload 'tidy-save-settings "tidy" "Save settings to `tidy-config-file'" t)
-(autoload 'tidy-build-menu  "tidy" "Install an options menu for HTML Tidy." t)
-
-(add-auto-mode 'html-mode "\\.(jsp|tmpl)$")
-
+(setq auto-mode-alist  (cons '("\\.(jsp|tmpl)$" . html-mode) auto-mode-alist))
 (autoload 'css-mode          "css-mode" "Mode for editing CSS files" t)
 (setq auto-mode-alist  (cons '("\\.css$" . css-mode) auto-mode-alist))
 (setq auto-mode-alist  (cons '("\\.js$" .  js2-mode) auto-mode-alist))
