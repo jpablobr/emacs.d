@@ -8,15 +8,21 @@
 
 (defun jp-indent-buffer ()
   (interactive)
-  (indent-region (point-min) (point-max)))
+	(indent-region (point-min) (point-max)))
 
 (defun jp-cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a buffer."
+  "Perform a bunch of operations on the whitespace content of a
+  buffer."
   (interactive)
   (jp-untabify-buffer)
   (jp-indent-buffer)
-  (delete-blank-lines)
   (delete-trailing-whitespace))
+
+(defun jp-emacs-lisp-cleanup-buffer ()
+	"Perform a bunch of operations on the whitespace content of an
+  Emacs buffer."
+	(interactive)
+	(delete-trailing-whitespace))
 
 (defun jp-delete-current-file ()
   "Delete the file associated with the current buffer.

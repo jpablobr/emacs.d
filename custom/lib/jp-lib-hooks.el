@@ -56,7 +56,7 @@
              (autopair-mode)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
-             (add-hook 'before-save-hook 'jp-cleanup-buffer)
+             (add-hook 'before-save-hook 'jp-emacs-lisp-cleanup-buffer)
              (add-to-list 'ac-omni-completion-sources
                           (cons "\\." '(ac-source-semantic)))
              (add-to-list 'ac-omni-completion-sources
