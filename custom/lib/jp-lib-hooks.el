@@ -6,10 +6,9 @@
              (flymake-ruby-load)
              (jp-ri-bind-key)
              (inf-ruby-keys)
-             (add-hook 'before-save-hook 'jp-cleanup-buffer)
              (font-lock-add-keywords
               nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
-                     1 font-lock-keyword-face prepend)))
+                     1 font-lock-warning-face  prepend)))
              (local-set-key [return] 'ruby-reindent-then-newline-and-indent)
              (define-key ruby-mode-map (kbd "RET")
                'reindent-then-newline-and-indent)
@@ -18,6 +17,10 @@
              (add-to-list 'ac-omni-completion-sources
                           (cons "\\." '(ac-source-semantic)))
              (setq ac-sources '(ac-source-yasnippet))))
+
+(add-hook 'c-mode-hook
+          '(lambda ()
+             (setq show-trailing-whitespace t)))
 
 (add-hook 'doc-mode-hook
           '(lambda ()
@@ -56,7 +59,10 @@
              (autopair-mode)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
-             (add-hook 'before-save-hook 'jp-emacs-lisp-cleanup-buffer)
+             (setq show-trailing-whitespace t)
+             (font-lock-add-keywords
+              nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
+                     1 font-lock-keyword-face prepend)))
              (add-to-list 'ac-omni-completion-sources
                           (cons "\\." '(ac-source-semantic)))
              (add-to-list 'ac-omni-completion-sources
@@ -88,6 +94,7 @@
           (lambda ()
             (require 'flymake-php)
             (wicked/php-mode-init)
+             (setq show-trailing-whitespace t)
             (add-hook 'before-save-hook 'jp-cleanup-buffer)
             (c-toggle-auto-newline -1)
             (setq c-basic-offset 4)
@@ -103,17 +110,17 @@
 (add-hook 'shell-script-mode-hook
           '(lambda ()
              (autopair-mode)
+             (setq show-trailing-whitespace t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
-             (add-hook 'before-save-hook 'jp-cleanup-buffer)
              (flymake-shell-load)))
 
 (add-hook 'sh-mode-hook
           '(lambda ()
              (autopair-mode)
+             (setq show-trailing-whitespace t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
-             (add-hook 'before-save-hook 'jp-cleanup-buffer)
              (flymake-shell-load)))
 
 (add-hook 'message-mode-hook

@@ -25,34 +25,33 @@
    nil
    (lambda (x) "*Ruby Koans Path*")))
 
-(defun ruby-send-buffer ()
-  "Send the current buffer to the inferior Ruby process."
-  (interactive)
-  (ruby-send-region (point-min) (point-max)))
-
 (defun jp-passenger:start ()
   "Fire up an instance of a Passenger server"
   (interactive)
   (let ((buffer (shell "*Passenger Server at port 3000*")))
     (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
 
-(defun jp-rails-server ()
+(defun jp-rails-server:start ()
   "Fire up an instance of a Rails server"
   (interactive)
   (let ((buffer (shell "*Rails Server at port 3000*")))
     (comint-send-string buffer (concat "./script/rails s -p 3000 -e development" "\n"))))
 
-(defun jp-rdebug-rails ()
+(defun jp-rdebug-rails:start ()
   (interactive)
   (rdebug "rdebug script/server")
   (insert "e Dir.chdir('..')") )
 
-(defun jp-pry-console ()
+(defun jp-pry-console:start ()
   "Fire up a pry console."
   (interactive)
   (setq current-file (buffer-name))
   (let ((buffer (shell (concat"*Pry @ " default-directory "*"))))
-    (comint-send-string buffer (concat "pry -r ./" current-file  "\n"))))
+    (comint-send-string buffer (concat "pry \n"))))
+
+(defun jp-rails-console:start ()
+  (interactive)
+  (run-ruby (concat (jp-rails-root) "/script/console")))
 
 (defun jp-rails-root (&optional dir)
   (or dir (setq dir default-directory))
@@ -61,10 +60,6 @@
     (if (equal dir  "/")
         nil
       (jp-rails-root (expand-file-name (concat dir "../"))))))
-
-(defun jp-rails-console ()
-  (interactive)
-  (run-ruby (concat (jp-rails-root) "/script/console")))
 
 (defun jp-ri-bind-key ()
   (local-set-key [f1] 'yari-anything))

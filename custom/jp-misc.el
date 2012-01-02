@@ -41,11 +41,10 @@
 (defalias 'yes-or-no-p 'y-or-n-p)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-;; (show-paren-mode 1)
+(show-paren-mode 1)
 (column-number-mode t)
 (set-scroll-bar-mode 0)
 (global-hl-line-mode t)
-;; (line-number-mode t)
 (transient-mark-mode t)
 (global-font-lock-mode t)
 (recentf-mode t)
@@ -55,7 +54,7 @@
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 (setq truncate-partial-width-windows 0)
-;; (setq uniquify-buffer-name-style 'forward)
+(setq uniquify-buffer-name-style 'forward)
 (setq ediff-window-setup-function 'ediff-setup-windows-plain)
 (setq save-place-file (concat dotfiles-dir "places"))
 (setq visible-bell t)
@@ -63,7 +62,6 @@
 (setq font-lock-maximum-size 512000)
 (setq inhibit-startup-message t)
 (setq blink-cursor t)
-;; (setq tab-width 2)
 (setq default-tab-width 2)
 (setq delete-selection-mode t)
 (setq delete-by-moving-to-trash t)
@@ -95,9 +93,6 @@
 (add-to-list 'auto-mode-alist '("\\.mdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.ronn\\'" . markdown-mode))
-
-;; (setq jpablobr-markdown-imenu-generic-expression
-;;       '(("Top-level Heading" "#\+ \\(\.\*\\)" 1)))
 
 (when window-system
   (mouse-wheel-mode t)

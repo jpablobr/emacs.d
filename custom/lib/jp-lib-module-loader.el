@@ -23,7 +23,9 @@
   (require 'jp-lib-templates)
   (require 'jp-lib-programming)
   (require 'jp-lib-anything)
+	(require 'jp-lib-grep)
   (require 'jp-lib-hooks)
+
   (shell)
   ;; (gnus)
   (jp-load-lua)
@@ -63,7 +65,7 @@
 (defun load-rainbow-mode  ()
   "Loads rainsbow-mode"
   (interactive)
-  (load-file (concat vendor-dir "/theaming/rainbow-mode.el"))
+  (load-file (concat misc-dir "/rainbow-mode.el"))
   (require'rainbow-mode "rainbow-mode" t)
   (rainbow-mode))
 

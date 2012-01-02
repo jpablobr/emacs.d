@@ -18,12 +18,6 @@
   (jp-indent-buffer)
   (delete-trailing-whitespace))
 
-(defun jp-emacs-lisp-cleanup-buffer ()
-	"Perform a bunch of operations on the whitespace content of an
-  Emacs buffer."
-	(interactive)
-	(delete-trailing-whitespace))
-
 (defun jp-delete-current-file ()
   "Delete the file associated with the current buffer.
 Delete the current buffer too."
@@ -157,11 +151,6 @@ Delete the current buffer too."
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
     (find-file tramp-file-name)))
 
-(defun jp-word-count ()
-  "Count words in buffer"
-  (interactive)
-  (shell-command-on-region (point-min) (point-max) "wc -w"))
-
 ;; http://www.emacswiki.org/emacs/EmacsAsDaemon
 (defun jp-client-save-kill-emacs(&optional display)
   " This is a function that can bu used to shutdown save buffers and
@@ -246,19 +235,6 @@ A place is considered `tab-width' character columns."
   "Removes `before-save' cleanup buffer hook"
   (interactive)
   (remove-hook 'before-save-hook 'jp-cleanup-buffer))
-
-(defun jp-grep-emacs-config ()
-  (interactive
-   (let (what cmd)
-     (setq what
-           (read-from-minibuffer "Run grep like this: "
-                                 (if (and transient-mark-mode mark-active)
-                                     (buffer-substring-no-properties (region-beginning) (region-end))
-                                   (thing-at-point 'symbol))))
-     (setq cmd
-           (concat "find " dotfiles-dir " -type f -exec grep -nH -e  " what " {} +"))
-     (compilation-start cmd
-                        'grep-mode))))
 
 (defun jp-unfill-paragraph ()
   (interactive)
