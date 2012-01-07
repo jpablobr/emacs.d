@@ -1,13 +1,12 @@
 (defun jp-main-module-loader ()
-  "Loads all the defaults."
   (interactive)
   (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
   (load-file (concat jpablobr-dir "/jp-misc.el"))
   (require 'jp-misc)
-  (load-file (concat jpablobr-dir "/jp-ruby.el"))
-  (require 'jp-ruby)
   (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
   (require 'jp-autocomplete)
+  (load-file (concat jpablobr-dir "/jp-ruby.el"))
+  (require 'jp-ruby)
   (load-file (concat jpablobr-dir "/jp-eshell.el"))
   (require 'jp-eshell)
   (load-file (concat jpablobr-dir "/jp-compile.el"))
@@ -16,7 +15,6 @@
   (require 'jp-keyboard)
   (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
   (require 'jp-yasnippet)
-  ;; (jp-load-yasnippets)
   (load-file "~/.private/.jp-private.el")
   (require 'jp-private)
   (require 'jp-lib-misc)
@@ -25,9 +23,7 @@
   (require 'jp-lib-anything)
 	(require 'jp-lib-grep)
   (require 'jp-lib-hooks)
-
   (shell)
-  ;; (gnus)
   (jp-load-lua)
   (turn-on-xclip)
   (cheat-fu-deft)
@@ -36,7 +32,6 @@
   (cd "~/"))
 
 (defun ecb-init-stuff ()
-  "Load ECB"
   (interactive)
   (add-to-list 'load-path (concat misc-dir "/cedet-1.0pre7/common/cedet.el"))
   (add-to-list 'load-path (concat misc-dir "/ecb-2.40"))
@@ -62,15 +57,18 @@
   (setq ecb-primary-secondary-mouse-buttons (quote mouse-1--mouse-2))
   (ecb-activate))
 
+(defun jp-load-yasnippets ()
+	(interactive)
+	(jp-load-yasnippets-hooks)
+	(yas/minor-mode))
+
 (defun load-rainbow-mode  ()
-  "Loads rainsbow-mode"
   (interactive)
   (load-file (concat misc-dir "/rainbow-mode.el"))
   (require'rainbow-mode "rainbow-mode" t)
   (rainbow-mode))
 
 (defun jp-load-php ()
-  "Loads PHP stuff."
   (interactive)
   (load-file (concat jpablobr-dir "/jp-php.el"))
   (require 'jp-php))
@@ -89,7 +87,6 @@
   (add-hook 'haml-mode-hook 'flymake-haml-load))
 
 (defun jp-load-ruby-complexity ()
-  "Starts ruby complexity"
   (add-to-list 'load-path (concat ruby-dir "/ruby-complexity"))
   (require 'ruby-complexity)
   (interactive)
@@ -97,13 +94,11 @@
   (ruby-complexity-mode))
 
 (defun jp-load-rdebug ()
-  "Load rdebug."
   (interactive)
   (add-to-list 'load-path (concat ruby-dir "/rdebug"))
   (require 'rdebug))
 
 (defun jp-load-rhtml ()
-  "Load rhtml mode"
   (interactive)
   (add-to-list 'load-path (concat ruby-dir "/rhtml"))
   (require 'rhtml-mode)
@@ -123,13 +118,11 @@
    nxml-degraded t))
 
 (defun jp-load-js ()
-  "Load js mode."
   (interactive)
   (load-file (concat jpablobr-dir "/jp-js.el"))
   (require 'jp-jp))
 
 (defun jp-load-git ()
-  "Load Git(1)."
   (interactive)
   (load-file (concat misc-dir "/git-show/git-show.el"))
   (add-to-list 'load-path  (concat misc-dir "/git-emacs"))
@@ -138,7 +131,6 @@
   (require 'git-emacs))
 
 (defun jp-load-lua ()
-  "Load Lua."
   (interactive)
   (autoload 'lua-mode "lua-mode" "Lua editing mode." t)
   (add-to-list 'auto-mode-alist '("\\.lua$" . lua-mode))
@@ -146,7 +138,6 @@
   (require 'flymake-lua))
 
 (defun jp-load-ascii-doc ()
-  "Load Ascii-doc."
   (interactive)
   (autoload 'doc-mode "doc-mode" nil t)
   (add-to-list 'auto-mode-alist '("\\.adoc$" . doc-mode))

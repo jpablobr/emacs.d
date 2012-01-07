@@ -30,6 +30,7 @@
 (require 'anything)
 (require 'anything-config)
 (require 'pandoc-mode)
+(require 'epa-file)
 (autoload 'xub-mode "xub-mode" "Load xub-mode for browsing Unicode." t)
 (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
 (autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
@@ -39,6 +40,7 @@
 (autoload 'mingus "mingus-stays-home" nil t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
+(epa-file-enable)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
 (show-paren-mode 1)

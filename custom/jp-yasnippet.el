@@ -3,7 +3,7 @@
 (require 'yasnippet)
 (require 'dropdown-list)
 
-(defun  jp-load-yasnippets()
+(defun  jp-load-yasnippets-hooks()
   "Loads yasnippets."
   (interactive)
 

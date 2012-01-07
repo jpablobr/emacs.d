@@ -30,7 +30,8 @@ def run
 
   results.keys.sort {|a,b| a <=> b }.each do |line_number|
     # TODO: Find range of line numbers for each method
-    puts [line_number,
+    puts [
+    line_number,
     line_number,
     results[line_number][0],
     "function" #results[line_number][1]

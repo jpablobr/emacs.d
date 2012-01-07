@@ -64,4 +64,20 @@
 (defun jp-ri-bind-key ()
   (local-set-key [f1] 'yari-anything))
 
+(defun jp-rctags-gemset ()
+  (interactive)
+  (compilation-start
+   (concat
+    "cd "
+    (jp-find-git-repo default-directory)
+    " && find $(echo $GEM_PATH | cut -d: -f1) -type f -name '*.rb' | ctags -e --verbose=yes -L -")))
+
+(defun jp-rctags-project ()
+  (interactive)
+  (compilation-start
+   (concat
+    "cd "
+    (jp-find-git-repo default-directory)
+    " && find . -type f -name '*.rb' | ctags -e --verbose=yes -L -")))
+
 (provide 'jp-lib-ruby)

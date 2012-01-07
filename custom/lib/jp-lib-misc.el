@@ -1,6 +1,12 @@
 (defun jp-byte-recompile-home ()
   (interactive)
+	(jp-rm-elc-files)
   (byte-recompile-directory "~/.emacs.d" 0))
+
+(defun jp-rm-elc-files ()
+  (interactive)
+  (compilation-start
+	 "cd ~/.emacs.d/ && find . -type f -name '*.elc' -exec rm -fv {} +"))
 
 (defun jp-untabify-buffer ()
   (interactive)
@@ -8,7 +14,7 @@
 
 (defun jp-indent-buffer ()
   (interactive)
-	(indent-region (point-min) (point-max)))
+  (indent-region (point-min) (point-max)))
 
 (defun jp-cleanup-buffer ()
   "Perform a bunch of operations on the whitespace content of a
@@ -91,7 +97,7 @@ Delete the current buffer too."
         (isearch-forward-regexp regexp-p no-recursive-edit)))))
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl" "#github" "#rubinius" "#debian")))
+      '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl" "#github" "#rubinius" "#debian" "#archlinux")))
 
 (defun jp-erc-connect ()
   "Default ERC stuff."
@@ -119,12 +125,7 @@ Delete the current buffer too."
   "Encrypt/Decrypt the current buffer"
   (interactive "sPassword: ")
   (call-process-region
-   (point-min) (point-max)
-   "crypt"
-   t
-   (current-buffer)
-   nil
-   password))
+   (point-min) (point-max) "crypt" t (current-buffer) nil password))
 
 (defun jp-fullscreen-toggle ()
   (interactive)
@@ -150,60 +151,6 @@ Delete the current buffer too."
   (interactive "FSudo Find File: ")
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
     (find-file tramp-file-name)))
-
-;; http://www.emacswiki.org/emacs/EmacsAsDaemon
-(defun jp-client-save-kill-emacs(&optional display)
-  " This is a function that can bu used to shutdown save buffers and
-shutdown the emacs daemon. It should be called using
-emacsclient -e '(client-save-kill-emacs)'.  This function will
-check to see if there are any modified buffers or active clients
-or frame.  If so an x window will be opened and the user will
-be prompted."
-  (let (new-frame modified-buffers active-clients-or-frames)
-    (setq modified-buffers (modified-buffers-exist))
-    (setq active-clients-or-frames ( or (> (length server-clients) 1)
-                                        (> (length (frame-list)) 1)))
-    (when (or modified-buffers active-clients-or-frames)
-      (when (not (eq window-system 'x))
-        (message "Initializing x windows system.")
-        (x-initialize-window-system))
-      (when (not display) (setq display (getenv "DISPLAY")))
-      (message "Opening frame on display: %s" display)
-      (select-frame (make-frame-on-display display '((window-system . x)))))
-
-    (setq new-frame (selected-frame))
-    (when (or (not active-clients-or-frames)
-              (yes-or-no-p (format
-                            "There are currently %d clients and %d frames. Exit anyway?"
-                            (- (length server-clients) 1) (- (length (frame-list)) 2))))
-      (let ((inhibit-quit t))
-        (with-local-quit
-          (save-some-buffers))
-        (if quit-flag
-            (setq quit-flag nil)
-          (progn
-            (dolist (client server-clients)
-              (server-delete-client client))
-            (kill-emacs)))))
-    (when (or modified-buffers active-clients-or-frames)
-      (delete-frame new-frame))))
-
-(defun jp-modified-buffers-exist()
-  "This function will check to see if there are any buffers
-that have been modified.  It will return true if there are
-and nil otherwise. Buffers that have buffer-offer-save set to
-nil are ignored."
-  (let (modified-found)
-    (dolist (buffer (buffer-list))
-      (when (and (buffer-live-p buffer)
-                 (buffer-modified-p buffer)
-                 (not (buffer-base-buffer buffer))
-                 (or
-                  (buffer-file-name buffer)
-                  (progn
-                    (set-buffer buffer)
-                    (and buffer-offer-save (> (buffer-size) 0)))))
-        (setq modified-found t)))modified-found))
 
 (defun jp-shift-right (&optional arg)
   "Shift the line or region to the ARG places to the right.
@@ -295,5 +242,18 @@ A place is considered `tab-width' character columns."
   http://xahlee.org/emacs/emacs_n_unicode.html"
   (interactive)
   (set-input-method "latin-9-prefix"))
+
+(defun jp-cp-shell-cmd-output ()
+  (interactive)
+  (kill-new (point-min) (point-max)))
+
+(defun jp-shutdown-emacs-server ()
+  (interactive)
+  (when (not (eq window-system 'x))
+    (message "Initializing x windows system.")
+    (x-initialize-window-system)
+    (when (not x-display-name) (setq x-display-name (getenv "DISPLAY")))
+    (select-frame (make-frame-on-display x-display-name '((window-system . x)))))
+  (let ((last-nonmenu-event nil)(window-system "x"))(save-buffers-kill-emacs)))
 
 (provide 'jp-lib-misc)

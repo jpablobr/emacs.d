@@ -103,6 +103,8 @@
 
 (add-hook 'shell-mode-hook
           '(lambda ()
+						 (add-hook 'comint-output-filter-functions
+											 'comint-truncate-buffer)
              (rvm-activate-corresponding-ruby)
              (autopair-mode)
              (ansi-color-for-comint-mode-on)))
@@ -113,6 +115,7 @@
              (setq show-trailing-whitespace t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
+             (local-set-key (kbd "C-c C-c") 'jp-cleanup-buffer)
              (flymake-shell-load)))
 
 (add-hook 'sh-mode-hook
@@ -121,6 +124,7 @@
              (setq show-trailing-whitespace t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
+             (local-set-key (kbd "C-c C-c") 'jp-cleanup-buffer)
              (flymake-shell-load)))
 
 (add-hook 'message-mode-hook
