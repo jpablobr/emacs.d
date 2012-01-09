@@ -2,19 +2,17 @@
 # name: getopts
 # --
 
-if [ "\$1" = "--help" ]; then
-	helptext
-fi
+[ "\$1" = "--help" ] &&	help_text
 
 while getopts ":hif:" opt; do
 	case $opt in
-		f )	echo "something todo with -f"
+		f )	$OPTARG
 			;;
 		i )	echo "something todo with -i"
 			;;
-		h )	helptext
+		h )	help_text
 			;;
 		* )	usage
 			exit 1
 	esac
-done;:
+done

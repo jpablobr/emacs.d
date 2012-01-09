@@ -36,7 +36,7 @@ Delete the current buffer too."
       (message (concat "Deleted file: " currentFile)))))
 
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "google-chrome")
+      browse-url-generic-program "chromium")
 
 (defun jp-synonym-s (what)
   "Use synonym.com to search for WHAT."

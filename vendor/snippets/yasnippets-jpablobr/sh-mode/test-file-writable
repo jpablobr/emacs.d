@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: test-file-writable
+# --
+[ -w ${1:file} ]$0

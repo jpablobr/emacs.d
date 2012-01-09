@@ -885,13 +885,20 @@ type\\|theme\\|var\\|group\\|custom\\|const\\|method\\|class\\)"
   :type 'string
   :group 'anything-config)
 
+(defcustom anything-c-browse-code-regexp-markdown
+  "\\<\\#\\#>"
+  "*Regexp used to parse markdown buffer when browsing code."
+  :type 'string
+  :group 'anything-config)
+
 (defcustom anything-c-browse-code-regexp-alist
   `((lisp-interaction-mode . ,anything-c-browse-code-regexp-lisp)
     (emacs-lisp-mode . ,anything-c-browse-code-regexp-lisp)
     (lisp-mode . ,anything-c-browse-code-regexp-lisp)
     (ruby-mode . ,anything-c-browse-code-regexp-ruby)
     (sh-mode . ,anything-c-browse-code-regexp-sh)
-    (python-mode . ,anything-c-browse-code-regexp-python))
+    (markdown-mode . ,anything-c-browse-code-regexp-markdown)
+	(python-mode . ,anything-c-browse-code-regexp-python))
   "*Alist to store regexps for browsing code corresponding \
 to a specific `major-mode'."
   :type 'list
