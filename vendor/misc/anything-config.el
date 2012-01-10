@@ -6675,6 +6675,7 @@ STRING is string to match."
     (init . anything-c-source-ctags-init)
     (candidates-in-buffer)
     (adjust)
+    (candidate-number-limit . 999)
     (type . line))
   "Needs Exuberant Ctags.
 

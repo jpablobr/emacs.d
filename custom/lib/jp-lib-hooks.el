@@ -50,8 +50,10 @@
 
 (add-hook 'markdown-mode-hook
           (lambda ()
-            (set-input-method "latin-9-prefix")
-            (jp-turn-on-flyspell)
+						(font-lock-add-keywords
+						 nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
+										1 font-lock-warning-face  prepend)))
+						(autopair-mode)
             (turn-on-pandoc)))
 
 (add-hook 'emacs-lisp-mode-hook
