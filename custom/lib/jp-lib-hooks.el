@@ -1,6 +1,8 @@
 (add-hook 'ruby-mode-hook
           '(lambda ()
              (autopair-mode)
+             (highlight-tabs t)
+             (highlight-trailing-whitespace t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (flymake-ruby-load)
