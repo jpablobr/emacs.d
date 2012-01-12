@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: test-file-associated-with-a-terminal
+# --
+[ -t ${1:file} ]$0

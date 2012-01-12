@@ -78,6 +78,6 @@
    (concat
     "cd "
     (jp-find-git-repo default-directory)
-    " && find . -type f -name '*.rb' | ctags -e --verbose=yes -L -")))
+    " && find $(pwd) -type f -name '*.rb' | ctags -e --verbose=yes -L -")))
 
 (provide 'jp-lib-ruby)

@@ -20,6 +20,7 @@
 
 (add-hook 'c-mode-hook
           '(lambda ()
+             (font-lock-add-keywords nil jp-show-tabs)
              (setq show-trailing-whitespace t)))
 
 (add-hook 'doc-mode-hook
@@ -50,8 +51,11 @@
 
 (add-hook 'markdown-mode-hook
           (lambda ()
-            (set-input-method "latin-9-prefix")
-            (jp-turn-on-flyspell)
+            (font-lock-add-keywords nil jp-show-tabs)
+            (font-lock-add-keywords
+             nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
+                    1 font-lock-warning-face  prepend)))
+            (autopair-mode)
             (turn-on-pandoc)))
 
 (add-hook 'emacs-lisp-mode-hook
@@ -94,7 +98,7 @@
           (lambda ()
             (require 'flymake-php)
             (wicked/php-mode-init)
-             (setq show-trailing-whitespace t)
+            (setq show-trailing-whitespace t)
             (add-hook 'before-save-hook 'jp-cleanup-buffer)
             (c-toggle-auto-newline -1)
             (setq c-basic-offset 4)
@@ -103,11 +107,12 @@
 
 (add-hook 'shell-mode-hook
           '(lambda ()
-						 (add-hook 'comint-output-filter-functions
-											 'comint-truncate-buffer)
+             (add-hook 'comint-output-filter-functions
+                       'comint-truncate-buffer)
              (rvm-activate-corresponding-ruby)
              (autopair-mode)
-             (ansi-color-for-comint-mode-on)))
+             (ansi-color-for-comint-mode-on)
+             (font-lock-mode -1)))
 
 (add-hook 'shell-script-mode-hook
           '(lambda ()
@@ -121,6 +126,7 @@
 (add-hook 'sh-mode-hook
           '(lambda ()
              (autopair-mode)
+             (font-lock-add-keywords nil jp-show-tabs)
              (setq show-trailing-whitespace t)
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)

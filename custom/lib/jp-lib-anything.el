@@ -50,6 +50,7 @@
      anything-c-source-semantic
      anything-c-source-browse-code
      anything-c-source-rd-headline
+		 yari-anything-source-ri-pages
      anything-c-source-oddmuse-headline
      anything-c-source-mark-ring
      anything-c-source-fixme)

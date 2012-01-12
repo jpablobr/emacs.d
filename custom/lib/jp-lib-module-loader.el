@@ -15,6 +15,7 @@
   (require 'jp-keyboard)
   (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
   (require 'jp-yasnippet)
+	(jp-load-yasnippets-hooks)
   (load-file "~/.private/.jp-private.el")
   (require 'jp-private)
   (require 'jp-lib-misc)

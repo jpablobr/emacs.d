@@ -40,12 +40,11 @@
 (autoload 'mingus "mingus-stays-home" nil t)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
-(epa-file-enable)
-(tool-bar-mode 0)
-(menu-bar-mode 0)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
 (show-paren-mode 1)
 (column-number-mode t)
-(set-scroll-bar-mode 0)
+(set-scroll-bar-mode -1)
 (global-hl-line-mode t)
 (transient-mark-mode t)
 (global-font-lock-mode t)
@@ -63,8 +62,11 @@
 (setq font-lock-maximum-decoration t)
 (setq font-lock-maximum-size 512000)
 (setq inhibit-startup-message t)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+(setq indent-line-function 'insert-tab)
 (setq blink-cursor t)
-(setq default-tab-width 2)
+(setq c-basic-indent 2)
 (setq delete-selection-mode t)
 (setq delete-by-moving-to-trash t)
 (setq shift-select-mode nil)
@@ -105,6 +107,23 @@
 
 (autoload 'change-case "change-case" t)
 (autoload 'xrdb-mode "xrdb-mode" "Mode for editing X resource files" t)
+
+(defface extra-whitespace-face
+  '((t (:background "red")))
+  "Used for tabs and such.")
+(defvar jp-show-tabs
+  '(("\t" . 'extra-whitespace-face)))
+(font-lock-add-keywords nil jp-show-tabs)
+(standard-display-ascii ?\t "⌥")
+
+(add-hook 'emacs-lisp-mode-hook
+          (lambda () (font-lock-add-keywords nil jp-show-tabs)))
+(add-hook 'ruby-mode-hook
+          (lambda () (font-lock-add-keywords nil jp-show-tabs)))
+(add-hook 'markdown-mode-hook
+          (lambda () (font-lock-add-keywords nil jp-show-tabs)))
+(add-hook 'sh-mode-hook
+          (lambda () (font-lock-add-keywords nil jp-show-tabs)))
 
 (custom-set-variables
  '(vc-follow-symlinks t)

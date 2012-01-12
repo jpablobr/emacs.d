@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: test-file-is-a-directory
+# --
+[ -d ${1:file} ]$0

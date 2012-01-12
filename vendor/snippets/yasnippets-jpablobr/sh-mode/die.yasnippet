@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: die
+# --
+die() {
+    local err_msg="\${prgm}: \${1}"
+    echo -e "\n\e[0;37;41m\${err_msg}\e[0m\n" >&2
+    exit 1
+}
