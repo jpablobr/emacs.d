@@ -20,6 +20,7 @@
               (+
                (first *emacs-load-start*)
                (second *emacs-load-start*)))))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -28,7 +29,9 @@
  '(git--timer-sec 1.0)
  '(git-state-modeline-decoration (quote git-state-decoration-colored-letter))
  '(git-working-dir-change-behaviour (quote git-refresh-all-saved))
- '(vc-follow-symlinks t))
+ '(vc-follow-symlinks t)
+ '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

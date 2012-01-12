@@ -1,12 +1,12 @@
 (defun jp-byte-recompile-home ()
   (interactive)
-	(jp-rm-elc-files)
-  (byte-recompile-directory "~/.emacs.d" 0))
+  (jp-rm-elc-files)
+  (byte-recompile-directory "~/.emacs.d/custom" 0))
 
 (defun jp-rm-elc-files ()
   (interactive)
   (compilation-start
-	 "cd ~/.emacs.d/ && find . -type f -name '*.elc' -exec rm -fv {} +"))
+   "cd ~/.emacs.d/custom && find . -type f -name '*.elc' -exec rm -fv {} +"))
 
 (defun jp-untabify-buffer ()
   (interactive)
@@ -255,5 +255,19 @@ A place is considered `tab-width' character columns."
     (when (not x-display-name) (setq x-display-name (getenv "DISPLAY")))
     (select-frame (make-frame-on-display x-display-name '((window-system . x)))))
   (let ((last-nonmenu-event nil)(window-system "x"))(save-buffers-kill-emacs)))
+
+(defun jp-clear-shell-buffer ()
+  (interactive)
+  (delete-region (point-min) (point-max)))
+
+(defun jp-shell ()
+  (interactive)
+  (let ((buffer (shell (concat "*Shell @ " default-directory "*"))))
+    (comint-send-string buffer "rl\nls -la\n")))
+
+(defun jp-logs-summary ()
+  (interactive)
+  (let ((buffer (shell"*Logs Summary*")))
+    (comint-send-string buffer "cd ~/var/log/ && tail -f *.log\n")))
 
 (provide 'jp-lib-misc)
