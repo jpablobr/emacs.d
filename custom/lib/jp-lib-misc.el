@@ -1,12 +1,12 @@
 (defun jp-byte-recompile-home ()
   (interactive)
   (jp-rm-elc-files)
-  (byte-recompile-directory "~/.emacs.d/custom" 0))
+  (byte-recompile-directory "~/.emacs.d/" 0))
 
 (defun jp-rm-elc-files ()
   (interactive)
   (compilation-start
-   "cd ~/.emacs.d/custom && find . -type f -name '*.elc' -exec rm -fv {} +"))
+   "cd ~/.emacs.d/ && find . -type f -name '*.elc' -exec rm -fv {} +"))
 
 (defun jp-untabify-buffer ()
   (interactive)
@@ -17,16 +17,12 @@
   (indent-region (point-min) (point-max)))
 
 (defun jp-cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a
-  buffer."
   (interactive)
   (jp-untabify-buffer)
   (jp-indent-buffer)
   (delete-trailing-whitespace))
 
 (defun jp-delete-current-file ()
-  "Delete the file associated with the current buffer.
-Delete the current buffer too."
   (interactive)
   (let (currentFile)
     (setq currentFile (buffer-file-name))
@@ -39,19 +35,16 @@ Delete the current buffer too."
       browse-url-generic-program "chromium")
 
 (defun jp-synonym-s (what)
-  "Use synonym.com to search for WHAT."
   (interactive "sSearch: ")
   (w3m-browse-url (concat "http://www.synonym.com/synonyms/"
                           (w3m-url-encode-string what))))
 
 (defun jp-definition-s (what)
-  "Use dictionary.reference.com  to search for WHAT."
   (interactive "sSearch: ")
   (w3m-browse-url (concat "http://www.thefreedictionary.com/"
                           (w3m-url-encode-string what))))
 
 (defun jp-current-word-definition ()
-  "Google search on current region.\n"
   (interactive)
   (let (myword myurl)
     (setq myword
@@ -63,7 +56,6 @@ Delete the current buffer too."
     (browse-url myurl)))
 
 (defun jp-google-region ()
-  "Google search on current region.\n"
   (interactive)
   (let (myword myurl)
     (setq myword
@@ -100,7 +92,6 @@ Delete the current buffer too."
       '(("freenode.net" "#beginrescueend" "#emacs" "#bash" "#codebrawl" "#github" "#rubinius" "#debian" "#archlinux")))
 
 (defun jp-erc-connect ()
-  "Default ERC stuff."
   (interactive)
   (progn (erc :server "irc.freenode.net" :port 6667 :nick "jpablobr")))
 
@@ -121,41 +112,18 @@ Delete the current buffer too."
   (let ((time-string (current-time-string)))
     (concat (substring time-string 20 24))))
 
-(defun jp-encrypt (password)
-  "Encrypt/Decrypt the current buffer"
-  (interactive "sPassword: ")
-  (call-process-region
-   (point-min) (point-max) "crypt" t (current-buffer) nil password))
-
 (defun jp-fullscreen-toggle ()
   (interactive)
   (set-frame-parameter nil 'fullscreen (if (frame-parameter nil 'fullscreen)
                                            nil
                                          'fullboth)))
 
-(when window-system
-  (defun jp-transparency ()
-    "Sets transparency"
-    (interactive)
-    (set-frame-parameter (selected-frame) 'alpha '(85 85))
-    (add-to-list 'default-frame-alist '(alpha 85 85)))
-
-  (defun jp-reset-transparency ()
-    "Resets transparency"
-    (interactive)
-    (set-frame-parameter (selected-frame) 'alpha '(100 100))
-    (add-to-list 'default-frame-alist '(alpha 100 100))))
-
 (defun jp-sudo-find-file (file-name)
-  "Like find file, but opens the file as root."
   (interactive "FSudo Find File: ")
   (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
     (find-file tramp-file-name)))
 
 (defun jp-shift-right (&optional arg)
-  "Shift the line or region to the ARG places to the right.
-
-A place is considered `tab-width' character columns."
   (interactive)
   (let ((deactivate-mark nil)
         (beg (or (and mark-active (region-beginning))
@@ -164,22 +132,18 @@ A place is considered `tab-width' character columns."
     (indent-rigidly beg end (* (or arg 1) tab-width))))
 
 (defun jp-shift-left (&optional arg)
-  "Shift the line or region to the ARG places to the left."
   (interactive)
   (jp-shift-right (* -1 (or arg 1))))
 
 (defun jp-turn-on-flyspell ()
-  "Force flyspell-mode on using a positive argument.  For use in hooks."
   (interactive)
   (flyspell-mode +1))
 
 (defun jp-add-buffer-cleanup ()
-  "Add `before-save' cleanup buffer hook"
   (interactive)
   (add-hook 'before-save-hook 'jp-cleanup-buffer))
 
 (defun jp-remove-buffer-cleanup ()
-  "Removes `before-save' cleanup buffer hook"
   (interactive)
   (remove-hook 'before-save-hook 'jp-cleanup-buffer))
 
@@ -189,7 +153,6 @@ A place is considered `tab-width' character columns."
     (fill-paragraph nil)))
 
 (defun jp-space2underscore-region (start end)
-  "Replace space by underscore in region."
   (interactive "r")
   (save-restriction
     (narrow-to-region start end)
@@ -197,7 +160,6 @@ A place is considered `tab-width' character columns."
     (while (search-forward " " nil t) (replace-match "_")) ) )
 
 (defun jp-space2dash-region (start end)
-  "Replace space by dash in region."
   (interactive "r")
   (save-restriction
     (narrow-to-region start end)
@@ -205,7 +167,6 @@ A place is considered `tab-width' character columns."
     (while (search-forward " " nil t) (replace-match "-")) ) )
 
 (defun jp-underscore2space-region (start end)
-  "Replace underscore by space in region."
   (interactive "r")
   (save-restriction
     (narrow-to-region start end)
@@ -213,7 +174,6 @@ A place is considered `tab-width' character columns."
     (while (search-forward "_" nil t) (replace-match " ")) ))
 
 (defun jp-dash2space-region (start end)
-  "Replace dash by space in region."
   (interactive "r")
   (save-restriction
     (narrow-to-region start end)
@@ -221,7 +181,6 @@ A place is considered `tab-width' character columns."
     (while (search-forward "-" nil t) (replace-match " ")) ))
 
 (defun jp-underscore2dash-region (start end)
-  "Replace dash by space in region."
   (interactive "r")
   (save-restriction
     (narrow-to-region start end)
@@ -229,7 +188,6 @@ A place is considered `tab-width' character columns."
     (while (search-forward "_" nil t) (replace-match "-")) ))
 
 (defun jp-dash2underscore-region (start end)
-  "Replace dash by space in region."
   (interactive "r")
   (save-restriction
     (narrow-to-region start end)
@@ -262,7 +220,7 @@ A place is considered `tab-width' character columns."
 
 (defun jp-shell ()
   (interactive)
-  (let ((buffer (shell (concat "*Shell @ " default-directory "*"))))
+  (let ((buffer (shell (concat "*Shell @ " default-directory " *"))))
     (comint-send-string buffer "rl\nls -la\n")))
 
 (defun jp-logs-summary ()

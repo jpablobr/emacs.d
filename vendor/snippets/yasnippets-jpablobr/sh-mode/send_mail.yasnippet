@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: send_mail
+# --
+send_mail() {
+    [ -z "\$(which mailx)" ] && {
+        echo -e "\n\e[7;31;47mxmail not installed.\e[0m\n"
+        exit 1
+    }
+
+    [ \$# -ne 3 ] && {
+        echo -e "\n\e[7;31;47mWrong number of arguments(should be 3).\e[0m\n"
+        exit 1
+    }
+
+    local recipient="\$1";shift
+    local subject="\$1";shift
+    local msg="\$1";shift
+
+    echo -e "\$msg" | mailx -s "\$subject" "\$recipient"
+}

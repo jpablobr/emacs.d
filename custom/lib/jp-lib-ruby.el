@@ -1,4 +1,3 @@
-(require 'font-lock)
 (load-library "rubydb3x")
 
 ;; Clear the compilation buffer between test runs.

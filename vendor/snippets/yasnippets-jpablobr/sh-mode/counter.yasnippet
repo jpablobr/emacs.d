@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: counter
+# --
+counter=0$0
+while [ \$counter -lt 10 ]; do
+    counter=\$(expr \$counter + 1)
+    echo "\$counter"
+done

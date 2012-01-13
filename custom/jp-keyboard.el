@@ -19,6 +19,7 @@
 (global-set-key (kbd "M-l") 'jp-anything-git-goto)
 (global-set-key (kbd "M-,") 'jp-anything-code)
 (global-set-key (kbd "M-.") 'shell-command)
+(global-set-key (kbd "C-c d") 'dirs)
 (global-set-key (kbd "C-c n") 'jp-cleanup-buffer)
 (global-set-key (kbd "C-c s") 'jp-ido-goto-symbol)
 (global-set-key [(meta j)] 'fill-region)
