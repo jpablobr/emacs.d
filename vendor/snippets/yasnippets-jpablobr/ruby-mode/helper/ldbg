@@ -1,4 +1,5 @@
 # -*- mode: ruby; require-final-newline: nil; backup-inhibited: t -*-
-#name: puts "DBG: var=value"
+#name: ldbg
 # --
-puts "DBG: $1=#{${1:var}.inspect}"$0
+log_debug(self, __method__, caller, __FILE__, __LINE__, {})$0
+

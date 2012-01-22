@@ -13,10 +13,10 @@
 (defun jp-new-sh-script (name)
   (interactive "sName: ")
   (let ((buffer (shell "*New Script*")))
-	(setq script-name (concat name ".sh"))
-		(setq script-path "~/.private/bin/" )
+    (setq script-name (concat name ".sh"))
+    (setq script-path "~/.private/bin/" )
     (find-file (concat script-path script-name))
-		(kill-new buffer-file-name)
+    (kill-new buffer-file-name)
     (comint-send-string buffer (concat "cd " script-path ";echo './" script-name "'\n"))))
 
 (defun jp-insert-name ()

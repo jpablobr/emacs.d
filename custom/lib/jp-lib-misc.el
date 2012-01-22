@@ -36,12 +36,12 @@
 
 (defun jp-synonym-s (what)
   (interactive "sSearch: ")
-  (w3m-browse-url (concat "http://www.synonym.com/synonyms/"
+  (browse-url (concat "http://www.synonym.com/synonyms/"
                           (w3m-url-encode-string what))))
 
 (defun jp-definition-s (what)
   (interactive "sSearch: ")
-  (w3m-browse-url (concat "http://www.thefreedictionary.com/"
+  (browse-url (concat "http://www.thefreedictionary.com/"
                           (w3m-url-encode-string what))))
 
 (defun jp-current-word-definition ()
@@ -220,8 +220,9 @@
 
 (defun jp-shell ()
   (interactive)
-  (let ((buffer (shell (concat "*Shell @ " default-directory " *"))))
-    (comint-send-string buffer "rl\nls -la\n")))
+  (setq shell-path (replace-regexp-in-string "/home/jpablobr/" "~/" default-directory))
+  (let ((buffer (shell (concat "*Shell @ " shell-path " *"))))
+    (comint-send-string buffer "echo;rl;ls -la\n")))
 
 (defun jp-logs-summary ()
   (interactive)
