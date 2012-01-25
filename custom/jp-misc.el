@@ -31,6 +31,7 @@
 (require 'anything-config)
 (require 'pandoc-mode)
 (require 'epa-file)
+(require 'insert-time)
 (autoload 'xub-mode "xub-mode" "Load xub-mode for browsing Unicode." t)
 (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
 (autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)

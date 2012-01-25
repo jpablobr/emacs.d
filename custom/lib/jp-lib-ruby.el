@@ -41,12 +41,21 @@
   (rdebug "rdebug script/server")
   (insert "e Dir.chdir('..')") )
 
-(defun jp-pry-console:start ()
-  "Fire up a pry console."
+(defun jp-pry-current-file ()
+  (interactive)
+  (setq current-file (buffer-name))
+  (let ((buffer (shell (concat"*Pry @ " current-file "*"))))
+    (font-lock-mode)
+    (comint-send-string buffer (concat
+                                "echo;pry --simple-prompt -Ilib -r ./"
+                                current-file "\n"))))
+
+(defun jp-pry ()
   (interactive)
   (setq current-file (buffer-name))
   (let ((buffer (shell (concat"*Pry @ " default-directory "*"))))
-    (comint-send-string buffer (concat "pry \n"))))
+    (font-lock-mode)
+    (comint-send-string buffer "echo;pry --simple-prompt -Ilib \n")))
 
 (defun jp-rails-console:start ()
   (interactive)

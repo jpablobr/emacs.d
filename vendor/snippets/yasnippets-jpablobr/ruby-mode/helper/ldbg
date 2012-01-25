@@ -1,5 +1,5 @@
 # -*- mode: ruby; require-final-newline: nil; backup-inhibited: t -*-
 #name: ldbg
 # --
-log_debug(self, __method__, caller, __FILE__, __LINE__, {})$0
-
+log_debug(self, __method__, caller, __FILE__, __LINE__,
+    instance_variables, local_variables, {})$0

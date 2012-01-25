@@ -30,6 +30,7 @@
  '(git-baseline-alist (quote (("/home/jpablobr/code/ruby/gems/ttycoke/" . "master"))) t)
  '(git-state-modeline-decoration (quote git-state-decoration-colored-letter))
  '(git-working-dir-change-behaviour (quote git-refresh-all-saved))
+ '(safe-local-variable-values (quote ((backup-inhibited . t) (require-final-newline) (encoding . utf-8))))
  '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
  '(vc-follow-symlinks t))
 

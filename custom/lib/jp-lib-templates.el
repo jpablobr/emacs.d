@@ -27,10 +27,6 @@
   (interactive)
   (insert user-mail-address))
 
-(defun jp-insert-date ()
-  (interactive)
-  (insert-string (current-date-string)))
-
 (defun jp-insert-lorem ()
   (interactive)
   (insert "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do "
