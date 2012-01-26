@@ -40,6 +40,9 @@
 (add-to-list 'load-path (concat misc-dir "/mingus"))
 (autoload 'mingus "mingus-stays-home" nil t)
 
+(setq scroll-step           1
+         scroll-conservatively 10000)
+
 (defalias 'yes-or-no-p 'y-or-n-p)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -49,7 +52,6 @@
 (global-hl-line-mode t)
 (transient-mark-mode t)
 (recentf-mode t)
-(cua-mode 'emacs)
 (auto-compression-mode t)
 (setq require-final-newline t)
 (setq x-select-enable-clipboard t)
@@ -75,9 +77,10 @@
 (setq deft-directory "~/.private/notes")
 (setq deft-text-mode 'markdown-mode)
 (setq cheat-fu-root "/home/jpablobr/.cheat_fu_sheets/")
-(setq CUA-mode-normal-cursor-color "red")
-(setq CUA-mode-overwrite-cursor-color "yellow")
-(setq CUA-mode-read-only-cursor-color "green")
+;; (cua-mode 'emacs)
+;; (setq CUA-mode-normal-cursor-color "red")
+;; (setq CUA-mode-overwrite-cursor-color "yellow")
+;; (setq CUA-mode-read-only-cursor-color "green")
 (setq time-stamp-active t
       time-stamp-line-limit 10
       time-stamp-format "%04y-%02m-%02d %02H:%02M:%02S (%u)")
