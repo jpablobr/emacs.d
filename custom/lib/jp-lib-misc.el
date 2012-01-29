@@ -224,6 +224,14 @@
   (let ((buffer (shell (concat "*Shell @ " shell-path " *"))))
     (comint-send-string buffer "echo;rl;ls -la\n")))
 
+(defun jp-tork ()
+  (interactive)
+  (setq shell-path (replace-regexp-in-string "/home/jpablobr/" "~/" default-directory))
+  (let ((buffer (shell (concat "*Tork @ " shell-path " *"))))
+    (comint-send-string buffer "echo;rl;tork \n"))
+  (let ((buffer (shell (concat "*Tork logs @ " shell-path " *"))))
+    (comint-send-string buffer "echo;rl;tail -f ./log/test/**/*.log \n")))
+
 (defun jp-logs-summary ()
   (interactive)
   (let ((buffer (shell"*Logs Summary*")))

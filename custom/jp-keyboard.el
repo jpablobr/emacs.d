@@ -45,6 +45,7 @@
 ;;; \C-l redefined
 (global-unset-key "\C-l")
 (global-set-key (kbd "C-l at") 'anything-top)
+(global-set-key (kbd "C-l ac") 'jp-add-buffer-cleanup)
 (global-set-key (kbd "C-l ab") 'anything-browse-code)
 (global-set-key (kbd "C-l am") 'anything-man-woman)
 (global-set-key (kbd "C-l bu") 'browse-url)
@@ -83,7 +84,7 @@
 (global-set-key (kbd "C-l rr") 'replace-regexp)
 (global-set-key (kbd "C-l rf") 'rename-file)
 (global-set-key (kbd "C-l rh") 'byte-recompile-home)
-(global-set-key (kbd "C-l rc") 'r-ruby-complexity)
+(global-set-key (kbd "C-l rc") 'jp-remove-buffer-cleanup)
 (global-set-key (kbd "C-l rk") 'jp-ruby-koans)
 (global-set-key (kbd "C-l tl") 't-linum)
 (global-set-key (kbd "C-l ta") 't-anything)

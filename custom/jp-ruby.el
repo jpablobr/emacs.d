@@ -4,6 +4,7 @@
 (load-file (concat ruby-dir "/ruby-comint.el/ruby-comint.el"))
 (load-file (concat ruby-dir "/anything-rake/anything-rake.el"))
 (load-file (concat ruby-dir "/yari.el/yari.el"))
+(load-file (concat ruby-dir "/testr/testr.el"))
 
 (autoload 'ruby-mode "ruby-mode" "Major mode for ruby files" t)
 (autoload 'run-ruby "inf-ruby"
@@ -20,11 +21,11 @@
 (require 'anything-rake)
 (require 'yari)
 (require 'yaml-mode)
+(require 'testr)
 
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-(add-to-list 'completion-ignored-extensions ".rbc")
-(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.rake$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.gemspec$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.ru$" . ruby-mode))
@@ -38,6 +39,7 @@
 (add-to-list 'auto-mode-alist '("\\.html.erb$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$" . rhtml-mode))
 (add-to-list 'auto-mode-alist '("\\.sake\\'" . ruby-mode))
+(add-to-list 'completion-ignored-extensions ".rbc")
 
 ;; work around possible elpa bug
 (ignore-errors (require 'ruby-compilation))
