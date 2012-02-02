@@ -16,7 +16,6 @@
   (set-terminal-coding-system 'utf-8)
   (prefer-coding-system 'utf-8))
 
-(require 'twittering-mode)
 (require 'highlight-parentheses)
 (require 'highlight-symbol)
 (require 'cheat-fu)
@@ -37,11 +36,9 @@
 (autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
 (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
 (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
-(add-to-list 'load-path (concat misc-dir "/mingus"))
-(autoload 'mingus "mingus-stays-home" nil t)
 
 (setq scroll-step           1
-         scroll-conservatively 10000)
+      scroll-conservatively 10000)
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (tool-bar-mode -1)
@@ -125,16 +122,6 @@
           (lambda () (font-lock-add-keywords nil jp-show-tabs)))
 (add-hook 'sh-mode-hook
           (lambda () (font-lock-add-keywords nil jp-show-tabs)))
-
-(custom-set-variables
- '(vc-follow-symlinks t)
- '(git--timer-sec 1.0)
- '(git-state-modeline-decoration (quote git-state-decoration-colored-letter))
- '(git-working-dir-change-behaviour (quote git-refresh-all-saved)))
-
-(custom-set-faces
- '(hl-line ((t (:background "#4f4f4f"))))
- '(isearch ((((class color) (min-colors 8)) (:background "green" :foreground "black")))))
 
 ;; (setq debug-on-error t)
 

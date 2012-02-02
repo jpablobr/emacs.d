@@ -18,6 +18,7 @@
 (global-set-key (kbd "M-a") 'save-buffer)
 (global-set-key (kbd "M-l") 'jp-anything-git-goto)
 (global-set-key (kbd "M-,") 'jp-anything-code)
+(global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "M-.") 'shell-command)
 (global-set-key (kbd "C-v") 'recenter-top-bottom)
 (global-set-key (kbd "C-c d") 'dirs)
