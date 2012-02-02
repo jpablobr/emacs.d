@@ -48,6 +48,7 @@
 (global-set-key (kbd "C-l ac") 'jp-add-buffer-cleanup)
 (global-set-key (kbd "C-l ab") 'anything-browse-code)
 (global-set-key (kbd "C-l am") 'anything-man-woman)
+(global-set-key (kbd "C-l ay") 'jp-anything-yasnippet)
 (global-set-key (kbd "C-l bu") 'browse-url)
 (global-set-key (kbd "C-l da") 'gnus-summary-delete-article)
 (global-set-key (kbd "C-l cs") 'cheat-fu-sheets)

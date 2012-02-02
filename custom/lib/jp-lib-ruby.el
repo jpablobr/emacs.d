@@ -33,7 +33,7 @@
 (defun jp-rails-server:start ()
   "Fire up an instance of a Rails server"
   (interactive)
-  (let ((buffer (shell "*Rails Server at port 3000*")))
+  (let ((buffer (shell (concat "*Rails Server @ " default-directory "at port 3000*"))))
     (comint-send-string buffer (concat "./script/rails s -p 3000 -e development" "\n"))))
 
 (defun jp-rdebug-rails:start ()
@@ -43,23 +43,23 @@
 
 (defun jp-pry-current-file ()
   (interactive)
-  (setq current-file (buffer-name))
-  (let ((buffer (shell (concat"*Pry @ " current-file "*"))))
+  (let ((buffer (shell (concat"*Pry @ " buffer-name "*"))))
     (font-lock-mode)
     (comint-send-string buffer (concat
                                 "echo;pry --simple-prompt -Ilib -r ./"
-                                current-file "\n"))))
+                                buffer-name "\n"))))
 
 (defun jp-pry ()
   (interactive)
-  (setq current-file (buffer-name))
   (let ((buffer (shell (concat"*Pry @ " default-directory "*"))))
     (font-lock-mode)
     (comint-send-string buffer "echo;pry --simple-prompt -Ilib \n")))
 
 (defun jp-rails-console:start ()
   (interactive)
-  (run-ruby (concat (jp-rails-root) "/script/console")))
+  (let ((buffer (shell (concat"*Rails Console @ " buffer-name "*"))))
+    (font-lock-mode)
+    (comint-send-string buffer (concat (jp-rails-root) "/script/console"))))
 
 (defun jp-rails-root (&optional dir)
   (or dir (setq dir default-directory))
@@ -68,9 +68,6 @@
     (if (equal dir  "/")
         nil
       (jp-rails-root (expand-file-name (concat dir "../"))))))
-
-(defun jp-ri-bind-key ()
-  (local-set-key [f1] 'yari-anything))
 
 (defun jp-rctags-gemset ()
   (interactive)

@@ -1,3 +1,32 @@
+(require 'anything)
+(require 'yasnippet)
+(defun ays:candidates ()
+  (with-current-buffer anything-current-buffer
+    (yas/all-templates (yas/get-snippet-tables))))
+(defun ays:real-to-display (template)
+  (format "%s: %s"
+          (file-name-nondirectory (yas/template-file template))
+          (yas/template-name template)))
+(defun ays:candidate-transformer (templates)
+  (mapcar (lambda (template) (cons (ays:real-to-display template) template))
+          templates))
+
+;; http://www.rubyist.net/~rubikitch/archive/anything-c-yasnippet-2.el
+(defvar anything-c-source-yasnippet
+  '((name . "Yasnippet (reimplemented)")
+    (candidates . ays:candidates)
+    ;; FIXME real-to-display has a bug
+    ;; (real-to-display . ays:real-to-display)
+    (candidate-transformer . ays:candidate-transformer)
+    (action
+     ("expand" . (lambda (template)
+                   (yas/expand-snippet (yas/template-content template))))
+     ("open snippet file" . yas/visit-snippet-file-1))
+    (persistent-action . (lambda (template)
+                           (letf (((symbol-function 'find-file-other-window)
+                                   (symbol-function 'find-file)))
+                             (yas/visit-snippet-file-1 template))))))
+
 (defun jp-find-git-repo (dir)
   "Recursively search for a .git/ directory."
   (if (string= "/" dir)
@@ -50,7 +79,7 @@
      anything-c-source-semantic
      anything-c-source-browse-code
      anything-c-source-rd-headline
-		 yari-anything-source-ri-pages
+     yari-anything-source-ri-pages
      anything-c-source-oddmuse-headline
      anything-c-source-mark-ring
      anything-c-source-fixme)
@@ -61,6 +90,12 @@
   (anything-other-buffer
    '(anything-c-source-kill-ring)
    " *Anything Kill Ring*"))
+
+(defun jp-anything-yasnippet ()
+  (interactive)
+  (anything-other-buffer
+   '(anything-c-source-yasnippet)
+   " *Anything yasnippet*"))
 
 (defun jp-anything-info ()
   (interactive)

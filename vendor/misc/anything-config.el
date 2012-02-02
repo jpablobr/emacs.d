@@ -898,7 +898,7 @@ type\\|theme\\|var\\|group\\|custom\\|const\\|method\\|class\\)"
     (ruby-mode . ,anything-c-browse-code-regexp-ruby)
     (sh-mode . ,anything-c-browse-code-regexp-sh)
     (markdown-mode . ,anything-c-browse-code-regexp-markdown)
-	(python-mode . ,anything-c-browse-code-regexp-python))
+    (python-mode . ,anything-c-browse-code-regexp-python))
   "*Alist to store regexps for browsing code corresponding \
 to a specific `major-mode'."
   :type 'list
@@ -10279,26 +10279,3 @@ the center of window, otherwise at the top of window.
 ;; Unit tests are now in ../developer-tools/unit-test-anything-config.el.
 
 (provide 'anything-config)
-
-;;; Local Variables:
-;;; time-stamp-format: "%:y-%02m-%02d %02H:%02M:%02S (%Z) %u"
-;;; End:
-
-;; How to save (DO NOT REMOVE!!)
-;; (progn (magit-push) (emacswiki-post "anything-config.el"))
-;;; anything-config.el ends here
-
-;;; LocalWords:  Tassilo Patrovics Vagn Johansen Dahl Clementson infos
-;;; LocalWords:  Kamphausen informations McBrayer Volpiatto bbdb bb
-;;; LocalWords:  iswitchb imenu Recentf sym samewindow pos bol eol
-;;; LocalWords:  aif str lst func attrib recentf lessp prin mapatoms commandp
-;;; LocalWords:  cmd stb Picklist picklist mapcan subentry destructuring dirs
-;;; LocalWords:  darwin locat MacOS mdfind Firstname Lastname calc prepend jids
-;;; LocalWords:  dotimes Thierry online vname
-;;; LocalWords:  csharp javascript lua makefile cperl zcat lineno buf
-;;; LocalWords:  multiline href fn cand NewTitle cwd filepath thru ret
-;;; LocalWords:  bfn fOpen UNC cygdrive nt xdg macos FILE's elc rx svn hg
-;;; LocalWords:  CANDIDATE's darcs facep pathname args pathnames subseq priorty
-;;; LocalWords:  Vokes rfind berkeley JST ffap lacarte bos
-;;; LocalWords:  Lacarte Minibuf epp LaCarte bm attrset migemo attr conf mklist
-;;; LocalWords:  startpos noselect dont desc

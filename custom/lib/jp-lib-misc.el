@@ -37,12 +37,12 @@
 (defun jp-synonym-s (what)
   (interactive "sSearch: ")
   (browse-url (concat "http://www.synonym.com/synonyms/"
-                          (w3m-url-encode-string what))))
+                      (w3m-url-encode-string what))))
 
 (defun jp-definition-s (what)
   (interactive "sSearch: ")
   (browse-url (concat "http://www.thefreedictionary.com/"
-                          (w3m-url-encode-string what))))
+                      (w3m-url-encode-string what))))
 
 (defun jp-current-word-definition ()
   (interactive)
@@ -230,11 +230,16 @@
   (let ((buffer (shell (concat "*Tork @ " shell-path " *"))))
     (comint-send-string buffer "echo;rl;tork \n"))
   (let ((buffer (shell (concat "*Tork logs @ " shell-path " *"))))
-    (comint-send-string buffer "echo;rl;tail -f ./log/test/**/*.log \n")))
+    (comint-send-string buffer "echo;rl;ttycoke tail_tork_logs \n")))
 
 (defun jp-logs-summary ()
   (interactive)
   (let ((buffer (shell"*Logs Summary*")))
     (comint-send-string buffer "cd ~/var/log/ && tail -f *.log\n")))
+
+(defun jp-focus ()
+  (interactive)
+  (let ((buffer (shell"*Focus*")))
+    (comint-send-string buffer "ttycoke tail-focus.sh\n")))
 
 (provide 'jp-lib-misc)
