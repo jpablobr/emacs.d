@@ -41,6 +41,9 @@
 (define-key term-raw-map (kbd "M-o") 'other-window)
 (define-key term-raw-map (kbd "M-;") 'anything-for-files)
 (define-key term-raw-map (kbd "M-k") 'kill-buffer)
+(define-key term-raw-map (kbd "M-k") 'kill-buffer)
+(define-key term-raw-map (kbd "M-x") 'anything-M-x)
+(define-key term-raw-map (kbd "M-1") 'delete-other-windows)
 
 ;;; C-i
 (global-set-key (kbd "C-c id") 'insert-date)
