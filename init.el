@@ -14,6 +14,7 @@
       (shell-command-to-string "/usr/bin/fortune"))
 
 (setq custom-file (concat dotfiles-dir "custom.el"))
+(load custom-file 'noerror)
 
 (message "init.el loaded in %ds"
          (destructuring-bind (hi lo ms)

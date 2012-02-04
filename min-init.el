@@ -2,8 +2,8 @@
 (require 'cl)
 (defvar *emacs-load-start* (current-time))
 
-(load-file "/home/jpablobr/.emacs.d/custom/jp-misc.el")
-(require 'jp-misc)
+;; (load-file "/home/jpablobr/.emacs.d/custom/jp-misc.el")
+;; (require 'jp-misc)
 
 ;; http://www.nongnu.org/emacs-tiny-tools/keybindings/
 (lookup-key global-map "\C-x"); --> Control-X-prefi

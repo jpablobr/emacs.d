@@ -74,10 +74,6 @@
 (setq deft-directory "~/.private/notes")
 (setq deft-text-mode 'markdown-mode)
 (setq cheat-fu-root "/home/jpablobr/.cheat_fu_sheets/")
-;; (cua-mode 'emacs)
-;; (setq CUA-mode-normal-cursor-color "red")
-;; (setq CUA-mode-overwrite-cursor-color "yellow")
-;; (setq CUA-mode-read-only-cursor-color "green")
 (setq time-stamp-active t
       time-stamp-line-limit 10
       time-stamp-format "%04y-%02m-%02d %02H:%02M:%02S (%u)")

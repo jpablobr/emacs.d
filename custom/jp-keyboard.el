@@ -36,6 +36,11 @@
 (global-set-key [(meta down)] 'end-of-buffer)
 (global-set-key (kbd "C-c C-c") 'jp-cleanup-buffer)
 (global-set-key [(meta /)] 'jp-comment-or-uncomment-region-or-line)
+(require 'term)
+(define-key term-raw-map (kbd "C-j") 'term-switch-to-shell-mode)
+(define-key term-raw-map (kbd "M-o") 'other-window)
+(define-key term-raw-map (kbd "M-;") 'anything-for-files)
+(define-key term-raw-map (kbd "M-k") 'kill-buffer)
 
 ;;; C-i
 (global-set-key (kbd "C-c id") 'insert-date)
@@ -73,7 +78,7 @@
 (global-set-key (kbd "C-l jh") 'jp-byte-recompile-home)
 (global-set-key (kbd "C-l jp") 'jp-full-file-path)
 (global-set-key (kbd "C-l js") 'jp-clear-shell-buffer)
-(global-set-key (kbd "C-l jt") 'jp-shell)
+(global-set-key (kbd "C-l jt") 'jp-term)
 (global-set-key (kbd "C-l jy") 'jp-load-yasnippets)
 (global-set-key (kbd "C-l ha") 'hs-hide-all)
 (global-set-key (kbd "C-l hs") 'hs-show-all)

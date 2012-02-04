@@ -27,13 +27,13 @@
 (defun jp-passenger:start ()
   "Fire up an instance of a Passenger server"
   (interactive)
-  (let ((buffer (shell "*Passenger Server at port 3000*")))
+  (let ((buffer (ansi-term "bash" "*Passenger Server at port 3000*")))
     (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
 
 (defun jp-rails-server:start ()
   "Fire up an instance of a Rails server"
   (interactive)
-  (let ((buffer (shell (concat "*Rails Server @ " default-directory "at port 3000*"))))
+  (let ((buffer (ansi-term "bash" (concat "*Rails Server @ " default-directory "at port 3000*"))))
     (comint-send-string buffer (concat "./script/rails s -p 3000 -e development" "\n"))))
 
 (defun jp-rdebug-rails:start ()
@@ -43,7 +43,7 @@
 
 (defun jp-pry-current-file ()
   (interactive)
-  (let ((buffer (shell (concat"*Pry @ " buffer-name "*"))))
+  (let ((buffer (ansi-term "bash" (concat"*Pry @ " buffer-name "*"))))
     (font-lock-mode)
     (comint-send-string buffer (concat
                                 "echo;pry --simple-prompt -Ilib -r ./"
@@ -51,14 +51,13 @@
 
 (defun jp-pry ()
   (interactive)
-  (let ((buffer (shell (concat"*Pry @ " default-directory "*"))))
+  (let ((buffer (ansi-term "bash" (concat "*Pry @ " (jp-home-path) "*"))))
     (font-lock-mode)
     (comint-send-string buffer "echo;pry --simple-prompt -Ilib \n")))
 
 (defun jp-rails-console:start ()
   (interactive)
-  (let ((buffer (shell (concat"*Rails Console @ " buffer-name "*"))))
-    (font-lock-mode)
+  (let ((buffer (ansi-term "bash" (concat "*Rails Console @ " (jp-home-path) "*"))))
     (comint-send-string buffer (concat (jp-rails-root) "/script/console"))))
 
 (defun jp-rails-root (&optional dir)
