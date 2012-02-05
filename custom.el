@@ -6,6 +6,7 @@
  '(git--timer-sec 1.0)
  '(git-state-modeline-decoration (quote git-state-decoration-colored-letter))
  '(git-working-dir-change-behaviour (quote git-refresh-all-saved))
+ '(send-mail-function (quote sendmail-send-it))
  '(vc-follow-symlinks t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -19,6 +20,7 @@
  '(erb-exec-face ((t (:background "brightblack" :foreground "white" :weight thin))))
  '(erb-out-delim-face ((t (:background "brightblack") :foreground "red" :weight thin)))
  '(erb-out-face ((t (:background "brightblack" :foreground "white" :weight thin))))
+ '(flymake-errline ((t (:background "red"))))
  '(font-lock-builtin-face ((t (:foreground "#CACACA"))))
  '(font-lock-comment-face ((t (:foreground "#5F5A60"))))
  '(font-lock-constant-face ((t (:foreground "#CF6A4C"))))

@@ -4,12 +4,12 @@
 # -f: file
 # -z: string
 
-[ ! $1 \$1 ] && {
+[ \$# -lt 1 ] && {
 cat <<USAGE
 
-  Usage: \$(basename \$0) [FILE NAME]
+Usage: \$(basename \$0) [FILE NAME]
 
-  ${1:description}
+${1:description}
 
 USAGE
 exit 1

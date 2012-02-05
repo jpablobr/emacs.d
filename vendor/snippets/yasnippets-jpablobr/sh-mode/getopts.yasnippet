@@ -2,17 +2,17 @@
 # name: getopts
 # --
 
-[ "\$1" = "--help" ] &&	help_text
+[ "\$1" = "--help" ] && help_text
 
 while getopts ":hif:" opt; do
-	case $opt in
-		f )	$OPTARG
-			;;
-		i )	echo "something todo with -i"
-			;;
-		h )	help_text
-			;;
-		* )	usage
-			exit 1
-	esac
+case $opt in
+f ) $OPTARG
+;;
+i ) echo "something todo with -i"
+;;
+h ) help_text
+;;
+* ) usage
+exit 1
+esac
 done

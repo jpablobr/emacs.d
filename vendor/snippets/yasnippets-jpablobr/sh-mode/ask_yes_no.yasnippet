@@ -2,23 +2,23 @@
 # name: ask_yes_no
 # --
 ask_yes_no () {
-  # This function should be used for example as follows:
-	# if ask_yes_no "Does this script contain security information? [y/n] ---------> "; then
-	# 	security_considerations="WARNING!: Contains security info.  Do not set world-readable."
-	# fi
+# This function should be used for example as follows:
+# if ask_yes_no "Does this script contain security information? [y/n] ---------> "; then
+#  security_considerations="WARNING!: Contains security info.  Do not set world-readable."
+# fi
 
-	local yn=
+local yn=
 
-	while [ "$yn" = "" ]; do
-		echo -en "$1"
-		read yn
-		case $yn in
-			y|Y)	yn=0 ;;
-			n|N)	yn=1 ;;
-			*)	yn=
-				echo "Invalid response - please answer y or n"
-				;;
-		esac
-	done
-	return $yn
+while [ "$yn" = "" ]; do
+echo -en "$1"
+read yn
+case $yn in
+y|Y) yn=0 ;;
+n|N) yn=1 ;;
+*) yn=
+echo "Invalid response - please answer y or n"
+;;
+esac
+done
+return $yn
 }

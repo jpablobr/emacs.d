@@ -225,6 +225,12 @@
   (interactive)
   (ansi-term "bash" (concat "*ansi-term @ " (jp-home-path) " *")))
 
+(defun jp-shell ()
+  (interactive)
+  (setq shell-path (replace-regexp-in-string "/home/jpablobr/" "~/" default-directory))
+  (let ((buffer (shell (concat "*Shell @ " shell-path " *"))))
+    (comint-send-string buffer "echo;rl;ls -la\n")))
+
 (defun jp-tork ()
   (interactive)
   (let ((buffer (ansi-term "bash" (concat "*Tork @ " (jp-home-path) " *")))
@@ -242,24 +248,18 @@
   (if (equal major-mode 'term-mode)
       (progn
         (shell-mode)
-        (set-process-filter  (get-buffer-process (current-buffer)) 'comint-output-filter )
+        (set-process-filter
+         (get-buffer-process (current-buffer)) 'comint-output-filter )
         (local-set-key (kbd "C-j") 'term-switch-to-shell-mode)
         (compilation-shell-minor-mode 1)
-        (comint-send-input)
-        )
+        (comint-send-input))
     (progn
       (compilation-shell-minor-mode -1)
       (font-lock-mode -1)
-      (set-process-filter  (get-buffer-process (current-buffer)) 'term-emulate-terminal)
+      (set-process-filter
+       (get-buffer-process (current-buffer)) 'term-emulate-terminal)
       (term-mode)
       (term-char-mode)
       (term-send-raw-string (kbd "C-l")))))
-
-;; (defun jp-ansi-term-keys ()
-;;   (define-key term-raw-map (kbd "C-j") 'term-switch-to-shell-mode)
-;;   (define-key term-raw-map (kbd "M-o") 'other-window)
-;;   (define-key term-raw-map (kbd "M-;") 'anything-for-files)
-;;   (define-key term-raw-map (kbd "M-k") 'kill-buffer)
-;;   )
 
 (provide 'jp-lib-misc)

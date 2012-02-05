@@ -6,7 +6,7 @@ set -e
 prgm=\$(basename \$0)
 
 usage() {
-    cat <<USAGE
+cat <<USAGE
 usage: \${prgm} [OPTIONS] WHAT WITH
 
 See also:
@@ -15,6 +15,6 @@ USAGE
 }
 
 [ "\$#" -lt 1 ] && {
-	  usage
-		exit 1
+usage
+exit 1
 }
