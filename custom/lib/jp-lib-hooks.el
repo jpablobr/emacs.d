@@ -55,8 +55,8 @@
             (font-lock-add-keywords
              nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
                     1 font-lock-warning-face  prepend)))
-            (autopair-mode)
-            (turn-on-pandoc)))
+            (turn-on-pandoc)
+            (autopair-mode)))
 
 (add-hook 'emacs-lisp-mode-hook
           '(lambda ()
@@ -138,6 +138,12 @@
              (autopair-mode)
              (set-input-method "latin-9-prefix")
              (jp-turn-on-flyspell)))
+
+
+(add-hook 'asciidoc-mode-hook
+          '(lambda ()
+             (turn-on-auto-fill)
+             (require 'asciidoc)))
 
 (add-hook 'lua-mode-hook 'flymake-lua-load)
 

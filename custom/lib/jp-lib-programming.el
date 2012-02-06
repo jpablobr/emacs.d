@@ -87,12 +87,6 @@
                         (logior (file-modes buffer-file-name) #o100))
         (message (concat "Made " buffer-file-name " executable"))))))
 
-(defun jp-ansi-term ()
-  (interactive)
-  (if (not (get-buffer "*ansi-term*"))
-      (ansi-term "/bin/bash")
-    (switch-to-buffer "*ansi-term*")))
-
 (defun jp-turn-on-whitespace ()
   (whitespace-mode +1))
 

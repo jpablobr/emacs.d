@@ -35,7 +35,7 @@
       (message (concat "Deleted file: " currentFile)))))
 
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium")
+      browse-url-generic-program "google-chrome")
 
 (defun jp-synonym-s (what)
   (interactive "sSearch: ")

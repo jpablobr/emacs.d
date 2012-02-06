@@ -5,7 +5,7 @@
   (interactive
    (let (what)
      (setq what
-					 (read-from-minibuffer "Grep for: "
+           (read-from-minibuffer "Grep for: "
                                  (if (and transient-mark-mode mark-active)
                                      (buffer-substring-no-properties (region-beginning) (region-end))
                                    (thing-at-point 'symbol))))

@@ -28,14 +28,15 @@
 (require 'face-list)
 (require 'anything)
 (require 'anything-config)
-(require 'pandoc-mode)
 (require 'epa-file)
 (require 'insert-time)
+(autoload 'asciidoc-mode "asciidoc-mode" nil t)
 (autoload 'xub-mode "xub-mode" "Load xub-mode for browsing Unicode." t)
 (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
 (autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
 (autoload 'reftex-citation "reftex-cite" "Make citation" nil)
 (autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
+(add-to-list 'auto-mode-alist '("\\.asciidoc$" . asciidoc-mode))
 
 (setq scroll-step           1
       scroll-conservatively 10000)
