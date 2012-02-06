@@ -227,7 +227,6 @@
 
 (defun jp-shell ()
   (interactive)
-  (setq shell-path (replace-regexp-in-string "/home/jpablobr/" "~/" default-directory))
   (let ((buffer (shell (concat "*Shell @ " shell-path " *"))))
     (comint-send-string buffer "echo;rl;ls -la\n")))
 
@@ -261,5 +260,43 @@
       (term-mode)
       (term-char-mode)
       (term-send-raw-string (kbd "C-l")))))
+
+(defconst jp-find-errors-pattern "^[][A-Za-z0-9*+@#%^&=?:;./_- ]*\\$")
+
+(defun jp-find-errors ()
+  "Find the Errors in the current shell buffer."
+  (interactive)
+  (save-excursion
+    (re-search-backward jp-find-errors-pattern)
+    (set-mark (point))
+    (re-search-backward jp-find-errors-pattern)
+    (find-errors-in-region)
+    (next-error '(4)))
+ )
+
+(defun jp-find-errors-in-region ()
+  "Use highlighted errors as compile errors."
+  (interactive)
+  (copy-region-as-kill (region-beginning) (region-end))
+  (goto-char (point-max))
+  (let ((oldbuf (get-buffer "*shell errors*")))
+    (if oldbuf (kill-buffer oldbuf)))
+  (let ((outbuf (get-buffer-create "*shell errors*")) )
+    (switch-to-buffer outbuf)
+    (insert-string "\n\n\n\n")
+    (yank)
+    (setq compilation-last-buffer outbuf)
+    (compilation-mode) ))
+
+(defun jp-zap-ansi-clutter ()
+  (interactive)
+  (re-search-forward "\\[[0-9;]*m")
+  (replace-match "") )
+
+(defun jp-zap-all-ansi ()
+  (interactive)
+  (save-excursion
+    (goto-char 0)
+    (while t (jw-zap-ansi-clutter))))
 
 (provide 'jp-lib-misc)
