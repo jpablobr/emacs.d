@@ -1,0 +1,3 @@
+[submodule "anything-rake"]
+	path = anything-rake
+	url = ./vendor/ruby/anything-rake
