@@ -7,3 +7,6 @@
 [submodule "git-show"]
 	path = git-show
 	url = ./vendor/misc/git-show
+[submodule "yari.el"]
+	path = yari.el
+	url = ./vendor/ruby/yari.el
