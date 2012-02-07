@@ -4,3 +4,6 @@
 [submodule "git-emacs"]
 	path = git-emacs
 	url = ./vendor/misc/git-emacs
+[submodule "git-show"]
+	path = git-show
+	url = ./vendor/misc/git-show
