@@ -10,3 +10,6 @@
 [submodule "yari.el"]
 	path = yari.el
 	url = ./vendor/ruby/yari.el
+[submodule "testr"]
+	path = testr
+	url = ./vendor/ruby/testr
