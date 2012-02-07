@@ -1,3 +1,6 @@
 [submodule "anything-rake"]
 	path = anything-rake
 	url = ./vendor/ruby/anything-rake
+[submodule "git-emacs"]
+	path = git-emacs
+	url = ./vendor/misc/git-emacs
