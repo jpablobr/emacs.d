@@ -227,7 +227,7 @@
 
 (defun jp-shell ()
   (interactive)
-  (let ((buffer (shell (concat "*Shell @ " shell-path " *"))))
+  (let ((buffer (shell (concat "*Shell @ " (jp-home-path) " *"))))
     (comint-send-string buffer "echo;rl;ls -la\n")))
 
 (defun jp-tork ()

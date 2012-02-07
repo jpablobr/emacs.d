@@ -55,7 +55,6 @@
             (font-lock-add-keywords
              nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
                     1 font-lock-warning-face  prepend)))
-            (turn-on-pandoc)
             (autopair-mode)))
 
 (add-hook 'emacs-lisp-mode-hook
