@@ -1,0 +1,3 @@
+[submodule "vendor/ruby/anything-rake"]
+	path = vendor/ruby/anything-rake
+	url = git@github.com:jpablobr/anything-rake.git
