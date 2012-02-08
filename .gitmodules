@@ -10,3 +10,6 @@
 [submodule "vendor/ruby/yari"]
 	path = vendor/ruby/yari
 	url = git@github.com:hron/yari.el.git
+[submodule "vendor/misc/git-emacs"]
+	path = vendor/misc/git-emacs
+	url = git://github.com/tsgates/git-emacs.git
