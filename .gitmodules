@@ -4,3 +4,6 @@
 [submodule "vendor/ruby/ruby-comint"]
 	path = vendor/ruby/ruby-comint
 	url = git@github.com:jpablobr/ruby-comint.el.git
+[submodule "vendor/ruby/testr"]
+	path = vendor/ruby/testr
+	url = git@github.com:jpablobr/testr.git
