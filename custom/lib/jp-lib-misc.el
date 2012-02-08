@@ -230,6 +230,11 @@
   (let ((buffer (shell (concat "*Shell @ " (jp-home-path) " *"))))
     (comint-send-string buffer "echo;rl;ls -la\n")))
 
+(defun jp-playr ()
+  (interactive)
+  (let ((buffer (shell "*Playr*")))
+    (comint-send-string buffer "cd ~/bin/playr;./playr -s\n")))
+
 (defun jp-tork ()
   (interactive)
   (let ((buffer (ansi-term "bash" (concat "*Tork @ " (jp-home-path) " *")))

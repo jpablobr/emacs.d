@@ -24,7 +24,7 @@
   (require 'jp-lib-hooks)
   (load-file (concat jpablobr-dir "/jp-keyboard.el"))
   (require 'jp-keyboard)
-  ;; (jp-term)
+  (jp-shell)
   (turn-on-xclip)
   (cheat-fu-deft)
   (jp-load-git)

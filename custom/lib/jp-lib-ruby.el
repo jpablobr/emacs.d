@@ -43,17 +43,17 @@
 
 (defun jp-pry-current-file ()
   (interactive)
-  (let ((buffer (ansi-term "bash" (concat"*Pry @ " buffer-name "*"))))
+  (let ((buffer (shell (concat"*Pry @ " current-file "*"))))
     (font-lock-mode)
     (comint-send-string buffer (concat
-                                "echo;pry --simple-prompt -Ilib -r ./"
-                                buffer-name "\n"))))
+                                "echo;pry -Ilib -r ./"
+                                current-file "\n"))))
 
 (defun jp-pry ()
   (interactive)
-  (let ((buffer (ansi-term "bash" (concat "*Pry @ " (jp-home-path) "*"))))
+  (let ((buffer (shell (concat"*Pry @ " (jp-home-path) "*"))))
     (font-lock-mode)
-    (comint-send-string buffer "echo;pry --simple-prompt -Ilib \n")))
+    (comint-send-string buffer "echo;pry -Ilib \n")))
 
 (defun jp-rails-console:start ()
   (interactive)

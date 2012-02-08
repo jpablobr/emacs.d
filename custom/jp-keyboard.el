@@ -34,7 +34,6 @@
 (global-set-key [(meta \[)] 'jp-shift-left)
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
-(global-set-key (kbd "C-c C-c") 'jp-cleanup-buffer)
 (global-set-key [(meta /)] 'jp-comment-or-uncomment-region-or-line)
 (require 'term)
 (define-key term-raw-map (kbd "C-j") 'term-switch-to-shell-mode)
