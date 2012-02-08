@@ -7,3 +7,6 @@
 [submodule "vendor/ruby/testr"]
 	path = vendor/ruby/testr
 	url = git@github.com:jpablobr/testr.git
+[submodule "vendor/ruby/yari"]
+	path = vendor/ruby/yari
+	url = git@github.com:hron/yari.el.git
