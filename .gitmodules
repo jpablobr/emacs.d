@@ -13,6 +13,3 @@
 [submodule "testr"]
 	path = testr
 	url = ./vendor/ruby/testr
-[submodule "ruby-comint.el"]
-	path = ruby-comint.el
-	url = ./vendor/ruby/ruby-comint.el

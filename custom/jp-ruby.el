@@ -1,7 +1,7 @@
 (setq ruby-dir (concat vendor-dir "/ruby"))
 (add-to-list 'load-path ruby-dir)
 (load-file (concat jpablobr-lib "/jp-lib-ruby.el"))
-;; (load-file (concat ruby-dir "/ruby-comint/ruby-comint.el"))
+(load-file (concat ruby-dir "/ruby-comint/ruby-comint.el"))
 (load-file (concat ruby-dir "/anything-rake/anything-rake.el"))
 (load-file (concat ruby-dir "/yari/yari.el"))
 (load-file (concat ruby-dir "/testr/testr.el"))
