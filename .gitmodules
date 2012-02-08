@@ -1,3 +1,6 @@
 [submodule "vendor/ruby/anything-rake"]
 	path = vendor/ruby/anything-rake
 	url = git@github.com:jpablobr/anything-rake.git
+[submodule "vendor/ruby/ruby-comint"]
+	path = vendor/ruby/ruby-comint
+	url = git@github.com:jpablobr/ruby-comint.el.git
