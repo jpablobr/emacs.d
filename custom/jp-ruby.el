@@ -23,6 +23,8 @@
 (require 'testr)
 (require 'pry)
 (require 'rcodetools)
+(add-to-list 'load-path (concat ruby-dir "/rdebug"))
+(load-library "rdebug")
 
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
