@@ -20,11 +20,9 @@
 (require 'anything-rake)
 (require 'yari)
 (require 'yaml-mode)
-(require 'testr)
-(require 'pry)
 (require 'rcodetools)
-(add-to-list 'load-path (concat ruby-dir "/rdebug"))
-(load-library "rdebug")
+(require 'testr)
+(require 'rubydb)
 
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
