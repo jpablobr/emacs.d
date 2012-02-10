@@ -35,6 +35,8 @@
 (global-set-key [(meta up)] 'beginning-of-buffer)
 (global-set-key [(meta down)] 'end-of-buffer)
 (global-set-key [(meta /)] 'jp-comment-or-uncomment-region-or-line)
+(global-set-key (kbd "C-c C-c") 'jp-cleanup-buffer)
+
 (require 'term)
 (define-key term-raw-map (kbd "C-j") 'term-switch-to-shell-mode)
 (define-key term-raw-map (kbd "M-o") 'other-window)

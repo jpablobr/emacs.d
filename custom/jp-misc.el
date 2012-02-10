@@ -30,6 +30,8 @@
 (require 'anything-config)
 (require 'epa-file)
 (require 'insert-time)
+(require 'lispxmp)
+
 (autoload 'asciidoc-mode "asciidoc-mode" nil t)
 (autoload 'xub-mode "xub-mode" "Load xub-mode for browsing Unicode." t)
 (autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)

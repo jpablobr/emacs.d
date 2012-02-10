@@ -27,14 +27,13 @@
 (defun jp-passenger:start ()
   "Fire up an instance of a Passenger server"
   (interactive)
-  (let ((buffer (ansi-term "bash" "*Passenger Server at port 3000*")))
+  (let ((buffer (shell "*Passenger Server at port 3000*")))
     (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
 
 (defun jp-rails-server:start ()
-  "Fire up an instance of a Rails server"
   (interactive)
-  (let ((buffer (ansi-term "bash" (concat "*Rails Server @ " default-directory "at port 3000*"))))
-    (comint-send-string buffer (concat "./script/rails s -p 3000 -e development" "\n"))))
+  (let ((buffer (shell (concat "*Rails Server @ " (jp-home-path) "at port 3000*"))))
+    (comint-send-string buffer (concat (jp-rails-root) "/script/rails s -p 3000 -e development" "\n"))))
 
 (defun jp-rdebug-rails:start ()
   (interactive)
@@ -57,7 +56,8 @@
 
 (defun jp-rails-console:start ()
   (interactive)
-  (let ((buffer (ansi-term "bash" (concat "*Rails Console @ " (jp-home-path) "*"))))
+  (let ((buffer (shell (concat "*Rails Console @ " (jp-home-path) "*"))))
+    (font-lock-mode)
     (comint-send-string buffer (concat (jp-rails-root) "/script/console"))))
 
 (defun jp-rails-root (&optional dir)
@@ -83,5 +83,16 @@
     "cd "
     (jp-find-git-repo default-directory)
     " && find $(pwd) -type f -name '*.rb' | ctags -e --verbose=yes -L -")))
+
+(defun jp-ruby-xmp-region (reg-start reg-end)
+ (interactive "r")
+ (shell-command-on-region reg-start reg-end
+   "ruby -r xmp -n -e 'xmp($_, \"%l\t\t# %r\n\")'"
+   t))
+
+(setq compilation-error-regexp-alist
+      (cons
+       '("^\\(Failure\\|Error\\) occurred in .*\\[\\([^:]+\\):\\([0-9]+\\)\\]" 2 3)
+       compilation-error-regexp-alist))
 
 (provide 'jp-lib-ruby)

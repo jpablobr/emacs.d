@@ -1,5 +1,5 @@
 (defvar  jp-grep-cmd
-  "find %s -type f -exec grep -nH -e %s {} +")
+  "find %s -type f \( ! -regex '\.*/.git\' \) -exec grep -nH -e %s {} +")
 
 (defun jp-grep-emacs-config ()
   (interactive
