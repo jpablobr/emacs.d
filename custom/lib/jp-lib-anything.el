@@ -87,8 +87,7 @@
                  (let (args)
                    (setq args
                          (read-from-minibuffer
-                          (concat "Run cmd as such: " candidate)
-                          (thing-at-point 'symbol)))
+                          (concat "Run cmd as such: " candidate)))
                    (compilation-start
                     (concat candidate args) nil
                     (lambda (x)
