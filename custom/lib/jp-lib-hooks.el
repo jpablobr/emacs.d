@@ -5,6 +5,7 @@
              (highlight-symbol-mode t)
              (flymake-ruby-load)
              (testr-mode)
+             (linum-mode)
              (inf-ruby-keys)
              (font-lock-add-keywords
               nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"

@@ -4,8 +4,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(git--timer-sec 1.0)
+ '(git-baseline-alist (quote (("/home/jpablobr/bin/playr/" . "master"))) t)
  '(git-state-modeline-decoration (quote git-state-decoration-colored-letter))
  '(git-working-dir-change-behaviour (quote git-refresh-all-saved))
+ '(safe-local-variable-values (quote ((encoding . utf-8))))
  '(send-mail-function (quote sendmail-send-it))
  '(vc-follow-symlinks t))
 (custom-set-faces
@@ -15,6 +17,8 @@
  ;; If there is more than one, they won't work right.
  '(anything-ff-directory ((t (:background "brightblack" :foreground "color-28"))))
  '(anything-ff-file ((t (:foreground "green" :underline t))))
+ '(ediff-current-diff-A ((t (:background "green" :foreground "white"))))
+ '(ediff-current-diff-B ((t (:background "red" :foreground "white"))))
  '(erb-comment-delim-face ((t (:background "brightblack" :foreground "red" :weight thin))))
  '(erb-comment-face ((t (:background "brightblack" :foreground "red" :weight thin))))
  '(erb-delim-face ((t (:background "brightblack" :foreground "blue" :weigth thin))))

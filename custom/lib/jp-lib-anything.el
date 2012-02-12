@@ -18,6 +18,7 @@
     ;; FIXME real-to-display has a bug
     ;; (real-to-display . ays:real-to-display)
     (candidate-transformer . ays:candidate-transformer)
+    (candidate-number-limit . 10)
     (action
      ("expand" . (lambda (template)
                    (yas/expand-snippet (yas/template-content template))))
@@ -70,17 +71,42 @@
    buff-name)
   (kill-buffer buff-name))
 
+(defun jp-anything-shell-commands ()
+  "Find available commands from $PATH."
+  (interactive)
+  (setq buff-name
+        (concat "*Anything run shell command in: " default-directory " *"))
+  (anything-other-buffer
+   '((name . "Anything shell Commands")
+     (init
+      . (lambda ()
+          (call-process-shell-command "compgen -abck"
+                                      nil (anything-candidate-buffer 'global))))
+     (candidate-number-limit . 9999)
+     (candidates-in-buffer)
+     (action . (lambda (candidate)
+                 (let (args)
+                   (setq args
+                         (read-from-minibuffer (concat "Run cmd as such: " candidate)
+                                                 (thing-at-point 'symbol)))
+                   (compilation-start (concat candidate args))))))
+   buff-name)
+  (kill-buffer buff-name))
+
 (defun jp-anything-code ()
   (interactive)
   (anything-other-buffer
    '(anything-c-source-imenu
+     anything-c-source-browse-code
+     anything-c-source-mark-ring
+     anything-c-source-global-mark-ring
+     anything-c-source-kill-ring
      anything-c-source-occur
      anything-c-source-etags-select
+     anything-c-source-yasnippet
      anything-c-source-semantic
-     anything-c-source-browse-code
      anything-c-source-rd-headline
      anything-c-source-oddmuse-headline
-     anything-c-source-mark-ring
      anything-c-source-fixme)
    " *Anything Code*"))
 
