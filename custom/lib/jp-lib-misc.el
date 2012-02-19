@@ -4,12 +4,19 @@
 (defun jp-byte-recompile-home ()
   (interactive)
   (jp-rm-elc-files)
-  (byte-recompile-directory "~/.emacs.d/" 0))
+  (byte-recompile-directory "~/.emacs.d/" 0)
+  (message "compiled directory ~/.emacs.d"))
+
+(defun jp-byte-recompile-current-file ()
+  (interactive)
+  (byte-recompile-file (buffer-file-name) 0)
+  (message (concat "compiled file" (buffer-file-name) "successfully.")))
 
 (defun jp-rm-elc-files ()
   (interactive)
-  (compilation-start
-   "cd ~/.emacs.d/ && find . -type f -name '*.elc' -exec rm -fv {} +"))
+  (start-process-shell-command "jp-rm-elc-files" nil
+   "cd ~/.emacs.d/ && find . -type f -name '*.elc' -exec rm -fv {} +")
+  (message "deleted all .elc files."))
 
 (defun jp-untabify-buffer ()
   (interactive)
@@ -237,10 +244,10 @@
 
 (defun jp-tork ()
   (interactive)
-  (let ((buffer (ansi-term "bash" (concat "*Tork @ " (jp-home-path) " *")))
-        (comint-send-string buffer "cd ~/var/log/ && tail -f *.log\n")))
-  (let ((log-buffer (ansi-term "bash" (concat "*Tork-logs @ " (jp-home-path) " *")))
-        (comint-send-string log-buffer "cd ~/var/log/ && tail -f *.log\n"))))
+  (let (buffer (ansi-term "bash" (concat "*Tork @ " (jp-home-path) " *"))
+               (comint-send-string "tork-process" "tork\n")))
+  (let (log-buffer (ansi-term "bash" (concat "*Tork-logs @ " (jp-home-path) " *"))
+                   (comint-send-string "tork-log-process" "cd ~/var/log/ && tail -f *.log\n"))))
 
 (defun jp-logs-summary ()
   (interactive)
@@ -268,6 +275,8 @@
 
 (defconst jp-find-errors-pattern "^[][A-Za-z0-9*+@#%^&=?:;./_- ]*\\$")
 
+(defconst jp-footnotes-pattern "^[][A-Za-z0-9*+@#%^&=?:;./_- ]*\\$")
+
 (defun jp-find-errors ()
   "Find the Errors in the current shell buffer."
   (interactive)
@@ -277,7 +286,7 @@
     (re-search-backward jp-find-errors-pattern)
     (find-errors-in-region)
     (next-error '(4)))
- )
+  )
 
 (defun jp-find-errors-in-region ()
   "Use highlighted errors as compile errors."
@@ -303,5 +312,21 @@
   (save-excursion
     (goto-char 0)
     (while t (jw-zap-ansi-clutter))))
+
+(defun html-to-haml ()
+  (interactive)
+  (setq new-file-name (replace-regexp-in-string ".html" ".haml" buffer-file-name))
+  (call-process "html2haml" nil buffer-file-name new-file-name)
+  (if (file-exists-p new-file-name)
+      (find-file new-file-name)
+    (message (concat new-file-name " not created!"))))
+
+(defun erb-to-haml ()
+  (interactive)
+  (setq new-file-name (replace-regexp-in-string ".erb" ".haml" buffer-file-name))
+  (call-process "html2haml" nil "-e" nil buffer-file-name new-file-name)
+  (if (file-exists-p new-file-name)
+      (find-file new-file-name)
+    (message (concat new-file-name " not created!"))))
 
 (provide 'jp-lib-misc)

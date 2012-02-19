@@ -4471,7 +4471,7 @@ The prefix arg can be passed before or after start.
 See also `anything-do-grep1'."
   (interactive)
   (let ((only    (anything-c-read-file-name
-                  "Search in file(s): "
+                  "Search in file(  (when anything-grep-fontify-file-names): "
                   :marked-candidates t
                   :preselect (or (dired-get-filename nil t)
                                  (buffer-file-name (current-buffer)))))

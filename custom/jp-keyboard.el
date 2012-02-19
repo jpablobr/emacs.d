@@ -4,7 +4,7 @@
 (define-key global-map (kbd "M-i") 'isearch-forward-at-point)
 (define-key global-map "\M-x" 'execute-extended-command)
 (define-key global-map "\M-x" 'anything-M-x)
-(define-key global-map (kbd "M-;") 'anything-for-files)
+(define-key global-map (kbd "M-;") 'jp-anything-for-files)
 (global-set-key (kbd "M-=") 'dabbrev-expand)
 (global-set-key (kbd "M-w") 'copy-region-as-kill)
 (global-set-key (kbd "M-\d") 'backward-kill-word)
@@ -16,7 +16,7 @@
 (global-set-key (kbd "M-f") 'forward-word)
 (global-set-key (kbd "M-b") 'backward-word)
 (global-set-key (kbd "M-a") 'save-buffer)
-(global-set-key (kbd "M-l") 'jp-anything-git-goto)
+(global-set-key (kbd "M-l") 'anything-git-goto)
 (global-set-key (kbd "M-,") 'jp-anything-code)
 (global-set-key (kbd "M-g") 'goto-line)
 (global-set-key (kbd "M-.") 'shell-command)
@@ -38,6 +38,9 @@
 (global-set-key [(meta /)] 'jp-comment-or-uncomment-region-or-line)
 (global-set-key (kbd "C-c C-c") 'jp-cleanup-buffer)
 
+;; tmp
+(global-set-key (kbd "M-9") 'ascii-build)
+
 (require 'term)
 (define-key term-raw-map (kbd "C-j") 'term-switch-to-shell-mode)
 (define-key term-raw-map (kbd "M-o") 'other-window)
@@ -58,6 +61,7 @@
 (global-set-key (kbd "C-l at") 'anything-top)
 (global-set-key (kbd "C-l ac") 'jp-add-buffer-cleanup)
 (global-set-key (kbd "C-l ab") 'anything-browse-code)
+(global-set-key (kbd "C-l ag") 'anything-do-grep)
 (global-set-key (kbd "C-l ar") 'jp-anything-shell-commands)
 (global-set-key (kbd "C-l am") 'anything-man-woman)
 (global-set-key (kbd "C-l ay") 'jp-anything-yasnippet)

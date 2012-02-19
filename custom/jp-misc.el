@@ -26,10 +26,17 @@
 (require 'cheat-fu-deft)
 (require 'uniquify)
 (require 'face-list)
-(require 'anything)
-(require 'anything-config)
+;; (require 'anything)
+;; (require 'anything-config)
 (require 'epa-file)
 (require 'insert-time)
+
+;; (add-to-list 'load-path (concat misc-dir "/enotify"))
+;; (require 'enotify)
+;; (enotify-minor-mode t)
+
+(require 'edit-server)
+(edit-server-start)
 
 (autoload 'asciidoc-mode "asciidoc-mode" nil t)
 (autoload 'xub-mode "xub-mode" "Load xub-mode for browsing Unicode." t)

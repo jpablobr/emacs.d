@@ -58,9 +58,11 @@
   (interactive)
   (let ((buffer (shell (concat "*Rails Console @ " (jp-home-path) "*"))))
     (font-lock-mode)
-    (comint-send-string buffer (concat (jp-rails-root) "/script/console"))))
+    (comint-send-string buffer (concat (jp-rails-root) "pry -r ./config/environment"))))
 
 (defun jp-rails-root (&optional dir)
+
+
   (or dir (setq dir default-directory))
   (if (file-exists-p (concat dir "config/environment.rb"))
       dir
@@ -85,10 +87,10 @@
     " && find $(pwd) -type f -name '*.rb' | ctags -e --verbose=yes -L -")))
 
 (defun jp-ruby-xmp-region (reg-start reg-end)
- (interactive "r")
- (shell-command-on-region reg-start reg-end
-   "ruby -r xmp -n -e 'xmp($_, \"%l\t\t# %r\n\")'"
-   t))
+  (interactive "r")
+  (shell-command-on-region reg-start reg-end
+                           "ruby -r xmp -n -e 'xmp($_, \"%l\t\t# %r\n\")'"
+                           t))
 
 (setq compilation-error-regexp-alist
       (cons

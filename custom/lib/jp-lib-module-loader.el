@@ -3,6 +3,10 @@
   (add-to-list 'load-path (concat misc-dir "/cheat-fu-mode"))
   (load-file (concat jpablobr-dir "/jp-misc.el"))
   (require 'jp-misc)
+  (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
+  (require 'jp-yasnippet)
+  (jp-load-yasnippets-hooks)
+  (require 'jp-lib-anything)
   (load-file (concat jpablobr-dir "/jp-autocomplete.el"))
   (require 'jp-autocomplete)
   (load-file (concat jpablobr-dir "/jp-ruby.el"))
@@ -11,9 +15,6 @@
   (require 'jp-eshell)
   (load-file (concat jpablobr-dir "/jp-compile.el"))
   (require 'jp-compile)
-  (load-file (concat jpablobr-dir "/jp-yasnippet.el"))
-  (require 'jp-yasnippet)
-  (jp-load-yasnippets-hooks)
   (load-file "~/.private/.jp-private.el")
   (require 'jp-private)
   (require 'jp-lib-misc)
@@ -102,14 +103,6 @@
   (interactive)
   (add-to-list 'load-path (concat ruby-dir "/rhtml"))
   (require 'rhtml-mode)
-  (custom-set-faces
-   '(erb-delim-face ((t (:background "black" :foreground "blue" :weigth thin))))
-   '(erb-exec-face ((t (:background "black" :foreground "white" :weight thin))))
-   '(erb-exec-delim-face ((t (:background "black" :foreground "red" :weight thin))))
-   '(erb-out-face ((t (:background "black" :foreground "white" :weight thin ))))
-   '(erb-out-delim-face ((t (:background "black") :foreground "red" :weight thin)))
-   '(erb-comment-face ((t (:background "black" :foreground "red" :weight thin))))
-   '(erb-comment-delim-face ((t (:background "black" :foreground "red" :weight thin)))))
   (setq
    nxhtml-global-minor-mode t
    nxhtml-skip-welcome t
