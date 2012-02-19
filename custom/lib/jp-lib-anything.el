@@ -2,10 +2,20 @@
 (add-to-list 'load-path anything-dir)
 (require 'anything)
 (require 'anything-config)
-(load-file (concat anything-dir "/anything-shell-commands/anything-shell-commands.el"))
-(load-file (concat anything-dir "/anything-git-grep/anything-git-grep.el"))
-(load-file (concat anything-dir "/anything-yasnippet-2/anything-yasnippet-2.el"))
-(load-file (concat anything-dir "/anything-git-goto/anything-git-goto.el"))
+
+(load-file (concat
+            anything-dir
+            "/anything-shell-commands/anything-shell-commands.el"))
+(load-file (concat
+            anything-dir
+            "/anything-git-grep/anything-git-grep.el"))
+(load-file (concat
+            anything-dir
+            "/anything-yasnippet-2/anything-yasnippet-2.el"))
+(load-file (concat
+            anything-dir
+            "/anything-git-goto/anything-git-goto.el"))
+
 (require 'anything-shell-commands)
 (require 'anything-git-grep)
 (require 'anything-yasnippet-2)
@@ -19,20 +29,23 @@
 
 (defun jp-anything-for-files ()
   (interactive)
+  (setq buffer-name "*Find files*")
   (anything-other-buffer
-  '(anything-c-source-ffap-line
-    anything-c-source-ffap-guesser
-    anything-c-source-buffers+
-    anything-c-source-recentf
-    anything-c-source-files-in-current-dir+
-    anything-c-source-git-goto
-    anything-c-source-bookmarks
-    anything-c-source-file-cache
-    anything-c-source-locate)
-  "Find files."))
+   '(anything-c-source-ffap-line
+     anything-c-source-ffap-guesser
+     anything-c-source-buffers+
+     anything-c-source-recentf
+     anything-c-source-files-in-current-dir+
+     anything-c-source-git-goto
+     anything-c-source-bookmarks
+     anything-c-source-file-cache
+     anything-c-source-locate)
+   buffer-name)
+  (kill-buffer buffer-name))
 
 (defun jp-anything-code ()
   (interactive)
+  (setq buffer-name "*Anything Code*")
   (anything-other-buffer
    '(anything-c-source-imenu
      anything-c-source-browse-code
@@ -47,7 +60,8 @@
      anything-c-source-fixme
      anything-c-source-kill-ring
      anything-c-source-git-grep)
-   " *Anything Code*"))
+   buffer-name)
+  (kill-buffer buffer-name))
 
 (defun jp-anything-info ()
   (interactive)

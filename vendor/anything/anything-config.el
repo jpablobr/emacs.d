@@ -5006,6 +5006,8 @@ Try to find tag file in upper directory if haven't found in CURRENT-DIR."
     (header-name . anything-c-source-etags-header-name)
     (init . anything-c-etags-init)
     (candidates-in-buffer)
+    (requires-pattern . 1)
+    (candidate-number-limit . 60)
     (mode-line . anything-ff-mode-line-string)
     (action . anything-c-etags-default-action)
     (persistent-action . (lambda (candidate)
