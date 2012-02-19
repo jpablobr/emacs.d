@@ -145,6 +145,11 @@
              (turn-on-auto-fill)
              (require 'asciidoc)))
 
+(add-hook 'ibuffer-mode-hook
+          '(lambda ()
+             (local-set-key (kbd "M-o") 'other-window)
+))
+
 (add-hook 'lua-mode-hook 'flymake-lua-load)
 
 (add-hook 'ri-filter-hook 'jp-colorize-compilation-buffer)

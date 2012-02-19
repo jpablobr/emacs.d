@@ -26,6 +26,7 @@
   (load-file (concat jpablobr-dir "/jp-keyboard.el"))
   (require 'jp-keyboard)
   (jp-shell)
+  (ibuffer)
   (turn-on-xclip)
   (cheat-fu-deft)
   (jp-load-git)
