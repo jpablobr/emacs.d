@@ -15,7 +15,7 @@
 (defun jp-rm-elc-files ()
   (interactive)
   (start-process-shell-command "jp-rm-elc-files" nil
-   "cd ~/.emacs.d/ && find . -type f -name '*.elc' -exec rm -fv {} +")
+                               "cd ~/.emacs.d/ && find . -type f -name '*.elc' -exec rm -fv {} +")
   (message "deleted all .elc files."))
 
 (defun jp-untabify-buffer ()
@@ -275,8 +275,6 @@
 
 (defconst jp-find-errors-pattern "^[][A-Za-z0-9*+@#%^&=?:;./_- ]*\\$")
 
-(defconst jp-footnotes-pattern "^[][A-Za-z0-9*+@#%^&=?:;./_- ]*\\$")
-
 (defun jp-find-errors ()
   "Find the Errors in the current shell buffer."
   (interactive)
@@ -328,5 +326,28 @@
   (if (file-exists-p new-file-name)
       (find-file new-file-name)
     (message (concat new-file-name " not created!"))))
+
+(defun clean-log-buffer-and-fontify ()
+  (interactive)
+  (goto-char 1)
+  (while (re-search-forward "\\(.*footnotes.*\\)" nil t)
+    (replace-match "" t t nil 0)
+    (forward-char 1))
+  (goto-char 1)
+  (while (re-search-forward "\\(^-- DEPRECATION WARNING --.*\\)" nil t)
+    (replace-match "" t t nil 0)
+    (forward-char 1))
+  (goto-char 1)
+  (while (re-search-forward "\\(^\\s-*$\\)\n" nil t)
+    (replace-match "" t t nil 0)
+    (forward-char 1))
+  (goto-char 1)
+  (while (re-search-forward "\\(\033\\[[0-9;]*[mK]\\)" nil t)
+    (replace-match "" t t nil 0))
+  (goto-char 1)
+  (while (re-search-forward "\\<\\(FIX\\|DBG\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):" nil t)
+    (put-text-property (point-at-bol) (match-beginning 0) 'face compilation-info-face)
+    (put-text-property (match-beginning 1) (match-end 1) 'face compilation-line-face)
+    (forward-line 1)))
 
 (provide 'jp-lib-misc)
