@@ -311,16 +311,9 @@
     (goto-char 0)
     (while t (jw-zap-ansi-clutter))))
 
-(defun html-to-haml ()
-  (interactive)
-  (setq new-file-name (replace-regexp-in-string ".html" ".haml" buffer-file-name))
-  (call-process "html2haml" nil buffer-file-name new-file-name)
-  (if (file-exists-p new-file-name)
-      (find-file new-file-name)
-    (message (concat new-file-name " not created!"))))
-
 (defun erb-to-haml ()
   (interactive)
+  (jp-load-haml-scss)
   (setq new-file-name (replace-regexp-in-string ".erb" ".haml" buffer-file-name))
   (call-process "html2haml" nil "-e" nil buffer-file-name new-file-name)
   (if (file-exists-p new-file-name)

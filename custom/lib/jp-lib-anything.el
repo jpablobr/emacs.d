@@ -52,14 +52,23 @@
      anything-c-source-mark-ring
      anything-c-source-global-mark-ring
      anything-c-source-occur
-     anything-c-source-etags-select
+     ;; anything-c-source-etags-select
      anything-c-source-yasnippet-2
      anything-c-source-semantic
      anything-c-source-rd-headline
      anything-c-source-oddmuse-headline
      anything-c-source-fixme
      anything-c-source-kill-ring
-     anything-c-source-git-grep)
+     ;; anything-c-source-git-grep
+     )
+   buffer-name)
+  (kill-buffer buffer-name))
+
+(defun jp-anything-tags ()
+  (interactive)
+  (setq buffer-name "*Anything etags*")
+  (anything-other-buffer
+   '(anything-c-source-etags-select)
    buffer-name)
   (kill-buffer buffer-name))
 
