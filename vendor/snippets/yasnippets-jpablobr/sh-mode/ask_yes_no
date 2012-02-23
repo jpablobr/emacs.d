@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: ask_yes_no
+# --
+ask_yes_no () {
+    local yn=
+    while [ "$yn" = "" ]; do
+        echo -en "$1"
+        read yn
+        case $yn in
+            y|Y) yn=0 ;;
+            n|N) yn=1 ;;
+            *) yn=
+                echo "Invalid response - please answer y or n"
+                ;;
+        esac
+    done
+    return $yn
+}

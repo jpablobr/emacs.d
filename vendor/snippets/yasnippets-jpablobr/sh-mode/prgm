@@ -1,6 +1,4 @@
 # -*- mode: yasnippet -*-
 #name : Here Document
 # --
-<<${1:TOKEN}
-$0
-${1:TOKEN}
+prgm=\$(basename \$0)

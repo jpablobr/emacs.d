@@ -311,15 +311,6 @@
     (goto-char 0)
     (while t (jw-zap-ansi-clutter))))
 
-(defun erb-to-haml ()
-  (interactive)
-  (jp-load-haml-scss)
-  (setq new-file-name (replace-regexp-in-string ".erb" ".haml" buffer-file-name))
-  (call-process "html2haml" nil "-e" nil buffer-file-name new-file-name)
-  (if (file-exists-p new-file-name)
-      (find-file new-file-name)
-    (message (concat new-file-name " not created!"))))
-
 (defun clean-log-buffer-and-fontify ()
   (interactive)
   (goto-char 1)
@@ -342,5 +333,13 @@
     (put-text-property (point-at-bol) (match-beginning 0) 'face compilation-info-face)
     (put-text-property (match-beginning 1) (match-end 1) 'face compilation-line-face)
     (forward-line 1)))
+
+(defun find-git-repo (dir)
+  "Recursively search for a .git/ directory."
+  (if (string= "/" dir)
+      (message "not in a git repo.")
+    (if (file-exists-p (expand-file-name ".git/" dir))
+        dir
+      (anything-git-grep-find-repo (expand-file-name "../" dir)))))
 
 (provide 'jp-lib-misc)

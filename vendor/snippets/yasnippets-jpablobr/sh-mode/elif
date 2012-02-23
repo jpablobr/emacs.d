@@ -1,5 +1,5 @@
 # -*- mode: yasnippet -*-
 #name : elif ...
 # --
-elif [[ ${1:condition} ]]; then
+elif [ ${1:condition} ]; then
   ${0:statements}

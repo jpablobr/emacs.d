@@ -2,5 +2,5 @@
 # name: debug
 # --
 debug() { 
-    echo "DEBUG: $*" >&2;
+    printf "DEBUG: $*\n" >&2;
 }

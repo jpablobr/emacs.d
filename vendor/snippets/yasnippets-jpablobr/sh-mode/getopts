@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: getopts
+# --
+while getopts ":hif:" opt; do
+    case $opt in
+        f ) $OPTARG
+            ;;
+        i ) echo "something todo with -i"
+            ;;
+        h ) help_text
+            ;;
+        * ) usage
+            exit 1
+    esac
+done

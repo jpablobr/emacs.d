@@ -58,11 +58,9 @@
   (interactive)
   (let ((buffer (shell (concat "*Rails Console @ " (jp-home-path) "*"))))
     (font-lock-mode)
-    (comint-send-string buffer (concat (jp-rails-root) "pry -r ./config/environment"))))
+    (comint-send-string buffer "pry -r ./config/environment")))
 
 (defun jp-rails-root (&optional dir)
-
-
   (or dir (setq dir default-directory))
   (if (file-exists-p (concat dir "config/environment.rb"))
       dir
@@ -96,5 +94,26 @@
       (cons
        '("^\\(Failure\\|Error\\) occurred in .*\\[\\([^:]+\\):\\([0-9]+\\)\\]" 2 3)
        compilation-error-regexp-alist))
+
+(defun erb-to-haml ()
+  (interactive)
+  (jp-load-haml-scss)
+  (setq new-file-name (replace-regexp-in-string ".erb" ".haml" buffer-file-name))
+  (call-process "html2haml" nil "-e" nil buffer-file-name new-file-name)
+  (if (file-exists-p new-file-name)
+      (find-file new-file-name)
+    (message (concat new-file-name " not created!"))))
+
+(defun rails-puma-server:start ()
+  (interactive)
+  (let ((buffer (shell (concat "*Rails server Puma @ " (jp-home-path) "*"))))
+    (font-lock-mode)
+    (comint-send-string buffer "rails s puma")))
+
+(defun bundle-update ()
+  (interactive)
+  (async-shell-command (concat
+                        "/home/jpablobr/.private/bin/bundle-update.sh "
+                        (find-git-repo default-directory))))
 
 (provide 'jp-lib-ruby)

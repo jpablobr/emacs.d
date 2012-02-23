@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: exists
+# --
+exists() {
+    [ ! -f "\$1" ] && {
+        printf "\e[0;37;41m\$1 does not exist.\e[0m\m"
+        return 1
+    }
+    return 0
+}

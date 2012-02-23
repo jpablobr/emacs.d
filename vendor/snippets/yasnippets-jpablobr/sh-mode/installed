@@ -1,9 +1,9 @@
 # -*- mode: snippet -*-
 # name: installed
 # --
-installed() {$0
+installed() {
     [ -z \$(which "\$1") ] && {
-        echo -e "\e[0;37;41m\$1 not installed.\e[0m"
+        printf "\e[0;37;41m\$1 not installed.\e[0m\n"
         return 1
     }
     which "\$1"

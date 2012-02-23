@@ -3,12 +3,12 @@
 # --
 send_mail() {
     [ -z "\$(which mailx)" ] && {
-        echo -e "\n\e[7;31;47mxmail not installed.\e[0m\n"
+        printf "\n\e[7;31;47mxmail not installed.\e[0m\n"
         exit 1
     }
 
     [ \$# -ne 3 ] && {
-        echo -e "\n\e[7;31;47mWrong number of arguments(should be 3).\e[0m\n"
+        printf -e "\n\e[7;31;47mWrong number of arguments(should be 3).\e[0m\n"
         exit 1
     }
 
@@ -16,5 +16,5 @@ send_mail() {
     local subject="\$1";shift
     local msg="\$1";shift
 
-    echo -e "\$msg" | mailx -s "\$subject" "\$recipient"
+    printf "\$msg" | mailx -s "\$subject" "\$recipient"
 }
