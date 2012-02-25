@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key: xpost
+# name: xhr post
+# --
+xhr :post, :${1:create}, :${2:object} => { $3 }

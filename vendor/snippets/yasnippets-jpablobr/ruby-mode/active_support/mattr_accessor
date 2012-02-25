@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# key: mrw
+# name: mattr_accessor
+# --
+mattr_accessor :${0:attr_names}
