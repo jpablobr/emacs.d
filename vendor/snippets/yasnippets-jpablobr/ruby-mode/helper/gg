@@ -1,5 +1,0 @@
-#name: Given do end
-# --
-Given(${1:setup}) do
-  $0
-end
