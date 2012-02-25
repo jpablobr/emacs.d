@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_throws
 # name: assert_throws(..) { .. }
 # --
 assert_throws(:${1:expected}) { $0 }

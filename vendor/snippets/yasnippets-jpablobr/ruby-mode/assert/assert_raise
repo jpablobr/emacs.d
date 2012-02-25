@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_raise
 # name: assert_raise(..) { .. }
 # --
 assert_raise(${1:Exception}) { $0 }

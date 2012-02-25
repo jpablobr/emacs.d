@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_not_equal
 # name: assert_not_equal(..)
 # --
 assert_not_equal(${1:unexpected}, ${0:actual})

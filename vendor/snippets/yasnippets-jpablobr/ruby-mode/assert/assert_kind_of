@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_kind_of
 # name: assert_kind_of(..)
 # --
 assert_kind_of(${1:ExpectedKind}, ${2:actual_instance})

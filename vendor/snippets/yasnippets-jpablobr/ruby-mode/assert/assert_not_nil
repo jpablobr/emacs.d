@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_not_nil
 # name: assert_not_nil(..)
 # --
 assert_not_nil(${1:instance})

@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_match
 # name: assert_match(..)
 # --
 assert_match(/${1:expected_pattern}/, ${2:actual_string})

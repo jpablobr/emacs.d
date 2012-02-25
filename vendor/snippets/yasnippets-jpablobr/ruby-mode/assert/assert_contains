@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_contains
 #name : assert_contains [ ... ], elem
 # --
 assert_contains [ ${1:collection} ], ${2:element}

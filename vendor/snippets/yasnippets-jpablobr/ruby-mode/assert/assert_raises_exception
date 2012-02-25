@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_raises_exception
 #name : assert_raises(Exception) do ... end
 # --
 assert_raises ${1:Exception} do

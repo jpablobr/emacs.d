@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_redirected_to
 #name : assert_redirected_to :controller => " ... "
 # --
 assert_redirected_to :controller => "${controller}"

@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_response
 #name : assert_response : ...
 # --
 assert_response :${success}

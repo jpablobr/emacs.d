@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_send
 # name: assert_send(..)
 # --
 assert_send(${1:object}, :${2:message}, ${3:args})

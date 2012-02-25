@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_nothing_thrown
 # name: assert_nothing_thrown { .. }
 # --
 assert_nothing_thrown { $0 }

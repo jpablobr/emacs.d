@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
-# key: as
-## condition: "source.ruby"
+#key: assert_equal
 #name : assert_equal(expected, actual)
 # --
 assert_equal(${1:expected}, ${2:actual})
