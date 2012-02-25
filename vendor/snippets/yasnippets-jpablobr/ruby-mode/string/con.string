@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: con.string
 #name : :conditions => ""
 # --
 :conditions => "$0"

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: sub
 #name : sub(/../) { |match| .. }
 # --
 sub(/${pattern}/) { |${match}| $0 }
