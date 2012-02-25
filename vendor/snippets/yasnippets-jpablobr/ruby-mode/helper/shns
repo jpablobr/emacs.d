@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shns
 #name: should_not satisfy
 # --
 ${1:actual}.should_not satisfy { |obj| ${2:code} }

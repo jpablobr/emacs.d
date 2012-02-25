@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: atl
 #name : at_least
 # --
 at_least(${1:n}).times

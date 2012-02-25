@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ldbg
 #name: ldbg
 # --
 log_debug(self, __method__, caller, __FILE__, __LINE__,

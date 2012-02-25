@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: sbt
 #name: should_have_and_belong_to_many
 # --
 should_belong_to :${1:attributes...} 

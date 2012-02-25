@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: sapp
 require 'rubygems'
 require 'sinatra/base'
 

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shh
 #name: should have
 # --
 ${1:actual}.should have${2:_at_least}(${3:number}).${4:names}

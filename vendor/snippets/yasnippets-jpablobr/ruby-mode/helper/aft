@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: aft
 #name : after
 # --
 after(${1::each}) do

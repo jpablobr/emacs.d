@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: rc
 #name: context '...'
 # --
 context "${1:description}" do

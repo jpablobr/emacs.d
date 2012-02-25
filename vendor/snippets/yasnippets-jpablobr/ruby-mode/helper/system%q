@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: system%q
 # name: system%q
 # --
 system %Q{ $0 }

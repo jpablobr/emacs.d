@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: sset
 #name: setup do ... end
 # --
 setup do

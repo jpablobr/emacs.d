@@ -1,6 +1,5 @@
-# key: Forw-
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: extend_forwardable
 # name: extend Forwardable
-## condition: "source.ruby"
 # --
 extend Forwardable

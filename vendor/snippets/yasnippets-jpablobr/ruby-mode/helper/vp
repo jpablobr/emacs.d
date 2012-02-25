@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vp
 #name: validates_presence_of
 # --
 validates_presence_of :${1:attribute}

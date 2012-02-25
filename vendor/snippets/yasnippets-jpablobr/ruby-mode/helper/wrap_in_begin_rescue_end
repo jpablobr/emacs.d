@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: wrap_in_begin_rescue_end
 # name: begin … rescue … end
 # --
 begin

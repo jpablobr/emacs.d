@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shrt
 #name: should respond_to
 # --
 ${1:actual}.should respond_to(${2:names})

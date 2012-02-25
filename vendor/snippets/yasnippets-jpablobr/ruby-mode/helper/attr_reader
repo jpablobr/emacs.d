@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: attr_reader
 # name: attr_reader
 # --
 attr_reader :${1:attr}

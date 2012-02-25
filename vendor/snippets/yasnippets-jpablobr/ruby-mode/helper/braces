@@ -1,4 +1,5 @@
+# -*- mode: snippet -*-
+#key: braces
 #name : { |variable| ... }
-#group : Blocks
 # --
 { |${1:variable}| $0 }

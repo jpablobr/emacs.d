@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: gt
 #name: Then { }
 # --
 Then { expect(${1:actual}) ${2:op} ${3:expected} }$0

@@ -1,6 +1,5 @@
-# key: req
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: require
 # name: require '..'
-## condition: 'source.ruby'
 # --
 require '$0'

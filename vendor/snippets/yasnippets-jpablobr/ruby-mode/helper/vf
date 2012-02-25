@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vf
 #name: validates_presence_of :with
 # --
 validates_format_of :${1:attribute}, :with => /${2:regexp}/

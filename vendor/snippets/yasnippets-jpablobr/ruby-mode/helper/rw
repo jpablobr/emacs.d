@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: rw
 #name: when(result) { } (RSpec)
 # --
 When(:${1:result}) { $0 }

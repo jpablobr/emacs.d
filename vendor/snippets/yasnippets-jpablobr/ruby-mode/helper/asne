@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: asne
 #name: assert_not_equal(..)
 # --
 assert_not_equal`(snippet-paren-start)`${1:unexpected}, ${2:actual}`(snippet-paren-end)`$0

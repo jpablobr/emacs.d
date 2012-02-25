@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vpon
 #name: validates_presence_of :on
 # --
 validates_presence_of :${1:attribute}, :on => :${3:create}, :message => "${4:can't be blank}"

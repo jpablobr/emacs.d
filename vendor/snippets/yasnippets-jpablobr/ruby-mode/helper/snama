@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: snama
 #name: should_not_allow_mass_assignment_of
 # --
 should_not_allow_mass_assignment_of :${1:attributes...} 

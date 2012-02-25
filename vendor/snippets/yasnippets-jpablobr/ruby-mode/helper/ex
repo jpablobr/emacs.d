@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ex
 #name : exactly
 # --
 exactly(${1:n}).times

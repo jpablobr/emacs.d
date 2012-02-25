@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vcon
 #name: validates_confirmation_of :on
 # --
 validates_confirmation_of :${1:attribute}, :on => :${2:create}, :message => "${3:should match confirmation}"

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: y
 #name : :yields: arguments (rdoc)
 # --
 :yields: $0

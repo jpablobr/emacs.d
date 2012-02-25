@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: mdt
 #name: migrate drop table
 # --
 drop_table :${1:table_name}

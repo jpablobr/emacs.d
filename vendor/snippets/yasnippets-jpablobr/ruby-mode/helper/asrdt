@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: asrdt
 #name: assert_redirected_to
 # --
 assert_redirected_to "${1:url or hash}"

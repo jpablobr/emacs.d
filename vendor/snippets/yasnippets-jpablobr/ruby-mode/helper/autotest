@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: autotest
 # name: autotest
 # --
 # -*- ruby -*-

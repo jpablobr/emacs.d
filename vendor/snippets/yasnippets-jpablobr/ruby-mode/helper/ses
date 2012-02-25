@@ -1,6 +1,5 @@
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: ses
 # name: session[…]
-## binding: "^j"
-## condition: "source.ruby.rails"
 # --
 session[:${1:user}]

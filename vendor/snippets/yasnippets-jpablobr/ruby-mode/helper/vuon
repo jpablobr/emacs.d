@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vuon
 #name: validates_uniqueness_of :on
 # --
 validates_uniqueness_of :${1:attribute}, :on => :${3:create}, :message => "${4:must be unique}"

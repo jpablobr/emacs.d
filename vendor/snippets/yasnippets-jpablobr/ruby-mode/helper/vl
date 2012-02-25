@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vl
 #name: validates_length_of
 # --
 validates_length_of :${1:attribute}, :within => ${2:3..20}

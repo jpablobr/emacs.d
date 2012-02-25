@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shvmd
 #name: should_have_many dependent
 # --
 should_have_many :${1:attributes...}, :dependent => :${2:destroy} 

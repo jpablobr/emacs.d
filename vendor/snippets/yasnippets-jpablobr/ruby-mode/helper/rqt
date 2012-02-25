@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: rqt
 #name: require 'test/unit'
 # --
 require 'test/unit'

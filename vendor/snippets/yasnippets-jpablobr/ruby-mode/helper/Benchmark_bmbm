@@ -1,7 +1,6 @@
-# key: bm-
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: Benchmark_bmbm
 # name: Benchmark.bmbm do .. end
-## condition: "source.ruby"
 # --
 TESTS = ${1:10_000}
 Benchmark.bmbm do |results|

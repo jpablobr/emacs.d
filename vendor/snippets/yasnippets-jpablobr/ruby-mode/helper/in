@@ -1,4 +1,4 @@
 # -*- mode: snippet -*-
-#key: ran
+#key: in
 # --
-sort_by { rand }
+#{$1}$0

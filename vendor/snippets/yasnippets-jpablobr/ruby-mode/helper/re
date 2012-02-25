@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: re
 #name: redirect_to (controller)
 # --
 redirect_to ${1:url}

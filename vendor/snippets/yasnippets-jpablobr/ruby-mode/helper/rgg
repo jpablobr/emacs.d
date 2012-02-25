@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: rgg
 #name: Given { } (RSpec)
 # --
 Given { $0 }

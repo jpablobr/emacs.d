@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shnh
 #name: should_not have
 # --
 ${1:actual}.should_not have(${2:number}).${3:names}

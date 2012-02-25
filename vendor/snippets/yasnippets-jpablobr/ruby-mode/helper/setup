@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: setup
 #name: setup method
 # --
 def setup

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: snc
 #name: should_change from to
 # --
 should_not_change "${1:expression}" 

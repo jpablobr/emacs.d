@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: gw
 #name: When { }
 # --
 When { $0 }

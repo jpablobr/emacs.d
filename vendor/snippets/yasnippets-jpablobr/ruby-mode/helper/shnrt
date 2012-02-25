@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shnrt
 #name: should_not respond_to
 # --
 ${1:actual}.should_not respond_to(${2:names})

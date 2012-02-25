@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shs
 #name: should satisfy
 # --
 ${1:actual}.should satisfy { |obj| ${2:code} }

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: do
 #name: do ... end
 # --
 do |${1:item}|

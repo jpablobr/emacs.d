@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: svu
 #name: should_validate_uniqueness_of
 # --
 should_validate_uniqueness_of :${1:attributes...} 

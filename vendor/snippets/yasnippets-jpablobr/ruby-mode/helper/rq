@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: rq
 #name: require 'test/unit'
 # --
 require '${1:file name}'

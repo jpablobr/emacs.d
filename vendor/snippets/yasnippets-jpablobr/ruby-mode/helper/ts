@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ts
 #name : to_s
 # --
 to_s

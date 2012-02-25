@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shnr
 s#name: should_not raise_error
 # --
 lambda do

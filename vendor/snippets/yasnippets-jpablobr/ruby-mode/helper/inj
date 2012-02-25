@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: inj
 #name : inject(...) { |...| ... }
 # --
 inject(${1:0}) { |${2:acc}, ${3:item}| $0 }

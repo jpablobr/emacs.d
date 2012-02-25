@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shnt
 #name: should_not throw_symbol
 # --
 ${1:actual}.should_not throw_symbol(${2:symbol})

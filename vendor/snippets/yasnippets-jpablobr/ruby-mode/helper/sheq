@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: sheq
 #name: should equal
 # --
 ${1:actual}.should equal(${2:expected})

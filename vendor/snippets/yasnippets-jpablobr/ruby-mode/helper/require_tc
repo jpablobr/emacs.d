@@ -1,7 +1,6 @@
-# key: ts
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: require_tc
 # name: require "tc_.." ..
-## condition: "source.ruby"
 # --
 require "test/unit"
 

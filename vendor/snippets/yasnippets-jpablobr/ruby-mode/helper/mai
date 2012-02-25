@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: mai
 #name: migrate add index
 # --
 add_index :${1:table_name}, [:${2:column}], :unique => ${3:true}

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: fm
 #name: flexmock(...)
 # --
 flexmock(${1:object})$0

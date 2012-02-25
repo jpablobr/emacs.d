@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vaif
 #name: validates_associated if
 # --
 validates_associated :${1:attribute}, :on => :${2:create}, :if => proc { |obj| ${3:obj.condition?} }

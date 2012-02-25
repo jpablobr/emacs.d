@@ -1,5 +1,5 @@
+# -*- mode: snippet -*-
+#key: par
 #name : params[: ... ]
-#key : par
-#group : rails
 # --
 params[:${id}]$0

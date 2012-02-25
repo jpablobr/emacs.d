@@ -1,5 +1,5 @@
+# -*- mode: snippet -*-
+#key: flsh
 #name : flash[: ... ] = " ... "
-#key : flsh
-#group : rails
 # --
 flash[:${notice}] = "${Text here...}"

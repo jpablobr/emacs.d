@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vfwo
 #name: validates_presence_of :without
 # --
 validates_format_of :${1:attribute}, :without => /${2:regexp}/

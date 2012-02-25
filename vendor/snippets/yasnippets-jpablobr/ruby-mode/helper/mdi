@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: mdi
 #name: migrate drop index
 # --
 remove_index :${1:table_name}, :${2:column}

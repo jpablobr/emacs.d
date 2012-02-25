@@ -1,6 +1,5 @@
-# key: end
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: __END__
 # name: __END__
-# condition: (not (yas/ruby-end-is-block-end-p))
 # --
 __END__

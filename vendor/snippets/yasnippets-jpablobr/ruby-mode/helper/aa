@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: aa
 #name : Arbitrarary String
 # --
 `"arbitrary string"`

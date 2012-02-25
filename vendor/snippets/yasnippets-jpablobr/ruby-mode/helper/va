@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: va
 #name: validates_associated
 # --
 validates_associated :${1:attribute}, :on => :${2:create}

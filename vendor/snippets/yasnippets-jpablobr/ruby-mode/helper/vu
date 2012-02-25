@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vu
 #name: validates_uniqueness_of
 # --
 validates_uniqueness_of :${1:attribute}

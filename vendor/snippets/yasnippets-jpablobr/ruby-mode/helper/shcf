@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shcf
 #name: should change
 # --
 lambda do

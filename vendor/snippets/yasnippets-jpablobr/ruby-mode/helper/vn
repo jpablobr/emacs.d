@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vn
 #name: validates_numericality_of
 # --
 validates_numericality_of :${1:attribute}, :only_integer => :${2:false}

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: configru
 #name : Basic Sinatra config.ru
 # --
 Dir['vendor/**/lib'].each do |libdir|

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ps
 #name : puts ...
 # --
 puts 

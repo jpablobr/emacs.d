@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: she
 #name: should ==
 # --
 ${1:actual}.should == ${2:expected}$0

@@ -1,4 +1,5 @@
-#group : Enumerables
+# -*- mode: snippet -*-
+#key: Enum
 # --
 include Enumerable
 

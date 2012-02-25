@@ -1,6 +1,5 @@
-# key: fl
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: flunk
 # name: flunk(..)
-## condition: "source.ruby"
 # --
 flunk`(yas/ruby-snippet-paren)`"${1:Failure message.}"`(yas/ruby-snippet-paren t)`

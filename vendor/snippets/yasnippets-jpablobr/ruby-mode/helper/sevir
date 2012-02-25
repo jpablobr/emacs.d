@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: sevir
 #name: should_ensure_value_in_range
 # --
 should_ensure_value_in_range :${1:attribute}, ${2:range} 

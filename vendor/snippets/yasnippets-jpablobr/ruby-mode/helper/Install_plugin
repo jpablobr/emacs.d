@@ -1,6 +1,3 @@
-# type: command
-# contributor: Translated from TextMate Snippet
-# name: Install Plugin
-## binding: "^|"
-## condition: "source.ruby.rails, source.yaml"
+# -*- mode: snippet -*-
+#key: Install_plugin
 # --

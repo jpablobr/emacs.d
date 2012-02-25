@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: vuif
 #name: validates_uniqueness_of if
 # --
 validates_uniqueness_of :${1:attribute}, :on => :${3:create}, :message => "${4:must be unique}", :if => proc { |obj| ${6:obj.condition?} }

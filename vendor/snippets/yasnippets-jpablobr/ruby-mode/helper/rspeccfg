@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: rspeccfg
 #name : RSpec Config
 # --
 RSpec.configure do |config|

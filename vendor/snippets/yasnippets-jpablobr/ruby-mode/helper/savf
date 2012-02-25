@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: savf
 #name: should_allow_values_for
 # --
 should_allow_values_for :${1:attribute}, ${2:values...} 

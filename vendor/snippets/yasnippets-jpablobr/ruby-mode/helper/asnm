@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: asnm
 #name: assert_no_match(..)
 # --
 assert_no_match`(snippet-paren-start)`/${1:unexpected_pattern}/, ${1:actual_string}`(snippet-paren-end)`$0

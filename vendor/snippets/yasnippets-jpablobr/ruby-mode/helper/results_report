@@ -1,6 +1,5 @@
-# key: rep
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: results_report
 # name: results.report(..) { .. }
-## condition: "source.ruby"
 # --
 results.report("${1:name}:") { TESTS.times { $0 } }

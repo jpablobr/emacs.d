@@ -1,7 +1,6 @@
-# key: usau
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: usage_unless
 # name: usage_unless()
-## condition: "source.ruby"
 # --
 unless ARGV.$1
 	abort "Usage:  #{\$PROGRAM_NAME} ${2:ARGS_GO_HERE}"

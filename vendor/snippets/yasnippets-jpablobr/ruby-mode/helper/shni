@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shni
 #name: should_not include
 # --
 ${1:actual}.should_not include(${2:expected_list})

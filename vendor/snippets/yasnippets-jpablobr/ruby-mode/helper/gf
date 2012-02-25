@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: gf
 #name: FailsWith(error)
 # --
 FailsWith(${1:exception_name})

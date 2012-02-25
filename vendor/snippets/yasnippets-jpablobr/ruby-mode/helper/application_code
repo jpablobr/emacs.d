@@ -1,6 +1,7 @@
-# key: app
+# -*- mode: snippet -*-
+#key: application_code
 # name: application { .. }
 # --
 if __FILE__ == \$PROGRAM_NAME
-	$0
+  $0
 end

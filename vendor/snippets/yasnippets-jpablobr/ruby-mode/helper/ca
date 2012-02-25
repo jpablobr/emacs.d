@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ca
 #name: named_path(args)
 # --
 :controller => "${1:controller}", :action => "${2:action}"

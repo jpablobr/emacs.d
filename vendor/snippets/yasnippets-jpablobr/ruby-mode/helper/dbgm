@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: dbgm
 #name: puts "DBG: ..."
 # --
 puts "DBG: ${1:message}"

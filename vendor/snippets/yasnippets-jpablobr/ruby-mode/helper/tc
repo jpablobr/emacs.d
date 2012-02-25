@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: tc
 #name: test case
 # --
 class ${1:Name}Test < Test::Unit::TestCase

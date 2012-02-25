@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: mocw.flexmock
 #name : mock_with flexmock
 # --
 Spec::Runner.configure do |config|

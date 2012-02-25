@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: teardown
 #name: teardown method
 # --
 def teardown

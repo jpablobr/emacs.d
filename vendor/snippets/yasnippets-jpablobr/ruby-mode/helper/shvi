@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shvi
 #name: should_have_index
 # --
 should_have_index :${1:columns...} 

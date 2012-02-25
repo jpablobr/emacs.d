@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: dbgv
 #name: puts "DBG: ..."
 # --
 puts "DBG: ${1:var}=#{${1:var}.inspect}"

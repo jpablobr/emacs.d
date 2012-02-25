@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: snavf
 #name: should_not_allow_values_for
 # --
 should_not_allow_values_for :${1:attribute}, ${2:bad_values...} 

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shnx
 #name: should_not exist
 # --
 ${1:actual}.should_not exist

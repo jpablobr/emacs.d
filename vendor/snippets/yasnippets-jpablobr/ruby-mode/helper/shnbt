@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shnbt
 #name: should be_true
 # --
 ${1:actual}.should_not be_true

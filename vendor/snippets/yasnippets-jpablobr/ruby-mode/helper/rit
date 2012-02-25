@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: rit
 #name: it '...' (RSpec)
 # --
 it '${1:description}' do

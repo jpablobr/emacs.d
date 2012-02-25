@@ -1,6 +1,5 @@
-# key: reqg-
-# contributor: Translated from TextMate Snippet
+# -*- mode: snippet -*-
+#key: require_gem
 # name: require_gem ".."
-## condition: "source.ruby"
 # --
 require "$0"

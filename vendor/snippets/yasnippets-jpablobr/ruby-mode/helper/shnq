@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shnq
 #name: should_not eql
 # --
 ${1:actual}.should_not eql(${2:expected})

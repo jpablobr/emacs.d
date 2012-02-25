@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: asr
 #name: assert_raise(..) { .. }
 # --
 assert_raise(${1:Exception}) do

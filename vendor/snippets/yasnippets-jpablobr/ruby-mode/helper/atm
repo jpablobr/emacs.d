@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: atm
 #name : at_most
 # --
 at_most(${1:n}).times

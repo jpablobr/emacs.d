@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: lerror
 #name: lerror
 # --
 log_error(self, __method__, caller, e, {})$0

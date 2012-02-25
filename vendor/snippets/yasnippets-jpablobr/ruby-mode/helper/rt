@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: rt
 #name: Then { } (RSpec)
 # --
 Then { $0 }

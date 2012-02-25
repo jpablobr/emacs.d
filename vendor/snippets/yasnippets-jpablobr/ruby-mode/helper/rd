@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: rd
 #name: describe '...' (RSpec)
 # --
 describe ${1:CodeUnderTest} do

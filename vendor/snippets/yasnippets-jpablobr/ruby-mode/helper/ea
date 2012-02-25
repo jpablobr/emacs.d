@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ea
 #name : each do |...| ... end
 # --
 each {|${item}| $0}

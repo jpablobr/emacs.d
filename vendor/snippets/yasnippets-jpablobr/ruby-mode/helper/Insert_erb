@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: Insert_erb
 # name: Insert ERb’s <% .. %> or <%= .. %>
-# expand-env: ((yas/wrap-around-region t))
-## binding: "C-c <"
-## condition: "text.html, source.yaml, meta.erb"
 # --
 <%= $0 %>

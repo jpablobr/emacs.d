@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: shnm
 #name: should_not match
 # --
 ${1:actual}.should_not match(/${2:regex}/)

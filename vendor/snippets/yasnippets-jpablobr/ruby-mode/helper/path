@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: path
 #name: named_path(args)
 # --
 ${1:named}_path(${2:args...})

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ast
 #name: assert_throws(..) { .. }
 # --
 assert_throws(:${1:expected}) do

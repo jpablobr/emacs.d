@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: asvm
 #name: assert_valid_model(..)
 # --
 assert_valid_model`(snippet-paren-start)`${1:model}`(snippet-paren-end)`$0

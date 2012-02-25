@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: begin
 #name: begin ... rescue ... end
 # --
 begin

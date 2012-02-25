@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ssh
 #name: should '...'
 # --
 should '${1:description}' do

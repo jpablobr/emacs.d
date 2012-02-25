@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: asnt
 #name: assert_nothing_thrown { .. }
 # --
 assert_nothing_thrown do

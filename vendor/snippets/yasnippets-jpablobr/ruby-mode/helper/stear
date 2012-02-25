@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: stear
 #name: teardown do ... end
 # --
 teardown do
