@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: test-file-non-zero
 # --
 [ -s ${1:file} ]$0

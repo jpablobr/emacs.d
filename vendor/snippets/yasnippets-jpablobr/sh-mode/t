@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: test
 # --
 [ ${1:how} ${2:what} ]$0

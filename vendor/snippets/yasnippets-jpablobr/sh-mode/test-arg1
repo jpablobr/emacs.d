@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: arg1-test
 # --
 [ -z "\$1" ] && {

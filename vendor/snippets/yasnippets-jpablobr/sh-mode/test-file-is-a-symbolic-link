@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: test-file-is-a-symbolic-link
 # --
 [ -h ${1:file} ]$0

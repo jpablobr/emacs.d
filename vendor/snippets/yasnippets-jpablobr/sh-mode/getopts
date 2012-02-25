@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: getopts
 # --
 while getopts ":hif:" opt; do

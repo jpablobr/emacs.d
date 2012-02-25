@@ -1,4 +1,3 @@
-# -*- mode: yasnippet -*-
 #name : Here Document
 # --
 prgm=\$(basename \$0)

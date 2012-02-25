@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: test-file-is-a-character-device
 # --
 [ -c ${1:file} ]$0

@@ -1,4 +1,3 @@
-# -*- mode: yasnippet -*-
 #name : case ... esac
 # --
 case ${1:word} in

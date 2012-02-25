@@ -1,4 +1,3 @@
-# -*- mode: yasnippet -*-
 #name : elif ...
 # --
 elif [ ${1:condition} ]; then

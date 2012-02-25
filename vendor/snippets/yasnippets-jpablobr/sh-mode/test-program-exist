@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: test-program-exist
 # --
 [ -n \$${1:pgrm} ] || die "$1 program not found."$0

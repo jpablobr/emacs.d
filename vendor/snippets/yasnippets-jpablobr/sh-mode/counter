@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: counter
 # --
 counter=0$0

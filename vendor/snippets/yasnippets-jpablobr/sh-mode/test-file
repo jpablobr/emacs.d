@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: test-file-exists
 # --
 [ -f ${1:file} ]$0

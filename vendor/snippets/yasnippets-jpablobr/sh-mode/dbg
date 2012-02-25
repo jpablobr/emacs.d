@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: dbg
 # --
 printf "DBG: $1=\$${1:var}\n"
