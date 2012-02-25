@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: migration.rent
 #name : rename_table
-#key : rent
-#group : rails.migration
-#condition : (rails/migration?)
 # --
 rename_table :${1:old_name}, :${2:new_name}

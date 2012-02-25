@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: form_for_file_field_2
+# name: form_for file_field
+# --
+<%= f.file_field :${1:attribute} %>

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: sort_a_b_sor
+# name: sort { |a, b| .. }
+# --
+sort { |a, b| $0 }

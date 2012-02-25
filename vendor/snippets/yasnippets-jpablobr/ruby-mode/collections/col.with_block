@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: col.with_block
 #name : collect { |variable_name| ... }
 # --
 collect { |${1:variable_name}| $1$0 }

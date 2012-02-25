@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: link_to_path
+# name: link_to (path)
+# --
+<%= link_to ${1:"${2:link text...}"}, ${3:${12:model}_path(${13:@}${14:$12})} %>

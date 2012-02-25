@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: task
 #name : task :name ... end
 # --
 task :${2:name} do

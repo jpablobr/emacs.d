@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: logger_info
+# name: logger.info
+# --
+logger.info { "${1:message}" }$0

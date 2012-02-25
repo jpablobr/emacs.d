@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: Create_timestamp_column
+# name: Table column timestamp
+# --
+t.timestamp :${1:title}
+$0

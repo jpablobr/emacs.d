@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: t_datetime_tcdt
+# name: t.datetime (tcdt)
+# --
+t.datetime :${1:title}
+t.$0

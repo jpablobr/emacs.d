@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: before_validation_on_create
+# name: before_validation_on_create
+# --
+before_validation_on_create 

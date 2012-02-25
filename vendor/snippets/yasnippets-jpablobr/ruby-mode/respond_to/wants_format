@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: wants_format
+# name: wants.format
+# --
+wants.${1:js|xml|html}${2: { $0 \}}

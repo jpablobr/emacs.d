@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: page_replace_html
+# name: page.replace_html (id, partial)
+# --
+page.replace_html ${1:"${2:id}"}, :${3:partial => "${4:template}"}

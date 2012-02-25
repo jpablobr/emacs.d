@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: classify
 #name : classify { |...| ... }
 # --
 classify { |${e}| $0 }

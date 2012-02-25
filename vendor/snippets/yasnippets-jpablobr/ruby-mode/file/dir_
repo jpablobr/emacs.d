@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: dir_
+# name: Dir[".."]
+# --
+Dir[${1:"${2:glob/**/*.rb}"}]

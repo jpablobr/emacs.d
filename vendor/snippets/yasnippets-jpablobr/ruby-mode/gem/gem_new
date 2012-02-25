@@ -1,4 +1,5 @@
 # -*- mode: snippet -*-
+#key: gem_new
 # name: gem_new
 # --
 gem '${1:gem_name}'$0

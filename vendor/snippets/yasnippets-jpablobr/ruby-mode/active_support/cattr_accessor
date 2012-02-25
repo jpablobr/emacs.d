@@ -1,4 +1,4 @@
 # -*- mode: snippet -*-
-# key: crw
+#key: cattr_accessor
 # --
 cattr_accessor :${0:attr_names}

@@ -1,0 +1,4 @@
+# type: command
+# name: Rename / Rename Several Columns (mncc)
+# --
+(yas/rails-intelligent-migration-snippet :rename_column_continue)

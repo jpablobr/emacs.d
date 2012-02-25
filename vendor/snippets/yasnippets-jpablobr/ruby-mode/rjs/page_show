@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: page_show
+# name: page.show (*ids)
+# --
+page.show ${1:"${2:id(s)}"}

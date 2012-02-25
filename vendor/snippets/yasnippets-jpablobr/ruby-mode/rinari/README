@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: README
 The conversion utility for textmate snippets to yasnippets for ruby on rails did not yield useful enough snippets.  This repository was created to make a more rational collection of snippets all based off of single letters and menu preferences.   
 
 $GOOGLE_YASNIPPET_ROOT/yasnippet/snippets/text-mode/yasnippets-for-rinari

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: each_e_ea
+# name: each { |e| .. }
+# --
+each { |${1:e}| $0 }

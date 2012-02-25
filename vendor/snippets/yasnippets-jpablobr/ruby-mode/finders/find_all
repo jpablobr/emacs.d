@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: find_all
+# name: find(:all)
+# --
+find(:all${1:, :conditions => ['${2:${3:field} = ?}', ${5:true}]})

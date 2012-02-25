@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: table_column_rename
+# name: Table column(s) rename
+# --
+t.rename(:${1:old_column_name}, :${2:new_column_name})
+$0

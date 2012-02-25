@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: scan_match_sca
+# name: scan(/../) { |match| .. }
+# --
+scan(/${1:pattern}/) { |${2:match}| $0 }

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: find_all_e_fina
+# name: find_all { |e| .. }
+# --
+find_all { |${1:e}| $0 }

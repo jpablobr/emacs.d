@@ -1,0 +1,4 @@
+# type: command
+# name: Rename / Rename Column
+# --
+(yas/rails-intelligent-migration-snippet :rename_column)

@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: controller.rl
 #name : render :layout => " ... "
-#key : rl
-#group : rails.controller
-#condition : (rails/controller?)
 # --
 render :layout => "${layoutname}"

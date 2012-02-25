@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: controller.rpl
 #name : render :partial => " ... ", :locals => { : ...  => " ... "}
-#key : rpl
-#group : rails.controller
-#condition : (rails/controller?)
 # --
 render :partial => "${item}", :locals => { :${name} => "${value}"}

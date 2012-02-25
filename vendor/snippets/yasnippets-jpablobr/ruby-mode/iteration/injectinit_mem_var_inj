@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: injectinit_mem_var_inj
+# name: inject(init) { |mem, var| .. }
+# --
+inject${1:$(if (string= yas/text "") "" "(")}${1:init}${1:$(if (string= yas/text "") "" ")")} { |${2:mem}, ${3:var}| $0 }

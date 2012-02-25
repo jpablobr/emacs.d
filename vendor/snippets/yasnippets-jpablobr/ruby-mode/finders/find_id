@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: find_id
+# name: find(id)
+# --
+find(${1:id})

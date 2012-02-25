@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: page_replace
+# name: page.replace (id, partial)
+# --
+page.replace ${1:"${2:id}"}, :${3:partial => "${4:template}"}

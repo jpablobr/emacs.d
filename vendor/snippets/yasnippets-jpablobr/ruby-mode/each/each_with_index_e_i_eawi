@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: each_with_index_e_i_eawi
+# name: each_with_index { |e, i| .. }
+# --
+each_with_index { |${1:e}, ${2:i}| $0 }

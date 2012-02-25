@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: cla
 #name : class << self ... end
 # --
 class << ${self}

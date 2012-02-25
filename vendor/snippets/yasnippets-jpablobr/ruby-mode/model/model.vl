@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: model.vl
 #name : validates_length_of
-#key : vl
-#group : rails.model
-#condition : (rails/model?)
 # --
 validates_length_of :${1:name}, :maximum => ${2:100}, :minimum => ${3:3}

@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+#key: open_yield_block
+# type: command
+# name: Insert { |variable| … }
+# --
+(yas/expand-snippet (concat 
+                    "{ ${1:$(if (string= yas/text \"\") \"\" \"|\")}${1:variable}${1:$(if (string= yas/text \"\") \" \" \"| \")}`yas/selected-text`$0"
+                    (save-excursion (if (search-forward-regexp "}" (line-end-position) t)
+                                    "" "}"))))
+                                
+                    

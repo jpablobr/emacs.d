@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: stylesheet_link_tag
+# name: stylesheet_link_tag
+# --
+<%= stylesheet_link_tag ${1::all}${2:, :cache => ${3:true}} %>

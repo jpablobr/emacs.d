@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: each_cons_group_eac
+# name: each_cons(..) { |group| .. }
+# --
+each_cons(${1:2}) { |${2:group}| $0 }

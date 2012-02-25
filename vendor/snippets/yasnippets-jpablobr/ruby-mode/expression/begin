@@ -1,5 +1,6 @@
+# -*- mode: snippet -*-
+#key: begin
 #name : begin ... rescue ... end
-#group : Blocks
 # --
 begin
   $3

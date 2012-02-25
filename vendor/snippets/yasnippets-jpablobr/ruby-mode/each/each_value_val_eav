@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: each_value_val_eav
+# name: each_value { |val| .. }
+# --
+each_value { |${1:val}| $0 }

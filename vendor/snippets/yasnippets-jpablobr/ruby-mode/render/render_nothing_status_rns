@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_nothing_status_rns
+# name: render (nothing, status)
+# --
+render :nothing => ${1:true}, :status => ${2:401}

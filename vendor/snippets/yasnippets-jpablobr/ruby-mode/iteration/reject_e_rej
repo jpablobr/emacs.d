@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: reject_e_rej
+# name: reject { |e| .. }
+# --
+reject { |${1:e}| $0 }

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: lic
+# name: link_to (controller)
+# --
+<%= link_to "${1:link text...}", :controller => "${2:items}" %>

@@ -1,3 +1,4 @@
-# This was cloned from a TextMate bundle for yasnippet.
+# -*- mode: snippet -*-
+#key: hint
 # --
 :hint => '$1'$0

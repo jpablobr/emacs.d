@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_text_rt
+# name: render (text)
+# --
+render :text => "${1:text to render...}"

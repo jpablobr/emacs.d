@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: Create_integer_column
+# name: Table column integer
+# --
+t.integer :${1:title}
+$0

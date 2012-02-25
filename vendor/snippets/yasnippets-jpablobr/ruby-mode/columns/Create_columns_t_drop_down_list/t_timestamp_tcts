@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: t_timestamp_tcts
+# name: t.timestamp (tcts)
+# --
+t.timestamp :${1:title}
+t.$0

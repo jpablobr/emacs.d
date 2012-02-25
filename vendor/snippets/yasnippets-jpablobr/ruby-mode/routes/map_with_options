@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+#key: map_with_options
+# -*- mode: snippet -*-
+# name: map.with_options
+# --
+${1:map}.with_options :${2:controller} => '${3:thing}' do |${4:$3}|
+	$0
+end

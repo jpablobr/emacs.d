@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#key: form_for_with_errors
+# name: form_for with errors
+# --
+<%= error_messages_for :${1:model} %>
+
+<% form_for @${2:$1} do |f| -%>
+  $0
+end

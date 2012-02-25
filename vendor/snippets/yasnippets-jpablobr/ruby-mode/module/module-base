@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#key: module-base
+# --
+module  ${1:name}
+  module_function
+  $0
+end

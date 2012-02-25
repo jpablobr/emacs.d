@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: model.hma
 #name : has_many :as
-#key : hma
-#group : rails.model
-#condition : (rails/model?)
 # --
 has_many :${1:model}, :as => :${2:ownable}

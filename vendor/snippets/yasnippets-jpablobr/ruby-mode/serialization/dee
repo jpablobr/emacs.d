@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: dee
 #name : deep_copy(...)
 # --
 Marshal.load(Marshal.dump($0))

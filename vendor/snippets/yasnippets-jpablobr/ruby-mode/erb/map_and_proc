@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: map_and_proc
+# name: map(&:sym_proc)
+# --
+map(&:${1:id})

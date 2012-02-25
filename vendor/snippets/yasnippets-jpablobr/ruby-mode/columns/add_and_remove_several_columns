@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: add_and_remove_several_columns
+# type: command
+# name: Add / Remove Several Columns (marcc)
+# --
+(yas/rails-intelligent-migration-snippet :add_remove_column_continue)

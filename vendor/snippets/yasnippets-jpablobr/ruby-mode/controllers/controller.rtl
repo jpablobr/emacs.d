@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: controller.rtl
 #name : render :text => " ... ", :layout => " ... "
-#key : rtl
-#group : rails.controller
-#condition : (rails/controller?)
 # --
 render :text => "${Text here...}", :layout => "${layoutname}"

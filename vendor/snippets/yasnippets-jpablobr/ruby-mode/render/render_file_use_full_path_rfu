@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_file_use_full_path_rfu
+# name: render (file, use_full_path)
+# --
+render :file => "${1:filepath}", :use_full_path => ${2:false}

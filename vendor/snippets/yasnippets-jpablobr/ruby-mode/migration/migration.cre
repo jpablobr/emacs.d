@@ -1,7 +1,6 @@
+# -*- mode: snippet -*-
+#key: migration.cre
 #name : create_table
-#key : cre
-#group : rails.migration
-#condition : (rails/migration?)
 # --
 create_table :${1:`(or (rails/cur-res-title) "table")`} do |t|
   $0

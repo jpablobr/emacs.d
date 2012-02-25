@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+#key: for_loop_erb
+# name: for loop in rhtml
+# --
+<% if !${1:list}.blank? %>
+  <% for ${2:item} in ${1} %>
+    $3
+  <% end %>
+<% else %>
+  $4
+<% end %>

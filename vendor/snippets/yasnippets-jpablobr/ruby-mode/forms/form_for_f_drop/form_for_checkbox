@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: form_for_checkbox
+# name: f.check_box (ffcb)
+# --
+<%= f.check_box :${1:attribute} %>

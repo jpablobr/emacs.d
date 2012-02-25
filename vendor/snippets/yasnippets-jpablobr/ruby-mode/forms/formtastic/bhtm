@@ -1,3 +1,4 @@
-# This was cloned from a TextMate bundle for yasnippet.
+# -*- mode: snippet -*-
+#key: bhtm
 # --
 :button_html => {$1}$0

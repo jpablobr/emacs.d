@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: all_e_all
+# name: all? { |e| .. }
+# --
+all? { |${1:e}| $0 }

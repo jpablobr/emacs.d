@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: migration.tim
 #name : t.timestamps
-#key : tim
-#group : rails.migration
-#condition : (rails/migration?)
 # --
 t.timestamps

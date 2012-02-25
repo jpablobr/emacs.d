@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: Create_decimal_column
+# name: Table column decimal
+# --
+t.decimal :${1:title}${2:${3:, :precision => ${4:10}}${5:, :scale => ${6:2}}}
+$0

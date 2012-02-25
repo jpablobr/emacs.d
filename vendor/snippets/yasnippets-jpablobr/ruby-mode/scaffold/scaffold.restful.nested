@@ -1,7 +1,6 @@
+# -*- mode: snippet -*-
+#key: scaffold.restful.nested
 #name : generating a nested RESTful controller
-#key : restful.nested
-#group : rails.scaffold
-#condition : (rails/controller?)
 # --
 before_filter :capture_${1:owner}_and_${2:`(singularize-string (rails/cur-res-title))`}
 $0

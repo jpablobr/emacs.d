@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: lica
+# name: link_to (controller, action)
+# --
+<%= link_to "${1:link text...}", :controller => "${2:items}", :action => "${3:index}" %>

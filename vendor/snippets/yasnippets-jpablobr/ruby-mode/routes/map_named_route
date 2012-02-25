@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: map_named_route
+# -*- mode: snippet -*-
+# name: map.named_route
+# --
+${1:map}.${2:connect} '${3::controller/:action/:id}'

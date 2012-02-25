@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-#name : :conditions => []
 #key: con.array
+#name : :conditions => []
 # --
 :conditions => ["$1", $0]

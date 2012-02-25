@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: form_for_text_area
+# name: f.text_area (ffta)
+# --
+<%= f.text_area :${1:attribute} %>

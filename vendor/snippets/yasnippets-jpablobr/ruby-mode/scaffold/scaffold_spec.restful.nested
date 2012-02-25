@@ -1,7 +1,6 @@
+# -*- mode: snippet -*-
+#key: scaffold_spec.restful.nested
 #name : generating a nested RESTful controller spec
-#key : restful.nested_spec
-#group : rails.scaffold_spec
-#condition : (rails/controller-spec?)
 # --
 $0
 before(:each) do

@@ -1,4 +1,5 @@
+# -*- mode: snippet -*-
+#key: col
 #name : collect { |e| ... }
-#group : Enumerables
 # --
 collect { |${e}| $0 }

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_nothing_rn
+# name: render (nothing)
+# --
+render :nothing => ${1:true}

@@ -1,3 +1,4 @@
-# This was cloned from a TextMate bundle for yasnippet.
+# -*- mode: snippet -*-
+#key: inpr
 # --
 <%= f.input :$1${2:, :label => '$3'}, :required => ${4:true}$0 %>

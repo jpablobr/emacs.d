@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: controller.reai
 #name : redirect_to :action => " ... ", :id =>  ... 
-#key : reai
-#group : rails.controller
-#condition : (rails/controller?)
 # --
 redirect_to :action => "${show}", :id => ${@item}

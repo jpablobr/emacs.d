@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: Create_timestamps_columns
+# name: Table column timestamps
+# --
+t.timestamps
+$0

@@ -1,3 +1,4 @@
-# This was cloned from a TextMate bundle for yasnippet.
+# -*- mode: snippet -*-
+#key: labl
 # --
 :label => '$1'$0

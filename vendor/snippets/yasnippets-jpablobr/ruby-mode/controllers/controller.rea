@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: controller.rea
 #name : redirect_to :action => " ... "
-#key : rea
-#group : rails.controller
-#condition : (rails/controller?)
 # --
 redirect_to :action => "${index}"

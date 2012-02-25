@@ -1,5 +1,5 @@
+# -*- mode: snippet -*-
+#key: migration.tt
 #name : t.text
-#key : tt
-#condition : (ruby/migration?)
 # --
 t.text :${1:name}

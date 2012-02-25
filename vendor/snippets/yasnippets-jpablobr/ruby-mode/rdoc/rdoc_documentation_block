@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# key: rdoc_documentation_block
+# --
+`(if (save-restriction (widen) (eq 1 (line-number-at-pos))) "\n\n" "\n")`=begin rdoc
+  $0
+=end

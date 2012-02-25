@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# key: returning
+#key: returning_do
 # name: returning do |variable| … end
 # --
 returning ${1:variable} do${2:$(if (string= "" yas/text) "" " |")}${2:v}${2:$(if (string= "" yas/text) "" "|")}

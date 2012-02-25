@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#key: include_Enumerable_Enum
+# name: include Enumerable ..
+# --
+include Enumerable
+
+def each(&block)
+	$0
+end

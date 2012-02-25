@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: page_visual_effect
+# name: page.visual_effect (effect, id)
+# --
+page.visual_effect :${1:toggle_slide}, ${2:"${3:DOM ID}"}

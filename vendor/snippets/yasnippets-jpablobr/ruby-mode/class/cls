@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: cls
 #name : Class
 # --
 class ${1:class_name}

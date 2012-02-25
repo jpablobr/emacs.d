@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: flatten_once_fla
+# name: flatten_once()
+# --
+inject(Array.new) { | ${1:arr}, ${2:a}| $1.push(*$2) }

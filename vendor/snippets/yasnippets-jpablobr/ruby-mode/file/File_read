@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: File_read
+# name: File.read("..")
+# --
+File.read(${1:"${2:path/to/file}"})

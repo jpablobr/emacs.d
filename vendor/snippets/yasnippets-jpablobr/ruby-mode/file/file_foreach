@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: file_foreach
+# name: File.foreach ("..") { |line| .. }
+# --
+File.foreach(${1:"${2:path/to/file}"}) { |${3:line}| $0 }

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: step2_e_ste
+# name: step(2) { |e| .. }
+# --
+step(${1:2}) { ${2:$(if (string= yas/text "") "" "|")}${2:n}${2:$(if (string= yas/text "") "" "|")} $0 }

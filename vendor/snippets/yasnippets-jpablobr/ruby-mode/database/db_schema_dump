@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: db_schema_dump
+# type: command
+# name: Dump DB to schema.rb
+## binding: "^|"
+# --

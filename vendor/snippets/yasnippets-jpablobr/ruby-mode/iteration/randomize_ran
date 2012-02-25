@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: randomize_ran
+# name: randomize()
+# --
+sort_by { rand }

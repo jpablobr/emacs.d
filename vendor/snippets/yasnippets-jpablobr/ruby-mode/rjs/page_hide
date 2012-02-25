@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: page_hide
+# name: page.hide (*ids)
+# --
+page.hide ${1:"${2:id(s)}"}

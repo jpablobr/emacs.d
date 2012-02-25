@@ -1,5 +1,5 @@
-# Charles Magid (ChasMan or Chasmanrors)
+# -*- mode: snippet -*-
+#key: h..13
 #name : p tag 
-#group : html
 # --
 <p>$1</p>

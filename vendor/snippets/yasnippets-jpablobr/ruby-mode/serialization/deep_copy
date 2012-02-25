@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: deep_copy
+# name: deep_copy(..)
+# --
+Marshal.load(Marshal.dump(${0:obj_to_copy}))

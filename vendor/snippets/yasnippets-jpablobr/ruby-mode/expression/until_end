@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#key: until_end
+# name: until ... end
+# --
+until ${1:condition}
+	$0
+end

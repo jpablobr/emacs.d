@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: con.hash
 #name : :conditions => {}
 # --
 :conditions => { :${1:attribute} => ${2:value} }

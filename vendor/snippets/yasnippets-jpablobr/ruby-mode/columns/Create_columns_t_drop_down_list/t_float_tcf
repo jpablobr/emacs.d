@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: t_float_tcf
+# name: t.float (tcf)
+# --
+t.float :${1:title}
+t.$0

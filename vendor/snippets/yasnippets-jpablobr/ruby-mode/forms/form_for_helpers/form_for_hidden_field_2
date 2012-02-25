@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: form_for_hidden_field_2
+# name: form_for hidden_field
+# --
+<%= f.hidden_field :${1:attribute} %>

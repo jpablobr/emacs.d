@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: add_and_remove_index
+# type: command
+# name: Add / Remove Index
+# --
+(yas/rails-intelligent-migration-snippet :add_remove_index)

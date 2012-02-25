@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#key: unix_filter_uni
+# name: unix_filter { .. }
+# --
+ARGF.each_line$1 do |${2:line}|
+	$0
+end

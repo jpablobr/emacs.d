@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: controller.rceca
 #name : render_component :controller => " ... ", :action => " ... "
-#key : rceca
-#group : rails.controller
-#condition : (rails/controller?)
 # --
 render_component :controller => "${items}", :action => "${index}"

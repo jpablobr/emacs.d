@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: controller.af
 #name : after_filter :...
-#key : af
-#group : rails.controller
-#condition : (rails/controller?)
 # --
 after_filter :${filter}

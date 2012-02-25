@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+#key: respond_to_html
+# name: respond_to (html)
+# --
+respond_to do |wants|
+  wants.html do
+    `yas/selected-text`
+  end
+  wants.${1:js} { $0 }
+end

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_action_ra
+# name: render (action)
+# --
+render :action => "${1:action}"

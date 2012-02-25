@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_text_layout_rtl
+# name: render (text, layout)
+# --
+render :text => "${1:text to render...}", :layout => "${2:layoutname}"

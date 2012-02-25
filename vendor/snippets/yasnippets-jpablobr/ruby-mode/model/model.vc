@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: model.vc
 #name : validates_confirmation_of : ... 
-#key : vc
-#group : rails.model
-#condition : (rails/model?)
 # --
 validates_confirmation_of :${attr}

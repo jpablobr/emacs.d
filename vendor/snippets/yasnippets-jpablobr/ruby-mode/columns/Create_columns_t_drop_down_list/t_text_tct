@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: t_text_tct
+# name: t.text (tct)
+# --
+t.text :${1:title}
+t.$0

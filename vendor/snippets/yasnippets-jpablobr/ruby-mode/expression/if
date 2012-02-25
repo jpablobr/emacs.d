@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: if
 #name : if condition ... end
 # --
 if ${1:condition}

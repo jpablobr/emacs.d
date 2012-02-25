@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_file_rf
+# name: render (file)
+# --
+render :file => "${1:filepath}"

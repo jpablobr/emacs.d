@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#key: if2
+# name: if … end
+# --
+if ${1:condition}
+   $0
+end

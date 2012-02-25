@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: form_for_text_field
+# name: f.text_field (fftf)
+# --
+<%= f.text_field :${1:attribute} %>

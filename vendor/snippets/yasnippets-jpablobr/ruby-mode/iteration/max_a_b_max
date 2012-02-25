@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: max_a_b_max
+# name: max { |a, b| .. }
+# --
+max { |a, b| $0 }

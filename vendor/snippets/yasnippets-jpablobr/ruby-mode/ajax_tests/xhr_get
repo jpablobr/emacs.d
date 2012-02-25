@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# key: xget
+#key: xhr_get
 # name: xhr get
 # --
 xhr :get, :${1:show}${2:, :id => ${3:1}}$0

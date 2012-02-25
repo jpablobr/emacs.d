@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: times_n_tim
+# name: times { |n| .. }
+# --
+times { ${1:$(if (string= yas/text "") "" "|")}${1:n}${1:$(if (string= yas/text "") "" "|")} $0 }

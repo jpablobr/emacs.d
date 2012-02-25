@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: before
 #name : before (rspec)
 # --
 before(:each) do

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: add_and_remove_unique_index
+# type: command
+# name: Add / Remove Unique Index
+# --
+(yas/rails-intelligent-migration-snippet :add_remove_unique_index)

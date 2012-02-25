@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: t_date_tcda
+# name: t.date (tcda)
+# --
+t.date :${1:title}
+t.$0

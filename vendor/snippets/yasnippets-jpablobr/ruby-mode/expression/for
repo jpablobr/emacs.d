@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: for
 #name : for ... in ... end
 # --
 for ${1:element} in ${2:collection}

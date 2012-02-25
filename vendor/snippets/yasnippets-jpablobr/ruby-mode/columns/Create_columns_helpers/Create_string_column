@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: Create_string_column
+# name: Table column string
+# --
+t.string :${1:title}
+$0

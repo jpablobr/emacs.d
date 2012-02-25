@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_partial_status_rps
+# name: render (partial, status)
+# --
+render :partial => "${1:item}", :status => ${2:500}

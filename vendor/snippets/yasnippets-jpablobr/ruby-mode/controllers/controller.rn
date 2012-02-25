@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: controller.rn
 #name : render :nothing =>  ... 
-#key : rn
-#group : rails.controller
-#condition : (rails/controller?)
 # --
 render :nothing => ${true}

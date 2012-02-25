@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: upto
+# name: upto(1.0/0.0) { |n| .. }
+# --
+upto(${1:1.0/0.0}) { ${2:$(if (string= yas/text "") "" "|")}${2:n}${2:$(if (string= yas/text "") "" "|")} $0 }

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: collect
 #name : collect { |...| ... }
 # --
 collect { |${e}| $0 }

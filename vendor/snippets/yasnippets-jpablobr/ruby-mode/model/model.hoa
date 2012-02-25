@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: model.hoa
 #name : has_one :as
-#key : hoa
-#group : rails.model
-#condition : (rails/model?)
 # --
 has_one :${1:model}, :as => :${2:ownable}

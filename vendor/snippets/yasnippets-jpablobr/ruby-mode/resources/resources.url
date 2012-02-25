@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: resources.url
 #name : resource_url(@resource)
-#key : url
-#group : rails.resources
-#condition : (rails/cur-res-title)
 # --
 ${1:`(singularize-string (rails/cur-res-title))`}_url(@$1)

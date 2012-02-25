@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: select_e_sel
+# name: select { |e| .. }
+# --
+select { |${1:e}| $0 }

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: detect_e_det
+# name: detect { |e| .. }
+# --
+detect { |${1:e}| $0 }

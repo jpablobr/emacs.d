@@ -1,4 +1,5 @@
+# -*- mode: snippet -*-
+#key: sorb
 #name : sort_by { |e| .. }
-#group : Enumerables
 # --
 sort_by { |${e}| $0 }

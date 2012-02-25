@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: downto0_n_dow
+# name: downto(0) { |n| .. }
+# --
+downto(${1:0}) { ${2:$(if (string= yas/text "") "" "|")}${2:n}${2:$(if (string= yas/text "") "" "|")} $0 }

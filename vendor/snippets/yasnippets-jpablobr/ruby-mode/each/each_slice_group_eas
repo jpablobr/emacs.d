@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: each_slice_group_eas
+# name: each_slice(..) { |group| .. }
+# --
+each_slice(${1:2}) { |${2:group}| $0 }

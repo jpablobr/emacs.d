@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: add_and_remove_column
+# type: command
+# name: Add / Remove Column
+# --
+(yas/rails-intelligent-migration-snippet :add_remove_column)

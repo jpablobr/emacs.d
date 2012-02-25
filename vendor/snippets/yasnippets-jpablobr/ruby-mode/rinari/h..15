@@ -1,6 +1,6 @@
-# Charles Magid (ChasMan or Chasmanrors)
+# -*- mode: snippet -*-
+#key: h..15
 #name : blockquote tag 
-#group : html
 # --
 <blockquote>
   $1

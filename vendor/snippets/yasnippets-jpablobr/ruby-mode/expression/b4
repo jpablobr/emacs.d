@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: b4
 #name : before(:each) do ...
 # --
 before(:each) do

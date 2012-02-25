@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: Comp
 #name : include Comparable; def <=> ... end
 # --
 include Comparable

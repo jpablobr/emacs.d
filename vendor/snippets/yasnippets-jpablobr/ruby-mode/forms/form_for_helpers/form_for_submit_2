@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: form_for_submit_2
+# name: form_for submit
+# --
+<%= f.submit "${1:Submit}"${2:, :disable_with => '${3:$1ing...}'} %>

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: each_line_line_eal
+# name: each_line { |line| .. }
+# --
+each_line$1 { |${2:line}| $0 }

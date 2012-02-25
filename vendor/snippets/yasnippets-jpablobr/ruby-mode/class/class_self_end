@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#key: class_self_end
+# name: class << self .. end
+# --
+class << ${1:self}
+	$0
+end

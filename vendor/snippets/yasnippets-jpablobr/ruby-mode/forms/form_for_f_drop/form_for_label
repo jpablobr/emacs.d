@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: form_for_label
+# name: f.label (ffl)
+# --
+<%= f.label :${1:attribute}${2:, "${3:${1:$(capitalize (replace-regexp-in-string "_" " " yas/text))}}"} %>

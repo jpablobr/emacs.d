@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+#key: Make_Selection_in_to_Partial
+# type: command
+# name: Create Partial From Selection
+## binding: "^H"
+# --
+(call-interactively 'yas/rails-extract-partial)

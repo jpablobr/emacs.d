@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_partial_collection_rpc
+# name: render (partial, collection)
+# --
+render :partial => "${1:item}", :collection => ${2:@$1s}

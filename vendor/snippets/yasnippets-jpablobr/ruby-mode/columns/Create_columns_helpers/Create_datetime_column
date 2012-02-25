@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: Create_datetime_column
+# name: Table column datetime
+# --
+t.datetime :${1:title}
+$0

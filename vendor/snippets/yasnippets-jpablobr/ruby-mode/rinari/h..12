@@ -1,6 +1,6 @@
-# Charles Magid (ChasMan or Chasmanrors)
+# -*- mode: snippet -*-
+#key: h..12
 #name : ol tag 
-#group : html
 # --
 
 <ol>

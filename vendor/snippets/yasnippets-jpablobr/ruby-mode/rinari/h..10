@@ -1,5 +1,5 @@
-# Charles Magid (ChasMan or Chasmanrors)
+# -*- mode: snippet -*-
+#key: h..10
 #name : h6 tag 
-#group : html
 # --
 <h6>$1</h6>

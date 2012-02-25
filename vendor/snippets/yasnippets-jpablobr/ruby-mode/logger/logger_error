@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: logger_error
+# name: logger.error
+# --
+logger.error { "${1:message}" }$0

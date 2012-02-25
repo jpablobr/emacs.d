@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: before_destroy
+# name: before_destroy
+# --
+before_destroy 

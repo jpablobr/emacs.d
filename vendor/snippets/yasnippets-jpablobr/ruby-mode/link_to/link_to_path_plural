@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: link_to_path_plural
+# name: link_to (path plural)
+# --
+<%= link_to ${1:"${2:link text...}"}, ${3:${4:model}s_path} %>

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: t_boolean_tcb
+# name: t.boolean (tcb)
+# --
+t.boolean :${1:title}
+t.$0

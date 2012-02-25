@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: form_for_text_area_2
+# name: form_for text_area
+# --
+<%= f.text_area :${1:attribute} %>

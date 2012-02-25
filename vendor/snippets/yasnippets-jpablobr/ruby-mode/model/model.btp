@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: model.btp
 #name : belongs_to :polymorphic
-#key : btp
-#group : rails.model
-#condition : (rails/model?)
 # --
 belongs_to :${1:ownable}, :polymorphic => true

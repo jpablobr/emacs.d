@@ -1,6 +1,6 @@
-# Charles Magid (ChasMan or Chasmanrors)
+# -*- mode: snippet -*-
+#key: h..18
 #name : tr tag 
-#group : html
 # --
 <tr>
   $0

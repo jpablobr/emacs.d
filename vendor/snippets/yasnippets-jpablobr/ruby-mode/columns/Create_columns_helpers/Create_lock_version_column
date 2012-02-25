@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: Create_lock_version_column
+# name: Table column lock_version
+# --
+t.integer :lock_version, :null => false, :default => 0
+$0

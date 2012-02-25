@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: rake_migrate
+# type: command
+# name: Migrate to Current
+## binding: "^|"
+# --

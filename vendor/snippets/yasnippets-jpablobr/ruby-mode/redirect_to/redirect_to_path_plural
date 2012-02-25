@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: redirect_to_path_plural
+# name: redirect_to (path plural)
+# --
+redirect_to(${2:${10:model}s_path})

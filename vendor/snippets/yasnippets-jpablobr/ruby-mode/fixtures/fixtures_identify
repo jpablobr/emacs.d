@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: fixtures_identify
+# name: <%= Fixtures.identify(:symbol) %>
+# --
+<%= Fixtures.identify(:${1:name}) %>$0

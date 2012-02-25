@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: controller.rit
 #name : render :inline => " ... ", :type => : ... )
-#key : rit
-#group : rails.controller
-#condition : (rails/controller?)
 # --
 render :inline => "${<%= 'hello' %>}", :type => :${rxml})

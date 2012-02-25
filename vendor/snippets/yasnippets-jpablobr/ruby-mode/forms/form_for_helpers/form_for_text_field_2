@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: form_for_text_field_2
+# name: form_for text_field
+# --
+<%= f.text_field :${1:attribute} %>

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: t_time_tcti
+# name: t.time (tcti)
+# --
+t.time :${1:title}
+t.$0

@@ -1,6 +1,5 @@
-# This was cloned from a TextMate bundle for yasnippet.
-# Charles Magid
+# -*- mode: snippet -*-
+#key: %%
 #name : %%
-#group : views
 # --
 <%= $1 %>

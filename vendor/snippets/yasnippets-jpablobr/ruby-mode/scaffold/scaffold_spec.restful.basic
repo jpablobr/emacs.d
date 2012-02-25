@@ -1,7 +1,6 @@
+# -*- mode: snippet -*-
+#key: scaffold_spec.restful.basic
 #name : generating a RESTful controller spec
-#key : restful.basic_spec
-#group : rails.scaffold_spec
-#condition : (rails/controller-spec?)
 # --
 $0
 before(:each) do

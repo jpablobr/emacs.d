@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: yields_rdoc_comment
+# name: :yields:
+# --
+ :yields: ${1:arguments}

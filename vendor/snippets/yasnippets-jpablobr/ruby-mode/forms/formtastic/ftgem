@@ -1,3 +1,4 @@
-# This was cloned from a TextMate bundle for yasnippet.
+# -*- mode: snippet -*-
+#key: ftgem
 # --
 config.gem 'formtastic', :source => 'http://gemcutter.org'$0

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+#key: class_Struct_initialize_end
+# name: ClassName = Struct .. do .. end
+# --
+${1:`(yas/ruby-infer-class-name)`} = Struct.new(:${2:attr_names}) do
+  def ${3:method_name}
+    $0
+  end	
+end

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: t_binary_tcbi
+# name: t.binary (tcbi)
+# --
+t.binary :${1:title}${2:, :limit => ${3:2}.megabytes}
+t.$0

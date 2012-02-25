@@ -1,6 +1,5 @@
+# -*- mode: snippet -*-
+#key: migration.tbin
 #name : t.binary
-#key : tbin
-#group : rails.migration
-#condition : (rails/migration?)
 # --
 t.binary :${1:name}

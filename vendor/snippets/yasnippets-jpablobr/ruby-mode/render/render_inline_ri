@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: render_inline_ri
+# name: render (inline)
+# --
+render :inline => "${1:<%= 'hello' %>}"

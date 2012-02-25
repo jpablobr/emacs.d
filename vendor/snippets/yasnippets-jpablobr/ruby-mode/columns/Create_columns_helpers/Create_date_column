@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+#key: Create_date_column
+# name: Table column date
+# --
+t.date :${1:title}
+$0
