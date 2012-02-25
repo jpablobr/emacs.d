@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: def test_ .. end
 ## condition: "source.ruby"
 # --
