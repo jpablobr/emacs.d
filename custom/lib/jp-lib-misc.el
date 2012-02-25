@@ -3,8 +3,9 @@
 
 (defun jp-byte-recompile-home ()
   (interactive)
-  (jp-rm-elc-files)
-  (byte-recompile-directory "~/.emacs.d/" 0)
+  (progn
+    (jp-rm-elc-files)
+    (byte-recompile-directory "~/.emacs.d/" 0))
   (message "compiled directory ~/.emacs.d"))
 
 (defun jp-byte-recompile-current-file ()
@@ -244,10 +245,11 @@
 
 (defun jp-tork ()
   (interactive)
-  (let (buffer (ansi-term "bash" (concat "*Tork @ " (jp-home-path) " *"))
-               (comint-send-string "tork-process" "tork\n")))
-  (let (log-buffer (ansi-term "bash" (concat "*Tork-logs @ " (jp-home-path) " *"))
-                   (comint-send-string "tork-log-process" "cd ~/var/log/ && tail -f *.log\n"))))
+  (setq app-dir (find-git-repo default-directory))
+  (let ((buffer (shell (concat "*Tork @ " (jp-home-path) " *"))))
+    (comint-send-string buffer (concat "cd " app-dir " && tork\n")))
+  (let ((buffer (shell (concat "*Tork-logs @ " (jp-home-path) " *"))))
+    (comint-send-string buffer (concat "cd " app-dir "/log &&  tail -f *.log\n"))))
 
 (defun jp-logs-summary ()
   (interactive)
