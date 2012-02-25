@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+name : assert_redirected_to
+# --
+assert_redirected_to :controller => "${1:controller}"

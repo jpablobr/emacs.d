@@ -1,4 +1,3 @@
-# -*- mode: ruby; require-final-newline: nil; backup-inhibited: t -*-
 #name: lerror
 # --
 log_error(self, __method__, caller, e, {})$0

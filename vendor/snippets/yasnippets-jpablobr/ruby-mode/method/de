@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# --
+def ${1:method_name}
+  ${2:body}
+end

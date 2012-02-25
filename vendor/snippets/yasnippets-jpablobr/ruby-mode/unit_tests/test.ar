@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+name : assert_raises
+# --
+assert_raises ${1:Exception} { \$. }

@@ -1,4 +1,3 @@
-# -*- mode: ruby; require-final-newline: nil; backup-inhibited: t -*-
 #name: should_not exist
 # --
 ${1:actual}.should_not exist

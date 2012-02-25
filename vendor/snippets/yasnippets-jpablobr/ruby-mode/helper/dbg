@@ -1,4 +1,3 @@
-# -*- mode: ruby; require-final-newline: nil; backup-inhibited: t -*-
 #name: puts "DBG: var=value"
 # --
 puts "DBG: $1=#{${1:var}.inspect}"$0

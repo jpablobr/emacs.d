@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+#name : assert_not_nil
+# --
+assert_not_nil ${1:object}

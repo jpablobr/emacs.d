@@ -1,4 +1,3 @@
-# -*- mode: ruby; require-final-newline: nil; backup-inhibited: t -*-
 #name: ldbg
 # --
 log_debug(self, __method__, caller, __FILE__, __LINE__,

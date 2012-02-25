@@ -1,0 +1,3 @@
+# name: system%q
+# --
+system %Q{ $0 }

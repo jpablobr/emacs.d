@@ -21,11 +21,11 @@
 
 (defun jp-insert-name ()
   (interactive)
-  (insert user-full-name))
+  (insert "José Pablo Barrantes Ramírez"))
 
 (defun jp-insert-email ()
   (interactive)
-  (insert user-mail-address))
+  (insert "xjpablobrx@gmail.com"))
 
 (defun jp-insert-lorem ()
   (interactive)

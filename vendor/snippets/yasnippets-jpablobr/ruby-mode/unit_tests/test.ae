@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+name : assert_equal
+# --
+assert_equal ${1:expected}, ${2:actual}

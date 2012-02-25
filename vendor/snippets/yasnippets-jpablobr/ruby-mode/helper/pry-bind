@@ -1,4 +1,3 @@
-# -*- mode: snippet -*-
 # name: pry-bind
 # --
 binding.pry

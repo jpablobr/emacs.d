@@ -1,4 +1,3 @@
-# -*- mode: ruby; require-final-newline: nil; backup-inhibited: t -*-
 #name: flexmock(...)
 # --
 flexmock(${1:object})$0

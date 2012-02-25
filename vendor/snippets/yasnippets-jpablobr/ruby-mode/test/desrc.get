@@ -1,5 +1,4 @@
-#-*- require-final-newline: nil -*-
-#contributor: gary <ge.iams@gmail.com>
+# -*- mode: snippet -*-
 #name : describe (RESTful Controller): GET
 # --
 require File.direname(__FILE__) + '/.../spec_helper'

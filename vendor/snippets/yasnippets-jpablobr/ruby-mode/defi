@@ -1,6 +1,0 @@
-# -*- mode: snippet -*-
-# name: initialize
-# --
-def initialize
-    $0
-end

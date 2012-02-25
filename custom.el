@@ -7,7 +7,7 @@
  '(git-baseline-alist (quote (("/home/jpablobr/bin/playr/" . "master"))) t)
  '(git-state-modeline-decoration (quote git-state-decoration-colored-letter))
  '(git-working-dir-change-behaviour (quote git-refresh-all-saved))
- '(safe-local-variable-values (quote ((encoding . utf-8))))
+ '(safe-local-variable-values (quote ((backup-inhibited . t) (require-final-newline) (encoding . utf-8))))
  '(send-mail-function (quote sendmail-send-it))
  '(vc-follow-symlinks t))
 (custom-set-faces

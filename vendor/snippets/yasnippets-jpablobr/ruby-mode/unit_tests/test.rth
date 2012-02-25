@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+# -*- mode: snippet -*-
+name : require_test_helper
+# --
+require File.dirname(__FILE__) + '/../test_helper'

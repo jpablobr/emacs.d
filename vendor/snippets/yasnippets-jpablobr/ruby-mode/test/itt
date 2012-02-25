@@ -1,4 +1,5 @@
-#name : itt "..."
+# -*- mode: snippet -*-
+# name : itt "..."
 # --
 it "$1"
 $0

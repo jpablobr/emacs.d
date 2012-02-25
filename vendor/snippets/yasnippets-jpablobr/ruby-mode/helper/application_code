@@ -1,0 +1,6 @@
+# key: app
+# name: application { .. }
+# --
+if __FILE__ == \$PROGRAM_NAME
+	$0
+end

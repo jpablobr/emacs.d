@@ -1,4 +1,5 @@
-#name : it "should be rspec"
+# -*- mode: snippet -*-
+# name : it "should be rspec"
 # --
 it "$1" do
   $0

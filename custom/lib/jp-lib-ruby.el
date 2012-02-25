@@ -58,7 +58,7 @@
   (interactive)
   (let ((buffer (shell (concat "*Rails Console @ " (jp-home-path) "*"))))
     (font-lock-mode)
-    (comint-send-string buffer "pry -r ./config/environment")))
+    (comint-send-string buffer "pry -r ./config/environment\n")))
 
 (defun jp-rails-root (&optional dir)
   (or dir (setq dir default-directory))
@@ -99,6 +99,7 @@
   (interactive)
   (jp-load-haml-scss)
   (setq new-file-name (replace-regexp-in-string ".erb" ".haml" buffer-file-name))
+  ;; (async-shell-command (concat "html2haml -e" buffer-file-name new-file-name))
   (call-process "html2haml" nil "-e" nil buffer-file-name new-file-name)
   (if (file-exists-p new-file-name)
       (find-file new-file-name)

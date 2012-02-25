@@ -1,0 +1,4 @@
+# -*- mode: snippet -*-
+# name: assert(var = assigns(:var))
+# --
+assert(${1:var} = assigns(:$1), "Cannot find @$1")

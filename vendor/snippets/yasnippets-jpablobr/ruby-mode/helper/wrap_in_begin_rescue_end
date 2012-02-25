@@ -1,0 +1,12 @@
+# name: begin … rescue … end
+# --
+begin
+  `(or yas/selected-text
+       (and cua-mode
+            (prog1
+               (get-register ?0)
+               (set-register ?0 nil)))
+       (car kill-ring))`$3
+rescue ${1:Exception}${2:$(if (string= yas/text "") "" " => ")}${2:e}
+  $0
+end

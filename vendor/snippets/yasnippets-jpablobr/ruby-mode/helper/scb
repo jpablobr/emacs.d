@@ -1,4 +1,3 @@
-# -*- mode: ruby; require-final-newline: nil; backup-inhibited: t -*-
 #name: should_change by
 # --
 should_change "${1:expression}", :by => ${2:amount}
