@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: cat
 # name: cat-here-doc
 # --
 cat <<EOT

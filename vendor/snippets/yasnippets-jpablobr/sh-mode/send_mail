@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: send_mail
 # name: send_mail
 # --
 send_mail() {

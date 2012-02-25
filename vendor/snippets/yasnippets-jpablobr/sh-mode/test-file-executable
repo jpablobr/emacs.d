@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: test-file-executable
 # name: test-file-executable
 # --
 [ -x ${1:file} ]$0

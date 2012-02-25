@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: elif
 #name : elif ...
 # --
 elif [ ${1:condition} ]; then

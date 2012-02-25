@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: installed
 # name: installed
 # --
 installed() {

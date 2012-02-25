@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: test-file
 # name: test-file-exists
 # --
 [ -f ${1:file} ]$0

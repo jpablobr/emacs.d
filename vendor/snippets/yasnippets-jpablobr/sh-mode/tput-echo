@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: tput-echo
 # name: tput-echo
 # --
 echo "\$(tput setap 1) $1 \$(tput op)"$0

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: printf-args
 # name: printf-args
 # --
 printf "Remaining arguments are: %s\n" "$*"

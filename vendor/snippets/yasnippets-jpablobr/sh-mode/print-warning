@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: print-warning
 # name: printf-warning
 # --
 printf "\e[0;37;41m${1:what}\e[0m\n"$0

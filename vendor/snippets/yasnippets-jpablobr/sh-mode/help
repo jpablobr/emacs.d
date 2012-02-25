@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: help
 # name: help
 # --
 usage() {

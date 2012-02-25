@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: counter
 # name: counter
 # --
 counter=0$0

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: test-arg1
 # name: arg1-test
 # --
 [ -z "\$1" ] && {

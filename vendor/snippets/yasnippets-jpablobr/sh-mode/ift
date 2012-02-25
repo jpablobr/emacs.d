@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ift
 #name : if [ test ] ... fi
 # --
 if [ ${1:condition} ]; then

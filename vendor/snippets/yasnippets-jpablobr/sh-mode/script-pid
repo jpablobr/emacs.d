@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: script-pid
 # name: script-pid
 # --
 tmp_pid=/tmp/\$(basename \$0)-\$\$

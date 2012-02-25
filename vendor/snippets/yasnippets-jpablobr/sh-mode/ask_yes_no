@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: ask_yes_no
 # name: ask_yes_no
 # --
 ask_yes_no () {

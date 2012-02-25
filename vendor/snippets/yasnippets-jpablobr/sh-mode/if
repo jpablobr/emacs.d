@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: if
 #name : if [ ... ] then ... fi
 # --
 if [ $1 ]; then

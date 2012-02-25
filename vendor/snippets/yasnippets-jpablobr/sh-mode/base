@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: base
 # name: base
 # --
 set -e

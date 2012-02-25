@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: env
 #name : #!/usr/bin/env $SHELL
 # --
 #!/usr/bin/env `(file-name-nondirectory (getenv "SHELL"))`

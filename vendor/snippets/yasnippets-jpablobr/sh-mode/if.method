@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: if.method
 #name : if function then ... fi
 # --
 if \$(${1:function_name}); then

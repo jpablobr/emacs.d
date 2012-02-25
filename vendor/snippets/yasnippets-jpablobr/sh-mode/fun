@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: fun
 # name: fun
 # --
 ${1:fun_name}() {

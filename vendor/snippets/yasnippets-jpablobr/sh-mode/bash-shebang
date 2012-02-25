@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: bash-shebang
 # name: bash-shebang
 # --
 #!/bin/bash

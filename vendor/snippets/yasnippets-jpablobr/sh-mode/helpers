@@ -1,8 +1,9 @@
+# -*- mode: snippet -*-
+#key: helpers
 # name: helpers
 # --
 
 # Helpers
-# -------
 
 # Helpers for printing to `standard output`.
 _print_info() {

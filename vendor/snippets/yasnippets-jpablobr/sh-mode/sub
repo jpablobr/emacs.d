@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: sub
 # name: sub-shell
 # --
 \$($1)$0

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: tput
 # name: tput
 # --
 \$(tput $1)$0

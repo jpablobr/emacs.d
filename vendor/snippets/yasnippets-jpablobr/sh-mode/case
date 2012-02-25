@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: case
 #name : case ... esac
 # --
 case ${1:word} in

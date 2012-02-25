@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: e
 #name : echo ...
 # --
 echo -e ${1:what}

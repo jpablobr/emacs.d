@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: tput-colors-table
 # name: tput-colors-table
 # --
 #  color     tput-command-colors

@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: mode
 # name: mode
 # --
 # -*- mode: shell-script -*-

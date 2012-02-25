@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: while
 #name : while ... done
 # --
 while [ ${1:condition} ]; do

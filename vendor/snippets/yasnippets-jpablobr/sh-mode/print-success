@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: print-success
 # name: printf-success
 # --
 printf "\e[0;37;42m ${1:what} \e[0m\n"$0

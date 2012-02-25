@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: until
 #name : until ... done
 # --
 until [ ${1:condition} ]; do
