@@ -1,3 +1,5 @@
+# -*- mode: snippet -*-
+#key: def_delegators
 # name: def_delegators ..
 # --
 def_delegators :${1:@del_obj}, :${0:del_methods}

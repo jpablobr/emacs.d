@@ -1,5 +1,6 @@
+# -*- mode: snippet -*-
+#key: deft
 # name: def test_ .. end
-## condition: "source.ruby"
 # --
 def test_${1:case_name}
   $0
