@@ -358,7 +358,7 @@
            (thing-at-point 'symbol))))
   (async-shell-command (concat "cd "
                                (find-git-repo default-directory)
-                               " && git add . && git commit -am \""
+                               " && git add . && git commit -vam \""
                                what
                                "\" && git status")))
 
