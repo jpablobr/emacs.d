@@ -344,4 +344,18 @@
         dir
       (anything-git-grep-find-repo (expand-file-name "../" dir)))))
 
+(defun jp-git-push ()
+  (interactive)
+  (async-shell-command "~/bin/g -p"))
+
+(defun jp-git-commit ()
+  (interactive)
+  (setq what
+        (read-from-minibuffer
+         "Commit msg: "
+         (if (and transient-mark-mode mark-active)
+             (buffer-substring-no-properties (region-beginning) (region-end))
+           (thing-at-point 'symbol))))
+  (async-shell-command (concat "~/bin/g -c" what)))
+
 (provide 'jp-lib-misc)
