@@ -5,10 +5,11 @@
   (interactive
    (let (what)
      (setq what
-           (read-from-minibuffer "Grep for: "
-                                 (if (and transient-mark-mode mark-active)
-                                     (buffer-substring-no-properties (region-beginning) (region-end))
-                                   (thing-at-point 'symbol))))
+           (read-from-minibuffer
+            "Grep for: "
+            (if (and transient-mark-mode mark-active)
+                (buffer-substring-no-properties (region-beginning) (region-end))
+              (thing-at-point 'symbol))))
      (compilation-start (format jp-grep-cmd dotfiles-dir what)
                         'grep-mode))))
 
@@ -16,10 +17,11 @@
   (interactive
    (let (what)
      (setq what
-           (read-from-minibuffer "Grep for: "
-                                 (if (and transient-mark-mode mark-active)
-                                     (buffer-substring-no-properties (region-beginning) (region-end))
-                                   (thing-at-point 'symbol))))
+           (read-from-minibuffer
+            "Grep for: "
+            (if (and transient-mark-mode mark-active)
+                (buffer-substring-no-properties (region-beginning) (region-end))
+              (thing-at-point 'symbol))))
      (compilation-start (format jp-grep-cmd
                                 (jp-find-git-repo default-directory)
                                 what)

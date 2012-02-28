@@ -356,6 +356,10 @@
          (if (and transient-mark-mode mark-active)
              (buffer-substring-no-properties (region-beginning) (region-end))
            (thing-at-point 'symbol))))
-  (async-shell-command (concat "~/bin/g -c" what)))
+  (async-shell-command (concat "cd "
+                               (find-git-repo default-directory)
+                               " && git add . && git commit -am \""
+                               what
+                               "\" && git status")))
 
 (provide 'jp-lib-misc)
