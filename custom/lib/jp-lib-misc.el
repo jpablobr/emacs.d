@@ -346,7 +346,8 @@
 
 (defun jp-git-push ()
   (interactive)
-  (async-shell-command "~/bin/g -p"))
+  (setq what (read-from-minibuffer "Commit msg: "))
+  (async-shell-command (concat "~/bin/g -p " what)))
 
 (defun jp-git-commit ()
   (interactive)
