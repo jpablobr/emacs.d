@@ -320,10 +320,6 @@
     (replace-match "" t t nil 0)
     (forward-char 1))
   (goto-char 1)
-  (while (re-search-forward "\\(^-- DEPRECATION WARNING --.*\\)" nil t)
-    (replace-match "" t t nil 0)
-    (forward-char 1))
-  (goto-char 1)
   (while (re-search-forward "\\(^\\s-*$\\)\n" nil t)
     (replace-match "" t t nil 0)
     (forward-char 1))
@@ -346,8 +342,8 @@
 
 (defun jp-git-push ()
   (interactive)
-  (setq what (read-from-minibuffer "Commit msg: "))
-  (async-shell-command (concat "~/bin/g -p " what)))
+  (setq repo (read-from-minibuffer "Commit repo: "))
+  (async-shell-command (concat "~/bin/g -p " repo)))
 
 (defun jp-git-commit ()
   (interactive)
@@ -359,8 +355,8 @@
            (thing-at-point 'symbol))))
   (async-shell-command (concat "cd "
                                (find-git-repo default-directory)
-                               " && git add . && git commit -vam \""
+                               " && git add . && git commit -vam '"
                                what
-                               "\" && git status")))
+                               "' && git status")))
 
 (provide 'jp-lib-misc)

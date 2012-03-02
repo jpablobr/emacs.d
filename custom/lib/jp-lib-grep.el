@@ -23,7 +23,7 @@
                 (buffer-substring-no-properties (region-beginning) (region-end))
               (thing-at-point 'symbol))))
      (compilation-start (format jp-grep-cmd
-                                (jp-find-git-repo default-directory)
+                                (find-git-repo default-directory)
                                 what)
                         'grep-mode))))
 

@@ -73,7 +73,7 @@
   (compilation-start
    (concat
     "cd "
-    (jp-find-git-repo default-directory)
+    (find-git-repo default-directory)
     " && find $(echo $GEM_PATH | cut -d: -f1) -type f -name '*.rb' | ctags -e --verbose=yes -L -")))
 
 (defun jp-rctags-project ()
@@ -81,7 +81,7 @@
   (compilation-start
    (concat
     "cd "
-    (jp-find-git-repo default-directory)
+    (find-git-repo default-directory)
     " && find $(pwd) -type f -name '*.rb' | ctags -e --verbose=yes -L -")))
 
 (defun jp-ruby-xmp-region (reg-start reg-end)

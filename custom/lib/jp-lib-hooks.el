@@ -7,6 +7,7 @@
              (testr-mode)
              (linum-mode)
              (inf-ruby-keys)
+             (font-lock-add-keywords nil jp-show-tabs)
              (font-lock-add-keywords
               nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
                      1 font-lock-warning-face  prepend)))
@@ -64,6 +65,7 @@
              (highlight-parentheses-mode t)
              (highlight-symbol-mode t)
              (setq show-trailing-whitespace t)
+             (font-lock-add-keywords nil jp-show-tabs)
              (font-lock-add-keywords
               nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
                      1 font-lock-keyword-face prepend)))
@@ -147,8 +149,9 @@
 
 (add-hook 'ibuffer-mode-hook
           '(lambda ()
-             (local-set-key (kbd "M-o") 'other-window)
-))
+             (local-set-key (kbd "M-o") 'other-window)))
+
+(add-hook 'clojure-mode-hook 'turn-on-paredit)
 
 (add-hook 'lua-mode-hook 'flymake-lua-load)
 

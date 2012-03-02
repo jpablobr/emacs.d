@@ -11,15 +11,15 @@
             "/anything-git-grep/anything-git-grep.el"))
 (load-file (concat
             anything-dir
-            "/anything-yasnippet-2/anything-yasnippet-2.el"))
+            "/anything-git-goto/anything-git-goto.el"))
 (load-file (concat
             anything-dir
-            "/anything-git-goto/anything-git-goto.el"))
+            "/anything-etags2/anything-etags2.el"))
 
 (require 'anything-shell-commands)
 (require 'anything-git-grep)
-(require 'anything-yasnippet-2)
 (require 'anything-git-goto)
+(require 'anything-etags2)
 
 (defun jp-anything-regexp ()
   (interactive)
@@ -68,7 +68,7 @@
   (interactive)
   (setq buffer-name "*Anything etags*")
   (anything-other-buffer
-   '(anything-c-source-etags-select)
+   '(anything-c-source-etag-select)
    buffer-name)
   (kill-buffer buffer-name))
 

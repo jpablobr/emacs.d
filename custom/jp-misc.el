@@ -16,39 +16,6 @@
   (set-terminal-coding-system 'utf-8)
   (prefer-coding-system 'utf-8))
 
-(require 'highlight-parentheses)
-(require 'highlight-symbol)
-(require 'cheat-fu)
-(require 'xclip)
-(require 're-builder)
-(require 'autopair)
-(require 'deft)
-(require 'cheat-fu-deft)
-(require 'uniquify)
-(require 'face-list)
-;; (require 'anything)
-;; (require 'anything-config)
-(require 'epa-file)
-(require 'insert-time)
-
-;; (add-to-list 'load-path (concat misc-dir "/enotify"))
-;; (require 'enotify)
-;; (enotify-minor-mode t)
-
-(require 'edit-server)
-(edit-server-start)
-
-(autoload 'asciidoc-mode "asciidoc-mode" nil t)
-(autoload 'xub-mode "xub-mode" "Load xub-mode for browsing Unicode." t)
-(autoload 'reftex-mode     "reftex" "RefTeX Minor Mode" t)
-(autoload 'turn-on-reftex  "reftex" "RefTeX Minor Mode" nil)
-(autoload 'reftex-citation "reftex-cite" "Make citation" nil)
-(autoload 'reftex-index-phrase-mode "reftex-index" "Phrase mode" t)
-(add-to-list 'auto-mode-alist '("\\.asciidoc$" . asciidoc-mode))
-
-(setq scroll-step           1
-      scroll-conservatively 10000)
-
 (defalias 'yes-or-no-p 'y-or-n-p)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -59,6 +26,8 @@
 (transient-mark-mode t)
 (recentf-mode t)
 (auto-compression-mode t)
+(setq scroll-step 1)
+(setq scroll-conservatively 10000)
 (setq require-final-newline t)
 (setq x-select-enable-clipboard t)
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
@@ -95,21 +64,12 @@
                 )
               auto-mode-alist))
 
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
-(add-to-list 'auto-mode-alist '("\\.mdown\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
-(add-to-list 'auto-mode-alist '("\\.ronn\\'" . markdown-mode))
-
 (when window-system
   (mouse-wheel-mode t)
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (tooltip-mode -1)
   (tool-bar-mode -1)
   (blink-cursor-mode -1))
-
-(autoload 'change-case "change-case" t)
-(autoload 'xrdb-mode "xrdb-mode" "Mode for editing X resource files" t)
 
 (defface extra-whitespace-face
   '((t (:background "red")))
@@ -118,15 +78,6 @@
   '(("\t" . 'extra-whitespace-face)))
 (font-lock-add-keywords nil jp-show-tabs)
 (standard-display-ascii ?\t "⌥")
-
-(add-hook 'emacs-lisp-mode-hook
-          (lambda () (font-lock-add-keywords nil jp-show-tabs)))
-(add-hook 'ruby-mode-hook
-          (lambda () (font-lock-add-keywords nil jp-show-tabs)))
-(add-hook 'markdown-mode-hook
-          (lambda () (font-lock-add-keywords nil jp-show-tabs)))
-(add-hook 'sh-mode-hook
-          (lambda () (font-lock-add-keywords nil jp-show-tabs)))
 
 ;; (setq debug-on-error t)
 
