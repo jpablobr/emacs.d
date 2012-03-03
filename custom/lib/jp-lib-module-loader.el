@@ -107,6 +107,15 @@
   (require 'anything-yasnippet-2)
   (yas/minor-mode))
 
+(defun load-skype-mode ()
+  (interactive)
+  (setq skype-dir (concat misc-dir "/emacs-skype"))
+  (add-to-list 'load-path skype-dir)
+  (load-file (concat skype-dir "/skype.el"))
+  (require 'skype)
+  (setq skype--my-user-handle "jose_pablo_barrantes")
+  (skype--init))
+
 (defun load-clojure-mode ()
   (interactive)
   (require 'clojure-mode))
