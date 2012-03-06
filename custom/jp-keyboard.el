@@ -57,8 +57,16 @@
 (global-set-key (kbd "C-c in") 'insert-name)
 (global-set-key (kbd "C-c id") 'insert-date)
 
+
 ;;; \C-l redefined
 (global-unset-key "\C-l")
+
+;; hide/show
+(global-set-key (kbd "C-l ha") 'hs-hide-all)
+(global-set-key (kbd "C-l sa") 'hs-show-all)
+(global-set-key (kbd "C-l hb") 'hs-hide-block)
+(global-set-key (kbd "C-l sb") 'hs-show-block)
+
 (global-set-key (kbd "C-l at") 'anything-top)
 (global-set-key (kbd "C-l ac") 'jp-add-buffer-cleanup)
 (global-set-key (kbd "C-l ab") 'anything-browse-code)
@@ -90,8 +98,6 @@
 (global-set-key (kbd "C-l js") 'jp-clear-shell-buffer)
 (global-set-key (kbd "C-l jt") 'jp-term)
 (global-set-key (kbd "C-l jy") 'jp-load-yasnippets)
-(global-set-key (kbd "C-l ha") 'hs-hide-all)
-(global-set-key (kbd "C-l hs") 'hs-show-all)
 (global-set-key (kbd "C-l hl") 'hs-toggle-hiding)
 (global-set-key (kbd "C-l ll") 'end-of-buffer)
 (global-set-key (kbd "C-l lk") 'tex-compile)

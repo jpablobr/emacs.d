@@ -359,4 +359,56 @@
                                what
                                "' && git status")))
 
+(defun cmt-insert-bar-dots ()
+  (interactive)
+  (cmt-insert-bar-line ". "))
+
+(defun cmt-insert-bar-heavy ()
+  (interactive)
+  (cmt-insert-bar-line "="))
+
+(defun cmt-insert-bar-hash ()
+  (interactive)
+  (cmt-insert-bar-line "#"))
+
+(defun cmt-insert-bar-light ()
+  (interactive)
+  (cmt-insert-bar-line "-"))
+
+(defun cmt-insert-bar-star ()
+  (interactive)
+  (cmt-insert-bar-line "*"))
+
+(defun cmt-insert-bar-hash ()
+  (interactive)
+  (cmt-insert-bar-line "#"))
+
+(defun snip ()
+  (interactive)
+  (insert-string "--><--snip--><---")
+  (cmt-insert-bar-light)
+  (insert-string "\n"))
+
+(defvar cmt-bar-column 70
+  "Column to extend comment bars to")
+
+(defun cmt-insert-bar-line (char)
+  (end-of-line)
+  (if (< (current-column) cmt-bar-column)
+      (progn
+        (if (> (current-column) 0)
+            (progn
+              (backward-char)
+              (if (looking-at (concat "[ \t" char "]"))
+                  (end-of-line)
+                (end-of-line)
+                (insert-string " "))))
+        (while (< (current-column) cmt-bar-column)
+          (insert-string char))))
+  (while (and (> (current-column) cmt-bar-column)
+              (save-excursion
+                (backward-char)
+                (looking-at char)))
+    (backward-delete-char-untabify 1)))
+
 (provide 'jp-lib-misc)

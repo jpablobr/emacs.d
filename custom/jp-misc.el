@@ -26,6 +26,8 @@
 (transient-mark-mode t)
 (recentf-mode t)
 (auto-compression-mode t)
+(setq anything-ruby-mthds-object-cmd
+      "/home/jpablobr/.rvm/gems/ruby-1.9.3-p0@global/bin/mthdspool -o %s -f %s")
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
 (setq require-final-newline t)

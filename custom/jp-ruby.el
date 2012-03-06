@@ -3,6 +3,7 @@
 (load-file (concat jpablobr-lib "/jp-lib-ruby.el"))
 (load-file (concat ruby-dir "/ruby-comint/ruby-comint.el"))
 (load-file (concat ruby-dir "/anything-rake/anything-rake.el"))
+(load-file (concat ruby-dir "/anything-ruby-mthds/anything-ruby-mthds.el"))
 (load-file (concat ruby-dir "/yari/yari.el"))
 (load-file (concat ruby-dir "/testr/testr.el"))
 
@@ -16,8 +17,8 @@
 (require 'ruby-comint)
 (require 'ruby-style)
 (require 'flymake-ruby)
-(require 'ruby-hacks)
 (require 'anything-rake)
+(require 'anything-ruby-mthds)
 (require 'yari)
 (require 'yaml-mode)
 (require 'rcodetools)
