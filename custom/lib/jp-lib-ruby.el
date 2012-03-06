@@ -44,11 +44,12 @@
 
 (defun jp-pry-current-file ()
   (interactive)
-  (let ((buffer (shell (concat"*Pry @ " current-file "*"))))
+  (setq full-file-name (file-truename buffer-file-name))
+  (let ((buffer (shell (concat "*Pry @ " full-file-name "*"))))
     (font-lock-mode)
     (comint-send-string buffer (concat
-                                "echo;pry -Ilib -r ./"
-                                current-file "\n"))))
+                                "echo;pry -Ilib -r "
+                                full-file-name " \n"))))
 
 (defun jp-pry ()
   (interactive)

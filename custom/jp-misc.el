@@ -27,7 +27,9 @@
 (recentf-mode t)
 (auto-compression-mode t)
 (setq anything-ruby-mthds-object-cmd
-      "/home/jpablobr/.rvm/gems/ruby-1.9.3-p0@global/bin/mthdspool -o %s -f %s")
+      "~/Dropbox/code/ruby/gems/mthdspool/bin/mthdspool -o %s -f %s ")
+(setq anything-ruby-inspect-cmd
+      "~/Dropbox/code/ruby/gems/mthdspool/bin/mthdspool -d %s -r %s -l %s ")
 (setq scroll-step 1)
 (setq scroll-conservatively 10000)
 (setq require-final-newline t)
