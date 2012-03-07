@@ -27,7 +27,7 @@
 (recentf-mode t)
 (auto-compression-mode t)
 (setq anything-ruby-mthds-object-cmd
-      "~/Dropbox/code/ruby/gems/mthdspool/bin/mthdspool -o %s -f %s ")
+      "~/Dropbox/code/ruby/gems/mthdspool/bin/mthdspool -r %s -l %s -o %s -f %s ")
 (setq anything-ruby-inspect-cmd
       "~/Dropbox/code/ruby/gems/mthdspool/bin/mthdspool -d %s -r %s -l %s ")
 (setq scroll-step 1)

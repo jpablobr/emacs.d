@@ -4,6 +4,7 @@
 (load-file (concat ruby-dir "/ruby-comint/ruby-comint.el"))
 (load-file (concat ruby-dir "/anything-rake/anything-rake.el"))
 (load-file (concat ruby-dir "/anything-ruby-mthds/anything-ruby-mthds.el"))
+(load-file (concat ruby-dir "/anything-ruby-inspect/anything-ruby-inspect.el"))
 (load-file (concat ruby-dir "/yari/yari.el"))
 (load-file (concat ruby-dir "/testr/testr.el"))
 
@@ -19,6 +20,7 @@
 (require 'flymake-ruby)
 (require 'anything-rake)
 (require 'anything-ruby-mthds)
+(require 'anything-ruby-inspect)
 (require 'yari)
 (require 'yaml-mode)
 (require 'rcodetools)
