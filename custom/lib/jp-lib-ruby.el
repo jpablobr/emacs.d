@@ -32,10 +32,15 @@
   (let ((buffer (shell "*Passenger Server at port 3000*")))
     (comint-send-string buffer (concat "passenger start -p 3000 -e development" "\n"))))
 
+(defun jp-rails-unicorn-server:start ()
+  (interactive)
+  (let ((buffer (shell (concat "*Unicorn Rails Server @ " (jp-home-path) ))))
+    (comint-send-string buffer "unicorn_rails\n")))
+
 (defun jp-rails-server:start ()
   (interactive)
   (let ((buffer (shell (concat "*Rails Server @ " (jp-home-path) "at port 3000*"))))
-    (comint-send-string buffer (concat (jp-rails-root) "/script/rails s -p 3000 -e development" "\n"))))
+    (comint-send-string buffer "./script/rails server\n")))
 
 (defun jp-rdebug-rails:start ()
   (interactive)
@@ -61,7 +66,7 @@
   (interactive)
   (let ((buffer (shell (concat "*Rails Console @ " (jp-home-path) "*"))))
     (font-lock-mode)
-    (comint-send-string buffer "pry -r ./config/environment\n")))
+    (comint-send-string buffer "./script/rails console \n")))
 
 (defun jp-rails-root (&optional dir)
   (or dir (setq dir default-directory))
@@ -173,7 +178,7 @@ See the variable `align-rules-list' for more details.")
                  "end"
                  "#"
                  (lambda (&rest args) (ruby-end-of-block))
-                 ;(lambda (&rest args) (ruby-beginning-of-defun))
+                                        ;(lambda (&rest args) (ruby-beginning-of-defun))
                  )
            hs-special-modes-alist)))
   (hs-minor-mode arg))
@@ -224,7 +229,7 @@ See the variable `align-rules-list' for more details.")
       (goto-char (- (point) (+ 1 (length prefix))))
       (when (and (looking-at "\\.")
                  (capital-word-p (word-at-point))
-                 (el4r-ruby-eval 
+                 (el4r-ruby-eval
                   (format "::%s rescue nil" (word-at-point))))
         (let* ((cmd "%s.public_methods.map{|i| i.match(/^%s/) ? i.gsub(/^%s/, '') : nil }.compact.sort{|x,y| x.size <=> y.size}")
                (cmd (if maxnum (concat cmd (format "[0...%s]" maxnum)) cmd)))

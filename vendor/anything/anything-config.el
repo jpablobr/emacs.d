@@ -8161,6 +8161,7 @@ When nil, fallback to `browse-url-browser-function'.")
 (defvar anything-c-source-occur
   '((name . "Occur")
     (init . anything-c-occur-init)
+    (candidate-number-limit . 9999)
     (candidates-in-buffer)
     (migemo)
     (get-line . anything-c-occur-get-line)
@@ -8189,7 +8190,7 @@ Line is parsed for BEG position to END position."
               (anything-candidate-buffer anything-current-buffer)
               (with-current-buffer anything-current-buffer
                 (jit-lock-fontify-now))))
-    (candidate-number-limit . 9999)
+;;    (candidate-number-limit . 9999)
     (candidates-in-buffer)
     (get-line . anything-c-browse-code-get-line)
     (type . line)

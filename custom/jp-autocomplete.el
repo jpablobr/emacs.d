@@ -4,7 +4,8 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 
-(add-to-list 'ac-dictionary-directories (concat misc-dir "/auto-complet/dict"))
+(add-to-list 'ac-dictionary-directories
+             (concat misc-dir "/auto-complet/dict"))
 
 ;; (ac-config-default)
 (global-auto-complete-mode t)
@@ -30,8 +31,8 @@
                            ;; ac-source-words-in-same-mode-buffers
                            ;; ac-source-rsense-constant
                            ;; ac-source-rsense-method
-                           ac-source-imenu
-                           ac-source-words-in-same-mode-buffers
+                           ;; ac-source-imenu
+                           ;; ac-source-words-in-same-mode-buffers
                            ac-source-yasnippet
                            ac-source-filename))
 

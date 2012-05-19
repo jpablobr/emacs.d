@@ -7,9 +7,10 @@
  '(git-baseline-alist (quote (("/home/jpablobr/bin/playr/" . "master"))) t)
  '(git-state-modeline-decoration (quote git-state-decoration-colored-letter))
  '(git-working-dir-change-behaviour (quote git-refresh-all-saved))
- '(safe-local-variable-values (quote ((backup-inhibited . t) (require-final-newline) (encoding . utf-8))))
+ '(safe-local-variable-values (quote ((TeX-master . "finalreport") (backup-inhibited . t) (require-final-newline) (encoding . utf-8))))
  '(send-mail-function (quote sendmail-send-it))
- '(vc-follow-symlinks t))
+ '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120)))
+'(vc-follow-symlinks t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

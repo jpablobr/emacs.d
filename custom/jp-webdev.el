@@ -32,3 +32,9 @@
 (dolist (i '("\\.htaccess\\'" "httpd\\.conf\\'" "srm\\.conf\\'"
              "access\\.conf\\'" "sites-\\(available\\|enabled\\)/"))
   (add-to-list 'auto-mode-alist (cons i  'apache-mode)))
+
+(setq scss-sass-options '("--style" "compressed"))
+(defun jp-scss-mode-hook()
+  (setq cssm-indent-function #'cssm-c-style-indenter)
+  ;; (setq scss-sass-options '("--style" "compressed"))
+  (rainbow-mode t))

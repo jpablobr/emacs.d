@@ -44,6 +44,10 @@
              (add-hook 'before-save-hook 'jp-cleanup-buffer)
              (local-set-key (kbd "<return>") 'newline-and-indent)))
 
+(add-hook 'scss-mode-hook
+          '(lambda ()
+             (jp-scss-mode-hook)))
+
 (add-hook 'css-mode-hook
           '(lambda ()
              (setq css-indent-offset 2)
@@ -53,6 +57,8 @@
 
 (add-hook 'markdown-mode-hook
           (lambda ()
+            (local-set-key [(meta up)] 'beginning-of-buffer)
+            (local-set-key [(meta down)] 'end-of-buffer)
             (font-lock-add-keywords nil jp-show-tabs)
             (font-lock-add-keywords
              nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"

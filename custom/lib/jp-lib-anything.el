@@ -21,7 +21,6 @@
 (require 'anything-git-goto)
 (require 'anything-etags2)
 
-
 (defun jp-anything-regexp ()
   (interactive)
   (anything-other-buffer
