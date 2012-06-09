@@ -241,7 +241,7 @@
 (defun jp-playr ()
   (interactive)
   (let ((buffer (shell "*Playr*")))
-    (comint-send-string buffer "cd ~/bin/playr;./playr -s\n")))
+    (comint-send-string buffer "cd ~/bin/playr;./playr.rb -s\n")))
 
 (defun jp-tork ()
   (interactive)
