@@ -164,3 +164,5 @@
                  (coffee-compile-file)))))
 
 (add-hook 'coffee-mode-hook '(lambda () (coffee-custom)))
+
+(provide 'jp-js)

@@ -167,8 +167,7 @@
 
 (defun jp-load-js ()
   (interactive)
-  (load-file (concat jpablobr-dir "/jp-js.el"))
-  (require 'jp-jp))
+  (load-file (concat jpablobr-dir "/jp-js.el")))
 
 (defun jp-load-git ()
   (interactive)
