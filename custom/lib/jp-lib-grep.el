@@ -1,5 +1,15 @@
 (defvar  jp-grep-cmd
-  "find %s -type f \\( ! -regex '.*\\.git.*' \\) -a \\( ! -regex '.*\\.elc$' \\) -exec egrep -nH -e %s {} +")
+  "find %s -type f \
+  \\( ! -regex '.*\\.git.*' \\) -a \
+  \\( ! -regex '.*\\.elc$' \\) \
+  -exec egrep -nH -e %s {} +")
+
+(defvar  jp-rails-cmd
+  "find %s -type f \
+   \\( ! -regex '.*\\.git.*' \\) -a \
+   \\( ! -regex '.*\\tmp.*' \\) -a \
+   \\( ! -regex '.*\\log.*' \\) \
+   -exec egrep -nH -e %s {} +")
 
 (defun jp-grep-emacs-config ()
   (interactive
@@ -23,6 +33,20 @@
                 (buffer-substring-no-properties (region-beginning) (region-end))
               (thing-at-point 'symbol))))
      (compilation-start (format jp-grep-cmd
+                                (find-git-repo default-directory)
+                                what)
+                        'grep-mode))))
+
+(defun jp-rails-grep ()
+  (interactive
+   (let (what)
+     (setq what
+           (read-from-minibuffer
+            "Grep for: "
+            (if (and transient-mark-mode mark-active)
+                (buffer-substring-no-properties (region-beginning) (region-end))
+              (thing-at-point 'symbol))))
+     (compilation-start (format jp-rails-cmd
                                 (find-git-repo default-directory)
                                 what)
                         'grep-mode))))

@@ -157,6 +157,10 @@
           '(lambda ()
              (local-set-key (kbd "M-o") 'other-window)))
 
+(add-hook 'coffee-mode-hook
+          '(lambda ()
+             (setq show-trailing-whitespace t)))
+
 (add-hook 'clojure-mode-hook 'turn-on-paredit)
 
 (add-hook 'lua-mode-hook 'flymake-lua-load)
