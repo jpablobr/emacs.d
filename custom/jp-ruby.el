@@ -25,6 +25,7 @@
 (require 'yaml-mode)
 (require 'rcodetools)
 (require 'testr)
+(require 'rspec-mode)
 (require 'rubydb)
 
 (add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
@@ -47,6 +48,8 @@
 (add-to-list 'auto-mode-alist '("Vagrantfile$" . ruby-mode))
 
 (add-to-list 'completion-ignored-extensions ".rbc")
+
+(setq rspec-use-rake-flag nil)
 
 ;; work around possible elpa bug
 (ignore-errors (require 'ruby-compilation))
