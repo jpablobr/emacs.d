@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+#key: dbg
+# name: dbg
+# --
+console.log('DBG: ${1:where} -> ${2:func} $1=',${1:var})
