@@ -11,14 +11,22 @@
             "/anything-git-grep/anything-git-grep.el"))
 (load-file (concat
             anything-dir
+            "/anything-ack/anything-ack.el"))
+(load-file (concat
+            anything-dir
             "/anything-git-goto/anything-git-goto.el"))
+(load-file (concat
+            anything-dir
+            "/anything-find-goto/anything-find-goto.el"))
 (load-file (concat
             anything-dir
             "/anything-etags2/anything-etags2.el"))
 
 (require 'anything-shell-commands)
 (require 'anything-git-grep)
+(require 'anything-ack)
 (require 'anything-git-goto)
+(require 'anything-find-goto)
 (require 'anything-etags2)
 
 (defun jp-anything-regexp ()

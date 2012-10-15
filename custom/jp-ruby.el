@@ -56,4 +56,12 @@
 (setq ruby-use-encoding-map nil)
 (setq rdebug-short-key-mode t)
 
+;; (setq feature-default-language "fi")
+;; point to cucumber languages.yml or gherkin i18n.yml to use
+;; exactly the same localization your cucumber uses
+;(setq feature-default-i18n-file "/path/to/gherkin/gem/i18n.yml")
+;; and load it
+(require 'feature-mode)
+(add-to-list 'auto-mode-alist '("\.feature$" . feature-mode))
+
 (provide 'jp-ruby)

@@ -1626,8 +1626,8 @@ it in the usual way."
     (define-key map "\C-c\C-fb" 'markdown-footnote-return)
     ;; WikiLink Following
     (define-key map "\C-c\C-w" 'markdown-follow-wiki-link-at-point)
-    (define-key map "\M-n" 'markdown-next-wiki-link)
-    (define-key map "\M-p" 'markdown-previous-wiki-link)
+    ;; (define-key map "\M-n" 'markdown-next-wiki-link)
+    ;; (define-key map "\M-p" 'markdown-previous-wiki-link)
     ;; Indentation
     (define-key map "\C-m" 'markdown-enter-key)
     ;; Visibility cycling

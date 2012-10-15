@@ -57,8 +57,6 @@
 
 (add-hook 'markdown-mode-hook
           (lambda ()
-            (local-set-key [(meta up)] 'beginning-of-buffer)
-            (local-set-key [(meta down)] 'end-of-buffer)
             (font-lock-add-keywords nil jp-show-tabs)
             (font-lock-add-keywords
              nil '(("\\<\\(FIX\\|TODO\\|FIXME\\|HACK\\|REFACTOR\\):"
@@ -119,8 +117,8 @@
                        'comint-truncate-buffer)
              (rvm-activate-corresponding-ruby)
              (autopair-mode)
-             (ansi-color-for-comint-mode-on)
-             (font-lock-mode -1)))
+             ;; (font-lock-mode -1)
+             (ansi-color-for-comint-mode-on)))
 
 (add-hook 'shell-script-mode-hook
           '(lambda ()

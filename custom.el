@@ -43,7 +43,7 @@
  '(font-lock-type-face ((t (:foreground "color-63"))))
  '(font-lock-variable-name-face ((t (:foreground "color-148"))))
  '(font-lock-warning-face ((t (:background "brightblack" :foreground "red"))))
- '(highlight ((t (:background "#333333"))))
+ '(highlight ((t (:background "#141314"))))
  '(highlight-symbol-face ((t (:background "brightmagenta"))))
  '(highline-face ((t (:background "SeaGreen"))))
  '(hl-line ((t (:background "#212121"))))
